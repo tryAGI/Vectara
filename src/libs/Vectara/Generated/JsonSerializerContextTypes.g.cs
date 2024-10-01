@@ -13,6 +13,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::System.Collections.Generic.Dictionary<string, string>? StringStringDictionary { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public global::Vectara.CreateCorpusRequest? Type0 { get; set; }
         /// <summary>
         /// 

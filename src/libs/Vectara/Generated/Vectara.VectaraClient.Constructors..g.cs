@@ -5,12 +5,12 @@ namespace Vectara
 {
     public sealed partial class VectaraClient
     {
-        /// <inheritdoc cref="VectaraClient(global::System.Net.Http.HttpClient?, global::System.Uri?, global::Vectara.EndPointAuthorization?)"/>
+        /// <inheritdoc cref="VectaraClient(global::System.Net.Http.HttpClient?, global::System.Uri?, global::System.Collections.Generic.List{global::Vectara.EndPointAuthorization}?)"/>
         public VectaraClient(
             string apiKey,
             global::System.Net.Http.HttpClient? httpClient = null,
             global::System.Uri? baseUri = null,
-            global::Vectara.EndPointAuthorization? authorization = null) : this(httpClient, baseUri, authorization)
+            global::System.Collections.Generic.List<global::Vectara.EndPointAuthorization>? authorizations = null) : this(httpClient, baseUri, authorizations)
         {
             Authorizing(_httpClient, ref apiKey);
 
