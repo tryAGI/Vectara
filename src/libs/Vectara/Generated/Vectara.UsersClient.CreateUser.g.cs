@@ -150,7 +150,7 @@ namespace Vectara
         /// The username for the user. The value defaults to the email.
         /// </param>
         /// <param name="description">
-        /// The description for the user.
+        /// The description of the user.
         /// </param>
         /// <param name="apiRoles">
         /// The role names assigned to the user.

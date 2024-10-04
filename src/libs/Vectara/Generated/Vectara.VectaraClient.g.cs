@@ -51,7 +51,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// Upload files to a corpus for automatic parsing and document extraction
+        /// Upload files to a corpus for automatic parsing, text extraction, chunking, and indexing
         /// </summary>
         public UploadClient Upload => new UploadClient(_httpClient, authorizations: _authorizations)
         {
@@ -67,7 +67,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// Create, manage, and update corpora and their associated settings for administration purposes
+        /// Create, manage, and update corpora and their associated settings
         /// </summary>
         public CorporaClient Corpora => new CorporaClient(_httpClient, authorizations: _authorizations)
         {
@@ -83,7 +83,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// Create, manage, and interact with chat sessions for conversational AI and administrative monitoring
+        /// Create, manage, and interact with chat sessions for conversational AI
         /// </summary>
         public ChatsClient Chats => new ChatsClient(_httpClient, authorizations: _authorizations)
         {
@@ -99,7 +99,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// List encoders that turn text into vectors such as Boomerang
+        /// List available encoders (such as Boomerang) that turn text into vectors
         /// </summary>
         public EncodersClient Encoders => new EncodersClient(_httpClient, authorizations: _authorizations)
         {

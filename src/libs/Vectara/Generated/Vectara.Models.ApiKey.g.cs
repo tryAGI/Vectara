@@ -21,7 +21,7 @@ namespace Vectara
         public string? Name { get; set; }
 
         /// <summary>
-        /// The key used in API requests. Should be kept secure.
+        /// The key used in API requests. The key should be kept secure.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("secret_key")]
         public string? SecretKey { get; set; }

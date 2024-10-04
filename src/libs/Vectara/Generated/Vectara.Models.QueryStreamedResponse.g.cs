@@ -6,7 +6,7 @@ using System.Linq;
 namespace Vectara
 {
     /// <summary>
-    /// An individual event sent with SSE when the query request is streamed.
+    /// An individual event sent with Server-sent Events (SSE) when the query request is streamed.
     /// </summary>
     public readonly partial struct QueryStreamedResponse : global::System.IEquatable<QueryStreamedResponse>
     {
@@ -46,7 +46,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// The chunk response from the generation, possibly a partial generation.
+        /// The chunk response from the generation, which may be a partial generation.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StreamGenerationChunk? StreamGenerationChunk { get; init; }

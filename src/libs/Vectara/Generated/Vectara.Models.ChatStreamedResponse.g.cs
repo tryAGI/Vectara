@@ -81,7 +81,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// The chunk response from the generation, possibly a partial generation.
+        /// The chunk response from the generation, which may be a partial generation.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StreamGenerationChunk? StreamGenerationChunk { get; init; }

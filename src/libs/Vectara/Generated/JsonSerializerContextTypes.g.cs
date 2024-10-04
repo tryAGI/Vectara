@@ -118,15 +118,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UserFunctionReranker? Type25 { get; set; }
+        public float? Type25 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.MMRReranker? Type26 { get; set; }
+        public global::Vectara.UserFunctionReranker? Type26 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public float? Type27 { get; set; }
+        public global::Vectara.MMRReranker? Type27 { get; set; }
         /// <summary>
         /// 
         /// </summary>

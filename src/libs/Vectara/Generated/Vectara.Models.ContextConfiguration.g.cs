@@ -9,11 +9,11 @@ namespace Vectara
     public sealed partial class ContextConfiguration
     {
         /// <summary>
-        /// The number of characters before the matching document part that are shown.<br/>
+        /// The number of characters that are shown before the matching document part.<br/>
         /// This is useful to show the context of the document part in the wider document.<br/>
         /// Ignored if `sentences_before` is set.<br/>
         /// Vectara will capture the full sentence that contains the captured characters,<br/>
-        /// so as to not lose the meaning caused by a truncated word or sentence.<br/>
+        /// to not lose the meaning caused by a truncated word or sentence.<br/>
         /// Default Value: 0<br/>
         /// Example: 30
         /// </summary>
@@ -21,11 +21,11 @@ namespace Vectara
         public int? CharactersBefore { get; set; } = 0;
 
         /// <summary>
-        /// The number of characters after the matching document part that are shown. <br/>
+        /// The number of characters that are shown after the matching document part. <br/>
         /// This is useful to show the context of the document part in the wider document.<br/>
         /// Ignored if `sentences_after` is set.<br/>
         /// Vectara will capture the full sentence that contains the captured characters,<br/>
-        /// so as to not lose the meaning caused by a truncated word or sentence.<br/>
+        /// to not lose the meaning caused by a truncated word or sentence.<br/>
         /// Default Value: 0<br/>
         /// Example: 30
         /// </summary>
@@ -33,7 +33,7 @@ namespace Vectara
         public int? CharactersAfter { get; set; } = 0;
 
         /// <summary>
-        /// The number of sentences before the matching document part that are shown.<br/>
+        /// The number of sentences that are shown before the matching document part.<br/>
         /// This is useful to show the context of the document part in the wider document.<br/>
         /// Default Value: 0<br/>
         /// Example: 3
@@ -42,7 +42,7 @@ namespace Vectara
         public int? SentencesBefore { get; set; } = 0;
 
         /// <summary>
-        /// The number of sentences after the matching document part that are shown. <br/>
+        /// The number of sentences that are shown after the matching document part. <br/>
         /// This is useful to show the context of the document part in the wider document.<br/>
         /// Default Value: 0<br/>
         /// Example: 3
