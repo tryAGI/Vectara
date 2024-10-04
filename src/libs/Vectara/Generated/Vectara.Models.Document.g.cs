@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class Document
     {
         /// <summary>
-        /// The Document ID.<br/>
+        /// The document ID.<br/>
         /// Example: my-doc-id
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
@@ -24,14 +24,14 @@ namespace Vectara
         /// <summary>
         /// Parts of the document that make up the document. However, parts are not available when<br/>
         /// retrieving a list of documents or when creating a document. This property is only available<br/>
-        /// when retrieving a document by id.
+        /// when retrieving a document by ID.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("parts")]
         public global::System.Collections.Generic.IList<global::Vectara.DocumentPart>? Parts { get; set; }
 
         /// <summary>
         /// How much storage the document used. This information is currently not returned when<br/>
-        /// retrieving the document, and only returned when indexing document.
+        /// retrieving the document, and only returned when indexing a document.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("storage_usage")]
         public global::Vectara.DocumentStorageUsage? StorageUsage { get; set; }

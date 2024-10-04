@@ -29,7 +29,7 @@ namespace Vectara
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="username"></param>
         /// <param name="enabled">
-        /// Indicates whether to disable or disable the user.
+        /// Indicates whether to enable or disable the user.
         /// </param>
         /// <param name="apiRoles">
         /// The new role names of the user.

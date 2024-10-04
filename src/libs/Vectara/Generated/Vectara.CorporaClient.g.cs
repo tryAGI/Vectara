@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Create, manage, and update corpora and their associated settings for administration purposes<br/>
+    /// Create, manage, and update corpora and their associated settings<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>

@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class UpdateUserRequest
     {
         /// <summary>
-        /// Indicates whether to disable or disable the user.
+        /// Indicates whether to enable or disable the user.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
         public bool? Enabled { get; set; }

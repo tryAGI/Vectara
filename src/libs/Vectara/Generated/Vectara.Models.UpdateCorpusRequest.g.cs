@@ -16,15 +16,15 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// The name for the corpus. If unset or null then the corpus will remain in the same state.<br/>
+        /// The name for the corpus. If unset or null, then the corpus will remain in the same state.<br/>
         /// Example: new-name
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
-        /// Description of the corpus. If unset or null then the corpus will remain in the same state.<br/>
-        /// Example: New description for the corpus.
+        /// Description of the corpus. If unset or null, then the corpus will remain in the same state.<br/>
+        /// Example: New description of the corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }

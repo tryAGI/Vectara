@@ -33,7 +33,7 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// The description for the user.
+        /// The description of the user.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The chunk response from the generation, possibly a partial generation.
+    /// The chunk response from the generation, which may be a partial generation.
     /// </summary>
     public sealed partial class StreamGenerationChunk
     {

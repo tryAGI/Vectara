@@ -17,7 +17,7 @@ namespace Vectara
         public required string Text { get; set; }
 
         /// <summary>
-        /// The metadata for a document part. Attributes matching corpus document part filter attributes are used as document part filter attributes.
+        /// The metadata for a document part. These may be used in metadata filters at query time if filter attributes are configured on the corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public global::Vectara.DocumentPartMetadata? Metadata { get; set; }

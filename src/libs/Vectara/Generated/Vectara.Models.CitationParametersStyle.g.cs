@@ -8,7 +8,7 @@ namespace Vectara
     /// Can be one of:<br/>
     /// * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ...<br/>
     /// * `none` - Citations removed from text.<br/>
-    /// * `html` - Citation formatted as url like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`.<br/>
+    /// * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`.<br/>
     /// * `markdown` - Formatted as `[text_pattern](url_pattern)`.
     /// </summary>
     public enum CitationParametersStyle
