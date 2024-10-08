@@ -208,15 +208,11 @@ namespace Vectara
         /// <param name="file">
         /// Binary file contents. The file name of the file will be used as the document ID.
         /// </param>
-        /// <param name="requestFilename">
-        /// Binary file contents. The file name of the file will be used as the document ID.
-        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.Document> UploadFileAsync(
             string corpusKey,
             byte[] file,
-            string requestFilename,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::Vectara.UploadFileRequestMetadata? metadata = default,
@@ -228,7 +224,6 @@ namespace Vectara
                 Metadata = metadata,
                 Filename = filename,
                 File = file,
-                Filename = requestFilename,
             };
 
             return await UploadFileAsync(
