@@ -32,7 +32,7 @@ namespace Vectara
         /// can be used by document filter if defined as a corpus filter attribute.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
-        public global::Vectara.CoreDocumentMetadata? Metadata { get; set; }
+        public object? Metadata { get; set; }
 
         /// <summary>
         /// Parts of the document that make up the document.

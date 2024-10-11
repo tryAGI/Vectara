@@ -33,7 +33,7 @@ namespace Vectara
         /// filters if defined as a corpus filter attribute.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
-        public global::Vectara.StructuredDocumentSectionMetadata? Metadata { get; set; }
+        public object? Metadata { get; set; }
 
         /// <summary>
         /// The sections that this section contains.

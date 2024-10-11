@@ -19,7 +19,7 @@ namespace Vectara
         /// The document metadata.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
-        public global::Vectara.DocumentMetadata? Metadata { get; set; }
+        public object? Metadata { get; set; }
 
         /// <summary>
         /// Parts of the document that make up the document. However, parts are not available when<br/>
