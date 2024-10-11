@@ -215,7 +215,7 @@ namespace Vectara
             byte[] file,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            global::Vectara.UploadFileRequestMetadata? metadata = default,
+            object? metadata = default,
             string? filename = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {

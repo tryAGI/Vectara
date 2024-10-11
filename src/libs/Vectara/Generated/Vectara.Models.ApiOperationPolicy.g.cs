@@ -23,7 +23,7 @@ namespace Vectara
         /// resource is a resource implied by the request.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("allowed_resources")]
-        public global::Vectara.ApiOperationPolicyAllowedResources? AllowedResources { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? AllowedResources { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

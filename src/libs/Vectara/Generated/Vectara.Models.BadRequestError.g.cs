@@ -12,7 +12,7 @@ namespace Vectara
         /// The errors that relate to specific fields in the request.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("field_errors")]
-        public global::Vectara.BadRequestErrorFieldErrors? FieldErrors { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, string>? FieldErrors { get; set; }
 
         /// <summary>
         /// 

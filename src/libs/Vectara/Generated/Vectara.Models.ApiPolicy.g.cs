@@ -22,7 +22,7 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("allowed_operations")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.ApiPolicyAllowedOperations AllowedOperations { get; set; }
+        public required global::System.Collections.Generic.Dictionary<string, global::Vectara.ApiOperationPolicy> AllowedOperations { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

@@ -12,7 +12,7 @@ namespace Vectara
         /// Arbitrary object that will be attached as document metadata to the extracted document.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
-        public global::Vectara.UploadFileRequestMetadata? Metadata { get; set; }
+        public object? Metadata { get; set; }
 
         /// <summary>
         /// Optional multipart section to override the filename.

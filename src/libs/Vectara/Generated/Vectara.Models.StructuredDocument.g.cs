@@ -43,7 +43,7 @@ namespace Vectara
         /// can be used by document level filter attributes.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
-        public global::Vectara.StructuredDocumentMetadata? Metadata { get; set; }
+        public object? Metadata { get; set; }
 
         /// <summary>
         /// The custom dimensions as additional weights.
