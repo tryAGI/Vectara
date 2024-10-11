@@ -32,7 +32,7 @@ namespace Vectara
         /// The custom dimensions as additional weights.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("custom_dimensions")]
-        public global::Vectara.CustomDimensions? CustomDimensions { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, double>? CustomDimensions { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

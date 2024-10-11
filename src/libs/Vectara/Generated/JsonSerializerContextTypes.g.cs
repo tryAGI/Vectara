@@ -186,7 +186,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CustomDimensions? Type42 { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, double>? Type42 { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -462,107 +462,107 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateApiKeyRequest? Type111 { get; set; }
+        public global::Vectara.ApiOperationPolicy? Type111 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListApiKeysResponse? Type112 { get; set; }
+        public global::Vectara.ApiOperationPolicyAllowedResources? Type112 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.ApiKey>? Type113 { get; set; }
+        public global::Vectara.UpdateApiKeyRequest? Type113 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateAppClientRequest? Type114 { get; set; }
+        public global::Vectara.ListApiKeysResponse? Type114 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateClientCredentialsRequest? Type115 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.ApiKey>? Type115 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? Type116 { get; set; }
+        public global::Vectara.CreateAppClientRequest? Type116 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ApiRole? Type117 { get; set; }
+        public global::Vectara.CreateClientCredentialsRequest? Type117 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AppClient? Type118 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? Type118 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateAppClientRequest? Type119 { get; set; }
+        public global::Vectara.ApiRole? Type119 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListAppClientsResponse? Type120 { get; set; }
+        public global::Vectara.AppClient? Type120 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.AppClient>? Type121 { get; set; }
+        public global::Vectara.UpdateAppClientRequest? Type121 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.Reranker? Type122 { get; set; }
+        public global::Vectara.ListAppClientsResponse? Type122 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListRerankersResponse? Type123 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.AppClient>? Type123 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.Reranker>? Type124 { get; set; }
+        public global::Vectara.Reranker? Type124 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.Job? Type125 { get; set; }
+        public global::Vectara.ListRerankersResponse? Type125 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.JobType? Type126 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.Reranker>? Type126 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.JobState? Type127 { get; set; }
+        public global::Vectara.Job? Type127 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListJobsResponse? Type128 { get; set; }
+        public global::Vectara.JobType? Type128 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.Job>? Type129 { get; set; }
+        public global::Vectara.JobState? Type129 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateUserRequest? Type130 { get; set; }
+        public global::Vectara.ListJobsResponse? Type130 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateUserRequest? Type131 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.Job>? Type131 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.User? Type132 { get; set; }
+        public global::Vectara.CreateUserRequest? Type132 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListUsersResponse? Type133 { get; set; }
+        public global::Vectara.UpdateUserRequest? Type133 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.User>? Type134 { get; set; }
+        public global::Vectara.User? Type134 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ApiOperationPolicy? Type135 { get; set; }
+        public global::Vectara.ListUsersResponse? Type135 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ApiOperationPolicyAllowedResources? Type136 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.User>? Type136 { get; set; }
         /// <summary>
         /// 
         /// </summary>
