@@ -45,7 +45,7 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompts")]
         [global::System.Obsolete("This property marked as deprecated.")]
-        public global::Vectara.LLMPrompts? Prompts { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.Prompt>? Prompts { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
