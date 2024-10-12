@@ -322,7 +322,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.LLMPrompts? Type76 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.Prompt>? Type76 { get; set; }
         /// <summary>
         /// 
         /// </summary>
