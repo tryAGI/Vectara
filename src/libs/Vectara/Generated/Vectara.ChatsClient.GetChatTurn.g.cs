@@ -131,7 +131,7 @@ namespace Vectara
             }
 
             return
-                global::System.Text.Json.JsonSerializer.Deserialize(__content, typeof(global::Vectara.Turn), JsonSerializerContext) as global::Vectara.Turn ??
+                global::Vectara.Turn.FromJson(__content, JsonSerializerContext) ??
                 throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
         }
     }

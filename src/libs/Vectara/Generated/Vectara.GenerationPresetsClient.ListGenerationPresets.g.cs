@@ -147,7 +147,7 @@ namespace Vectara
             }
 
             return
-                global::System.Text.Json.JsonSerializer.Deserialize(__content, typeof(global::Vectara.ListGenerationPresetsResponse), JsonSerializerContext) as global::Vectara.ListGenerationPresetsResponse ??
+                global::Vectara.ListGenerationPresetsResponse.FromJson(__content, JsonSerializerContext) ??
                 throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
         }
     }
