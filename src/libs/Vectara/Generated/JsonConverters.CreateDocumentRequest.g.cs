@@ -15,48 +15,32 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            var
-            readerCopy = reader;
+
+            global::Vectara.CreateDocumentRequestDiscriminator? discriminator = default;
+            var readerCopy = reader;
+            var discriminatorTypeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateDocumentRequestDiscriminator), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateDocumentRequestDiscriminator> ??
+                            throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateDocumentRequestDiscriminator)}");
+            discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
+
             global::Vectara.CoreDocument? core = default;
-            try
+            if (discriminator?.Type == global::Vectara.CreateDocumentRequestDiscriminatorType.Core)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CoreDocument), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CoreDocument> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CoreDocument).Name}");
-                core = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, typeInfo);
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CoreDocument)}");
+                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            catch (global::System.Text.Json.JsonException)
-            {
-            }
-
-            readerCopy = reader;
             global::Vectara.StructuredDocument? structured = default;
-            try
+            if (discriminator?.Type == global::Vectara.CreateDocumentRequestDiscriminatorType.Structured)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StructuredDocument), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StructuredDocument> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StructuredDocument).Name}");
-                structured = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, typeInfo);
-            }
-            catch (global::System.Text.Json.JsonException)
-            {
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StructuredDocument)}");
+                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
             var result = new global::Vectara.CreateDocumentRequest(
                 core,
                 structured
                 );
-
-            if (core != null)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CoreDocument), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CoreDocument> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CoreDocument).Name}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
-            }
-            else if (structured != null)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StructuredDocument), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StructuredDocument> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StructuredDocument).Name}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
-            }
 
             return result;
         }

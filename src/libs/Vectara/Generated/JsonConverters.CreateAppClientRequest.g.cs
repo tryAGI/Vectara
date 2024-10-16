@@ -15,29 +15,24 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            var
-            readerCopy = reader;
+
+            global::Vectara.CreateAppClientRequestDiscriminator? discriminator = default;
+            var readerCopy = reader;
+            var discriminatorTypeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateAppClientRequestDiscriminator), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateAppClientRequestDiscriminator> ??
+                            throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateAppClientRequestDiscriminator)}");
+            discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
+
             global::Vectara.CreateClientCredentialsRequest? credentials = default;
-            try
+            if (discriminator?.Type == global::Vectara.CreateAppClientRequestDiscriminatorType.ClientCredentials)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateClientCredentialsRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateClientCredentialsRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateClientCredentialsRequest).Name}");
-                credentials = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, typeInfo);
-            }
-            catch (global::System.Text.Json.JsonException)
-            {
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateClientCredentialsRequest)}");
+                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
             var result = new global::Vectara.CreateAppClientRequest(
                 credentials
                 );
-
-            if (credentials != null)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateClientCredentialsRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateClientCredentialsRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateClientCredentialsRequest).Name}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
-            }
 
             return result;
         }
