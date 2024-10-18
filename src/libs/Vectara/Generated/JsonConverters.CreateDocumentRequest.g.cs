@@ -16,11 +16,10 @@ namespace Vectara.JsonConverters
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
 
-            global::Vectara.CreateDocumentRequestDiscriminator? discriminator = default;
             var readerCopy = reader;
             var discriminatorTypeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateDocumentRequestDiscriminator), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateDocumentRequestDiscriminator> ??
                             throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateDocumentRequestDiscriminator)}");
-            discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
+            var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
             global::Vectara.CoreDocument? core = default;
             if (discriminator?.Type == global::Vectara.CreateDocumentRequestDiscriminatorType.Core)
@@ -38,6 +37,7 @@ namespace Vectara.JsonConverters
             }
 
             var result = new global::Vectara.CreateDocumentRequest(
+                discriminator?.Type,
                 core,
                 structured
                 );

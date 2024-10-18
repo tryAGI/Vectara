@@ -16,11 +16,10 @@ namespace Vectara.JsonConverters
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
 
-            global::Vectara.ChatStreamedResponseDiscriminator? discriminator = default;
             var readerCopy = reader;
             var discriminatorTypeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ChatStreamedResponseDiscriminator), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ChatStreamedResponseDiscriminator> ??
                             throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ChatStreamedResponseDiscriminator)}");
-            discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
+            var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
             global::Vectara.StreamSearchResponse? streamSearch = default;
             if (discriminator?.Type == global::Vectara.ChatStreamedResponseDiscriminatorType.SearchResults)
@@ -80,6 +79,7 @@ namespace Vectara.JsonConverters
             }
 
             var result = new global::Vectara.ChatStreamedResponse(
+                discriminator?.Type,
                 streamSearch,
                 info,
                 streamGenerationChunk,
