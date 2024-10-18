@@ -11,6 +11,11 @@ namespace Vectara
     public readonly partial struct QueryStreamedResponse : global::System.IEquatable<QueryStreamedResponse>
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.QueryStreamedResponseDiscriminatorType? Type { get; }
+
+        /// <summary>
         /// The search response results.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -260,6 +265,7 @@ namespace Vectara
         /// 
         /// </summary>
         public QueryStreamedResponse(
+            global::Vectara.QueryStreamedResponseDiscriminatorType? type,
             global::Vectara.StreamSearchResponse? streamSearch,
             global::Vectara.StreamGenerationChunk? streamGenerationChunk,
             global::Vectara.StreamGenerationEnd? streamGenerationEnd,
@@ -269,6 +275,8 @@ namespace Vectara
             global::Vectara.StreamError? streamError
             )
         {
+            Type = type;
+
             StreamSearch = streamSearch;
             StreamGenerationChunk = streamGenerationChunk;
             StreamGenerationEnd = streamGenerationEnd;

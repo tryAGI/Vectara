@@ -15,6 +15,11 @@ namespace Vectara
     public readonly partial struct CreateDocumentRequest : global::System.IEquatable<CreateDocumentRequest>
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateDocumentRequestDiscriminatorType? Type { get; }
+
+        /// <summary>
         /// The document structure that most closely corresponds to Vectara's internal document data model.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -88,10 +93,13 @@ namespace Vectara
         /// 
         /// </summary>
         public CreateDocumentRequest(
+            global::Vectara.CreateDocumentRequestDiscriminatorType? type,
             global::Vectara.CoreDocument? core,
             global::Vectara.StructuredDocument? structured
             )
         {
+            Type = type;
+
             Core = core;
             Structured = structured;
         }

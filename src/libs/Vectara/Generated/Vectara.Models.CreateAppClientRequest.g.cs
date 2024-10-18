@@ -11,6 +11,11 @@ namespace Vectara
     public readonly partial struct CreateAppClientRequest : global::System.IEquatable<CreateAppClientRequest>
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateAppClientRequestDiscriminatorType? Type { get; }
+
+        /// <summary>
         /// Create an App Client which allows you to call Vectara APIs using OAuth 2.0 client credentials.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -43,6 +48,19 @@ namespace Vectara
         public CreateAppClientRequest(global::Vectara.CreateClientCredentialsRequest? value)
         {
             Credentials = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateAppClientRequest(
+            global::Vectara.CreateAppClientRequestDiscriminatorType? type,
+            global::Vectara.CreateClientCredentialsRequest? credentials
+            )
+        {
+            Type = type;
+
+            Credentials = credentials;
         }
 
         /// <summary>

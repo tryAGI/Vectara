@@ -13,6 +13,11 @@ namespace Vectara
     public readonly partial struct SearchReranker : global::System.IEquatable<SearchReranker>
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SearchRerankerDiscriminatorType? Type { get; }
+
+        /// <summary>
         /// Reranker that is specific to the customer.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -191,6 +196,7 @@ namespace Vectara
         /// 
         /// </summary>
         public SearchReranker(
+            global::Vectara.SearchRerankerDiscriminatorType? type,
             global::Vectara.CustomerSpecificReranker? customerSpecific,
             global::Vectara.UserFunctionReranker? userFunction,
             global::Vectara.MMRReranker? mR,
@@ -198,6 +204,8 @@ namespace Vectara
             global::Vectara.NoneReranker? none
             )
         {
+            Type = type;
+
             CustomerSpecific = customerSpecific;
             UserFunction = userFunction;
             MR = mR;
