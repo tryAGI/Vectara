@@ -14,8 +14,8 @@ namespace Vectara
         {
             apiKey = apiKey ?? throw new global::System.ArgumentNullException(nameof(apiKey));
 
-            _authorizations.Clear();
-            _authorizations.Add(new global::Vectara.EndPointAuthorization
+            Authorizations.Clear();
+            Authorizations.Add(new global::Vectara.EndPointAuthorization
             {
                 Type = "ApiKey",
                 Location = "Header",
