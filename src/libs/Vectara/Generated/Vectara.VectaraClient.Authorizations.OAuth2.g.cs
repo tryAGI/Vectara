@@ -22,7 +22,7 @@ namespace Vectara
             clientSecret = clientSecret ?? throw new global::System.ArgumentNullException(nameof(clientSecret));
             scope = scope ?? throw new global::System.ArgumentNullException(nameof(scope));
 
-            var response = await _httpClient.PostAsync(new global::System.Uri("AutoSDK.Models.EquatableArray`1[AutoSDK.Models.OAuthFlow]"), new global::System.Net.Http.FormUrlEncodedContent(new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<string, string>>
+            var response = await HttpClient.PostAsync(new global::System.Uri("AutoSDK.Models.EquatableArray`1[AutoSDK.Models.OAuthFlow]"), new global::System.Net.Http.FormUrlEncodedContent(new global::System.Collections.Generic.List<global::System.Collections.Generic.KeyValuePair<string, string>>
             {
                 new global::System.Collections.Generic.KeyValuePair<string, string>("client_id", clientId),
                 new global::System.Collections.Generic.KeyValuePair<string, string>("client_secret", clientSecret),
@@ -38,8 +38,8 @@ namespace Vectara
 
             var accessToken = dictionary["access_token"];
 
-            _authorizations.Clear();
-            _authorizations.Add(new global::Vectara.EndPointAuthorization
+            Authorizations.Clear();
+            Authorizations.Add(new global::Vectara.EndPointAuthorization
             {
                 Type = "OAuth2",
                 Location = "Header",
