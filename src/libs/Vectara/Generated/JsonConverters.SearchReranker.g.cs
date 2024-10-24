@@ -26,35 +26,35 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CustomerSpecificReranker), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CustomerSpecificReranker> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CustomerSpecificReranker)}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                customerSpecific = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.UserFunctionReranker? userFunction = default;
             if (discriminator?.Type == global::Vectara.SearchRerankerDiscriminatorType.Userfn)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UserFunctionReranker), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UserFunctionReranker> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UserFunctionReranker)}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                userFunction = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.MMRReranker? mR = default;
             if (discriminator?.Type == global::Vectara.SearchRerankerDiscriminatorType.Mmr)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.MMRReranker), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.MMRReranker> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.MMRReranker)}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                mR = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.ChainReranker? chain = default;
             if (discriminator?.Type == global::Vectara.SearchRerankerDiscriminatorType.Chain)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ChainReranker), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ChainReranker> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ChainReranker)}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                chain = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.NoneReranker? none = default;
             if (discriminator?.Type == global::Vectara.SearchRerankerDiscriminatorType.None)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.NoneReranker), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.NoneReranker> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.NoneReranker)}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                none = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
             var result = new global::Vectara.SearchReranker(
