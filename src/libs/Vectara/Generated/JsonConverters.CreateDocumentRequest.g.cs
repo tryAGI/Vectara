@@ -26,14 +26,14 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CoreDocument), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CoreDocument> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CoreDocument)}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                core = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.StructuredDocument? structured = default;
             if (discriminator?.Type == global::Vectara.CreateDocumentRequestDiscriminatorType.Structured)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StructuredDocument), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StructuredDocument> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StructuredDocument)}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                structured = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
             var result = new global::Vectara.CreateDocumentRequest(
