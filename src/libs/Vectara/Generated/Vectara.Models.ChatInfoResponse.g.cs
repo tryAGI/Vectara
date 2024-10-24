@@ -14,7 +14,7 @@ namespace Vectara
         /// Default Value: chat_info
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        public string? Type { get; set; } = "chat_info";
+        public string? Type { get; set; }
 
         /// <summary>
         /// ID of the chat.

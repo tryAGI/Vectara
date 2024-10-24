@@ -72,7 +72,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             global::Vectara.AllOf<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>? search = default,
             global::Vectara.GenerationParameters? generation = default,
-            bool? streamResponse = false,
+            bool? streamResponse = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

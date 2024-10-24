@@ -19,7 +19,7 @@ namespace Vectara
         global::System.Threading.Tasks.Task<global::Vectara.ListAppClientsResponse> ListAppClientAsync(
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            int? limit = 10,
+            int? limit = default,
             string? filter = default,
             string? pageKey = default,
             global::System.Threading.CancellationToken cancellationToken = default);

@@ -13,7 +13,7 @@ namespace Vectara
         /// Default Value: chain
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        public string? Type { get; set; } = "chain";
+        public string? Type { get; set; }
 
         /// <summary>
         /// Specify an array of rerankers to apply to search results consecutively.

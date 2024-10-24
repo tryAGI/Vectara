@@ -19,7 +19,7 @@ namespace Vectara
         global::System.Threading.Tasks.Task<global::Vectara.ListUsersResponse> ListUsersAsync(
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            int? limit = 10,
+            int? limit = default,
             string? pageKey = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

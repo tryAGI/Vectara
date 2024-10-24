@@ -18,7 +18,7 @@ namespace Vectara
         /// Example: 30
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("characters_before")]
-        public int? CharactersBefore { get; set; } = 0;
+        public int? CharactersBefore { get; set; }
 
         /// <summary>
         /// The number of characters that are shown after the matching document part. <br/>
@@ -30,7 +30,7 @@ namespace Vectara
         /// Example: 30
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("characters_after")]
-        public int? CharactersAfter { get; set; } = 0;
+        public int? CharactersAfter { get; set; }
 
         /// <summary>
         /// The number of sentences that are shown before the matching document part.<br/>
@@ -39,7 +39,7 @@ namespace Vectara
         /// Example: 3
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sentences_before")]
-        public int? SentencesBefore { get; set; } = 0;
+        public int? SentencesBefore { get; set; }
 
         /// <summary>
         /// The number of sentences that are shown after the matching document part. <br/>
@@ -48,7 +48,7 @@ namespace Vectara
         /// Example: 3
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sentences_after")]
-        public int? SentencesAfter { get; set; } = 0;
+        public int? SentencesAfter { get; set; }
 
         /// <summary>
         /// The tag that wraps the document part at the start. This is often used to <br/>

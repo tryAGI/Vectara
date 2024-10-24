@@ -38,7 +38,7 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("semantics")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.SearchSemanticsJsonConverter))]
-        public global::Vectara.SearchSemantics? Semantics { get; set; } = global::Vectara.SearchSemantics.Default;
+        public global::Vectara.SearchSemantics? Semantics { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

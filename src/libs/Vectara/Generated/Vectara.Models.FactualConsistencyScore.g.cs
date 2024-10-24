@@ -14,7 +14,7 @@ namespace Vectara
         /// Default Value: factual_consistency_score
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        public string? Type { get; set; } = "factual_consistency_score";
+        public string? Type { get; set; }
 
         /// <summary>
         /// The probability that the summary is factually consistent with the results.
