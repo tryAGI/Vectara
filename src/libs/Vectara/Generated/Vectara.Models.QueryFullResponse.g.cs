@@ -20,7 +20,7 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("response_language")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.LanguageJsonConverter))]
-        public global::Vectara.Language? ResponseLanguage { get; set; } = global::Vectara.Language.Auto;
+        public global::Vectara.Language? ResponseLanguage { get; set; }
 
         /// <summary>
         /// The ranked search results.

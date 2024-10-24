@@ -55,7 +55,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             global::Vectara.GenerationParameters? generation = default,
             global::Vectara.ChatParameters? chat = default,
-            bool? streamResponse = false,
+            bool? streamResponse = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

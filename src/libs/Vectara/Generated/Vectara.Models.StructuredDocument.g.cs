@@ -24,7 +24,7 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; }
+        public required string Type { get; set; } = "structured";
 
         /// <summary>
         /// The title of the document.

@@ -13,7 +13,7 @@ namespace Vectara
         /// Default Value: none
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        public string? Type { get; set; } = "none";
+        public string? Type { get; set; }
 
         /// <summary>
         /// Specifies the maximum number of results to be returned after the reranking process. <br/>

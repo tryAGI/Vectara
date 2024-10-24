@@ -14,7 +14,7 @@ namespace Vectara
         /// Default Value: generation_chunk
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        public string? Type { get; set; } = "generation_chunk";
+        public string? Type { get; set; }
 
         /// <summary>
         /// Part of the message from the generator. All summary chunks must be appended together in order<br/>

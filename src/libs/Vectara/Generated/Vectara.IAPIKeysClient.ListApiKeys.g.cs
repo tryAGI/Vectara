@@ -22,7 +22,7 @@ namespace Vectara
         global::System.Threading.Tasks.Task<global::Vectara.ListApiKeysResponse> ListApiKeysAsync(
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            int? limit = 10,
+            int? limit = default,
             string? pageKey = default,
             string? corpusKey = default,
             global::System.Threading.CancellationToken cancellationToken = default);
