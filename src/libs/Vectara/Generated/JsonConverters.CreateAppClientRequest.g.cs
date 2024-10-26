@@ -21,17 +21,17 @@ namespace Vectara.JsonConverters
                             throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateAppClientRequestDiscriminator)}");
             var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
-            global::Vectara.CreateClientCredentialsRequest? credentials = default;
+            global::Vectara.CreateClientCredentialsRequest? clientCredentials = default;
             if (discriminator?.Type == global::Vectara.CreateAppClientRequestDiscriminatorType.ClientCredentials)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateClientCredentialsRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateClientCredentialsRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateClientCredentialsRequest)}");
-                credentials = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                clientCredentials = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
             var result = new global::Vectara.CreateAppClientRequest(
                 discriminator?.Type,
-                credentials
+                clientCredentials
                 );
 
             return result;
@@ -46,11 +46,11 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsCredentials)
+            if (value.IsClientCredentials)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateClientCredentialsRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateClientCredentialsRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateClientCredentialsRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Credentials, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ClientCredentials, typeInfo);
             }
         }
     }
