@@ -21,33 +21,33 @@ namespace Vectara.JsonConverters
                             throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.QueryStreamedResponseDiscriminator)}");
             var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
-            global::Vectara.StreamSearchResponse? streamSearch = default;
+            global::Vectara.StreamSearchResponse? searchResults = default;
             if (discriminator?.Type == global::Vectara.QueryStreamedResponseDiscriminatorType.SearchResults)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamSearchResponse), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamSearchResponse> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StreamSearchResponse)}");
-                streamSearch = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                searchResults = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.StreamGenerationChunk? streamGenerationChunk = default;
+            global::Vectara.StreamGenerationChunk? generationChunk = default;
             if (discriminator?.Type == global::Vectara.QueryStreamedResponseDiscriminatorType.GenerationChunk)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamGenerationChunk), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamGenerationChunk> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StreamGenerationChunk)}");
-                streamGenerationChunk = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                generationChunk = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.StreamGenerationEnd? streamGenerationEnd = default;
+            global::Vectara.StreamGenerationEnd? generationEnd = default;
             if (discriminator?.Type == global::Vectara.QueryStreamedResponseDiscriminatorType.GenerationEnd)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamGenerationEnd), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamGenerationEnd> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StreamGenerationEnd)}");
-                streamGenerationEnd = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                generationEnd = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.StreamResponseEnd? streamEnd = default;
+            global::Vectara.StreamResponseEnd? end = default;
             if (discriminator?.Type == global::Vectara.QueryStreamedResponseDiscriminatorType.End)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamResponseEnd), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamResponseEnd> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StreamResponseEnd)}");
-                streamEnd = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                end = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.FactualConsistencyScore? factualConsistencyScore = default;
             if (discriminator?.Type == global::Vectara.QueryStreamedResponseDiscriminatorType.FactualConsistencyScore)
@@ -63,23 +63,23 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.GenerationInfo)}");
                 generationInfo = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.StreamError? streamError = default;
+            global::Vectara.StreamError? error = default;
             if (discriminator?.Type == global::Vectara.QueryStreamedResponseDiscriminatorType.Error)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamError), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamError> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StreamError)}");
-                streamError = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                error = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
             var result = new global::Vectara.QueryStreamedResponse(
                 discriminator?.Type,
-                streamSearch,
-                streamGenerationChunk,
-                streamGenerationEnd,
-                streamEnd,
+                searchResults,
+                generationChunk,
+                generationEnd,
+                end,
                 factualConsistencyScore,
                 generationInfo,
-                streamError
+                error
                 );
 
             return result;
@@ -94,29 +94,29 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsStreamSearch)
+            if (value.IsSearchResults)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamSearchResponse), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamSearchResponse?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamSearchResponse).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.StreamSearch, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SearchResults, typeInfo);
             }
-            else if (value.IsStreamGenerationChunk)
+            else if (value.IsGenerationChunk)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamGenerationChunk), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamGenerationChunk?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamGenerationChunk).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.StreamGenerationChunk, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GenerationChunk, typeInfo);
             }
-            else if (value.IsStreamGenerationEnd)
+            else if (value.IsGenerationEnd)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamGenerationEnd), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamGenerationEnd?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamGenerationEnd).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.StreamGenerationEnd, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GenerationEnd, typeInfo);
             }
-            else if (value.IsStreamEnd)
+            else if (value.IsEnd)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamResponseEnd), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamResponseEnd?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamResponseEnd).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.StreamEnd, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.End, typeInfo);
             }
             else if (value.IsFactualConsistencyScore)
             {
@@ -130,11 +130,11 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GenerationInfo).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.GenerationInfo, typeInfo);
             }
-            else if (value.IsStreamError)
+            else if (value.IsError)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamError), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamError?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamError).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.StreamError, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Error, typeInfo);
             }
         }
     }

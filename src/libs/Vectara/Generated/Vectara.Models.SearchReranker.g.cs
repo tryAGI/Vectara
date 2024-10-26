@@ -21,18 +21,18 @@ namespace Vectara
         /// Reranker that is specific to the customer.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.CustomerSpecificReranker? CustomerSpecific { get; init; }
+        public global::Vectara.CustomerSpecificReranker? CustomerReranker { get; init; }
 #else
-        public global::Vectara.CustomerSpecificReranker? CustomerSpecific { get; }
+        public global::Vectara.CustomerSpecificReranker? CustomerReranker { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CustomerSpecific))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CustomerReranker))]
 #endif
-        public bool IsCustomerSpecific => CustomerSpecific != null;
+        public bool IsCustomerReranker => CustomerReranker != null;
 
         /// <summary>
         /// 
@@ -42,32 +42,32 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.CustomerSpecificReranker?(SearchReranker @this) => @this.CustomerSpecific;
+        public static implicit operator global::Vectara.CustomerSpecificReranker?(SearchReranker @this) => @this.CustomerReranker;
 
         /// <summary>
         /// 
         /// </summary>
         public SearchReranker(global::Vectara.CustomerSpecificReranker? value)
         {
-            CustomerSpecific = value;
+            CustomerReranker = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.UserFunctionReranker? UserFunction { get; init; }
+        public global::Vectara.UserFunctionReranker? Userfn { get; init; }
 #else
-        public global::Vectara.UserFunctionReranker? UserFunction { get; }
+        public global::Vectara.UserFunctionReranker? Userfn { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(UserFunction))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Userfn))]
 #endif
-        public bool IsUserFunction => UserFunction != null;
+        public bool IsUserfn => Userfn != null;
 
         /// <summary>
         /// 
@@ -77,32 +77,32 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.UserFunctionReranker?(SearchReranker @this) => @this.UserFunction;
+        public static implicit operator global::Vectara.UserFunctionReranker?(SearchReranker @this) => @this.Userfn;
 
         /// <summary>
         /// 
         /// </summary>
         public SearchReranker(global::Vectara.UserFunctionReranker? value)
         {
-            UserFunction = value;
+            Userfn = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.MMRReranker? MR { get; init; }
+        public global::Vectara.MMRReranker? Mmr { get; init; }
 #else
-        public global::Vectara.MMRReranker? MR { get; }
+        public global::Vectara.MMRReranker? Mmr { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(MR))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Mmr))]
 #endif
-        public bool IsMR => MR != null;
+        public bool IsMmr => Mmr != null;
 
         /// <summary>
         /// 
@@ -112,14 +112,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.MMRReranker?(SearchReranker @this) => @this.MR;
+        public static implicit operator global::Vectara.MMRReranker?(SearchReranker @this) => @this.Mmr;
 
         /// <summary>
         /// 
         /// </summary>
         public SearchReranker(global::Vectara.MMRReranker? value)
         {
-            MR = value;
+            Mmr = value;
         }
 
         /// <summary>
@@ -197,18 +197,18 @@ namespace Vectara
         /// </summary>
         public SearchReranker(
             global::Vectara.SearchRerankerDiscriminatorType? type,
-            global::Vectara.CustomerSpecificReranker? customerSpecific,
-            global::Vectara.UserFunctionReranker? userFunction,
-            global::Vectara.MMRReranker? mR,
+            global::Vectara.CustomerSpecificReranker? customerReranker,
+            global::Vectara.UserFunctionReranker? userfn,
+            global::Vectara.MMRReranker? mmr,
             global::Vectara.ChainReranker? chain,
             global::Vectara.NoneReranker? none
             )
         {
             Type = type;
 
-            CustomerSpecific = customerSpecific;
-            UserFunction = userFunction;
-            MR = mR;
+            CustomerReranker = customerReranker;
+            Userfn = userfn;
+            Mmr = mmr;
             Chain = chain;
             None = none;
         }
@@ -219,9 +219,9 @@ namespace Vectara
         public object? Object =>
             None as object ??
             Chain as object ??
-            MR as object ??
-            UserFunction as object ??
-            CustomerSpecific as object 
+            Mmr as object ??
+            Userfn as object ??
+            CustomerReranker as object 
             ;
 
         /// <summary>
@@ -229,16 +229,16 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsCustomerSpecific && !IsUserFunction && !IsMR && !IsChain && !IsNone || !IsCustomerSpecific && IsUserFunction && !IsMR && !IsChain && !IsNone || !IsCustomerSpecific && !IsUserFunction && IsMR && !IsChain && !IsNone || !IsCustomerSpecific && !IsUserFunction && !IsMR && IsChain && !IsNone || !IsCustomerSpecific && !IsUserFunction && !IsMR && !IsChain && IsNone;
+            return IsCustomerReranker && !IsUserfn && !IsMmr && !IsChain && !IsNone || !IsCustomerReranker && IsUserfn && !IsMmr && !IsChain && !IsNone || !IsCustomerReranker && !IsUserfn && IsMmr && !IsChain && !IsNone || !IsCustomerReranker && !IsUserfn && !IsMmr && IsChain && !IsNone || !IsCustomerReranker && !IsUserfn && !IsMmr && !IsChain && IsNone;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CustomerSpecificReranker?, TResult>? customerSpecific = null,
-            global::System.Func<global::Vectara.UserFunctionReranker?, TResult>? userFunction = null,
-            global::System.Func<global::Vectara.MMRReranker?, TResult>? mR = null,
+            global::System.Func<global::Vectara.CustomerSpecificReranker?, TResult>? customerReranker = null,
+            global::System.Func<global::Vectara.UserFunctionReranker?, TResult>? userfn = null,
+            global::System.Func<global::Vectara.MMRReranker?, TResult>? mmr = null,
             global::System.Func<global::Vectara.ChainReranker?, TResult>? chain = null,
             global::System.Func<global::Vectara.NoneReranker?, TResult>? none = null,
             bool validate = true)
@@ -248,17 +248,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCustomerSpecific && customerSpecific != null)
+            if (IsCustomerReranker && customerReranker != null)
             {
-                return customerSpecific(CustomerSpecific!);
+                return customerReranker(CustomerReranker!);
             }
-            else if (IsUserFunction && userFunction != null)
+            else if (IsUserfn && userfn != null)
             {
-                return userFunction(UserFunction!);
+                return userfn(Userfn!);
             }
-            else if (IsMR && mR != null)
+            else if (IsMmr && mmr != null)
             {
-                return mR(MR!);
+                return mmr(Mmr!);
             }
             else if (IsChain && chain != null)
             {
@@ -276,9 +276,9 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CustomerSpecificReranker?>? customerSpecific = null,
-            global::System.Action<global::Vectara.UserFunctionReranker?>? userFunction = null,
-            global::System.Action<global::Vectara.MMRReranker?>? mR = null,
+            global::System.Action<global::Vectara.CustomerSpecificReranker?>? customerReranker = null,
+            global::System.Action<global::Vectara.UserFunctionReranker?>? userfn = null,
+            global::System.Action<global::Vectara.MMRReranker?>? mmr = null,
             global::System.Action<global::Vectara.ChainReranker?>? chain = null,
             global::System.Action<global::Vectara.NoneReranker?>? none = null,
             bool validate = true)
@@ -288,17 +288,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCustomerSpecific)
+            if (IsCustomerReranker)
             {
-                customerSpecific?.Invoke(CustomerSpecific!);
+                customerReranker?.Invoke(CustomerReranker!);
             }
-            else if (IsUserFunction)
+            else if (IsUserfn)
             {
-                userFunction?.Invoke(UserFunction!);
+                userfn?.Invoke(Userfn!);
             }
-            else if (IsMR)
+            else if (IsMmr)
             {
-                mR?.Invoke(MR!);
+                mmr?.Invoke(Mmr!);
             }
             else if (IsChain)
             {
@@ -317,11 +317,11 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                CustomerSpecific,
+                CustomerReranker,
                 typeof(global::Vectara.CustomerSpecificReranker),
-                UserFunction,
+                Userfn,
                 typeof(global::Vectara.UserFunctionReranker),
-                MR,
+                Mmr,
                 typeof(global::Vectara.MMRReranker),
                 Chain,
                 typeof(global::Vectara.ChainReranker),
@@ -342,9 +342,9 @@ namespace Vectara
         public bool Equals(SearchReranker other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CustomerSpecificReranker?>.Default.Equals(CustomerSpecific, other.CustomerSpecific) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.UserFunctionReranker?>.Default.Equals(UserFunction, other.UserFunction) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.MMRReranker?>.Default.Equals(MR, other.MR) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CustomerSpecificReranker?>.Default.Equals(CustomerReranker, other.CustomerReranker) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UserFunctionReranker?>.Default.Equals(Userfn, other.Userfn) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.MMRReranker?>.Default.Equals(Mmr, other.Mmr) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ChainReranker?>.Default.Equals(Chain, other.Chain) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.NoneReranker?>.Default.Equals(None, other.None) 
                 ;

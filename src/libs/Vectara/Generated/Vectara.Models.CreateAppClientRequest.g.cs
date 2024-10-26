@@ -19,18 +19,18 @@ namespace Vectara
         /// Create an App Client which allows you to call Vectara APIs using OAuth 2.0 client credentials.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.CreateClientCredentialsRequest? Credentials { get; init; }
+        public global::Vectara.CreateClientCredentialsRequest? ClientCredentials { get; init; }
 #else
-        public global::Vectara.CreateClientCredentialsRequest? Credentials { get; }
+        public global::Vectara.CreateClientCredentialsRequest? ClientCredentials { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Credentials))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientCredentials))]
 #endif
-        public bool IsCredentials => Credentials != null;
+        public bool IsClientCredentials => ClientCredentials != null;
 
         /// <summary>
         /// 
@@ -40,14 +40,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.CreateClientCredentialsRequest?(CreateAppClientRequest @this) => @this.Credentials;
+        public static implicit operator global::Vectara.CreateClientCredentialsRequest?(CreateAppClientRequest @this) => @this.ClientCredentials;
 
         /// <summary>
         /// 
         /// </summary>
         public CreateAppClientRequest(global::Vectara.CreateClientCredentialsRequest? value)
         {
-            Credentials = value;
+            ClientCredentials = value;
         }
 
         /// <summary>
@@ -55,19 +55,19 @@ namespace Vectara
         /// </summary>
         public CreateAppClientRequest(
             global::Vectara.CreateAppClientRequestDiscriminatorType? type,
-            global::Vectara.CreateClientCredentialsRequest? credentials
+            global::Vectara.CreateClientCredentialsRequest? clientCredentials
             )
         {
             Type = type;
 
-            Credentials = credentials;
+            ClientCredentials = clientCredentials;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Credentials as object 
+            ClientCredentials as object 
             ;
 
         /// <summary>
@@ -75,14 +75,14 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsCredentials;
+            return IsClientCredentials;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateClientCredentialsRequest?, TResult>? credentials = null,
+            global::System.Func<global::Vectara.CreateClientCredentialsRequest?, TResult>? clientCredentials = null,
             bool validate = true)
         {
             if (validate)
@@ -90,9 +90,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCredentials && credentials != null)
+            if (IsClientCredentials && clientCredentials != null)
             {
-                return credentials(Credentials!);
+                return clientCredentials(ClientCredentials!);
             }
 
             return default(TResult);
@@ -102,7 +102,7 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateClientCredentialsRequest?>? credentials = null,
+            global::System.Action<global::Vectara.CreateClientCredentialsRequest?>? clientCredentials = null,
             bool validate = true)
         {
             if (validate)
@@ -110,9 +110,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCredentials)
+            if (IsClientCredentials)
             {
-                credentials?.Invoke(Credentials!);
+                clientCredentials?.Invoke(ClientCredentials!);
             }
         }
 
@@ -123,7 +123,7 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Credentials,
+                ClientCredentials,
                 typeof(global::Vectara.CreateClientCredentialsRequest),
             };
             const int offset = unchecked((int)2166136261);
@@ -140,7 +140,7 @@ namespace Vectara
         public bool Equals(CreateAppClientRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateClientCredentialsRequest?>.Default.Equals(Credentials, other.Credentials) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateClientCredentialsRequest?>.Default.Equals(ClientCredentials, other.ClientCredentials) 
                 ;
         }
 
