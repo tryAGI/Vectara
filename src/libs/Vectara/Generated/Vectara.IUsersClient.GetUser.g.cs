@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get a user<br/>
-        /// Get a user and view details like thei email, username, and associated roles.
+        /// Get a user and view details like the email, username, and associated roles.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -10,7 +10,7 @@ namespace Vectara
         /// manage data availability without deleting the corpus, which is useful for <br/>
         /// maintenance and security purposes. The `corpus_key` uniquely identifies the corpus. <br/>
         /// For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition). <br/>
-        /// Update the name and description of a corpus dynamically to help keep your data <br/>
+        /// Consider updating the name and description of a corpus dynamically to help keep your data <br/>
         /// aligned with changing business needs.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -35,7 +35,7 @@ namespace Vectara
         /// manage data availability without deleting the corpus, which is useful for <br/>
         /// maintenance and security purposes. The `corpus_key` uniquely identifies the corpus. <br/>
         /// For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition). <br/>
-        /// Update the name and description of a corpus dynamically to help keep your data <br/>
+        /// Consider updating the name and description of a corpus dynamically to help keep your data <br/>
         /// aligned with changing business needs.
         /// </summary>
         /// <param name="requestTimeout"></param>

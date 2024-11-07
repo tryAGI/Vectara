@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ChatParameters
     {
         /// <summary>
-        /// Indicates whether to store chat message and response message.<br/>
+        /// Indicates whether to store chat messages and response messages.<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("store")]

@@ -20,7 +20,7 @@ paths:
       tags:
         - Corpora
       summary: Create a corpus
-      description: "Create a corpus, which is a container to store documents and associated metadata. This is where you \ncreate the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined \nfollowing your preferred naming convention, allowing you to easily manage the corpus's data and \nreference it in queries. For more information, see \n[Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n"
+      description: "Create a corpus, which is a container to store documents and associated metadata. Here, you \ndefine the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined \nfollowing your preferred naming convention, allowing you to easily manage the corpus's data and \nreference it in queries. For more information, see \n[Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n"
       operationId: createCorpus
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -53,7 +53,7 @@ paths:
       tags:
         - Corpora
       summary: List corpora
-      description: "List corpora in the account. The corpus objects that are returned are less\ndetailed than the direct corpus retrieval operation.\n"
+      description: "List corpora in the account. The returned corpus objects contain less\ndetail compared to those retrieved the direct corpus retrieval operation.\n"
       operationId: listCorpora
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -95,7 +95,7 @@ paths:
       tags:
         - Corpora
       summary: Retrieve metadata about a corpus
-      description: "Get metadata about a corpus. This operation is not a method of searching a corpus. \nSpecify the `corpus_key` to identify the corpus whose metadata you want to \nretrieve. The `corpus_key` is created when the corpus is set up, either through\nthe Vectara Console UI or the Create Corpus API. For more information, \nsee [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n"
+      description: "Get metadata about a corpus. This operation does not search the corpus contents. \nSpecify the `corpus_key` to identify the corpus whose metadata you want to \nretrieve. The `corpus_key` is created when the corpus is set up, either through\nthe Vectara Console UI or the Create Corpus API. For more information, \nsee [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n"
       operationId: getCorpus
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -129,14 +129,14 @@ paths:
       tags:
         - Corpora
       summary: Delete a corpus and all its data
-      description: "Delete a corpus and all the data that it contains. The `corpus_key` uniquely identifies \nthe corpus. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n"
+      description: "Permanently delete a corpus and all its associated data. The `corpus_key` uniquely identifies \nthe corpus. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n"
       operationId: deleteCorpus
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
         - $ref: '#/components/parameters/RequestTimeoutMillis'
         - name: corpus_key
           in: path
-          description: The unique key identifying the corpus to delete
+          description: The unique key identifying the corpus to delete.
           required: true
           schema:
             $ref: '#/components/schemas/CorpusKey'
@@ -159,7 +159,7 @@ paths:
       tags:
         - Corpora
       summary: Update a corpus
-      description: "Enable, disable, or update the name and description of a corpus. This lets you\nmanage data availability without deleting the corpus, which is useful for \nmaintenance and security purposes. The `corpus_key` uniquely identifies the corpus. \nFor more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition). \nUpdate the name and description of a corpus dynamically to help keep your data \naligned with changing business needs.\n"
+      description: "Enable, disable, or update the name and description of a corpus. This lets you\nmanage data availability without deleting the corpus, which is useful for \nmaintenance and security purposes. The `corpus_key` uniquely identifies the corpus. \nFor more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition). \nConsider updating the name and description of a corpus dynamically to help keep your data \naligned with changing business needs.\n"
       operationId: updateCorpus
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -230,14 +230,14 @@ paths:
       tags:
         - Corpora
       summary: Replace the filter attributes of a corpus
-      description: "Replace the filter attributes of a corpus. This does not happen immediately, but\ninstead creates a job and will complete when that job completes. Until that\njob completes, using new filter attributes will not work.\n\nYou can monitor the status of the filter change using the returned job ID. The \n`corpus_key` uniquely identifies the corpus. For more information, see \n[Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n"
+      description: "Replace the filter attributes of a corpus. This does not happen immediately, as\nthis operation creates a job that completes asynchronously. These new filter \nattributes will not work until the job completes.\n\nYou can monitor the status of the filter change using the returned job ID. The \n`corpus_key` uniquely identifies the corpus. For more information, see \n[Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n"
       operationId: replaceFilterAttributes
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
         - $ref: '#/components/parameters/RequestTimeoutMillis'
         - name: corpus_key
           in: path
-          description: Key of the corpus to have filters replaced.
+          description: The unique key identifying the corpus having its filters replaced.
           required: true
           schema:
             $ref: '#/components/schemas/CorpusKey'
@@ -254,7 +254,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReplaceFilterAttributesResponse'
         '403':
-          description: Permissions don't allow replacing filter attributes.
+          description: Permissions do not allow replacing filter attributes.
           content:
             application/json:
               schema:
@@ -289,14 +289,14 @@ paths:
             type: string
         - name: limit
           in: query
-          description: Maximum number of results to return.
+          description: The maximum number of results to return.
           schema:
             minimum: 1
             type: integer
             default: 10
         - name: offset
           in: query
-          description: Position from which to start in the result set.
+          description: The position from which to start in the result set.
           schema:
             minimum: 0
             type: integer
@@ -330,7 +330,7 @@ paths:
       tags:
         - Queries
       summary: Advanced Single Corpus Query
-      description: "Query a specific corpus and find relevant results, highlight relevant snippets, and use Retrieval Augmented Generation:\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus). When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Customize your search by specifying the query text (`query`), pagination details (`offset` and `limit`), and metadata filters (`metadata_filter`) to tailor your search results. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#query-definition)\n* Leverage advanced search capabilities like reranking (`reranker`) and Retrieval Augmented Generation (RAG) (`generation`) for enhanced query performance. Generation is opt in by setting the `generation` property. By excluding the property or by setting it to null, the response\nwill not include generation. [Learn more](https://docs.vectara.com/docs/learn/grounded-generation/configure-query-summarization).\n* Use hybrid search to achieve optimal results by setting different values for `lexical_interpolation` (e.g., `0.025`). [Learn more](https://docs.vectara.com/docs/learn/hybrid-search)\n* Specify Vectara's RAG-focused LLM (Mockingbird) for the `generation_preset_name`. [Learn more](https://docs.vectara.com/docs/learn/mockingbird-llm)\n* Use advanced summarization options that utilize detailed summarization parameters such as `max_response_characters`, `temperature`, and `frequency_penalty` for generating precise and relevant summaries. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#advanced-summarization-options)\n\nFor more detailed information, see [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
+      description: "Perform an advanced query on a specific corpus to find relevant results, highlight relevant snippets, and use Retrieval Augmented Generation:\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus). When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Customize your search by specifying the query text (`query`), pagination details (`offset` and `limit`), and metadata filters (`metadata_filter`) to tailor your search results. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#query-definition)\n* Leverage advanced search capabilities like reranking (`reranker`) and Retrieval Augmented Generation (RAG) (`generation`) for enhanced query performance. Generation is opt in by setting the `generation` property. By excluding the property or by setting it to null, the response\nwill not include generation. [Learn more](https://docs.vectara.com/docs/learn/grounded-generation/configure-query-summarization).\n* Use hybrid search to achieve optimal results by setting different values for `lexical_interpolation` (e.g., `0.025`). [Learn more](https://docs.vectara.com/docs/learn/hybrid-search)\n* Specify Vectara's RAG-focused LLM (Mockingbird) for the `generation_preset_name`. [Learn more](https://docs.vectara.com/docs/learn/mockingbird-llm)\n* Use advanced summarization options that utilize detailed summarization parameters such as `max_response_characters`, `temperature`, and `frequency_penalty` for generating precise and relevant summaries. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#advanced-summarization-options)\n\nFor more detailed information, see [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
       operationId: queryCorpus
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -380,7 +380,7 @@ paths:
       tags:
         - Queries
       summary: Multiple Corpora Query
-      description: "Perform a multipurpose query to retrieve relevant information from one or more corpora and generate a response using Retrieval Augmented Generation (RAG).\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus). When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Customize your search by specifying the query text (`query`), pagination details (`offset` and `limit`), and metadata filters (`metadata_filter`) to tailor your search results. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#query-definition)\n* Leverage advanced search capabilities like reranking (`reranker`) and opt-in Retrieval Augmented Generation (RAG) (`generation`) for enhanced query performance. Generation is opt in by setting the `generation` property. By excluding the property or by setting it to null, the response\nwill not include generation. [Learn more](https://docs.vectara.com/docs/learn/grounded-generation/configure-query-summarization)\n* Specify Vectara's RAG-focused LLM (Mockingbird) for the `generation_preset_name`. [Learn more](https://docs.vectara.com/docs/learn/mockingbird-llm)\n* Use advanced summarization options that utilize detailed summarization parameters such as `max_response_characters`, `temperature`, and `frequency_penalty` for generating precise and relevant summaries. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#advanced-summarization-customization-options)\n* Customize citation formats in summaries using the `citations` object to include numeric, HTML, or Markdown links. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#citation-format-in-summary)\n\nFor more detailed information, see this [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
+      description: "Perform a multipurpose query across to retrieve relevant information from one or more corpora and generate a response using Retrieval Augmented Generation (RAG).\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus). When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Customize your search by specifying the query text (`query`), pagination details (`offset` and `limit`), and metadata filters (`metadata_filter`) to tailor your search results. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#query-definition)\n* Leverage advanced search capabilities like reranking (`reranker`) and opt-in Retrieval Augmented Generation (RAG) (`generation`) for enhanced query performance. Generation is opt in by setting the `generation` property. By excluding the property or by setting it to null, the response\nwill not include generation. [Learn more](https://docs.vectara.com/docs/learn/grounded-generation/configure-query-summarization)\n* Specify Vectara's RAG-focused LLM (Mockingbird) for the `generation_preset_name`. [Learn more](https://docs.vectara.com/docs/learn/mockingbird-llm)\n* Use advanced summarization options that utilize detailed summarization parameters such as `max_response_characters`, `temperature`, and `frequency_penalty` for generating precise and relevant summaries. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#advanced-summarization-customization-options)\n* Customize citation formats in summaries using the `citations` object to include numeric, HTML, or Markdown links. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#citation-format-in-summary)\n\nFor more detailed information, see this [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
       operationId: query
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -424,7 +424,7 @@ paths:
       tags:
         - Upload
       summary: Upload a file to the corpus
-      description: "Upload files such as PDFs and Word Documents. Vectara will attempt to automatically extract text and any metadata.\nThe File Upload endpoint request expects a `multipart/form-data` request containing the following parts:\n* `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={\"key\": \"value\"};type=application/json'`\n* `file` - Specifies the file that you want to upload.\n* `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`\n\nFor more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)\n"
+      description: "Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.\nThe request expects a `multipart/form-data` format containing the following parts:\n* `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={\"key\": \"value\"};type=application/json'`\n* `chunking_strategy` - (Optional) Specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. For example, `'chunking_strategy={\"type\":\"max_chars_chunking_strategy\",\"max_chars_per_chunk\":200};type=application/json'`\n* `file` - Specifies the file that you want to upload.\n* `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`\n\nFor more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)\n"
       operationId: uploadFile
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -443,6 +443,8 @@ paths:
               $ref: '#/components/schemas/UploadFileRequest'
             encoding:
               metadata:
+                contentType: application/json
+              chunking_strategy:
                 contentType: application/json
               file:
                 contentType: 'application/octet-stream, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.oasis.opendocument.text, application/epub+zip, application/rtf, text/html, text/plain, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, text/markdown'
@@ -478,7 +480,7 @@ paths:
       tags:
         - Index
       summary: Add a document to a corpus
-      description: "Add a document to a corpus. You can add documents that are either in a typical structured format,\nor in a format that explicitly specifies each document part.  Each part becomes a separate search result.\n"
+      description: "Add a document to a corpus. This endpoint supports two document formats, structured and core.\n\n* **Structured** documents have a more conventional structure that provide document sections\nand parts in a format created by Vectara's proprietary strategy automatically. You provide \na logical document structure, and Vectara handles the partitioning.\n* **Core** documents differ in that they follow an advanced, granular structure that \nexplicitly defines each document part in an array. Each part becomes a distinct, \nsearchable item in query results. You have precise control over the document structure \nand content.\n\nFor more details, see [Indexing](https://docs.vectara.com/docs/learn/select-ideal-indexing-api). \n"
       operationId: createCorpusDocument
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -523,6 +525,7 @@ paths:
       tags:
         - Documents
       summary: List the documents in the corpus
+      description: "Retrieve a list of documents stored in a specifi corpus. This endpoint \nprovides an overview of document metadata without returning the full content of \neach document.\n"
       operationId: listCorpusDocuments
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -576,6 +579,7 @@ paths:
       tags:
         - Documents
       summary: Delete a document
+      description: "Permanently delete a document identified by its unique `document_id` from a specific \ncorpus. This operation cannot be undone, so use it with caution.\n"
       operationId: deleteCorpusDocument
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -588,7 +592,7 @@ paths:
             $ref: '#/components/schemas/CorpusKey'
         - name: document_id
           in: path
-          description: "The Document ID of the document to delete.\nThe `document_id` must be percent encoded.\n"
+          description: "The document ID of the document to delete.\nThis `document_id` must be percent encoded.\n"
           required: true
           schema:
             type: string
@@ -611,6 +615,7 @@ paths:
       tags:
         - Documents
       summary: Retrieve a document
+      description: "Retrieve the content and metadata of a specific document, identified by its \nunique `document_id` from a specific corpus.\n"
       operationId: getCorpusDocument
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -623,7 +628,7 @@ paths:
             $ref: '#/components/schemas/CorpusKey'
         - name: document_id
           in: path
-          description: "The Document ID of the document to retrieve.\nThe `document_id` must be percent encoded.\n"
+          description: "The document ID of the document to retrieve.\nThis `document_id` must be percent encoded.\n"
           required: true
           schema:
             type: string
@@ -1351,7 +1356,7 @@ paths:
       tags:
         - Users
       summary: Get a user
-      description: "Get a user and view details like thei email, username, and associated roles.\n"
+      description: "Get a user and view details like the email, username, and associated roles.\n"
       operationId: getUser
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -1584,7 +1589,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiKey'
         '403':
-          description: Permissions do not allow getting this API keys.
+          description: Permissions do not allow getting this API key.
           content:
             application/json:
               schema:
@@ -1617,7 +1622,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiKey'
         '403':
-          description: Permissions do not allow getting this API keys.
+          description: Permissions do not allow getting this API key.
           content:
             application/json:
               schema:
@@ -1641,7 +1646,7 @@ paths:
         '204':
           description: The API key was deleted.
         '403':
-          description: Permissions do not allow deleting this API keys.
+          description: Permissions do not allow deleting this API key.
           content:
             application/json:
               schema:
@@ -2118,7 +2123,7 @@ components:
         generation_preset_name:
           minLength: 1
           type: string
-          description: "The preset values to use to feed the query results and other context to the model.\n\nA `generation_preset` is an object with a bundle of properties that specifies:\n  * The `prompt_template` that is rendered and then sent to the LLM.\n  * The LLM used.\n  * `model_parameter`s such as temperature.\n \nAll of these properties except the model can be overriden by setting them in this\nobject. Even when a `prompt_template` is set, the `generation_preset_name` is used to set \nthe model used.\n\nIf `generation_preset_name` is not set, the Vectara platform will use the default model and\nprompt.\n"
+          description: "The preset values to use to feed the query results and other context to the model.\n\nA `generation_preset` is an object with a bundle of properties that specifies:\n  * The `prompt_template` that is rendered and then sent to the LLM.\n  * The LLM used.\n  * `model_parameter`s such as temperature.\n \nAll of these properties except the model can be overridden by setting them in this\nobject. Even when a `prompt_template` is set, the `generation_preset_name` is used to set \nthe model used.\n\nIf `generation_preset_name` is not set, the Vectara platform will use the default model and\nprompt.\n"
           example: vectara-summary-ext-v1.2.0
         prompt_name:
           minLength: 1
@@ -2138,7 +2143,7 @@ components:
           example: "[\n  {\"role\": \"system\", \"content\": \"You are a helpful search assistant.\"},\n  #foreach ($qResult in $vectaraQueryResults)\n     {\"role\": \"user\", \"content\": \"Given the $vectaraIdxWord[$foreach.index] search result.\"},\n     {\"role\": \"assistant\", \"content\": \"${qResult.getText()}\" },\n  #end\n  {\"role\": \"user\", \"content\": \"Generate a summary for the query '${vectaraQuery}' based on the above results.\"}\n]\n"
         prompt_text:
           type: string
-          description: "This property is deprecated in favor clearer naming. Use `prompt_template`. This property will be\nignored if `prompt_template` is set.\n"
+          description: "This property is deprecated in favor of clearer naming. Use `prompt_template`. This property will be\nignored if `prompt_template` is set.\n"
           example: "[\n  {\"role\": \"system\", \"content\": \"You are a helpful search assistant.\"},\n  #foreach ($qResult in $vectaraQueryResults)\n     {\"role\": \"user\", \"content\": \"Given the $vectaraIdxWord[$foreach.index] search result.\"},\n     {\"role\": \"assistant\", \"content\": \"${qResult.getText()}\" },\n  #end\n  {\"role\": \"user\", \"content\": \"Generate a summary for the query '${vectaraQuery}' based on the above results.\"}\n]\n"
           deprecated: true
         max_response_characters:
@@ -2258,7 +2263,7 @@ components:
           $ref: '#/components/schemas/CustomDimensions'
         metadata_filter:
           type: string
-          description: "The filter string to narrow the search to according to metadata attributes. The query against this\ncorpus will be confined to document parts that match the `metadata_filter`. Only metadata\nset as `filter_attributes` on the corpus can be filtered. Filter syntax is similiar to\na SQL where clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview)\nfor more information.\n"
+          description: "The filter string used to narrow the search based on metadata attributes. The query against this\ncorpus will be confined to document parts that match the `metadata_filter`. Only metadata fields\nset as `filter_attributes` on the corpus can be filtered. Filter syntax is similar to\na SQL WHERE clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview)\nfor more information.\n"
           example: doc.title = 'Charlotte''s Web'
         lexical_interpolation:
           maximum: 1
@@ -2294,7 +2299,7 @@ components:
         - $ref: '#/components/schemas/MMRReranker'
         - $ref: '#/components/schemas/ChainReranker'
         - $ref: '#/components/schemas/NoneReranker'
-      description: "Rerank results of the search. Rerankers are very powerful tools to better order search results.\nBy default the search will use the most powerful reranker available to the customer's plan.\nTo disable reranking set the reranker `type` to `\"none\"`.\n"
+      description: "Rerank results of the search. Rerankers are very powerful tools to improve the order of search results.\nBy default the search will use the most powerful reranker available to the customer's plan.\nTo disable reranking, set the reranker `type` to `\"none\"`.\n"
       discriminator:
         propertyName: type
         mapping:
@@ -2308,7 +2313,7 @@ components:
       properties:
         type:
           type: string
-          description: "When type is `customer_reranker`, you can specify the `reranker_name` of a reranker. `reranker_id` is deprecated.\nThe retrieval engine will then rerank results using that reranker.\n"
+          description: "When the type is `customer_reranker`, you can specify the `reranker_name` of a reranker. `reranker_id` is deprecated.\nThe retrieval engine will then rerank results using that reranker.\n"
           default: customer_reranker
         reranker_id:
           pattern: rnk_(?!272725718)\d+
@@ -2359,7 +2364,7 @@ components:
       properties:
         type:
           type: string
-          description: "When the type is `mmr`, you can specify the `diversity_bias`, and the\nthe retrieval engine will use the MMR reranker.\n"
+          description: "When the type is `mmr`, you can specify the `diversity_bias`, and the\nretrieval engine will use the MMR reranker.\n"
           default: mmr
         diversity_bias:
           type: number
@@ -2583,6 +2588,8 @@ components:
         metadata:
           type: object
           description: Arbitrary object that will be attached as document metadata to the extracted document.
+        chunking_strategy:
+          $ref: '#/components/schemas/ChunkingStrategy'
         filename:
           type: string
           description: Optional multipart section to override the filename.
@@ -2590,6 +2597,32 @@ components:
           type: string
           description: Binary file contents. The file name of the file will be used as the document ID.
           format: binary
+    ChunkingStrategy:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/MaxCharsChunkingStrategy'
+      description: "(Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,\nthe platform uses the default strategy which creates one chunk (docpart) per sentence.\n"
+      discriminator:
+        propertyName: type
+        mapping:
+          max_chars_chunking_strategy: '#/components/schemas/MaxCharsChunkingStrategy'
+    MaxCharsChunkingStrategy:
+      required:
+        - max_chars_per_chunk
+      type: object
+      properties:
+        type:
+          type: string
+          description: "When setting the type to max_chars_chunking_strategy, you can control the size of chunks (docparts).\n"
+          default: max_chars_chunking_strategy
+        max_chars_per_chunk:
+          minimum: 100
+          type: integer
+          description: "Specifies the maximum number of characters per chunk.\n\nThe platform adds sentences to a chunk until the total number of characters exceeds the limit.\n\nIf a single sentence exceeds the limit, it splits the sentence across chunks.\nNote: This is the only case where the chunk may not contain a complete sentence.\n"
+          format: int32
+      description: "Sets a chunking strategy that limits the number of maximum characters per chunk.\nThe chunks do not cross section boundaries.\n"
+      x-vectaraParents:
+        - ChunkingStrategy
     CreateDocumentRequest:
       required:
         - type
@@ -2597,7 +2630,7 @@ components:
       oneOf:
         - $ref: '#/components/schemas/CoreDocument'
         - $ref: '#/components/schemas/StructuredDocument'
-      description: "Creating a document using this endpoint can take multiple forms depending on how much\ncontrol of the resulting document parts you desire. You can create a document\nwith natural structure, and Vectara will use it's proprietary strategy to create document parts.\n\nOtherwise, you can create a document with all the document parts explicitly specified.\n\nA document part is the a search result item in search and retrieval augmented generation endpoints.\n"
+      description: "Creating a document using this endpoint can take multiple forms depending on how much\ncontrol of the resulting document parts you desire. You can create a document\nwith natural structure, and Vectara will use its proprietary strategy to create document parts.\n\nOtherwise, you can create a document with all the document parts explicitly specified.\n\nA document part is the search result item in search and Retrieval Augmented Generation endpoints.\n"
       discriminator:
         propertyName: type
         mapping:
@@ -2612,7 +2645,7 @@ components:
       properties:
         id:
           type: string
-          description: 'The document ID, must be unique within the corpus.'
+          description: The document ID must be unique within the corpus.
         type:
           type: string
           description: "When the type of the indexed document is `structured` the rest of\nthe object is expected to follow this schema. It allows you to create a document\nthat follows normal document conventions. The Vectara platform will then\ncreate document parts using its internal algorithm.\n"
@@ -2634,6 +2667,8 @@ components:
           items:
             $ref: '#/components/schemas/StructuredDocumentSection'
           description: The subsection of the document.
+        chunking_strategy:
+          $ref: '#/components/schemas/ChunkingStrategy'
       description: A document with layout features.
       x-vectaraParents:
         - CreateDocumentRequest
@@ -2670,15 +2705,15 @@ components:
       properties:
         id:
           type: string
-          description: 'The document ID, must be unique within the corpus.'
+          description: The document ID must be unique within the corpus.
           example: my-doc-id
         type:
           type: string
-          description: "When the type of the indexed document is `core` the rest of\nthe object is expected to follow this schema. This schema allows\nprecise specification of document chunks that get directly translated\nto retrieval search results.\n"
+          description: "When the type of the indexed document is `core` the rest of\nthe object is expected to follow this schema. This schema allows\nprecise specification of document chunks that get directly translated\nto retrieve search results.\n"
           default: core
         metadata:
           type: object
-          description: "Arbitrary object of document level metadata. Properties of this object\ncan be used by document filter if defined as a corpus filter attribute.\n"
+          description: "Arbitrary object of document level metadata. Properties of this object\ncan be used by document filters if defined as a corpus filter attribute.\n"
           example:
             title: A Nice Document
             lang: eng
@@ -2876,7 +2911,7 @@ components:
         default:
           type: boolean
           description: Indicates if this prompt is the default prompt used with the LLM.
-      description: "Bundle of default values used when calling generation. All values except\nmodel name can be overriden at generation time.\n"
+      description: "Bundle of default values used when calling generation. All values except\nmodel name can be overridden at generation time.\n"
     ListGenerationPresetsResponse:
       type: object
       properties:
@@ -2912,7 +2947,7 @@ components:
       properties:
         store:
           type: boolean
-          description: Indicates whether to store chat message and response message.
+          description: Indicates whether to store chat messages and response messages.
           default: true
       description: Parameters to control chat behavior.
     ChatFullResponse:
@@ -3031,14 +3066,14 @@ components:
         query:
           type: string
           description: The query made to produce this turn.
-          example: How do a turn this widget?
+          example: How do you turn this widget?
         answer:
           type: string
           description: The response to the query.
           example: The widget turns counter clockwise.
         enabled:
           type: boolean
-          description: Indicates whether the turn is enabled and shown in futures turns of the chat.
+          description: Indicates whether the turn is enabled and shown in future turns of the chat.
           example: true
         created_at:
           type: string
@@ -3555,7 +3590,7 @@ tags:
   - name: Upload
     description: 'Upload files to a corpus for automatic parsing, text extraction, chunking, and indexing'
   - name: Index
-    description: Index and manage core and structured documents for efficient search and retrieval
+    description: Index and manage both core and structured documents to enable efficient search and retrieval
   - name: Corpora
     description: 'Create, manage, and update corpora and their associated settings'
   - name: Documents

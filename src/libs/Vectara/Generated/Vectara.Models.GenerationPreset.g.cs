@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// Bundle of default values used when calling generation. All values except<br/>
-    /// model name can be overriden at generation time.
+    /// model name can be overridden at generation time.
     /// </summary>
     public sealed partial class GenerationPreset
     {

@@ -60,7 +60,7 @@ namespace Vectara
         public UploadClient Upload { get; }
 
         /// <summary>
-        /// Index and manage core and structured documents for efficient search and retrieval
+        /// Index and manage both core and structured documents to enable efficient search and retrieval
         /// </summary>
         public IndexClient Index { get; }
 

@@ -6,110 +6,70 @@ using System.Linq;
 namespace Vectara
 {
     /// <summary>
-    /// Creating a document using this endpoint can take multiple forms depending on how much<br/>
-    /// control of the resulting document parts you desire. You can create a document<br/>
-    /// with natural structure, and Vectara will use its proprietary strategy to create document parts.<br/>
-    /// Otherwise, you can create a document with all the document parts explicitly specified.<br/>
-    /// A document part is the search result item in search and Retrieval Augmented Generation endpoints.
+    /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
+    /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
     /// </summary>
-    public readonly partial struct CreateDocumentRequest : global::System.IEquatable<CreateDocumentRequest>
+    public readonly partial struct ChunkingStrategy : global::System.IEquatable<ChunkingStrategy>
     {
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateDocumentRequestDiscriminatorType? Type { get; }
+        public global::Vectara.ChunkingStrategyDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// The document structure that most closely corresponds to Vectara's internal document data model.
+        /// Sets a chunking strategy that limits the number of maximum characters per chunk.<br/>
+        /// The chunks do not cross section boundaries.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.CoreDocument? Core { get; init; }
+        public global::Vectara.MaxCharsChunkingStrategy? MaxCharsChunkingStrategy { get; init; }
 #else
-        public global::Vectara.CoreDocument? Core { get; }
+        public global::Vectara.MaxCharsChunkingStrategy? MaxCharsChunkingStrategy { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Core))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(MaxCharsChunkingStrategy))]
 #endif
-        public bool IsCore => Core != null;
+        public bool IsMaxCharsChunkingStrategy => MaxCharsChunkingStrategy != null;
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator CreateDocumentRequest(global::Vectara.CoreDocument value) => new CreateDocumentRequest(value);
+        public static implicit operator ChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy value) => new ChunkingStrategy(value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.CoreDocument?(CreateDocumentRequest @this) => @this.Core;
+        public static implicit operator global::Vectara.MaxCharsChunkingStrategy?(ChunkingStrategy @this) => @this.MaxCharsChunkingStrategy;
 
         /// <summary>
         /// 
         /// </summary>
-        public CreateDocumentRequest(global::Vectara.CoreDocument? value)
+        public ChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy? value)
         {
-            Core = value;
-        }
-
-        /// <summary>
-        /// A document with layout features.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.StructuredDocument? Structured { get; init; }
-#else
-        public global::Vectara.StructuredDocument? Structured { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Structured))]
-#endif
-        public bool IsStructured => Structured != null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator CreateDocumentRequest(global::Vectara.StructuredDocument value) => new CreateDocumentRequest(value);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator global::Vectara.StructuredDocument?(CreateDocumentRequest @this) => @this.Structured;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public CreateDocumentRequest(global::Vectara.StructuredDocument? value)
-        {
-            Structured = value;
+            MaxCharsChunkingStrategy = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public CreateDocumentRequest(
-            global::Vectara.CreateDocumentRequestDiscriminatorType? type,
-            global::Vectara.CoreDocument? core,
-            global::Vectara.StructuredDocument? structured
+        public ChunkingStrategy(
+            global::Vectara.ChunkingStrategyDiscriminatorType? type,
+            global::Vectara.MaxCharsChunkingStrategy? maxCharsChunkingStrategy
             )
         {
             Type = type;
 
-            Core = core;
-            Structured = structured;
+            MaxCharsChunkingStrategy = maxCharsChunkingStrategy;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Structured as object ??
-            Core as object 
+            MaxCharsChunkingStrategy as object 
             ;
 
         /// <summary>
@@ -117,15 +77,14 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsCore && !IsStructured || !IsCore && IsStructured;
+            return IsMaxCharsChunkingStrategy;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CoreDocument?, TResult>? core = null,
-            global::System.Func<global::Vectara.StructuredDocument?, TResult>? structured = null,
+            global::System.Func<global::Vectara.MaxCharsChunkingStrategy?, TResult>? maxCharsChunkingStrategy = null,
             bool validate = true)
         {
             if (validate)
@@ -133,13 +92,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCore && core != null)
+            if (IsMaxCharsChunkingStrategy && maxCharsChunkingStrategy != null)
             {
-                return core(Core!);
-            }
-            else if (IsStructured && structured != null)
-            {
-                return structured(Structured!);
+                return maxCharsChunkingStrategy(MaxCharsChunkingStrategy!);
             }
 
             return default(TResult);
@@ -149,8 +104,7 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CoreDocument?>? core = null,
-            global::System.Action<global::Vectara.StructuredDocument?>? structured = null,
+            global::System.Action<global::Vectara.MaxCharsChunkingStrategy?>? maxCharsChunkingStrategy = null,
             bool validate = true)
         {
             if (validate)
@@ -158,13 +112,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCore)
+            if (IsMaxCharsChunkingStrategy)
             {
-                core?.Invoke(Core!);
-            }
-            else if (IsStructured)
-            {
-                structured?.Invoke(Structured!);
+                maxCharsChunkingStrategy?.Invoke(MaxCharsChunkingStrategy!);
             }
         }
 
@@ -175,10 +125,8 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Core,
-                typeof(global::Vectara.CoreDocument),
-                Structured,
-                typeof(global::Vectara.StructuredDocument),
+                MaxCharsChunkingStrategy,
+                typeof(global::Vectara.MaxCharsChunkingStrategy),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -191,26 +139,25 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public bool Equals(CreateDocumentRequest other)
+        public bool Equals(ChunkingStrategy other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CoreDocument?>.Default.Equals(Core, other.Core) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredDocument?>.Default.Equals(Structured, other.Structured) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.MaxCharsChunkingStrategy?>.Default.Equals(MaxCharsChunkingStrategy, other.MaxCharsChunkingStrategy) 
                 ;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator ==(CreateDocumentRequest obj1, CreateDocumentRequest obj2)
+        public static bool operator ==(ChunkingStrategy obj1, ChunkingStrategy obj2)
         {
-            return global::System.Collections.Generic.EqualityComparer<CreateDocumentRequest>.Default.Equals(obj1, obj2);
+            return global::System.Collections.Generic.EqualityComparer<ChunkingStrategy>.Default.Equals(obj1, obj2);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator !=(CreateDocumentRequest obj1, CreateDocumentRequest obj2)
+        public static bool operator !=(ChunkingStrategy obj1, ChunkingStrategy obj2)
         {
             return !(obj1 == obj2);
         }
@@ -220,7 +167,7 @@ namespace Vectara
         /// </summary>
         public override bool Equals(object? obj)
         {
-            return obj is CreateDocumentRequest o && Equals(o);
+            return obj is ChunkingStrategy o && Equals(o);
         }
 
 
@@ -254,14 +201,14 @@ namespace Vectara
         /// <summary>
         /// Deserializes a JSON string using the provided JsonSerializerContext.
         /// </summary>
-        public static global::Vectara.CreateDocumentRequest? FromJson(
+        public static global::Vectara.ChunkingStrategy? FromJson(
             string json,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return global::System.Text.Json.JsonSerializer.Deserialize(
                 json,
-                typeof(global::Vectara.CreateDocumentRequest),
-                jsonSerializerContext) as global::Vectara.CreateDocumentRequest?;
+                typeof(global::Vectara.ChunkingStrategy),
+                jsonSerializerContext) as global::Vectara.ChunkingStrategy?;
         }
 
         /// <summary>
@@ -271,11 +218,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::Vectara.CreateDocumentRequest? FromJson(
+        public static global::Vectara.ChunkingStrategy? FromJson(
             string json,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.CreateDocumentRequest>(
+            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.ChunkingStrategy>(
                 json,
                 jsonSerializerOptions);
         }
@@ -283,14 +230,14 @@ namespace Vectara
         /// <summary>
         /// Deserializes a JSON stream using the provided JsonSerializerContext.
         /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.CreateDocumentRequest?> FromJsonStream(
+        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.ChunkingStrategy?> FromJsonStream(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
                 jsonStream,
-                typeof(global::Vectara.CreateDocumentRequest),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.CreateDocumentRequest?;
+                typeof(global::Vectara.ChunkingStrategy),
+                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.ChunkingStrategy?;
         }
 
         /// <summary>
@@ -300,11 +247,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.CreateDocumentRequest?> FromJsonStream(
+        public static global::System.Threading.Tasks.ValueTask<global::Vectara.ChunkingStrategy?> FromJsonStream(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.CreateDocumentRequest?>(
+            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.ChunkingStrategy?>(
                 jsonStream,
                 jsonSerializerOptions);
         }

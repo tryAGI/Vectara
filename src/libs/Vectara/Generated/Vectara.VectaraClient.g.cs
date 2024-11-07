@@ -67,7 +67,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// Index and manage core and structured documents for efficient search and retrieval
+        /// Index and manage both core and structured documents to enable efficient search and retrieval
         /// </summary>
         public IndexClient Index => new IndexClient(HttpClient, authorizations: Authorizations)
         {
