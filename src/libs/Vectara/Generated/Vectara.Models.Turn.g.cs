@@ -22,7 +22,7 @@ namespace Vectara
 
         /// <summary>
         /// The query made to produce this turn.<br/>
-        /// Example: How do a turn this widget?
+        /// Example: How do you turn this widget?
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("query")]
         public string? Query { get; set; }
@@ -35,7 +35,7 @@ namespace Vectara
         public string? Answer { get; set; }
 
         /// <summary>
-        /// Indicates whether the turn is enabled and shown in futures turns of the chat.<br/>
+        /// Indicates whether the turn is enabled and shown in future turns of the chat.<br/>
         /// Example: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]

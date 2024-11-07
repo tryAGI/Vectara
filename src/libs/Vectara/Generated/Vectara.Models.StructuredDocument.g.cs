@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class StructuredDocument
     {
         /// <summary>
-        /// The document ID, must be unique within the corpus.
+        /// The document ID must be unique within the corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -57,6 +57,13 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonPropertyName("sections")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.Collections.Generic.IList<global::Vectara.StructuredDocumentSection> Sections { get; set; }
+
+        /// <summary>
+        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
+        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
+        public global::Vectara.MaxCharsChunkingStrategy? ChunkingStrategy { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema

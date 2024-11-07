@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class CustomerSpecificReranker
     {
         /// <summary>
-        /// When type is `customer_reranker`, you can specify the `reranker_name` of a reranker. `reranker_id` is deprecated.<br/>
+        /// When the type is `customer_reranker`, you can specify the `reranker_name` of a reranker. `reranker_id` is deprecated.<br/>
         /// The retrieval engine will then rerank results using that reranker.<br/>
         /// Default Value: customer_reranker
         /// </summary>

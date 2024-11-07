@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class CoreDocument
     {
         /// <summary>
-        /// The document ID, must be unique within the corpus.<br/>
+        /// The document ID must be unique within the corpus.<br/>
         /// Example: my-doc-id
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
@@ -20,7 +20,7 @@ namespace Vectara
         /// When the type of the indexed document is `core` the rest of<br/>
         /// the object is expected to follow this schema. This schema allows<br/>
         /// precise specification of document chunks that get directly translated<br/>
-        /// to retrieval search results.<br/>
+        /// to retrieve search results.<br/>
         /// Default Value: core
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
@@ -29,7 +29,7 @@ namespace Vectara
 
         /// <summary>
         /// Arbitrary object of document level metadata. Properties of this object<br/>
-        /// can be used by document filter if defined as a corpus filter attribute.
+        /// can be used by document filters if defined as a corpus filter attribute.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }

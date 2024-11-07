@@ -27,8 +27,8 @@ namespace Vectara
 
         /// <summary>
         /// Create a corpus<br/>
-        /// Create a corpus, which is a container to store documents and associated metadata. This is where you <br/>
-        /// create the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined <br/>
+        /// Create a corpus, which is a container to store documents and associated metadata. Here, you <br/>
+        /// define the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined <br/>
         /// following your preferred naming convention, allowing you to easily manage the corpus's data and <br/>
         /// reference it in queries. For more information, see <br/>
         /// [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).
@@ -143,8 +143,8 @@ namespace Vectara
 
         /// <summary>
         /// Create a corpus<br/>
-        /// Create a corpus, which is a container to store documents and associated metadata. This is where you <br/>
-        /// create the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined <br/>
+        /// Create a corpus, which is a container to store documents and associated metadata. Here, you <br/>
+        /// define the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined <br/>
         /// following your preferred naming convention, allowing you to easily manage the corpus's data and <br/>
         /// reference it in queries. For more information, see <br/>
         /// [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).

@@ -15,7 +15,7 @@ namespace Vectara
         ///   * The LLM used.<br/>
         ///   * `model_parameter`s such as temperature.<br/>
         ///  <br/>
-        /// All of these properties except the model can be overriden by setting them in this<br/>
+        /// All of these properties except the model can be overridden by setting them in this<br/>
         /// object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set <br/>
         /// the model used.<br/>
         /// If `generation_preset_name` is not set, the Vectara platform will use the default model and<br/>
@@ -60,7 +60,7 @@ namespace Vectara
         public string? PromptTemplate { get; set; }
 
         /// <summary>
-        /// This property is deprecated in favor clearer naming. Use `prompt_template`. This property will be<br/>
+        /// This property is deprecated in favor of clearer naming. Use `prompt_template`. This property will be<br/>
         /// ignored if `prompt_template` is set.<br/>
         /// Example: [<br/>
         ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>

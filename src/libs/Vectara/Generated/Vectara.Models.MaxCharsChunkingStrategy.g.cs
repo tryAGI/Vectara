@@ -4,35 +4,27 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Sets a chunking strategy that limits the number of maximum characters per chunk.<br/>
+    /// The chunks do not cross section boundaries.
     /// </summary>
-    public sealed partial class UploadFileRequest
+    public sealed partial class MaxCharsChunkingStrategy
     {
         /// <summary>
-        /// Arbitrary object that will be attached as document metadata to the extracted document.
+        /// When setting the type to max_chars_chunking_strategy, you can control the size of chunks (docparts).<br/>
+        /// Default Value: max_chars_chunking_strategy
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
-        public object? Metadata { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
+        public string? Type { get; set; }
 
         /// <summary>
-        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
-        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Specifies the maximum number of characters per chunk.<br/>
+        /// The platform adds sentences to a chunk until the total number of characters exceeds the limit.<br/>
+        /// If a single sentence exceeds the limit, it splits the sentence across chunks.<br/>
+        /// Note: This is the only case where the chunk may not contain a complete sentence.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
-        public global::Vectara.MaxCharsChunkingStrategy? ChunkingStrategy { get; set; }
-
-        /// <summary>
-        /// Optional multipart section to override the filename.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("filename")]
-        public string? Filename { get; set; }
-
-        /// <summary>
-        /// Binary file contents. The file name of the file will be used as the document ID.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("file")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("max_chars_per_chunk")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required byte[] File { get; set; }
+        public required int MaxCharsPerChunk { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -71,14 +63,14 @@ namespace Vectara
         /// <summary>
         /// Deserializes a JSON string using the provided JsonSerializerContext.
         /// </summary>
-        public static global::Vectara.UploadFileRequest? FromJson(
+        public static global::Vectara.MaxCharsChunkingStrategy? FromJson(
             string json,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return global::System.Text.Json.JsonSerializer.Deserialize(
                 json,
-                typeof(global::Vectara.UploadFileRequest),
-                jsonSerializerContext) as global::Vectara.UploadFileRequest;
+                typeof(global::Vectara.MaxCharsChunkingStrategy),
+                jsonSerializerContext) as global::Vectara.MaxCharsChunkingStrategy;
         }
 
         /// <summary>
@@ -88,11 +80,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::Vectara.UploadFileRequest? FromJson(
+        public static global::Vectara.MaxCharsChunkingStrategy? FromJson(
             string json,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.UploadFileRequest>(
+            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.MaxCharsChunkingStrategy>(
                 json,
                 jsonSerializerOptions);
         }
@@ -100,14 +92,14 @@ namespace Vectara
         /// <summary>
         /// Deserializes a JSON stream using the provided JsonSerializerContext.
         /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.UploadFileRequest?> FromJsonStream(
+        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.MaxCharsChunkingStrategy?> FromJsonStream(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
                 jsonStream,
-                typeof(global::Vectara.UploadFileRequest),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.UploadFileRequest;
+                typeof(global::Vectara.MaxCharsChunkingStrategy),
+                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.MaxCharsChunkingStrategy;
         }
 
         /// <summary>
@@ -117,11 +109,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.UploadFileRequest?> FromJsonStream(
+        public static global::System.Threading.Tasks.ValueTask<global::Vectara.MaxCharsChunkingStrategy?> FromJsonStream(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.UploadFileRequest?>(
+            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.MaxCharsChunkingStrategy?>(
                 jsonStream,
                 jsonSerializerOptions);
         }

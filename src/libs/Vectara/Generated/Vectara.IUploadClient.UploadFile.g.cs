@@ -6,9 +6,10 @@ namespace Vectara
     {
         /// <summary>
         /// Upload a file to the corpus<br/>
-        /// Upload files such as PDFs and Word Documents. Vectara will attempt to automatically extract text and any metadata.<br/>
-        /// The File Upload endpoint request expects a `multipart/form-data` request containing the following parts:<br/>
+        /// Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.<br/>
+        /// The request expects a `multipart/form-data` format containing the following parts:<br/>
         /// * `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={"key": "value"};type=application/json'`<br/>
+        /// * `chunking_strategy` - (Optional) Specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. For example, `'chunking_strategy={"type":"max_chars_chunking_strategy","max_chars_per_chunk":200};type=application/json'`<br/>
         /// * `file` - Specifies the file that you want to upload.<br/>
         /// * `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`<br/>
         /// For more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)
@@ -31,9 +32,10 @@ namespace Vectara
 
         /// <summary>
         /// Upload a file to the corpus<br/>
-        /// Upload files such as PDFs and Word Documents. Vectara will attempt to automatically extract text and any metadata.<br/>
-        /// The File Upload endpoint request expects a `multipart/form-data` request containing the following parts:<br/>
+        /// Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.<br/>
+        /// The request expects a `multipart/form-data` format containing the following parts:<br/>
         /// * `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={"key": "value"};type=application/json'`<br/>
+        /// * `chunking_strategy` - (Optional) Specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. For example, `'chunking_strategy={"type":"max_chars_chunking_strategy","max_chars_per_chunk":200};type=application/json'`<br/>
         /// * `file` - Specifies the file that you want to upload.<br/>
         /// * `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`<br/>
         /// For more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)
@@ -46,6 +48,10 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary object that will be attached as document metadata to the extracted document.
+        /// </param>
+        /// <param name="chunkingStrategy">
+        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
+        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </param>
         /// <param name="filename">
         /// Optional multipart section to override the filename.
@@ -61,6 +67,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             object? metadata = default,
+            global::Vectara.MaxCharsChunkingStrategy? chunkingStrategy = default,
             string? filename = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

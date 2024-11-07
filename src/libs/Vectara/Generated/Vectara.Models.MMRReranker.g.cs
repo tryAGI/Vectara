@@ -10,7 +10,7 @@ namespace Vectara
     {
         /// <summary>
         /// When the type is `mmr`, you can specify the `diversity_bias`, and the<br/>
-        /// the retrieval engine will use the MMR reranker.<br/>
+        /// retrieval engine will use the MMR reranker.<br/>
         /// Default Value: mmr
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
