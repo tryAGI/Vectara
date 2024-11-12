@@ -12,6 +12,7 @@ namespace Vectara
         /// The Encoder ID.<br/>
         /// Example: enc_1
         /// </summary>
+        /// <example>enc_1</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
@@ -19,6 +20,7 @@ namespace Vectara
         /// The encoder name.<br/>
         /// Example: boomerang
         /// </summary>
+        /// <example>boomerang</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; }
 
@@ -28,6 +30,7 @@ namespace Vectara
         /// the embedding.<br/>
         /// Example: 768
         /// </summary>
+        /// <example>768</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_dimensions")]
         public int? OutputDimensions { get; set; }
 
@@ -41,6 +44,7 @@ namespace Vectara
         /// Indicates whether the default encoder is used when creating a corpus.<br/>
         /// Example: true
         /// </summary>
+        /// <example>true</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("default")]
         public bool? Default { get; set; }
 
@@ -48,6 +52,7 @@ namespace Vectara
         /// Indicates whether the encoder is enabled.<br/>
         /// Example: true
         /// </summary>
+        /// <example>true</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
         public bool? Enabled { get; set; }
 
@@ -57,91 +62,56 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
-
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
+        /// Initializes a new instance of the <see cref="Encoder" /> class.
         /// </summary>
-        public string ToJson(
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
+        /// <param name="id">
+        /// The Encoder ID.<br/>
+        /// Example: enc_1
+        /// </param>
+        /// <param name="name">
+        /// The encoder name.<br/>
+        /// Example: boomerang
+        /// </param>
+        /// <param name="outputDimensions">
+        /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.<br/>
+        /// A high dimensionality will consume more storage space, but it allows for an increase in the quality of<br/>
+        /// the embedding.<br/>
+        /// Example: 768
+        /// </param>
+        /// <param name="description">
+        /// The encoder description.
+        /// </param>
+        /// <param name="default">
+        /// Indicates whether the default encoder is used when creating a corpus.<br/>
+        /// Example: true
+        /// </param>
+        /// <param name="enabled">
+        /// Indicates whether the encoder is enabled.<br/>
+        /// Example: true
+        /// </param>
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+        public Encoder(
+            string? id,
+            string? name,
+            int? outputDimensions,
+            string? description,
+            bool? @default,
+            bool? enabled)
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                this.GetType(),
-                jsonSerializerContext);
+            this.Id = id;
+            this.Name = name;
+            this.OutputDimensions = outputDimensions;
+            this.Description = description;
+            this.Default = @default;
+            this.Enabled = enabled;
         }
 
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
+        /// Initializes a new instance of the <see cref="Encoder" /> class.
         /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public string ToJson(
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
+        public Encoder()
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                jsonSerializerOptions);
         }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerContext.
-        /// </summary>
-        public static global::Vectara.Encoder? FromJson(
-            string json,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize(
-                json,
-                typeof(global::Vectara.Encoder),
-                jsonSerializerContext) as global::Vectara.Encoder;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::Vectara.Encoder? FromJson(
-            string json,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.Encoder>(
-                json,
-                jsonSerializerOptions);
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerContext.
-        /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.Encoder?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
-                jsonStream,
-                typeof(global::Vectara.Encoder),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.Encoder;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.Encoder?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.Encoder?>(
-                jsonStream,
-                jsonSerializerOptions);
-        }
-
     }
 }

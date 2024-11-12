@@ -12,7 +12,7 @@ namespace Vectara
         /// <param name="appClientId"></param>
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
+        /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AppClient> UpdateAppClientAsync(
             string appClientId,
             global::Vectara.UpdateAppClientRequest request,

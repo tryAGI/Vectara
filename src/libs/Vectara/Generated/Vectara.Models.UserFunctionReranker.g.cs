@@ -20,6 +20,7 @@ namespace Vectara
         /// The user defined function.<br/>
         /// Example: get('$.score') * get('$.document_metadata.boost')
         /// </summary>
+        /// <example>get('$.score') * get('$.document_metadata.boost')</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("user_function")]
         public string? UserFunction { get; set; }
 
@@ -56,91 +57,57 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
-
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
+        /// Initializes a new instance of the <see cref="UserFunctionReranker" /> class.
         /// </summary>
-        public string ToJson(
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
+        /// <param name="type">
+        /// When the type is `userfn`, you can define custom reranking functions using document-level metadata,<br/>
+        /// part-level metadata, or scores generated from the request-level metadata.<br/>
+        /// Default Value: userfn
+        /// </param>
+        /// <param name="userFunction">
+        /// The user defined function.<br/>
+        /// Example: get('$.score') * get('$.document_metadata.boost')
+        /// </param>
+        /// <param name="limit">
+        /// Specifies the maximum number of results to be returned after the reranking process. <br/>
+        /// When a reranker is applied, it performs the following steps:<br/>
+        /// 1. Reranks all input results according to its algorithm.<br/>
+        /// 2. Sorts the reranked results based on their new scores.<br/>
+        /// 3. Returns the top N results, where N is the value specified by this limit.<br/>
+        /// Note: This limit is applied per reranking stage. In a chain of rerankers, <br/>
+        /// each reranker can have its own limit, potentially reducing the number of <br/>
+        /// results at each stage.
+        /// </param>
+        /// <param name="cutoff">
+        /// Specifies the minimum score threshold for results to be included after the reranking process.<br/>
+        /// When a reranker is applied with a cutoff, it performs the following steps:<br/>
+        /// 1. Reranks all input results according to its algorithm.<br/>
+        /// 2. Applies the cutoff, removing any results with scores below the specified threshold.<br/>
+        /// 3. Returns the remaining results, sorted by their new scores.<br/>
+        /// Note: This cutoff is applied per reranking stage. In a chain of rerankers,<br/>
+        /// each reranker can have its own cutoff, potentially further reducing the number of<br/>
+        /// results at each stage. If both 'limit' and 'cutoff' are specified, the cutoff<br/>
+        /// is applied first, followed by the limit.
+        /// </param>
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+        public UserFunctionReranker(
+            string? type,
+            string? userFunction,
+            int? limit,
+            float? cutoff)
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                this.GetType(),
-                jsonSerializerContext);
+            this.Type = type;
+            this.UserFunction = userFunction;
+            this.Limit = limit;
+            this.Cutoff = cutoff;
         }
 
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
+        /// Initializes a new instance of the <see cref="UserFunctionReranker" /> class.
         /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public string ToJson(
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
+        public UserFunctionReranker()
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                jsonSerializerOptions);
         }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerContext.
-        /// </summary>
-        public static global::Vectara.UserFunctionReranker? FromJson(
-            string json,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize(
-                json,
-                typeof(global::Vectara.UserFunctionReranker),
-                jsonSerializerContext) as global::Vectara.UserFunctionReranker;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::Vectara.UserFunctionReranker? FromJson(
-            string json,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.UserFunctionReranker>(
-                json,
-                jsonSerializerOptions);
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerContext.
-        /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.UserFunctionReranker?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
-                jsonStream,
-                typeof(global::Vectara.UserFunctionReranker),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.UserFunctionReranker;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.UserFunctionReranker?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.UserFunctionReranker?>(
-                jsonStream,
-                jsonSerializerOptions);
-        }
-
     }
 }

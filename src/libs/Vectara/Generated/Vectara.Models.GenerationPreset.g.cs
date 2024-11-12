@@ -84,91 +84,77 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
-
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
+        /// Initializes a new instance of the <see cref="GenerationPreset" /> class.
         /// </summary>
-        public string ToJson(
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
+        /// <param name="name">
+        /// Name of the generation preset to be used with configuring generation.
+        /// </param>
+        /// <param name="description">
+        /// Description of the generation preset.
+        /// </param>
+        /// <param name="llmName">
+        /// Name of the model that these presets are used with.
+        /// </param>
+        /// <param name="promptTemplate">
+        /// Preset template used to render the prompt sent to generation.
+        /// </param>
+        /// <param name="maxUsedSearchResults">
+        /// Preset maximum number of search results that will be available to the prompt.
+        /// </param>
+        /// <param name="maxTokens">
+        /// Preset maximum number of tokens to be returned by the generation.
+        /// </param>
+        /// <param name="temperature">
+        /// The sampling temperature to use. Higher values make the output more random, while lower<br/>
+        /// values make it more focused and deterministic.
+        /// </param>
+        /// <param name="frequencyPenalty">
+        /// Higher values penalize new tokens based on their existing frequency in the generation so far,<br/>
+        /// decreasing the model's likelihood to repeat the same line verbatim.
+        /// </param>
+        /// <param name="presencePenalty">
+        /// Higher values penalize new tokens based on whether they appear in the generation so far,<br/>
+        /// increasing the model's likelihood to talk about new topics.
+        /// </param>
+        /// <param name="enabled">
+        /// Indicates whether the prompt is enabled.
+        /// </param>
+        /// <param name="default">
+        /// Indicates if this prompt is the default prompt used with the LLM.
+        /// </param>
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+        public GenerationPreset(
+            string? name,
+            string? description,
+            string? llmName,
+            string? promptTemplate,
+            int? maxUsedSearchResults,
+            int? maxTokens,
+            float? temperature,
+            float? frequencyPenalty,
+            float? presencePenalty,
+            bool? enabled,
+            bool? @default)
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                this.GetType(),
-                jsonSerializerContext);
+            this.Name = name;
+            this.Description = description;
+            this.LlmName = llmName;
+            this.PromptTemplate = promptTemplate;
+            this.MaxUsedSearchResults = maxUsedSearchResults;
+            this.MaxTokens = maxTokens;
+            this.Temperature = temperature;
+            this.FrequencyPenalty = frequencyPenalty;
+            this.PresencePenalty = presencePenalty;
+            this.Enabled = enabled;
+            this.Default = @default;
         }
 
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
+        /// Initializes a new instance of the <see cref="GenerationPreset" /> class.
         /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public string ToJson(
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
+        public GenerationPreset()
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                jsonSerializerOptions);
         }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerContext.
-        /// </summary>
-        public static global::Vectara.GenerationPreset? FromJson(
-            string json,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize(
-                json,
-                typeof(global::Vectara.GenerationPreset),
-                jsonSerializerContext) as global::Vectara.GenerationPreset;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::Vectara.GenerationPreset? FromJson(
-            string json,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.GenerationPreset>(
-                json,
-                jsonSerializerOptions);
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerContext.
-        /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.GenerationPreset?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
-                jsonStream,
-                typeof(global::Vectara.GenerationPreset),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.GenerationPreset;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.GenerationPreset?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.GenerationPreset?>(
-                jsonStream,
-                jsonSerializerOptions);
-        }
-
     }
 }
