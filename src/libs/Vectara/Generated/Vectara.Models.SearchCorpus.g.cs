@@ -22,6 +22,7 @@ namespace Vectara
         /// for more information.<br/>
         /// Example: doc.title = 'Charlotte''s Web'
         /// </summary>
+        /// <example>doc.title = 'Charlotte''s Web'</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata_filter")]
         public string? MetadataFilter { get; set; }
 
@@ -29,6 +30,7 @@ namespace Vectara
         /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
         /// Example: 0.025F
         /// </summary>
+        /// <example>0.025F</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("lexical_interpolation")]
         public float? LexicalInterpolation { get; set; }
 
@@ -46,91 +48,46 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
-
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
+        /// Initializes a new instance of the <see cref="SearchCorpus" /> class.
         /// </summary>
-        public string ToJson(
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
+        /// <param name="customDimensions">
+        /// The custom dimensions as additional weights.
+        /// </param>
+        /// <param name="metadataFilter">
+        /// The filter string used to narrow the search based on metadata attributes. The query against this<br/>
+        /// corpus will be confined to document parts that match the `metadata_filter`. Only metadata fields<br/>
+        /// set as `filter_attributes` on the corpus can be filtered. Filter syntax is similar to<br/>
+        /// a SQL WHERE clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview)<br/>
+        /// for more information.<br/>
+        /// Example: doc.title = 'Charlotte''s Web'
+        /// </param>
+        /// <param name="lexicalInterpolation">
+        /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
+        /// Example: 0.025F
+        /// </param>
+        /// <param name="semantics">
+        /// Indicates whether to consider a query against this corpus as a query or a response.<br/>
+        /// Default Value: default
+        /// </param>
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+        public SearchCorpus(
+            global::System.Collections.Generic.Dictionary<string, double>? customDimensions,
+            string? metadataFilter,
+            float? lexicalInterpolation,
+            global::Vectara.SearchSemantics? semantics)
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                this.GetType(),
-                jsonSerializerContext);
+            this.CustomDimensions = customDimensions;
+            this.MetadataFilter = metadataFilter;
+            this.LexicalInterpolation = lexicalInterpolation;
+            this.Semantics = semantics;
         }
 
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
+        /// Initializes a new instance of the <see cref="SearchCorpus" /> class.
         /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public string ToJson(
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
+        public SearchCorpus()
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                jsonSerializerOptions);
         }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerContext.
-        /// </summary>
-        public static global::Vectara.SearchCorpus? FromJson(
-            string json,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize(
-                json,
-                typeof(global::Vectara.SearchCorpus),
-                jsonSerializerContext) as global::Vectara.SearchCorpus;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::Vectara.SearchCorpus? FromJson(
-            string json,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.SearchCorpus>(
-                json,
-                jsonSerializerOptions);
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerContext.
-        /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.SearchCorpus?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
-                jsonStream,
-                typeof(global::Vectara.SearchCorpus),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.SearchCorpus;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.SearchCorpus?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.SearchCorpus?>(
-                jsonStream,
-                jsonSerializerOptions);
-        }
-
     }
 }

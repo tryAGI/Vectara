@@ -22,6 +22,7 @@ namespace Vectara
         /// create document parts using its internal algorithm.<br/>
         /// Default Value: structured
         /// </summary>
+        /// <default>"structured"</default>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Type { get; set; } = "structured";
@@ -71,91 +72,65 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
-
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
+        /// Initializes a new instance of the <see cref="StructuredDocument" /> class.
         /// </summary>
-        public string ToJson(
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
+        /// <param name="id">
+        /// The document ID must be unique within the corpus.
+        /// </param>
+        /// <param name="type">
+        /// When the type of the indexed document is `structured` the rest of<br/>
+        /// the object is expected to follow this schema. It allows you to create a document<br/>
+        /// that follows normal document conventions. The Vectara platform will then<br/>
+        /// create document parts using its internal algorithm.<br/>
+        /// Default Value: structured
+        /// </param>
+        /// <param name="title">
+        /// The title of the document.
+        /// </param>
+        /// <param name="description">
+        /// The description of the document.
+        /// </param>
+        /// <param name="metadata">
+        /// The metadata for a document as an arbitrary JSON object. Properties of this object<br/>
+        /// can be used by document level filter attributes.
+        /// </param>
+        /// <param name="customDimensions">
+        /// The custom dimensions as additional weights.
+        /// </param>
+        /// <param name="sections">
+        /// The subsection of the document.
+        /// </param>
+        /// <param name="chunkingStrategy">
+        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
+        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// </param>
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+        public StructuredDocument(
+            string id,
+            string type,
+            global::System.Collections.Generic.IList<global::Vectara.StructuredDocumentSection> sections,
+            string? title,
+            string? description,
+            object? metadata,
+            global::System.Collections.Generic.Dictionary<string, double>? customDimensions,
+            global::Vectara.MaxCharsChunkingStrategy? chunkingStrategy)
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                this.GetType(),
-                jsonSerializerContext);
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
+            this.Sections = sections ?? throw new global::System.ArgumentNullException(nameof(sections));
+            this.Title = title;
+            this.Description = description;
+            this.Metadata = metadata;
+            this.CustomDimensions = customDimensions;
+            this.ChunkingStrategy = chunkingStrategy;
         }
 
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
+        /// Initializes a new instance of the <see cref="StructuredDocument" /> class.
         /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public string ToJson(
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
+        public StructuredDocument()
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                jsonSerializerOptions);
         }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerContext.
-        /// </summary>
-        public static global::Vectara.StructuredDocument? FromJson(
-            string json,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize(
-                json,
-                typeof(global::Vectara.StructuredDocument),
-                jsonSerializerContext) as global::Vectara.StructuredDocument;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::Vectara.StructuredDocument? FromJson(
-            string json,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.StructuredDocument>(
-                json,
-                jsonSerializerOptions);
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerContext.
-        /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.StructuredDocument?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
-                jsonStream,
-                typeof(global::Vectara.StructuredDocument),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.StructuredDocument;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.StructuredDocument?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.StructuredDocument?>(
-                jsonStream,
-                jsonSerializerOptions);
-        }
-
     }
 }

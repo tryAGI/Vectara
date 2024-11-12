@@ -22,6 +22,7 @@ namespace Vectara
         /// prompt.<br/>
         /// Example: vectara-summary-ext-v1.2.0
         /// </summary>
+        /// <example>vectara-summary-ext-v1.2.0</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("generation_preset_name")]
         public string? GenerationPresetName { get; set; }
 
@@ -29,6 +30,7 @@ namespace Vectara
         /// Use `generation_preset_name` instead of `prompt_name`.<br/>
         /// Example: vectara-summary-ext-v1.2.0
         /// </summary>
+        /// <example>vectara-summary-ext-v1.2.0</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_name")]
         [global::System.Obsolete("This property marked as deprecated.")]
         public string? PromptName { get; set; }
@@ -56,6 +58,16 @@ namespace Vectara
         ///   {"role": "user", "content": "Generate a summary for the query '${vectaraQuery}' based on the above results."}<br/>
         /// ]
         /// </summary>
+        /// <example>
+        /// [<br/>
+        ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>
+        ///   #foreach ($qResult in $vectaraQueryResults)<br/>
+        ///      {"role": "user", "content": "Given the $vectaraIdxWord[$foreach.index] search result."},<br/>
+        ///      {"role": "assistant", "content": "${qResult.getText()}" },<br/>
+        ///   #end<br/>
+        ///   {"role": "user", "content": "Generate a summary for the query '${vectaraQuery}' based on the above results."}<br/>
+        /// ]
+        /// </example>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_template")]
         public string? PromptTemplate { get; set; }
 
@@ -71,6 +83,16 @@ namespace Vectara
         ///   {"role": "user", "content": "Generate a summary for the query '${vectaraQuery}' based on the above results."}<br/>
         /// ]
         /// </summary>
+        /// <example>
+        /// [<br/>
+        ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>
+        ///   #foreach ($qResult in $vectaraQueryResults)<br/>
+        ///      {"role": "user", "content": "Given the $vectaraIdxWord[$foreach.index] search result."},<br/>
+        ///      {"role": "assistant", "content": "${qResult.getText()}" },<br/>
+        ///   #end<br/>
+        ///   {"role": "user", "content": "Generate a summary for the query '${vectaraQuery}' based on the above results."}<br/>
+        /// ]
+        /// </example>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_text")]
         [global::System.Obsolete("This property marked as deprecated.")]
         public string? PromptText { get; set; }
@@ -85,6 +107,7 @@ namespace Vectara
         /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
         /// Example: 300
         /// </summary>
+        /// <example>300</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_response_characters")]
         public int? MaxResponseCharacters { get; set; }
 
@@ -125,91 +148,97 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
-
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
+        /// Initializes a new instance of the <see cref="GenerationParameters" /> class.
         /// </summary>
-        public string ToJson(
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
+        /// <param name="generationPresetName">
+        /// The preset values to use to feed the query results and other context to the model.<br/>
+        /// A `generation_preset` is an object with a bundle of properties that specifies:<br/>
+        ///   * The `prompt_template` that is rendered and then sent to the LLM.<br/>
+        ///   * The LLM used.<br/>
+        ///   * `model_parameter`s such as temperature.<br/>
+        ///  <br/>
+        /// All of these properties except the model can be overridden by setting them in this<br/>
+        /// object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set <br/>
+        /// the model used.<br/>
+        /// If `generation_preset_name` is not set, the Vectara platform will use the default model and<br/>
+        /// prompt.<br/>
+        /// Example: vectara-summary-ext-v1.2.0
+        /// </param>
+        /// <param name="maxUsedSearchResults">
+        /// The maximum number of search results to be available to the prompt.<br/>
+        /// Default Value: 5
+        /// </param>
+        /// <param name="promptTemplate">
+        /// Vectara manages both system and user roles and prompts for the generative<br/>
+        /// LLM out of the box by default. However, Scale customers can override the<br/>
+        /// `prompt_template` via this variable. The `prompt_template` is in the form of an<br/>
+        /// Apache Velocity template. For more details on how to configure the<br/>
+        /// `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
+        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
+        /// Example: [<br/>
+        ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>
+        ///   #foreach ($qResult in $vectaraQueryResults)<br/>
+        ///      {"role": "user", "content": "Given the $vectaraIdxWord[$foreach.index] search result."},<br/>
+        ///      {"role": "assistant", "content": "${qResult.getText()}" },<br/>
+        ///   #end<br/>
+        ///   {"role": "user", "content": "Generate a summary for the query '${vectaraQuery}' based on the above results."}<br/>
+        /// ]
+        /// </param>
+        /// <param name="maxResponseCharacters">
+        /// Controls the length of the generated output.<br/>
+        /// This is a rough estimate and not a hard limit: the end output can be longer or shorter<br/>
+        /// than this value. This is generally implemented by including the `max_response_characters` in the<br/>
+        /// prompt, and the LLM's instruction following capability dictates how closely the generated output<br/>
+        /// is limited.<br/>
+        /// This is currently a Scale-only feature.<br/>
+        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
+        /// Example: 300
+        /// </param>
+        /// <param name="responseLanguage">
+        /// Languages that the Vectara platform supports.<br/>
+        /// Default Value: auto
+        /// </param>
+        /// <param name="modelParameters">
+        /// The parameters for the model.  These are currently a Scale-only feature.<br/>
+        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
+        /// WARNING: This is an experimental feature, and breakable at any point with virtually no<br/>
+        /// notice. It is meant for experimentation to converge on optimal parameters that can then<br/>
+        /// be set in the prompt definitions.
+        /// </param>
+        /// <param name="citations">
+        /// Style the generator should use when making citations.
+        /// </param>
+        /// <param name="enableFactualConsistencyScore">
+        /// Enable returning the factual consistency score with query results.<br/>
+        /// Default Value: true
+        /// </param>
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+        public GenerationParameters(
+            string? generationPresetName,
+            int? maxUsedSearchResults,
+            string? promptTemplate,
+            int? maxResponseCharacters,
+            global::Vectara.Language? responseLanguage,
+            global::Vectara.GenerationParametersModelParameters? modelParameters,
+            global::Vectara.CitationParameters? citations,
+            bool? enableFactualConsistencyScore)
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                this.GetType(),
-                jsonSerializerContext);
+            this.GenerationPresetName = generationPresetName;
+            this.MaxUsedSearchResults = maxUsedSearchResults;
+            this.PromptTemplate = promptTemplate;
+            this.MaxResponseCharacters = maxResponseCharacters;
+            this.ResponseLanguage = responseLanguage;
+            this.ModelParameters = modelParameters;
+            this.Citations = citations;
+            this.EnableFactualConsistencyScore = enableFactualConsistencyScore;
         }
 
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
+        /// Initializes a new instance of the <see cref="GenerationParameters" /> class.
         /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public string ToJson(
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
+        public GenerationParameters()
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                jsonSerializerOptions);
         }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerContext.
-        /// </summary>
-        public static global::Vectara.GenerationParameters? FromJson(
-            string json,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize(
-                json,
-                typeof(global::Vectara.GenerationParameters),
-                jsonSerializerContext) as global::Vectara.GenerationParameters;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::Vectara.GenerationParameters? FromJson(
-            string json,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.GenerationParameters>(
-                json,
-                jsonSerializerOptions);
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerContext.
-        /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.GenerationParameters?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
-                jsonStream,
-                typeof(global::Vectara.GenerationParameters),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.GenerationParameters;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.GenerationParameters?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.GenerationParameters?>(
-                jsonStream,
-                jsonSerializerOptions);
-        }
-
     }
 }

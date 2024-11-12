@@ -18,6 +18,7 @@ namespace Vectara
         /// A user-provided key for a corpus.<br/>
         /// Example: my-corpus
         /// </summary>
+        /// <example>my-corpus</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("key")]
         public string? Key { get; set; }
 
@@ -73,6 +74,7 @@ namespace Vectara
         /// The encoder used by the corpus.<br/>
         /// Example: boomerang
         /// </summary>
+        /// <example>boomerang</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("encoder_name")]
         public string? EncoderName { get; set; }
 
@@ -106,91 +108,88 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
-
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
+        /// Initializes a new instance of the <see cref="Corpus" /> class.
         /// </summary>
-        public string ToJson(
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
+        /// <param name="id">
+        /// Vectara ID of the corpus.
+        /// </param>
+        /// <param name="key">
+        /// A user-provided key for a corpus.<br/>
+        /// Example: my-corpus
+        /// </param>
+        /// <param name="name">
+        /// Name for the corpus. This value defaults to the key.
+        /// </param>
+        /// <param name="description">
+        /// Corpus description.
+        /// </param>
+        /// <param name="enabled">
+        /// Specifies whether the corpus is enabled or not.
+        /// </param>
+        /// <param name="chatHistoryCorpus">
+        /// Indicates that this corpus does not store documents and stores chats instead.
+        /// </param>
+        /// <param name="queriesAreAnswers">
+        /// Queries made to this corpus are considered answers, and not questions.<br/>
+        /// This swaps the semantics of the encoder used at query time.<br/>
+        /// Default Value: false
+        /// </param>
+        /// <param name="documentsAreQuestions">
+        /// Documents inside this corpus are considered questions, and not answers.<br/>
+        /// This swaps the semantics of the encoder used at indexing.<br/>
+        /// Default Value: false
+        /// </param>
+        /// <param name="encoderName">
+        /// The encoder used by the corpus.<br/>
+        /// Example: boomerang
+        /// </param>
+        /// <param name="filterAttributes">
+        /// The new filter attributes of the corpus.
+        /// </param>
+        /// <param name="customDimensions">
+        /// The custom dimensions of all document parts inside the corpus.
+        /// </param>
+        /// <param name="limits"></param>
+        /// <param name="createdAt">
+        /// Indicates when the corpus was created.
+        /// </param>
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+        public Corpus(
+            string? id,
+            string? key,
+            string? name,
+            string? description,
+            bool? enabled,
+            bool? chatHistoryCorpus,
+            bool? queriesAreAnswers,
+            bool? documentsAreQuestions,
+            string? encoderName,
+            global::System.Collections.Generic.IList<global::Vectara.FilterAttribute>? filterAttributes,
+            global::System.Collections.Generic.IList<global::Vectara.CorpusCustomDimension>? customDimensions,
+            global::Vectara.CorpusLimits? limits,
+            global::System.DateTime? createdAt)
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                this.GetType(),
-                jsonSerializerContext);
+            this.Id = id;
+            this.Key = key;
+            this.Name = name;
+            this.Description = description;
+            this.Enabled = enabled;
+            this.ChatHistoryCorpus = chatHistoryCorpus;
+            this.QueriesAreAnswers = queriesAreAnswers;
+            this.DocumentsAreQuestions = documentsAreQuestions;
+            this.EncoderName = encoderName;
+            this.FilterAttributes = filterAttributes;
+            this.CustomDimensions = customDimensions;
+            this.Limits = limits;
+            this.CreatedAt = createdAt;
         }
 
         /// <summary>
-        /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
+        /// Initializes a new instance of the <see cref="Corpus" /> class.
         /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public string ToJson(
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
+        public Corpus()
         {
-            return global::System.Text.Json.JsonSerializer.Serialize(
-                this,
-                jsonSerializerOptions);
         }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerContext.
-        /// </summary>
-        public static global::Vectara.Corpus? FromJson(
-            string json,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize(
-                json,
-                typeof(global::Vectara.Corpus),
-                jsonSerializerContext) as global::Vectara.Corpus;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON string using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::Vectara.Corpus? FromJson(
-            string json,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.Corpus>(
-                json,
-                jsonSerializerOptions);
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerContext.
-        /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.Corpus?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-        {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
-                jsonStream,
-                typeof(global::Vectara.Corpus),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.Corpus;
-        }
-
-        /// <summary>
-        /// Deserializes a JSON stream using the provided JsonSerializerOptions.
-        /// </summary>
-#if NET8_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
-        [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
-#endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.Corpus?> FromJsonStream(
-            global::System.IO.Stream jsonStream,
-            global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-        {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.Corpus?>(
-                jsonStream,
-                jsonSerializerOptions);
-        }
-
     }
 }

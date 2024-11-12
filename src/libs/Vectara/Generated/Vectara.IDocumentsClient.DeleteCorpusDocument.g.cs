@@ -17,8 +17,8 @@ namespace Vectara
         /// </param>
         /// <param name="documentId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
-        global::System.Threading.Tasks.Task<global::Vectara.Error> DeleteCorpusDocumentAsync(
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task DeleteCorpusDocumentAsync(
             string corpusKey,
             string documentId,
             int? requestTimeout = default,

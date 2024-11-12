@@ -20,11 +20,6 @@ namespace Vectara
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessDeleteChatResponseContent(
-            global::System.Net.Http.HttpClient httpClient,
-            global::System.Net.Http.HttpResponseMessage httpResponseMessage,
-            ref string content);
-
         /// <summary>
         /// Delete a chat<br/>
         /// Delete a chat and any turns it contains permanently.
@@ -33,8 +28,8 @@ namespace Vectara
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="chatId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.Error> DeleteChatAsync(
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        public async global::System.Threading.Tasks.Task DeleteChatAsync(
             string chatId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
@@ -103,30 +98,23 @@ namespace Vectara
             ProcessDeleteChatResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-
-            var __content = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-
-            ProcessResponseContent(
-                client: HttpClient,
-                response: __response,
-                content: ref __content);
-            ProcessDeleteChatResponseContent(
-                httpClient: HttpClient,
-                httpResponseMessage: __response,
-                content: ref __content);
-
             try
             {
                 __response.EnsureSuccessStatusCode();
             }
             catch (global::System.Net.Http.HttpRequestException __ex)
             {
-                throw new global::System.InvalidOperationException(__content, __ex);
+                throw new global::Vectara.ApiException(
+                    message: __response.ReasonPhrase ?? string.Empty,
+                    innerException: __ex,
+                    statusCode: __response.StatusCode)
+                {
+                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                        __response.Headers,
+                        h => h.Key,
+                        h => h.Value),
+                };
             }
-
-            return
-                global::Vectara.Error.FromJson(__content, JsonSerializerContext) ??
-                throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
         }
     }
 }

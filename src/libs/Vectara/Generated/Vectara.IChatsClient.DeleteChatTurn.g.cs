@@ -13,8 +13,8 @@ namespace Vectara
         /// <param name="chatId"></param>
         /// <param name="turnId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
-        global::System.Threading.Tasks.Task<global::Vectara.Error> DeleteChatTurnAsync(
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task DeleteChatTurnAsync(
             string chatId,
             string turnId,
             int? requestTimeout = default,
