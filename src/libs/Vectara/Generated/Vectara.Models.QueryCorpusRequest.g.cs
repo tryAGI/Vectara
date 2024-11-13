@@ -21,7 +21,7 @@ namespace Vectara
         /// The parameters to search one corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("search")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AllOfJsonConverterFactory2))]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>))]
         public global::Vectara.AllOf<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>? Search { get; set; }
 
         /// <summary>
