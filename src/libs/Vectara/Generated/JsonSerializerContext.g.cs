@@ -52,6 +52,7 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.ChatStreamedResponseJsonConverter),
             typeof(global::Vectara.JsonConverters.CreateAppClientRequestJsonConverter),
             typeof(global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>),
+            typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
 
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JsonSerializerContextTypes))]
