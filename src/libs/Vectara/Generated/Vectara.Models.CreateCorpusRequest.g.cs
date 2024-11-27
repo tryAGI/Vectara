@@ -75,7 +75,7 @@ namespace Vectara
         /// A custom dimension is an additional numerical field attached to a document part. You<br/>
         /// can then multiply this numerical field with a query time custom dimension of the same<br/>
         /// name. This allows boosting (or burying) document parts for arbitrary reasons.<br/>
-        /// This feature is only enabled for Scale customers.
+        /// This feature is only enabled for Pro and Enterprise customers.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("custom_dimensions")]
         public global::System.Collections.Generic.IList<global::Vectara.CorpusCustomDimension>? CustomDimensions { get; set; }
@@ -121,7 +121,7 @@ namespace Vectara
         /// A custom dimension is an additional numerical field attached to a document part. You<br/>
         /// can then multiply this numerical field with a query time custom dimension of the same<br/>
         /// name. This allows boosting (or burying) document parts for arbitrary reasons.<br/>
-        /// This feature is only enabled for Scale customers.
+        /// This feature is only enabled for Pro and Enterprise customers.
         /// </param>
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
         public CreateCorpusRequest(

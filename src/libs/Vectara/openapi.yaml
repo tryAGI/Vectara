@@ -1858,7 +1858,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CorpusCustomDimension'
-          description: "A custom dimension is an additional numerical field attached to a document part. You\ncan then multiply this numerical field with a query time custom dimension of the same\nname. This allows boosting (or burying) document parts for arbitrary reasons.\nThis feature is only enabled for Scale customers.\n"
+          description: "A custom dimension is an additional numerical field attached to a document part. You\ncan then multiply this numerical field with a query time custom dimension of the same\nname. This allows boosting (or burying) document parts for arbitrary reasons.\nThis feature is only enabled for Pro and Enterprise customers.\n"
     UpdateCorpusRequest:
       type: object
       properties:
@@ -1932,7 +1932,7 @@ components:
         encoder_id:
           pattern: 'enc_[0-9]+$'
           type: string
-          description: "The encoder used by the corpus.\n*Deprecated*: use `encoder_name` instead\n"
+          description: "The encoder used by the corpus.\n*Deprecated*: Use `encoder_name` instead\n"
           deprecated: true
         encoder_name:
           type: string
@@ -2139,7 +2139,7 @@ components:
           default: 5
         prompt_template:
           type: string
-          description: "Vectara manages both system and user roles and prompts for the generative\nLLM out of the box by default. However, Scale customers can override the\n`prompt_template` via this variable. The `prompt_template` is in the form of an\nApache Velocity template. For more details on how to configure the\n`prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).\nSee [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.\n"
+          description: "Vectara manages both system and user roles and prompts for the generative\nLLM out of the box by default. However, users can override the\n`prompt_template` via this variable. The `prompt_template` is in the form of an\nApache Velocity template. For more details on how to configure the\n`prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).\n"
           example: "[\n  {\"role\": \"system\", \"content\": \"You are a helpful search assistant.\"},\n  #foreach ($qResult in $vectaraQueryResults)\n     {\"role\": \"user\", \"content\": \"Given the $vectaraIdxWord[$foreach.index] search result.\"},\n     {\"role\": \"assistant\", \"content\": \"${qResult.getText()}\" },\n  #end\n  {\"role\": \"user\", \"content\": \"Generate a summary for the query '${vectaraQuery}' based on the above results.\"}\n]\n"
         prompt_text:
           type: string
@@ -2149,7 +2149,7 @@ components:
         max_response_characters:
           minimum: 0
           type: integer
-          description: "Controls the length of the generated output.\nThis is a rough estimate and not a hard limit: the end output can be longer or shorter\nthan this value. This is generally implemented by including the `max_response_characters` in the\nprompt, and the LLM's instruction following capability dictates how closely the generated output\nis limited.\n\nThis is currently a Scale-only feature.\nSee [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.\n"
+          description: "Controls the length of the generated output.\nThis is a rough estimate and not a hard limit: the end output can be longer or shorter\nthan this value. This is generally implemented by including the `max_response_characters` in the\nprompt, and the LLM's instruction following capability dictates how closely the generated output\nis limited.\n"
           format: int32
           example: 300
         response_language:
@@ -2175,7 +2175,7 @@ components:
               type: number
               description: "Higher values penalize new tokens based on whether they appear in the text so far,\nincreasing the model's likelihood to talk about new topics.\n"
               format: float
-          description: "The parameters for the model.  These are currently a Scale-only feature.\nSee [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.\nWARNING: This is an experimental feature, and breakable at any point with virtually no\nnotice. It is meant for experimentation to converge on optimal parameters that can then\nbe set in the prompt definitions.\n"
+          description: "The parameters for the model.\nWARNING: This is an experimental feature, and breakable at any point with virtually no\nnotice. It is meant for experimentation to converge on optimal parameters that can then\nbe set in the prompt definitions.\n"
         citations:
           $ref: '#/components/schemas/CitationParameters'
         enable_factual_consistency_score:
@@ -2318,7 +2318,7 @@ components:
         reranker_id:
           pattern: rnk_(?!272725718)\d+
           type: string
-          description: "The ID of the reranker. The multilingual reranker that may be used by Scale customers is rnk_272725719.\nDo not specify the MMR reranker ID here, and instead, use the MMR reranker object type.\n**Deprecated**: Use `reranker_name` instead.\n"
+          description: "The ID of the reranker. The multilingual reranker that may be specified is rnk_272725719.\nDo not specify the MMR reranker ID here, and instead, use the MMR reranker object type.\n**Deprecated**: Use `reranker_name` instead.\n"
           example: rnk_272725719
           deprecated: true
         reranker_name:
@@ -2432,7 +2432,7 @@ components:
           format: float
         rendered_prompt:
           type: string
-          description: "The rendered prompt sent to the LLM. Useful when creating customer `prompt_text` templates. Only available\nto Scale customers.\n"
+          description: "The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.\n"
       description: The full response to a RAG query when the result is not streamed.
     IndividualSearchResult:
       type: object
@@ -2535,10 +2535,10 @@ components:
           default: generation_info
         rendered_prompt:
           type: string
-          description: "The rendered prompt sent to the LLM. Useful when creating customer `prompt_text` templates. Only available\nto Scale customers.\n"
+          description: "The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.\n"
         rephrased_query:
           type: string
-          description: "If you are on the Scale plan, you can view the actual query made to backend that was rephrased \nby the LLM from the input query.\n"
+          description: "View the actual query made to backend that was rephrased \nby the LLM from the input query.\n"
       description: Event containing information on how the generation was accomplished.
       x-vectaraParents:
         - QueryStreamedResponse
@@ -2975,10 +2975,10 @@ components:
           format: float
         rendered_prompt:
           type: string
-          description: "The rendered prompt sent to the LLM. Useful when creating customer `prompt_text` templates. Only available\nto Scale customers.\n"
+          description: "The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates. \n"
         rephrased_query:
           type: string
-          description: "If you are on the Scale plan, you can view the actual query made to backend that was rephrased \nby the LLM from the input query.\n"
+          description: "View the actual query made to backend that was rephrased \nby the LLM from the input query.\n"
       description: Full response to a chat question when the result is not streamed.
     ChatStreamedResponse:
       type: object

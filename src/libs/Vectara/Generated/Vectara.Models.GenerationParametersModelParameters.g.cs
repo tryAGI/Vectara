@@ -4,8 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The parameters for the model.  These are currently a Scale-only feature.<br/>
-    /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
+    /// The parameters for the model.<br/>
     /// WARNING: This is an experimental feature, and breakable at any point with virtually no<br/>
     /// notice. It is meant for experimentation to converge on optimal parameters that can then<br/>
     /// be set in the prompt definitions.

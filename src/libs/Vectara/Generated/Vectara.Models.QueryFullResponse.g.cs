@@ -35,8 +35,7 @@ namespace Vectara
         public float? FactualConsistencyScore { get; set; }
 
         /// <summary>
-        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_text` templates. Only available<br/>
-        /// to Scale customers.
+        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rendered_prompt")]
         public string? RenderedPrompt { get; set; }
@@ -64,8 +63,7 @@ namespace Vectara
         /// The probability that the summary is factually consistent with the results.
         /// </param>
         /// <param name="renderedPrompt">
-        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_text` templates. Only available<br/>
-        /// to Scale customers.
+        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.
         /// </param>
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
         public QueryFullResponse(
