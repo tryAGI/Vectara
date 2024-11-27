@@ -64,7 +64,7 @@ namespace Vectara
 
         /// <summary>
         /// The encoder used by the corpus.<br/>
-        /// *Deprecated*: use `encoder_name` instead
+        /// *Deprecated*: Use `encoder_name` instead
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("encoder_id")]
         [global::System.Obsolete("This property marked as deprecated.")]

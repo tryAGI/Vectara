@@ -44,11 +44,10 @@ namespace Vectara
 
         /// <summary>
         /// Vectara manages both system and user roles and prompts for the generative<br/>
-        /// LLM out of the box by default. However, Scale customers can override the<br/>
+        /// LLM out of the box by default. However, users can override the<br/>
         /// `prompt_template` via this variable. The `prompt_template` is in the form of an<br/>
         /// Apache Velocity template. For more details on how to configure the<br/>
         /// `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
-        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
         /// Example: [<br/>
         ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>
         ///   #foreach ($qResult in $vectaraQueryResults)<br/>
@@ -103,8 +102,6 @@ namespace Vectara
         /// than this value. This is generally implemented by including the `max_response_characters` in the<br/>
         /// prompt, and the LLM's instruction following capability dictates how closely the generated output<br/>
         /// is limited.<br/>
-        /// This is currently a Scale-only feature.<br/>
-        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
         /// Example: 300
         /// </summary>
         /// <example>300</example>
@@ -120,8 +117,7 @@ namespace Vectara
         public global::Vectara.Language? ResponseLanguage { get; set; }
 
         /// <summary>
-        /// The parameters for the model.  These are currently a Scale-only feature.<br/>
-        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
+        /// The parameters for the model.<br/>
         /// WARNING: This is an experimental feature, and breakable at any point with virtually no<br/>
         /// notice. It is meant for experimentation to converge on optimal parameters that can then<br/>
         /// be set in the prompt definitions.
@@ -171,11 +167,10 @@ namespace Vectara
         /// </param>
         /// <param name="promptTemplate">
         /// Vectara manages both system and user roles and prompts for the generative<br/>
-        /// LLM out of the box by default. However, Scale customers can override the<br/>
+        /// LLM out of the box by default. However, users can override the<br/>
         /// `prompt_template` via this variable. The `prompt_template` is in the form of an<br/>
         /// Apache Velocity template. For more details on how to configure the<br/>
         /// `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
-        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
         /// Example: [<br/>
         ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>
         ///   #foreach ($qResult in $vectaraQueryResults)<br/>
@@ -191,8 +186,6 @@ namespace Vectara
         /// than this value. This is generally implemented by including the `max_response_characters` in the<br/>
         /// prompt, and the LLM's instruction following capability dictates how closely the generated output<br/>
         /// is limited.<br/>
-        /// This is currently a Scale-only feature.<br/>
-        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
         /// Example: 300
         /// </param>
         /// <param name="responseLanguage">
@@ -200,8 +193,7 @@ namespace Vectara
         /// Default Value: auto
         /// </param>
         /// <param name="modelParameters">
-        /// The parameters for the model.  These are currently a Scale-only feature.<br/>
-        /// See [pricing](https://vectara.com/pricing/) for more details on becoming a Scale customer.<br/>
+        /// The parameters for the model.<br/>
         /// WARNING: This is an experimental feature, and breakable at any point with virtually no<br/>
         /// notice. It is meant for experimentation to converge on optimal parameters that can then<br/>
         /// be set in the prompt definitions.
