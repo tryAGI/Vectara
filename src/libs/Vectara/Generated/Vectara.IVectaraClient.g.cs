@@ -125,5 +125,10 @@ namespace Vectara
         /// </summary>
         public GenerationPresetsClient GenerationPresets { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public QueryHistoryClient QueryHistory { get; }
+
     }
 }

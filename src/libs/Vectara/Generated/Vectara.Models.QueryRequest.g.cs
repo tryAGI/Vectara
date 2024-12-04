@@ -39,6 +39,13 @@ namespace Vectara
         public bool? StreamResponse { get; set; }
 
         /// <summary>
+        /// Indicates whether to save the query in the query history.<br/>
+        /// Default Value: false
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("save_history")]
+        public bool? SaveHistory { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -61,17 +68,23 @@ namespace Vectara
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save the query in the query history.<br/>
+        /// Default Value: false
+        /// </param>
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
         public QueryRequest(
             string query,
             global::Vectara.SearchCorporaParameters search,
             global::Vectara.GenerationParameters? generation,
-            bool? streamResponse)
+            bool? streamResponse,
+            bool? saveHistory)
         {
             this.Query = query ?? throw new global::System.ArgumentNullException(nameof(query));
             this.Search = search;
             this.Generation = generation;
             this.StreamResponse = streamResponse;
+            this.SaveHistory = saveHistory;
         }
 
         /// <summary>

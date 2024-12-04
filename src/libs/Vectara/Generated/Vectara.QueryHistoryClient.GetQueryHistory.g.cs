@@ -3,64 +3,57 @@
 
 namespace Vectara
 {
-    public partial class ChatsClient
+    public partial class QueryHistoryClient
     {
-        partial void PrepareCreateChatTurnArguments(
+        partial void PrepareGetQueryHistoryArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            ref string chatId,
-            global::Vectara.ChatRequest request);
-        partial void PrepareCreateChatTurnRequest(
+            ref string queryId);
+        partial void PrepareGetQueryHistoryRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            string chatId,
-            global::Vectara.ChatRequest request);
-        partial void ProcessCreateChatTurnResponse(
+            string queryId);
+        partial void ProcessGetQueryHistoryResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessCreateChatTurnResponseContent(
+        partial void ProcessGetQueryHistoryResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// Create a new turn in the chat<br/>
-        /// Create a new turn in the chat. Each conversation has a series of `turn` objects, which are the sequence of message and response pairs that make up the dialog.
+        /// Get a query history<br/>
+        /// Retrieve a detailed history of previously executed query.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="chatId"></param>
-        /// <param name="request"></param>
+        /// <param name="queryId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.ChatFullResponse> CreateChatTurnAsync(
-            string chatId,
-            global::Vectara.ChatRequest request,
+        public async global::System.Threading.Tasks.Task<global::Vectara.QueryHistory> GetQueryHistoryAsync(
+            string queryId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            request = request ?? throw new global::System.ArgumentNullException(nameof(request));
-
             PrepareArguments(
                 client: HttpClient);
-            PrepareCreateChatTurnArguments(
+            PrepareGetQueryHistoryArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                chatId: ref chatId,
-                request: request);
+                queryId: ref queryId);
 
             var __pathBuilder = new PathBuilder(
-                path: $"/v2/chats/{chatId}/turns",
+                path: $"/v2/queries/{queryId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                method: global::System.Net.Http.HttpMethod.Post,
+                method: global::System.Net.Http.HttpMethod.Get,
                 requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
             __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -92,23 +85,16 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
-            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
-            var __httpRequestContent = new global::System.Net.Http.StringContent(
-                content: __httpRequestContentBody,
-                encoding: global::System.Text.Encoding.UTF8,
-                mediaType: "application/json");
-            __httpRequest.Content = __httpRequestContent;
 
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-            PrepareCreateChatTurnRequest(
+            PrepareGetQueryHistoryRequest(
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
-                chatId: chatId,
-                request: request);
+                queryId: queryId);
 
             using var __response = await HttpClient.SendAsync(
                 request: __httpRequest,
@@ -118,38 +104,10 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-            ProcessCreateChatTurnResponse(
+            ProcessGetQueryHistoryResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-            // Turn creation request was malformed.
-            if ((int)__response.StatusCode == 400)
-            {
-                string? __content_400 = null;
-                global::Vectara.BadRequestError? __value_400 = null;
-                if (ReadResponseAsString)
-                {
-                    __content_400 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                    __value_400 = global::Vectara.BadRequestError.FromJson(__content_400, JsonSerializerContext);
-                }
-                else
-                {
-                    var __contentStream_400 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-                    __value_400 = await global::Vectara.BadRequestError.FromJsonStreamAsync(__contentStream_400, JsonSerializerContext).ConfigureAwait(false);
-                }
-
-                throw new global::Vectara.ApiException<global::Vectara.BadRequestError>(
-                    message: __response.ReasonPhrase ?? string.Empty,
-                    statusCode: __response.StatusCode)
-                {
-                    ResponseBody = __content_400,
-                    ResponseObject = __value_400,
-                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
-                        __response.Headers,
-                        h => h.Key,
-                        h => h.Value),
-                };
-            }
-            // Permissions do not allow creating a turn in the chat.
+            // Permissions do not allow retrieving the query history.
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
@@ -177,7 +135,7 @@ namespace Vectara
                         h => h.Value),
                 };
             }
-            // Corpus or chat not found.
+            // Query history not found.
             if ((int)__response.StatusCode == 404)
             {
                 string? __content_404 = null;
@@ -214,7 +172,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-                ProcessCreateChatTurnResponseContent(
+                ProcessGetQueryHistoryResponseContent(
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);
@@ -239,7 +197,7 @@ namespace Vectara
                 }
 
                 return
-                    global::Vectara.ChatFullResponse.FromJson(__content, JsonSerializerContext) ??
+                    global::Vectara.QueryHistory.FromJson(__content, JsonSerializerContext) ??
                     throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
             }
             else
@@ -265,69 +223,9 @@ namespace Vectara
                 using var __content = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
 
                 return
-                    await global::Vectara.ChatFullResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                    await global::Vectara.QueryHistory.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                     throw new global::System.InvalidOperationException("Response deserialization failed.");
             }
-        }
-
-        /// <summary>
-        /// Create a new turn in the chat<br/>
-        /// Create a new turn in the chat. Each conversation has a series of `turn` objects, which are the sequence of message and response pairs that make up the dialog.
-        /// </summary>
-        /// <param name="requestTimeout"></param>
-        /// <param name="requestTimeoutMillis"></param>
-        /// <param name="chatId"></param>
-        /// <param name="query">
-        /// The chat message or question.<br/>
-        /// Example: How can I use the Vectara platform?
-        /// </param>
-        /// <param name="search">
-        /// The parameters to search one or more corpora.
-        /// </param>
-        /// <param name="generation">
-        /// The parameters to control generation.
-        /// </param>
-        /// <param name="chat">
-        /// Parameters to control chat behavior.
-        /// </param>
-        /// <param name="saveHistory">
-        /// Indicates whether to save the chat in both the chat and query history. This overrides `chat.store`.<br/>
-        /// Default Value: true
-        /// </param>
-        /// <param name="streamResponse">
-        /// Indicates whether the response should be streamed or not.<br/>
-        /// Default Value: false
-        /// </param>
-        /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.ChatFullResponse> CreateChatTurnAsync(
-            string chatId,
-            string query,
-            global::Vectara.SearchCorporaParameters search,
-            int? requestTimeout = default,
-            int? requestTimeoutMillis = default,
-            global::Vectara.GenerationParameters? generation = default,
-            global::Vectara.ChatParameters? chat = default,
-            bool? saveHistory = default,
-            bool? streamResponse = default,
-            global::System.Threading.CancellationToken cancellationToken = default)
-        {
-            var __request = new global::Vectara.ChatRequest
-            {
-                Query = query,
-                Search = search,
-                Generation = generation,
-                Chat = chat,
-                SaveHistory = saveHistory,
-                StreamResponse = streamResponse,
-            };
-
-            return await CreateChatTurnAsync(
-                requestTimeout: requestTimeout,
-                requestTimeoutMillis: requestTimeoutMillis,
-                chatId: chatId,
-                request: __request,
-                cancellationToken: cancellationToken).ConfigureAwait(false);
         }
     }
 }

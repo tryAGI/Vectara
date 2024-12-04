@@ -43,6 +43,8 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.JobTypeNullableJsonConverter),
             typeof(global::Vectara.JsonConverters.JobStateJsonConverter),
             typeof(global::Vectara.JsonConverters.JobStateNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.QueryHistorySpanDiscriminatorTypeJsonConverter),
+            typeof(global::Vectara.JsonConverters.QueryHistorySpanDiscriminatorTypeNullableJsonConverter),
             typeof(global::Vectara.JsonConverters.SearchRerankerJsonConverter),
             typeof(global::Vectara.JsonConverters.SearchCorporaParametersJsonConverter),
             typeof(global::Vectara.JsonConverters.KeyedSearchCorpusJsonConverter),
@@ -51,6 +53,7 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.CreateDocumentRequestJsonConverter),
             typeof(global::Vectara.JsonConverters.ChatStreamedResponseJsonConverter),
             typeof(global::Vectara.JsonConverters.CreateAppClientRequestJsonConverter),
+            typeof(global::Vectara.JsonConverters.QueryHistorySpanJsonConverter),
             typeof(global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>),
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]

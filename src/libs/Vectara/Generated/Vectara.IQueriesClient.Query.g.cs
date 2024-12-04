@@ -55,6 +55,10 @@ namespace Vectara
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save the query in the query history.<br/>
+        /// Default Value: false
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.QueryFullResponse> QueryAsync(
@@ -64,6 +68,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             global::Vectara.GenerationParameters? generation = default,
             bool? streamResponse = default,
+            bool? saveHistory = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
