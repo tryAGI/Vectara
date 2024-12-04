@@ -27,6 +27,9 @@ namespace Vectara
         /// <param name="offset">
         /// Default Value: 0
         /// </param>
+        /// <param name="saveHistory">
+        /// Default Value: false
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.QueryFullResponse> SearchCorpusAsync(
@@ -36,6 +39,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             int? limit = default,
             int? offset = default,
+            bool? saveHistory = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

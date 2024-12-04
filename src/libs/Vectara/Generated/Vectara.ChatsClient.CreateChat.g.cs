@@ -283,6 +283,10 @@ namespace Vectara
         /// <param name="chat">
         /// Parameters to control chat behavior.
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save the chat in both the chat and query history. This overrides `chat.store`.<br/>
+        /// Default Value: true
+        /// </param>
         /// <param name="streamResponse">
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
@@ -296,6 +300,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             global::Vectara.GenerationParameters? generation = default,
             global::Vectara.ChatParameters? chat = default,
+            bool? saveHistory = default,
             bool? streamResponse = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -305,6 +310,7 @@ namespace Vectara
                 Search = search,
                 Generation = generation,
                 Chat = chat,
+                SaveHistory = saveHistory,
                 StreamResponse = streamResponse,
             };
 

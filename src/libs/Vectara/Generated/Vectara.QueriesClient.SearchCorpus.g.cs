@@ -12,7 +12,8 @@ namespace Vectara
             ref string corpusKey,
             ref string query,
             ref int? limit,
-            ref int? offset);
+            ref int? offset,
+            ref bool? saveHistory);
         partial void PrepareSearchCorpusRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
@@ -21,7 +22,8 @@ namespace Vectara
             string corpusKey,
             string query,
             int? limit,
-            int? offset);
+            int? offset,
+            bool? saveHistory);
         partial void ProcessSearchCorpusResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
@@ -54,6 +56,9 @@ namespace Vectara
         /// <param name="offset">
         /// Default Value: 0
         /// </param>
+        /// <param name="saveHistory">
+        /// Default Value: false
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.QueryFullResponse> SearchCorpusAsync(
@@ -63,6 +68,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             int? limit = default,
             int? offset = default,
+            bool? saveHistory = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             PrepareArguments(
@@ -74,7 +80,8 @@ namespace Vectara
                 corpusKey: ref corpusKey,
                 query: ref query,
                 limit: ref limit,
-                offset: ref offset);
+                offset: ref offset,
+                saveHistory: ref saveHistory);
 
             var __pathBuilder = new PathBuilder(
                 path: $"/v2/corpora/{corpusKey}/query",
@@ -83,6 +90,7 @@ namespace Vectara
                 .AddRequiredParameter("query", query) 
                 .AddOptionalParameter("limit", limit?.ToString()) 
                 .AddOptionalParameter("offset", offset?.ToString()) 
+                .AddOptionalParameter("save_history", saveHistory?.ToString()) 
                 ; 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
@@ -130,7 +138,8 @@ namespace Vectara
                 corpusKey: corpusKey,
                 query: query,
                 limit: limit,
-                offset: offset);
+                offset: offset,
+                saveHistory: saveHistory);
 
             using var __response = await HttpClient.SendAsync(
                 request: __httpRequest,

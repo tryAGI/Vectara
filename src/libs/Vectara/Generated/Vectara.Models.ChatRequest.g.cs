@@ -38,6 +38,13 @@ namespace Vectara
         public global::Vectara.ChatParameters? Chat { get; set; }
 
         /// <summary>
+        /// Indicates whether to save the chat in both the chat and query history. This overrides `chat.store`.<br/>
+        /// Default Value: true
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("save_history")]
+        public bool? SaveHistory { get; set; }
+
+        /// <summary>
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
         /// </summary>
@@ -66,6 +73,10 @@ namespace Vectara
         /// <param name="chat">
         /// Parameters to control chat behavior.
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save the chat in both the chat and query history. This overrides `chat.store`.<br/>
+        /// Default Value: true
+        /// </param>
         /// <param name="streamResponse">
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
@@ -76,12 +87,14 @@ namespace Vectara
             global::Vectara.SearchCorporaParameters search,
             global::Vectara.GenerationParameters? generation,
             global::Vectara.ChatParameters? chat,
+            bool? saveHistory,
             bool? streamResponse)
         {
             this.Query = query ?? throw new global::System.ArgumentNullException(nameof(query));
             this.Search = search;
             this.Generation = generation;
             this.Chat = chat;
+            this.SaveHistory = saveHistory;
             this.StreamResponse = streamResponse;
         }
 
