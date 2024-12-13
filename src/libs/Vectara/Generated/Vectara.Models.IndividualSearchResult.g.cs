@@ -39,6 +39,12 @@ namespace Vectara
         public string? DocumentId { get; set; }
 
         /// <summary>
+        /// A table in a document.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("table")]
+        public global::Vectara.Table? Table { get; set; }
+
+        /// <summary>
         /// A query request can search over multiple corpora at a time. This property <br/>
         /// is set to the index in the list of corpora in the original search request that this<br/>
         /// search result originated from.<br/>
@@ -73,6 +79,9 @@ namespace Vectara
         /// <param name="documentId">
         /// The ID of the document that contains the document part.
         /// </param>
+        /// <param name="table">
+        /// A table in a document.
+        /// </param>
         /// <param name="requestCorporaIndex">
         /// A query request can search over multiple corpora at a time. This property <br/>
         /// is set to the index in the list of corpora in the original search request that this<br/>
@@ -87,6 +96,7 @@ namespace Vectara
             object? partMetadata,
             object? documentMetadata,
             string? documentId,
+            global::Vectara.Table? table,
             int? requestCorporaIndex)
         {
             this.Text = text;
@@ -94,6 +104,7 @@ namespace Vectara
             this.PartMetadata = partMetadata;
             this.DocumentMetadata = documentMetadata;
             this.DocumentId = documentId;
+            this.Table = table;
             this.RequestCorporaIndex = requestCorporaIndex;
         }
 

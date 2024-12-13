@@ -430,7 +430,7 @@ paths:
       tags:
         - Upload
       summary: Upload a file to the corpus
-      description: "Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.\nThe request expects a `multipart/form-data` format containing the following parts:\n* `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={\"key\": \"value\"};type=application/json'`\n* `chunking_strategy` - (Optional) Specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. For example, `'chunking_strategy={\"type\":\"max_chars_chunking_strategy\",\"max_chars_per_chunk\":200};type=application/json'`\n* `file` - Specifies the file that you want to upload.\n* `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`\n\nFor more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)\n"
+      description: "Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.\nThe request expects a `multipart/form-data` format containing the following parts:\n* `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={\"key\": \"value\"};type=application/json'`\n* `chunking_strategy` - (Optional) Specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. For example, `'chunking_strategy={\"type\":\"max_chars_chunking_strategy\",\"max_chars_per_chunk\":200};type=application/json'`\n* `table_extraction_config` - (Optional) Specifies whether to extract table data from the uploaded file. If you do not set this option, the platform does not extract tables from PDF files. Example config, `'table_extraction_config={\"extract_tables\":true};type=application/json'`\n* `file` - Specifies the file that you want to upload.\n* `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`\n\nFor more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)\n"
       operationId: uploadFile
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -451,6 +451,8 @@ paths:
               metadata:
                 contentType: application/json
               chunking_strategy:
+                contentType: application/json
+              table_extraction_config:
                 contentType: application/json
               file:
                 contentType: 'application/octet-stream, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.oasis.opendocument.text, application/epub+zip, application/rtf, text/html, text/plain, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, text/markdown'
@@ -531,7 +533,7 @@ paths:
       tags:
         - Documents
       summary: List the documents in the corpus
-      description: "Retrieve a list of documents stored in a specifi corpus. This endpoint \nprovides an overview of document metadata without returning the full content of \neach document.\n"
+      description: "Retrieve a list of documents stored in a specific corpus. This endpoint \nprovides an overview of document metadata without returning the full content of \neach document.\n"
       operationId: listCorpusDocuments
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -647,6 +649,97 @@ paths:
                 $ref: '#/components/schemas/Document'
         '403':
           description: Permissions do not allow retrieving a document from the corpus.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Corpus or document not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+    patch:
+      tags:
+        - Index
+      summary: 'Update document, merging the metadata.'
+      description: "Updates document identified by its unique `document_id` from a specific \ncorpus. The request body metadata is merged with the existing metadata, \nadding or modifying only the specified fields.\n"
+      operationId: updateCorpusDocument
+      parameters:
+        - $ref: '#/components/parameters/RequestTimeout'
+        - $ref: '#/components/parameters/RequestTimeoutMillis'
+        - name: corpus_key
+          in: path
+          description: The unique key identifying the corpus with the document to update.
+          required: true
+          schema:
+            $ref: '#/components/schemas/CorpusKey'
+        - name: document_id
+          in: path
+          description: "The document ID of the document to update.\nThis `document_id` must be percent encoded.\n"
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDocumentRequest'
+      responses:
+        '200':
+          description: Successfully updated the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '403':
+          description: Permissions do not allow updating a document in the corpus.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Corpus or document not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+  '/v2/corpora/{corpus_key}/documents/{document_id}/metadata':
+    put:
+      tags:
+        - Index
+      summary: Replace the document metadata.
+      description: "Replaces metadata of a document identified by its unique `document_id` \nfrom a specific corpus.\n"
+      operationId: replaceCorpusDocumentMetadata
+      parameters:
+        - $ref: '#/components/parameters/RequestTimeout'
+        - $ref: '#/components/parameters/RequestTimeoutMillis'
+        - name: corpus_key
+          in: path
+          description: The unique key identifying the corpus with the document to update.
+          required: true
+          schema:
+            $ref: '#/components/schemas/CorpusKey'
+        - name: document_id
+          in: path
+          description: "The document ID of the document to update.\nThis `document_id` must be percent encoded.\n"
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDocumentRequest'
+      responses:
+        '200':
+          description: Successfully updated the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '403':
+          description: Permissions do not allow updating a document in the corpus.
           content:
             application/json:
               schema:
@@ -2566,6 +2659,8 @@ components:
         document_id:
           type: string
           description: The ID of the document that contains the document part.
+        table:
+          $ref: '#/components/schemas/Table'
         request_corpora_index:
           minimum: 0
           type: integer
@@ -2718,6 +2813,8 @@ components:
           description: Arbitrary object that will be attached as document metadata to the extracted document.
         chunking_strategy:
           $ref: '#/components/schemas/ChunkingStrategy'
+        table_extraction_config:
+          $ref: '#/components/schemas/TableExtractionConfig'
         filename:
           type: string
           description: Optional multipart section to override the filename.
@@ -2725,6 +2822,15 @@ components:
           type: string
           description: Binary file contents. The file name of the file will be used as the document ID.
           format: binary
+    TableExtractionConfig:
+      required:
+        - extract_tables
+      type: object
+      properties:
+        extract_tables:
+          type: boolean
+          description: "If set to true, the platform will attempt to extract tables from the document.\nThe tables will be indexed as separate document parts.\n"
+      description: "(Optional) Configuration for table extraction from the document.\n"
     ChunkingStrategy:
       type: object
       oneOf:
@@ -2764,6 +2870,13 @@ components:
         mapping:
           core: '#/components/schemas/CoreDocument'
           structured: '#/components/schemas/StructuredDocument'
+    UpdateDocumentRequest:
+      type: object
+      properties:
+        metadata:
+          type: object
+          description: "The metadata for a document as an arbitrary object. Properties of this object\ncan be used by document level filter attributes.\n"
+      description: "Schema for updating the document. For PUT requests, the request body metadata replaces the existing\nmetadata. For PATCH requests, the request body metadata is merged with the existing metadata, \nadding or modifying only the specified fields.\n"
     StructuredDocument:
       required:
         - id
@@ -2818,6 +2931,11 @@ components:
         metadata:
           type: object
           description: "Arbitrary object that becomes document part level metadata on any document part created \nby this section. Properties of this object can be used by document part level \nfilters if defined as a corpus filter attribute.\n"
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+          description: The tables that this section contains.
         sections:
           type: array
           items:
@@ -2845,6 +2963,11 @@ components:
           example:
             title: A Nice Document
             lang: eng
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+          description: The tables that this document contains.
         document_parts:
           minItems: 1
           type: array
@@ -2888,6 +3011,9 @@ components:
           description: The metadata for a document part. These may be used in metadata filters at query time if filter attributes are configured on the corpus.
           example:
             nice_rank: 9000
+        table_id:
+          type: string
+          description: The ID of the table that this document part belongs to.
         context:
           type: string
           description: The context text for the document part.
@@ -2910,6 +3036,11 @@ components:
         metadata:
           type: object
           description: The document metadata.
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+          description: The tables that this document contains. Tables are not available when table extraction is not enabled.
         parts:
           type: array
           items:
@@ -2917,6 +3048,72 @@ components:
           description: "Parts of the document that make up the document. However, parts are not available when\nretrieving a list of documents or when creating a document. This property is only available\nwhen retrieving a document by ID.\n"
         storage_usage:
           $ref: '#/components/schemas/DocumentStorageUsage'
+    Cell:
+      type: object
+      properties:
+        text_value:
+          type: string
+          description: A text value.
+        int_value:
+          type: integer
+          description: A signed 64-bit integer value.
+          format: int64
+        float_value:
+          type: number
+          description: A floating-point value with double precision.
+          format: double
+        bool_value:
+          type: boolean
+          description: A boolean value.
+        colspan:
+          type: integer
+          description: (Optional) The number of columns the cell spans. Default is 1. Must be greater than 0.
+          format: int32
+        rowspan:
+          type: integer
+          description: (Optional) The number of rows the cell spans. Default is 1. Must be greater than 0.
+          format: int32
+      description: A cell in a table.
+    Row:
+      type: array
+      items:
+        $ref: '#/components/schemas/Cell'
+      description: A row in a table.
+    Header:
+      type: array
+      items:
+        $ref: '#/components/schemas/Cell'
+      description: The header of a table.
+    Data:
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+          description: The headers of the table.
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Row'
+          description: The rows in the data.
+      description: The data of a table.
+    Table:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the table within the document.
+          example: table_1
+        title:
+          type: string
+          description: The title of the table.
+        data:
+          $ref: '#/components/schemas/Data'
+        description:
+          type: string
+          description: The description of the table.
+      description: A table in a document.
     DocumentStorageUsage:
       type: object
       properties:
