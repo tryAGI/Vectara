@@ -33,7 +33,7 @@ namespace Vectara
 
         /// <summary>
         /// List the documents in the corpus<br/>
-        /// Retrieve a list of documents stored in a specifi corpus. This endpoint <br/>
+        /// Retrieve a list of documents stored in a specific corpus. This endpoint <br/>
         /// provides an overview of document metadata without returning the full content of <br/>
         /// each document.
         /// </summary>

@@ -22,6 +22,12 @@ namespace Vectara
         public global::Vectara.MaxCharsChunkingStrategy? ChunkingStrategy { get; set; }
 
         /// <summary>
+        /// (Optional) Configuration for table extraction from the document.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("table_extraction_config")]
+        public global::Vectara.TableExtractionConfig? TableExtractionConfig { get; set; }
+
+        /// <summary>
         /// Optional multipart section to override the filename.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("filename")]
@@ -50,6 +56,9 @@ namespace Vectara
         /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </param>
+        /// <param name="tableExtractionConfig">
+        /// (Optional) Configuration for table extraction from the document.
+        /// </param>
         /// <param name="filename">
         /// Optional multipart section to override the filename.
         /// </param>
@@ -61,11 +70,13 @@ namespace Vectara
             byte[] file,
             object? metadata,
             global::Vectara.MaxCharsChunkingStrategy? chunkingStrategy,
+            global::Vectara.TableExtractionConfig? tableExtractionConfig,
             string? filename)
         {
             this.File = file ?? throw new global::System.ArgumentNullException(nameof(file));
             this.Metadata = metadata;
             this.ChunkingStrategy = chunkingStrategy;
+            this.TableExtractionConfig = tableExtractionConfig;
             this.Filename = filename;
         }
 

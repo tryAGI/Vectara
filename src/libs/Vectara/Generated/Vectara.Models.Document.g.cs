@@ -23,6 +23,12 @@ namespace Vectara
         public object? Metadata { get; set; }
 
         /// <summary>
+        /// The tables that this document contains. Tables are not available when table extraction is not enabled.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tables")]
+        public global::System.Collections.Generic.IList<global::Vectara.Table>? Tables { get; set; }
+
+        /// <summary>
         /// Parts of the document that make up the document. However, parts are not available when<br/>
         /// retrieving a list of documents or when creating a document. This property is only available<br/>
         /// when retrieving a document by ID.
@@ -53,6 +59,9 @@ namespace Vectara
         /// <param name="metadata">
         /// The document metadata.
         /// </param>
+        /// <param name="tables">
+        /// The tables that this document contains. Tables are not available when table extraction is not enabled.
+        /// </param>
         /// <param name="parts">
         /// Parts of the document that make up the document. However, parts are not available when<br/>
         /// retrieving a list of documents or when creating a document. This property is only available<br/>
@@ -66,11 +75,13 @@ namespace Vectara
         public Document(
             string? id,
             object? metadata,
+            global::System.Collections.Generic.IList<global::Vectara.Table>? tables,
             global::System.Collections.Generic.IList<global::Vectara.DocumentPart>? parts,
             global::Vectara.DocumentStorageUsage? storageUsage)
         {
             this.Id = id;
             this.Metadata = metadata;
+            this.Tables = tables;
             this.Parts = parts;
             this.StorageUsage = storageUsage;
         }

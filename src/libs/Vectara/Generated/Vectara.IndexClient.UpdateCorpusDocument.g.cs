@@ -3,40 +3,37 @@
 
 namespace Vectara
 {
-    public partial class UploadClient
+    public partial class IndexClient
     {
-        partial void PrepareUploadFileArguments(
+        partial void PrepareUpdateCorpusDocumentArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
             ref string corpusKey,
-            global::Vectara.UploadFileRequest request);
-        partial void PrepareUploadFileRequest(
+            ref string documentId,
+            global::Vectara.UpdateDocumentRequest request);
+        partial void PrepareUpdateCorpusDocumentRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
             string corpusKey,
-            global::Vectara.UploadFileRequest request);
-        partial void ProcessUploadFileResponse(
+            string documentId,
+            global::Vectara.UpdateDocumentRequest request);
+        partial void ProcessUpdateCorpusDocumentResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessUploadFileResponseContent(
+        partial void ProcessUpdateCorpusDocumentResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// Upload a file to the corpus<br/>
-        /// Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.<br/>
-        /// The request expects a `multipart/form-data` format containing the following parts:<br/>
-        /// * `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={"key": "value"};type=application/json'`<br/>
-        /// * `chunking_strategy` - (Optional) Specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. For example, `'chunking_strategy={"type":"max_chars_chunking_strategy","max_chars_per_chunk":200};type=application/json'`<br/>
-        /// * `table_extraction_config` - (Optional) Specifies whether to extract table data from the uploaded file. If you do not set this option, the platform does not extract tables from PDF files. Example config, `'table_extraction_config={"extract_tables":true};type=application/json'`<br/>
-        /// * `file` - Specifies the file that you want to upload.<br/>
-        /// * `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`<br/>
-        /// For more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)
+        /// Update document, merging the metadata.<br/>
+        /// Updates document identified by its unique `document_id` from a specific <br/>
+        /// corpus. The request body metadata is merged with the existing metadata, <br/>
+        /// adding or modifying only the specified fields.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -44,12 +41,14 @@ namespace Vectara
         /// A user-provided key for a corpus.<br/>
         /// Example: my-corpus
         /// </param>
+        /// <param name="documentId"></param>
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.Document> UploadFileAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.Document> UpdateCorpusDocumentAsync(
             string corpusKey,
-            global::Vectara.UploadFileRequest request,
+            string documentId,
+            global::Vectara.UpdateDocumentRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -58,19 +57,20 @@ namespace Vectara
 
             PrepareArguments(
                 client: HttpClient);
-            PrepareUploadFileArguments(
+            PrepareUpdateCorpusDocumentArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 corpusKey: ref corpusKey,
+                documentId: ref documentId,
                 request: request);
 
             var __pathBuilder = new PathBuilder(
-                path: $"/v2/corpora/{corpusKey}/upload_file",
+                path: $"/v2/corpora/{corpusKey}/documents/{documentId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                method: global::System.Net.Http.HttpMethod.Post,
+                method: new global::System.Net.Http.HttpMethod("PATCH"),
                 requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
             __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -102,61 +102,23 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
-            using var __httpRequestContent = new global::System.Net.Http.MultipartFormDataContent();
-            if (requestTimeout != default)
-            {
-                __httpRequestContent.Add(
-                    content: new global::System.Net.Http.StringContent($"{requestTimeout}"),
-                    name: "Request-Timeout");
-            } 
-            if (requestTimeoutMillis != default)
-            {
-                __httpRequestContent.Add(
-                    content: new global::System.Net.Http.StringContent($"{requestTimeoutMillis}"),
-                    name: "Request-Timeout-Millis");
-            } 
-            __httpRequestContent.Add(
-                content: new global::System.Net.Http.StringContent($"{corpusKey}"),
-                name: "corpus_key");
-            if (request.Metadata != default)
-            {
-                __httpRequestContent.Add(
-                    content: new global::System.Net.Http.StringContent($"{request.Metadata}"),
-                    name: "metadata");
-            } 
-            if (request.ChunkingStrategy != default)
-            {
-                __httpRequestContent.Add(
-                    content: new global::System.Net.Http.StringContent($"{request.ChunkingStrategy}"),
-                    name: "chunking_strategy");
-            } 
-            if (request.TableExtractionConfig != default)
-            {
-                __httpRequestContent.Add(
-                    content: new global::System.Net.Http.StringContent($"{request.TableExtractionConfig}"),
-                    name: "table_extraction_config");
-            } 
-            if (request.Filename != default)
-            {
-                __httpRequestContent.Add(
-                    content: new global::System.Net.Http.StringContent($"{request.Filename}"),
-                    name: "filename");
-            } 
-            __httpRequestContent.Add(
-                content: new global::System.Net.Http.ByteArrayContent(request.File ?? global::System.Array.Empty<byte>()),
-                name: "file",
-                fileName: request.Filename ?? string.Empty);
+            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
+            var __httpRequestContent = new global::System.Net.Http.StringContent(
+                content: __httpRequestContentBody,
+                encoding: global::System.Text.Encoding.UTF8,
+                mediaType: "application/json");
             __httpRequest.Content = __httpRequestContent;
 
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-            PrepareUploadFileRequest(
+            PrepareUpdateCorpusDocumentRequest(
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 corpusKey: corpusKey,
+                documentId: documentId,
                 request: request);
 
             using var __response = await HttpClient.SendAsync(
@@ -167,38 +129,10 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-            ProcessUploadFileResponse(
+            ProcessUpdateCorpusDocumentResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-            // Upload file request was malformed.
-            if ((int)__response.StatusCode == 400)
-            {
-                string? __content_400 = null;
-                global::Vectara.BadRequestError? __value_400 = null;
-                if (ReadResponseAsString)
-                {
-                    __content_400 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                    __value_400 = global::Vectara.BadRequestError.FromJson(__content_400, JsonSerializerContext);
-                }
-                else
-                {
-                    var __contentStream_400 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-                    __value_400 = await global::Vectara.BadRequestError.FromJsonStreamAsync(__contentStream_400, JsonSerializerContext).ConfigureAwait(false);
-                }
-
-                throw new global::Vectara.ApiException<global::Vectara.BadRequestError>(
-                    message: __response.ReasonPhrase ?? string.Empty,
-                    statusCode: __response.StatusCode)
-                {
-                    ResponseBody = __content_400,
-                    ResponseObject = __value_400,
-                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
-                        __response.Headers,
-                        h => h.Key,
-                        h => h.Value),
-                };
-            }
-            // Permissions do not allow uploading a file to the corpus.
+            // Permissions do not allow updating a document in the corpus.
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
@@ -226,7 +160,7 @@ namespace Vectara
                         h => h.Value),
                 };
             }
-            // Corpus not found.
+            // Corpus or document not found.
             if ((int)__response.StatusCode == 404)
             {
                 string? __content_404 = null;
@@ -263,7 +197,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-                ProcessUploadFileResponseContent(
+                ProcessUpdateCorpusDocumentResponseContent(
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);
@@ -320,15 +254,10 @@ namespace Vectara
         }
 
         /// <summary>
-        /// Upload a file to the corpus<br/>
-        /// Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.<br/>
-        /// The request expects a `multipart/form-data` format containing the following parts:<br/>
-        /// * `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={"key": "value"};type=application/json'`<br/>
-        /// * `chunking_strategy` - (Optional) Specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. For example, `'chunking_strategy={"type":"max_chars_chunking_strategy","max_chars_per_chunk":200};type=application/json'`<br/>
-        /// * `table_extraction_config` - (Optional) Specifies whether to extract table data from the uploaded file. If you do not set this option, the platform does not extract tables from PDF files. Example config, `'table_extraction_config={"extract_tables":true};type=application/json'`<br/>
-        /// * `file` - Specifies the file that you want to upload.<br/>
-        /// * `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`<br/>
-        /// For more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)
+        /// Update document, merging the metadata.<br/>
+        /// Updates document identified by its unique `document_id` from a specific <br/>
+        /// corpus. The request body metadata is merged with the existing metadata, <br/>
+        /// adding or modifying only the specified fields.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -336,48 +265,31 @@ namespace Vectara
         /// A user-provided key for a corpus.<br/>
         /// Example: my-corpus
         /// </param>
+        /// <param name="documentId"></param>
         /// <param name="metadata">
-        /// Arbitrary object that will be attached as document metadata to the extracted document.
-        /// </param>
-        /// <param name="chunkingStrategy">
-        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
-        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
-        /// </param>
-        /// <param name="tableExtractionConfig">
-        /// (Optional) Configuration for table extraction from the document.
-        /// </param>
-        /// <param name="filename">
-        /// Optional multipart section to override the filename.
-        /// </param>
-        /// <param name="file">
-        /// Binary file contents. The file name of the file will be used as the document ID.
+        /// The metadata for a document as an arbitrary object. Properties of this object<br/>
+        /// can be used by document level filter attributes.
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.Document> UploadFileAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.Document> UpdateCorpusDocumentAsync(
             string corpusKey,
-            byte[] file,
+            string documentId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             object? metadata = default,
-            global::Vectara.MaxCharsChunkingStrategy? chunkingStrategy = default,
-            global::Vectara.TableExtractionConfig? tableExtractionConfig = default,
-            string? filename = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __request = new global::Vectara.UploadFileRequest
+            var __request = new global::Vectara.UpdateDocumentRequest
             {
                 Metadata = metadata,
-                ChunkingStrategy = chunkingStrategy,
-                TableExtractionConfig = tableExtractionConfig,
-                Filename = filename,
-                File = file,
             };
 
-            return await UploadFileAsync(
+            return await UpdateCorpusDocumentAsync(
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 corpusKey: corpusKey,
+                documentId: documentId,
                 request: __request,
                 cancellationToken: cancellationToken).ConfigureAwait(false);
         }

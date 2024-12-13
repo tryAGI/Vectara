@@ -37,6 +37,12 @@ namespace Vectara
         public object? Metadata { get; set; }
 
         /// <summary>
+        /// The tables that this document contains.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tables")]
+        public global::System.Collections.Generic.IList<global::Vectara.Table>? Tables { get; set; }
+
+        /// <summary>
         /// Parts of the document that make up the document.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("document_parts")]
@@ -67,6 +73,9 @@ namespace Vectara
         /// Arbitrary object of document level metadata. Properties of this object<br/>
         /// can be used by document filters if defined as a corpus filter attribute.
         /// </param>
+        /// <param name="tables">
+        /// The tables that this document contains.
+        /// </param>
         /// <param name="documentParts">
         /// Parts of the document that make up the document.
         /// </param>
@@ -75,12 +84,14 @@ namespace Vectara
             string id,
             string type,
             global::System.Collections.Generic.IList<global::Vectara.CoreDocumentPart> documentParts,
-            object? metadata)
+            object? metadata,
+            global::System.Collections.Generic.IList<global::Vectara.Table>? tables)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.DocumentParts = documentParts ?? throw new global::System.ArgumentNullException(nameof(documentParts));
             this.Metadata = metadata;
+            this.Tables = tables;
         }
 
         /// <summary>
