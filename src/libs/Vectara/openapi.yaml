@@ -704,6 +704,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: Too many concurrent requests. Please retry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   '/v2/corpora/{corpus_key}/documents/{document_id}/metadata':
     put:
       tags:
@@ -750,6 +756,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: Too many concurrent requests. Please retry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /v2/chats:
     post:
       tags:
@@ -2045,8 +2057,8 @@ components:
           deprecated: true
         encoder_name:
           type: string
-          description: The encoder used by the corpus.
-          example: boomerang
+          description: 'The encoder used by the corpus, `boomerang-2023-q3`.'
+          example: boomerang-2023-q3
         filter_attributes:
           type: array
           items:
@@ -2134,8 +2146,8 @@ components:
           deprecated: true
         encoder_name:
           type: string
-          description: The encoder used by the corpus.
-          example: boomerang
+          description: 'The encoder used by the corpus, `boomerang-2023-q3`.'
+          example: boomerang-2023-q3
         filter_attributes:
           type: array
           items:
@@ -2634,11 +2646,16 @@ components:
           description: The ranked search results.
         factual_consistency_score:
           type: number
-          description: "The probability that the summary is factually consistent with the results.\n"
+          description: "Indicates the probability that the summary is factually consistent with the results.\nThe system excludes this property if it encounters excessively large outputs or search\nresults.\n"
           format: float
         rendered_prompt:
           type: string
           description: "The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.\n"
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryWarning'
+          description: Non-fatal warnings that occurred during request processing
       description: The full response to a RAG query when the result is not streamed.
     IndividualSearchResult:
       type: object
@@ -3048,6 +3065,8 @@ components:
           description: "Parts of the document that make up the document. However, parts are not available when\nretrieving a list of documents or when creating a document. This property is only available\nwhen retrieving a document by ID.\n"
         storage_usage:
           $ref: '#/components/schemas/DocumentStorageUsage'
+        extraction_usage:
+          $ref: '#/components/schemas/ExtractionUsage'
     Cell:
       type: object
       properties:
@@ -3128,6 +3147,15 @@ components:
           description: "Number of metadata bytes used by a document.\n"
           format: int64
       description: "How much storage the document used. This information is currently not returned when\nretrieving the document, and only returned when indexing a document.\n"
+    ExtractionUsage:
+      type: object
+      properties:
+        table_extraction_used:
+          minimum: 0
+          type: integer
+          description: "The number of pages from the document that consumed the extraction quota.\n"
+          format: int64
+      description: "How much extraction quota the document used. This information is currently not returned when\nretrieving the document, and only returned when indexing a document.\n"
     ListDocumentsResponse:
       type: object
       properties:
@@ -3300,11 +3328,16 @@ components:
           description: The ranked search results that the chat model used.
         factual_consistency_score:
           type: number
-          description: "The probability that the summary is factually consistent with the results.\n"
+          description: "Indicates the probability that the summary is factually consistent with the results.\nThe system excludes this property if it encounters excessively large outputs or search\nresults.\n"
           format: float
         rendered_prompt:
           type: string
           description: "The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates. \n"
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryWarning'
+          description: Non-fatal warnings that occurred during request processing
         rephrased_query:
           type: string
           description: "View the actual query made to backend that was rephrased \nby the LLM from the input query.\n"
@@ -3582,8 +3615,8 @@ components:
           example: enc_1
         name:
           type: string
-          description: The encoder name.
-          example: boomerang
+          description: 'The encoder name, `boomerang-2023-q3`.'
+          example: boomerang-2023-q3
         output_dimensions:
           type: integer
           description: "When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.\nA high dimensionality will consume more storage space, but it allows for an increase in the quality of\nthe embedding.\n"
@@ -4020,6 +4053,11 @@ components:
               description: A query parameter required when requesting the next page of results.
           description: The metadata for the list of query histories.
       description: An array of query histories.
+    QueryWarning:
+      enum:
+        - exceeded_max_input_length_fcs
+      type: string
+      description: "Non-fatal warnings that occurred during query processing.\n *  `exceeded_max_input_length_fcs`: The input to the Factual Consistency Score model exceeded the maximum allowed length, so no score is being returned\n"
     ListMetadata:
       type: object
       properties:

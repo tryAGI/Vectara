@@ -54,8 +54,8 @@ namespace Vectara
         /// Default Value: false
         /// </param>
         /// <param name="encoderName">
-        /// The encoder used by the corpus.<br/>
-        /// Example: boomerang
+        /// The encoder used by the corpus, `boomerang-2023-q3`.<br/>
+        /// Example: boomerang-2023-q3
         /// </param>
         /// <param name="filterAttributes">
         /// The new filter attributes of the corpus. <br/>

@@ -44,6 +44,13 @@ namespace Vectara
         public global::Vectara.DocumentStorageUsage? StorageUsage { get; set; }
 
         /// <summary>
+        /// How much extraction quota the document used. This information is currently not returned when<br/>
+        /// retrieving the document, and only returned when indexing a document.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("extraction_usage")]
+        public global::Vectara.ExtractionUsage? ExtractionUsage { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -71,19 +78,25 @@ namespace Vectara
         /// How much storage the document used. This information is currently not returned when<br/>
         /// retrieving the document, and only returned when indexing a document.
         /// </param>
+        /// <param name="extractionUsage">
+        /// How much extraction quota the document used. This information is currently not returned when<br/>
+        /// retrieving the document, and only returned when indexing a document.
+        /// </param>
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
         public Document(
             string? id,
             object? metadata,
             global::System.Collections.Generic.IList<global::Vectara.Table>? tables,
             global::System.Collections.Generic.IList<global::Vectara.DocumentPart>? parts,
-            global::Vectara.DocumentStorageUsage? storageUsage)
+            global::Vectara.DocumentStorageUsage? storageUsage,
+            global::Vectara.ExtractionUsage? extractionUsage)
         {
             this.Id = id;
             this.Metadata = metadata;
             this.Tables = tables;
             this.Parts = parts;
             this.StorageUsage = storageUsage;
+            this.ExtractionUsage = extractionUsage;
         }
 
         /// <summary>

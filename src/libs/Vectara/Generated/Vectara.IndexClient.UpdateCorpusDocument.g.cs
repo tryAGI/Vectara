@@ -188,6 +188,34 @@ namespace Vectara
                         h => h.Value),
                 };
             }
+            // Too many concurrent requests. Please retry.
+            if ((int)__response.StatusCode == 429)
+            {
+                string? __content_429 = null;
+                global::Vectara.Error? __value_429 = null;
+                if (ReadResponseAsString)
+                {
+                    __content_429 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                    __value_429 = global::Vectara.Error.FromJson(__content_429, JsonSerializerContext);
+                }
+                else
+                {
+                    var __contentStream_429 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                    __value_429 = await global::Vectara.Error.FromJsonStreamAsync(__contentStream_429, JsonSerializerContext).ConfigureAwait(false);
+                }
+
+                throw new global::Vectara.ApiException<global::Vectara.Error>(
+                    message: __response.ReasonPhrase ?? string.Empty,
+                    statusCode: __response.StatusCode)
+                {
+                    ResponseBody = __content_429,
+                    ResponseObject = __value_429,
+                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                        __response.Headers,
+                        h => h.Key,
+                        h => h.Value),
+                };
+            }
 
             if (ReadResponseAsString)
             {

@@ -25,6 +25,8 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.CitationParametersStyleNullableJsonConverter),
             typeof(global::Vectara.JsonConverters.SearchSemanticsJsonConverter),
             typeof(global::Vectara.JsonConverters.SearchSemanticsNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.QueryWarningJsonConverter),
+            typeof(global::Vectara.JsonConverters.QueryWarningNullableJsonConverter),
             typeof(global::Vectara.JsonConverters.QueryStreamedResponseDiscriminatorTypeJsonConverter),
             typeof(global::Vectara.JsonConverters.QueryStreamedResponseDiscriminatorTypeNullableJsonConverter),
             typeof(global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeJsonConverter),
