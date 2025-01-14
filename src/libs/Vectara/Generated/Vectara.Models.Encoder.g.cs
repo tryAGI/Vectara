@@ -17,10 +17,10 @@ namespace Vectara
         public string? Id { get; set; }
 
         /// <summary>
-        /// The encoder name.<br/>
-        /// Example: boomerang
+        /// The encoder name, `boomerang-2023-q3`.<br/>
+        /// Example: boomerang-2023-q3
         /// </summary>
-        /// <example>boomerang</example>
+        /// <example>boomerang-2023-q3</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; }
 
@@ -70,8 +70,8 @@ namespace Vectara
         /// Example: enc_1
         /// </param>
         /// <param name="name">
-        /// The encoder name.<br/>
-        /// Example: boomerang
+        /// The encoder name, `boomerang-2023-q3`.<br/>
+        /// Example: boomerang-2023-q3
         /// </param>
         /// <param name="outputDimensions">
         /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.<br/>

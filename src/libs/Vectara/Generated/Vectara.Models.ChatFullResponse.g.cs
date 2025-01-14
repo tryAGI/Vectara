@@ -41,7 +41,9 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.IndividualSearchResult>? SearchResults { get; set; }
 
         /// <summary>
-        /// The probability that the summary is factually consistent with the results.
+        /// Indicates the probability that the summary is factually consistent with the results.<br/>
+        /// The system excludes this property if it encounters excessively large outputs or search<br/>
+        /// results.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("factual_consistency_score")]
         public float? FactualConsistencyScore { get; set; }
@@ -51,6 +53,12 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rendered_prompt")]
         public string? RenderedPrompt { get; set; }
+
+        /// <summary>
+        /// Non-fatal warnings that occurred during request processing
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("warnings")]
+        public global::System.Collections.Generic.IList<global::Vectara.QueryWarning>? Warnings { get; set; }
 
         /// <summary>
         /// View the actual query made to backend that was rephrased <br/>
@@ -85,10 +93,15 @@ namespace Vectara
         /// The ranked search results that the chat model used.
         /// </param>
         /// <param name="factualConsistencyScore">
-        /// The probability that the summary is factually consistent with the results.
+        /// Indicates the probability that the summary is factually consistent with the results.<br/>
+        /// The system excludes this property if it encounters excessively large outputs or search<br/>
+        /// results.
         /// </param>
         /// <param name="renderedPrompt">
         /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates. 
+        /// </param>
+        /// <param name="warnings">
+        /// Non-fatal warnings that occurred during request processing
         /// </param>
         /// <param name="rephrasedQuery">
         /// View the actual query made to backend that was rephrased <br/>
@@ -103,6 +116,7 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.IndividualSearchResult>? searchResults,
             float? factualConsistencyScore,
             string? renderedPrompt,
+            global::System.Collections.Generic.IList<global::Vectara.QueryWarning>? warnings,
             string? rephrasedQuery)
         {
             this.ChatId = chatId;
@@ -112,6 +126,7 @@ namespace Vectara
             this.SearchResults = searchResults;
             this.FactualConsistencyScore = factualConsistencyScore;
             this.RenderedPrompt = renderedPrompt;
+            this.Warnings = warnings;
             this.RephrasedQuery = rephrasedQuery;
         }
 

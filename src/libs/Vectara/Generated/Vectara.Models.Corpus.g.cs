@@ -71,10 +71,10 @@ namespace Vectara
         public string? EncoderId { get; set; }
 
         /// <summary>
-        /// The encoder used by the corpus.<br/>
-        /// Example: boomerang
+        /// The encoder used by the corpus, `boomerang-2023-q3`.<br/>
+        /// Example: boomerang-2023-q3
         /// </summary>
-        /// <example>boomerang</example>
+        /// <example>boomerang-2023-q3</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("encoder_name")]
         public string? EncoderName { get; set; }
 
@@ -141,8 +141,8 @@ namespace Vectara
         /// Default Value: false
         /// </param>
         /// <param name="encoderName">
-        /// The encoder used by the corpus.<br/>
-        /// Example: boomerang
+        /// The encoder used by the corpus, `boomerang-2023-q3`.<br/>
+        /// Example: boomerang-2023-q3
         /// </param>
         /// <param name="filterAttributes">
         /// The new filter attributes of the corpus.
