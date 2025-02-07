@@ -71,7 +71,9 @@ namespace Vectara
         /// <param name="rowspan">
         /// (Optional) The number of rows the cell spans. Default is 1. Must be greater than 0.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public Cell(
             string? textValue,
             long? intValue,

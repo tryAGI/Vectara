@@ -27,7 +27,9 @@ namespace Vectara
         /// <param name="jobId">
         /// Job that was created in order to replace filter attributes.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ReplaceFilterAttributesResponse(
             string jobId)
         {

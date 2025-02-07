@@ -41,7 +41,9 @@ namespace Vectara
         /// certain resources that are described by a resource path to resource value<br/>
         /// map. If the value is null, then the operation is allowed on any resource.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ApiPolicy(
             string name,
             global::System.Collections.Generic.Dictionary<string, global::Vectara.ApiOperationPolicy> allowedOperations)

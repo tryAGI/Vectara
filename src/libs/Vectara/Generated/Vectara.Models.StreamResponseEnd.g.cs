@@ -30,7 +30,9 @@ namespace Vectara
         /// with the type `end`.<br/>
         /// Default Value: end
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public StreamResponseEnd(
             string? type)
         {

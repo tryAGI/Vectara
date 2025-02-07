@@ -26,7 +26,9 @@ namespace Vectara
         /// <param name="pageKey">
         /// A query parameter required when requesting the next page of results.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ListQueryHistoriesResponseMetadata(
             string? pageKey)
         {

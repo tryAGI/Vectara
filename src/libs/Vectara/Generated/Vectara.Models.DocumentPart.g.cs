@@ -57,7 +57,9 @@ namespace Vectara
         /// <param name="customDimensions">
         /// The custom dimensions as additional weights.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public DocumentPart(
             string text,
             object? metadata,

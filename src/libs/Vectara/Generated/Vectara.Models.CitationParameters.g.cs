@@ -81,7 +81,9 @@ namespace Vectara
         /// the document's metadata includes `{"title":"Title"}`.<br/>
         /// Example: {doc.title}
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public CitationParameters(
             global::Vectara.CitationParametersStyle? style,
             string? urlPattern,

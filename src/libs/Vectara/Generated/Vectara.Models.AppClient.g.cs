@@ -82,7 +82,9 @@ namespace Vectara
         /// <param name="apiPolicy">
         /// What actions a principal can take on the Vectara platform.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public AppClient(
             string? id,
             string? name,

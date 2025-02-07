@@ -39,7 +39,9 @@ namespace Vectara
         /// <param name="searchResults">
         /// The ranked search results.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public StreamSearchResponse(
             string? type,
             global::System.Collections.Generic.IList<global::Vectara.IndividualSearchResult>? searchResults)

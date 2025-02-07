@@ -38,7 +38,9 @@ namespace Vectara
         /// <param name="rerankers">
         /// Specify an array of rerankers to apply to search results consecutively.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ChainReranker(
             global::System.Collections.Generic.IList<global::Vectara.SearchReranker> rerankers,
             string? type)

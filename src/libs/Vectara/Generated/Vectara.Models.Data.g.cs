@@ -35,7 +35,9 @@ namespace Vectara
         /// <param name="rows">
         /// The rows in the data.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public Data(
             global::System.Collections.Generic.IList<global::System.Collections.Generic.IList<global::Vectara.Cell>>? headers,
             global::System.Collections.Generic.IList<global::System.Collections.Generic.IList<global::Vectara.Cell>>? rows)

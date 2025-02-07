@@ -42,7 +42,9 @@ namespace Vectara
         /// <param name="requestId">
         /// The ID of the request that can be used to help Vectara support debug what went wrong.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public BadRequestError(
             global::System.Collections.Generic.Dictionary<string, string>? fieldErrors,
             global::System.Collections.Generic.IList<string>? messages,

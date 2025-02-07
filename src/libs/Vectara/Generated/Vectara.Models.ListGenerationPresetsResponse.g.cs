@@ -35,7 +35,9 @@ namespace Vectara
         /// <param name="metadata">
         /// The standard metadata in the response of a list operation.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ListGenerationPresetsResponse(
             global::System.Collections.Generic.IList<global::Vectara.GenerationPreset>? generationPresets,
             global::Vectara.ListMetadata? metadata)

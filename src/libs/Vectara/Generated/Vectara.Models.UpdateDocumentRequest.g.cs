@@ -30,7 +30,9 @@ namespace Vectara
         /// The metadata for a document as an arbitrary object. Properties of this object<br/>
         /// can be used by document level filter attributes.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public UpdateDocumentRequest(
             object? metadata)
         {

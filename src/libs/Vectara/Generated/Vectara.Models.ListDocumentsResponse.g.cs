@@ -35,7 +35,9 @@ namespace Vectara
         /// <param name="metadata">
         /// The standard metadata in the response of a list operation.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ListDocumentsResponse(
             global::System.Collections.Generic.IList<global::Vectara.Document>? documents,
             global::Vectara.ListMetadata? metadata)

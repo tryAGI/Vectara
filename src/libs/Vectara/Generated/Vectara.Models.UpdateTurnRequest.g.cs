@@ -31,7 +31,9 @@ namespace Vectara
         /// Enabling a turn is not implemented.<br/>
         /// Example: false
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public UpdateTurnRequest(
             bool? enabled)
         {

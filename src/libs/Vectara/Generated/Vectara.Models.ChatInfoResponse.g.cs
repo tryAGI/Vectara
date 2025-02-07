@@ -48,7 +48,9 @@ namespace Vectara
         /// <param name="turnId">
         /// ID of the turn.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ChatInfoResponse(
             string? type,
             string? chatId,

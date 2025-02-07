@@ -89,7 +89,9 @@ namespace Vectara
         /// <param name="createdByUsername">
         /// The username of the user who created the job. This property may be missing, e.g., if the job was created by the system, not a user.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public Job(
             string? id,
             global::Vectara.JobType? type,

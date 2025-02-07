@@ -53,7 +53,9 @@ namespace Vectara
         /// <param name="rephrasedQuery">
         /// Query made to the corpora.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public RephraseSpan(
             string? type,
             int? latencyMillis,

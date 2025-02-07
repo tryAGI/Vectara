@@ -65,7 +65,9 @@ namespace Vectara
         /// <param name="createdAt">
         /// Specifies when this chat was created.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public Chat(
             string? id,
             string? firstQuery,

@@ -101,7 +101,9 @@ namespace Vectara
         /// results at each stage. If both 'limit' and 'cutoff' are specified, the cutoff<br/>
         /// is applied first, followed by the limit.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public CustomerSpecificReranker(
             string? type,
             string? rerankerName,

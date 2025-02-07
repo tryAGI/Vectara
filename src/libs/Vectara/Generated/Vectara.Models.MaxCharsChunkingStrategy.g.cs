@@ -45,7 +45,9 @@ namespace Vectara
         /// If a single sentence exceeds the limit, it splits the sentence across chunks.<br/>
         /// Note: This is the only case where the chunk may not contain a complete sentence.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public MaxCharsChunkingStrategy(
             int maxCharsPerChunk,
             string? type)

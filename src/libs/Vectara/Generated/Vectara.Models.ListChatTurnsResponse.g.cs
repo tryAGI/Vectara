@@ -26,7 +26,9 @@ namespace Vectara
         /// <param name="turns">
         /// List of turns.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ListChatTurnsResponse(
             global::System.Collections.Generic.IList<global::Vectara.Turn>? turns)
         {

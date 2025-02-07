@@ -39,7 +39,9 @@ namespace Vectara
         /// <param name="messages">
         /// The error messages.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public StreamError(
             string? type,
             global::System.Collections.Generic.IList<string>? messages)

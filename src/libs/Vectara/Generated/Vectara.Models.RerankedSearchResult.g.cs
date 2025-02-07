@@ -44,7 +44,9 @@ namespace Vectara
         /// <param name="originalScore">
         /// The original score of the individual result before reranking.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public RerankedSearchResult(
             string? text,
             double? score,

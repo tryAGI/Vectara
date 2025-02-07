@@ -57,7 +57,9 @@ namespace Vectara
         /// This property should be null or missing if this `api_key_role` is<br/>
         /// `personal`.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public CreateApiKeyRequest(
             string name,
             global::Vectara.ApiKeyRole apiKeyRole,
