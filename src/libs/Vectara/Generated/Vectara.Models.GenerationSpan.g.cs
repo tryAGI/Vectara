@@ -62,7 +62,9 @@ namespace Vectara
         /// <param name="generation">
         /// The text generated from the LLM.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public GenerationSpan(
             string? type,
             int? latencyMillis,

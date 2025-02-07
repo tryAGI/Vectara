@@ -123,7 +123,9 @@ namespace Vectara
         /// name. This allows boosting (or burying) document parts for arbitrary reasons.<br/>
         /// This feature is only enabled for Pro and Enterprise customers.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public CreateCorpusRequest(
             string key,
             string? name,

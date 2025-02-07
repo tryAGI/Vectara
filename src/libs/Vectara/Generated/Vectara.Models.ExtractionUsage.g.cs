@@ -27,7 +27,9 @@ namespace Vectara
         /// <param name="tableExtractionUsed">
         /// The number of pages from the document that consumed the extraction quota.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ExtractionUsage(
             long? tableExtractionUsed)
         {

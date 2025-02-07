@@ -123,7 +123,9 @@ namespace Vectara
         /// <param name="default">
         /// Indicates if this prompt is the default prompt used with the LLM.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public GenerationPreset(
             string? name,
             string? description,

@@ -79,7 +79,9 @@ namespace Vectara
         /// <param name="documentParts">
         /// Parts of the document that make up the document.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public CoreDocument(
             string id,
             string type,

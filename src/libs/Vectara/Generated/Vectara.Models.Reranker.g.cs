@@ -53,7 +53,9 @@ namespace Vectara
         /// <param name="enabled">
         /// Whether the reranker is enabled.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public Reranker(
             string? id,
             string? name,

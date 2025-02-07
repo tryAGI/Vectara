@@ -29,7 +29,9 @@ namespace Vectara
         /// If set to true, the platform will attempt to extract tables from the document.<br/>
         /// The tables will be indexed as separate document parts.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public TableExtractionConfig(
             bool extractTables)
         {

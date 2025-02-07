@@ -53,7 +53,9 @@ namespace Vectara
         /// <param name="rerankedSearchResults">
         /// The new search results after reranking.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public RerankSpan(
             string? type,
             int? latencyMillis,

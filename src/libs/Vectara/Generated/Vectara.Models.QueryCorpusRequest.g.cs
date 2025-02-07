@@ -70,7 +70,9 @@ namespace Vectara
         /// Indicates whether to save the query in the query history.<br/>
         /// Default Value: false
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public QueryCorpusRequest(
             string query,
             global::Vectara.AllOf<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>? search,

@@ -35,7 +35,9 @@ namespace Vectara
         /// <param name="apiRoles">
         /// The new roles attached to the App Client. These roles will replace the current roles.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public UpdateAppClientRequest(
             string? description,
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles)

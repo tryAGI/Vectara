@@ -71,7 +71,9 @@ namespace Vectara
         /// <param name="spans">
         /// Parts of the query pipeline. Each span explains what happened during that stage of the query pipeline.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public QueryHistory(
             string? id,
             global::Vectara.QueryRequest? query,

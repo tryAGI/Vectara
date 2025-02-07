@@ -51,7 +51,9 @@ namespace Vectara
         /// each reranker can have its own limit, potentially reducing the number of <br/>
         /// results at each stage.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public NoneReranker(
             string? type,
             int? limit)

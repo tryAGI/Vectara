@@ -33,7 +33,9 @@ namespace Vectara
         /// <param name="metadata">
         /// The metadata for the list of query histories.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public ListQueryHistoriesResponse(
             global::System.Collections.Generic.IList<global::Vectara.QueryHistorySummary>? queries,
             global::Vectara.ListQueryHistoriesResponseMetadata? metadata)

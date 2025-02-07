@@ -53,7 +53,9 @@ namespace Vectara
         /// <param name="searchResults">
         /// The search results before reranking.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public SearchSpan(
             string? type,
             int? latencyMillis,

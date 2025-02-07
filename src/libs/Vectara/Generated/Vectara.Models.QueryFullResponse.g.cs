@@ -78,7 +78,9 @@ namespace Vectara
         /// <param name="warnings">
         /// Non-fatal warnings that occurred during request processing
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public QueryFullResponse(
             string? summary,
             global::Vectara.Language? responseLanguage,

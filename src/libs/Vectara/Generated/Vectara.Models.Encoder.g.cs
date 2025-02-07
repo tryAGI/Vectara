@@ -90,7 +90,9 @@ namespace Vectara
         /// Indicates whether the encoder is enabled.<br/>
         /// Example: true
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public Encoder(
             string? id,
             string? name,

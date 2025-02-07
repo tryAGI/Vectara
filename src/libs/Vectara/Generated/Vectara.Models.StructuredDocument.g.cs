@@ -105,7 +105,9 @@ namespace Vectara
         /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public StructuredDocument(
             string id,
             string type,

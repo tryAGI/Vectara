@@ -65,7 +65,9 @@ namespace Vectara
         /// <param name="file">
         /// Binary file contents. The file name of the file will be used as the document ID.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public UploadFileRequest(
             byte[] file,
             object? metadata,

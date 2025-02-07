@@ -89,7 +89,9 @@ namespace Vectara
         /// <param name="factualConsistencyScore">
         /// The factual consistency score of the generation.
         /// </param>
+#if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
         public QueryHistorySummary(
             string? id,
             string? query,
