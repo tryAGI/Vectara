@@ -17,7 +17,7 @@ namespace Vectara
         ///  <br/>
         /// All of these properties except the model can be overridden by setting them in this<br/>
         /// object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set <br/>
-        /// the model used.<br/>
+        /// the model used. See `model_parameters.model` if you want to set the model explicitly.<br/>
         /// If `generation_preset_name` is not set, the Vectara platform will use the default model and<br/>
         /// prompt.<br/>
         /// Example: vectara-summary-ext-v1.2.0
@@ -156,7 +156,7 @@ namespace Vectara
         ///  <br/>
         /// All of these properties except the model can be overridden by setting them in this<br/>
         /// object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set <br/>
-        /// the model used.<br/>
+        /// the model used. See `model_parameters.model` if you want to set the model explicitly.<br/>
         /// If `generation_preset_name` is not set, the Vectara platform will use the default model and<br/>
         /// prompt.<br/>
         /// Example: vectara-summary-ext-v1.2.0

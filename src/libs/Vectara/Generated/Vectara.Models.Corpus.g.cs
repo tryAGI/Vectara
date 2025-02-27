@@ -79,6 +79,12 @@ namespace Vectara
         public string? EncoderName { get; set; }
 
         /// <summary>
+        /// Indicates whether to save corpus queries to query history by default.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("save_history")]
+        public bool? SaveHistory { get; set; }
+
+        /// <summary>
         /// The new filter attributes of the corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("filter_attributes")]
@@ -144,6 +150,9 @@ namespace Vectara
         /// The encoder used by the corpus, `boomerang-2023-q3`.<br/>
         /// Example: boomerang-2023-q3
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save corpus queries to query history by default.
+        /// </param>
         /// <param name="filterAttributes">
         /// The new filter attributes of the corpus.
         /// </param>
@@ -167,6 +176,7 @@ namespace Vectara
             bool? queriesAreAnswers,
             bool? documentsAreQuestions,
             string? encoderName,
+            bool? saveHistory,
             global::System.Collections.Generic.IList<global::Vectara.FilterAttribute>? filterAttributes,
             global::System.Collections.Generic.IList<global::Vectara.CorpusCustomDimension>? customDimensions,
             global::Vectara.CorpusLimits? limits,
@@ -181,6 +191,7 @@ namespace Vectara
             this.QueriesAreAnswers = queriesAreAnswers;
             this.DocumentsAreQuestions = documentsAreQuestions;
             this.EncoderName = encoderName;
+            this.SaveHistory = saveHistory;
             this.FilterAttributes = filterAttributes;
             this.CustomDimensions = customDimensions;
             this.Limits = limits;

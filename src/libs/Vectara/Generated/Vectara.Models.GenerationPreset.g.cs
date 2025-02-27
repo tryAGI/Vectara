@@ -22,7 +22,8 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Name of the model that these presets are used with.
+        /// Name of the model that these presets are used with. The list of available names can be<br/>
+        /// fetched by the `GET /v2/llms` endpoint.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("llm_name")]
         public string? LlmName { get; set; }
@@ -94,7 +95,8 @@ namespace Vectara
         /// Description of the generation preset.
         /// </param>
         /// <param name="llmName">
-        /// Name of the model that these presets are used with.
+        /// Name of the model that these presets are used with. The list of available names can be<br/>
+        /// fetched by the `GET /v2/llms` endpoint.
         /// </param>
         /// <param name="promptTemplate">
         /// Preset template used to render the prompt sent to generation.

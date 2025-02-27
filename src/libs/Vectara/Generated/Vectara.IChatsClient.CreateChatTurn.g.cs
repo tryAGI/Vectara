@@ -45,6 +45,11 @@ namespace Vectara
         /// Indicates whether to save the chat in both the chat and query history. This overrides `chat.store`.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="intelligentQueryRewriting">
+        /// Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to<br/>
+        /// extract metadata filter and rewrite the query to improve search results.<br/>
+        /// Default Value: false
+        /// </param>
         /// <param name="streamResponse">
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
@@ -60,6 +65,7 @@ namespace Vectara
             global::Vectara.GenerationParameters? generation = default,
             global::Vectara.ChatParameters? chat = default,
             bool? saveHistory = default,
+            bool? intelligentQueryRewriting = default,
             bool? streamResponse = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

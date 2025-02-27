@@ -68,6 +68,13 @@ namespace Vectara
         public string? RephrasedQuery { get; set; }
 
         /// <summary>
+        /// The rewritten queries for the corpora that were searched. Only populated when <br/>
+        /// intelligent_query_rewriting is enabled.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("rewritten_queries")]
+        public global::System.Collections.Generic.IList<global::Vectara.RewrittenQuery>? RewrittenQueries { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -107,6 +114,10 @@ namespace Vectara
         /// View the actual query made to backend that was rephrased <br/>
         /// by the LLM from the input query.
         /// </param>
+        /// <param name="rewrittenQueries">
+        /// The rewritten queries for the corpora that were searched. Only populated when <br/>
+        /// intelligent_query_rewriting is enabled.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -119,7 +130,8 @@ namespace Vectara
             float? factualConsistencyScore,
             string? renderedPrompt,
             global::System.Collections.Generic.IList<global::Vectara.QueryWarning>? warnings,
-            string? rephrasedQuery)
+            string? rephrasedQuery,
+            global::System.Collections.Generic.IList<global::Vectara.RewrittenQuery>? rewrittenQueries)
         {
             this.ChatId = chatId;
             this.TurnId = turnId;
@@ -130,6 +142,7 @@ namespace Vectara
             this.RenderedPrompt = renderedPrompt;
             this.Warnings = warnings;
             this.RephrasedQuery = rephrasedQuery;
+            this.RewrittenQueries = rewrittenQueries;
         }
 
         /// <summary>

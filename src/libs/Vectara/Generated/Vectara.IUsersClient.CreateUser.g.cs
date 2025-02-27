@@ -13,7 +13,7 @@ namespace Vectara
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        global::System.Threading.Tasks.Task<global::Vectara.User> CreateUserAsync(
+        global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
             global::Vectara.CreateUserRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
@@ -39,7 +39,7 @@ namespace Vectara
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
-        global::System.Threading.Tasks.Task<global::Vectara.User> CreateUserAsync(
+        global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
             string email,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,

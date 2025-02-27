@@ -285,6 +285,9 @@ namespace Vectara
         /// Description of the corpus. If unset or null, then the corpus will remain in the same state.<br/>
         /// Example: New description of the corpus.
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save corpus queries to query history by default.
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.Corpus> UpdateCorpusAsync(
@@ -294,6 +297,7 @@ namespace Vectara
             bool? enabled = default,
             string? name = default,
             string? description = default,
+            bool? saveHistory = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::Vectara.UpdateCorpusRequest
@@ -301,6 +305,7 @@ namespace Vectara
                 Enabled = enabled,
                 Name = name,
                 Description = description,
+                SaveHistory = saveHistory,
             };
 
             return await UpdateCorpusAsync(

@@ -34,7 +34,7 @@ namespace Vectara
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.User> CreateUserAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
             global::Vectara.CreateUserRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
@@ -209,7 +209,7 @@ namespace Vectara
                 }
 
                 return
-                    global::Vectara.User.FromJson(__content, JsonSerializerContext) ??
+                    global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>.FromJson(__content, JsonSerializerContext) ??
                     throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
             }
             else
@@ -239,7 +239,7 @@ namespace Vectara
                 ).ConfigureAwait(false);
 
                 return
-                    await global::Vectara.User.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                    await global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                     throw new global::System.InvalidOperationException("Response deserialization failed.");
             }
         }
@@ -264,7 +264,7 @@ namespace Vectara
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.User> CreateUserAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
             string email,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,

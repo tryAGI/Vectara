@@ -45,6 +45,10 @@ namespace Vectara
         /// Description of the corpus.<br/>
         /// Example: Documents with important information for my prompt.
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save corpus queries to query history by default.<br/>
+        /// Default Value: false
+        /// </param>
         /// <param name="queriesAreAnswers">
         /// Queries made to this corpus are considered answers, and not questions.<br/>
         /// Default Value: false
@@ -75,6 +79,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? name = default,
             string? description = default,
+            bool? saveHistory = default,
             bool? queriesAreAnswers = default,
             bool? documentsAreQuestions = default,
             string? encoderName = default,

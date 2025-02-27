@@ -49,6 +49,13 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.QueryWarning>? Warnings { get; set; }
 
         /// <summary>
+        /// The rewritten queries for the corpora that were searched. Only populated when <br/>
+        /// intelligent_query_rewriting is enabled.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("rewritten_queries")]
+        public global::System.Collections.Generic.IList<global::Vectara.RewrittenQuery>? RewrittenQueries { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -78,6 +85,10 @@ namespace Vectara
         /// <param name="warnings">
         /// Non-fatal warnings that occurred during request processing
         /// </param>
+        /// <param name="rewrittenQueries">
+        /// The rewritten queries for the corpora that were searched. Only populated when <br/>
+        /// intelligent_query_rewriting is enabled.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -87,7 +98,8 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.IndividualSearchResult>? searchResults,
             float? factualConsistencyScore,
             string? renderedPrompt,
-            global::System.Collections.Generic.IList<global::Vectara.QueryWarning>? warnings)
+            global::System.Collections.Generic.IList<global::Vectara.QueryWarning>? warnings,
+            global::System.Collections.Generic.IList<global::Vectara.RewrittenQuery>? rewrittenQueries)
         {
             this.Summary = summary;
             this.ResponseLanguage = responseLanguage;
@@ -95,6 +107,7 @@ namespace Vectara
             this.FactualConsistencyScore = factualConsistencyScore;
             this.RenderedPrompt = renderedPrompt;
             this.Warnings = warnings;
+            this.RewrittenQueries = rewrittenQueries;
         }
 
         /// <summary>

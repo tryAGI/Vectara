@@ -34,6 +34,13 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
+        /// Indicates whether to save corpus queries to query history by default.<br/>
+        /// Default Value: false
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("save_history")]
+        public bool? SaveHistory { get; set; }
+
+        /// <summary>
         /// Queries made to this corpus are considered answers, and not questions.<br/>
         /// Default Value: false
         /// </summary>
@@ -101,6 +108,10 @@ namespace Vectara
         /// Description of the corpus.<br/>
         /// Example: Documents with important information for my prompt.
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save corpus queries to query history by default.<br/>
+        /// Default Value: false
+        /// </param>
         /// <param name="queriesAreAnswers">
         /// Queries made to this corpus are considered answers, and not questions.<br/>
         /// Default Value: false
@@ -130,6 +141,7 @@ namespace Vectara
             string key,
             string? name,
             string? description,
+            bool? saveHistory,
             bool? queriesAreAnswers,
             bool? documentsAreQuestions,
             string? encoderName,
@@ -139,6 +151,7 @@ namespace Vectara
             this.Key = key ?? throw new global::System.ArgumentNullException(nameof(key));
             this.Name = name;
             this.Description = description;
+            this.SaveHistory = saveHistory;
             this.QueriesAreAnswers = queriesAreAnswers;
             this.DocumentsAreQuestions = documentsAreQuestions;
             this.EncoderName = encoderName;

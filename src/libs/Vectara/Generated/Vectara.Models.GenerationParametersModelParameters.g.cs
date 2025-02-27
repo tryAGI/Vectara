@@ -12,6 +12,15 @@ namespace Vectara
     public sealed partial class GenerationParametersModelParameters
     {
         /// <summary>
+        /// The model (e.g., `gpt-4`) to use for summarization. If specified, it will override the model behind<br/>
+        /// `generation_preset_name`.<br/>
+        /// Example: gpt4
+        /// </summary>
+        /// <example>gpt4</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("llm_name")]
+        public string? LlmName { get; set; }
+
+        /// <summary>
         /// The maximum number of tokens to be returned by the model.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_tokens")]
@@ -47,6 +56,11 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="GenerationParametersModelParameters" /> class.
         /// </summary>
+        /// <param name="llmName">
+        /// The model (e.g., `gpt-4`) to use for summarization. If specified, it will override the model behind<br/>
+        /// `generation_preset_name`.<br/>
+        /// Example: gpt4
+        /// </param>
         /// <param name="maxTokens">
         /// The maximum number of tokens to be returned by the model.
         /// </param>
@@ -66,11 +80,13 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public GenerationParametersModelParameters(
+            string? llmName,
             int? maxTokens,
             float? temperature,
             float? frequencyPenalty,
             float? presencePenalty)
         {
+            this.LlmName = llmName;
             this.MaxTokens = maxTokens;
             this.Temperature = temperature;
             this.FrequencyPenalty = frequencyPenalty;

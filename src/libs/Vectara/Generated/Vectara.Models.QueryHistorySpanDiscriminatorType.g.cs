@@ -28,6 +28,10 @@ namespace Vectara
         /// 
         /// </summary>
         Fcs,
+        /// <summary>
+        /// 
+        /// </summary>
+        RewrittenQuery,
     }
 
     /// <summary>
@@ -47,6 +51,7 @@ namespace Vectara
                 QueryHistorySpanDiscriminatorType.Rerank => "rerank",
                 QueryHistorySpanDiscriminatorType.Generation => "generation",
                 QueryHistorySpanDiscriminatorType.Fcs => "fcs",
+                QueryHistorySpanDiscriminatorType.RewrittenQuery => "rewritten_query",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -62,6 +67,7 @@ namespace Vectara
                 "rerank" => QueryHistorySpanDiscriminatorType.Rerank,
                 "generation" => QueryHistorySpanDiscriminatorType.Generation,
                 "fcs" => QueryHistorySpanDiscriminatorType.Fcs,
+                "rewritten_query" => QueryHistorySpanDiscriminatorType.RewrittenQuery,
                 _ => null,
             };
         }
