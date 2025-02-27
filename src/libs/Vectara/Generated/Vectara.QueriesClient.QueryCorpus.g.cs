@@ -321,7 +321,11 @@ namespace Vectara
         /// Default Value: false
         /// </param>
         /// <param name="saveHistory">
-        /// Indicates whether to save the query in the query history.<br/>
+        /// Indicates whether to save the query to query history.
+        /// </param>
+        /// <param name="intelligentQueryRewriting">
+        /// Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to<br/>
+        /// extract metadata filter and rewrite the query to improve search results.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -335,6 +339,7 @@ namespace Vectara
             global::Vectara.GenerationParameters? generation = default,
             bool? streamResponse = default,
             bool? saveHistory = default,
+            bool? intelligentQueryRewriting = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::Vectara.QueryCorpusRequest
@@ -344,6 +349,7 @@ namespace Vectara
                 Generation = generation,
                 StreamResponse = streamResponse,
                 SaveHistory = saveHistory,
+                IntelligentQueryRewriting = intelligentQueryRewriting,
             };
 
             return await QueryCorpusAsync(

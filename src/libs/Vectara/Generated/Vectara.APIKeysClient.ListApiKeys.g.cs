@@ -11,7 +11,8 @@ namespace Vectara
             ref int? requestTimeoutMillis,
             ref int? limit,
             ref string? pageKey,
-            ref string? corpusKey);
+            ref string? corpusKey,
+            ref global::Vectara.ApiKeyRole? apiKeyRole);
         partial void PrepareListApiKeysRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
@@ -19,7 +20,8 @@ namespace Vectara
             int? requestTimeoutMillis,
             int? limit,
             string? pageKey,
-            string? corpusKey);
+            string? corpusKey,
+            global::Vectara.ApiKeyRole? apiKeyRole);
         partial void ProcessListApiKeysResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
@@ -42,6 +44,12 @@ namespace Vectara
         /// A user-provided key for a corpus.<br/>
         /// Example: my-corpus
         /// </param>
+        /// <param name="apiKeyRole">
+        /// Role of the API key. <br/>
+        /// A serving API key can only perform query type requests on its corpora. A serving and<br/>
+        /// indexing key can perform both indexing and query type requests on its corpora.<br/>
+        /// A personal API key has all the same permissions as the creator of the API key.
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.ListApiKeysResponse> ListApiKeysAsync(
@@ -50,6 +58,7 @@ namespace Vectara
             int? limit = default,
             string? pageKey = default,
             string? corpusKey = default,
+            global::Vectara.ApiKeyRole? apiKeyRole = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             PrepareArguments(
@@ -60,7 +69,8 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 limit: ref limit,
                 pageKey: ref pageKey,
-                corpusKey: ref corpusKey);
+                corpusKey: ref corpusKey,
+                apiKeyRole: ref apiKeyRole);
 
             var __pathBuilder = new PathBuilder(
                 path: "/v2/api_keys",
@@ -69,6 +79,7 @@ namespace Vectara
                 .AddOptionalParameter("limit", limit?.ToString()) 
                 .AddOptionalParameter("page_key", pageKey) 
                 .AddOptionalParameter("corpus_key", corpusKey) 
+                .AddOptionalParameter("api_key_role", apiKeyRole?.ToValueString()) 
                 ; 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
@@ -115,7 +126,8 @@ namespace Vectara
                 requestTimeoutMillis: requestTimeoutMillis,
                 limit: limit,
                 pageKey: pageKey,
-                corpusKey: corpusKey);
+                corpusKey: corpusKey,
+                apiKeyRole: apiKeyRole);
 
             using var __response = await HttpClient.SendAsync(
                 request: __httpRequest,

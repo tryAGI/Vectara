@@ -56,6 +56,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.FactualConsistencyScoreSpan)}");
                 fcs = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.RewrittenQuerySpan? rewrittenQuery = default;
+            if (discriminator?.Type == global::Vectara.QueryHistorySpanDiscriminatorType.RewrittenQuery)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RewrittenQuerySpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RewrittenQuerySpan> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.RewrittenQuerySpan)}");
+                rewrittenQuery = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var result = new global::Vectara.QueryHistorySpan(
                 discriminator?.Type,
@@ -63,7 +70,8 @@ namespace Vectara.JsonConverters
                 search,
                 rerank,
                 generation,
-                fcs
+                fcs,
+                rewrittenQuery
                 );
 
             return result;
@@ -107,6 +115,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.FactualConsistencyScoreSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.FactualConsistencyScoreSpan?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.FactualConsistencyScoreSpan).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Fcs, typeInfo);
+            }
+            else if (value.IsRewrittenQuery)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RewrittenQuerySpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RewrittenQuerySpan?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.RewrittenQuerySpan).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.RewrittenQuery, typeInfo);
             }
         }
     }

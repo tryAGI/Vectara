@@ -45,6 +45,14 @@ namespace Vectara
         public bool? SaveHistory { get; set; }
 
         /// <summary>
+        /// Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to<br/>
+        /// extract metadata filter and rewrite the query to improve search results.<br/>
+        /// Default Value: false
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("intelligent_query_rewriting")]
+        public bool? IntelligentQueryRewriting { get; set; }
+
+        /// <summary>
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
         /// </summary>
@@ -77,6 +85,11 @@ namespace Vectara
         /// Indicates whether to save the chat in both the chat and query history. This overrides `chat.store`.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="intelligentQueryRewriting">
+        /// Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to<br/>
+        /// extract metadata filter and rewrite the query to improve search results.<br/>
+        /// Default Value: false
+        /// </param>
         /// <param name="streamResponse">
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
@@ -90,6 +103,7 @@ namespace Vectara
             global::Vectara.GenerationParameters? generation,
             global::Vectara.ChatParameters? chat,
             bool? saveHistory,
+            bool? intelligentQueryRewriting,
             bool? streamResponse)
         {
             this.Query = query ?? throw new global::System.ArgumentNullException(nameof(query));
@@ -97,6 +111,7 @@ namespace Vectara
             this.Generation = generation;
             this.Chat = chat;
             this.SaveHistory = saveHistory;
+            this.IntelligentQueryRewriting = intelligentQueryRewriting;
             this.StreamResponse = streamResponse;
         }
 

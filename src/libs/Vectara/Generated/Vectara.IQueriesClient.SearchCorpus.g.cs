@@ -27,7 +27,8 @@ namespace Vectara
         /// <param name="offset">
         /// Default Value: 0
         /// </param>
-        /// <param name="saveHistory">
+        /// <param name="saveHistory"></param>
+        /// <param name="intelligentQueryRewriting">
         /// Default Value: false
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -40,6 +41,7 @@ namespace Vectara
             int? limit = default,
             int? offset = default,
             bool? saveHistory = default,
+            bool? intelligentQueryRewriting = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

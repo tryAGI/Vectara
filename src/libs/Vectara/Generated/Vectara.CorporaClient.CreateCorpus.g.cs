@@ -175,6 +175,34 @@ namespace Vectara
                         h => h.Value),
                 };
             }
+            // The corpus already exists
+            if ((int)__response.StatusCode == 409)
+            {
+                string? __content_409 = null;
+                global::Vectara.Error? __value_409 = null;
+                if (ReadResponseAsString)
+                {
+                    __content_409 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                    __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                }
+                else
+                {
+                    var __contentStream_409 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                    __value_409 = await global::Vectara.Error.FromJsonStreamAsync(__contentStream_409, JsonSerializerContext).ConfigureAwait(false);
+                }
+
+                throw new global::Vectara.ApiException<global::Vectara.Error>(
+                    message: __response.ReasonPhrase ?? string.Empty,
+                    statusCode: __response.StatusCode)
+                {
+                    ResponseBody = __content_409,
+                    ResponseObject = __value_409,
+                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                        __response.Headers,
+                        h => h.Key,
+                        h => h.Value),
+                };
+            }
 
             if (ReadResponseAsString)
             {
@@ -270,6 +298,10 @@ namespace Vectara
         /// Description of the corpus.<br/>
         /// Example: Documents with important information for my prompt.
         /// </param>
+        /// <param name="saveHistory">
+        /// Indicates whether to save corpus queries to query history by default.<br/>
+        /// Default Value: false
+        /// </param>
         /// <param name="queriesAreAnswers">
         /// Queries made to this corpus are considered answers, and not questions.<br/>
         /// Default Value: false
@@ -300,6 +332,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? name = default,
             string? description = default,
+            bool? saveHistory = default,
             bool? queriesAreAnswers = default,
             bool? documentsAreQuestions = default,
             string? encoderName = default,
@@ -312,6 +345,7 @@ namespace Vectara
                 Key = key,
                 Name = name,
                 Description = description,
+                SaveHistory = saveHistory,
                 QueriesAreAnswers = queriesAreAnswers,
                 DocumentsAreQuestions = documentsAreQuestions,
                 EncoderName = encoderName,
