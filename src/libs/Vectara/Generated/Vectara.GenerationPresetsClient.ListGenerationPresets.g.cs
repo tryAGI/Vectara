@@ -146,7 +146,7 @@ namespace Vectara
                 }
 
                 throw new global::Vectara.ApiException<global::Vectara.Error>(
-                    message: __response.ReasonPhrase ?? string.Empty,
+                    message: __content_403 ?? __response.ReasonPhrase ?? string.Empty,
                     statusCode: __response.StatusCode)
                 {
                     ResponseBody = __content_403,
