@@ -25,6 +25,15 @@ namespace Vectara
         public string? Name { get; set; }
 
         /// <summary>
+        /// The encoder type<br/>
+        /// Default Value: vectara<br/>
+        /// Example: vectara
+        /// </summary>
+        /// <example>vectara</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
+        public string? Type { get; set; }
+
+        /// <summary>
         /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.<br/>
         /// A high dimensionality will consume more storage space, but it allows for an increase in the quality of<br/>
         /// the embedding.<br/>
@@ -73,6 +82,11 @@ namespace Vectara
         /// The encoder name, `boomerang-2023-q3`.<br/>
         /// Example: boomerang-2023-q3
         /// </param>
+        /// <param name="type">
+        /// The encoder type<br/>
+        /// Default Value: vectara<br/>
+        /// Example: vectara
+        /// </param>
         /// <param name="outputDimensions">
         /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.<br/>
         /// A high dimensionality will consume more storage space, but it allows for an increase in the quality of<br/>
@@ -96,6 +110,7 @@ namespace Vectara
         public Encoder(
             string? id,
             string? name,
+            string? type,
             int? outputDimensions,
             string? description,
             bool? @default,
@@ -103,6 +118,7 @@ namespace Vectara
         {
             this.Id = id;
             this.Name = name;
+            this.Type = type;
             this.OutputDimensions = outputDimensions;
             this.Description = description;
             this.Default = @default;

@@ -3,74 +3,54 @@
 
 namespace Vectara
 {
-    public partial class UsersClient
+    public partial class LargeLanguageModelsClient
     {
-        partial void PrepareListUsersArguments(
+        partial void PrepareGetLLMArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            ref int? limit,
-            ref string? pageKey,
-            ref string? corpusKey);
-        partial void PrepareListUsersRequest(
+            ref string llmId);
+        partial void PrepareGetLLMRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            int? limit,
-            string? pageKey,
-            string? corpusKey);
-        partial void ProcessListUsersResponse(
+            string llmId);
+        partial void ProcessGetLLMResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessListUsersResponseContent(
+        partial void ProcessGetLLMResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// List users in the account<br/>
-        /// Lists all users in the account.
+        /// Get an LLM<br/>
+        /// Get details about a specific LLM.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="limit">
-        /// Default Value: 10
-        /// </param>
-        /// <param name="pageKey"></param>
-        /// <param name="corpusKey">
-        /// A user-provided key for a corpus.<br/>
-        /// Example: my-corpus
-        /// </param>
+        /// <param name="llmId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.ListUsersResponse> ListUsersAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.LLM> GetLLMAsync(
+            string llmId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            int? limit = default,
-            string? pageKey = default,
-            string? corpusKey = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             PrepareArguments(
                 client: HttpClient);
-            PrepareListUsersArguments(
+            PrepareGetLLMArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                limit: ref limit,
-                pageKey: ref pageKey,
-                corpusKey: ref corpusKey);
+                llmId: ref llmId);
 
             var __pathBuilder = new PathBuilder(
-                path: "/v2/users",
+                path: $"/v2/llms/{llmId}",
                 baseUri: HttpClient.BaseAddress); 
-            __pathBuilder 
-                .AddOptionalParameter("limit", limit?.ToString()) 
-                .AddOptionalParameter("page_key", pageKey) 
-                .AddOptionalParameter("corpus_key", corpusKey) 
-                ; 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Get,
@@ -109,14 +89,12 @@ namespace Vectara
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-            PrepareListUsersRequest(
+            PrepareGetLLMRequest(
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
-                limit: limit,
-                pageKey: pageKey,
-                corpusKey: corpusKey);
+                llmId: llmId);
 
             using var __response = await HttpClient.SendAsync(
                 request: __httpRequest,
@@ -126,10 +104,10 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-            ProcessListUsersResponse(
+            ProcessGetLLMResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-            // Permissions do not allow listing users.
+            // Permissions do not allow retrieving this LLM.
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
@@ -157,6 +135,34 @@ namespace Vectara
                         h => h.Value),
                 };
             }
+            // LLM not found.
+            if ((int)__response.StatusCode == 404)
+            {
+                string? __content_404 = null;
+                global::Vectara.NotFoundError? __value_404 = null;
+                if (ReadResponseAsString)
+                {
+                    __content_404 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                    __value_404 = global::Vectara.NotFoundError.FromJson(__content_404, JsonSerializerContext);
+                }
+                else
+                {
+                    var __contentStream_404 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                    __value_404 = await global::Vectara.NotFoundError.FromJsonStreamAsync(__contentStream_404, JsonSerializerContext).ConfigureAwait(false);
+                }
+
+                throw new global::Vectara.ApiException<global::Vectara.NotFoundError>(
+                    message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
+                    statusCode: __response.StatusCode)
+                {
+                    ResponseBody = __content_404,
+                    ResponseObject = __value_404,
+                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                        __response.Headers,
+                        h => h.Key,
+                        h => h.Value),
+                };
+            }
 
             if (ReadResponseAsString)
             {
@@ -170,7 +176,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-                ProcessListUsersResponseContent(
+                ProcessGetLLMResponseContent(
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);
@@ -195,7 +201,7 @@ namespace Vectara
                 }
 
                 return
-                    global::Vectara.ListUsersResponse.FromJson(__content, JsonSerializerContext) ??
+                    global::Vectara.LLM.FromJson(__content, JsonSerializerContext) ??
                     throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
             }
             else
@@ -225,7 +231,7 @@ namespace Vectara
                 ).ConfigureAwait(false);
 
                 return
-                    await global::Vectara.ListUsersResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                    await global::Vectara.LLM.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                     throw new global::System.InvalidOperationException("Response deserialization failed.");
             }
         }

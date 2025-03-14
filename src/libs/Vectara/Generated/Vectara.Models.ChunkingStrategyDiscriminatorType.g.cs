@@ -12,6 +12,10 @@ namespace Vectara
         /// 
         /// </summary>
         MaxCharsChunkingStrategy,
+        /// <summary>
+        /// 
+        /// </summary>
+        SentenceChunkingStrategy,
     }
 
     /// <summary>
@@ -27,6 +31,7 @@ namespace Vectara
             return value switch
             {
                 ChunkingStrategyDiscriminatorType.MaxCharsChunkingStrategy => "max_chars_chunking_strategy",
+                ChunkingStrategyDiscriminatorType.SentenceChunkingStrategy => "sentence_chunking_strategy",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -38,6 +43,7 @@ namespace Vectara
             return value switch
             {
                 "max_chars_chunking_strategy" => ChunkingStrategyDiscriminatorType.MaxCharsChunkingStrategy,
+                "sentence_chunking_strategy" => ChunkingStrategyDiscriminatorType.SentenceChunkingStrategy,
                 _ => null,
             };
         }

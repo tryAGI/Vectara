@@ -28,10 +28,18 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.MaxCharsChunkingStrategy)}");
                 maxCharsChunkingStrategy = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.SentenceChunkingStrategy? sentenceChunkingStrategy = default;
+            if (discriminator?.Type == global::Vectara.ChunkingStrategyDiscriminatorType.SentenceChunkingStrategy)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SentenceChunkingStrategy), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SentenceChunkingStrategy> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.SentenceChunkingStrategy)}");
+                sentenceChunkingStrategy = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var result = new global::Vectara.ChunkingStrategy(
                 discriminator?.Type,
-                maxCharsChunkingStrategy
+                maxCharsChunkingStrategy,
+                sentenceChunkingStrategy
                 );
 
             return result;
@@ -51,6 +59,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.MaxCharsChunkingStrategy), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.MaxCharsChunkingStrategy?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.MaxCharsChunkingStrategy).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.MaxCharsChunkingStrategy, typeInfo);
+            }
+            else if (value.IsSentenceChunkingStrategy)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SentenceChunkingStrategy), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SentenceChunkingStrategy?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SentenceChunkingStrategy).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SentenceChunkingStrategy, typeInfo);
             }
         }
     }

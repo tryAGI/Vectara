@@ -19,7 +19,8 @@ namespace Vectara
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
-        public global::Vectara.MaxCharsChunkingStrategy? ChunkingStrategy { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ChunkingStrategyJsonConverter))]
+        public global::Vectara.ChunkingStrategy? ChunkingStrategy { get; set; }
 
         /// <summary>
         /// (Optional) Configuration for table extraction from the document.
@@ -71,7 +72,7 @@ namespace Vectara
         public UploadFileRequest(
             byte[] file,
             object? metadata,
-            global::Vectara.MaxCharsChunkingStrategy? chunkingStrategy,
+            global::Vectara.ChunkingStrategy? chunkingStrategy,
             global::Vectara.TableExtractionConfig? tableExtractionConfig,
             string? filename)
         {
