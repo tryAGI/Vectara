@@ -64,7 +64,8 @@ namespace Vectara
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
-        public global::Vectara.MaxCharsChunkingStrategy? ChunkingStrategy { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ChunkingStrategyJsonConverter))]
+        public global::Vectara.ChunkingStrategy? ChunkingStrategy { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -116,7 +117,7 @@ namespace Vectara
             string? description,
             object? metadata,
             global::System.Collections.Generic.Dictionary<string, double>? customDimensions,
-            global::Vectara.MaxCharsChunkingStrategy? chunkingStrategy)
+            global::Vectara.ChunkingStrategy? chunkingStrategy)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));

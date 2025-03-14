@@ -3,77 +3,57 @@
 
 namespace Vectara
 {
-    public partial class UsersClient
+    public partial class EncodersClient
     {
-        partial void PrepareListUsersArguments(
+        partial void PrepareCreateEncoderArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            ref int? limit,
-            ref string? pageKey,
-            ref string? corpusKey);
-        partial void PrepareListUsersRequest(
+            global::Vectara.CreateEncoderRequest request);
+        partial void PrepareCreateEncoderRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            int? limit,
-            string? pageKey,
-            string? corpusKey);
-        partial void ProcessListUsersResponse(
+            global::Vectara.CreateEncoderRequest request);
+        partial void ProcessCreateEncoderResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessListUsersResponseContent(
+        partial void ProcessCreateEncoderResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// List users in the account<br/>
-        /// Lists all users in the account.
+        /// Create an encoder<br/>
+        /// Create a new encoder.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="limit">
-        /// Default Value: 10
-        /// </param>
-        /// <param name="pageKey"></param>
-        /// <param name="corpusKey">
-        /// A user-provided key for a corpus.<br/>
-        /// Example: my-corpus
-        /// </param>
+        /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.ListUsersResponse> ListUsersAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.Encoder> CreateEncoderAsync(
+            global::Vectara.CreateEncoderRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            int? limit = default,
-            string? pageKey = default,
-            string? corpusKey = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             PrepareArguments(
                 client: HttpClient);
-            PrepareListUsersArguments(
+            PrepareCreateEncoderArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                limit: ref limit,
-                pageKey: ref pageKey,
-                corpusKey: ref corpusKey);
+                request: request);
 
             var __pathBuilder = new PathBuilder(
-                path: "/v2/users",
+                path: "/v2/encoders",
                 baseUri: HttpClient.BaseAddress); 
-            __pathBuilder 
-                .AddOptionalParameter("limit", limit?.ToString()) 
-                .AddOptionalParameter("page_key", pageKey) 
-                .AddOptionalParameter("corpus_key", corpusKey) 
-                ; 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                method: global::System.Net.Http.HttpMethod.Get,
+                method: global::System.Net.Http.HttpMethod.Post,
                 requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
             __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -105,18 +85,22 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
+            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
+            var __httpRequestContent = new global::System.Net.Http.StringContent(
+                content: __httpRequestContentBody,
+                encoding: global::System.Text.Encoding.UTF8,
+                mediaType: "application/json");
+            __httpRequest.Content = __httpRequestContent;
 
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-            PrepareListUsersRequest(
+            PrepareCreateEncoderRequest(
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
-                limit: limit,
-                pageKey: pageKey,
-                corpusKey: corpusKey);
+                request: request);
 
             using var __response = await HttpClient.SendAsync(
                 request: __httpRequest,
@@ -126,10 +110,38 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-            ProcessListUsersResponse(
+            ProcessCreateEncoderResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-            // Permissions do not allow listing users.
+            // Encoder creation request was malformed.
+            if ((int)__response.StatusCode == 400)
+            {
+                string? __content_400 = null;
+                global::Vectara.BadRequestError? __value_400 = null;
+                if (ReadResponseAsString)
+                {
+                    __content_400 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                    __value_400 = global::Vectara.BadRequestError.FromJson(__content_400, JsonSerializerContext);
+                }
+                else
+                {
+                    var __contentStream_400 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                    __value_400 = await global::Vectara.BadRequestError.FromJsonStreamAsync(__contentStream_400, JsonSerializerContext).ConfigureAwait(false);
+                }
+
+                throw new global::Vectara.ApiException<global::Vectara.BadRequestError>(
+                    message: __content_400 ?? __response.ReasonPhrase ?? string.Empty,
+                    statusCode: __response.StatusCode)
+                {
+                    ResponseBody = __content_400,
+                    ResponseObject = __value_400,
+                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                        __response.Headers,
+                        h => h.Key,
+                        h => h.Value),
+                };
+            }
+            // Permissions do not allow creating an encoder
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
@@ -170,7 +182,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-                ProcessListUsersResponseContent(
+                ProcessCreateEncoderResponseContent(
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);
@@ -195,7 +207,7 @@ namespace Vectara
                 }
 
                 return
-                    global::Vectara.ListUsersResponse.FromJson(__content, JsonSerializerContext) ??
+                    global::Vectara.Encoder.FromJson(__content, JsonSerializerContext) ??
                     throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
             }
             else
@@ -225,9 +237,33 @@ namespace Vectara
                 ).ConfigureAwait(false);
 
                 return
-                    await global::Vectara.ListUsersResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                    await global::Vectara.Encoder.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                     throw new global::System.InvalidOperationException("Response deserialization failed.");
             }
+        }
+
+        /// <summary>
+        /// Create an encoder<br/>
+        /// Create a new encoder.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::System.InvalidOperationException"></exception>
+        public async global::System.Threading.Tasks.Task<global::Vectara.Encoder> CreateEncoderAsync(
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
+            var __request = new global::Vectara.CreateEncoderRequest
+            {
+            };
+
+            return await CreateEncoderAsync(
+                requestTimeout: requestTimeout,
+                requestTimeoutMillis: requestTimeoutMillis,
+                request: __request,
+                cancellationToken: cancellationToken).ConfigureAwait(false);
         }
     }
 }
