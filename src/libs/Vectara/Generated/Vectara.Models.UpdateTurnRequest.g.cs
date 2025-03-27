@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to update a specific turn (message exchange) within a chat conversation.
     /// </summary>
     public sealed partial class UpdateTurnRequest
     {

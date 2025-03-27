@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A model that converts text into vector embeddings for semantic search.
     /// </summary>
     public sealed partial class Encoder
     {

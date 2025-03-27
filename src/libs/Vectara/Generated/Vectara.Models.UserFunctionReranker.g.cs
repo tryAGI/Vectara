@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A reranker that uses user-defined functions to reorder search results.
     /// </summary>
     public sealed partial class UserFunctionReranker
     {

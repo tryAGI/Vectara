@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to create an OpenAI-compatible Large Language Model connection.
     /// </summary>
     public sealed partial class CreateOpenAILLMRequest
     {

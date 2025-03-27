@@ -18,18 +18,18 @@ namespace Vectara
         /// Configuration for an OpenAI-compatible encoder
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.CreateOpenAIEncoderRequest? Openai { get; init; }
+        public global::Vectara.CreateOpenAIEncoderRequest? OpenaiCompatible { get; init; }
 #else
-        public global::Vectara.CreateOpenAIEncoderRequest? Openai { get; }
+        public global::Vectara.CreateOpenAIEncoderRequest? OpenaiCompatible { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Openai))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiCompatible))]
 #endif
-        public bool IsOpenai => Openai != null;
+        public bool IsOpenaiCompatible => OpenaiCompatible != null;
 
         /// <summary>
         /// 
@@ -39,14 +39,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.CreateOpenAIEncoderRequest?(CreateEncoderRequest @this) => @this.Openai;
+        public static implicit operator global::Vectara.CreateOpenAIEncoderRequest?(CreateEncoderRequest @this) => @this.OpenaiCompatible;
 
         /// <summary>
         /// 
         /// </summary>
         public CreateEncoderRequest(global::Vectara.CreateOpenAIEncoderRequest? value)
         {
-            Openai = value;
+            OpenaiCompatible = value;
         }
 
         /// <summary>
@@ -54,19 +54,19 @@ namespace Vectara
         /// </summary>
         public CreateEncoderRequest(
             global::Vectara.CreateEncoderRequestDiscriminatorType? type,
-            global::Vectara.CreateOpenAIEncoderRequest? openai
+            global::Vectara.CreateOpenAIEncoderRequest? openaiCompatible
             )
         {
             Type = type;
 
-            Openai = openai;
+            OpenaiCompatible = openaiCompatible;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Openai as object 
+            OpenaiCompatible as object 
             ;
 
         /// <summary>
@@ -74,14 +74,14 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsOpenai;
+            return IsOpenaiCompatible;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateOpenAIEncoderRequest?, TResult>? openai = null,
+            global::System.Func<global::Vectara.CreateOpenAIEncoderRequest?, TResult>? openaiCompatible = null,
             bool validate = true)
         {
             if (validate)
@@ -89,9 +89,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsOpenai && openai != null)
+            if (IsOpenaiCompatible && openaiCompatible != null)
             {
-                return openai(Openai!);
+                return openaiCompatible(OpenaiCompatible!);
             }
 
             return default(TResult);
@@ -101,7 +101,7 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateOpenAIEncoderRequest?>? openai = null,
+            global::System.Action<global::Vectara.CreateOpenAIEncoderRequest?>? openaiCompatible = null,
             bool validate = true)
         {
             if (validate)
@@ -109,9 +109,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsOpenai)
+            if (IsOpenaiCompatible)
             {
-                openai?.Invoke(Openai!);
+                openaiCompatible?.Invoke(OpenaiCompatible!);
             }
         }
 
@@ -122,7 +122,7 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Openai,
+                OpenaiCompatible,
                 typeof(global::Vectara.CreateOpenAIEncoderRequest),
             };
             const int offset = unchecked((int)2166136261);
@@ -140,7 +140,7 @@ namespace Vectara
         public bool Equals(CreateEncoderRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAIEncoderRequest?>.Default.Equals(Openai, other.Openai) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAIEncoderRequest?>.Default.Equals(OpenaiCompatible, other.OpenaiCompatible) 
                 ;
         }
 

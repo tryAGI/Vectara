@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to create a Large Language Model connection for generative capabilities.
     /// </summary>
     public readonly partial struct CreateLLMRequest : global::System.IEquatable<CreateLLMRequest>
     {
@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.CreateLLMRequestDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// 
+        /// Request to create an OpenAI-compatible Large Language Model connection.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateOpenAILLMRequest? OpenaiCompatible { get; init; }

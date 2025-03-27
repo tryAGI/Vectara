@@ -5,7 +5,8 @@ namespace Vectara
     public partial interface IAPIKeysClient
     {
         /// <summary>
-        /// List API keys
+        /// List API keys<br/>
+        /// Retrieve a list of API keys for the customer account with optional filtering.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

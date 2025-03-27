@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to update an existing user's properties or permissions.
     /// </summary>
     public sealed partial class UpdateUserRequest
     {

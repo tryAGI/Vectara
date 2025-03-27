@@ -4,6 +4,7 @@
 namespace Vectara
 {
     /// <summary>
+    /// Retrieve and manage the history of previous queries for analytics and auditing<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>

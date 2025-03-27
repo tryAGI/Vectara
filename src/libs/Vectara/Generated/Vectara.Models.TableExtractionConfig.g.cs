@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// (Optional) Configuration for table extraction from the document.
+    /// Configuration for table extraction from the document. This is optional and if not provided, default table extraction behavior will be used.
     /// </summary>
     public sealed partial class TableExtractionConfig
     {
@@ -15,6 +15,12 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonPropertyName("extract_tables")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required bool ExtractTables { get; set; }
+
+        /// <summary>
+        /// Specification for which table extractor to use. If not specified, the platform uses the default extractor.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("extractor")]
+        public global::Vectara.TableExtractorSpec? Extractor { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -29,13 +35,18 @@ namespace Vectara
         /// If set to true, the platform will attempt to extract tables from the document.<br/>
         /// The tables will be indexed as separate document parts.
         /// </param>
+        /// <param name="extractor">
+        /// Specification for which table extractor to use. If not specified, the platform uses the default extractor.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public TableExtractionConfig(
-            bool extractTables)
+            bool extractTables,
+            global::Vectara.TableExtractorSpec? extractor)
         {
             this.ExtractTables = extractTables;
+            this.Extractor = extractor;
         }
 
         /// <summary>

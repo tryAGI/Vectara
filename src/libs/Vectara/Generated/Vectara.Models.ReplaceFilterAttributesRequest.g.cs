@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to replace all filter attributes for a corpus with a new set of attributes.
     /// </summary>
     public sealed partial class ReplaceFilterAttributesRequest
     {

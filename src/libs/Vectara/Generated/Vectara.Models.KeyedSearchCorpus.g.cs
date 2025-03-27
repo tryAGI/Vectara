@@ -5,12 +5,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A corpus with its identifying key for use in search operations within a customer account.
     /// </summary>
     public readonly partial struct KeyedSearchCorpus : global::System.IEquatable<KeyedSearchCorpus>
     {
         /// <summary>
-        /// 
+        /// Configuration for search parameters specific to a single corpus within a customer account, including filters and semantics.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SearchCorpus? Value1 { get; init; }

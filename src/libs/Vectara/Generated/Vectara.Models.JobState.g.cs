@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Enum representing the possible states of a background job.
     /// </summary>
     public enum JobState
     {

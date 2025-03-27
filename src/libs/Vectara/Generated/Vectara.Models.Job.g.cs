@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A background job for processing long-running operations on the platform.
     /// </summary>
     public sealed partial class Job
     {
@@ -28,7 +28,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? CorpusKeys { get; set; }
 
         /// <summary>
-        /// 
+        /// Enum representing the possible states of a background job.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("state")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JobStateJsonConverter))]
@@ -76,7 +76,9 @@ namespace Vectara
         /// <param name="corpusKeys">
         /// The corpora that this job belongs to. It may not belong to any corpora.
         /// </param>
-        /// <param name="state"></param>
+        /// <param name="state">
+        /// Enum representing the possible states of a background job.
+        /// </param>
         /// <param name="createdAt">
         /// Specifies when the job was created.
         /// </param>

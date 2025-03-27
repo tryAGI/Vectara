@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to create a new user account in the system.
     /// </summary>
     public sealed partial class CreateUserRequest
     {

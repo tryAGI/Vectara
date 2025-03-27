@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to start or continue a chat conversation with a large language model.
     /// </summary>
     public sealed partial class ChatRequest
     {

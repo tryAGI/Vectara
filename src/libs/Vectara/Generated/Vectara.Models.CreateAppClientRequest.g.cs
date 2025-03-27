@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to create a new OAuth application client for the platform.
     /// </summary>
     public readonly partial struct CreateAppClientRequest : global::System.IEquatable<CreateAppClientRequest>
     {

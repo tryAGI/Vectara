@@ -30,7 +30,8 @@ namespace Vectara
             ref string content);
 
         /// <summary>
-        /// List App Clients
+        /// List App Clients<br/>
+        /// Retrieve a list of application clients configured for the customer account.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

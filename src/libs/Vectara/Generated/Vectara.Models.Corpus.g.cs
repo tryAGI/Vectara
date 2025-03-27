@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A corpus is a collection of documents and associated configuration for indexing, searching, and generating responses through RAG.
     /// </summary>
     public sealed partial class Corpus
     {

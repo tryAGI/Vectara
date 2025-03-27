@@ -52,7 +52,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        /// A reranker that uses user-defined functions to reorder search results.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UserFunctionReranker? Userfn { get; init; }
@@ -87,7 +87,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        /// A reranker that uses Maximal Marginal Relevance to balance relevance and diversity in search results.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.MMRReranker? Mmr { get; init; }
@@ -122,7 +122,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        /// A reranker that applies multiple rerankers in sequence to produce the final search results.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ChainReranker? Chain { get; init; }
@@ -157,7 +157,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        /// A placeholder reranker that does not modify the original search results ordering.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.NoneReranker? None { get; init; }

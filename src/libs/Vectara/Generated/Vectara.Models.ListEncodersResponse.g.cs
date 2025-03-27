@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Response containing a list of available encoders for converting text to vector embeddings.
     /// </summary>
     public sealed partial class ListEncodersResponse
     {

@@ -55,6 +55,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: create
     get:
       tags:
         - Corpora
@@ -96,6 +98,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.corpora
   '/v2/corpora/{corpus_key}':
     get:
       tags:
@@ -131,6 +139,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: get
     delete:
       tags:
         - Corpora
@@ -161,6 +171,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: delete
     patch:
       tags:
         - Corpora
@@ -200,6 +212,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: update
   '/v2/corpora/{corpus_key}/reset':
     post:
       tags:
@@ -231,6 +245,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: reset
   '/v2/corpora/{corpus_key}/replace_filter_attributes':
     post:
       tags:
@@ -271,6 +287,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: replaceFilterAttributes
   '/v2/corpora/{corpus_key}/compute_size':
     post:
       tags:
@@ -306,6 +324,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: compute_size
   '/v2/corpora/{corpus_key}/query':
     get:
       tags:
@@ -378,6 +398,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: search
     post:
       tags:
         - Queries
@@ -427,6 +449,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
       x-stream-based-on-body: streamResponse()
+      x-fern-streaming:
+        format: sse
+        stream-condition: $request.stream_response
+        response:
+          $ref: '#/components/schemas/QueryFullResponse'
+        response-stream:
+          $ref: '#/components/schemas/QueryStreamedResponse'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: query
   /v2/query:
     post:
       tags:
@@ -471,6 +502,56 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
       x-stream-based-on-body: streamResponse()
+      x-fern-streaming:
+        stream-condition: $request.stream_response
+        format: sse
+        response:
+          $ref: '#/components/schemas/QueryFullResponse'
+        response-stream:
+          $ref: '#/components/schemas/QueryStreamedResponse'
+      x-fern-sdk-method-name: query
+      x-fern-examples:
+        - name: Batch
+          request:
+            stream_response: false
+            query: What is a hallucination?
+            search:
+              corpora:
+                - corpus_key: corpus_key
+                  metadata_filter: ''
+                  lexical_interpolation: 0.005
+              context_configuration:
+                sentences_before: 2
+                sentences_after: 2
+              reranker:
+                type: customer_reranker
+                reranker_id: rnk_272725719
+            generation:
+              response_language: eng
+              enable_factual_consistency_score: true
+          response:
+            body: { }
+        - name: Stream
+          request:
+            stream_response: true
+            query: What is a hallucination?
+            search:
+              corpora:
+                - corpus_key: corpus_key
+                  metadata_filter: ''
+                  lexical_interpolation: 0.005
+              context_configuration:
+                sentences_before: 2
+                sentences_after: 2
+              reranker:
+                type: customer_reranker
+                reranker_id: rnk_272725719
+            generation:
+              response_language: eng
+              enable_factual_consistency_score: true
+          response:
+            stream: [ ]
+      x-fern-sdk-group-name: queries
   '/v2/corpora/{corpus_key}/upload_file':
     post:
       tags:
@@ -535,6 +616,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-examples:
+        - code-samples:
+            - language: python
+              code: "from vectara import Vectara\n\nclient = Vectara(\n    api_key=\"YOUR_API_KEY\",\n    # or\n    client_id=\"YOUR_CLIENT_ID\",\n    client_secret=\"YOUR_CLIENT_SECRET\",\n)\nclient.upload.file(\n    corpus_key=corpus_key,\n    file=content,\n    filename=slugify(url),\n)\n"
+      x-fern-sdk-group-name: upload
+      x-fern-sdk-method-name: file
   '/v2/corpora/{corpus_key}/documents':
     post:
       tags:
@@ -587,6 +674,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: create
+      x-fern-examples:
+        - path-parameters:
+            corpus_key: my-corpus-key
+          request:
+            id: my-doc-id
+            type: structured
+            sections:
+              - id: 1
+                title: A nice title.
+                text: I'm a nice document section.
+                metadata:
+                  section: '2025-01-01'
+              - id: 2
+                title: Another nice title.
+                text: I'm another document section on something else.
+                metadata:
+                  section: '2025-01-02'
+            metadata:
+              url: https://example.com
+          response:
+            body: { }
     get:
       tags:
         - Documents
@@ -640,6 +750,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.documents
   '/v2/corpora/{corpus_key}/documents/{document_id}':
     delete:
       tags:
@@ -677,6 +793,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: delete
     get:
       tags:
         - Documents
@@ -717,6 +835,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: get
     patch:
       tags:
         - Index
@@ -768,6 +888,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: update
   '/v2/corpora/{corpus_key}/documents/{document_id}/metadata':
     put:
       tags:
@@ -820,6 +942,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: update_metadata
   '/v2/corpora/{corpus_key}/documents/{document_id}/summarize':
     post:
       tags:
@@ -870,6 +994,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
       x-stream-based-on-body: streamResponse()
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: summarize
   /v2/chats:
     post:
       tags:
@@ -914,6 +1040,64 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
       x-stream-based-on-body: streamResponse()
+      x-fern-streaming:
+        format: sse
+        stream-condition: $request.stream_response
+        response:
+          $ref: '#/components/schemas/ChatFullResponse'
+        response-stream:
+          $ref: '#/components/schemas/ChatStreamedResponse'
+      x-fern-sdk-method-name: create
+      x-fern-examples:
+        - name: Batch
+          request:
+            stream_response: false
+            query: What is a hallucination?
+            search:
+              corpora:
+                - corpus_key: corpus_key
+                  metadata_filter: ''
+                  lexical_interpolation: 0.005
+              context_configuration:
+                sentences_before: 2
+                sentences_after: 2
+              reranker:
+                type: customer_reranker
+                reranker_id: rnk_272725719
+            generation:
+              response_language: eng
+              enable_factual_consistency_score: true
+              citations:
+                style: none
+            chat:
+              store: true
+          response:
+            body: { }
+        - name: Stream
+          request:
+            stream_response: true
+            query: What is a hallucination?
+            search:
+              corpora:
+                - corpus_key: corpus_key
+                  metadata_filter: ''
+                  lexical_interpolation: 0.005
+              context_configuration:
+                sentences_before: 2
+                sentences_after: 2
+              reranker:
+                type: customer_reranker
+                reranker_id: rnk_272725719
+            generation:
+              response_language: eng
+              citations:
+                style: none
+              enable_factual_consistency_score: true
+            chat:
+              store: true
+          response:
+            stream: [ ]
+      x-fern-sdk-group-name: chats
     get:
       tags:
         - Chats
@@ -956,6 +1140,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: chats
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.chats
   /v2/llms:
     post:
       tags:
@@ -990,6 +1180,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: create
     get:
       tags:
         - Large Language Models
@@ -1031,6 +1223,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.llms
   '/v2/llms/{llm_id}':
     get:
       tags:
@@ -1066,6 +1264,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: get
     delete:
       tags:
         - Large Language Models
@@ -1096,6 +1296,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: delete
   /v2/generation_presets:
     get:
       tags:
@@ -1138,6 +1340,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: generation_presets
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.generation_presets
   '/v2/chats/{chat_id}':
     get:
       tags:
@@ -1174,6 +1382,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: chats
+      x-fern-sdk-method-name: get
     delete:
       tags:
         - Chats
@@ -1205,6 +1415,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: chats
+      x-fern-sdk-method-name: delete
   '/v2/chats/{chat_id}/turns':
     post:
       tags:
@@ -1256,6 +1468,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
       x-stream-based-on-body: streamResponse()
+      x-fern-streaming:
+        format: sse
+        stream-condition: $request.stream_response
+        response:
+          $ref: '#/components/schemas/ChatFullResponse'
+        response-stream:
+          $ref: '#/components/schemas/ChatStreamedResponse'
+      x-fern-sdk-group-name: chats
+      x-fern-sdk-method-name: createTurns
     get:
       tags:
         - Chats
@@ -1291,6 +1512,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: chats
+      x-fern-sdk-method-name: listTurns
   '/v2/chats/{chat_id}/turns/{turn_id}':
     get:
       tags:
@@ -1334,6 +1557,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: chats
+      x-fern-sdk-method-name: getTurn
     delete:
       tags:
         - Chats
@@ -1372,6 +1597,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: chats
+      x-fern-sdk-method-name: deleteTurn
     patch:
       tags:
         - Chats
@@ -1419,6 +1646,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: chats
+      x-fern-sdk-method-name: updateTurn
   /v2/encoders:
     post:
       tags:
@@ -1453,6 +1682,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: encoders
+      x-fern-sdk-method-name: create
     get:
       tags:
         - Encoders
@@ -1495,6 +1726,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: encoders
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.encoders
   /v2/rerankers:
     get:
       tags:
@@ -1538,6 +1775,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: rerankers
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.rerankers
+  /v2/table_extractors:
+    get:
+      tags:
+        - Table Extractors
+      summary: List supported table extractors
+      description: Table extractors are used to extract tabular data from documents during indexing.
+      operationId: listTableExtractors
+      parameters:
+        - $ref: '#/components/parameters/RequestTimeout'
+        - $ref: '#/components/parameters/RequestTimeoutMillis'
+      responses:
+        '200':
+          description: List of supported table extractors.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTableExtractorsResponse'
+        '403':
+          description: Permissions do not allow listing table extractors.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: table_extractors
+      x-fern-sdk-method-name: list
   /v2/jobs:
     get:
       tags:
@@ -1595,6 +1863,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: jobs
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.jobs
   '/v2/jobs/{job_id}':
     get:
       tags:
@@ -1631,6 +1905,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: jobs
+      x-fern-sdk-method-name: get
   /v2/users:
     post:
       tags:
@@ -1673,6 +1949,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: create
     get:
       tags:
         - Users
@@ -1714,6 +1992,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.users
   '/v2/users/{username}':
     get:
       tags:
@@ -1749,6 +2033,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: get
     patch:
       tags:
         - Users
@@ -1788,6 +2074,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: update
     delete:
       tags:
         - Users
@@ -1818,6 +2106,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: delete
   '/v2/users/{username}/reset_password':
     post:
       tags:
@@ -1860,6 +2150,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: resetPassword
   /v2/api_keys:
     post:
       tags:
@@ -1894,10 +2186,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: create
     get:
       tags:
         - API Keys
       summary: List API keys
+      description: Retrieve a list of API keys for the customer account with optional filtering.
       operationId: listApiKeys
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -1945,11 +2240,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.api_keys
   '/v2/api_keys/{api_key_id}':
     get:
       tags:
         - API Keys
       summary: Get an API key
+      description: Retrieve details of a specific API key by its ID.
       operationId: getApiKey
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -1973,6 +2275,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: get
     patch:
       tags:
         - API Keys
@@ -2006,6 +2310,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: update
     delete:
       tags:
         - API Keys
@@ -2030,6 +2336,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: delete
   /v2/app_clients:
     post:
       tags:
@@ -2064,10 +2372,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: create
     get:
       tags:
         - Application Clients
       summary: List App Clients
+      description: Retrieve a list of application clients configured for the customer account.
       operationId: listAppClient
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -2110,11 +2421,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.app_clients
   '/v2/app_clients/{app_client_id}':
     get:
       tags:
         - Application Clients
       summary: Get an App Client
+      description: Retrieve details of a specific application client by its ID.
       operationId: getAppClient
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -2138,10 +2456,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: get
     patch:
       tags:
         - Application Clients
       summary: Update an App Client
+      description: Update the configuration or settings of an existing application client.
       operationId: updateAppClient
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -2170,10 +2491,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: update
     delete:
       tags:
         - Application Clients
       summary: Delete an App Client
+      description: Remove an application client configuration from the customer account.
       operationId: deleteAppClient
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -2193,6 +2517,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: delete
   '/v2/queries/{query_id}':
     get:
       tags:
@@ -2228,6 +2554,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: query_history
+      x-fern-sdk-method-name: get
   /v2/queries:
     get:
       tags:
@@ -2292,6 +2620,61 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: query_history
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.queries
+  /oauth/token:
+    post:
+      tags:
+        - Authentication
+      summary: Request an access token
+      description: Obtain an OAuth2 access token using client credentials
+      operationId: getOAuthToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - client_id
+                - client_secret
+                - grant_type
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: The client ID of the application
+                client_secret:
+                  type: string
+                  description: The client secret of the application
+                grant_type:
+                  x-fern-type: literal<"client_credentials">
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                required:
+                  - access_token
+                  - token_type
+                  - expires_in
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                  expires_in:
+                    type: integer
+                x-fern-type-name: GetTokenResponse
+      x-fern-sdk-group-name:
+        - auth
+      x-fern-sdk-method-name: getToken
+      x-fern-server-name: Auth
 components:
   schemas:
     CreateCorpusRequest:
@@ -2341,6 +2724,7 @@ components:
           items:
             $ref: '#/components/schemas/CorpusCustomDimension'
           description: "A custom dimension is an additional numerical field attached to a document part. You\ncan then multiply this numerical field with a query time custom dimension of the same\nname. This allows boosting (or burying) document parts for arbitrary reasons.\nThis feature is only enabled for Pro and Enterprise customers.\n"
+      description: Request object for creating a new corpus in the Vectara platform.
     UpdateCorpusRequest:
       type: object
       properties:
@@ -2370,6 +2754,7 @@ components:
           items:
             $ref: '#/components/schemas/FilterAttribute'
           description: The new filter attributes.
+      description: Request to replace all filter attributes for a corpus with a new set of attributes.
     ReplaceFilterAttributesResponse:
       required:
         - job_id
@@ -2379,6 +2764,7 @@ components:
           pattern: job_.+$
           type: string
           description: Job that was created in order to replace filter attributes.
+      description: Response containing the job ID for the filter attributes replacement operation.
     CorpusKey:
       maxLength: 50
       pattern: '[a-zA-Z0-9_\=\-]+$'
@@ -2472,6 +2858,7 @@ components:
           type: string
           description: Indicates when the corpus was created.
           format: date-time
+      description: 'A corpus is a collection of documents and associated configuration for indexing, searching, and generating responses through RAG.'
     CorpusCustomDimension:
       required:
         - name
@@ -2536,6 +2923,7 @@ components:
           type: string
           description: The value type of the filter.
           example: text
+      description: Defines a filter attribute that can be used to filter search results based on document metadata for precise retrieval.
     ListCorporaResponse:
       type: object
       properties:
@@ -2545,6 +2933,7 @@ components:
             $ref: '#/components/schemas/Corpus'
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of corpora within a customer account.
     SearchParameters:
       type: object
       properties:
@@ -2762,6 +3151,7 @@ components:
           type: boolean
           description: "Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to\nextract metadata filter and rewrite the query to improve search results.\n"
           default: false
+      description: Request to search a specific corpus within a customer account and optionally generate a response using RAG techniques.
     SearchCorpus:
       type: object
       properties:
@@ -2780,6 +3170,7 @@ components:
           example: 0.025
         semantics:
           $ref: '#/components/schemas/SearchSemantics'
+      description: 'Configuration for search parameters specific to a single corpus within a customer account, including filters and semantics.'
     SearchSemantics:
       enum:
         - default
@@ -2800,6 +3191,7 @@ components:
             query:
               type: string
               description: Query for a particular corpus that will override the overall query if present.
+      description: A corpus with its identifying key for use in search operations within a customer account.
     SearchReranker:
       type: object
       oneOf:
@@ -2866,6 +3258,7 @@ components:
           type: number
           description: "Specifies the minimum score threshold for results to be included after the reranking process.\nWhen a reranker is applied with a cutoff, it performs the following steps:\n1. Reranks all input results according to its algorithm.\n2. Applies the cutoff, removing any results with scores below the specified threshold.\n3. Returns the remaining results, sorted by their new scores.\n\nNote: This cutoff is applied per reranking stage. In a chain of rerankers,\neach reranker can have its own cutoff, potentially further reducing the number of\nresults at each stage. If both 'limit' and 'cutoff' are specified, the cutoff\nis applied first, followed by the limit.\n"
           format: float
+      description: A reranker that uses user-defined functions to reorder search results.
       x-vectaraParents:
         - SearchReranker
     MMRReranker:
@@ -2889,6 +3282,7 @@ components:
           type: number
           description: "Specifies the minimum score threshold for results to be included after the reranking process.\nWhen a reranker is applied with a cutoff, it performs the following steps:\n1. Reranks all input results according to its algorithm.\n2. Applies the cutoff, removing any results with scores below the specified threshold.\n3. Returns the remaining results, sorted by their new scores.\n\nNote: This cutoff is applied per reranking stage. In a chain of rerankers,\neach reranker can have its own cutoff, potentially further reducing the number of\nresults at each stage. If both 'limit' and 'cutoff' are specified, the cutoff\nis applied first, followed by the limit.\n"
           format: float
+      description: A reranker that uses Maximal Marginal Relevance to balance relevance and diversity in search results.
       x-vectaraParents:
         - SearchReranker
     ChainReranker:
@@ -2906,6 +3300,7 @@ components:
           items:
             $ref: '#/components/schemas/SearchReranker'
           description: "Specify an array of rerankers to apply to search results consecutively.\n"
+      description: A reranker that applies multiple rerankers in sequence to produce the final search results.
       x-vectaraParents:
         - SearchReranker
     NoneReranker:
@@ -2920,6 +3315,7 @@ components:
           type: integer
           description: "Specifies the maximum number of results to be returned after the reranking process. \nWhen a reranker is applied, it performs the following steps:\n1. Reranks all input results according to its algorithm.\n2. Sorts the reranked results based on their new scores.\n3. Returns the top N results, where N is the value specified by this limit.\n\nNote: This limit is applied per reranking stage. In a chain of rerankers, \neach reranker can have its own limit, potentially reducing the number of \nresults at each stage.\n"
           format: int32
+      description: A placeholder reranker that does not modify the original search results ordering.
       x-vectaraParents:
         - SearchReranker
     QueryFullResponse:
@@ -3154,6 +3550,7 @@ components:
           type: string
           description: Binary file contents. The file name of the file will be used as the document ID.
           format: binary
+      description: Request to upload and index a file into a corpus within a customer account.
     TableExtractionConfig:
       required:
         - extract_tables
@@ -3162,13 +3559,15 @@ components:
         extract_tables:
           type: boolean
           description: "If set to true, the platform will attempt to extract tables from the document.\nThe tables will be indexed as separate document parts.\n"
-      description: "(Optional) Configuration for table extraction from the document.\n"
+        extractor:
+          $ref: '#/components/schemas/TableExtractorSpec'
+      description: "Configuration for table extraction from the document. This is optional and if not provided, default table extraction behavior will be used.\n"
     ChunkingStrategy:
       type: object
       oneOf:
         - $ref: '#/components/schemas/MaxCharsChunkingStrategy'
         - $ref: '#/components/schemas/SentenceChunkingStrategy'
-      description: "(Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,\nthe platform uses the default strategy which creates one chunk (docpart) per sentence.\n"
+      description: "Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,\nthe platform uses the default strategy which creates one chunk (docpart) per sentence.\n"
       discriminator:
         propertyName: type
         mapping:
@@ -3394,6 +3793,7 @@ components:
           $ref: '#/components/schemas/DocumentStorageUsage'
         extraction_usage:
           $ref: '#/components/schemas/ExtractionUsage'
+      description: 'A document stored in a corpus, containing metadata and indexed content.'
     Cell:
       type: object
       properties:
@@ -3413,11 +3813,11 @@ components:
           description: A boolean value.
         colspan:
           type: integer
-          description: (Optional) The number of columns the cell spans. Default is 1. Must be greater than 0.
+          description: 'The number of columns the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.'
           format: int32
         rowspan:
           type: integer
-          description: (Optional) The number of rows the cell spans. Default is 1. Must be greater than 0.
+          description: 'The number of rows the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.'
           format: int32
       description: A cell in a table.
     Row:
@@ -3493,6 +3893,7 @@ components:
           description: List of documents.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of documents stored in a corpus.
     LLM:
       type: object
       properties:
@@ -3544,6 +3945,7 @@ components:
       type: object
       oneOf:
         - $ref: '#/components/schemas/CreateOpenAILLMRequest'
+      description: Request to create a Large Language Model connection for generative capabilities.
       discriminator:
         propertyName: type
         mapping:
@@ -3579,6 +3981,7 @@ components:
         test_model_parameters:
           type: object
           description: "Any additional parameters that are required for the LLM during the test call.\n"
+      description: Request to create an OpenAI-compatible Large Language Model connection.
       x-vectaraParents:
         - CreateLLMRequest
     ListLLMsResponse:
@@ -3591,6 +3994,7 @@ components:
           description: List of LLMs.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of Large Language Models available for generative AI capabilities.
     GenerationPreset:
       type: object
       properties:
@@ -3645,6 +4049,7 @@ components:
           description: List of generation presets.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of generation presets for configuring RAG behavior.
     ChatRequest:
       required:
         - query
@@ -3673,6 +4078,7 @@ components:
           type: boolean
           description: Indicates whether the response should be streamed or not.
           default: false
+      description: Request to start or continue a chat conversation with a large language model.
     ChatParameters:
       type: object
       properties:
@@ -3783,6 +4189,7 @@ components:
           type: string
           description: Specifies when this chat was created.
           format: date-time
+      description: A chat conversation with associated metadata and settings.
     ListChatsResponse:
       type: object
       properties:
@@ -3793,6 +4200,7 @@ components:
           description: List of chats.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of chat conversations.
     Turn:
       type: object
       properties:
@@ -3820,6 +4228,7 @@ components:
           type: string
           description: Specifies when the turn was created.
           format: date-time
+      description: 'A single message exchange in a chat conversation, representing one user input and the corresponding response.'
     ListChatTurnsResponse:
       type: object
       properties:
@@ -3828,6 +4237,7 @@ components:
           items:
             $ref: '#/components/schemas/Turn'
           description: List of turns.
+      description: Response containing a list of turns (message exchanges) within a chat conversation.
     UpdateTurnRequest:
       type: object
       properties:
@@ -3835,6 +4245,7 @@ components:
           type: boolean
           description: "Indicates whether to disable a turn. It will disable this turn and all subsequent turns.\nEnabling a turn is not implemented.\n"
           example: false
+      description: Request to update a specific turn (message exchange) within a chat conversation.
     ListEncodersResponse:
       type: object
       properties:
@@ -3844,6 +4255,7 @@ components:
             $ref: '#/components/schemas/Encoder'
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of available encoders for converting text to vector embeddings.
     CreateApiKeyRequest:
       required:
         - name
@@ -3860,6 +4272,7 @@ components:
           items:
             $ref: '#/components/schemas/CorpusKey'
           description: "Corpora this API key has roles on if it is not a Personal API key.\nThis property should be null or missing if this `api_key_role` is\n`personal`.\n"
+      description: Request to create a new API key for authenticating with the platform.
     ApiKey:
       type: object
       properties:
@@ -3880,6 +4293,7 @@ components:
           $ref: '#/components/schemas/ApiKeyRole'
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      description: An API key used to authenticate and authorize requests to the Vectara platform.
     ApiKeyRole:
       enum:
         - serving
@@ -3893,6 +4307,7 @@ components:
         enabled:
           type: boolean
           description: Indicates whether to disable or enable an API key.
+      description: Request to update an existing API key's properties or permissions.
     ListApiKeysResponse:
       type: object
       properties:
@@ -3903,12 +4318,14 @@ components:
           description: List of API keys.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of API keys for the authenticated customer.
     CreateAppClientRequest:
       required:
         - type
       type: object
       oneOf:
         - $ref: '#/components/schemas/CreateClientCredentialsRequest'
+      description: Request to create a new OAuth application client for the platform.
       discriminator:
         propertyName: type
         mapping:
@@ -3963,6 +4380,7 @@ components:
           description: The API roles attached to the App Client.
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      description: An OAuth application client configuration used for authentication.
     UpdateAppClientRequest:
       type: object
       properties:
@@ -3974,6 +4392,7 @@ components:
           items:
             $ref: '#/components/schemas/ApiRole'
           description: The new roles attached to the App Client. These roles will replace the current roles.
+      description: Request to update an existing OAuth application client's properties.
     ListAppClientsResponse:
       type: object
       properties:
@@ -3984,6 +4403,7 @@ components:
           description: List of App Clients.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of OAuth application clients.
     CreateEncoderRequest:
       required:
         - type
@@ -3994,21 +4414,19 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          openai: '#/components/schemas/CreateOpenAIEncoderRequest'
+          openai-compatible: '#/components/schemas/CreateOpenAIEncoderRequest'
     CreateOpenAIEncoderRequest:
       required:
         - name
         - description
-        - output_dimensions
-        - endpoint_url
+        - uri
         - model
-        - auth
       type: object
       properties:
         type:
           type: string
-          description: Specifies this is an OpenAI encoder
-          default: openai
+          description: Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs
+          default: openai-compatible
         name:
           type: string
           description: The unique name of the encoder
@@ -4020,12 +4438,12 @@ components:
         output_dimensions:
           minimum: 1
           type: integer
-          description: "The number of dimensions in the output embedding vector. If the encoder endpoint returns\nmore dimensions than specified here, the response will be truncated to this number of dimensions.\n"
+          description: "The number of dimensions in the output embedding vector. If provided and the model supports truncation,\nthe response will be truncated to this number of dimensions.\n"
           format: int32
           example: 1536
-        endpoint_url:
+        uri:
           type: string
-          description: The URL of the OpenAI-compatible embedding endpoint
+          description: The URI endpoint for the embedding API (can be OpenAI or any compatible embedding API endpoint)
           format: uri
           example: https://api.openai.com/v1/embeddings
         model:
@@ -4070,6 +4488,7 @@ components:
           type: boolean
           description: Indicates whether the encoder is enabled.
           example: true
+      description: A model that converts text into vector embeddings for semantic search.
     Reranker:
       type: object
       properties:
@@ -4097,6 +4516,41 @@ components:
           description: An array of rerankers.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of available rerankers for improving search result ordering.
+    TableExtractorSpec:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the table extractor to use.
+          example: textract
+      description: "Specification for which table extractor to use. If not specified, the platform uses the default extractor.\n"
+    TableExtractor:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the table extractor.
+          example: textract
+        is_default:
+          type: boolean
+          description: Indicates whether it is the default extractor when not specified during indexing.
+        description:
+          type: string
+          description: The description of the table extractor.
+          example: Uses the AWS Textract service to extract tables.
+      description: "A table extractor can be used to extract tabular data from documents during indexing.\n"
+    ListTableExtractorsResponse:
+      type: object
+      properties:
+        table_extractors:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableExtractor'
+          description: An array of table extractors.
+      description: Response containing a list of available table extractors for document processing
     Job:
       type: object
       properties:
@@ -4133,6 +4587,7 @@ components:
         created_by_username:
           type: string
           description: 'The username of the user who created the job. This property may be missing, e.g., if the job was created by the system, not a user.'
+      description: A background job for processing long-running operations on the platform.
     JobState:
       enum:
         - unknown
@@ -4143,6 +4598,7 @@ components:
         - failed_will_retry
         - aborted
       type: string
+      description: Enum representing the possible states of a background job.
     ListJobsResponse:
       type: object
       properties:
@@ -4153,6 +4609,7 @@ components:
           description: An array of jobs.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of background jobs and their current states.
     CreateUserRequest:
       required:
         - email
@@ -4173,6 +4630,7 @@ components:
           items:
             $ref: '#/components/schemas/ApiRole'
           description: The role names assigned to the user.
+      description: Request to create a new user account in the system.
     UpdateUserRequest:
       type: object
       properties:
@@ -4184,6 +4642,7 @@ components:
           items:
             $ref: '#/components/schemas/ApiRole'
           description: The new role names of the user.
+      description: Request to update an existing user's properties or permissions.
     User:
       type: object
       properties:
@@ -4219,6 +4678,7 @@ components:
           description: The role names of the user.
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      description: A user account with associated profile information and permissions.
     ListUsersResponse:
       type: object
       properties:
@@ -4229,6 +4689,7 @@ components:
           description: List of users.
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+      description: Response containing a list of user accounts.
     ApiRole:
       enum:
         - owner
@@ -4332,6 +4793,7 @@ components:
           type: number
           description: The factual consistency score of the generation.
           format: float
+      description: 'A summary of a previously executed query, including metadata but not full results.'
     QueryHistory:
       type: object
       properties:
@@ -4355,6 +4817,7 @@ components:
           items:
             $ref: '#/components/schemas/QueryHistorySpan'
           description: "Parts of the query pipeline. Each span explains what happened during that stage of the query pipeline.\n"
+      description: 'A complete record of a previously executed query, including the request parameters and response.'
     QueryHistorySpan:
       type: object
       oneOf:
@@ -4677,6 +5140,7 @@ components:
         request_id:
           type: string
           description: ID of the request that can be used to help Vectara support debug what went wrong.
+      description: Error returned when a requested resource does not exist.
     BadRequestError:
       type: object
       properties:
@@ -4693,6 +5157,7 @@ components:
         request_id:
           type: string
           description: The ID of the request that can be used to help Vectara support debug what went wrong.
+      description: Error returned when a request contains invalid parameters or violates schema validation.
     Error:
       type: object
       properties:
@@ -4706,6 +5171,7 @@ components:
         request_id:
           type: string
           description: The ID of the request that can be used to help Vectara support debug what went wrong.
+      description: A general error response with an error code and message.
   parameters:
     RequestTimeout:
       name: Request-Timeout
@@ -4737,6 +5203,8 @@ security:
   - ApiKeyAuth: [ ]
   - OAuth2: [ ]
 tags:
+  - name: Authentication
+    description: Authenticate with the API using OAuth 2.0 or API keys
   - name: Queries
     description: Perform search and Retrieval Augmented Generation (RAG) operations on one or more corpora
   - name: Upload
@@ -4749,6 +5217,14 @@ tags:
     description: Retrieve and manage documents stored in a corpus for administrative tasks
   - name: Chats
     description: 'Create, manage, and interact with chat sessions for conversational AI'
+  - name: Generation Presets
+    description: Manage generation presets for controlling the behavior of generative AI responses
+  - name: Query History
+    description: Retrieve and manage the history of previous queries for analytics and auditing
+  - name: API Keys
+    description: 'Create, manage, and revoke API keys for secure access to the platform'
+  - name: Application Clients
+    description: Configure and manage application clients for OAuth authentication
   - name: Large Language Models
     description: 'List LLMs for text summarization, chat, and other generation tasks'
   - name: Encoders
@@ -4759,7 +5235,5 @@ tags:
     description: Monitor background jobs such as rebuilding indexes or updating corpus settings
   - name: Users
     description: 'Create, manage, and authenticate users within the platform for user administration'
-  - name: Application Clients
-    description: 'Manage app clients, and perform authentication operations for admin-level access control'
-  - name: API Keys
-    description: Manage API keys for the account
+  - name: Table Extractors
+    description: List available extractors for tabular data from documents

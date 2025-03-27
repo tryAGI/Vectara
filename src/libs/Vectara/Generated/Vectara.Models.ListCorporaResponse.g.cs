@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Response containing a list of corpora within a customer account.
     /// </summary>
     public sealed partial class ListCorporaResponse
     {

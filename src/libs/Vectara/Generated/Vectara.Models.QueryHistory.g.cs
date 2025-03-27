@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A complete record of a previously executed query, including the request parameters and response.
     /// </summary>
     public sealed partial class QueryHistory
     {
