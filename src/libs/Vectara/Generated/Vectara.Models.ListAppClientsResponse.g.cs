@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Response containing a list of OAuth application clients.
     /// </summary>
     public sealed partial class ListAppClientsResponse
     {

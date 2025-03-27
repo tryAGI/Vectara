@@ -5,7 +5,8 @@ namespace Vectara
     public partial interface IApplicationClientsClient
     {
         /// <summary>
-        /// Get an App Client
+        /// Get an App Client<br/>
+        /// Retrieve details of a specific application client by its ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

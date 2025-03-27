@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A summary of a previously executed query, including metadata but not full results.
     /// </summary>
     public sealed partial class QueryHistorySummary
     {

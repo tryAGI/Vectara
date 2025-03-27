@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A single message exchange in a chat conversation, representing one user input and the corresponding response.
     /// </summary>
     public sealed partial class Turn
     {

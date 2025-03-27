@@ -9,8 +9,8 @@ namespace Vectara
     public sealed partial class CreateOpenAIEncoderRequest
     {
         /// <summary>
-        /// Specifies this is an OpenAI encoder<br/>
-        /// Default Value: openai
+        /// Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs<br/>
+        /// Default Value: openai-compatible
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         public string? Type { get; set; }
@@ -34,23 +34,22 @@ namespace Vectara
         public required string Description { get; set; }
 
         /// <summary>
-        /// The number of dimensions in the output embedding vector. If the encoder endpoint returns<br/>
-        /// more dimensions than specified here, the response will be truncated to this number of dimensions.<br/>
+        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation,<br/>
+        /// the response will be truncated to this number of dimensions.<br/>
         /// Example: 1536
         /// </summary>
         /// <example>1536</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_dimensions")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required int OutputDimensions { get; set; }
+        public int? OutputDimensions { get; set; }
 
         /// <summary>
-        /// The URL of the OpenAI-compatible embedding endpoint<br/>
+        /// The URI endpoint for the embedding API (can be OpenAI or any compatible embedding API endpoint)<br/>
         /// Example: https://api.openai.com/v1/embeddings
         /// </summary>
         /// <example>https://api.openai.com/v1/embeddings</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("endpoint_url")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("uri")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string EndpointUrl { get; set; }
+        public required string Uri { get; set; }
 
         /// <summary>
         /// The model name to use for embeddings<br/>
@@ -66,8 +65,7 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RemoteAuthJsonConverter))]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.RemoteAuth Auth { get; set; }
+        public global::Vectara.RemoteAuth? Auth { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -79,8 +77,8 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CreateOpenAIEncoderRequest" /> class.
         /// </summary>
         /// <param name="type">
-        /// Specifies this is an OpenAI encoder<br/>
-        /// Default Value: openai
+        /// Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs<br/>
+        /// Default Value: openai-compatible
         /// </param>
         /// <param name="name">
         /// The unique name of the encoder<br/>
@@ -91,12 +89,12 @@ namespace Vectara
         /// Example: OpenAI text embedding encoder
         /// </param>
         /// <param name="outputDimensions">
-        /// The number of dimensions in the output embedding vector. If the encoder endpoint returns<br/>
-        /// more dimensions than specified here, the response will be truncated to this number of dimensions.<br/>
+        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation,<br/>
+        /// the response will be truncated to this number of dimensions.<br/>
         /// Example: 1536
         /// </param>
-        /// <param name="endpointUrl">
-        /// The URL of the OpenAI-compatible embedding endpoint<br/>
+        /// <param name="uri">
+        /// The URI endpoint for the embedding API (can be OpenAI or any compatible embedding API endpoint)<br/>
         /// Example: https://api.openai.com/v1/embeddings
         /// </param>
         /// <param name="model">
@@ -112,19 +110,19 @@ namespace Vectara
         public CreateOpenAIEncoderRequest(
             string name,
             string description,
-            int outputDimensions,
-            string endpointUrl,
+            string uri,
             string model,
-            global::Vectara.RemoteAuth auth,
-            string? type)
+            string? type,
+            int? outputDimensions,
+            global::Vectara.RemoteAuth? auth)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description ?? throw new global::System.ArgumentNullException(nameof(description));
-            this.OutputDimensions = outputDimensions;
-            this.EndpointUrl = endpointUrl ?? throw new global::System.ArgumentNullException(nameof(endpointUrl));
+            this.Uri = uri ?? throw new global::System.ArgumentNullException(nameof(uri));
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
-            this.Auth = auth;
             this.Type = type;
+            this.OutputDimensions = outputDimensions;
+            this.Auth = auth;
         }
 
         /// <summary>

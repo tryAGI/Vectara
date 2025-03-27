@@ -33,13 +33,13 @@ namespace Vectara
         public bool? BoolValue { get; set; }
 
         /// <summary>
-        /// (Optional) The number of columns the cell spans. Default is 1. Must be greater than 0.
+        /// The number of columns the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("colspan")]
         public int? Colspan { get; set; }
 
         /// <summary>
-        /// (Optional) The number of rows the cell spans. Default is 1. Must be greater than 0.
+        /// The number of rows the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rowspan")]
         public int? Rowspan { get; set; }
@@ -66,10 +66,10 @@ namespace Vectara
         /// A boolean value.
         /// </param>
         /// <param name="colspan">
-        /// (Optional) The number of columns the cell spans. Default is 1. Must be greater than 0.
+        /// The number of columns the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.
         /// </param>
         /// <param name="rowspan">
-        /// (Optional) The number of rows the cell spans. Default is 1. Must be greater than 0.
+        /// The number of rows the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

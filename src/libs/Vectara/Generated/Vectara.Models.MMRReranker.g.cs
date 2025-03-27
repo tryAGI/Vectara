@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A reranker that uses Maximal Marginal Relevance to balance relevance and diversity in search results.
     /// </summary>
     public sealed partial class MMRReranker
     {

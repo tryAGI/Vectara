@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// An OAuth application client configuration used for authentication.
     /// </summary>
     public sealed partial class AppClient
     {

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Response containing a list of generation presets for configuring RAG behavior.
     /// </summary>
     public sealed partial class ListGenerationPresetsResponse
     {

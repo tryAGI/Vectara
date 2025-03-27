@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to upload and index a file into a corpus within a customer account.
     /// </summary>
     public sealed partial class UploadFileRequest
     {
@@ -15,7 +15,7 @@ namespace Vectara
         public object? Metadata { get; set; }
 
         /// <summary>
-        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
+        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,<br/>
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
@@ -23,7 +23,7 @@ namespace Vectara
         public global::Vectara.ChunkingStrategy? ChunkingStrategy { get; set; }
 
         /// <summary>
-        /// (Optional) Configuration for table extraction from the document.
+        /// Configuration for table extraction from the document. This is optional and if not provided, default table extraction behavior will be used.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("table_extraction_config")]
         public global::Vectara.TableExtractionConfig? TableExtractionConfig { get; set; }
@@ -54,11 +54,11 @@ namespace Vectara
         /// Arbitrary object that will be attached as document metadata to the extracted document.
         /// </param>
         /// <param name="chunkingStrategy">
-        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
+        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,<br/>
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </param>
         /// <param name="tableExtractionConfig">
-        /// (Optional) Configuration for table extraction from the document.
+        /// Configuration for table extraction from the document. This is optional and if not provided, default table extraction behavior will be used.
         /// </param>
         /// <param name="filename">
         /// Optional multipart section to override the filename.

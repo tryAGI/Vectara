@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// An API key used to authenticate and authorize requests to the Vectara platform.
     /// </summary>
     public sealed partial class ApiKey
     {

@@ -56,6 +56,15 @@ namespace Vectara
 
 
         /// <summary>
+        /// Authenticate with the API using OAuth 2.0 or API keys
+        /// </summary>
+        public AuthenticationClient Authentication => new AuthenticationClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
         /// Perform search and Retrieval Augmented Generation (RAG) operations on one or more corpora
         /// </summary>
         public QueriesClient Queries => new QueriesClient(HttpClient, authorizations: Authorizations)
@@ -110,6 +119,42 @@ namespace Vectara
         };
 
         /// <summary>
+        /// Manage generation presets for controlling the behavior of generative AI responses
+        /// </summary>
+        public GenerationPresetsClient GenerationPresets => new GenerationPresetsClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Retrieve and manage the history of previous queries for analytics and auditing
+        /// </summary>
+        public QueryHistoryClient QueryHistory => new QueryHistoryClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Create, manage, and revoke API keys for secure access to the platform
+        /// </summary>
+        public APIKeysClient APIKeys => new APIKeysClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Configure and manage application clients for OAuth authentication
+        /// </summary>
+        public ApplicationClientsClient ApplicationClients => new ApplicationClientsClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
         /// List LLMs for text summarization, chat, and other generation tasks
         /// </summary>
         public LargeLanguageModelsClient LargeLanguageModels => new LargeLanguageModelsClient(HttpClient, authorizations: Authorizations)
@@ -155,36 +200,9 @@ namespace Vectara
         };
 
         /// <summary>
-        /// Manage app clients, and perform authentication operations for admin-level access control
+        /// List available extractors for tabular data from documents
         /// </summary>
-        public ApplicationClientsClient ApplicationClients => new ApplicationClientsClient(HttpClient, authorizations: Authorizations)
-        {
-            ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
-        };
-
-        /// <summary>
-        /// Manage API keys for the account
-        /// </summary>
-        public APIKeysClient APIKeys => new APIKeysClient(HttpClient, authorizations: Authorizations)
-        {
-            ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
-        };
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public GenerationPresetsClient GenerationPresets => new GenerationPresetsClient(HttpClient, authorizations: Authorizations)
-        {
-            ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
-        };
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public QueryHistoryClient QueryHistory => new QueryHistoryClient(HttpClient, authorizations: Authorizations)
+        public TableExtractorsClient TableExtractors => new TableExtractorsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,

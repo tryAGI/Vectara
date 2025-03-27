@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A chat conversation with associated metadata and settings.
     /// </summary>
     public sealed partial class Chat
     {

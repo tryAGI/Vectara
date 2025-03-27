@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A reranker that applies multiple rerankers in sequence to produce the final search results.
     /// </summary>
     public sealed partial class ChainReranker
     {

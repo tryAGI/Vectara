@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Response containing a list of available rerankers for improving search result ordering.
     /// </summary>
     public sealed partial class ListRerankersResponse
     {

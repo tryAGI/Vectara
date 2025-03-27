@@ -60,7 +60,7 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.StructuredDocumentSection> Sections { get; set; }
 
         /// <summary>
-        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
+        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,<br/>
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
@@ -103,7 +103,7 @@ namespace Vectara
         /// The subsection of the document.
         /// </param>
         /// <param name="chunkingStrategy">
-        /// (Optional) Choose how to split documents into chunks during indexing. If you do not set a chunking strategy,<br/>
+        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,<br/>
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </param>
 #if NET7_0_OR_GREATER

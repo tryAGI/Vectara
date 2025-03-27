@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to update an existing OAuth application client's properties.
     /// </summary>
     public sealed partial class UpdateAppClientRequest
     {

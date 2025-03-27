@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Configuration for search parameters specific to a single corpus within a customer account, including filters and semantics.
     /// </summary>
     public sealed partial class SearchCorpus
     {

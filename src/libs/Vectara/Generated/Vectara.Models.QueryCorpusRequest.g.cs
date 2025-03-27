@@ -6,7 +6,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request to search a specific corpus within a customer account and optionally generate a response using RAG techniques.
     /// </summary>
     public sealed partial class QueryCorpusRequest
     {

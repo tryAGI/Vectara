@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Response containing a list of documents stored in a corpus.
     /// </summary>
     public sealed partial class ListDocumentsResponse
     {

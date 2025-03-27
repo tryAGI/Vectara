@@ -56,6 +56,11 @@ namespace Vectara
 
 
         /// <summary>
+        /// Authenticate with the API using OAuth 2.0 or API keys
+        /// </summary>
+        public AuthenticationClient Authentication { get; }
+
+        /// <summary>
         /// Perform search and Retrieval Augmented Generation (RAG) operations on one or more corpora
         /// </summary>
         public QueriesClient Queries { get; }
@@ -86,6 +91,26 @@ namespace Vectara
         public ChatsClient Chats { get; }
 
         /// <summary>
+        /// Manage generation presets for controlling the behavior of generative AI responses
+        /// </summary>
+        public GenerationPresetsClient GenerationPresets { get; }
+
+        /// <summary>
+        /// Retrieve and manage the history of previous queries for analytics and auditing
+        /// </summary>
+        public QueryHistoryClient QueryHistory { get; }
+
+        /// <summary>
+        /// Create, manage, and revoke API keys for secure access to the platform
+        /// </summary>
+        public APIKeysClient APIKeys { get; }
+
+        /// <summary>
+        /// Configure and manage application clients for OAuth authentication
+        /// </summary>
+        public ApplicationClientsClient ApplicationClients { get; }
+
+        /// <summary>
         /// List LLMs for text summarization, chat, and other generation tasks
         /// </summary>
         public LargeLanguageModelsClient LargeLanguageModels { get; }
@@ -111,24 +136,9 @@ namespace Vectara
         public UsersClient Users { get; }
 
         /// <summary>
-        /// Manage app clients, and perform authentication operations for admin-level access control
+        /// List available extractors for tabular data from documents
         /// </summary>
-        public ApplicationClientsClient ApplicationClients { get; }
-
-        /// <summary>
-        /// Manage API keys for the account
-        /// </summary>
-        public APIKeysClient APIKeys { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public GenerationPresetsClient GenerationPresets { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public QueryHistoryClient QueryHistory { get; }
+        public TableExtractorsClient TableExtractors { get; }
 
     }
 }

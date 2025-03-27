@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Response containing a list of turns (message exchanges) within a chat conversation.
     /// </summary>
     public sealed partial class ListChatTurnsResponse
     {

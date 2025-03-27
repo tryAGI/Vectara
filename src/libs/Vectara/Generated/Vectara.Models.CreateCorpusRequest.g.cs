@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Request object for creating a new corpus in the Vectara platform.
     /// </summary>
     public sealed partial class CreateCorpusRequest
     {

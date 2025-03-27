@@ -21,17 +21,17 @@ namespace Vectara.JsonConverters
                             throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateEncoderRequestDiscriminator)}");
             var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
-            global::Vectara.CreateOpenAIEncoderRequest? openai = default;
-            if (discriminator?.Type == global::Vectara.CreateEncoderRequestDiscriminatorType.Openai)
+            global::Vectara.CreateOpenAIEncoderRequest? openaiCompatible = default;
+            if (discriminator?.Type == global::Vectara.CreateEncoderRequestDiscriminatorType.OpenaiCompatible)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAIEncoderRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAIEncoderRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateOpenAIEncoderRequest)}");
-                openai = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                openaiCompatible = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
             var result = new global::Vectara.CreateEncoderRequest(
                 discriminator?.Type,
-                openai
+                openaiCompatible
                 );
 
             return result;
@@ -46,11 +46,11 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsOpenai)
+            if (value.IsOpenaiCompatible)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAIEncoderRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAIEncoderRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateOpenAIEncoderRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Openai, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiCompatible, typeInfo);
             }
         }
     }

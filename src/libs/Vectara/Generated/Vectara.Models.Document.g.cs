@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// A document stored in a corpus, containing metadata and indexed content.
     /// </summary>
     public sealed partial class Document
     {
