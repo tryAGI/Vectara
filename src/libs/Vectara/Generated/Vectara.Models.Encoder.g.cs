@@ -18,18 +18,18 @@ namespace Vectara
 
         /// <summary>
         /// The encoder name, `boomerang-2023-q3`.<br/>
-        /// Example: boomerang-2023-q3
+        /// Example: openai-text-encoder
         /// </summary>
-        /// <example>boomerang-2023-q3</example>
+        /// <example>openai-text-encoder</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
         /// The encoder type<br/>
         /// Default Value: vectara<br/>
-        /// Example: vectara
+        /// Example: openai-compatible
         /// </summary>
-        /// <example>vectara</example>
+        /// <example>openai-compatible</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         public string? Type { get; set; }
 
@@ -37,9 +37,9 @@ namespace Vectara
         /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.<br/>
         /// A high dimensionality will consume more storage space, but it allows for an increase in the quality of<br/>
         /// the embedding.<br/>
-        /// Example: 768
+        /// Example: 1536
         /// </summary>
-        /// <example>768</example>
+        /// <example>1536</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_dimensions")]
         public int? OutputDimensions { get; set; }
 
@@ -80,18 +80,18 @@ namespace Vectara
         /// </param>
         /// <param name="name">
         /// The encoder name, `boomerang-2023-q3`.<br/>
-        /// Example: boomerang-2023-q3
+        /// Example: openai-text-encoder
         /// </param>
         /// <param name="type">
         /// The encoder type<br/>
         /// Default Value: vectara<br/>
-        /// Example: vectara
+        /// Example: openai-compatible
         /// </param>
         /// <param name="outputDimensions">
         /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.<br/>
         /// A high dimensionality will consume more storage space, but it allows for an increase in the quality of<br/>
         /// the embedding.<br/>
-        /// Example: 768
+        /// Example: 1536
         /// </param>
         /// <param name="description">
         /// The encoder description.
