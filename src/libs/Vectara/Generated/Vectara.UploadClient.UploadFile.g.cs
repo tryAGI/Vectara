@@ -127,7 +127,7 @@ namespace Vectara
             if (request.ChunkingStrategy != default)
             {
                 __httpRequestContent.Add(
-                    content: new global::System.Net.Http.StringContent(request.ChunkingStrategy?.Value1?.ToString() ?? request.ChunkingStrategy?.Value2?.ToString() ?? string.Empty),
+                    content: new global::System.Net.Http.StringContent(request.ChunkingStrategy?.ToString() ?? string.Empty),
                     name: "chunking_strategy");
             } 
             if (request.TableExtractionConfig != default)

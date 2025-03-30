@@ -225,6 +225,17 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public override string? ToString() =>
+            GenerationChunk?.ToString() ??
+            GenerationInfo?.ToString() ??
+            GenerationEnd?.ToString() ??
+            End?.ToString() ??
+            Error?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Validate()
         {
             return IsGenerationChunk && !IsGenerationInfo && !IsGenerationEnd && !IsEnd && !IsError || !IsGenerationChunk && IsGenerationInfo && !IsGenerationEnd && !IsEnd && !IsError || !IsGenerationChunk && !IsGenerationInfo && IsGenerationEnd && !IsEnd && !IsError || !IsGenerationChunk && !IsGenerationInfo && !IsGenerationEnd && IsEnd && !IsError || !IsGenerationChunk && !IsGenerationInfo && !IsGenerationEnd && !IsEnd && IsError;

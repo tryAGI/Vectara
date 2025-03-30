@@ -226,6 +226,17 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public override string? ToString() =>
+            CustomerReranker?.ToString() ??
+            Userfn?.ToString() ??
+            Mmr?.ToString() ??
+            Chain?.ToString() ??
+            None?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Validate()
         {
             return IsCustomerReranker && !IsUserfn && !IsMmr && !IsChain && !IsNone || !IsCustomerReranker && IsUserfn && !IsMmr && !IsChain && !IsNone || !IsCustomerReranker && !IsUserfn && IsMmr && !IsChain && !IsNone || !IsCustomerReranker && !IsUserfn && !IsMmr && IsChain && !IsNone || !IsCustomerReranker && !IsUserfn && !IsMmr && !IsChain && IsNone;

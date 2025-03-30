@@ -113,6 +113,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public override string? ToString() =>
+            MaxCharsChunkingStrategy?.ToString() ??
+            SentenceChunkingStrategy?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Validate()
         {
             return IsMaxCharsChunkingStrategy && !IsSentenceChunkingStrategy || !IsMaxCharsChunkingStrategy && IsSentenceChunkingStrategy;
