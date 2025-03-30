@@ -110,6 +110,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public override string? ToString() =>
+            Bearer?.ToString() ??
+            Header?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Validate()
         {
             return IsBearer && !IsHeader || !IsBearer && IsHeader;

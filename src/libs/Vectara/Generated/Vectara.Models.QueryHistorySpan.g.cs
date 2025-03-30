@@ -263,6 +263,18 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public override string? ToString() =>
+            Rephrase?.ToString() ??
+            Search?.ToString() ??
+            Rerank?.ToString() ??
+            Generation?.ToString() ??
+            Fcs?.ToString() ??
+            RewrittenQuery?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Validate()
         {
             return IsRephrase && !IsSearch && !IsRerank && !IsGeneration && !IsFcs && !IsRewrittenQuery || !IsRephrase && IsSearch && !IsRerank && !IsGeneration && !IsFcs && !IsRewrittenQuery || !IsRephrase && !IsSearch && IsRerank && !IsGeneration && !IsFcs && !IsRewrittenQuery || !IsRephrase && !IsSearch && !IsRerank && IsGeneration && !IsFcs && !IsRewrittenQuery || !IsRephrase && !IsSearch && !IsRerank && !IsGeneration && IsFcs && !IsRewrittenQuery || !IsRephrase && !IsSearch && !IsRerank && !IsGeneration && !IsFcs && IsRewrittenQuery;

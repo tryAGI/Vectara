@@ -72,6 +72,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public override string? ToString() =>
+            OpenaiCompatible?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Validate()
         {
             return IsOpenaiCompatible;

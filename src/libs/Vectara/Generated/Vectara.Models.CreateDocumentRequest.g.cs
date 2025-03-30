@@ -114,6 +114,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public override string? ToString() =>
+            Core?.ToString() ??
+            Structured?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Validate()
         {
             return IsCore && !IsStructured || !IsCore && IsStructured;

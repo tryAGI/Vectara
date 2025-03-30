@@ -72,6 +72,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public override string? ToString() =>
+            ClientCredentials?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Validate()
         {
             return IsClientCredentials;
