@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configuration for table extraction from the document. This is optional and if not provided, default table extraction behavior will be used.
+    /// Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.
     /// </summary>
     public sealed partial class TableExtractionConfig
     {
@@ -23,6 +23,12 @@ namespace Vectara
         public global::Vectara.TableExtractorSpec? Extractor { get; set; }
 
         /// <summary>
+        /// Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("generation")]
+        public global::Vectara.TableGenerationSpec? Generation { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -38,15 +44,20 @@ namespace Vectara
         /// <param name="extractor">
         /// Specification for which table extractor to use. If not specified, the platform uses the default extractor.
         /// </param>
+        /// <param name="generation">
+        /// Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public TableExtractionConfig(
             bool extractTables,
-            global::Vectara.TableExtractorSpec? extractor)
+            global::Vectara.TableExtractorSpec? extractor,
+            global::Vectara.TableGenerationSpec? generation)
         {
             this.ExtractTables = extractTables;
             this.Extractor = extractor;
+            this.Generation = generation;
         }
 
         /// <summary>

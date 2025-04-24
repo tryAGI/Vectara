@@ -140,5 +140,15 @@ namespace Vectara
         /// </summary>
         public TableExtractorsClient TableExtractors { get; }
 
+        /// <summary>
+        /// Create model responses for chat conversations using OpenAI-compatible endpoints
+        /// </summary>
+        public LLMChatCompletionsClient LLMChatCompletions { get; }
+
+        /// <summary>
+        /// Evaluate text quality metrics like factual consistency and hallucination detection
+        /// </summary>
+        public FactualConsistencyEvaluationClient FactualConsistencyEvaluation { get; }
+
     }
 }

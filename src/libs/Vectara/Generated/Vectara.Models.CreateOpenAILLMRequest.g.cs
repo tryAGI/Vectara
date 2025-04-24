@@ -54,6 +54,12 @@ namespace Vectara
         public global::Vectara.RemoteAuth? Auth { get; set; }
 
         /// <summary>
+        /// Additional HTTP headers to include with requests to the LLM API.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("headers")]
+        public global::System.Collections.Generic.Dictionary<string, string>? Headers { get; set; }
+
+        /// <summary>
         /// Any additional parameters that are required for the LLM during the test call.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("test_model_parameters")]
@@ -89,6 +95,9 @@ namespace Vectara
         /// <param name="auth">
         /// Authentication configuration for an LLM
         /// </param>
+        /// <param name="headers">
+        /// Additional HTTP headers to include with requests to the LLM API.
+        /// </param>
         /// <param name="testModelParameters">
         /// Any additional parameters that are required for the LLM during the test call.
         /// </param>
@@ -102,6 +111,7 @@ namespace Vectara
             string uri,
             string? description,
             global::Vectara.RemoteAuth? auth,
+            global::System.Collections.Generic.Dictionary<string, string>? headers,
             object? testModelParameters)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
@@ -110,6 +120,7 @@ namespace Vectara
             this.Uri = uri ?? throw new global::System.ArgumentNullException(nameof(uri));
             this.Description = description;
             this.Auth = auth;
+            this.Headers = headers;
             this.TestModelParameters = testModelParameters;
         }
 

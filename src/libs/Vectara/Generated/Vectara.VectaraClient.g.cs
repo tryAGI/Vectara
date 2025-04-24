@@ -209,6 +209,24 @@ namespace Vectara
         };
 
         /// <summary>
+        /// Create model responses for chat conversations using OpenAI-compatible endpoints
+        /// </summary>
+        public LLMChatCompletionsClient LLMChatCompletions => new LLMChatCompletionsClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Evaluate text quality metrics like factual consistency and hallucination detection
+        /// </summary>
+        public FactualConsistencyEvaluationClient FactualConsistencyEvaluation => new FactualConsistencyEvaluationClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
         /// Creates a new instance of the VectaraClient.
         /// If no httpClient is provided, a new one will be created.
         /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.

@@ -557,7 +557,7 @@ paths:
       tags:
         - Upload
       summary: Upload a file to the corpus
-      description: "Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.\nThe request expects a `multipart/form-data` format containing the following parts:\n* `metadata` - (Optional) Specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={\"key\": \"value\"};type=application/json'`\n* `chunking_strategy` - (Optional) Specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. You can explicitly set sentence chunking with `'chunking_strategy={\"type\":\"sentence_chunking_strategy\"};type=application/json'` or use max chars chunking with `'chunking_strategy={\"type\":\"max_chars_chunking_strategy\",\"max_chars_per_chunk\":200};type=application/json'`\n* `table_extraction_config` - (Optional) Specifies whether to extract table data from the uploaded file. If you do not set this option, the platform does not extract tables from PDF files. Example config, `'table_extraction_config={\"extract_tables\":true};type=application/json'`\n* `file` - Specifies the file that you want to upload.\n* `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`\n\nFor more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)\n"
+      description: "Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.\nThe request expects a `multipart/form-data` format containing the following parts:\n* `metadata` - Optionally specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `'metadata={\"key\": \"value\"};type=application/json'`\n* `chunking_strategy` - If provided, specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. You can explicitly set sentence chunking with `'chunking_strategy={\"type\":\"sentence_chunking_strategy\"};type=application/json'` or use max chars chunking with `'chunking_strategy={\"type\":\"max_chars_chunking_strategy\",\"max_chars_per_chunk\":200};type=application/json'`\n* `table_extraction_config` - You can optionally specify whether to extract table data from the uploaded file. If you do not set this option, the platform does not extract tables from PDF files. Example config, `'table_extraction_config={\"extract_tables\":true};type=application/json'`\n* `file` - Specifies the file that you want to upload.\n* `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `'file=@/path/to/file/file.pdf;filename=desired_filename.pdf'`\n\nFor more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)\n"
       operationId: uploadFile
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -1648,6 +1648,48 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: chats
       x-fern-sdk-method-name: updateTurn
+  /v2/evaluate_factual_consistency:
+    post:
+      tags:
+        - Factual Consistency Evaluation
+      summary: Evaluate factual consistency
+      description: "Evaluate the factual consistency of a generated text (like a summary) against source documents.\nThis determines how accurately the generated text reflects the information in the source documents,\nhelping identify potential hallucinations or misrepresentations.\n"
+      operationId: evaluateFactualConsistency
+      parameters:
+        - $ref: '#/components/parameters/RequestTimeout'
+        - $ref: '#/components/parameters/RequestTimeoutMillis'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluateFactualConsistencyRequest'
+      responses:
+        '200':
+          description: The factual consistency evaluation results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluateFactualConsistencyResponse'
+        '400':
+          description: Invalid request body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow factual consistency evaluation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Language not supported by the factual consistency service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: factual-consistency
+      x-fern-sdk-method-name: evaluate
   /v2/encoders:
     post:
       tags:
@@ -2675,6 +2717,47 @@ paths:
         - auth
       x-fern-sdk-method-name: getToken
       x-fern-server-name: Auth
+  /v2/llms/chat/completions:
+    post:
+      tags:
+        - LLM Chat Completions
+      summary: Creates a model response for the given chat conversation
+      description: "OpenAI-compatible endpoint for chat completions. Creates a response for the given chat conversation. \nThe chat completion API allows you to chat with Vectara's language models in a way that's compatible with OpenAI's specification. \nThis makes it easy to integrate with applications already designed for OpenAI's API.\n"
+      operationId: createChatCompletion
+      parameters:
+        - $ref: '#/components/parameters/RequestTimeout'
+        - $ref: '#/components/parameters/RequestTimeoutMillis'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChatCompletionRequest'
+        required: true
+      responses:
+        '200':
+          description: A chat completion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateChatCompletionResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/CreateChatCompletionStreamResponse'
+        '400':
+          description: Chat completion request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow creating a chat completion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-stream-based-on-body: stream()
+      x-fern-sdk-group-name: llm
+      x-fern-sdk-method-name: chatCompletion
 components:
   schemas:
     CreateCorpusRequest:
@@ -3561,7 +3644,9 @@ components:
           description: "If set to true, the platform will attempt to extract tables from the document.\nThe tables will be indexed as separate document parts.\n"
         extractor:
           $ref: '#/components/schemas/TableExtractorSpec'
-      description: "Configuration for table extraction from the document. This is optional and if not provided, default table extraction behavior will be used.\n"
+        generation:
+          $ref: '#/components/schemas/TableGenerationSpec'
+      description: "Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.\n"
     ChunkingStrategy:
       type: object
       oneOf:
@@ -3860,6 +3945,42 @@ components:
           type: string
           description: The description of the table.
       description: A table in a document.
+    EvaluateFactualConsistencyRequest:
+      required:
+        - generated_text
+        - source_texts
+      type: object
+      properties:
+        model_parameters:
+          type: object
+          properties:
+            model_name:
+              type: string
+              description: The name of the model to use for evaluation.
+              default: hhem_v2.2
+              example: hhem_v2.2
+          description: The model parameters for the evaluation.
+        generated_text:
+          type: string
+          description: 'The generated text (e.g., summary or answer) to evaluate for factual consistency.'
+        source_texts:
+          type: array
+          items:
+            type: string
+          description: The source documents or text snippets against which to evaluate factual consistency.
+      description: Request to evaluate the factual consistency of a generated text against source documents.
+    EvaluateFactualConsistencyResponse:
+      required:
+        - score
+      type: object
+      properties:
+        score:
+          maximum: 1.0
+          minimum: 0.0
+          type: number
+          description: 'A prediction score (0.0-1.0) from HHEM, monotonically indicates the likelihood of hallucinations.'
+          format: double
+      description: Results of the factual consistency evaluation.
     DocumentStorageUsage:
       type: object
       properties:
@@ -3978,6 +4099,11 @@ components:
           format: uri
         auth:
           $ref: '#/components/schemas/RemoteAuth'
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Additional HTTP headers to include with requests to the LLM API.
         test_model_parameters:
           type: object
           description: "Any additional parameters that are required for the LLM during the test call.\n"
@@ -4526,6 +4652,23 @@ components:
           description: The name of the table extractor to use.
           example: textract
       description: "Specification for which table extractor to use. If not specified, the platform uses the default extractor.\n"
+    TableGenerationSpec:
+      type: object
+      properties:
+        llm_name:
+          type: string
+          description: The name of the LLM to use.
+          example: gpt-4o
+        prompt_template:
+          type: string
+          description: "The prompt template to use when generating the table summary. \nVectara manages both system and user roles and prompts for the generative\nLLM out of the box by default. However, users can override the\n`prompt_template` via this variable. The `prompt_template` is in the form of an\nApache Velocity template. For more details on how to configure the\n`prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).\n"
+        model_parameters:
+          type: object
+          description: Optional parameters for the specified model used when generating the table summary.
+          example:
+            temperature: 0
+            max_tokens: 512
+      description: "Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.\n"
     TableExtractor:
       type: object
       properties:
@@ -4540,6 +4683,8 @@ components:
           type: string
           description: The description of the table extractor.
           example: Uses the AWS Textract service to extract tables.
+        generation:
+          $ref: '#/components/schemas/TableGenerationSpec'
       description: "A table extractor can be used to extract tabular data from documents during indexing.\n"
     ListTableExtractorsResponse:
       type: object
@@ -5138,7 +5283,7 @@ components:
             type: string
         request_id:
           type: string
-          description: ID of the request that can be used to help Vectara support debug what went wrong.
+          description: The ID of the request that can be used to help Vectara support debug what went wrong.
       description: Error returned when a requested resource does not exist.
     BadRequestError:
       type: object
@@ -5171,6 +5316,116 @@ components:
           type: string
           description: The ID of the request that can be used to help Vectara support debug what went wrong.
       description: A general error response with an error code and message.
+    CreateChatCompletionRequest:
+      required:
+        - messages
+        - model
+      type: object
+      properties:
+        model:
+          type: string
+          description: The ID of the model to use. This field is required.
+        messages:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatCompletionRequestMessage'
+          description: An ordered array of messages that represent the full context of the conversation to date. Each message includes a `role` and `content`.
+        stream:
+          type: boolean
+          description: 'Optional. When set to `true`, the API streams partial message deltas as they become available, similar to ChatGPT''s streaming mode.'
+          default: false
+      description: The request object for creating a chat completion with an OpenAI-compatible interface. \nThis object is compatible with OpenAI's chat completion schema and supports customizable parameters for response generation.
+    ChatCompletionRequestMessage:
+      required:
+        - role
+        - content
+      type: object
+      properties:
+        role:
+          type: string
+          description: 'The role of the author of this message. Common values include ''system'', ''user'', ''assistant'', ''function'', and ''tool''.'
+        content:
+          type: string
+          description: The contents of the message.
+        name:
+          type: string
+          description: 'The name of the author of this message, used to connect messages in a conversation.'
+      description: 'A message in the chat completion request, representing part of the conversation.'
+    CreateChatCompletionResponse:
+      required:
+        - object
+        - choices
+      type: object
+      properties:
+        object:
+          enum:
+            - chat.completion
+          type: string
+          description: 'The object type, which is always ''chat.completion''.'
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatCompletionResponseChoice'
+          description: A list of chat completion choices. Can be more than one if `n` is greater than `1`.
+      description: Response object containing the generated chat completion.
+    ChatCompletionResponseChoice:
+      required:
+        - index
+        - message
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the choice in the array of choices.
+        message:
+          $ref: '#/components/schemas/ChatCompletionResponseMessage'
+      description: A single chat completion choice returned in the response
+    ChatCompletionResponseMessage:
+      required:
+        - role
+      type: object
+      properties:
+        role:
+          type: string
+          description: 'The role of the author of this message, typically ''assistant'' for responses.'
+      description: A message in the chat completion response from the assistant.
+    CreateChatCompletionStreamResponse:
+      required:
+        - object
+        - choices
+      type: object
+      properties:
+        object:
+          enum:
+            - chat.completion.chunk
+          type: string
+          description: 'The object type, which is always ''chat.completion.chunk'' for streaming responses.'
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatCompletionStreamResponseChoice'
+          description: A list of chat completion chunks.
+      description: The response object for streaming chat completions in chunks.
+    ChatCompletionStreamResponseChoice:
+      required:
+        - index
+        - delta
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the choice in the array of choices.
+        delta:
+          $ref: '#/components/schemas/ChatCompletionStreamResponseDelta'
+      description: A single chat completion chunk choice in a streaming response.
+    ChatCompletionStreamResponseDelta:
+      type: object
+      properties:
+        role:
+          type: string
+          description: 'The role of the author of this message, typically ''assistant'' for responses.'
+      description: A partial message update to be merged with previous chunks in a streaming response.
   parameters:
     RequestTimeout:
       name: Request-Timeout
@@ -5236,3 +5491,7 @@ tags:
     description: 'Create, manage, and authenticate users within the platform for user administration'
   - name: Table Extractors
     description: List available extractors for tabular data from documents
+  - name: LLM Chat Completions
+    description: Create model responses for chat conversations using OpenAI-compatible endpoints
+  - name: Factual Consistency Evaluation
+    description: Evaluate text quality metrics like factual consistency and hallucination detection

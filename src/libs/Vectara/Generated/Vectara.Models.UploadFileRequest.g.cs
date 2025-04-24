@@ -23,7 +23,7 @@ namespace Vectara
         public global::Vectara.ChunkingStrategy? ChunkingStrategy { get; set; }
 
         /// <summary>
-        /// Configuration for table extraction from the document. This is optional and if not provided, default table extraction behavior will be used.
+        /// Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("table_extraction_config")]
         public global::Vectara.TableExtractionConfig? TableExtractionConfig { get; set; }
@@ -58,7 +58,7 @@ namespace Vectara
         /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </param>
         /// <param name="tableExtractionConfig">
-        /// Configuration for table extraction from the document. This is optional and if not provided, default table extraction behavior will be used.
+        /// Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.
         /// </param>
         /// <param name="filename">
         /// Optional multipart section to override the filename.
