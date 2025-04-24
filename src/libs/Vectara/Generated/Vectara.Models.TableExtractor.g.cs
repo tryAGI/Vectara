@@ -31,6 +31,12 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
+        /// Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("generation")]
+        public global::Vectara.TableGenerationSpec? Generation { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -50,17 +56,22 @@ namespace Vectara
         /// The description of the table extractor.<br/>
         /// Example: Uses the AWS Textract service to extract tables.
         /// </param>
+        /// <param name="generation">
+        /// Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public TableExtractor(
             string? name,
             bool? isDefault,
-            string? description)
+            string? description,
+            global::Vectara.TableGenerationSpec? generation)
         {
             this.Name = name;
             this.IsDefault = isDefault;
             this.Description = description;
+            this.Generation = generation;
         }
 
         /// <summary>
