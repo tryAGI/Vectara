@@ -34,7 +34,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryStreamedResponse(global::Vectara.StreamSearchResponse value) => new QueryStreamedResponse(value);
+        public static implicit operator QueryStreamedResponse(global::Vectara.StreamSearchResponse value) => new QueryStreamedResponse((global::Vectara.StreamSearchResponse?)value);
 
         /// <summary>
         /// 
@@ -69,7 +69,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryStreamedResponse(global::Vectara.StreamGenerationChunk value) => new QueryStreamedResponse(value);
+        public static implicit operator QueryStreamedResponse(global::Vectara.StreamGenerationChunk value) => new QueryStreamedResponse((global::Vectara.StreamGenerationChunk?)value);
 
         /// <summary>
         /// 
@@ -105,7 +105,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryStreamedResponse(global::Vectara.StreamGenerationEnd value) => new QueryStreamedResponse(value);
+        public static implicit operator QueryStreamedResponse(global::Vectara.StreamGenerationEnd value) => new QueryStreamedResponse((global::Vectara.StreamGenerationEnd?)value);
 
         /// <summary>
         /// 
@@ -140,7 +140,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryStreamedResponse(global::Vectara.StreamResponseEnd value) => new QueryStreamedResponse(value);
+        public static implicit operator QueryStreamedResponse(global::Vectara.StreamResponseEnd value) => new QueryStreamedResponse((global::Vectara.StreamResponseEnd?)value);
 
         /// <summary>
         /// 
@@ -175,7 +175,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryStreamedResponse(global::Vectara.FactualConsistencyScore value) => new QueryStreamedResponse(value);
+        public static implicit operator QueryStreamedResponse(global::Vectara.FactualConsistencyScore value) => new QueryStreamedResponse((global::Vectara.FactualConsistencyScore?)value);
 
         /// <summary>
         /// 
@@ -210,7 +210,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryStreamedResponse(global::Vectara.GenerationInfo value) => new QueryStreamedResponse(value);
+        public static implicit operator QueryStreamedResponse(global::Vectara.GenerationInfo value) => new QueryStreamedResponse((global::Vectara.GenerationInfo?)value);
 
         /// <summary>
         /// 
@@ -245,7 +245,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryStreamedResponse(global::Vectara.StreamError value) => new QueryStreamedResponse(value);
+        public static implicit operator QueryStreamedResponse(global::Vectara.StreamError value) => new QueryStreamedResponse((global::Vectara.StreamError?)value);
 
         /// <summary>
         /// 

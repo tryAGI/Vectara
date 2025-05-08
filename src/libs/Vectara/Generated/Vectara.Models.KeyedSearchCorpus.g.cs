@@ -29,7 +29,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator KeyedSearchCorpus(global::Vectara.SearchCorpus value) => new KeyedSearchCorpus(value);
+        public static implicit operator KeyedSearchCorpus(global::Vectara.SearchCorpus value) => new KeyedSearchCorpus((global::Vectara.SearchCorpus?)value);
 
         /// <summary>
         /// 
@@ -64,7 +64,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator KeyedSearchCorpus(global::Vectara.KeyedSearchCorpusVariant2 value) => new KeyedSearchCorpus(value);
+        public static implicit operator KeyedSearchCorpus(global::Vectara.KeyedSearchCorpusVariant2 value) => new KeyedSearchCorpus((global::Vectara.KeyedSearchCorpusVariant2?)value);
 
         /// <summary>
         /// 

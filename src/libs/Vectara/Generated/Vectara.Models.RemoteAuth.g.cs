@@ -34,7 +34,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator RemoteAuth(global::Vectara.BearerAuth value) => new RemoteAuth(value);
+        public static implicit operator RemoteAuth(global::Vectara.BearerAuth value) => new RemoteAuth((global::Vectara.BearerAuth?)value);
 
         /// <summary>
         /// 
@@ -69,7 +69,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator RemoteAuth(global::Vectara.HeaderAuth value) => new RemoteAuth(value);
+        public static implicit operator RemoteAuth(global::Vectara.HeaderAuth value) => new RemoteAuth((global::Vectara.HeaderAuth?)value);
 
         /// <summary>
         /// 
