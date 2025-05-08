@@ -34,7 +34,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChatStreamedResponse(global::Vectara.StreamSearchResponse value) => new ChatStreamedResponse(value);
+        public static implicit operator ChatStreamedResponse(global::Vectara.StreamSearchResponse value) => new ChatStreamedResponse((global::Vectara.StreamSearchResponse?)value);
 
         /// <summary>
         /// 
@@ -69,7 +69,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChatStreamedResponse(global::Vectara.ChatInfoResponse value) => new ChatStreamedResponse(value);
+        public static implicit operator ChatStreamedResponse(global::Vectara.ChatInfoResponse value) => new ChatStreamedResponse((global::Vectara.ChatInfoResponse?)value);
 
         /// <summary>
         /// 
@@ -104,7 +104,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChatStreamedResponse(global::Vectara.StreamGenerationChunk value) => new ChatStreamedResponse(value);
+        public static implicit operator ChatStreamedResponse(global::Vectara.StreamGenerationChunk value) => new ChatStreamedResponse((global::Vectara.StreamGenerationChunk?)value);
 
         /// <summary>
         /// 
@@ -140,7 +140,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChatStreamedResponse(global::Vectara.StreamGenerationEnd value) => new ChatStreamedResponse(value);
+        public static implicit operator ChatStreamedResponse(global::Vectara.StreamGenerationEnd value) => new ChatStreamedResponse((global::Vectara.StreamGenerationEnd?)value);
 
         /// <summary>
         /// 
@@ -175,7 +175,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChatStreamedResponse(global::Vectara.FactualConsistencyScore value) => new ChatStreamedResponse(value);
+        public static implicit operator ChatStreamedResponse(global::Vectara.FactualConsistencyScore value) => new ChatStreamedResponse((global::Vectara.FactualConsistencyScore?)value);
 
         /// <summary>
         /// 
@@ -210,7 +210,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChatStreamedResponse(global::Vectara.StreamResponseEnd value) => new ChatStreamedResponse(value);
+        public static implicit operator ChatStreamedResponse(global::Vectara.StreamResponseEnd value) => new ChatStreamedResponse((global::Vectara.StreamResponseEnd?)value);
 
         /// <summary>
         /// 
@@ -245,7 +245,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChatStreamedResponse(global::Vectara.GenerationInfo value) => new ChatStreamedResponse(value);
+        public static implicit operator ChatStreamedResponse(global::Vectara.GenerationInfo value) => new ChatStreamedResponse((global::Vectara.GenerationInfo?)value);
 
         /// <summary>
         /// 
@@ -280,7 +280,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChatStreamedResponse(global::Vectara.StreamError value) => new ChatStreamedResponse(value);
+        public static implicit operator ChatStreamedResponse(global::Vectara.StreamError value) => new ChatStreamedResponse((global::Vectara.StreamError?)value);
 
         /// <summary>
         /// 

@@ -34,7 +34,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator CreateEncoderRequest(global::Vectara.CreateOpenAIEncoderRequest value) => new CreateEncoderRequest(value);
+        public static implicit operator CreateEncoderRequest(global::Vectara.CreateOpenAIEncoderRequest value) => new CreateEncoderRequest((global::Vectara.CreateOpenAIEncoderRequest?)value);
 
         /// <summary>
         /// 

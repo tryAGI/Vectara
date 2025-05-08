@@ -34,7 +34,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryHistorySpan(global::Vectara.RephraseSpan value) => new QueryHistorySpan(value);
+        public static implicit operator QueryHistorySpan(global::Vectara.RephraseSpan value) => new QueryHistorySpan((global::Vectara.RephraseSpan?)value);
 
         /// <summary>
         /// 
@@ -69,7 +69,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryHistorySpan(global::Vectara.SearchSpan value) => new QueryHistorySpan(value);
+        public static implicit operator QueryHistorySpan(global::Vectara.SearchSpan value) => new QueryHistorySpan((global::Vectara.SearchSpan?)value);
 
         /// <summary>
         /// 
@@ -104,7 +104,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryHistorySpan(global::Vectara.RerankSpan value) => new QueryHistorySpan(value);
+        public static implicit operator QueryHistorySpan(global::Vectara.RerankSpan value) => new QueryHistorySpan((global::Vectara.RerankSpan?)value);
 
         /// <summary>
         /// 
@@ -139,7 +139,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryHistorySpan(global::Vectara.GenerationSpan value) => new QueryHistorySpan(value);
+        public static implicit operator QueryHistorySpan(global::Vectara.GenerationSpan value) => new QueryHistorySpan((global::Vectara.GenerationSpan?)value);
 
         /// <summary>
         /// 
@@ -174,7 +174,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryHistorySpan(global::Vectara.FactualConsistencyScoreSpan value) => new QueryHistorySpan(value);
+        public static implicit operator QueryHistorySpan(global::Vectara.FactualConsistencyScoreSpan value) => new QueryHistorySpan((global::Vectara.FactualConsistencyScoreSpan?)value);
 
         /// <summary>
         /// 
@@ -210,7 +210,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator QueryHistorySpan(global::Vectara.RewrittenQuerySpan value) => new QueryHistorySpan(value);
+        public static implicit operator QueryHistorySpan(global::Vectara.RewrittenQuerySpan value) => new QueryHistorySpan((global::Vectara.RewrittenQuerySpan?)value);
 
         /// <summary>
         /// 

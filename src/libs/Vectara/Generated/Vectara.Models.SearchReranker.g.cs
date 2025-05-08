@@ -36,7 +36,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SearchReranker(global::Vectara.CustomerSpecificReranker value) => new SearchReranker(value);
+        public static implicit operator SearchReranker(global::Vectara.CustomerSpecificReranker value) => new SearchReranker((global::Vectara.CustomerSpecificReranker?)value);
 
         /// <summary>
         /// 
@@ -71,7 +71,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SearchReranker(global::Vectara.UserFunctionReranker value) => new SearchReranker(value);
+        public static implicit operator SearchReranker(global::Vectara.UserFunctionReranker value) => new SearchReranker((global::Vectara.UserFunctionReranker?)value);
 
         /// <summary>
         /// 
@@ -106,7 +106,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SearchReranker(global::Vectara.MMRReranker value) => new SearchReranker(value);
+        public static implicit operator SearchReranker(global::Vectara.MMRReranker value) => new SearchReranker((global::Vectara.MMRReranker?)value);
 
         /// <summary>
         /// 
@@ -141,7 +141,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SearchReranker(global::Vectara.ChainReranker value) => new SearchReranker(value);
+        public static implicit operator SearchReranker(global::Vectara.ChainReranker value) => new SearchReranker((global::Vectara.ChainReranker?)value);
 
         /// <summary>
         /// 
@@ -176,7 +176,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SearchReranker(global::Vectara.NoneReranker value) => new SearchReranker(value);
+        public static implicit operator SearchReranker(global::Vectara.NoneReranker value) => new SearchReranker((global::Vectara.NoneReranker?)value);
 
         /// <summary>
         /// 

@@ -34,7 +34,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationChunk value) => new SummarizeDocumentStreamedResponse(value);
+        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationChunk value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamGenerationChunk?)value);
 
         /// <summary>
         /// 
@@ -69,7 +69,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.GenerationInfo value) => new SummarizeDocumentStreamedResponse(value);
+        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.GenerationInfo value) => new SummarizeDocumentStreamedResponse((global::Vectara.GenerationInfo?)value);
 
         /// <summary>
         /// 
@@ -105,7 +105,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationEnd value) => new SummarizeDocumentStreamedResponse(value);
+        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationEnd value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamGenerationEnd?)value);
 
         /// <summary>
         /// 
@@ -140,7 +140,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamResponseEnd value) => new SummarizeDocumentStreamedResponse(value);
+        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamResponseEnd value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamResponseEnd?)value);
 
         /// <summary>
         /// 
@@ -175,7 +175,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamError value) => new SummarizeDocumentStreamedResponse(value);
+        public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamError value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamError?)value);
 
         /// <summary>
         /// 

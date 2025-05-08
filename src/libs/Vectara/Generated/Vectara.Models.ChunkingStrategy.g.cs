@@ -36,7 +36,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy value) => new ChunkingStrategy(value);
+        public static implicit operator ChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy value) => new ChunkingStrategy((global::Vectara.MaxCharsChunkingStrategy?)value);
 
         /// <summary>
         /// 
@@ -72,7 +72,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ChunkingStrategy(global::Vectara.SentenceChunkingStrategy value) => new ChunkingStrategy(value);
+        public static implicit operator ChunkingStrategy(global::Vectara.SentenceChunkingStrategy value) => new ChunkingStrategy((global::Vectara.SentenceChunkingStrategy?)value);
 
         /// <summary>
         /// 

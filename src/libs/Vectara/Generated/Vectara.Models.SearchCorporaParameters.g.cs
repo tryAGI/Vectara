@@ -29,7 +29,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SearchCorporaParameters(global::Vectara.SearchCorporaParametersVariant1 value) => new SearchCorporaParameters(value);
+        public static implicit operator SearchCorporaParameters(global::Vectara.SearchCorporaParametersVariant1 value) => new SearchCorporaParameters((global::Vectara.SearchCorporaParametersVariant1?)value);
 
         /// <summary>
         /// 
@@ -64,7 +64,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator SearchCorporaParameters(global::Vectara.SearchParameters value) => new SearchCorporaParameters(value);
+        public static implicit operator SearchCorporaParameters(global::Vectara.SearchParameters value) => new SearchCorporaParameters((global::Vectara.SearchParameters?)value);
 
         /// <summary>
         /// 

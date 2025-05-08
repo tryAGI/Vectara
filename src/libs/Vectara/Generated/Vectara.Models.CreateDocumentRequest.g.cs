@@ -38,7 +38,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator CreateDocumentRequest(global::Vectara.CoreDocument value) => new CreateDocumentRequest(value);
+        public static implicit operator CreateDocumentRequest(global::Vectara.CoreDocument value) => new CreateDocumentRequest((global::Vectara.CoreDocument?)value);
 
         /// <summary>
         /// 
@@ -73,7 +73,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator CreateDocumentRequest(global::Vectara.StructuredDocument value) => new CreateDocumentRequest(value);
+        public static implicit operator CreateDocumentRequest(global::Vectara.StructuredDocument value) => new CreateDocumentRequest((global::Vectara.StructuredDocument?)value);
 
         /// <summary>
         /// 

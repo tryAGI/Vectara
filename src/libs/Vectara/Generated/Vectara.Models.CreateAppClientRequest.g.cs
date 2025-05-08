@@ -34,7 +34,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator CreateAppClientRequest(global::Vectara.CreateClientCredentialsRequest value) => new CreateAppClientRequest(value);
+        public static implicit operator CreateAppClientRequest(global::Vectara.CreateClientCredentialsRequest value) => new CreateAppClientRequest((global::Vectara.CreateClientCredentialsRequest?)value);
 
         /// <summary>
         /// 
