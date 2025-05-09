@@ -141,6 +141,11 @@ namespace Vectara
         public TableExtractorsClient TableExtractors { get; }
 
         /// <summary>
+        /// List available hallucination correctors for detecting and correcting hallucinations in generated text
+        /// </summary>
+        public HallucinationCorrectorsClient HallucinationCorrectors { get; }
+
+        /// <summary>
         /// Create model responses for chat conversations using OpenAI-compatible endpoints
         /// </summary>
         public LLMChatCompletionsClient LLMChatCompletions { get; }

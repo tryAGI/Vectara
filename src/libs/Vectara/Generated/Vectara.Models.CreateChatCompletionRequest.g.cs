@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The request object for creating a chat completion with an OpenAI-compatible interface. \nThis object is compatible with OpenAI's chat completion schema and supports customizable parameters for response generation.
+    /// The request object for creating a chat completion with an OpenAI-compatible interface. This object is compatible with OpenAI's chat completion schema and supports customizable parameters for response generation.
     /// </summary>
     public sealed partial class CreateChatCompletionRequest
     {
