@@ -3,76 +3,69 @@
 
 namespace Vectara
 {
-    public partial class CorporaClient
+    public partial class HallucinationCorrectorsClient
     {
-        partial void PrepareListCorporaArguments(
+        partial void PrepareListHallucinationCorrectorsArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            ref int? limit,
             ref string? filter,
-            global::System.Collections.Generic.IList<string>? corpusId,
+            ref int? limit,
             ref string? pageKey);
-        partial void PrepareListCorporaRequest(
+        partial void PrepareListHallucinationCorrectorsRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            int? limit,
             string? filter,
-            global::System.Collections.Generic.IList<string>? corpusId,
+            int? limit,
             string? pageKey);
-        partial void ProcessListCorporaResponse(
+        partial void ProcessListHallucinationCorrectorsResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessListCorporaResponseContent(
+        partial void ProcessListHallucinationCorrectorsResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// List corpora<br/>
-        /// List corpora in the account. The returned corpus objects contain less<br/>
-        /// detail compared to those retrieved the direct corpus retrieval operation.
+        /// List hallucination correctors<br/>
+        /// Retrieves a list of available hallucination correctors used for detecting and correcting hallucinations in AI-generated content. This endpoint supports filtering by name or description, pagination, and metadata for navigating large result sets.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="filter"></param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
-        /// <param name="filter"></param>
-        /// <param name="corpusId"></param>
         /// <param name="pageKey"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.ListCorporaResponse> ListCorporaAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.ListHallucinationCorrectorsResponse> ListHallucinationCorrectorsAsync(
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            int? limit = default,
             string? filter = default,
-            global::System.Collections.Generic.IList<string>? corpusId = default,
+            int? limit = default,
             string? pageKey = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             PrepareArguments(
                 client: HttpClient);
-            PrepareListCorporaArguments(
+            PrepareListHallucinationCorrectorsArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                limit: ref limit,
                 filter: ref filter,
-                corpusId: corpusId,
+                limit: ref limit,
                 pageKey: ref pageKey);
 
             var __pathBuilder = new PathBuilder(
-                path: "/v2/corpora",
+                path: "/v2/hallucination_correctors",
                 baseUri: HttpClient.BaseAddress); 
             __pathBuilder 
-                .AddOptionalParameter("limit", limit?.ToString()) 
                 .AddOptionalParameter("filter", filter) 
-                .AddOptionalParameter("corpus_id", corpusId, delimiter: ",", explode: true) 
+                .AddOptionalParameter("limit", limit?.ToString()) 
                 .AddOptionalParameter("page_key", pageKey) 
                 ; 
             var __path = __pathBuilder.ToString();
@@ -113,14 +106,13 @@ namespace Vectara
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-            PrepareListCorporaRequest(
+            PrepareListHallucinationCorrectorsRequest(
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
-                limit: limit,
                 filter: filter,
-                corpusId: corpusId,
+                limit: limit,
                 pageKey: pageKey);
 
             using var __response = await HttpClient.SendAsync(
@@ -131,10 +123,10 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-            ProcessListCorporaResponse(
+            ProcessListHallucinationCorrectorsResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-            // Permissions do not allow listing corpora.
+            // Permissions do not allow listing hallucination correctors.
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
@@ -175,7 +167,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-                ProcessListCorporaResponseContent(
+                ProcessListHallucinationCorrectorsResponseContent(
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);
@@ -200,7 +192,7 @@ namespace Vectara
                 }
 
                 return
-                    global::Vectara.ListCorporaResponse.FromJson(__content, JsonSerializerContext) ??
+                    global::Vectara.ListHallucinationCorrectorsResponse.FromJson(__content, JsonSerializerContext) ??
                     throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
             }
             else
@@ -230,7 +222,7 @@ namespace Vectara
                 ).ConfigureAwait(false);
 
                 return
-                    await global::Vectara.ListCorporaResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                    await global::Vectara.ListHallucinationCorrectorsResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                     throw new global::System.InvalidOperationException("Response deserialization failed.");
             }
         }

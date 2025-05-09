@@ -63,6 +63,13 @@ namespace Vectara
         public float? Cutoff { get; set; }
 
         /// <summary>
+        /// If true, the reranker will use text with context (see "context_configuration") for scoring. WARNING: This is an experimental feature, and breakable at any point with virtually no notice. It is meant for experimentation only. <br/>
+        /// Default Value: true
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("experimental_use_text_with_context")]
+        public bool? ExperimentalUseTextWithContext { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -101,6 +108,10 @@ namespace Vectara
         /// results at each stage. If both 'limit' and 'cutoff' are specified, the cutoff<br/>
         /// is applied first, followed by the limit.
         /// </param>
+        /// <param name="experimentalUseTextWithContext">
+        /// If true, the reranker will use text with context (see "context_configuration") for scoring. WARNING: This is an experimental feature, and breakable at any point with virtually no notice. It is meant for experimentation only. <br/>
+        /// Default Value: true
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -108,12 +119,14 @@ namespace Vectara
             string? type,
             string? rerankerName,
             int? limit,
-            float? cutoff)
+            float? cutoff,
+            bool? experimentalUseTextWithContext)
         {
             this.Type = type;
             this.RerankerName = rerankerName;
             this.Limit = limit;
             this.Cutoff = cutoff;
+            this.ExperimentalUseTextWithContext = experimentalUseTextWithContext;
         }
 
         /// <summary>

@@ -209,6 +209,15 @@ namespace Vectara
         };
 
         /// <summary>
+        /// List available hallucination correctors for detecting and correcting hallucinations in generated text
+        /// </summary>
+        public HallucinationCorrectorsClient HallucinationCorrectors => new HallucinationCorrectorsClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
         /// Create model responses for chat conversations using OpenAI-compatible endpoints
         /// </summary>
         public LLMChatCompletionsClient LLMChatCompletions => new LLMChatCompletionsClient(HttpClient, authorizations: Authorizations)

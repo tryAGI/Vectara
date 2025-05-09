@@ -67,8 +67,8 @@ namespace Vectara
         /// Indicates whether to save the query to query history.
         /// </param>
         /// <param name="intelligentQueryRewriting">
-        /// Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to<br/>
-        /// extract metadata filter and rewrite the query to improve search results.<br/>
+        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to<br/>
+        /// extract metadata filter and rewrite the query to improve search results. For more details: https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting<br/>
         /// Default Value: false
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
