@@ -209,7 +209,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// List available hallucination correctors for detecting and correcting hallucinations in generated text
+        /// API for managing hallucination correction, including listing available models and correcting hallucinated content in generated text
         /// </summary>
         public HallucinationCorrectorsClient HallucinationCorrectors => new HallucinationCorrectorsClient(HttpClient, authorizations: Authorizations)
         {

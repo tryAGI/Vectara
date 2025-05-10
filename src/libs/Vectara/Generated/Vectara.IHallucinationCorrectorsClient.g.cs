@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// List available hallucination correctors for detecting and correcting hallucinations in generated text<br/>
+    /// API for managing hallucination correction, including listing available models and correcting hallucinated content in generated text<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>

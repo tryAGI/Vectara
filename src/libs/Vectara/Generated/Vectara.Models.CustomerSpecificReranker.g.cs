@@ -63,11 +63,11 @@ namespace Vectara
         public float? Cutoff { get; set; }
 
         /// <summary>
-        /// If true, the reranker will use text with context (see "context_configuration") for scoring. WARNING: This is an experimental feature, and breakable at any point with virtually no notice. It is meant for experimentation only. <br/>
+        /// If true, the reranker will use text with context (see "context_configuration") for scoring.<br/>
         /// Default Value: true
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("experimental_use_text_with_context")]
-        public bool? ExperimentalUseTextWithContext { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("include_context")]
+        public bool? IncludeContext { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -108,8 +108,8 @@ namespace Vectara
         /// results at each stage. If both 'limit' and 'cutoff' are specified, the cutoff<br/>
         /// is applied first, followed by the limit.
         /// </param>
-        /// <param name="experimentalUseTextWithContext">
-        /// If true, the reranker will use text with context (see "context_configuration") for scoring. WARNING: This is an experimental feature, and breakable at any point with virtually no notice. It is meant for experimentation only. <br/>
+        /// <param name="includeContext">
+        /// If true, the reranker will use text with context (see "context_configuration") for scoring.<br/>
         /// Default Value: true
         /// </param>
 #if NET7_0_OR_GREATER
@@ -120,13 +120,13 @@ namespace Vectara
             string? rerankerName,
             int? limit,
             float? cutoff,
-            bool? experimentalUseTextWithContext)
+            bool? includeContext)
         {
             this.Type = type;
             this.RerankerName = rerankerName;
             this.Limit = limit;
             this.Cutoff = cutoff;
-            this.ExperimentalUseTextWithContext = experimentalUseTextWithContext;
+            this.IncludeContext = includeContext;
         }
 
         /// <summary>

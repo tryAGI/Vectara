@@ -858,90 +858,114 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.NotFoundError? Type208 { get; set; }
+        public global::Vectara.HallucinationCorrectionRequest? Type208 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.BadRequestError? Type209 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.HcmSourceDocument>? Type209 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.Error? Type210 { get; set; }
+        public global::Vectara.HcmSourceDocument? Type210 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateChatCompletionRequest? Type211 { get; set; }
+        public global::Vectara.HallucinationCorrectionResponse? Type211 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.ChatCompletionRequestMessage>? Type212 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.CorrectionItem>? Type212 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ChatCompletionRequestMessage? Type213 { get; set; }
+        public global::Vectara.CorrectionItem? Type213 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateChatCompletionResponse? Type214 { get; set; }
+        public global::Vectara.NotFoundError? Type214 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateChatCompletionResponseObject? Type215 { get; set; }
+        public global::Vectara.BadRequestError? Type215 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.ChatCompletionResponseChoice>? Type216 { get; set; }
+        public global::Vectara.Error? Type216 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ChatCompletionResponseChoice? Type217 { get; set; }
+        public global::Vectara.CreateChatCompletionRequest? Type217 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ChatCompletionResponseMessage? Type218 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.ChatCompletionRequestMessage>? Type218 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateChatCompletionStreamResponse? Type219 { get; set; }
+        public global::Vectara.ChatCompletionRequestMessage? Type219 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateChatCompletionStreamResponseObject? Type220 { get; set; }
+        public global::Vectara.CreateChatCompletionResponse? Type220 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.ChatCompletionStreamResponseChoice>? Type221 { get; set; }
+        public global::Vectara.CreateChatCompletionResponseObject? Type221 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ChatCompletionStreamResponseChoice? Type222 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.ChatCompletionResponseChoice>? Type222 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ChatCompletionStreamResponseDelta? Type223 { get; set; }
+        public global::Vectara.ChatCompletionResponseChoice? Type223 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.GetOAuthTokenRequest? Type224 { get; set; }
+        public global::Vectara.ChatCompletionResponseMessage? Type224 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.JobState>? Type225 { get; set; }
+        public global::Vectara.CreateChatCompletionStreamResponse? Type225 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>? Type226 { get; set; }
+        public global::Vectara.CreateChatCompletionStreamResponseObject? Type226 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateUserResponse2? Type227 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.ChatCompletionStreamResponseChoice>? Type227 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ResetUserPasswordResponse? Type228 { get; set; }
+        public global::Vectara.ChatCompletionStreamResponseChoice? Type228 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.GetOAuthTokenResponse? Type229 { get; set; }
+        public global::Vectara.ChatCompletionStreamResponseDelta? Type229 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GetOAuthTokenRequest? Type230 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.IList<global::Vectara.JobState>? Type231 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>? Type232 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateUserResponse2? Type233 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ResetUserPasswordResponse? Type234 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GetOAuthTokenResponse? Type235 { get; set; }
     }
 }
