@@ -28,6 +28,10 @@ namespace Vectara.JsonConverters
                     var numValue = reader.GetInt32();
                     return (global::Vectara.CreateChatCompletionStreamResponseObject)numValue;
                 }
+                case global::System.Text.Json.JsonTokenType.Null:
+                {
+                    return default(global::Vectara.CreateChatCompletionStreamResponseObject);
+                }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
             }
