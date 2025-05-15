@@ -27,11 +27,7 @@ namespace Vectara
 
         /// <summary>
         /// Retrieve metadata about a corpus<br/>
-        /// Get metadata about a corpus. This operation does not search the corpus contents. <br/>
-        /// Specify the `corpus_key` to identify the corpus whose metadata you want to <br/>
-        /// retrieve. The `corpus_key` is created when the corpus is set up, either through<br/>
-        /// the Vectara Console UI or the Create Corpus API. For more information, <br/>
-        /// see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).
+        /// Get metadata about a corpus. This operation does not search the corpus contents. Specify the `corpus_key` to identify the corpus whose metadata you want to retrieve. The `corpus_key` is created when the corpus is set up, either through the Vectara Console UI or the Create Corpus API. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

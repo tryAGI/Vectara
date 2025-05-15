@@ -9,8 +9,7 @@ namespace Vectara
     public sealed partial class GenerationInfo
     {
         /// <summary>
-        /// When the streaming event contains the generation information<br/>
-        /// type will be `generation_info`.<br/>
+        /// When the streaming event contains the generation information type will be `generation_info`.<br/>
         /// Default Value: generation_info
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
@@ -23,8 +22,7 @@ namespace Vectara
         public string? RenderedPrompt { get; set; }
 
         /// <summary>
-        /// View the actual query made to backend that was rephrased <br/>
-        /// by the LLM from the input query.
+        /// View the actual query made to backend that was rephrased by the LLM from the input query.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rephrased_query")]
         public string? RephrasedQuery { get; set; }
@@ -39,16 +37,14 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="GenerationInfo" /> class.
         /// </summary>
         /// <param name="type">
-        /// When the streaming event contains the generation information<br/>
-        /// type will be `generation_info`.<br/>
+        /// When the streaming event contains the generation information type will be `generation_info`.<br/>
         /// Default Value: generation_info
         /// </param>
         /// <param name="renderedPrompt">
         /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.
         /// </param>
         /// <param name="rephrasedQuery">
-        /// View the actual query made to backend that was rephrased <br/>
-        /// by the LLM from the input query.
+        /// View the actual query made to backend that was rephrased by the LLM from the input query.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

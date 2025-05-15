@@ -6,11 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Create a corpus<br/>
-        /// Create a corpus, which is a container to store documents and associated metadata. Here, you <br/>
-        /// define the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined <br/>
-        /// following your preferred naming convention, allowing you to easily manage the corpus's data and <br/>
-        /// reference it in queries. For more information, see <br/>
-        /// [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).
+        /// Create a corpus, which is a container to store documents and associated metadata. Here, you define the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined following your preferred naming convention, allowing you to easily manage the corpus's data and reference it in queries. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -25,11 +21,7 @@ namespace Vectara
 
         /// <summary>
         /// Create a corpus<br/>
-        /// Create a corpus, which is a container to store documents and associated metadata. Here, you <br/>
-        /// define the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined <br/>
-        /// following your preferred naming convention, allowing you to easily manage the corpus's data and <br/>
-        /// reference it in queries. For more information, see <br/>
-        /// [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).
+        /// Create a corpus, which is a container to store documents and associated metadata. Here, you define the unique `corpus_key` that identifies the corpus. The `corpus_key` can be custom-defined following your preferred naming convention, allowing you to easily manage the corpus's data and reference it in queries. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -62,14 +54,10 @@ namespace Vectara
         /// Example: boomerang-2023-q3
         /// </param>
         /// <param name="filterAttributes">
-        /// The new filter attributes of the corpus. <br/>
-        /// If unset then the corpus will not have filter attributes.
+        /// The new filter attributes of the corpus. If unset then the corpus will not have filter attributes.
         /// </param>
         /// <param name="customDimensions">
-        /// A custom dimension is an additional numerical field attached to a document part. You<br/>
-        /// can then multiply this numerical field with a query time custom dimension of the same<br/>
-        /// name. This allows boosting (or burying) document parts for arbitrary reasons.<br/>
-        /// This feature is only enabled for Pro and Enterprise customers.
+        /// A custom dimension is an additional numerical field attached to a document part. You can then multiply this numerical field with a query time custom dimension of the same name. This allows boosting (or burying) document parts for arbitrary reasons. This feature is only enabled for Pro and Enterprise customers.
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>

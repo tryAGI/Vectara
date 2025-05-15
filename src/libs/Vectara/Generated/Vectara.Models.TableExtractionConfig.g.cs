@@ -9,8 +9,7 @@ namespace Vectara
     public sealed partial class TableExtractionConfig
     {
         /// <summary>
-        /// If set to true, the platform will attempt to extract tables from the document.<br/>
-        /// The tables will be indexed as separate document parts.
+        /// If set to true, the platform will attempt to extract tables from the document. The tables will be indexed as separate document parts.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("extract_tables")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -38,8 +37,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="TableExtractionConfig" /> class.
         /// </summary>
         /// <param name="extractTables">
-        /// If set to true, the platform will attempt to extract tables from the document.<br/>
-        /// The tables will be indexed as separate document parts.
+        /// If set to true, the platform will attempt to extract tables from the document. The tables will be indexed as separate document parts.
         /// </param>
         /// <param name="extractor">
         /// Specification for which table extractor to use. If not specified, the platform uses the default extractor.

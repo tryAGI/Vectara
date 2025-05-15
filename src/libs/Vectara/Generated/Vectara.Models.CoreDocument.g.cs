@@ -18,10 +18,7 @@ namespace Vectara
         public required string Id { get; set; }
 
         /// <summary>
-        /// When the type of the indexed document is `core` the rest of<br/>
-        /// the object is expected to follow this schema. This schema allows<br/>
-        /// precise specification of document chunks that get directly translated<br/>
-        /// to retrieve search results.<br/>
+        /// When the type of the indexed document is `core` the rest of the object is expected to follow this schema. This schema allows precise specification of document chunks that get directly translated to retrieve search results.<br/>
         /// Default Value: core
         /// </summary>
         /// <default>"core"</default>
@@ -30,8 +27,7 @@ namespace Vectara
         public required string Type { get; set; } = "core";
 
         /// <summary>
-        /// Arbitrary object of document level metadata. Properties of this object<br/>
-        /// can be used by document filters if defined as a corpus filter attribute.
+        /// Arbitrary object of document level metadata. Properties of this object can be used by document filters if defined as a corpus filter attribute.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
@@ -63,15 +59,11 @@ namespace Vectara
         /// Example: my-doc-id
         /// </param>
         /// <param name="type">
-        /// When the type of the indexed document is `core` the rest of<br/>
-        /// the object is expected to follow this schema. This schema allows<br/>
-        /// precise specification of document chunks that get directly translated<br/>
-        /// to retrieve search results.<br/>
+        /// When the type of the indexed document is `core` the rest of the object is expected to follow this schema. This schema allows precise specification of document chunks that get directly translated to retrieve search results.<br/>
         /// Default Value: core
         /// </param>
         /// <param name="metadata">
-        /// Arbitrary object of document level metadata. Properties of this object<br/>
-        /// can be used by document filters if defined as a corpus filter attribute.
+        /// Arbitrary object of document level metadata. Properties of this object can be used by document filters if defined as a corpus filter attribute.
         /// </param>
         /// <param name="tables">
         /// The tables that this document contains.

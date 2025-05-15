@@ -31,9 +31,7 @@ namespace Vectara
 
         /// <summary>
         /// Update document, merging the metadata.<br/>
-        /// Updates document identified by its unique `document_id` from a specific <br/>
-        /// corpus. The request body metadata is merged with the existing metadata, <br/>
-        /// adding or modifying only the specified fields.
+        /// Updates document identified by its unique `document_id` from a specific corpus. The request body metadata is merged with the existing metadata, adding or modifying only the specified fields.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -291,9 +289,7 @@ namespace Vectara
 
         /// <summary>
         /// Update document, merging the metadata.<br/>
-        /// Updates document identified by its unique `document_id` from a specific <br/>
-        /// corpus. The request body metadata is merged with the existing metadata, <br/>
-        /// adding or modifying only the specified fields.
+        /// Updates document identified by its unique `document_id` from a specific corpus. The request body metadata is merged with the existing metadata, adding or modifying only the specified fields.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -303,8 +299,7 @@ namespace Vectara
         /// </param>
         /// <param name="documentId"></param>
         /// <param name="metadata">
-        /// The metadata for a document as an arbitrary object. Properties of this object<br/>
-        /// can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary object. Properties of this object can be used by document level filter attributes.
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>

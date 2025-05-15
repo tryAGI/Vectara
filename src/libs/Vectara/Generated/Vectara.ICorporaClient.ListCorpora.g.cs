@@ -6,8 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List corpora<br/>
-        /// List corpora in the account. The returned corpus objects contain less<br/>
-        /// detail compared to those retrieved the direct corpus retrieval operation.
+        /// List corpora in the account. The returned corpus objects contain less detail compared to those retrieved the direct corpus retrieval operation.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

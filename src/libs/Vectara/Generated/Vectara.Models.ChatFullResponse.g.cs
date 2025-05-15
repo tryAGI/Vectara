@@ -41,15 +41,13 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.IndividualSearchResult>? SearchResults { get; set; }
 
         /// <summary>
-        /// Indicates the probability that the summary is factually consistent with the results.<br/>
-        /// The system excludes this property if it encounters excessively large outputs or search<br/>
-        /// results.
+        /// Indicates the probability that the summary is factually consistent with the results. The system excludes this property if it encounters excessively large outputs or search results.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("factual_consistency_score")]
         public float? FactualConsistencyScore { get; set; }
 
         /// <summary>
-        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates. 
+        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rendered_prompt")]
         public string? RenderedPrompt { get; set; }
@@ -61,15 +59,13 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.QueryWarning>? Warnings { get; set; }
 
         /// <summary>
-        /// View the actual query made to backend that was rephrased <br/>
-        /// by the LLM from the input query.
+        /// View the actual query made to backend that was rephrased by the LLM from the input query.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rephrased_query")]
         public string? RephrasedQuery { get; set; }
 
         /// <summary>
-        /// The rewritten queries for the corpora that were searched. Only populated when <br/>
-        /// intelligent_query_rewriting is enabled.
+        /// The rewritten queries for the corpora that were searched. Only populated when intelligent_query_rewriting is enabled.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rewritten_queries")]
         public global::System.Collections.Generic.IList<global::Vectara.RewrittenQuery>? RewrittenQueries { get; set; }
@@ -100,23 +96,19 @@ namespace Vectara
         /// The ranked search results that the chat model used.
         /// </param>
         /// <param name="factualConsistencyScore">
-        /// Indicates the probability that the summary is factually consistent with the results.<br/>
-        /// The system excludes this property if it encounters excessively large outputs or search<br/>
-        /// results.
+        /// Indicates the probability that the summary is factually consistent with the results. The system excludes this property if it encounters excessively large outputs or search results.
         /// </param>
         /// <param name="renderedPrompt">
-        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates. 
+        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.
         /// </param>
         /// <param name="warnings">
         /// Non-fatal warnings that occurred during request processing
         /// </param>
         /// <param name="rephrasedQuery">
-        /// View the actual query made to backend that was rephrased <br/>
-        /// by the LLM from the input query.
+        /// View the actual query made to backend that was rephrased by the LLM from the input query.
         /// </param>
         /// <param name="rewrittenQueries">
-        /// The rewritten queries for the corpora that were searched. Only populated when <br/>
-        /// intelligent_query_rewriting is enabled.
+        /// The rewritten queries for the corpora that were searched. Only populated when intelligent_query_rewriting is enabled.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

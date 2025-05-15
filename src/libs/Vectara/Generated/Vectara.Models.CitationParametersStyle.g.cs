@@ -4,29 +4,24 @@
 namespace Vectara
 {
     /// <summary>
-    /// The citation style to be used in summary.<br/>
-    /// Can be one of:<br/>
-    /// * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ...<br/>
-    /// * `none` - Citations removed from text.<br/>
-    /// * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`.<br/>
-    /// * `markdown` - Formatted as `[text_pattern](url_pattern)`.
+    /// The citation style to be used in summary. Can be one of: * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ... * `none` - Citations removed from text. * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`. * `markdown` - Formatted as `[text_pattern](url_pattern)`.
     /// </summary>
     public enum CitationParametersStyle
     {
         /// <summary>
-        /// 
+        /// * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ... * `none` - Citations removed from text. * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`. * `markdown` - Formatted as `[text_pattern](url_pattern)`.
         /// </summary>
         None,
         /// <summary>
-        /// \[1\], \[2\] ...
+        /// * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ... * `none` - Citations removed from text. * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`. * `markdown` - Formatted as `[text_pattern](url_pattern)`.
         /// </summary>
         Numeric,
         /// <summary>
-        /// 
+        /// * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ... * `none` - Citations removed from text. * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`. * `markdown` - Formatted as `[text_pattern](url_pattern)`.
         /// </summary>
         Html,
         /// <summary>
-        /// 
+        /// * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ... * `none` - Citations removed from text. * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`. * `markdown` - Formatted as `[text_pattern](url_pattern)`.
         /// </summary>
         Markdown,
     }

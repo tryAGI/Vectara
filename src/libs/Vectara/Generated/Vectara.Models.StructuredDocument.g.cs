@@ -16,10 +16,7 @@ namespace Vectara
         public required string Id { get; set; }
 
         /// <summary>
-        /// When the type of the indexed document is `structured` the rest of<br/>
-        /// the object is expected to follow this schema. It allows you to create a document<br/>
-        /// that follows normal document conventions. The Vectara platform will then<br/>
-        /// create document parts using its internal algorithm.<br/>
+        /// When the type of the indexed document is `structured` the rest of the object is expected to follow this schema. It allows you to create a document that follows normal document conventions. The Vectara platform will then create document parts using its internal algorithm.<br/>
         /// Default Value: structured
         /// </summary>
         /// <default>"structured"</default>
@@ -40,8 +37,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// The metadata for a document as an arbitrary JSON object. Properties of this object<br/>
-        /// can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary JSON object. Properties of this object can be used by document level filter attributes.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
@@ -60,8 +56,7 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.StructuredDocumentSection> Sections { get; set; }
 
         /// <summary>
-        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,<br/>
-        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ChunkingStrategyJsonConverter))]
@@ -80,10 +75,7 @@ namespace Vectara
         /// The document ID must be unique within the corpus.
         /// </param>
         /// <param name="type">
-        /// When the type of the indexed document is `structured` the rest of<br/>
-        /// the object is expected to follow this schema. It allows you to create a document<br/>
-        /// that follows normal document conventions. The Vectara platform will then<br/>
-        /// create document parts using its internal algorithm.<br/>
+        /// When the type of the indexed document is `structured` the rest of the object is expected to follow this schema. It allows you to create a document that follows normal document conventions. The Vectara platform will then create document parts using its internal algorithm.<br/>
         /// Default Value: structured
         /// </param>
         /// <param name="title">
@@ -93,8 +85,7 @@ namespace Vectara
         /// The description of the document.
         /// </param>
         /// <param name="metadata">
-        /// The metadata for a document as an arbitrary JSON object. Properties of this object<br/>
-        /// can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary JSON object. Properties of this object can be used by document level filter attributes.
         /// </param>
         /// <param name="customDimensions">
         /// The custom dimensions as additional weights.
@@ -103,8 +94,7 @@ namespace Vectara
         /// The subsection of the document.
         /// </param>
         /// <param name="chunkingStrategy">
-        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,<br/>
-        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

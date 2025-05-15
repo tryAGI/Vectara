@@ -6,8 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Retrieve a document<br/>
-        /// Retrieve the content and metadata of a specific document, identified by its <br/>
-        /// unique `document_id` from a specific corpus.
+        /// Retrieve the content and metadata of a specific document, identified by its unique `document_id` from a specific corpus.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

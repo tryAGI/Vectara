@@ -9,8 +9,7 @@ namespace Vectara
     public sealed partial class ChatInfoResponse
     {
         /// <summary>
-        /// This will be `chat_info` when the stream event contains information<br/>
-        /// about how the chat is stored.<br/>
+        /// This will be `chat_info` when the stream event contains information about how the chat is stored.<br/>
         /// Default Value: chat_info
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
@@ -38,8 +37,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ChatInfoResponse" /> class.
         /// </summary>
         /// <param name="type">
-        /// This will be `chat_info` when the stream event contains information<br/>
-        /// about how the chat is stored.<br/>
+        /// This will be `chat_info` when the stream event contains information about how the chat is stored.<br/>
         /// Default Value: chat_info
         /// </param>
         /// <param name="chatId">

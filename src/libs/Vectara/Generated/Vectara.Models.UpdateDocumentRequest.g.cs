@@ -4,15 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// Schema for updating the document. For PUT requests, the request body metadata replaces the existing<br/>
-    /// metadata. For PATCH requests, the request body metadata is merged with the existing metadata, <br/>
-    /// adding or modifying only the specified fields.
+    /// Schema for updating the document. For PUT requests, the request body metadata replaces the existing metadata. For PATCH requests, the request body metadata is merged with the existing metadata, adding or modifying only the specified fields.
     /// </summary>
     public sealed partial class UpdateDocumentRequest
     {
         /// <summary>
-        /// The metadata for a document as an arbitrary object. Properties of this object<br/>
-        /// can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary object. Properties of this object can be used by document level filter attributes.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
@@ -27,8 +24,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="UpdateDocumentRequest" /> class.
         /// </summary>
         /// <param name="metadata">
-        /// The metadata for a document as an arbitrary object. Properties of this object<br/>
-        /// can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary object. Properties of this object can be used by document level filter attributes.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

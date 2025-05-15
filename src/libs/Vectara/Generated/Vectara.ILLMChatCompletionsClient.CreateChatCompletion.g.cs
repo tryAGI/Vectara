@@ -6,9 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Creates a model response for the given chat conversation<br/>
-        /// OpenAI-compatible endpoint for chat completions. Creates a response for the given chat conversation. <br/>
-        /// The chat completion API allows you to chat with Vectara's language models in a way that's compatible with OpenAI's specification. <br/>
-        /// This makes it easy to integrate with applications already designed for OpenAI's API.
+        /// OpenAI-compatible endpoint for chat completions. Creates a response for the given chat conversation. The chat completion API allows you to chat with Vectara's language models in a way that's compatible with OpenAI's specification. This makes it easy to integrate with applications already designed for OpenAI's API.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -23,9 +21,7 @@ namespace Vectara
 
         /// <summary>
         /// Creates a model response for the given chat conversation<br/>
-        /// OpenAI-compatible endpoint for chat completions. Creates a response for the given chat conversation. <br/>
-        /// The chat completion API allows you to chat with Vectara's language models in a way that's compatible with OpenAI's specification. <br/>
-        /// This makes it easy to integrate with applications already designed for OpenAI's API.
+        /// OpenAI-compatible endpoint for chat completions. Creates a response for the given chat conversation. The chat completion API allows you to chat with Vectara's language models in a way that's compatible with OpenAI's specification. This makes it easy to integrate with applications already designed for OpenAI's API.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

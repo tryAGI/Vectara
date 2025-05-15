@@ -34,9 +34,7 @@ namespace Vectara
         public string? Type { get; set; }
 
         /// <summary>
-        /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.<br/>
-        /// A high dimensionality will consume more storage space, but it allows for an increase in the quality of<br/>
-        /// the embedding.<br/>
+        /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding. A high dimensionality will consume more storage space, but it allows for an increase in the quality of the embedding.<br/>
         /// Example: 1536
         /// </summary>
         /// <example>1536</example>
@@ -88,9 +86,7 @@ namespace Vectara
         /// Example: openai-compatible
         /// </param>
         /// <param name="outputDimensions">
-        /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding.<br/>
-        /// A high dimensionality will consume more storage space, but it allows for an increase in the quality of<br/>
-        /// the embedding.<br/>
+        /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding. A high dimensionality will consume more storage space, but it allows for an increase in the quality of the embedding.<br/>
         /// Example: 1536
         /// </param>
         /// <param name="description">

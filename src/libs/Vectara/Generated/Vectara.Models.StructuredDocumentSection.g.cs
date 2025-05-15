@@ -28,9 +28,7 @@ namespace Vectara
         public required string Text { get; set; }
 
         /// <summary>
-        /// Arbitrary object that becomes document part level metadata on any document part created <br/>
-        /// by this section. Properties of this object can be used by document part level <br/>
-        /// filters if defined as a corpus filter attribute.
+        /// Arbitrary object that becomes document part level metadata on any document part created by this section. Properties of this object can be used by document part level filters if defined as a corpus filter attribute.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
@@ -66,9 +64,7 @@ namespace Vectara
         /// The text of the section.
         /// </param>
         /// <param name="metadata">
-        /// Arbitrary object that becomes document part level metadata on any document part created <br/>
-        /// by this section. Properties of this object can be used by document part level <br/>
-        /// filters if defined as a corpus filter attribute.
+        /// Arbitrary object that becomes document part level metadata on any document part created by this section. Properties of this object can be used by document part level filters if defined as a corpus filter attribute.
         /// </param>
         /// <param name="tables">
         /// The tables that this section contains.

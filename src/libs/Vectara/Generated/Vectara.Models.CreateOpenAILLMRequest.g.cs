@@ -18,9 +18,7 @@ namespace Vectara
         public required string Type { get; set; } = "openai-compatible";
 
         /// <summary>
-        /// Name to reference the LLM.  This will be used in other endpoints (like query) when using this LLM.<br/>
-        /// If this name conflicts with a global LLM (a LLM that is precofnigured with the Vectara platform),<br/>
-        /// then it will override that LLM for all usages.
+        /// Name to reference the LLM.  This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is precofnigured with the Vectara platform), then it will override that LLM for all usages.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -79,9 +77,7 @@ namespace Vectara
         /// Default Value: openai-compatible
         /// </param>
         /// <param name="name">
-        /// Name to reference the LLM.  This will be used in other endpoints (like query) when using this LLM.<br/>
-        /// If this name conflicts with a global LLM (a LLM that is precofnigured with the Vectara platform),<br/>
-        /// then it will override that LLM for all usages.
+        /// Name to reference the LLM.  This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is precofnigured with the Vectara platform), then it will override that LLM for all usages.
         /// </param>
         /// <param name="description">
         /// Description of the LLM.

@@ -43,8 +43,7 @@ namespace Vectara
         /// Default Value: true
         /// </param>
         /// <param name="intelligentQueryRewriting">
-        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to<br/>
-        /// extract metadata filter and rewrite the query to improve search results. For more details: https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting<br/>
+        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to extract metadata filter and rewrite the query to improve search results. Read [here](https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting) for more details.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="streamResponse">
