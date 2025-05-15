@@ -9,8 +9,7 @@ namespace Vectara
     public sealed partial class UpdateTurnRequest
     {
         /// <summary>
-        /// Indicates whether to disable a turn. It will disable this turn and all subsequent turns.<br/>
-        /// Enabling a turn is not implemented.<br/>
+        /// Indicates whether to disable a turn. It will disable this turn and all subsequent turns. Enabling a turn is not implemented.<br/>
         /// Example: false
         /// </summary>
         /// <example>false</example>
@@ -27,8 +26,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="UpdateTurnRequest" /> class.
         /// </summary>
         /// <param name="enabled">
-        /// Indicates whether to disable a turn. It will disable this turn and all subsequent turns.<br/>
-        /// Enabling a turn is not implemented.<br/>
+        /// Indicates whether to disable a turn. It will disable this turn and all subsequent turns. Enabling a turn is not implemented.<br/>
         /// Example: false
         /// </param>
 #if NET7_0_OR_GREATER

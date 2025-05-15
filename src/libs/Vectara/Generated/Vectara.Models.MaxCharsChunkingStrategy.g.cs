@@ -4,8 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Sets a chunking strategy that limits the number of maximum characters per chunk.<br/>
-    /// The chunks do not cross section boundaries.
+    /// Sets a chunking strategy that limits the number of maximum characters per chunk. The chunks do not cross section boundaries.
     /// </summary>
     public sealed partial class MaxCharsChunkingStrategy
     {
@@ -17,10 +16,7 @@ namespace Vectara
         public string? Type { get; set; }
 
         /// <summary>
-        /// Specifies the maximum number of characters per chunk.<br/>
-        /// The platform adds sentences to a chunk until the total number of characters exceeds the limit.<br/>
-        /// If a single sentence exceeds the limit, it splits the sentence across chunks.<br/>
-        /// Note: This is the only case where the chunk may not contain a complete sentence.
+        /// Specifies the maximum number of characters per chunk. The platform adds sentences to a chunk until the total number of characters exceeds the limit. If a single sentence exceeds the limit, it splits the sentence across chunks. Note: This is the only case where the chunk may not contain a complete sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_chars_per_chunk")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -40,10 +36,7 @@ namespace Vectara
         /// Default Value: max_chars_chunking_strategy
         /// </param>
         /// <param name="maxCharsPerChunk">
-        /// Specifies the maximum number of characters per chunk.<br/>
-        /// The platform adds sentences to a chunk until the total number of characters exceeds the limit.<br/>
-        /// If a single sentence exceeds the limit, it splits the sentence across chunks.<br/>
-        /// Note: This is the only case where the chunk may not contain a complete sentence.
+        /// Specifies the maximum number of characters per chunk. The platform adds sentences to a chunk until the total number of characters exceeds the limit. If a single sentence exceeds the limit, it splits the sentence across chunks. Note: This is the only case where the chunk may not contain a complete sentence.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

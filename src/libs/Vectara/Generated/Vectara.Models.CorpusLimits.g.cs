@@ -21,23 +21,19 @@ namespace Vectara
         public long? UsedParts { get; set; }
 
         /// <summary>
-        /// NOTE: This field is currently not populated by the system.<br/>
-        /// The number of bytes contained in the corpus. This includes the document metadata,<br/>
-        /// document part metadata, and document contents.
+        /// NOTE: This field is currently not populated by the system. The number of bytes contained in the corpus. This includes the document metadata, document part metadata, and document contents.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_bytes")]
         public long? UsedBytes { get; set; }
 
         /// <summary>
-        /// The number of characters contained in the corpus. This includes the document metadata,<br/>
-        /// document part metadata, and document contents.
+        /// The number of characters contained in the corpus. This includes the document metadata, document part metadata, and document contents.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_characters")]
         public long? UsedCharacters { get; set; }
 
         /// <summary>
-        /// NOTE: This field is currently not populated by the system.<br/>
-        /// The maximum number of bytes the corpus can be.
+        /// NOTE: This field is currently not populated by the system. The maximum number of bytes the corpus can be.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_bytes")]
         public long? MaxBytes { get; set; }
@@ -49,8 +45,7 @@ namespace Vectara
         public long? MaxMetadataBytes { get; set; }
 
         /// <summary>
-        /// NOTE: This field is currently not populated by the system.<br/>
-        /// The maximum per-second addition of new documents to corpus.
+        /// NOTE: This field is currently not populated by the system. The maximum per-second addition of new documents to corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("index_rate")]
         public long? IndexRate { get; set; }
@@ -71,24 +66,19 @@ namespace Vectara
         /// The number of document parts contained in the corpus.
         /// </param>
         /// <param name="usedBytes">
-        /// NOTE: This field is currently not populated by the system.<br/>
-        /// The number of bytes contained in the corpus. This includes the document metadata,<br/>
-        /// document part metadata, and document contents.
+        /// NOTE: This field is currently not populated by the system. The number of bytes contained in the corpus. This includes the document metadata, document part metadata, and document contents.
         /// </param>
         /// <param name="usedCharacters">
-        /// The number of characters contained in the corpus. This includes the document metadata,<br/>
-        /// document part metadata, and document contents.
+        /// The number of characters contained in the corpus. This includes the document metadata, document part metadata, and document contents.
         /// </param>
         /// <param name="maxBytes">
-        /// NOTE: This field is currently not populated by the system.<br/>
-        /// The maximum number of bytes the corpus can be.
+        /// NOTE: This field is currently not populated by the system. The maximum number of bytes the corpus can be.
         /// </param>
         /// <param name="maxMetadataBytes">
         /// The maximum size that metadata can be on documents.
         /// </param>
         /// <param name="indexRate">
-        /// NOTE: This field is currently not populated by the system.<br/>
-        /// The maximum per-second addition of new documents to corpus.
+        /// NOTE: This field is currently not populated by the system. The maximum per-second addition of new documents to corpus.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

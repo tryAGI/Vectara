@@ -4,8 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// How much extraction quota the document used. This information is currently not returned when<br/>
-    /// retrieving the document, and only returned when indexing a document.
+    /// How much extraction quota the document used. This information is currently not returned when retrieving the document, and only returned when indexing a document.
     /// </summary>
     public sealed partial class ExtractionUsage
     {

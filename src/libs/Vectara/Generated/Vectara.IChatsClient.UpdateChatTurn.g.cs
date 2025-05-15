@@ -32,8 +32,7 @@ namespace Vectara
         /// <param name="chatId"></param>
         /// <param name="turnId"></param>
         /// <param name="enabled">
-        /// Indicates whether to disable a turn. It will disable this turn and all subsequent turns.<br/>
-        /// Enabling a turn is not implemented.<br/>
+        /// Indicates whether to disable a turn. It will disable this turn and all subsequent turns. Enabling a turn is not implemented.<br/>
         /// Example: false
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>

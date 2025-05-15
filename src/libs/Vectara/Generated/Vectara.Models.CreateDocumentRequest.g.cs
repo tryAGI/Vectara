@@ -5,11 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Creating a document using this endpoint can take multiple forms depending on how much<br/>
-    /// control of the resulting document parts you desire. You can create a document<br/>
-    /// with natural structure, and Vectara will use its proprietary strategy to create document parts.<br/>
-    /// Otherwise, you can create a document with all the document parts explicitly specified.<br/>
-    /// A document part is the search result item in search and Retrieval Augmented Generation endpoints.
+    /// Creating a document using this endpoint can take multiple forms depending on how much control of the resulting document parts you desire. You can create a document with natural structure, and Vectara will use its proprietary strategy to create document parts. Otherwise, you can create a document with all the document parts explicitly specified. A document part is the search result item in search and Retrieval Augmented Generation endpoints.
     /// </summary>
     public readonly partial struct CreateDocumentRequest : global::System.IEquatable<CreateDocumentRequest>
     {

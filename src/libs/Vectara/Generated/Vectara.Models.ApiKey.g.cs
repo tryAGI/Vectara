@@ -33,9 +33,7 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Role of the API key. <br/>
-        /// A serving API key can only perform query type requests on its corpora. A serving and<br/>
-        /// indexing key can perform both indexing and query type requests on its corpora.<br/>
+        /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
         /// A personal API key has all the same permissions as the creator of the API key.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_key_role")]
@@ -70,9 +68,7 @@ namespace Vectara
         /// If this API key is enabled.
         /// </param>
         /// <param name="apiKeyRole">
-        /// Role of the API key. <br/>
-        /// A serving API key can only perform query type requests on its corpora. A serving and<br/>
-        /// indexing key can perform both indexing and query type requests on its corpora.<br/>
+        /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
         /// A personal API key has all the same permissions as the creator of the API key.
         /// </param>
         /// <param name="apiPolicy">

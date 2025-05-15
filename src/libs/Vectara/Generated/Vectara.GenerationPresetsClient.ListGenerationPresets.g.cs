@@ -31,10 +31,7 @@ namespace Vectara
 
         /// <summary>
         /// List generation presets<br/>
-        /// List generation presets used for query or chat requests. Generation presets are<br/>
-        /// the build of properties used to configure generation for a request. This includes<br/>
-        /// the template that renders the prompt, and various generation settings like<br/>
-        /// `temperature`.
+        /// List generation presets used for query or chat requests. Generation presets are the build of properties used to configure generation for a request. This includes the template that renders the prompt, and various generation settings like `temperature`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

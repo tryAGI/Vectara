@@ -27,9 +27,7 @@ namespace Vectara
 
         /// <summary>
         /// Evaluate factual consistency<br/>
-        /// Evaluate the factual consistency of a generated text (like a summary) against source documents.<br/>
-        /// This determines how accurately the generated text reflects the information in the source documents,<br/>
-        /// helping identify potential hallucinations or misrepresentations.
+        /// Evaluate the factual consistency of a generated text (like a summary) against source documents. This determines how accurately the generated text reflects the information in the source documents, helping identify potential hallucinations or misrepresentations.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -276,9 +274,7 @@ namespace Vectara
 
         /// <summary>
         /// Evaluate factual consistency<br/>
-        /// Evaluate the factual consistency of a generated text (like a summary) against source documents.<br/>
-        /// This determines how accurately the generated text reflects the information in the source documents,<br/>
-        /// helping identify potential hallucinations or misrepresentations.
+        /// Evaluate the factual consistency of a generated text (like a summary) against source documents. This determines how accurately the generated text reflects the information in the source documents, helping identify potential hallucinations or misrepresentations.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -4,8 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Provides detailed information about a rewritten query generated for a specific corpus<br/>
-    /// when intelligent query rewriting is enabled.
+    /// Provides detailed information about a rewritten query generated for a specific corpus when intelligent query rewriting is enabled.
     /// </summary>
     public sealed partial class RewrittenQuerySpan
     {

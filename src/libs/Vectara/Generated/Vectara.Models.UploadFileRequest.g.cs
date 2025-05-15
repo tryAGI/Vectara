@@ -15,8 +15,7 @@ namespace Vectara
         public object? Metadata { get; set; }
 
         /// <summary>
-        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,<br/>
-        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ChunkingStrategyJsonConverter))]
@@ -54,8 +53,7 @@ namespace Vectara
         /// Arbitrary object that will be attached as document metadata to the extracted document.
         /// </param>
         /// <param name="chunkingStrategy">
-        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy,<br/>
-        /// the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
         /// </param>
         /// <param name="tableExtractionConfig">
         /// Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.

@@ -6,12 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Update a corpus<br/>
-        /// Enable, disable, or update the name and description of a corpus. This lets you<br/>
-        /// manage data availability without deleting the corpus, which is useful for <br/>
-        /// maintenance and security purposes. The `corpus_key` uniquely identifies the corpus. <br/>
-        /// For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition). <br/>
-        /// Consider updating the name and description of a corpus dynamically to help keep your data <br/>
-        /// aligned with changing business needs.
+        /// Enable, disable, or update the name and description of a corpus. This lets you manage data availability without deleting the corpus, which is useful for maintenance and security purposes. The `corpus_key` uniquely identifies the corpus. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition). Consider updating the name and description of a corpus dynamically to help keep your data aligned with changing business needs.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -31,12 +26,7 @@ namespace Vectara
 
         /// <summary>
         /// Update a corpus<br/>
-        /// Enable, disable, or update the name and description of a corpus. This lets you<br/>
-        /// manage data availability without deleting the corpus, which is useful for <br/>
-        /// maintenance and security purposes. The `corpus_key` uniquely identifies the corpus. <br/>
-        /// For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition). <br/>
-        /// Consider updating the name and description of a corpus dynamically to help keep your data <br/>
-        /// aligned with changing business needs.
+        /// Enable, disable, or update the name and description of a corpus. This lets you manage data availability without deleting the corpus, which is useful for maintenance and security purposes. The `corpus_key` uniquely identifies the corpus. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition). Consider updating the name and description of a corpus dynamically to help keep your data aligned with changing business needs.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

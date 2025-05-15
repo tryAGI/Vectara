@@ -16,9 +16,7 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// Operations that are allowed by the API role. Each operation may only allow<br/>
-        /// certain resources that are described by a resource path to resource value<br/>
-        /// map. If the value is null, then the operation is allowed on any resource.
+        /// Operations that are allowed by the API role. Each operation may only allow certain resources that are described by a resource path to resource value map. If the value is null, then the operation is allowed on any resource.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("allowed_operations")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -37,9 +35,7 @@ namespace Vectara
         /// The name of the API role.
         /// </param>
         /// <param name="allowedOperations">
-        /// Operations that are allowed by the API role. Each operation may only allow<br/>
-        /// certain resources that are described by a resource path to resource value<br/>
-        /// map. If the value is null, then the operation is allowed on any resource.
+        /// Operations that are allowed by the API role. Each operation may only allow certain resources that are described by a resource path to resource value map. If the value is null, then the operation is allowed on any resource.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

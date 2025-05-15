@@ -47,24 +47,21 @@ namespace Vectara
         public bool? ChatHistoryCorpus { get; set; }
 
         /// <summary>
-        /// Queries made to this corpus are considered answers, and not questions.<br/>
-        /// This swaps the semantics of the encoder used at query time.<br/>
+        /// Queries made to this corpus are considered answers, and not questions. This swaps the semantics of the encoder used at query time.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("queries_are_answers")]
         public bool? QueriesAreAnswers { get; set; }
 
         /// <summary>
-        /// Documents inside this corpus are considered questions, and not answers.<br/>
-        /// This swaps the semantics of the encoder used at indexing.<br/>
+        /// Documents inside this corpus are considered questions, and not answers. This swaps the semantics of the encoder used at indexing.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("documents_are_questions")]
         public bool? DocumentsAreQuestions { get; set; }
 
         /// <summary>
-        /// The encoder used by the corpus.<br/>
-        /// *Deprecated*: Use `encoder_name` instead
+        /// The encoder used by the corpus. *Deprecated*: Use `encoder_name` instead
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("encoder_id")]
         [global::System.Obsolete("This property marked as deprecated.")]
@@ -137,13 +134,11 @@ namespace Vectara
         /// Indicates that this corpus does not store documents and stores chats instead.
         /// </param>
         /// <param name="queriesAreAnswers">
-        /// Queries made to this corpus are considered answers, and not questions.<br/>
-        /// This swaps the semantics of the encoder used at query time.<br/>
+        /// Queries made to this corpus are considered answers, and not questions. This swaps the semantics of the encoder used at query time.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="documentsAreQuestions">
-        /// Documents inside this corpus are considered questions, and not answers.<br/>
-        /// This swaps the semantics of the encoder used at indexing.<br/>
+        /// Documents inside this corpus are considered questions, and not answers. This swaps the semantics of the encoder used at indexing.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="encoderName">

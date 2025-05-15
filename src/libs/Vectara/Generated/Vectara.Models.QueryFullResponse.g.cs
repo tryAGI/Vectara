@@ -29,9 +29,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.IndividualSearchResult>? SearchResults { get; set; }
 
         /// <summary>
-        /// Indicates the probability that the summary is factually consistent with the results.<br/>
-        /// The system excludes this property if it encounters excessively large outputs or search<br/>
-        /// results.
+        /// Indicates the probability that the summary is factually consistent with the results. The system excludes this property if it encounters excessively large outputs or search results.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("factual_consistency_score")]
         public float? FactualConsistencyScore { get; set; }
@@ -49,8 +47,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.QueryWarning>? Warnings { get; set; }
 
         /// <summary>
-        /// The rewritten queries for the corpora that were searched. Only populated when <br/>
-        /// intelligent_query_rewriting is enabled.
+        /// The rewritten queries for the corpora that were searched. Only populated when `intelligent_query_rewriting` is enabled.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rewritten_queries")]
         public global::System.Collections.Generic.IList<global::Vectara.RewrittenQuery>? RewrittenQueries { get; set; }
@@ -75,9 +72,7 @@ namespace Vectara
         /// The ranked search results.
         /// </param>
         /// <param name="factualConsistencyScore">
-        /// Indicates the probability that the summary is factually consistent with the results.<br/>
-        /// The system excludes this property if it encounters excessively large outputs or search<br/>
-        /// results.
+        /// Indicates the probability that the summary is factually consistent with the results. The system excludes this property if it encounters excessively large outputs or search results.
         /// </param>
         /// <param name="renderedPrompt">
         /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.
@@ -86,8 +81,7 @@ namespace Vectara
         /// Non-fatal warnings that occurred during request processing
         /// </param>
         /// <param name="rewrittenQueries">
-        /// The rewritten queries for the corpora that were searched. Only populated when <br/>
-        /// intelligent_query_rewriting is enabled.
+        /// The rewritten queries for the corpora that were searched. Only populated when `intelligent_query_rewriting` is enabled.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

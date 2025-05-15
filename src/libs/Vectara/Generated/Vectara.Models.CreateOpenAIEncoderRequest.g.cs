@@ -34,8 +34,7 @@ namespace Vectara
         public required string Description { get; set; }
 
         /// <summary>
-        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation,<br/>
-        /// the response will be truncated to this number of dimensions.
+        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation, the response will be truncated to this number of dimensions.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_dimensions")]
         public int? OutputDimensions { get; set; }
@@ -87,8 +86,7 @@ namespace Vectara
         /// Example: description
         /// </param>
         /// <param name="outputDimensions">
-        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation,<br/>
-        /// the response will be truncated to this number of dimensions.
+        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation, the response will be truncated to this number of dimensions.
         /// </param>
         /// <param name="uri">
         /// The URI endpoint for the embedding API (can be OpenAI or any compatible embedding API endpoint)<br/>

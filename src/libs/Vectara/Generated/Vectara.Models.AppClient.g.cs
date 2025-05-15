@@ -9,8 +9,7 @@ namespace Vectara
     public sealed partial class AppClient
     {
         /// <summary>
-        /// The Vectara App Client ID. This ID is not used during an OAuth<br/>
-        /// flow.  However, the ID used within the Vectara API.
+        /// The Vectara App Client ID. This ID is not used during an OAuth flow.  However, the ID used within the Vectara API.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
@@ -61,8 +60,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AppClient" /> class.
         /// </summary>
         /// <param name="id">
-        /// The Vectara App Client ID. This ID is not used during an OAuth<br/>
-        /// flow.  However, the ID used within the Vectara API.
+        /// The Vectara App Client ID. This ID is not used during an OAuth flow.  However, the ID used within the Vectara API.
         /// </param>
         /// <param name="name">
         /// The human-readable name of the App Client.

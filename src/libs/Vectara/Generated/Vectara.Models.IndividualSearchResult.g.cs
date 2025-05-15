@@ -45,10 +45,7 @@ namespace Vectara
         public global::Vectara.Table? Table { get; set; }
 
         /// <summary>
-        /// A query request can search over multiple corpora at a time. This property <br/>
-        /// is set to the index in the list of corpora in the original search request that this<br/>
-        /// search result originated from.<br/>
-        /// If the query request is only over one corpus, this property is 0.<br/>
+        /// A query request can search over multiple corpora at a time. This property is set to the index in the list of corpora in the original search request that this search result originated from. If the query request is only over one corpus, this property is 0.<br/>
         /// Example: 0
         /// </summary>
         /// <example>0</example>
@@ -83,10 +80,7 @@ namespace Vectara
         /// A table in a document.
         /// </param>
         /// <param name="requestCorporaIndex">
-        /// A query request can search over multiple corpora at a time. This property <br/>
-        /// is set to the index in the list of corpora in the original search request that this<br/>
-        /// search result originated from.<br/>
-        /// If the query request is only over one corpus, this property is 0.<br/>
+        /// A query request can search over multiple corpora at a time. This property is set to the index in the list of corpora in the original search request that this search result originated from. If the query request is only over one corpus, this property is 0.<br/>
         /// Example: 0
         /// </param>
 #if NET7_0_OR_GREATER

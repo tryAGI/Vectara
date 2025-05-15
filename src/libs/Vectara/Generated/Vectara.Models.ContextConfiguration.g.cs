@@ -9,11 +9,7 @@ namespace Vectara
     public sealed partial class ContextConfiguration
     {
         /// <summary>
-        /// The number of characters that are shown before the matching document part.<br/>
-        /// This is useful to show the context of the document part in the wider document.<br/>
-        /// Ignored if `sentences_before` is set.<br/>
-        /// Vectara will capture the full sentence that contains the captured characters,<br/>
-        /// to not lose the meaning caused by a truncated word or sentence.<br/>
+        /// The number of characters that are shown before the matching document part. This is useful to show the context of the document part in the wider document. Ignored if `sentences_before` is set. Vectara will capture the full sentence that contains the captured characters, to not lose the meaning caused by a truncated word or sentence.<br/>
         /// Default Value: 0<br/>
         /// Example: 30
         /// </summary>
@@ -22,11 +18,7 @@ namespace Vectara
         public int? CharactersBefore { get; set; }
 
         /// <summary>
-        /// The number of characters that are shown after the matching document part. <br/>
-        /// This is useful to show the context of the document part in the wider document.<br/>
-        /// Ignored if `sentences_after` is set.<br/>
-        /// Vectara will capture the full sentence that contains the captured characters,<br/>
-        /// to not lose the meaning caused by a truncated word or sentence.<br/>
+        /// The number of characters that are shown after the matching document part. This is useful to show the context of the document part in the wider document. Ignored if `sentences_after` is set. Vectara will capture the full sentence that contains the captured characters, to not lose the meaning caused by a truncated word or sentence.<br/>
         /// Default Value: 0<br/>
         /// Example: 30
         /// </summary>
@@ -35,8 +27,7 @@ namespace Vectara
         public int? CharactersAfter { get; set; }
 
         /// <summary>
-        /// The number of sentences that are shown before the matching document part.<br/>
-        /// This is useful to show the context of the document part in the wider document.<br/>
+        /// The number of sentences that are shown before the matching document part. This is useful to show the context of the document part in the wider document.<br/>
         /// Default Value: 0<br/>
         /// Example: 3
         /// </summary>
@@ -45,8 +36,7 @@ namespace Vectara
         public int? SentencesBefore { get; set; }
 
         /// <summary>
-        /// The number of sentences that are shown after the matching document part. <br/>
-        /// This is useful to show the context of the document part in the wider document.<br/>
+        /// The number of sentences that are shown after the matching document part. This is useful to show the context of the document part in the wider document.<br/>
         /// Default Value: 0<br/>
         /// Example: 3
         /// </summary>
@@ -55,10 +45,7 @@ namespace Vectara
         public int? SentencesAfter { get; set; }
 
         /// <summary>
-        /// The tag that wraps the document part at the start. This is often used to <br/>
-        /// provide a start HTML/XML tag or some other delimiter you can use in an <br/>
-        /// application to understand where to provide highlighting in your UI and <br/>
-        /// understand where the context before ends and the document part begins.<br/>
+        /// The tag that wraps the document part at the start. This is often used to provide a start HTML/XML tag or some other delimiter you can use in an application to understand where to provide highlighting in your UI and understand where the context before ends and the document part begins.<br/>
         /// Example: &lt;em&gt;
         /// </summary>
         /// <example>&lt;em&gt;</example>
@@ -66,10 +53,7 @@ namespace Vectara
         public string? StartTag { get; set; }
 
         /// <summary>
-        /// The tag that wraps the document part at the end. This is often used to <br/>
-        /// provide a start HTML/XML tag or some other delimiter you can use in an <br/>
-        /// application to understand where to provide highlighting in your UI and <br/>
-        /// understand where the context before ends and the document part begins.<br/>
+        /// The tag that wraps the document part at the end. This is often used to provide a start HTML/XML tag or some other delimiter you can use in an application to understand where to provide highlighting in your UI and understand where the context before ends and the document part begins.<br/>
         /// Example: &lt;/em&gt;
         /// </summary>
         /// <example>&lt;/em&gt;</example>
@@ -86,47 +70,31 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ContextConfiguration" /> class.
         /// </summary>
         /// <param name="charactersBefore">
-        /// The number of characters that are shown before the matching document part.<br/>
-        /// This is useful to show the context of the document part in the wider document.<br/>
-        /// Ignored if `sentences_before` is set.<br/>
-        /// Vectara will capture the full sentence that contains the captured characters,<br/>
-        /// to not lose the meaning caused by a truncated word or sentence.<br/>
+        /// The number of characters that are shown before the matching document part. This is useful to show the context of the document part in the wider document. Ignored if `sentences_before` is set. Vectara will capture the full sentence that contains the captured characters, to not lose the meaning caused by a truncated word or sentence.<br/>
         /// Default Value: 0<br/>
         /// Example: 30
         /// </param>
         /// <param name="charactersAfter">
-        /// The number of characters that are shown after the matching document part. <br/>
-        /// This is useful to show the context of the document part in the wider document.<br/>
-        /// Ignored if `sentences_after` is set.<br/>
-        /// Vectara will capture the full sentence that contains the captured characters,<br/>
-        /// to not lose the meaning caused by a truncated word or sentence.<br/>
+        /// The number of characters that are shown after the matching document part. This is useful to show the context of the document part in the wider document. Ignored if `sentences_after` is set. Vectara will capture the full sentence that contains the captured characters, to not lose the meaning caused by a truncated word or sentence.<br/>
         /// Default Value: 0<br/>
         /// Example: 30
         /// </param>
         /// <param name="sentencesBefore">
-        /// The number of sentences that are shown before the matching document part.<br/>
-        /// This is useful to show the context of the document part in the wider document.<br/>
+        /// The number of sentences that are shown before the matching document part. This is useful to show the context of the document part in the wider document.<br/>
         /// Default Value: 0<br/>
         /// Example: 3
         /// </param>
         /// <param name="sentencesAfter">
-        /// The number of sentences that are shown after the matching document part. <br/>
-        /// This is useful to show the context of the document part in the wider document.<br/>
+        /// The number of sentences that are shown after the matching document part. This is useful to show the context of the document part in the wider document.<br/>
         /// Default Value: 0<br/>
         /// Example: 3
         /// </param>
         /// <param name="startTag">
-        /// The tag that wraps the document part at the start. This is often used to <br/>
-        /// provide a start HTML/XML tag or some other delimiter you can use in an <br/>
-        /// application to understand where to provide highlighting in your UI and <br/>
-        /// understand where the context before ends and the document part begins.<br/>
+        /// The tag that wraps the document part at the start. This is often used to provide a start HTML/XML tag or some other delimiter you can use in an application to understand where to provide highlighting in your UI and understand where the context before ends and the document part begins.<br/>
         /// Example: &lt;em&gt;
         /// </param>
         /// <param name="endTag">
-        /// The tag that wraps the document part at the end. This is often used to <br/>
-        /// provide a start HTML/XML tag or some other delimiter you can use in an <br/>
-        /// application to understand where to provide highlighting in your UI and <br/>
-        /// understand where the context before ends and the document part begins.<br/>
+        /// The tag that wraps the document part at the end. This is often used to provide a start HTML/XML tag or some other delimiter you can use in an application to understand where to provide highlighting in your UI and understand where the context before ends and the document part begins.<br/>
         /// Example: &lt;/em&gt;
         /// </param>
 #if NET7_0_OR_GREATER

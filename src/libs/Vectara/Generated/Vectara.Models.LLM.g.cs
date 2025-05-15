@@ -4,8 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A LLM can be used to enhance query results with a response, and be used as<br/>
-    /// the responder during a chat.
+    /// A LLM can be used to enhance query results with a response, and be used as the responder during a chat.
     /// </summary>
     public sealed partial class LLM
     {
@@ -34,8 +33,7 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// If this is the default LLM, it is used in queries when the generator<br/>
-        /// is not specified.
+        /// If this is the default LLM, it is used in queries when the generator is not specified.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("default")]
         public bool? Default { get; set; }
@@ -69,8 +67,7 @@ namespace Vectara
         /// Indicates whether the LLM is enabled.
         /// </param>
         /// <param name="default">
-        /// If this is the default LLM, it is used in queries when the generator<br/>
-        /// is not specified.
+        /// If this is the default LLM, it is used in queries when the generator is not specified.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
