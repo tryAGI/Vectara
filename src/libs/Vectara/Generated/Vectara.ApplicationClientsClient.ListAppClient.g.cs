@@ -60,7 +60,7 @@ namespace Vectara
                 filter: ref filter,
                 pageKey: ref pageKey);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/app_clients",
                 baseUri: HttpClient.BaseAddress); 
             __pathBuilder 

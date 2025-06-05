@@ -43,7 +43,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 apiKeyId: ref apiKeyId);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/api_keys/{apiKeyId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

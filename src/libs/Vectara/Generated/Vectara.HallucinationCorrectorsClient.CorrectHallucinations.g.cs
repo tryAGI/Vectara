@@ -50,7 +50,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 request: request);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/hallucination_correctors/correct_hallucinations",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

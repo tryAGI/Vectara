@@ -51,7 +51,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 corpusKey: ref corpusKey);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/corpora/{corpusKey}/compute_size",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

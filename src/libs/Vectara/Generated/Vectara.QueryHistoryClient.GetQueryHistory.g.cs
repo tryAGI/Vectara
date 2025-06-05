@@ -48,7 +48,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 queryId: ref queryId);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/queries/{queryId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

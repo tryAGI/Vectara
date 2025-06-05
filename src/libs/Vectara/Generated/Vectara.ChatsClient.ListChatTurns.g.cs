@@ -48,7 +48,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 chatId: ref chatId);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/chats/{chatId}/turns",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

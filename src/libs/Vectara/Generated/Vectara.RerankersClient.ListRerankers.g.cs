@@ -62,7 +62,7 @@ namespace Vectara
                 limit: ref limit,
                 pageKey: ref pageKey);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/rerankers",
                 baseUri: HttpClient.BaseAddress); 
             __pathBuilder 

@@ -56,7 +56,7 @@ namespace Vectara
                 corpusKey: ref corpusKey,
                 documentId: ref documentId);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/corpora/{corpusKey}/documents/{documentId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

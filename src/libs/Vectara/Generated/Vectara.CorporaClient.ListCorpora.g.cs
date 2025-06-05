@@ -65,7 +65,7 @@ namespace Vectara
                 corpusId: corpusId,
                 pageKey: ref pageKey);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/corpora",
                 baseUri: HttpClient.BaseAddress); 
             __pathBuilder 
