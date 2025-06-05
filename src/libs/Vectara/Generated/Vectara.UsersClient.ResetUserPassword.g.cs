@@ -48,7 +48,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 username: ref username);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/users/{username}/reset_password",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

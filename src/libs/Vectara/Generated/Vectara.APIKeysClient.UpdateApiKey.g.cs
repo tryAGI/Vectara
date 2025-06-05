@@ -55,7 +55,7 @@ namespace Vectara
                 apiKeyId: ref apiKeyId,
                 request: request);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/api_keys/{apiKeyId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

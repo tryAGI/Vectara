@@ -40,7 +40,7 @@ namespace Vectara
                 httpClient: HttpClient,
                 request: request);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/oauth/token",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

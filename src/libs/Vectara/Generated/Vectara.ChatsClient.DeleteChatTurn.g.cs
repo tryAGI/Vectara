@@ -48,7 +48,7 @@ namespace Vectara
                 chatId: ref chatId,
                 turnId: ref turnId);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/chats/{chatId}/turns/{turnId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

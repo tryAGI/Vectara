@@ -63,7 +63,7 @@ namespace Vectara
                 documentId: ref documentId,
                 request: request);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/corpora/{corpusKey}/documents/{documentId}/summarize",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

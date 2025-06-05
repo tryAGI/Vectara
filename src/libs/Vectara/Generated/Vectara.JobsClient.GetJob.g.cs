@@ -48,7 +48,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 jobId: ref jobId);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/jobs/{jobId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

@@ -43,7 +43,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 llmId: ref llmId);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/llms/{llmId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();

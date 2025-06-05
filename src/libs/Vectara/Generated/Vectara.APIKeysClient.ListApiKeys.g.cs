@@ -71,7 +71,7 @@ namespace Vectara
                 corpusKey: ref corpusKey,
                 apiKeyRole: ref apiKeyRole);
 
-            var __pathBuilder = new PathBuilder(
+            var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/api_keys",
                 baseUri: HttpClient.BaseAddress); 
             __pathBuilder 
