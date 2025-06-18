@@ -112,20 +112,29 @@ namespace Vectara
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
+                global::System.Exception? __exception_403 = null;
                 global::Vectara.Error? __value_403 = null;
-                if (ReadResponseAsString)
+                try
                 {
-                    __content_403 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                    __value_403 = global::Vectara.Error.FromJson(__content_403, JsonSerializerContext);
+                    if (ReadResponseAsString)
+                    {
+                        __content_403 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                        __value_403 = global::Vectara.Error.FromJson(__content_403, JsonSerializerContext);
+                    }
+                    else
+                    {
+                        var __contentStream_403 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                        __value_403 = await global::Vectara.Error.FromJsonStreamAsync(__contentStream_403, JsonSerializerContext).ConfigureAwait(false);
+                    }
                 }
-                else
+                catch (global::System.Exception __ex)
                 {
-                    var __contentStream_403 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-                    __value_403 = await global::Vectara.Error.FromJsonStreamAsync(__contentStream_403, JsonSerializerContext).ConfigureAwait(false);
+                    __exception_403 = __ex;
                 }
 
                 throw new global::Vectara.ApiException<global::Vectara.Error>(
                     message: __content_403 ?? __response.ReasonPhrase ?? string.Empty,
+                    innerException: __exception_403,
                     statusCode: __response.StatusCode)
                 {
                     ResponseBody = __content_403,
@@ -140,20 +149,29 @@ namespace Vectara
             if ((int)__response.StatusCode == 404)
             {
                 string? __content_404 = null;
+                global::System.Exception? __exception_404 = null;
                 global::Vectara.NotFoundError? __value_404 = null;
-                if (ReadResponseAsString)
+                try
                 {
-                    __content_404 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                    __value_404 = global::Vectara.NotFoundError.FromJson(__content_404, JsonSerializerContext);
+                    if (ReadResponseAsString)
+                    {
+                        __content_404 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                        __value_404 = global::Vectara.NotFoundError.FromJson(__content_404, JsonSerializerContext);
+                    }
+                    else
+                    {
+                        var __contentStream_404 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                        __value_404 = await global::Vectara.NotFoundError.FromJsonStreamAsync(__contentStream_404, JsonSerializerContext).ConfigureAwait(false);
+                    }
                 }
-                else
+                catch (global::System.Exception __ex)
                 {
-                    var __contentStream_404 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-                    __value_404 = await global::Vectara.NotFoundError.FromJsonStreamAsync(__contentStream_404, JsonSerializerContext).ConfigureAwait(false);
+                    __exception_404 = __ex;
                 }
 
                 throw new global::Vectara.ApiException<global::Vectara.NotFoundError>(
                     message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
+                    innerException: __exception_404,
                     statusCode: __response.StatusCode)
                 {
                     ResponseBody = __content_404,
@@ -181,8 +199,9 @@ namespace Vectara
                 try
                 {
                     __response.EnsureSuccessStatusCode();
+
                 }
-                catch (global::System.Net.Http.HttpRequestException __ex)
+                catch (global::System.Exception __ex)
                 {
                     throw new global::Vectara.ApiException(
                         message: __content ?? __response.ReasonPhrase ?? string.Empty,
@@ -196,15 +215,21 @@ namespace Vectara
                             h => h.Value),
                     };
                 }
-
             }
             else
             {
                 try
                 {
                     __response.EnsureSuccessStatusCode();
+
+                    using var __content = await __response.Content.ReadAsStreamAsync(
+#if NET5_0_OR_GREATER
+                        cancellationToken
+#endif
+                    ).ConfigureAwait(false);
+
                 }
-                catch (global::System.Net.Http.HttpRequestException __ex)
+                catch (global::System.Exception __ex)
                 {
                     throw new global::Vectara.ApiException(
                         message: __response.ReasonPhrase ?? string.Empty,
@@ -217,13 +242,6 @@ namespace Vectara
                             h => h.Value),
                     };
                 }
-
-                using var __content = await __response.Content.ReadAsStreamAsync(
-#if NET5_0_OR_GREATER
-                    cancellationToken
-#endif
-                ).ConfigureAwait(false);
-
             }
         }
     }
