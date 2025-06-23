@@ -10,9 +10,9 @@ namespace Vectara
     {
         /// <summary>
         /// The text of the document part.<br/>
-        /// Example: I'm a nice document part.
+        /// Example: This invoice includes customer billing history for Q1.
         /// </summary>
-        /// <example>I'm a nice document part.</example>
+        /// <example>This invoice includes customer billing history for Q1.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("text")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Text { get; set; }
@@ -24,8 +24,10 @@ namespace Vectara
         public object? Metadata { get; set; }
 
         /// <summary>
-        /// The context text for the document part.
+        /// The context text for the document part.<br/>
+        /// Example: Description of line items in the document part to provide additional context.
         /// </summary>
+        /// <example>Description of line items in the document part to provide additional context.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("context")]
         public string? Context { get; set; }
 
@@ -46,13 +48,14 @@ namespace Vectara
         /// </summary>
         /// <param name="text">
         /// The text of the document part.<br/>
-        /// Example: I'm a nice document part.
+        /// Example: This invoice includes customer billing history for Q1.
         /// </param>
         /// <param name="metadata">
         /// The metadata for a document part. These may be used in metadata filters at query time if filter attributes are configured on the corpus.
         /// </param>
         /// <param name="context">
-        /// The context text for the document part.
+        /// The context text for the document part.<br/>
+        /// Example: Description of line items in the document part to provide additional context.
         /// </param>
         /// <param name="customDimensions">
         /// The custom dimensions as additional weights.

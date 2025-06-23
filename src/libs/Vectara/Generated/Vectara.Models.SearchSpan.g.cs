@@ -21,7 +21,7 @@ namespace Vectara
         public int? LatencyMillis { get; set; }
 
         /// <summary>
-        /// Indicates when the span started.
+        /// ISO date time that indicates when the span started.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("started_at")]
         public global::System.DateTime? StartedAt { get; set; }
@@ -48,7 +48,7 @@ namespace Vectara
         /// Time taken in milliseconds.
         /// </param>
         /// <param name="startedAt">
-        /// Indicates when the span started.
+        /// ISO date time that indicates when the span started.
         /// </param>
         /// <param name="searchResults">
         /// The search results before reranking.

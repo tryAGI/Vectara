@@ -16,14 +16,18 @@ namespace Vectara
         public string? Type { get; set; }
 
         /// <summary>
-        /// ID of the chat.
+        /// ID of the chat.<br/>
+        /// Example: cht_123456789
         /// </summary>
+        /// <example>cht_123456789</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("chat_id")]
         public string? ChatId { get; set; }
 
         /// <summary>
-        /// ID of the turn.
+        /// ID of the turn.<br/>
+        /// Example: trn_987654321
         /// </summary>
+        /// <example>trn_987654321</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("turn_id")]
         public string? TurnId { get; set; }
 
@@ -41,10 +45,12 @@ namespace Vectara
         /// Default Value: chat_info
         /// </param>
         /// <param name="chatId">
-        /// ID of the chat.
+        /// ID of the chat.<br/>
+        /// Example: cht_123456789
         /// </param>
         /// <param name="turnId">
-        /// ID of the turn.
+        /// ID of the turn.<br/>
+        /// Example: trn_987654321
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -9,20 +9,26 @@ namespace Vectara
     public sealed partial class StructuredDocumentSection
     {
         /// <summary>
-        /// The section ID. This gets converted to a metadata field automatically.
+        /// The section ID. This gets converted to a metadata field automatically.<br/>
+        /// Example: 10
         /// </summary>
+        /// <example>10</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public int? Id { get; set; }
 
         /// <summary>
-        /// The section title.
+        /// The section title.<br/>
+        /// Example: Billing Summary
         /// </summary>
+        /// <example>Billing Summary</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("title")]
         public string? Title { get; set; }
 
         /// <summary>
-        /// The text of the section.
+        /// The text of the section.<br/>
+        /// Example: This section summarizes the billing details for Acme Corp for Q1 2025.
         /// </summary>
+        /// <example>This section summarizes the billing details for Acme Corp for Q1 2025.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("text")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Text { get; set; }
@@ -55,13 +61,16 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="StructuredDocumentSection" /> class.
         /// </summary>
         /// <param name="id">
-        /// The section ID. This gets converted to a metadata field automatically.
+        /// The section ID. This gets converted to a metadata field automatically.<br/>
+        /// Example: 10
         /// </param>
         /// <param name="title">
-        /// The section title.
+        /// The section title.<br/>
+        /// Example: Billing Summary
         /// </param>
         /// <param name="text">
-        /// The text of the section.
+        /// The text of the section.<br/>
+        /// Example: This section summarizes the billing details for Acme Corp for Q1 2025.
         /// </param>
         /// <param name="metadata">
         /// Arbitrary object that becomes document part level metadata on any document part created by this section. Properties of this object can be used by document part level filters if defined as a corpus filter attribute.

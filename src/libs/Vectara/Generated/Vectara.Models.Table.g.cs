@@ -10,15 +10,17 @@ namespace Vectara
     {
         /// <summary>
         /// The unique ID of the table within the document.<br/>
-        /// Example: table_1
+        /// Example: billing_table_111
         /// </summary>
-        /// <example>table_1</example>
+        /// <example>billing_table_111</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
         /// <summary>
-        /// The title of the table.
+        /// The title of the table.<br/>
+        /// Example: Carbon Reduction Metrics
         /// </summary>
+        /// <example>Carbon Reduction Metrics</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("title")]
         public string? Title { get; set; }
 
@@ -29,8 +31,10 @@ namespace Vectara
         public global::Vectara.Data? Data { get; set; }
 
         /// <summary>
-        /// The description of the table.
+        /// The description of the table.<br/>
+        /// Example: Summary of carbon reduction efforts by EU banks in 2023.
         /// </summary>
+        /// <example>Summary of carbon reduction efforts by EU banks in 2023.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
 
@@ -45,16 +49,18 @@ namespace Vectara
         /// </summary>
         /// <param name="id">
         /// The unique ID of the table within the document.<br/>
-        /// Example: table_1
+        /// Example: billing_table_111
         /// </param>
         /// <param name="title">
-        /// The title of the table.
+        /// The title of the table.<br/>
+        /// Example: Carbon Reduction Metrics
         /// </param>
         /// <param name="data">
         /// The data of a table.
         /// </param>
         /// <param name="description">
-        /// The description of the table.
+        /// The description of the table.<br/>
+        /// Example: Summary of carbon reduction efforts by EU banks in 2023.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

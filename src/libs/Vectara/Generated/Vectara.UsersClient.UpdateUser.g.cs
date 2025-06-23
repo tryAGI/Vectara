@@ -281,6 +281,9 @@ namespace Vectara
         /// <param name="apiRoles">
         /// The new role names of the user.
         /// </param>
+        /// <param name="description">
+        /// The description of the user.
+        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.User> UpdateUserAsync(
@@ -289,12 +292,14 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             bool? enabled = default,
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
+            string? description = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::Vectara.UpdateUserRequest
             {
                 Enabled = enabled,
                 ApiRoles = apiRoles,
+                Description = description,
             };
 
             return await UpdateUserAsync(

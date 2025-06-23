@@ -274,24 +274,30 @@ namespace Vectara
         /// <param name="documents">
         /// The source documents that were used to generate the text.
         /// </param>
-        /// <param name="model">
-        /// The name of the LLM model to use for hallucination correction.
+        /// <param name="modelName">
+        /// The name of the LLM model to use for hallucination correction.<br/>
+        /// Example: vhc-large-10
+        /// </param>
+        /// <param name="query">
+        /// Optional query that provides context for the expected response format and factual information. When provided, enables query-aware hallucination correction that considers the specific response format and factual context expected for the query.
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.HallucinationCorrectionResponse> CorrectHallucinationsAsync(
             string generatedText,
             global::System.Collections.Generic.IList<global::Vectara.HcmSourceDocument> documents,
-            string model,
+            string modelName,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? query = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::Vectara.HallucinationCorrectionRequest
             {
                 GeneratedText = generatedText,
                 Documents = documents,
-                Model = model,
+                ModelName = modelName,
+                Query = query,
             };
 
             return await CorrectHallucinationsAsync(

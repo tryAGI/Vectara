@@ -10,9 +10,9 @@ namespace Vectara
     {
         /// <summary>
         /// The text of the document part.<br/>
-        /// Example: I'm a nice document part.
+        /// Example: This invoice includes customer billing history for Q1.
         /// </summary>
-        /// <example>I'm a nice document part.</example>
+        /// <example>This invoice includes customer billing history for Q1.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("text")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Text { get; set; }
@@ -24,14 +24,18 @@ namespace Vectara
         public object? Metadata { get; set; }
 
         /// <summary>
-        /// The ID of the table that this document part belongs to.
+        /// The ID of the table that this document part belongs to.<br/>
+        /// Example: billing_table_111
         /// </summary>
+        /// <example>billing_table_111</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("table_id")]
         public string? TableId { get; set; }
 
         /// <summary>
-        /// The context text for the document part.
+        /// The context text for the document part.<br/>
+        /// Example: This document part is part of the table Customer Billing Info.
         /// </summary>
+        /// <example>This document part is part of the table Customer Billing Info.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("context")]
         public string? Context { get; set; }
 
@@ -52,16 +56,18 @@ namespace Vectara
         /// </summary>
         /// <param name="text">
         /// The text of the document part.<br/>
-        /// Example: I'm a nice document part.
+        /// Example: This invoice includes customer billing history for Q1.
         /// </param>
         /// <param name="metadata">
         /// The metadata for a document part. These may be used in metadata filters at query time if filter attributes are configured on the corpus.
         /// </param>
         /// <param name="tableId">
-        /// The ID of the table that this document part belongs to.
+        /// The ID of the table that this document part belongs to.<br/>
+        /// Example: billing_table_111
         /// </param>
         /// <param name="context">
-        /// The context text for the document part.
+        /// The context text for the document part.<br/>
+        /// Example: This document part is part of the table Customer Billing Info.
         /// </param>
         /// <param name="customDimensions">
         /// The custom dimensions as additional weights.

@@ -9,20 +9,26 @@ namespace Vectara
     public sealed partial class Chat
     {
         /// <summary>
-        /// ID of the chat.
+        /// ID of the chat.<br/>
+        /// Example: cht_123456789
         /// </summary>
+        /// <example>cht_123456789</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
         /// <summary>
-        /// The first query of the chat.
+        /// The first query of the chat.<br/>
+        /// Example: What are the arbitration terms in the Delaware employment contract?
         /// </summary>
+        /// <example>What are the arbitration terms in the Delaware employment contract?</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("first_query")]
         public string? FirstQuery { get; set; }
 
         /// <summary>
-        /// The first answer of the chat.
+        /// The first answer of the chat.<br/>
+        /// Example: Clause 9.2 mandates binding arbitration through AAA with venue in Delaware and a 30-day opt-out. California law governs the agreement.
         /// </summary>
+        /// <example>Clause 9.2 mandates binding arbitration through AAA with venue in Delaware and a 30-day opt-out. California law governs the agreement.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("first_answer")]
         public string? FirstAnswer { get; set; }
 
@@ -50,13 +56,16 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="Chat" /> class.
         /// </summary>
         /// <param name="id">
-        /// ID of the chat.
+        /// ID of the chat.<br/>
+        /// Example: cht_123456789
         /// </param>
         /// <param name="firstQuery">
-        /// The first query of the chat.
+        /// The first query of the chat.<br/>
+        /// Example: What are the arbitration terms in the Delaware employment contract?
         /// </param>
         /// <param name="firstAnswer">
-        /// The first answer of the chat.
+        /// The first answer of the chat.<br/>
+        /// Example: Clause 9.2 mandates binding arbitration through AAA with venue in Delaware and a 30-day opt-out. California law governs the agreement.
         /// </param>
         /// <param name="enabled">
         /// Indicates whether this chat is enabled and can have further turns.<br/>

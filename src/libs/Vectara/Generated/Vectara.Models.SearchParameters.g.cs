@@ -23,7 +23,7 @@ namespace Vectara
         public int? Limit { get; set; }
 
         /// <summary>
-        /// Configuration on the presentation of each document part in the result set.
+        /// Configuration on the presentation of each document part in the result set. You can only use characters_before/after or sentences_before/after, but not both. If you specify both in the query, sentences_before/after takes precedence
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("context_configuration")]
         public global::Vectara.ContextConfiguration? ContextConfiguration { get; set; }
@@ -53,7 +53,7 @@ namespace Vectara
         /// Default Value: 10
         /// </param>
         /// <param name="contextConfiguration">
-        /// Configuration on the presentation of each document part in the result set.
+        /// Configuration on the presentation of each document part in the result set. You can only use characters_before/after or sentences_before/after, but not both. If you specify both in the query, sentences_before/after takes precedence
         /// </param>
         /// <param name="reranker">
         /// Rerank results of the search. Rerankers are very powerful tools to improve the order of search results. By default the search will use the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.

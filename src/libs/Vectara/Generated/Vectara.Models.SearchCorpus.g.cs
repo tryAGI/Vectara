@@ -16,17 +16,17 @@ namespace Vectara
 
         /// <summary>
         /// The filter string used to narrow the search based on metadata attributes. The query against this corpus will be confined to document parts that match the `metadata_filter`. Only metadata fields set as `filter_attributes` on the corpus can be filtered. Filter syntax is similar to a SQL WHERE clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview) for more information.<br/>
-        /// Example: doc.title = 'Charlotte''s Web'
+        /// Example: doc.title = 'Annual Report'
         /// </summary>
-        /// <example>doc.title = 'Charlotte''s Web'</example>
+        /// <example>doc.title = 'Annual Report'</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata_filter")]
         public string? MetadataFilter { get; set; }
 
         /// <summary>
         /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
-        /// Example: 0.025F
+        /// Example: 0.005F
         /// </summary>
-        /// <example>0.025F</example>
+        /// <example>0.005F</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("lexical_interpolation")]
         public float? LexicalInterpolation { get; set; }
 
@@ -52,11 +52,11 @@ namespace Vectara
         /// </param>
         /// <param name="metadataFilter">
         /// The filter string used to narrow the search based on metadata attributes. The query against this corpus will be confined to document parts that match the `metadata_filter`. Only metadata fields set as `filter_attributes` on the corpus can be filtered. Filter syntax is similar to a SQL WHERE clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview) for more information.<br/>
-        /// Example: doc.title = 'Charlotte''s Web'
+        /// Example: doc.title = 'Annual Report'
         /// </param>
         /// <param name="lexicalInterpolation">
         /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
-        /// Example: 0.025F
+        /// Example: 0.005F
         /// </param>
         /// <param name="semantics">
         /// Indicates whether to consider a query against this corpus as a query or a response.<br/>

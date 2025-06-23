@@ -22,8 +22,10 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.IndividualSearchResult>? SearchResults { get; set; }
 
         /// <summary>
-        /// The rewritten queries for the corpora that were searched. Only populated when `intelligent_query_rewriting` is enabled.
+        /// The rewritten queries for the corpora that were searched. Only populated when `intelligent_query_rewriting` is enabled.<br/>
+        /// Example: [, ]
         /// </summary>
+        /// <example>[, ]</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("rewritten_queries")]
         public global::System.Collections.Generic.IList<global::Vectara.RewrittenQuery>? RewrittenQueries { get; set; }
 
@@ -44,7 +46,8 @@ namespace Vectara
         /// The ranked search results.
         /// </param>
         /// <param name="rewrittenQueries">
-        /// The rewritten queries for the corpora that were searched. Only populated when `intelligent_query_rewriting` is enabled.
+        /// The rewritten queries for the corpora that were searched. Only populated when `intelligent_query_rewriting` is enabled.<br/>
+        /// Example: [, ]
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
