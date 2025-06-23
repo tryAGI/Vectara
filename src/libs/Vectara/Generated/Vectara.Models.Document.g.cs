@@ -10,9 +10,9 @@ namespace Vectara
     {
         /// <summary>
         /// The document ID.<br/>
-        /// Example: my-doc-id
+        /// Example: Invoice-403
         /// </summary>
-        /// <example>my-doc-id</example>
+        /// <example>Invoice-403</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
@@ -57,7 +57,7 @@ namespace Vectara
         /// </summary>
         /// <param name="id">
         /// The document ID.<br/>
-        /// Example: my-doc-id
+        /// Example: Invoice-403
         /// </param>
         /// <param name="metadata">
         /// The document metadata.

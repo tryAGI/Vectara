@@ -9,14 +9,18 @@ namespace Vectara
     public sealed partial class Turn
     {
         /// <summary>
-        /// The ID of the turn.
+        /// The ID of the turn.<br/>
+        /// Example: trn_987654321
         /// </summary>
+        /// <example>trn_987654321</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
         /// <summary>
-        /// The ID of the chat the turn resides in.
+        /// The ID of the chat the turn resides in.<br/>
+        /// Example: cht_123456789
         /// </summary>
+        /// <example>cht_123456789</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("chat_id")]
         public string? ChatId { get; set; }
 
@@ -60,10 +64,12 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="Turn" /> class.
         /// </summary>
         /// <param name="id">
-        /// The ID of the turn.
+        /// The ID of the turn.<br/>
+        /// Example: trn_987654321
         /// </param>
         /// <param name="chatId">
-        /// The ID of the chat the turn resides in.
+        /// The ID of the chat the turn resides in.<br/>
+        /// Example: cht_123456789
         /// </param>
         /// <param name="query">
         /// The query made to produce this turn.<br/>

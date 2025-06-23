@@ -23,11 +23,19 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.HcmSourceDocument> Documents { get; set; }
 
         /// <summary>
-        /// The name of the LLM model to use for hallucination correction.
+        /// The name of the LLM model to use for hallucination correction.<br/>
+        /// Example: vhc-large-10
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("model")]
+        /// <example>vhc-large-10</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("model_name")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Model { get; set; }
+        public required string ModelName { get; set; }
+
+        /// <summary>
+        /// Optional query that provides context for the expected response format and factual information. When provided, enables query-aware hallucination correction that considers the specific response format and factual context expected for the query.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("query")]
+        public string? Query { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -44,8 +52,12 @@ namespace Vectara
         /// <param name="documents">
         /// The source documents that were used to generate the text.
         /// </param>
-        /// <param name="model">
-        /// The name of the LLM model to use for hallucination correction.
+        /// <param name="modelName">
+        /// The name of the LLM model to use for hallucination correction.<br/>
+        /// Example: vhc-large-10
+        /// </param>
+        /// <param name="query">
+        /// Optional query that provides context for the expected response format and factual information. When provided, enables query-aware hallucination correction that considers the specific response format and factual context expected for the query.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -53,11 +65,13 @@ namespace Vectara
         public HallucinationCorrectionRequest(
             string generatedText,
             global::System.Collections.Generic.IList<global::Vectara.HcmSourceDocument> documents,
-            string model)
+            string modelName,
+            string? query)
         {
             this.GeneratedText = generatedText ?? throw new global::System.ArgumentNullException(nameof(generatedText));
             this.Documents = documents ?? throw new global::System.ArgumentNullException(nameof(documents));
-            this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
+            this.ModelName = modelName ?? throw new global::System.ArgumentNullException(nameof(modelName));
+            this.Query = query;
         }
 
         /// <summary>

@@ -314,7 +314,7 @@ namespace Vectara
         /// <param name="chatId"></param>
         /// <param name="query">
         /// The chat message or question.<br/>
-        /// Example: How can I use the Vectara platform?
+        /// Example: What are the carbon reduction efforts by EU banks in 2023?
         /// </param>
         /// <param name="search">
         /// The parameters to search one or more corpora.

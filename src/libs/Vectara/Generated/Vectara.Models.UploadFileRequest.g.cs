@@ -28,8 +28,10 @@ namespace Vectara
         public global::Vectara.TableExtractionConfig? TableExtractionConfig { get; set; }
 
         /// <summary>
-        /// Optional multipart section to override the filename.
+        /// Optional multipart section to override the filename.<br/>
+        /// Example: system_design_v1.pdf
         /// </summary>
+        /// <example>system_design_v1.pdf</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("filename")]
         public string? Filename { get; set; }
 
@@ -59,7 +61,8 @@ namespace Vectara
         /// Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.
         /// </param>
         /// <param name="filename">
-        /// Optional multipart section to override the filename.
+        /// Optional multipart section to override the filename.<br/>
+        /// Example: system_design_v1.pdf
         /// </param>
         /// <param name="file">
         /// Binary file contents. The file name of the file will be used as the document ID.

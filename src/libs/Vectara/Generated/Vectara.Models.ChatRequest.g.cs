@@ -10,9 +10,9 @@ namespace Vectara
     {
         /// <summary>
         /// The chat message or question.<br/>
-        /// Example: How can I use the Vectara platform?
+        /// Example: What are the carbon reduction efforts by EU banks in 2023?
         /// </summary>
-        /// <example>How can I use the Vectara platform?</example>
+        /// <example>What are the carbon reduction efforts by EU banks in 2023?</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("query")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Query { get; set; }
@@ -69,7 +69,7 @@ namespace Vectara
         /// </summary>
         /// <param name="query">
         /// The chat message or question.<br/>
-        /// Example: How can I use the Vectara platform?
+        /// Example: What are the carbon reduction efforts by EU banks in 2023?
         /// </param>
         /// <param name="search">
         /// The parameters to search one or more corpora.

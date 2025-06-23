@@ -9,17 +9,21 @@ namespace Vectara
     public sealed partial class StructuredDocument
     {
         /// <summary>
-        /// The document ID must be unique within the corpus.
+        /// The document ID must be unique within the corpus.<br/>
+        /// Example: esg_report_2024
         /// </summary>
+        /// <example>esg_report_2024</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Id { get; set; }
 
         /// <summary>
         /// When the type of the indexed document is `structured` the rest of the object is expected to follow this schema. It allows you to create a document that follows normal document conventions. The Vectara platform will then create document parts using its internal algorithm.<br/>
-        /// Default Value: structured
+        /// Default Value: structured<br/>
+        /// Example: 2024 ESG Annual Report
         /// </summary>
         /// <default>"structured"</default>
+        /// <example>2024 ESG Annual Report</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Type { get; set; } = "structured";
@@ -31,8 +35,10 @@ namespace Vectara
         public string? Title { get; set; }
 
         /// <summary>
-        /// The description of the document.
+        /// The description of the document.<br/>
+        /// Example: Comprehensive report on EuroBank’s environmental, social, and governance initiatives for 2024.
         /// </summary>
+        /// <example>Comprehensive report on EuroBank’s environmental, social, and governance initiatives for 2024.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
 
@@ -72,17 +78,20 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="StructuredDocument" /> class.
         /// </summary>
         /// <param name="id">
-        /// The document ID must be unique within the corpus.
+        /// The document ID must be unique within the corpus.<br/>
+        /// Example: esg_report_2024
         /// </param>
         /// <param name="type">
         /// When the type of the indexed document is `structured` the rest of the object is expected to follow this schema. It allows you to create a document that follows normal document conventions. The Vectara platform will then create document parts using its internal algorithm.<br/>
-        /// Default Value: structured
+        /// Default Value: structured<br/>
+        /// Example: 2024 ESG Annual Report
         /// </param>
         /// <param name="title">
         /// The title of the document.
         /// </param>
         /// <param name="description">
-        /// The description of the document.
+        /// The description of the document.<br/>
+        /// Example: Comprehensive report on EuroBank’s environmental, social, and governance initiatives for 2024.
         /// </param>
         /// <param name="metadata">
         /// The metadata for a document as an arbitrary JSON object. Properties of this object can be used by document level filter attributes.

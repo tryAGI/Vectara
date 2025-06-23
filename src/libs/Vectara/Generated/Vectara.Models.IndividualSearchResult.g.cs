@@ -9,14 +9,18 @@ namespace Vectara
     public sealed partial class IndividualSearchResult
     {
         /// <summary>
-        /// The document part altered by the context configuration that matches the query.
+        /// The document part altered by the context configuration that matches the query.<br/>
+        /// Example: EU banks reported a 20% increase in carbon reduction initiatives in 2023, driven by regulatory pressure.
         /// </summary>
+        /// <example>EU banks reported a 20% increase in carbon reduction initiatives in 2023, driven by regulatory pressure.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("text")]
         public string? Text { get; set; }
 
         /// <summary>
-        /// The score of the individual result.
+        /// The score of the individual result.<br/>
+        /// Example: 0.92
         /// </summary>
+        /// <example>0.92</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("score")]
         public double? Score { get; set; }
 
@@ -33,8 +37,10 @@ namespace Vectara
         public object? DocumentMetadata { get; set; }
 
         /// <summary>
-        /// The ID of the document that contains the document part.
+        /// The ID of the document that contains the document part.<br/>
+        /// Example: financial-report-2023
         /// </summary>
+        /// <example>financial-report-2023</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("document_id")]
         public string? DocumentId { get; set; }
 
@@ -62,10 +68,12 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="IndividualSearchResult" /> class.
         /// </summary>
         /// <param name="text">
-        /// The document part altered by the context configuration that matches the query.
+        /// The document part altered by the context configuration that matches the query.<br/>
+        /// Example: EU banks reported a 20% increase in carbon reduction initiatives in 2023, driven by regulatory pressure.
         /// </param>
         /// <param name="score">
-        /// The score of the individual result.
+        /// The score of the individual result.<br/>
+        /// Example: 0.92
         /// </param>
         /// <param name="partMetadata">
         /// The metadata for the document part.
@@ -74,7 +82,8 @@ namespace Vectara
         /// The metadata for the document that contains the document part.
         /// </param>
         /// <param name="documentId">
-        /// The ID of the document that contains the document part.
+        /// The ID of the document that contains the document part.<br/>
+        /// Example: financial-report-2023
         /// </param>
         /// <param name="table">
         /// A table in a document.

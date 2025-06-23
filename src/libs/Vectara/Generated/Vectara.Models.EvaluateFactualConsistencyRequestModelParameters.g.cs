@@ -10,10 +10,10 @@ namespace Vectara
     {
         /// <summary>
         /// The name of the model to use for evaluation.<br/>
-        /// Default Value: hhem_v2.2<br/>
-        /// Example: hhem_v2.2
+        /// Default Value: hhem_v2.3<br/>
+        /// Example: hhem_v2.3
         /// </summary>
-        /// <example>hhem_v2.2</example>
+        /// <example>hhem_v2.3</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model_name")]
         public string? ModelName { get; set; }
 
@@ -28,8 +28,8 @@ namespace Vectara
         /// </summary>
         /// <param name="modelName">
         /// The name of the model to use for evaluation.<br/>
-        /// Default Value: hhem_v2.2<br/>
-        /// Example: hhem_v2.2
+        /// Default Value: hhem_v2.3<br/>
+        /// Example: hhem_v2.3
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

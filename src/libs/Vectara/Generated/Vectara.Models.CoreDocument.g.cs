@@ -10,9 +10,9 @@ namespace Vectara
     {
         /// <summary>
         /// The document ID must be unique within the corpus.<br/>
-        /// Example: my-doc-id
+        /// Example: Invoice-403
         /// </summary>
-        /// <example>my-doc-id</example>
+        /// <example>Invoice-403</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Id { get; set; }
@@ -56,7 +56,7 @@ namespace Vectara
         /// </summary>
         /// <param name="id">
         /// The document ID must be unique within the corpus.<br/>
-        /// Example: my-doc-id
+        /// Example: Invoice-403
         /// </param>
         /// <param name="type">
         /// When the type of the indexed document is `core` the rest of the object is expected to follow this schema. This schema allows precise specification of document chunks that get directly translated to retrieve search results.<br/>
