@@ -260,6 +260,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-required-api-key-type:
+        - Personal
       x-fern-sdk-group-name: corpora
       x-fern-sdk-method-name: create
     get:
@@ -311,6 +313,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-required-api-key-type:
+        - QueryService
+        - Personal
       x-fern-sdk-group-name: corpora
       x-fern-sdk-method-name: list
       x-fern-pagination:
@@ -1061,6 +1066,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-required-api-key-type:
+        - IndexService
+        - Personal
       x-fern-sdk-group-name: documents
       x-fern-sdk-method-name: update_metadata
   '/v2/corpora/{corpus_key}/documents/{document_id}/summarize':
