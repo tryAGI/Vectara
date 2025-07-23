@@ -3437,7 +3437,7 @@ paths:
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
-        results: $response.hallucinationCorrectionModels
+        results: $response.hallucination_correctors
   /v2/hallucination_correctors/correct_hallucinations:
     post:
       tags:
