@@ -260,8 +260,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-required-api-key-type:
-        - Personal
       x-fern-sdk-group-name: corpora
       x-fern-sdk-method-name: create
     get:
@@ -313,9 +311,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-required-api-key-type:
-        - QueryService
-        - Personal
       x-fern-sdk-group-name: corpora
       x-fern-sdk-method-name: list
       x-fern-pagination:
@@ -1066,9 +1061,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-required-api-key-type:
-        - IndexService
-        - Personal
       x-fern-sdk-group-name: documents
       x-fern-sdk-method-name: update_metadata
   '/v2/corpora/{corpus_key}/documents/{document_id}/summarize':
@@ -1123,6 +1115,111 @@ paths:
       x-stream-based-on-body: streamResponse()
       x-fern-sdk-group-name: documents
       x-fern-sdk-method-name: summarize
+  '/v2/corpora/{corpus_key}/documents/{document_id}/images/{image_id}':
+    get:
+      tags:
+        - Documents
+      summary: Retrieve an image from a document
+      description: Returns a specific image that is embedded within a document. The `image_id` uniquely identifies the image within the document. Use this endpoint to fetch the raw image data and associated metadata.
+      operationId: getImage
+      parameters:
+        - $ref: '#/components/parameters/RequestTimeout'
+        - $ref: '#/components/parameters/RequestTimeoutMillis'
+        - name: corpus_key
+          in: path
+          description: A unique identifier for the corpus that contains the target document.
+          required: true
+          schema:
+            $ref: '#/components/schemas/CorpusKey'
+        - name: document_id
+          in: path
+          description: The identifier of the document containing the image. This `document_id` must be percent encoded.
+          required: true
+          schema:
+            type: string
+        - name: image_id
+          in: path
+          description: The identifier of the image to retrieve from the specified document. Each image within a document has a unique `image_id`. This value must be percent-encoded when passed in the request URL.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An image including raw image data and associated metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+              example:
+                id: image_1
+                title: Quarterly Sales Performance
+                caption: Sales growth trends for Q1 to Q4 of 2024
+                description: 'A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%'
+                image_data:
+                  data: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
+                  mime_type: image/png
+        '403':
+          description: Permissions do not allow retrieving the image.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Image not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: get
+  '/v2/corpora/{corpus_key}/metadata_query':
+    post:
+      tags:
+        - Metadata Query
+      summary: Query across metadata fields in a corpus
+      description: 'Query for documents in a specific corpus using fuzzy matching across specified metadata fields. The search first applies any exact metadata filters to narrow the results, then performs fuzzy matching on the remaining documents using the specified field queries.'
+      operationId: queryMetadata
+      parameters:
+        - $ref: '#/components/parameters/RequestTimeout'
+        - $ref: '#/components/parameters/RequestTimeoutMillis'
+        - name: corpus_key
+          in: path
+          description: The unique key identifying the corpus to search for metadata.
+          required: true
+          schema:
+            $ref: '#/components/schemas/CorpusKey'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataQueryRequest'
+      responses:
+        '200':
+          description: List of matching documents with relevance scores and field-level match details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataQueryResponse'
+        '400':
+          description: Metadata query request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow querying metadata in the corpus.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Corpus not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: metadata
+      x-fern-sdk-method-name: queryMetadata
   '/v2/corpora/{corpus_key}/query':
     get:
       tags:
@@ -1962,6 +2059,11 @@ paths:
         - name: chat_id
           in: query
           description: 'Specifies the chat_id of the query, this will return all queries in the specified chat.'
+          schema:
+            type: string
+        - name: history_id
+          in: query
+          description: Specifies the history_id of the query that you want to use as a filter.
           schema:
             type: string
         - name: limit
@@ -3437,7 +3539,7 @@ paths:
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
-        results: $response.hallucination_correctors
+        results: $response.hallucinationCorrectionModels
   /v2/hallucination_correctors/correct_hallucinations:
     post:
       tags:
@@ -4754,6 +4856,34 @@ components:
           description: The description of the table.
           example: Summary of carbon reduction efforts by EU banks in 2023.
       description: A table in a document.
+    ImageMetadata:
+      required:
+        - id
+        - image_data
+        - mime_type
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The unique identifier of the image within the document, used to reference it in related content.'
+          example: chart_1
+        title:
+          type: string
+          description: 'A short, human-readable title for the image, often displayed above or alongside it.'
+          example: Quarterly Sales Performance
+        caption:
+          type: string
+          description: 'A brief caption providing context or an explanation for the image, typically displayed below it.'
+          example: Sales growth trends for Q1 to Q4 of 2024
+        description:
+          type: string
+          description: 'A longer, detailed description of the image for accessibility or additional context.'
+          example: 'A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%'
+        mime_type:
+          type: string
+          description: 'The MIME type of the image, indicating the format of the binary data (e.g., image/jpeg for JPEG images).'
+          example: image/jpeg
+      description: 'An image element within a document, containing its identifying information and optional metadata.'
     CustomDimensions:
       type: object
       additionalProperties:
@@ -4821,6 +4951,11 @@ components:
           items:
             $ref: '#/components/schemas/Table'
           description: The tables that this document contains. Tables are not available when table extraction is not enabled.
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageMetadata'
+          description: The images that this document contains.
         parts:
           type: array
           items:
@@ -4859,6 +4994,14 @@ components:
                   - text_value: Zeta Manufacturing
                   - float_value: 13499.99
                   - text_value: '2023-06-30'
+        images:
+          - id: image_1
+            title: Quarterly Sales Performance
+            caption: Sales growth trends for Q1 to Q4 of 2024
+            description: 'A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%'
+            image_data:
+              data: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
+              mime_type: image/png
         parts:
           - text: This invoice includes customer billing history for Q1.
             metadata:
@@ -4879,6 +5022,47 @@ components:
         metadata:
           $ref: '#/components/schemas/ListMetadata'
       description: Response containing a list of documents stored in a corpus.
+    ImageData:
+      required:
+        - data
+        - mime_type
+      type: object
+      properties:
+        data:
+          type: string
+          description: Base64-encoded representation of the image data.
+          format: byte
+          example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
+        mime_type:
+          type: string
+          description: 'The MIME type of the image, indicating the format of the binary data (e.g., image/jpeg for JPEG images).'
+          example: image/png
+      description: An object containing an image's binary data and format information. The image data is provided as a Base64-encoded string along with its MIME type.
+    Image:
+      required:
+        - id
+        - image_data
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The unique identifier of the image within the document, used to reference it in related content.'
+          example: chart_1
+        title:
+          type: string
+          description: 'A short, human-readable title for the image, often displayed above or alongside it.'
+          example: Quarterly Sales Performance
+        caption:
+          type: string
+          description: 'A brief caption providing context or an explanation for the image, typically displayed below it.'
+          example: Sales growth trends for Q1 to Q4 of 2024
+        image_data:
+          $ref: '#/components/schemas/ImageData'
+        description:
+          type: string
+          description: 'A longer, detailed description of the image for accessibility or additional context.'
+          example: 'A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%'
+      description: 'An image element within a document, containing its identifying information, optional metadata, and the actual image data.'
     CoreDocumentPart:
       required:
         - text
@@ -4897,6 +5081,10 @@ components:
           type: string
           description: The ID of the table that this document part belongs to.
           example: billing_table_111
+        image_id:
+          type: string
+          description: The ID of the image that this document part belongs to.
+          example: image_1
         context:
           type: string
           description: The context text for the document part.
@@ -4930,6 +5118,11 @@ components:
           items:
             $ref: '#/components/schemas/Table'
           description: The tables that this document contains.
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+          description: The images that this document contains.
         document_parts:
           minItems: 1
           type: array
@@ -4939,6 +5132,7 @@ components:
       description: The document structure that most closely corresponds to Vectara's internal document data model.
       example:
         id: invoice-001
+        type: core
         metadata:
           doc_type: invoice
           industry: manufacturing
@@ -4965,7 +5159,15 @@ components:
                   - text_value: Zeta Manufacturing
                   - float_value: 13499.99
                   - text_value: '2023-06-30'
-        parts:
+        images:
+          - id: image_1
+            title: Quarterly Sales Performance
+            caption: Sales growth trends for Q1 to Q4 of 2024
+            description: 'A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%'
+            image_data:
+              data: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
+              mime_type: image/jpeg
+        document_parts:
           - text: This invoice includes customer billing history for Q1.
             metadata:
               quarter: 1
@@ -5006,6 +5208,11 @@ components:
           items:
             $ref: '#/components/schemas/Table'
           description: The tables that this section contains.
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+          description: The images that this section contains.
         sections:
           type: array
           items:
@@ -5019,6 +5226,14 @@ components:
         metadata:
           section_type: summary
           priority: high
+        images:
+          - id: image_1
+            title: Quarterly Sales Performance
+            caption: Sales growth trends for Q1 to Q4 of 2024
+            description: 'A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%'
+            image_data:
+              data: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
+              mime_type: image/png
         tables:
           - id: billing_table_1
             title: Invoice Line Items
@@ -5229,6 +5444,7 @@ components:
         - QueryStreamedResponse
         - ChatStreamedResponse
         - SummarizeDocumentStreamedResponse
+        - AgentStreamedResponse
     StreamResponseEnd:
       type: object
       properties:
@@ -5241,6 +5457,7 @@ components:
         - QueryStreamedResponse
         - ChatStreamedResponse
         - SummarizeDocumentStreamedResponse
+        - AgentStreamedResponse
     SummarizeDocumentStreamedResponse:
       type: object
       oneOf:
@@ -5258,6 +5475,93 @@ components:
           generation_end: '#/components/schemas/StreamGenerationEnd'
           error: '#/components/schemas/StreamError'
           end: '#/components/schemas/StreamResponseEnd'
+    FieldQuery:
+      required:
+        - field
+        - query
+      type: object
+      properties:
+        field:
+          type: string
+          description: Name of the metadata field to search (without doc/part prefix).
+        query:
+          type: string
+          description: The text to search for in this field. Fuzzy matching is applied automatically.
+        weight:
+          type: number
+          description: Weight to apply to this field during scoring (higher values increase importance of this field).
+          format: float
+          default: 1
+      description: Defines a field-specific query for fuzzy matching.
+    MetadataQueryRequest:
+      required:
+        - queries
+      type: object
+      properties:
+        level:
+          enum:
+            - document
+            - part
+          type: string
+          description: 'Whether to search document-level or part-level metadata. Document-level returns unique documents, part-level can return multiple parts from the same document.'
+          default: document
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldQuery'
+          description: List of field-specific queries to apply fuzzy matching.
+          example:
+            - field: title
+              query: lease agreement
+              weight: 2
+            - field: category
+              query: contract
+              weight: 1
+        metadata_filter:
+          type: string
+          description: "Optional filter expression to narrow down results before fuzzy matching is applied. \nThis uses the same expression format as document listing filters and applies exact matching.\n"
+          example: doc.Status = 'Active'
+        limit:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Sets the maximum number of documents to return.
+          default: 10
+        offset:
+          minimum: 0
+          type: integer
+          description: Starting position for pagination.
+          default: 0
+      description: Defines parameters for fuzzy searching across metadata fields in a corpus.
+    ScoredDocument:
+      type: object
+      properties:
+        doc_id:
+          type: string
+          description: The document ID.
+          example: document123
+        score:
+          type: number
+          description: The overall relevance score for this document.
+          format: float
+          example: 0.92
+        metadata:
+          type: object
+          description: Document metadata object containing all document metadata fields.
+      description: A document with its relevance score and metadata.
+    MetadataQueryResponse:
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoredDocument'
+          description: Matched documents ordered by relevance score (highest first).
+        total_count:
+          type: integer
+          description: Total number of matching documents (for pagination).
+          example: 42
+      description: Returns document search results with relevance scores.
     Language:
       enum:
         - auto
@@ -5322,6 +5626,8 @@ components:
           example: financial-report-2023
         table:
           $ref: '#/components/schemas/Table'
+        image:
+          $ref: '#/components/schemas/ImageMetadata'
         request_corpora_index:
           minimum: 0
           type: integer
@@ -5706,6 +6012,7 @@ components:
       type: object
       properties:
         query:
+          maxLength: 5000
           type: string
           description: 'The search query string, which is the question the user is asking.'
         search:
@@ -5829,6 +6136,7 @@ components:
             corpus_key:
               $ref: '#/components/schemas/CorpusKey'
             query:
+              maxLength: 5000
               type: string
               description: Query for a particular corpus that will override the overall query if present.
               example: What are some important facts in my-corpus?
@@ -5854,6 +6162,7 @@ components:
       type: object
       properties:
         query:
+          maxLength: 5000
           type: string
           description: 'The search query string, which is the question the user is asking.'
           example: Am I allowed to bring pets to work?
@@ -6097,6 +6406,7 @@ components:
           type: string
           description: The ID of the query history.
         query:
+          maxLength: 5000
           type: string
           description: The actual query made.
         corpus_key:
@@ -6186,6 +6496,7 @@ components:
       type: object
       properties:
         query:
+          maxLength: 5000
           type: string
           description: The chat message or question.
           example: What are the carbon reduction efforts by EU banks in 2023?
@@ -6319,6 +6630,7 @@ components:
           description: The ID of the chat the turn resides in.
           example: cht_123456789
         query:
+          maxLength: 5000
           type: string
           description: The query made to produce this turn.
           example: How do you turn this widget?
@@ -7024,8 +7336,47 @@ components:
         - administrator
         - billing_administrator
         - corpus_administrator
+        - corpus_developer
+        - agent_administrator
+        - agent_viewer
+        - agent_developer
       type: string
       description: Roles that a user or an app client can take on.
+    CorpusRole:
+      required:
+        - corpus_key
+        - role
+      type: object
+      properties:
+        corpus_key:
+          type: string
+          description: The key of the corpus this role applies to.
+        role:
+          enum:
+            - owner
+            - administrator
+            - viewer
+            - editor
+          type: string
+          description: The role assigned for this specific corpus.
+      description: Corpus-specific role assignment.
+    AgentRole:
+      required:
+        - agent_id
+        - role
+      type: object
+      properties:
+        agent_id:
+          type: string
+          description: The ID of the agent this role applies to.
+        role:
+          enum:
+            - agent_admin
+            - agent_viewer
+            - agent_developer
+          type: string
+          description: The role assigned for this specific agent.
+      description: Agent-specific role assignment.
     ApiOperationPolicy:
       required:
         - allow_any_resource
@@ -7090,7 +7441,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiRole'
-          description: The role names of the user.
+          description: The customer-level role names of the user.
+        corpus_roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorpusRole'
+          description: Corpus-specific role assignments for the user.
+        agent_roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentRole'
+          description: Agent-specific role assignments for the user.
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
       description: A user account with associated profile information and permissions.
@@ -7124,7 +7485,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiRole'
-          description: The role names assigned to the user.
+          description: The customer-level role names assigned to the user.
+        corpus_roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorpusRole'
+          description: Corpus-specific role assignments for the user.
+        agent_roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentRole'
+          description: Agent-specific role assignments for the user.
       description: Request to create a new user account in the system.
     UpdateUserRequest:
       type: object
@@ -7136,7 +7507,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiRole'
-          description: The new role names of the user.
+          description: The new customer-level role names of the user.
+        corpus_roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorpusRole'
+          description: New corpus-specific role assignments for the user.
+        agent_roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentRole'
+          description: New agent-specific role assignments for the user.
         description:
           type: string
           description: The description of the user.
@@ -7320,6 +7701,10 @@ security:
   - ApiKeyAuth: [ ]
   - OAuth2: [ ]
 tags:
+  - name: Agents
+    description: Create and interact with AI agents that can use tools and corpora to perform complex queries
+  - name: Agent Connectors
+    description: Create and manage connectors that allow agents to receive events from external platforms like Slack
   - name: Authentication
     description: Authenticate with the API using OAuth 2.0 or API keys
   - name: Queries
@@ -7360,3 +7745,9 @@ tags:
     description: Create model responses for chat conversations using OpenAI-compatible endpoints
   - name: Factual Consistency Evaluation
     description: Evaluate text quality metrics like factual consistency and hallucination detection
+  - name: Metadata Query
+    description: Query across arbitrary metadata fields in a corpus
+  - name: Tools
+    description: Manage and discover tools available for AI agents to use in their workflows
+  - name: Instructions
+    description: Create and manage instructions that guide agent behavior

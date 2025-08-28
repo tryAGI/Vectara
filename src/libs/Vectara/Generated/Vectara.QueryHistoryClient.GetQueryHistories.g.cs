@@ -13,6 +13,7 @@ namespace Vectara
             ref global::System.DateTime? startedAfter,
             ref global::System.DateTime? startedBefore,
             ref string? chatId,
+            ref string? historyId,
             ref int? limit,
             ref string? pageKey);
         partial void PrepareGetQueryHistoriesRequest(
@@ -24,6 +25,7 @@ namespace Vectara
             global::System.DateTime? startedAfter,
             global::System.DateTime? startedBefore,
             string? chatId,
+            string? historyId,
             int? limit,
             string? pageKey);
         partial void ProcessGetQueryHistoriesResponse(
@@ -45,6 +47,7 @@ namespace Vectara
         /// <param name="startedAfter"></param>
         /// <param name="startedBefore"></param>
         /// <param name="chatId"></param>
+        /// <param name="historyId"></param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -58,6 +61,7 @@ namespace Vectara
             global::System.DateTime? startedAfter = default,
             global::System.DateTime? startedBefore = default,
             string? chatId = default,
+            string? historyId = default,
             int? limit = default,
             string? pageKey = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -72,6 +76,7 @@ namespace Vectara
                 startedAfter: ref startedAfter,
                 startedBefore: ref startedBefore,
                 chatId: ref chatId,
+                historyId: ref historyId,
                 limit: ref limit,
                 pageKey: ref pageKey);
 
@@ -83,6 +88,7 @@ namespace Vectara
                 .AddOptionalParameter("started_after", startedAfter?.ToString("yyyy-MM-ddTHH:mm:ssZ")) 
                 .AddOptionalParameter("started_before", startedBefore?.ToString("yyyy-MM-ddTHH:mm:ssZ")) 
                 .AddOptionalParameter("chat_id", chatId) 
+                .AddOptionalParameter("history_id", historyId) 
                 .AddOptionalParameter("limit", limit?.ToString()) 
                 .AddOptionalParameter("page_key", pageKey) 
                 ; 
@@ -133,6 +139,7 @@ namespace Vectara
                 startedAfter: startedAfter,
                 startedBefore: startedBefore,
                 chatId: chatId,
+                historyId: historyId,
                 limit: limit,
                 pageKey: pageKey);
 

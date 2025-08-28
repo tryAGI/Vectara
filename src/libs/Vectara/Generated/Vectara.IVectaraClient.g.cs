@@ -42,6 +42,16 @@ namespace Vectara
 
 
         /// <summary>
+        /// Create and interact with AI agents that can use tools and corpora to perform complex queries
+        /// </summary>
+        public AgentsClient Agents { get; }
+
+        /// <summary>
+        /// Create and manage connectors that allow agents to receive events from external platforms like Slack
+        /// </summary>
+        public AgentConnectorsClient AgentConnectors { get; }
+
+        /// <summary>
         /// Authenticate with the API using OAuth 2.0 or API keys
         /// </summary>
         public AuthenticationClient Authentication { get; }
@@ -140,6 +150,21 @@ namespace Vectara
         /// Evaluate text quality metrics like factual consistency and hallucination detection
         /// </summary>
         public FactualConsistencyEvaluationClient FactualConsistencyEvaluation { get; }
+
+        /// <summary>
+        /// Query across arbitrary metadata fields in a corpus
+        /// </summary>
+        public MetadataQueryClient MetadataQuery { get; }
+
+        /// <summary>
+        /// Manage and discover tools available for AI agents to use in their workflows
+        /// </summary>
+        public ToolsClient Tools { get; }
+
+        /// <summary>
+        /// Create and manage instructions that guide agent behavior
+        /// </summary>
+        public InstructionsClient Instructions { get; }
 
     }
 }

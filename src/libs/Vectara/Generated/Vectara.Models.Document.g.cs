@@ -29,6 +29,12 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.Table>? Tables { get; set; }
 
         /// <summary>
+        /// The images that this document contains.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("images")]
+        public global::System.Collections.Generic.IList<global::Vectara.ImageMetadata>? Images { get; set; }
+
+        /// <summary>
         /// Parts of the document that make up the document. However, parts are not available when retrieving a list of documents or when creating a document. This property is only available when retrieving a document by ID.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("parts")]
@@ -65,6 +71,9 @@ namespace Vectara
         /// <param name="tables">
         /// The tables that this document contains. Tables are not available when table extraction is not enabled.
         /// </param>
+        /// <param name="images">
+        /// The images that this document contains.
+        /// </param>
         /// <param name="parts">
         /// Parts of the document that make up the document. However, parts are not available when retrieving a list of documents or when creating a document. This property is only available when retrieving a document by ID.
         /// </param>
@@ -81,6 +90,7 @@ namespace Vectara
             string? id,
             object? metadata,
             global::System.Collections.Generic.IList<global::Vectara.Table>? tables,
+            global::System.Collections.Generic.IList<global::Vectara.ImageMetadata>? images,
             global::System.Collections.Generic.IList<global::Vectara.DocumentPart>? parts,
             global::Vectara.DocumentStorageUsage? storageUsage,
             global::Vectara.ExtractionUsage? extractionUsage)
@@ -88,6 +98,7 @@ namespace Vectara
             this.Id = id;
             this.Metadata = metadata;
             this.Tables = tables;
+            this.Images = images;
             this.Parts = parts;
             this.StorageUsage = storageUsage;
             this.ExtractionUsage = extractionUsage;

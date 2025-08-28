@@ -32,6 +32,14 @@ namespace Vectara
         public string? TableId { get; set; }
 
         /// <summary>
+        /// The ID of the image that this document part belongs to.<br/>
+        /// Example: image_1
+        /// </summary>
+        /// <example>image_1</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("image_id")]
+        public string? ImageId { get; set; }
+
+        /// <summary>
         /// The context text for the document part.<br/>
         /// Example: This document part is part of the table Customer Billing Info.
         /// </summary>
@@ -65,6 +73,10 @@ namespace Vectara
         /// The ID of the table that this document part belongs to.<br/>
         /// Example: billing_table_111
         /// </param>
+        /// <param name="imageId">
+        /// The ID of the image that this document part belongs to.<br/>
+        /// Example: image_1
+        /// </param>
         /// <param name="context">
         /// The context text for the document part.<br/>
         /// Example: This document part is part of the table Customer Billing Info.
@@ -79,12 +91,14 @@ namespace Vectara
             string text,
             object? metadata,
             string? tableId,
+            string? imageId,
             string? context,
             global::System.Collections.Generic.Dictionary<string, double>? customDimensions)
         {
             this.Text = text ?? throw new global::System.ArgumentNullException(nameof(text));
             this.Metadata = metadata;
             this.TableId = tableId;
+            this.ImageId = imageId;
             this.Context = context;
             this.CustomDimensions = customDimensions;
         }

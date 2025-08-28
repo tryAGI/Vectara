@@ -51,6 +51,12 @@ namespace Vectara
         public global::Vectara.Table? Table { get; set; }
 
         /// <summary>
+        /// An image element within a document, containing its identifying information and optional metadata.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("image")]
+        public global::Vectara.ImageMetadata? Image { get; set; }
+
+        /// <summary>
         /// A query request can search over multiple corpora at a time. This property is set to the index in the list of corpora in the original search request that this search result originated from. If the query request is only over one corpus, this property is 0.<br/>
         /// Example: 0
         /// </summary>
@@ -88,6 +94,9 @@ namespace Vectara
         /// <param name="table">
         /// A table in a document.
         /// </param>
+        /// <param name="image">
+        /// An image element within a document, containing its identifying information and optional metadata.
+        /// </param>
         /// <param name="requestCorporaIndex">
         /// A query request can search over multiple corpora at a time. This property is set to the index in the list of corpora in the original search request that this search result originated from. If the query request is only over one corpus, this property is 0.<br/>
         /// Example: 0
@@ -102,6 +111,7 @@ namespace Vectara
             object? documentMetadata,
             string? documentId,
             global::Vectara.Table? table,
+            global::Vectara.ImageMetadata? image,
             int? requestCorporaIndex)
         {
             this.Text = text;
@@ -110,6 +120,7 @@ namespace Vectara
             this.DocumentMetadata = documentMetadata;
             this.DocumentId = documentId;
             this.Table = table;
+            this.Image = image;
             this.RequestCorporaIndex = requestCorporaIndex;
         }
 
