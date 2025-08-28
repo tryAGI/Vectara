@@ -32,7 +32,13 @@ namespace Vectara
         /// Indicates whether to enable or disable the user.
         /// </param>
         /// <param name="apiRoles">
-        /// The new role names of the user.
+        /// The new customer-level role names of the user.
+        /// </param>
+        /// <param name="corpusRoles">
+        /// New corpus-specific role assignments for the user.
+        /// </param>
+        /// <param name="agentRoles">
+        /// New agent-specific role assignments for the user.
         /// </param>
         /// <param name="description">
         /// The description of the user.
@@ -45,6 +51,8 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             bool? enabled = default,
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
+            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles = default,
+            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles = default,
             string? description = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

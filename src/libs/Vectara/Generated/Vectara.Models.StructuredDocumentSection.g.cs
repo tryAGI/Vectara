@@ -46,6 +46,12 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.Table>? Tables { get; set; }
 
         /// <summary>
+        /// The images that this section contains.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("images")]
+        public global::System.Collections.Generic.IList<global::Vectara.Image>? Images { get; set; }
+
+        /// <summary>
         /// The sections that this section contains.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sections")]
@@ -78,6 +84,9 @@ namespace Vectara
         /// <param name="tables">
         /// The tables that this section contains.
         /// </param>
+        /// <param name="images">
+        /// The images that this section contains.
+        /// </param>
         /// <param name="sections">
         /// The sections that this section contains.
         /// </param>
@@ -90,6 +99,7 @@ namespace Vectara
             string? title,
             object? metadata,
             global::System.Collections.Generic.IList<global::Vectara.Table>? tables,
+            global::System.Collections.Generic.IList<global::Vectara.Image>? images,
             global::System.Collections.Generic.IList<global::Vectara.StructuredDocumentSection>? sections)
         {
             this.Text = text ?? throw new global::System.ArgumentNullException(nameof(text));
@@ -97,6 +107,7 @@ namespace Vectara
             this.Title = title;
             this.Metadata = metadata;
             this.Tables = tables;
+            this.Images = images;
             this.Sections = sections;
         }
 

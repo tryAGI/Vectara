@@ -35,7 +35,13 @@ namespace Vectara
         /// The description of the user.
         /// </param>
         /// <param name="apiRoles">
-        /// The role names assigned to the user.
+        /// The customer-level role names assigned to the user.
+        /// </param>
+        /// <param name="corpusRoles">
+        /// Corpus-specific role assignments for the user.
+        /// </param>
+        /// <param name="agentRoles">
+        /// Agent-specific role assignments for the user.
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -46,6 +52,8 @@ namespace Vectara
             string? username = default,
             string? description = default,
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
+            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles = default,
+            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

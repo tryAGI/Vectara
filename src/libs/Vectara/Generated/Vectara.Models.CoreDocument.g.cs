@@ -39,6 +39,12 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.Table>? Tables { get; set; }
 
         /// <summary>
+        /// The images that this document contains.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("images")]
+        public global::System.Collections.Generic.IList<global::Vectara.Image>? Images { get; set; }
+
+        /// <summary>
         /// Parts of the document that make up the document.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("document_parts")]
@@ -68,6 +74,9 @@ namespace Vectara
         /// <param name="tables">
         /// The tables that this document contains.
         /// </param>
+        /// <param name="images">
+        /// The images that this document contains.
+        /// </param>
         /// <param name="documentParts">
         /// Parts of the document that make up the document.
         /// </param>
@@ -79,13 +88,15 @@ namespace Vectara
             string type,
             global::System.Collections.Generic.IList<global::Vectara.CoreDocumentPart> documentParts,
             object? metadata,
-            global::System.Collections.Generic.IList<global::Vectara.Table>? tables)
+            global::System.Collections.Generic.IList<global::Vectara.Table>? tables,
+            global::System.Collections.Generic.IList<global::Vectara.Image>? images)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.DocumentParts = documentParts ?? throw new global::System.ArgumentNullException(nameof(documentParts));
             this.Metadata = metadata;
             this.Tables = tables;
+            this.Images = images;
         }
 
         /// <summary>

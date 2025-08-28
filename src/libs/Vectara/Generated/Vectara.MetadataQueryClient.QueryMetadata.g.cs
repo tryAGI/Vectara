@@ -3,39 +3,46 @@
 
 namespace Vectara
 {
-    public partial class UsersClient
+    public partial class MetadataQueryClient
     {
-        partial void PrepareCreateUserArguments(
+        partial void PrepareQueryMetadataArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            global::Vectara.CreateUserRequest request);
-        partial void PrepareCreateUserRequest(
+            ref string corpusKey,
+            global::Vectara.MetadataQueryRequest request);
+        partial void PrepareQueryMetadataRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            global::Vectara.CreateUserRequest request);
-        partial void ProcessCreateUserResponse(
+            string corpusKey,
+            global::Vectara.MetadataQueryRequest request);
+        partial void ProcessQueryMetadataResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessCreateUserResponseContent(
+        partial void ProcessQueryMetadataResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account.
+        /// Query across metadata fields in a corpus<br/>
+        /// Query for documents in a specific corpus using fuzzy matching across specified metadata fields. The search first applies any exact metadata filters to narrow the results, then performs fuzzy matching on the remaining documents using the specified field queries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="corpusKey">
+        /// A user-provided key for a corpus.<br/>
+        /// Example: my-corpus
+        /// </param>
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
-            global::Vectara.CreateUserRequest request,
+        public async global::System.Threading.Tasks.Task<global::Vectara.MetadataQueryResponse> QueryMetadataAsync(
+            string corpusKey,
+            global::Vectara.MetadataQueryRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -44,14 +51,15 @@ namespace Vectara
 
             PrepareArguments(
                 client: HttpClient);
-            PrepareCreateUserArguments(
+            PrepareQueryMetadataArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
+                corpusKey: ref corpusKey,
                 request: request);
 
             var __pathBuilder = new global::Vectara.PathBuilder(
-                path: "/v2/users",
+                path: $"/v2/corpora/{corpusKey}/metadata_query",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
@@ -97,11 +105,12 @@ namespace Vectara
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-            PrepareCreateUserRequest(
+            PrepareQueryMetadataRequest(
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
+                corpusKey: corpusKey,
                 request: request);
 
             using var __response = await HttpClient.SendAsync(
@@ -112,10 +121,10 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-            ProcessCreateUserResponse(
+            ProcessQueryMetadataResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-            // User creation request was malformed.
+            // Metadata query request was malformed.
             if ((int)__response.StatusCode == 400)
             {
                 string? __content_400 = null;
@@ -152,7 +161,7 @@ namespace Vectara
                         h => h.Value),
                 };
             }
-            // Permissions do not allow retrieving a user.
+            // Permissions do not allow querying metadata in the corpus.
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
@@ -189,6 +198,43 @@ namespace Vectara
                         h => h.Value),
                 };
             }
+            // Corpus not found.
+            if ((int)__response.StatusCode == 404)
+            {
+                string? __content_404 = null;
+                global::System.Exception? __exception_404 = null;
+                global::Vectara.NotFoundError? __value_404 = null;
+                try
+                {
+                    if (ReadResponseAsString)
+                    {
+                        __content_404 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                        __value_404 = global::Vectara.NotFoundError.FromJson(__content_404, JsonSerializerContext);
+                    }
+                    else
+                    {
+                        var __contentStream_404 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                        __value_404 = await global::Vectara.NotFoundError.FromJsonStreamAsync(__contentStream_404, JsonSerializerContext).ConfigureAwait(false);
+                    }
+                }
+                catch (global::System.Exception __ex)
+                {
+                    __exception_404 = __ex;
+                }
+
+                throw new global::Vectara.ApiException<global::Vectara.NotFoundError>(
+                    message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
+                    innerException: __exception_404,
+                    statusCode: __response.StatusCode)
+                {
+                    ResponseBody = __content_404,
+                    ResponseObject = __value_404,
+                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                        __response.Headers,
+                        h => h.Key,
+                        h => h.Value),
+                };
+            }
 
             if (ReadResponseAsString)
             {
@@ -202,7 +248,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-                ProcessCreateUserResponseContent(
+                ProcessQueryMetadataResponseContent(
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);
@@ -212,7 +258,7 @@ namespace Vectara
                     __response.EnsureSuccessStatusCode();
 
                     return
-                        global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>.FromJson(__content, JsonSerializerContext) ??
+                        global::Vectara.MetadataQueryResponse.FromJson(__content, JsonSerializerContext) ??
                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
                 }
                 catch (global::System.Exception __ex)
@@ -243,7 +289,7 @@ namespace Vectara
                     ).ConfigureAwait(false);
 
                     return
-                        await global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                        await global::Vectara.MetadataQueryResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                         throw new global::System.InvalidOperationException("Response deserialization failed.");
                 }
                 catch (global::System.Exception __ex)
@@ -263,55 +309,62 @@ namespace Vectara
         }
 
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account.
+        /// Query across metadata fields in a corpus<br/>
+        /// Query for documents in a specific corpus using fuzzy matching across specified metadata fields. The search first applies any exact metadata filters to narrow the results, then performs fuzzy matching on the remaining documents using the specified field queries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="email">
-        /// The email address for the user.
+        /// <param name="corpusKey">
+        /// A user-provided key for a corpus.<br/>
+        /// Example: my-corpus
         /// </param>
-        /// <param name="username">
-        /// The username for the user. The value defaults to the email.
+        /// <param name="level">
+        /// Whether to search document-level or part-level metadata. Document-level returns unique documents, part-level can return multiple parts from the same document.<br/>
+        /// Default Value: document
         /// </param>
-        /// <param name="description">
-        /// The description of the user.
+        /// <param name="queries">
+        /// List of field-specific queries to apply fuzzy matching.<br/>
+        /// Example: [, ]
         /// </param>
-        /// <param name="apiRoles">
-        /// The customer-level role names assigned to the user.
+        /// <param name="metadataFilter">
+        /// Optional filter expression to narrow down results before fuzzy matching is applied. <br/>
+        /// This uses the same expression format as document listing filters and applies exact matching.<br/>
+        /// Example: doc.Status = 'Active'
         /// </param>
-        /// <param name="corpusRoles">
-        /// Corpus-specific role assignments for the user.
+        /// <param name="limit">
+        /// Sets the maximum number of documents to return.<br/>
+        /// Default Value: 10
         /// </param>
-        /// <param name="agentRoles">
-        /// Agent-specific role assignments for the user.
+        /// <param name="offset">
+        /// Starting position for pagination.<br/>
+        /// Default Value: 0
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
-            string email,
+        public async global::System.Threading.Tasks.Task<global::Vectara.MetadataQueryResponse> QueryMetadataAsync(
+            string corpusKey,
+            global::System.Collections.Generic.IList<global::Vectara.FieldQuery> queries,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            string? username = default,
-            string? description = default,
-            global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
-            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles = default,
-            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles = default,
+            global::Vectara.MetadataQueryRequestLevel? level = default,
+            string? metadataFilter = default,
+            int? limit = default,
+            int? offset = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __request = new global::Vectara.CreateUserRequest
+            var __request = new global::Vectara.MetadataQueryRequest
             {
-                Email = email,
-                Username = username,
-                Description = description,
-                ApiRoles = apiRoles,
-                CorpusRoles = corpusRoles,
-                AgentRoles = agentRoles,
+                Level = level,
+                Queries = queries,
+                MetadataFilter = metadataFilter,
+                Limit = limit,
+                Offset = offset,
             };
 
-            return await CreateUserAsync(
+            return await QueryMetadataAsync(
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
+                corpusKey: corpusKey,
                 request: __request,
                 cancellationToken: cancellationToken).ConfigureAwait(false);
         }

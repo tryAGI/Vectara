@@ -24,6 +24,22 @@ namespace Vectara
         /// 
         /// </summary>
         CorpusAdministrator,
+        /// <summary>
+        /// 
+        /// </summary>
+        CorpusDeveloper,
+        /// <summary>
+        /// 
+        /// </summary>
+        AgentAdministrator,
+        /// <summary>
+        /// 
+        /// </summary>
+        AgentViewer,
+        /// <summary>
+        /// 
+        /// </summary>
+        AgentDeveloper,
     }
 
     /// <summary>
@@ -42,6 +58,10 @@ namespace Vectara
                 ApiRole.Administrator => "administrator",
                 ApiRole.BillingAdministrator => "billing_administrator",
                 ApiRole.CorpusAdministrator => "corpus_administrator",
+                ApiRole.CorpusDeveloper => "corpus_developer",
+                ApiRole.AgentAdministrator => "agent_administrator",
+                ApiRole.AgentViewer => "agent_viewer",
+                ApiRole.AgentDeveloper => "agent_developer",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -56,6 +76,10 @@ namespace Vectara
                 "administrator" => ApiRole.Administrator,
                 "billing_administrator" => ApiRole.BillingAdministrator,
                 "corpus_administrator" => ApiRole.CorpusAdministrator,
+                "corpus_developer" => ApiRole.CorpusDeveloper,
+                "agent_administrator" => ApiRole.AgentAdministrator,
+                "agent_viewer" => ApiRole.AgentViewer,
+                "agent_developer" => ApiRole.AgentDeveloper,
                 _ => null,
             };
         }

@@ -28,10 +28,22 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// The role names assigned to the user.
+        /// The customer-level role names assigned to the user.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_roles")]
         public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? ApiRoles { get; set; }
+
+        /// <summary>
+        /// Corpus-specific role assignments for the user.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("corpus_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? CorpusRoles { get; set; }
+
+        /// <summary>
+        /// Agent-specific role assignments for the user.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("agent_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -52,7 +64,13 @@ namespace Vectara
         /// The description of the user.
         /// </param>
         /// <param name="apiRoles">
-        /// The role names assigned to the user.
+        /// The customer-level role names assigned to the user.
+        /// </param>
+        /// <param name="corpusRoles">
+        /// Corpus-specific role assignments for the user.
+        /// </param>
+        /// <param name="agentRoles">
+        /// Agent-specific role assignments for the user.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -61,12 +79,16 @@ namespace Vectara
             string email,
             string? username,
             string? description,
-            global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles)
+            global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
+            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
+            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles)
         {
             this.Email = email ?? throw new global::System.ArgumentNullException(nameof(email));
             this.Username = username;
             this.Description = description;
             this.ApiRoles = apiRoles;
+            this.CorpusRoles = corpusRoles;
+            this.AgentRoles = agentRoles;
         }
 
         /// <summary>

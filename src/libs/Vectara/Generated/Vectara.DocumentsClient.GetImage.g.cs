@@ -3,59 +3,70 @@
 
 namespace Vectara
 {
-    public partial class UsersClient
+    public partial class DocumentsClient
     {
-        partial void PrepareCreateUserArguments(
+        partial void PrepareGetImageArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            global::Vectara.CreateUserRequest request);
-        partial void PrepareCreateUserRequest(
+            ref string corpusKey,
+            ref string documentId,
+            ref string imageId);
+        partial void PrepareGetImageRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            global::Vectara.CreateUserRequest request);
-        partial void ProcessCreateUserResponse(
+            string corpusKey,
+            string documentId,
+            string imageId);
+        partial void ProcessGetImageResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessCreateUserResponseContent(
+        partial void ProcessGetImageResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account.
+        /// Retrieve an image from a document<br/>
+        /// Returns a specific image that is embedded within a document. The `image_id` uniquely identifies the image within the document. Use this endpoint to fetch the raw image data and associated metadata.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="request"></param>
+        /// <param name="corpusKey">
+        /// A user-provided key for a corpus.<br/>
+        /// Example: my-corpus
+        /// </param>
+        /// <param name="documentId"></param>
+        /// <param name="imageId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
-            global::Vectara.CreateUserRequest request,
+        public async global::System.Threading.Tasks.Task<global::Vectara.Image> GetImageAsync(
+            string corpusKey,
+            string documentId,
+            string imageId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            request = request ?? throw new global::System.ArgumentNullException(nameof(request));
-
             PrepareArguments(
                 client: HttpClient);
-            PrepareCreateUserArguments(
+            PrepareGetImageArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                request: request);
+                corpusKey: ref corpusKey,
+                documentId: ref documentId,
+                imageId: ref imageId);
 
             var __pathBuilder = new global::Vectara.PathBuilder(
-                path: "/v2/users",
+                path: $"/v2/corpora/{corpusKey}/documents/{documentId}/images/{imageId}",
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                method: global::System.Net.Http.HttpMethod.Post,
+                method: global::System.Net.Http.HttpMethod.Get,
                 requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
             __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -87,22 +98,18 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
-            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
-            var __httpRequestContent = new global::System.Net.Http.StringContent(
-                content: __httpRequestContentBody,
-                encoding: global::System.Text.Encoding.UTF8,
-                mediaType: "application/json");
-            __httpRequest.Content = __httpRequestContent;
 
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-            PrepareCreateUserRequest(
+            PrepareGetImageRequest(
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
-                request: request);
+                corpusKey: corpusKey,
+                documentId: documentId,
+                imageId: imageId);
 
             using var __response = await HttpClient.SendAsync(
                 request: __httpRequest,
@@ -112,47 +119,10 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-            ProcessCreateUserResponse(
+            ProcessGetImageResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
-            // User creation request was malformed.
-            if ((int)__response.StatusCode == 400)
-            {
-                string? __content_400 = null;
-                global::System.Exception? __exception_400 = null;
-                global::Vectara.BadRequestError? __value_400 = null;
-                try
-                {
-                    if (ReadResponseAsString)
-                    {
-                        __content_400 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                        __value_400 = global::Vectara.BadRequestError.FromJson(__content_400, JsonSerializerContext);
-                    }
-                    else
-                    {
-                        var __contentStream_400 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-                        __value_400 = await global::Vectara.BadRequestError.FromJsonStreamAsync(__contentStream_400, JsonSerializerContext).ConfigureAwait(false);
-                    }
-                }
-                catch (global::System.Exception __ex)
-                {
-                    __exception_400 = __ex;
-                }
-
-                throw new global::Vectara.ApiException<global::Vectara.BadRequestError>(
-                    message: __content_400 ?? __response.ReasonPhrase ?? string.Empty,
-                    innerException: __exception_400,
-                    statusCode: __response.StatusCode)
-                {
-                    ResponseBody = __content_400,
-                    ResponseObject = __value_400,
-                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
-                        __response.Headers,
-                        h => h.Key,
-                        h => h.Value),
-                };
-            }
-            // Permissions do not allow retrieving a user.
+            // Permissions do not allow retrieving the image.
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
@@ -189,6 +159,43 @@ namespace Vectara
                         h => h.Value),
                 };
             }
+            // Image not found.
+            if ((int)__response.StatusCode == 404)
+            {
+                string? __content_404 = null;
+                global::System.Exception? __exception_404 = null;
+                global::Vectara.NotFoundError? __value_404 = null;
+                try
+                {
+                    if (ReadResponseAsString)
+                    {
+                        __content_404 = await __response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                        __value_404 = global::Vectara.NotFoundError.FromJson(__content_404, JsonSerializerContext);
+                    }
+                    else
+                    {
+                        var __contentStream_404 = await __response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+                        __value_404 = await global::Vectara.NotFoundError.FromJsonStreamAsync(__contentStream_404, JsonSerializerContext).ConfigureAwait(false);
+                    }
+                }
+                catch (global::System.Exception __ex)
+                {
+                    __exception_404 = __ex;
+                }
+
+                throw new global::Vectara.ApiException<global::Vectara.NotFoundError>(
+                    message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
+                    innerException: __exception_404,
+                    statusCode: __response.StatusCode)
+                {
+                    ResponseBody = __content_404,
+                    ResponseObject = __value_404,
+                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                        __response.Headers,
+                        h => h.Key,
+                        h => h.Value),
+                };
+            }
 
             if (ReadResponseAsString)
             {
@@ -202,7 +209,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-                ProcessCreateUserResponseContent(
+                ProcessGetImageResponseContent(
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);
@@ -212,7 +219,7 @@ namespace Vectara
                     __response.EnsureSuccessStatusCode();
 
                     return
-                        global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>.FromJson(__content, JsonSerializerContext) ??
+                        global::Vectara.Image.FromJson(__content, JsonSerializerContext) ??
                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
                 }
                 catch (global::System.Exception __ex)
@@ -243,7 +250,7 @@ namespace Vectara
                     ).ConfigureAwait(false);
 
                     return
-                        await global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                        await global::Vectara.Image.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                         throw new global::System.InvalidOperationException("Response deserialization failed.");
                 }
                 catch (global::System.Exception __ex)
@@ -260,60 +267,6 @@ namespace Vectara
                     };
                 }
             }
-        }
-
-        /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account.
-        /// </summary>
-        /// <param name="requestTimeout"></param>
-        /// <param name="requestTimeoutMillis"></param>
-        /// <param name="email">
-        /// The email address for the user.
-        /// </param>
-        /// <param name="username">
-        /// The username for the user. The value defaults to the email.
-        /// </param>
-        /// <param name="description">
-        /// The description of the user.
-        /// </param>
-        /// <param name="apiRoles">
-        /// The customer-level role names assigned to the user.
-        /// </param>
-        /// <param name="corpusRoles">
-        /// Corpus-specific role assignments for the user.
-        /// </param>
-        /// <param name="agentRoles">
-        /// Agent-specific role assignments for the user.
-        /// </param>
-        /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
-            string email,
-            int? requestTimeout = default,
-            int? requestTimeoutMillis = default,
-            string? username = default,
-            string? description = default,
-            global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
-            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles = default,
-            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles = default,
-            global::System.Threading.CancellationToken cancellationToken = default)
-        {
-            var __request = new global::Vectara.CreateUserRequest
-            {
-                Email = email,
-                Username = username,
-                Description = description,
-                ApiRoles = apiRoles,
-                CorpusRoles = corpusRoles,
-                AgentRoles = agentRoles,
-            };
-
-            return await CreateUserAsync(
-                requestTimeout: requestTimeout,
-                requestTimeoutMillis: requestTimeoutMillis,
-                request: __request,
-                cancellationToken: cancellationToken).ConfigureAwait(false);
         }
     }
 }

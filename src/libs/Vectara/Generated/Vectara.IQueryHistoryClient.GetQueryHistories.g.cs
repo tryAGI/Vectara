@@ -14,6 +14,7 @@ namespace Vectara
         /// <param name="startedAfter"></param>
         /// <param name="startedBefore"></param>
         /// <param name="chatId"></param>
+        /// <param name="historyId"></param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -27,6 +28,7 @@ namespace Vectara
             global::System.DateTime? startedAfter = default,
             global::System.DateTime? startedBefore = default,
             string? chatId = default,
+            string? historyId = default,
             int? limit = default,
             string? pageKey = default,
             global::System.Threading.CancellationToken cancellationToken = default);

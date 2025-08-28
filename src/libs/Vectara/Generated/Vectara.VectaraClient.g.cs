@@ -42,6 +42,24 @@ namespace Vectara
 
 
         /// <summary>
+        /// Create and interact with AI agents that can use tools and corpora to perform complex queries
+        /// </summary>
+        public AgentsClient Agents => new AgentsClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Create and manage connectors that allow agents to receive events from external platforms like Slack
+        /// </summary>
+        public AgentConnectorsClient AgentConnectors => new AgentConnectorsClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
         /// Authenticate with the API using OAuth 2.0 or API keys
         /// </summary>
         public AuthenticationClient Authentication => new AuthenticationClient(HttpClient, authorizations: Authorizations)
@@ -216,6 +234,33 @@ namespace Vectara
         /// Evaluate text quality metrics like factual consistency and hallucination detection
         /// </summary>
         public FactualConsistencyEvaluationClient FactualConsistencyEvaluation => new FactualConsistencyEvaluationClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Query across arbitrary metadata fields in a corpus
+        /// </summary>
+        public MetadataQueryClient MetadataQuery => new MetadataQueryClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Manage and discover tools available for AI agents to use in their workflows
+        /// </summary>
+        public ToolsClient Tools => new ToolsClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Create and manage instructions that guide agent behavior
+        /// </summary>
+        public InstructionsClient Instructions => new InstructionsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
