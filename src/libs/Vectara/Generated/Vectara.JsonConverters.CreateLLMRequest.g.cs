@@ -28,10 +28,26 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateOpenAILLMRequest)}");
                 openaiCompatible = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.CreateOpenAIResponsesLLMRequest? openaiResponses = default;
+            if (discriminator?.Type == global::Vectara.CreateLLMRequestDiscriminatorType.OpenaiResponses)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAIResponsesLLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAIResponsesLLMRequest> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateOpenAIResponsesLLMRequest)}");
+                openaiResponses = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.CreateVertexAILLMRequest? vertexAi = default;
+            if (discriminator?.Type == global::Vectara.CreateLLMRequestDiscriminatorType.VertexAi)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateVertexAILLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateVertexAILLMRequest> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateVertexAILLMRequest)}");
+                vertexAi = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var result = new global::Vectara.CreateLLMRequest(
                 discriminator?.Type,
-                openaiCompatible
+                openaiCompatible,
+                openaiResponses,
+                vertexAi
                 );
 
             return result;
@@ -48,9 +64,21 @@ namespace Vectara.JsonConverters
 
             if (value.IsOpenaiCompatible)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAILLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAILLMRequest?> ??
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAILLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAILLMRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateOpenAILLMRequest).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiCompatible, typeInfo);
+            }
+            else if (value.IsOpenaiResponses)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAIResponsesLLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAIResponsesLLMRequest> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateOpenAIResponsesLLMRequest).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiResponses, typeInfo);
+            }
+            else if (value.IsVertexAi)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateVertexAILLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateVertexAILLMRequest?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateVertexAILLMRequest).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.VertexAi, typeInfo);
             }
         }
     }

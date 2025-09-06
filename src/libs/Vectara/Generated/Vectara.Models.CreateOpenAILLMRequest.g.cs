@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,125 +7,216 @@ namespace Vectara
     /// <summary>
     /// Request to create an OpenAI-compatible Large Language Model connection.
     /// </summary>
-    public sealed partial class CreateOpenAILLMRequest
+    public readonly partial struct CreateOpenAILLMRequest : global::System.IEquatable<CreateOpenAILLMRequest>
     {
         /// <summary>
-        /// Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs (like Anthropic Claude, Azure OpenAI, etc)<br/>
-        /// Default Value: openai-compatible
+        /// Common fields for OpenAI-compatible and Responses API LLM requests.
         /// </summary>
-        /// <default>"openai-compatible"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "openai-compatible";
-
-        /// <summary>
-        /// Name to reference the LLM.  This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is precofnigured with the Vectara platform), then it will override that LLM for all usages.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Name { get; set; }
-
-        /// <summary>
-        /// Description of the LLM.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; }
-
-        /// <summary>
-        /// The model name to use with the API (e.g. gpt-4, claude-2, etc). This is used in the API request to the remote LLM provider.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("model")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Model { get; set; }
-
-        /// <summary>
-        /// The URI endpoint for the API (can be OpenAI or any compatible API endpoint)
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("uri")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Uri { get; set; }
-
-        /// <summary>
-        /// Authentication configuration for an LLM
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RemoteAuthJsonConverter))]
-        public global::Vectara.RemoteAuth? Auth { get; set; }
-
-        /// <summary>
-        /// Additional HTTP headers to include with requests to the LLM API.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("headers")]
-        public global::System.Collections.Generic.Dictionary<string, string>? Headers { get; set; }
-
-        /// <summary>
-        /// Any additional parameters that are required for the LLM during the test call.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("test_model_parameters")]
-        public object? TestModelParameters { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CreateOpenAILLMRequest" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs (like Anthropic Claude, Azure OpenAI, etc)<br/>
-        /// Default Value: openai-compatible
-        /// </param>
-        /// <param name="name">
-        /// Name to reference the LLM.  This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is precofnigured with the Vectara platform), then it will override that LLM for all usages.
-        /// </param>
-        /// <param name="description">
-        /// Description of the LLM.
-        /// </param>
-        /// <param name="model">
-        /// The model name to use with the API (e.g. gpt-4, claude-2, etc). This is used in the API request to the remote LLM provider.
-        /// </param>
-        /// <param name="uri">
-        /// The URI endpoint for the API (can be OpenAI or any compatible API endpoint)
-        /// </param>
-        /// <param name="auth">
-        /// Authentication configuration for an LLM
-        /// </param>
-        /// <param name="headers">
-        /// Additional HTTP headers to include with requests to the LLM API.
-        /// </param>
-        /// <param name="testModelParameters">
-        /// Any additional parameters that are required for the LLM during the test call.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.OpenAILLMRequestBase? Value1 { get; init; }
+#else
+        public global::Vectara.OpenAILLMRequestBase? Value1 { get; }
 #endif
-        public CreateOpenAILLMRequest(
-            string type,
-            string name,
-            string model,
-            string uri,
-            string? description,
-            global::Vectara.RemoteAuth? auth,
-            global::System.Collections.Generic.Dictionary<string, string>? headers,
-            object? testModelParameters)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+#endif
+        public bool IsValue1 => Value1 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator CreateOpenAILLMRequest(global::Vectara.OpenAILLMRequestBase value) => new CreateOpenAILLMRequest((global::Vectara.OpenAILLMRequestBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.OpenAILLMRequestBase?(CreateOpenAILLMRequest @this) => @this.Value1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateOpenAILLMRequest(global::Vectara.OpenAILLMRequestBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
-            this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
-            this.Uri = uri ?? throw new global::System.ArgumentNullException(nameof(uri));
-            this.Description = description;
-            this.Auth = auth;
-            this.Headers = headers;
-            this.TestModelParameters = testModelParameters;
+            Value1 = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateOpenAILLMRequest" /> class.
+        /// 
         /// </summary>
-        public CreateOpenAILLMRequest()
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateOpenAILLMRequestVariant2? Value2 { get; init; }
+#else
+        public global::Vectara.CreateOpenAILLMRequestVariant2? Value2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+#endif
+        public bool IsValue2 => Value2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator CreateOpenAILLMRequest(global::Vectara.CreateOpenAILLMRequestVariant2 value) => new CreateOpenAILLMRequest((global::Vectara.CreateOpenAILLMRequestVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.CreateOpenAILLMRequestVariant2?(CreateOpenAILLMRequest @this) => @this.Value2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateOpenAILLMRequest(global::Vectara.CreateOpenAILLMRequestVariant2? value)
         {
+            Value2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateOpenAILLMRequest(
+            global::Vectara.OpenAILLMRequestBase? value1,
+            global::Vectara.CreateOpenAILLMRequestVariant2? value2
+            )
+        {
+            Value1 = value1;
+            Value2 = value2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            Value2 as object ??
+            Value1 as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            Value1?.ToString() ??
+            Value2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsValue1 && IsValue2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.OpenAILLMRequestBase?, TResult>? value1 = null,
+            global::System.Func<global::Vectara.CreateOpenAILLMRequestVariant2?, TResult>? value2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsValue1 && value1 != null)
+            {
+                return value1(Value1!);
+            }
+            else if (IsValue2 && value2 != null)
+            {
+                return value2(Value2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.OpenAILLMRequestBase?>? value1 = null,
+            global::System.Action<global::Vectara.CreateOpenAILLMRequestVariant2?>? value2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsValue1)
+            {
+                value1?.Invoke(Value1!);
+            }
+            else if (IsValue2)
+            {
+                value2?.Invoke(Value2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                Value1,
+                typeof(global::Vectara.OpenAILLMRequestBase),
+                Value2,
+                typeof(global::Vectara.CreateOpenAILLMRequestVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(CreateOpenAILLMRequest other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.OpenAILLMRequestBase?>.Default.Equals(Value1, other.Value1) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAILLMRequestVariant2?>.Default.Equals(Value2, other.Value2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(CreateOpenAILLMRequest obj1, CreateOpenAILLMRequest obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<CreateOpenAILLMRequest>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(CreateOpenAILLMRequest obj1, CreateOpenAILLMRequest obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is CreateOpenAILLMRequest o && Equals(o);
         }
     }
 }

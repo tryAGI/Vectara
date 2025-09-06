@@ -10,17 +10,17 @@ namespace Vectara
     {
         /// <summary>
         /// The unique ID for the Hallucination Corrector (HC).<br/>
-        /// Example: hcm_123
+        /// Example: hcm_520721853
         /// </summary>
-        /// <example>hcm_123</example>
+        /// <example>hcm_520721853</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
         /// <summary>
         /// The hallucination corrector name, typically including the base name and variant.<br/>
-        /// Example: qwen2.5-7b-instruct-hcm
+        /// Example: vhc-small-1.0
         /// </summary>
-        /// <example>qwen2.5-7b-instruct-hcm</example>
+        /// <example>vhc-small-1.0</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; }
 
@@ -33,9 +33,9 @@ namespace Vectara
 
         /// <summary>
         /// A short description of the hallucination corrector’s purpose.<br/>
-        /// Example: Qwen/Qwen2.5-7B-Instruct for hallucination correction in AI-generated text.
+        /// Example: Basic model for hallucination correction in AI-generated text.
         /// </summary>
-        /// <example>Qwen/Qwen2.5-7B-Instruct for hallucination correction in AI-generated text.</example>
+        /// <example>Basic model for hallucination correction in AI-generated text.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
 
@@ -58,11 +58,11 @@ namespace Vectara
         /// </summary>
         /// <param name="id">
         /// The unique ID for the Hallucination Corrector (HC).<br/>
-        /// Example: hcm_123
+        /// Example: hcm_520721853
         /// </param>
         /// <param name="name">
         /// The hallucination corrector name, typically including the base name and variant.<br/>
-        /// Example: qwen2.5-7b-instruct-hcm
+        /// Example: vhc-small-1.0
         /// </param>
         /// <param name="type">
         /// The hallucination corrector type. Defaults to `vectara`.<br/>
@@ -70,7 +70,7 @@ namespace Vectara
         /// </param>
         /// <param name="description">
         /// A short description of the hallucination corrector’s purpose.<br/>
-        /// Example: Qwen/Qwen2.5-7B-Instruct for hallucination correction in AI-generated text.
+        /// Example: Basic model for hallucination correction in AI-generated text.
         /// </param>
         /// <param name="enabled">
         /// Indicates whether the hallucination corrector is enabled and available for use in hallucination correction workflows.<br/>

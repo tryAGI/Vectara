@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class EvaluateFactualConsistencyResponse
     {
         /// <summary>
-        /// A prediction score (0.0-1.0) from HHEM, monotonically indicates the likelihood of hallucinations.
+        /// A prediction score that must be greater than 0 but less than 1 from HHEM, monotonically indicates the likelihood of hallucinations.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("score")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -25,7 +25,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="EvaluateFactualConsistencyResponse" /> class.
         /// </summary>
         /// <param name="score">
-        /// A prediction score (0.0-1.0) from HHEM, monotonically indicates the likelihood of hallucinations.
+        /// A prediction score that must be greater than 0 but less than 1 from HHEM, monotonically indicates the likelihood of hallucinations.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

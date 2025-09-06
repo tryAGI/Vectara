@@ -285,6 +285,7 @@ paths:
           description: A regular expression to filter the corpora by their name or summary.
           schema:
             type: string
+          example: Vectara Content
         - name: corpus_id
           in: query
           description: Filter corpora to only include corpora with these IDs.
@@ -293,6 +294,8 @@ paths:
             items:
               pattern: 'crp_[0-9]+$'
               type: string
+          example:
+            - crp_12345
         - name: page_key
           in: query
           description: Used to retrieve the next page of corpora after the limit has been reached.
@@ -305,6 +308,109 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListCorporaResponse'
+              examples:
+                Legal:
+                  summary: 'List of corpora containing legal documents, such as employment contracts and non-disclosure agreements, with metadata filters for jurisdiction and document type to support precise querying for legal analysis'
+                  value:
+                    corpora:
+                      - id: crp_12345
+                        key: legal-contracts-2025
+                        name: Legal Contracts
+                        description: 'Corpus for storing and querying employment contracts and legal agreements, primarily for Delaware and California jurisdictions.'
+                        enabled: true
+                        chat_history_corpus: false
+                        queries_are_answers: false
+                        documents_are_questions: false
+                        encoder_name: boomerang-2023-q3
+                        save_history: true
+                        filter_attributes:
+                          - name: jurisdiction
+                            level: document
+                            description: The legal jurisdiction of the contract.
+                            indexed: true
+                            type: text
+                          - name: type
+                            level: document
+                            description: 'The type of legal document (employment_contract, nda).'
+                            indexed: true
+                            type: text
+                        limits:
+                          used_docs: 150
+                          used_parts: 4500
+                          used_characters: 2500000
+                          max_metadata_bytes: 10485760
+                          index_rate: 0
+                        created_at: '2025-06-27T13:47:00.0000000+00:00'
+                    metadata:
+                      page_key: page_legal_001
+                Finance:
+                  summary: 'List of corpora storing financial reports and equity policies for banking and tech sectors, with metadata filters for sector and reporting period to enable targeted financial analysis'
+                  value:
+                    corpora:
+                      - id: crp_67890
+                        key: fin-reports-2025
+                        name: Financial Reports
+                        description: 'Corpus for quarterly financial reports and equity compensation policies, focused on banking and technology sectors in North America.'
+                        enabled: true
+                        chat_history_corpus: false
+                        queries_are_answers: false
+                        documents_are_questions: false
+                        encoder_name: boomerang-2023-q3
+                        save_history: true
+                        filter_attributes:
+                          - name: sector
+                            level: document
+                            description: 'The industry sector of the financial report (Banking, Technology).'
+                            indexed: true
+                            type: text
+                          - name: quarter
+                            level: document
+                            description: The reporting quarter (Q1-2025).
+                            indexed: true
+                            type: text
+                        limits:
+                          used_docs: 200
+                          used_parts: 6000
+                          used_characters: 3500000
+                          max_metadata_bytes: 10485760
+                          index_rate: 0
+                        created_at: '2025-06-27T13:48:00.0000000+00:00'
+                    metadata:
+                      page_key: page_fin_002
+                Support:
+                  summary: 'List of corpora designed for storing chat-based support ticket interactions, with metadata filters for issue type and platform to facilitate troubleshooting and analysis of customer support queries'
+                  value:
+                    corpora:
+                      - id: crp_98765
+                        key: support-tickets-2025
+                        name: Support Tickets
+                        description: 'Corpus for storing chat-based support ticket interactions, particularly for authentication and web portal issues on Chrome and other platforms.'
+                        enabled: true
+                        chat_history_corpus: true
+                        queries_are_answers: false
+                        documents_are_questions: false
+                        encoder_name: boomerang-2023-q3
+                        save_history: true
+                        filter_attributes:
+                          - name: issue
+                            level: document
+                            description: 'The type of support issue (auth_token_stale, login_error).'
+                            indexed: true
+                            type: text
+                          - name: platform
+                            level: document
+                            description: 'The platform where the issue occurred (web_portal, mobile_app).'
+                            indexed: true
+                            type: text
+                        limits:
+                          used_docs: 500
+                          used_parts: 10000
+                          used_characters: 5000000
+                          max_metadata_bytes: 10485760
+                          index_rate: 0
+                        created_at: '2025-06-27T13:49:00.0000000+00:00'
+                    metadata:
+                      page_key: page_support_003
         '403':
           description: Permissions do not allow listing corpora.
           content:
@@ -613,6 +719,49 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ReplaceFilterAttributesRequest'
+            examples:
+              Legal:
+                summary: 'Replace filter attributes for a legal contracts corpus to enable querying by jurisdiction and document type, supporting precise legal analysis'
+                value:
+                  filter_attributes:
+                    - name: jurisdiction
+                      level: document
+                      description: 'The legal jurisdiction of the contract (Delaware, California).'
+                      indexed: true
+                      type: text
+                    - name: type
+                      level: document
+                      description: 'The type of legal document (employment_contract, nda).'
+                      indexed: true
+                      type: text
+              Finance:
+                summary: 'Replace filter attributes for a financial reports corpus to facilitate querying by sector and reporting period, enhancing financial data analysis'
+                value:
+                  filter_attributes:
+                    - name: sector
+                      level: document
+                      description: 'The industry sector of the financial report (Banking, Technology).'
+                      indexed: true
+                      type: text
+                    - name: quarter
+                      level: document
+                      description: The reporting quarter (Q1-2025).
+                      indexed: true
+                      type: text
+              Support:
+                summary: 'Replace filter attributes for a support tickets corpus to support querying by issue type and platform, streamlining customer support troubleshooting'
+                value:
+                  filter_attributes:
+                    - name: issue
+                      level: document
+                      description: 'The type of support issue (auth_token_stale, login_error).'
+                      indexed: true
+                      type: text
+                    - name: platform
+                      level: document
+                      description: 'The platform where the issue occurred (web_portal, mobile_app).'
+                      indexed: true
+                      type: text
       responses:
         '200':
           description: Successfully created a job that will replace the filter attributes.
@@ -620,6 +769,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReplaceFilterAttributesResponse'
+              examples:
+                Legal:
+                  summary: 'Initiated a job to replace filter attributes for a legal contracts corpus, enabling queries by jurisdiction and document type for efficient contract analysis'
+                  value:
+                    job_id: job_legal_45678
+                    status: queued
+                Finance:
+                  summary: 'Initiated a job to replace filter attributes for a financial reports corpus, allowing queries by sector and quarter to support detailed financial insights'
+                  value:
+                    job_id: job_fin_78901
+                    status: queued
+                Support:
+                  summary: 'Initiated a job to replace filter attributes for a support tickets corpus, enabling queries by issue type and platform to optimize support ticket resolution'
+                  value:
+                    job_id: job_support_23456
+                    status: queued
         '403':
           description: Permissions do not allow replacing filter attributes.
           content:
@@ -676,7 +841,7 @@ paths:
       tags:
         - Upload
       summary: Upload a file to the corpus
-      description: "Upload files such as PDFs and Word Documents for automatic text extraction and metadata parsing.\n\nThe request expects a `multipart/form-data` format containing the following parts: \n* `metadata` - Optionally specifies a JSON object representing any additional metadata to be associated with the extracted document. For example, `''metadata={\\\"key\\\": \\\"value\\\"};type=application/json''`\n* `chunking_strategy` - If provided, specifies the chunking strategy for the platform to use. If you do not set this option, the platform uses the default strategy, which creates one chunk per sentence. You can explicitly set sentence chunking with `''chunking_strategy={\\\"type\\\":\\\"sentence_chunking_strategy\\\"};type=application/json''` or use max chars chunking with `''chunking_strategy={\\\"type\\\":\\\"max_chars_chunking_strategy\\\",\\\"max_chars_per_chunk\\\":200};type=application/json''`\n* `table_extraction_config` - You can optionally specify whether to extract table data from the uploaded file. If you do not set this option, the platform does not extract tables from PDF files. Example config, `''table_extraction_config={\\\"extract_tables\\\":true};type=application/json''` \\n* `file` - Specifies the file that you want to upload. * `filename` - Specified as part of the file field with the file name that you want to associate with the uploaded file. For a curl example, use the following syntax: `''file=@/path/to/file/file.pdf;filename=desired_filename.pdf''`\\n\\nFor more detailed information, see this [File Upload API guide.](https://docs.vectara.com/docs/api-reference/indexing-apis/file-upload/file-upload)\"\n"
+      description: "Upload a file, such as a PDF or Word document, to the specified corpus for automatic text extraction and metadata parsing.  \n\nThis endpoint expects a `multipart/form-data` request with the following fields:  \n\n- **metadata**: An optional JSON object containing additional metadata to associate with the document.  \n  Example: `metadata={\"key\": \"value\"}`\n- **chunking_strategy**: An optional JSON object that sets the chunking method for text extraction.  \n  - By default, the platform uses sentence-based chunking (one chunk per sentence).\n  - Example for explicit sentence chunking: `chunking_strategy={\"type\":\"sentence_chunking_strategy\"}`\n  - Example for max chars chunking: `chunking_strategy={\"type\":\"max_chars_chunking_strategy\",\"max_chars_per_chunk\":512}`\n- **table_extraction_config**: An optional JSON object to control table extraction from supported file types (e.g., PDF).  \n  Example: `table_extraction_config={\"extract_tables\": true}`\n- **file**: The file to upload. Attach your file as the value for this field.\n- **filename**: The desired name for the uploaded file. Specify as part of the file field in your request.\n"
       operationId: uploadFile
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -1090,6 +1255,34 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SummarizeDocumentRequest'
+            examples:
+              Legal:
+                summary: 'Request to summarize an employment contract document, using Mockingbird LLM to extract key clause details for legal analysis in a Delaware-based corpus'
+                value:
+                  llm_name: mockingbird-2.0
+                  prompt_template: 'Summarize the key clauses of the employment contract in ${document.metadata.jurisdiction}, focusing on arbitration, confidentiality, and termination terms.'
+                  model_parameters:
+                    max_tokens: 200
+                    temperature: 0.7
+                  stream_response: false
+              Finance:
+                summary: 'Request to summarize a Q1 2025 financial report, using Vectara’s Omni LLM to highlight key financial metrics for a banking sector corpus'
+                value:
+                  llm_name: vectara-summary-ext-24-05-med-omni
+                  prompt_template: 'Provide a concise summary of the financial report for ${document.metadata.quarter}, focusing on revenue, EBITDA margin, and net income.'
+                  model_parameters:
+                    max_tokens: 350
+                    temperature: 0.5
+                  stream_response: false
+              Support:
+                summary: 'Request to summarize a support ticket log document, using Mockingbird LLM to outline resolution steps for an authentication issue in a web portal corpus'
+                value:
+                  llm_name: mockingbird-2.0
+                  prompt_template: 'Summarize the resolution steps for the support ticket issue ${document.metadata.issue} in the ${document.metadata.platform}.'
+                  model_parameters:
+                    max_tokens: 200
+                    temperature: 0.6
+                  stream_response: false
       responses:
         '200':
           description: Document summarization response on success.
@@ -1097,6 +1290,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SummarizeDocumentResponse'
+              examples:
+                Legal:
+                  summary: 'Summarized an employment contract document, extracting key clauses like arbitration and confidentiality using Mockingbird LLM for a Delaware-based legal corpus'
+                  value:
+                    summary: 'The employment contract in Delaware, governed by California law, mandates binding arbitration via AAA with a 30-day opt-out period, includes a 5-year confidentiality term, and specifies termination with 30-day notice.'
+                    rendered_prompt: 'Summarize the key clauses of the employment contract in Delaware, focusing on arbitration, confidentiality, and termination terms.'
+                Finance:
+                  summary: 'Summarized a Q1 2025 financial report, highlighting revenue, EBITDA margin, and net income using Vectara’s Omni LLM for a banking sector corpus'
+                  value:
+                    summary: 'The Q1 2025 financial report for the banking sector shows revenue of $150.2M, an EBITDA margin of 15.2%, and net income of $45.8M.'
+                    rendered_prompt: 'Provide a concise summary of the financial report for Q1-2025, focusing on revenue, EBITDA margin, and net income.'
+                Support:
+                  summary: 'Summarized a support ticket log document, detailing resolution steps for a stale token issue in a web portal using Mockingbird LLM'
+                  value:
+                    summary: 'The support ticket for a stale token issue in the web portal was resolved by detecting sign-out and purging local tokens via JavaScript, with actions logged on 2025-05-18 to 2025-05-20.'
+                    rendered_prompt: Summarize the resolution steps for the support ticket issue auth_token_stale in the web_portal.
             text/event-stream:
               schema:
                 $ref: '#/components/schemas/SummarizeDocumentStreamedResponse'
@@ -1225,7 +1434,7 @@ paths:
       tags:
         - Queries
       summary: Simple Single Corpus Query
-      description: "Search a single corpus with a straightforward query request, specifying the corpus key and query parameters.\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus). When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Enter the search `query` string for the corpus, which is the question you want to ask.\n* Set the maximum number of results (`limit`) to return. **Default**: 10, **minimum**: 1\n\nFor more detailed information, see this [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
+      description: "Search a single corpus with a straightforward query request, specifying the corpus key and query parameters.\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus), and the corpus key is part of that process. When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Enter the search `query` string for the corpus, which is the question you want to ask.\n* Set the maximum number of results (`limit`) to return. **Default**: 10, **minimum**: 1\n\nFor more detailed information, see this [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
       operationId: searchCorpus
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -1379,7 +1588,7 @@ paths:
       tags:
         - Queries
       summary: Advanced Single Corpus Query
-      description: "Perform an advanced query on a specific corpus to find relevant results, highlight relevant snippets, and use Retrieval Augmented Generation.\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus). When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Customize your search by specifying the query text (`query`), pagination details (`offset` and `limit`), and metadata filters (`metadata_filter`) to tailor your search results. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#query-definition)\n* Leverage advanced search capabilities like reranking (`reranker`) and Retrieval Augmented Generation (RAG) (`generation`) for enhanced query performance. Generation is opt in by setting the `generation` property. By excluding the property or by setting it to null, the response will not include generation. [Learn more](https://docs.vectara.com/docs/learn/grounded-generation/configure-query-summarization).\n* Use hybrid search to achieve optimal results by setting different values for `lexical_interpolation` (e.g., `0.005`). [Learn more](https://docs.vectara.com/docs/learn/hybrid-search)\n* Specify Vectara's RAG-focused LLM (Mockingbird) for the `generation_preset_name`. [Learn more](https://docs.vectara.com/docs/learn/mockingbird-llm)\n* Use advanced summarization options that utilize detailed summarization parameters such as `max_response_characters`, `temperature`, and `frequency_penalty` for generating precise and relevant summaries. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#advanced-summarization-options)\n\nFor more detailed information, see [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
+      description: "Perform an advanced query on a specific corpus to find relevant results, highlight relevant snippets, and use Retrieval Augmented Generation.\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus), and the corpus key is part of that process. When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Customize your search by specifying the query text (`query`), pagination details (`offset` and `limit`), and metadata filters (`metadata_filter`) to tailor your search results. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#query-definition)\n* Leverage advanced search capabilities like reranking (`reranker`) and Retrieval Augmented Generation (RAG) (`generation`) for enhanced query performance. Generation is opt in by setting the `generation` property. By excluding the property or by setting it to null, the response will not include generation. [Learn more](https://docs.vectara.com/docs/learn/grounded-generation/configure-query-summarization).\n* Use hybrid search to achieve optimal results by setting different values for `lexical_interpolation` (e.g., `0.005`). [Learn more](https://docs.vectara.com/docs/learn/hybrid-search)\n* Specify Vectara's RAG-focused LLM (Mockingbird) for the `generation_preset_name`. [Learn more](https://docs.vectara.com/docs/learn/mockingbird-llm)\n* Use advanced summarization options that utilize detailed summarization parameters such as `max_response_characters`, `temperature`, and `frequency_penalty` for generating precise and relevant summaries. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#advanced-summarization-options)\n\nFor more detailed information, see [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
       operationId: queryCorpus
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -1421,7 +1630,7 @@ paths:
                     max_used_search_results: 10
                     response_language: eng
                   save_history: true
-                  intelligent_query_rewriting: true
+                  intelligent_query_rewriting: false
               Legal:
                 summary: 'Enable legal professionals to summarize recent California court decisions on intellectual property rights, utilizing a custom multilingual reranker for precise result ranking and markdown citations for seamless integration into legal briefs, powered by Vectara’s advanced RAG capabilities.'
                 value:
@@ -1449,7 +1658,7 @@ paths:
                       url_pattern: 'https://docs.example.com/cases/{doc.id}'
                       text_pattern: '{doc.title}'
                   save_history: true
-                  intelligent_query_rewriting: true
+                  intelligent_query_rewriting: false
               Support:
                 summary: 'Assist IT support teams in troubleshooting printer offline errors on Windows 11 by searching an internal knowledge base, generating a step-by-step fix using RAG, with part-level metadata filtering to pinpoint relevant troubleshooting steps and a custom reranker for enhanced result accuracy.'
                 value:
@@ -1505,11 +1714,6 @@ paths:
                           doc_type: annual_report
                         document_id: fin-report-2023-002
                         request_corpora_index: 0
-                    rewritten_queries:
-                      - corpus_key: fin_docs
-                        filter_extraction:
-                          query: ESG compliance trends in EU banks 2023
-                          metadata_filter: doc.industry = 'banking' AND doc.region = 'EU' AND doc.year = 2023
                 Legal:
                   summary: 'Legal brief summarizing recent California court rulings on intellectual property rights, emphasizing trade secret protections and patent enforcement.'
                   value:
@@ -1536,11 +1740,6 @@ paths:
                           year: 2023
                         document_id: case-ip-2023-002
                         request_corpora_index: 0
-                    rewritten_queries:
-                      - corpus_key: legal_docs
-                        filter_extraction:
-                          query: Recent court rulings on IP rights in California 2023
-                          metadata_filter: doc.jurisdiction = 'California' AND doc.legal_domain = 'IP'
                 Support:
                   summary: 'Step-by-step troubleshooting guide for resolving printer offline errors in Windows 11, derived from an internal knowledge base with part-level metadata filtering.'
                   value:
@@ -1571,11 +1770,6 @@ paths:
                           doc_version: v5.1
                         document_id: support-printer-001
                         request_corpora_index: 0
-                    rewritten_queries:
-                      - corpus_key: support_kb
-                        filter_extraction:
-                          query: Troubleshoot printer offline in Windows 11
-                          metadata_filter: part.platform = 'windows11' AND part.product = 'printer'
             text/event-stream:
               schema:
                 $ref: '#/components/schemas/QueryStreamedResponse'
@@ -1608,6 +1802,7 @@ paths:
             summary:
               description: The summary of the search results.
               type: string
+              example: The carbon reduction efforts by EU banks in 2023 show...
             response_language:
               $ref: '#/components/schemas/Language'
             search_results:
@@ -1636,7 +1831,7 @@ paths:
               example:
                 - corpus_key: fin_docs
                   filter_extraction:
-                    query: ESG compliance trends in EU banks 2023
+                    query: ESG compliance trends in EU
                     metadata_filter: doc.industry = 'banking' AND doc.region = 'EU' AND doc.year = 2023
         response-stream:
           description: An individual event sent with Server-sent Events (SSE) when the query request is streamed.
@@ -1666,7 +1861,7 @@ paths:
       tags:
         - Queries
       summary: Multiple Corpora Query
-      description: "Perform a multipurpose query to retrieve relevant information from one or more corpora and generate a response using Retrieval Augmented Generation (RAG).\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus). When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Customize your search by specifying the query text (`query`), pagination details (`offset` and `limit`), and metadata filters (`metadata_filter`) to tailor your search results. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#query-definition)\n* Leverage advanced search capabilities like reranking (`reranker`) and opt-in Retrieval Augmented Generation (RAG) (`generation`) for enhanced query performance. Generation is opt-in by setting the `generation` property. By excluding the property or by setting it to null, the response will not include generation. [Learn more](https://docs.vectara.com/docs/learn/grounded-generation/configure-query-summarization)\n* Specify Vectara's RAG-focused LLM (Mockingbird) for the `generation_preset_name`. [Learn more](https://docs.vectara.com/docs/learn/mockingbird-llm)\n* Use advanced summarization options that utilize detailed summarization parameters such as `max_response_characters`, `temperature`, and `frequency_penalty` for generating precise and relevant summaries. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#advanced-summarization-customization-options)\n* Customize citation formats in summaries using the `citations` object to include numeric, HTML, or Markdown links. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#citation-format-in-summary)\n\nFor more detailed information, see this [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
+      description: "Perform a multipurpose query to retrieve relevant information from one or more corpora and generate a response using Retrieval Augmented Generation (RAG).\n\n* Specify the unique `corpus_key` identifying the corpus to query. The `corpus_key` is [created in the Vectara Console UI](https://docs.vectara.com/docs/console-ui/creating-a-corpus) or the [Create Corpus API definition](https://docs.vectara.com/docs/api-reference/admin-apis/create-corpus), and the corpus key is part of that process. When creating a new corpus, you have the option to assign a custom `corpus_key` following your preferred naming convention. This key serves as a unique identifier for the corpus, allowing it to be referenced in search requests. For more information, see [Corpus Key Definition](https://docs.vectara.com/docs/api-reference/search-apis/search#corpus-key-definition).\n* Customize your search by specifying the query text (`query`), pagination details (`offset` and `limit`), and metadata filters (`metadata_filter`) to tailor your search results. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#query-definition)\n* Leverage advanced search capabilities like reranking (`reranker`) and opt-in Retrieval Augmented Generation (RAG) (`generation`) for enhanced query performance. Generation is opt-in by setting the `generation` property. By excluding the property or by setting it to null, the response will not include generation. [Learn more](https://docs.vectara.com/docs/learn/grounded-generation/configure-query-summarization)\n* Specify Vectara's RAG-focused LLM (Mockingbird) for the `generation_preset_name`. [Learn more](https://docs.vectara.com/docs/learn/mockingbird-llm)\n* Use advanced summarization options that utilize detailed summarization parameters such as `max_response_characters`, `temperature`, and `frequency_penalty` for generating precise and relevant summaries. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#advanced-summarization-customization-options)\n* Customize citation formats in summaries using the `citations` object to include numeric, HTML, or Markdown links. [Learn more](https://docs.vectara.com/docs/api-reference/search-apis/search#citation-format-in-summary)\n\nFor more detailed information, see this [Query API guide](https://docs.vectara.com/docs/api-reference/search-apis/search).\n"
       operationId: query
       parameters:
         - $ref: '#/components/parameters/RequestTimeout'
@@ -1690,8 +1885,8 @@ paths:
                     context_configuration:
                       sentences_before: 2
                       sentences_after: 2
-                      start_tag: <mark>
-                      end_tag: </mark>
+                      start_tag: <em>
+                      end_tag: </em>
                     reranker:
                       type: customer_reranker
                       reranker_name: Rerank_Multilingual_v1
@@ -1704,7 +1899,7 @@ paths:
                     response_language: eng
                     enable_factual_consistency_score: true
                   save_history: true
-                  intelligent_query_rewriting: true
+                  intelligent_query_rewriting: false
               Finance:
                 summary: 'Analyze and compare RSU vesting schedules in 2022 and 2024 equity policies for Canadian tech employees, highlighting changes for HR policy updates.'
                 value:
@@ -1718,8 +1913,8 @@ paths:
                     context_configuration:
                       sentences_before: 2
                       sentences_after: 2
-                      start_tag: <mark>
-                      end_tag: </mark>
+                      start_tag: <em>
+                      end_tag: </em>
                     reranker:
                       type: customer_reranker
                       reranker_name: Rerank_Multilingual_v1
@@ -1732,7 +1927,7 @@ paths:
                     response_language: eng
                     enable_factual_consistency_score: true
                   save_history: true
-                  intelligent_query_rewriting: true
+                  intelligent_query_rewriting: false
               Support:
                 summary: 'Diagnose and resolve intermittent login failures in a SaaS portal on Chrome, identifying SSO and caching issues for IT support resolution.'
                 value:
@@ -1760,7 +1955,7 @@ paths:
                     response_language: eng
                     enable_factual_consistency_score: true
                   save_history: true
-                  intelligent_query_rewriting: true
+                  intelligent_query_rewriting: false
       responses:
         '200':
           description: A response to a query.
@@ -1795,11 +1990,6 @@ paths:
                           governing_law: DE
                         document_id: contract-nda-2023-002
                         request_corpora_index: 0
-                    rewritten_queries:
-                      - corpus_key: legal_docs
-                        filter_extraction:
-                          query: Arbitration clauses in U.S. SaaS NDAs 2023
-                          metadata_filter: doc.type = 'contract' AND doc.region = 'US' AND doc.industry = 'SaaS'
                 Finance:
                   summary: 'Detailed comparison of RSU vesting schedules in 2022 and 2024 Canadian tech equity policies, highlighting policy shifts for HR compliance.'
                   value:
@@ -1824,11 +2014,6 @@ paths:
                           year: 2024
                         document_id: equity-policy-2024-001
                         request_corpora_index: 0
-                    rewritten_queries:
-                      - corpus_key: fin_docs
-                        filter_extraction:
-                          query: RSU vesting schedules in Canadian tech policies 2022 vs 2024
-                          metadata_filter: doc.type = 'equity_policy' AND doc.country = 'CA' AND (doc.year = 2022 OR doc.year = 2024)
                 Support:
                   summary: 'Comprehensive diagnosis and resolution for intermittent login failures in a SaaS portal on Chrome, addressing SSO token expiration and caching issues.'
                   value:
@@ -1861,11 +2046,6 @@ paths:
                           version: v2.4
                         document_id: support-login-001
                         request_corpora_index: 0
-                    rewritten_queries:
-                      - corpus_key: support_kb
-                        filter_extraction:
-                          query: Intermittent login failures in SaaS portal on Chrome 2023
-                          metadata_filter: part.product = 'portal_app' AND part.browser = 'chrome' AND part.issue = 'login'
             text/event-stream:
               schema:
                 $ref: '#/components/schemas/QueryStreamedResponse'
@@ -1898,6 +2078,7 @@ paths:
             summary:
               description: The summary of the search results.
               type: string
+              example: The carbon reduction efforts by EU banks in 2023 show...
             response_language:
               $ref: '#/components/schemas/Language'
             search_results:
@@ -1926,7 +2107,7 @@ paths:
               example:
                 - corpus_key: fin_docs
                   filter_extraction:
-                    query: ESG compliance trends in EU banks 2023
+                    query: ESG compliance trends in EU
                     metadata_filter: doc.industry = 'banking' AND doc.region = 'EU' AND doc.year = 2023
         response-stream:
           description: An individual event sent with Server-sent Events (SSE) when the query request is streamed.
@@ -2008,6 +2189,7 @@ paths:
           required: true
           schema:
             type: string
+          example: qry_123456789
       responses:
         '200':
           description: The query history.
@@ -2044,6 +2226,7 @@ paths:
           description: Specifies the `corpus_key` used in the query.
           schema:
             type: string
+          example: my_corpus_key
         - name: started_after
           in: query
           description: Queries that started after a particular ISO date-time.
@@ -2061,6 +2244,7 @@ paths:
           description: 'Specifies the chat_id of the query, this will return all queries in the specified chat.'
           schema:
             type: string
+          example: cht_123456789
         - name: history_id
           in: query
           description: Specifies the history_id of the query that you want to use as a filter.
@@ -3259,6 +3443,7 @@ paths:
           description: Filter presets by the LLM name.
           schema:
             type: string
+            example: mockingbird-2.0
         - name: limit
           in: query
           description: The maximum number of results to return in the list.
@@ -3268,6 +3453,7 @@ paths:
             type: integer
             format: int32
             default: 10
+          example: 50
         - name: page_key
           in: query
           description: Used to retrieve the next page of generation presets after the limit has been reached. This parameter is not needed for the first page of results.
@@ -4419,14 +4605,17 @@ components:
           pattern: 'crp_[0-9]+$'
           type: string
           description: Vectara ID of the corpus.
+          example: crp_1
         key:
           $ref: '#/components/schemas/CorpusKey'
         name:
           type: string
           description: Name for the corpus. This value defaults to the key.
+          example: Vectara Content
         description:
           type: string
           description: Corpus description.
+          example: Description about the Vectara Content corpus.
         enabled:
           type: boolean
           description: Specifies whether the corpus is enabled or not.
@@ -4471,18 +4660,22 @@ components:
               type: integer
               description: The number of documents contained in the corpus.
               format: int64
+              example: 8
             used_parts:
               type: integer
               description: The number of document parts contained in the corpus.
               format: int64
+              example: 3748
             used_bytes:
               type: integer
               description: 'NOTE: This field is currently not populated by the system. The number of bytes contained in the corpus. This includes the document metadata, document part metadata, and document contents.'
               format: int64
+              example: 795790
             used_characters:
               type: integer
               description: 'The number of characters contained in the corpus. This includes the document metadata, document part metadata, and document contents.'
               format: int64
+              example: 1839847
             max_bytes:
               type: integer
               description: 'NOTE: This field is currently not populated by the system. The maximum number of bytes the corpus can be.'
@@ -4491,6 +4684,7 @@ components:
               type: integer
               description: The maximum size that metadata can be on documents.
               format: int64
+              example: 10485760
             index_rate:
               type: integer
               description: 'NOTE: This field is currently not populated by the system. The maximum per-second addition of new documents to corpus.'
@@ -4623,7 +4817,7 @@ components:
         name:
           type: string
           description: 'The name for the corpus. If unset or null, then the corpus will remain in the same state.'
-          example: new-name
+          example: new-corpus-name
         description:
           type: string
           description: 'Description of the corpus. If unset or null, then the corpus will remain in the same state.'
@@ -4660,18 +4854,22 @@ components:
           type: integer
           description: Number of documents in the corpus
           format: int64
+          example: 14
         used_parts:
           type: integer
           description: Number of document parts in the corpus
           format: int64
+          example: 5893
         used_characters:
           type: integer
           description: Total number of characters in the corpus
           format: int64
+          example: 1459786
         used_metadata_characters:
           type: integer
           description: Number of metadata characters in the corpus
           format: int64
+          example: 56294
       description: Response containing the computed size of a corpus
     MaxCharsChunkingStrategy:
       required:
@@ -4999,9 +5197,9 @@ components:
             title: Quarterly Sales Performance
             caption: Sales growth trends for Q1 to Q4 of 2024
             description: 'A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%'
+            mime_type: image/png
             image_data:
               data: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
-              mime_type: image/png
         parts:
           - text: This invoice includes customer billing history for Q1.
             metadata:
@@ -5362,9 +5560,11 @@ components:
         llm_name:
           type: string
           description: The name of the LLM.
+          example: mockingbird-2.0
         prompt_template:
           type: string
           description: 'The prompt template to use when generating the summary. Vectara manages both system and user roles and prompts for the generative LLM out of the box by default. However, users can override the `prompt_template` via this variable. The `prompt_template` is in the form of an Apache Velocity template. For more details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).'
+          example: Provide a concise summary of the document.
         model_parameters:
           type: object
           description: Optional parameters for the specified model used when generating the summary.
@@ -5379,9 +5579,11 @@ components:
         summary:
           type: string
           description: The summary of the document
+          example: This document provides a comprehensive overview of initiatives for 2025.
         rendered_prompt:
           type: string
           description: The rendered prompt sent to the LLM. Useful when `prompt_template` is sent in the request.
+          example: Provide a concise summary of the overview initiatives for 2025.
       description: Response containing the summary of a document
     StreamGenerationChunk:
       type: object
@@ -5666,6 +5868,7 @@ components:
         summary:
           type: string
           description: The summary of the search results.
+          example: The carbon reduction efforts by EU banks in 2023 show...
         response_language:
           $ref: '#/components/schemas/Language'
         search_results:
@@ -5694,7 +5897,7 @@ components:
           example:
             - corpus_key: fin_docs
               filter_extraction:
-                query: ESG compliance trends in EU banks 2023
+                query: ESG compliance trends in EU
                 metadata_filter: doc.industry = 'banking' AND doc.region = 'EU' AND doc.year = 2023
       description: The full response to a RAG query when the result is not streamed.
     SearchSemantics:
@@ -5942,13 +6145,13 @@ components:
         generation_preset_name:
           minLength: 1
           type: string
-          description: "The preset values to use to feed the query results and other context to the model.\nA `generation_preset` is an object with a bundle of properties that specifies: * The `prompt_template` that is rendered and then sent to the LLM. * The LLM used. * `model_parameter`s such as temperature.\nAll of these properties except the model can be overridden by setting them in this object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set the model used. See `model_parameters.model` if you want to set the model explicitly.\nIf `generation_preset_name` is not set, the Vectara platform will use the default model and prompt."
-          example: vectara-summary-ext-v1.2.0
+          description: "The preset values to use to feed the query results and other context to the model.  \n\nA `generation_preset` is an object with a bundle of properties that specifies: \n* The `prompt_template` that is rendered and then sent to the LLM. \n* The LLM used. * `model_parameter`s such as temperature.\n\nAll of these properties except the model can be overridden by setting them in this object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set the model used. See `model_parameters.model` if you want to set the model explicitly.\n\nIf `generation_preset_name` is not set, the Vectara platform will use the default model and prompt.'\n"
+          example: mockingbird-2.0
         prompt_name:
           minLength: 1
           type: string
           description: Use `generation_preset_name` instead of `prompt_name`.
-          example: vectara-summary-ext-v1.2.0
+          example: mockingbird-2.0
           deprecated: true
         max_used_search_results:
           minimum: 0
@@ -6080,11 +6283,11 @@ components:
           example:
             - corpus_key: fin_docs
               filter_extraction:
-                query: ESG compliance trends in EU banks 2023
+                query: ESG compliance trends in EU
                 metadata_filter: doc.industry = 'banking' AND doc.year = 2023
             - corpus_key: legal_docs
               filter_extraction:
-                query: ESG regulations for EU banks 2023
+                query: ESG regulations for EU banks
                 metadata_filter: doc.jurisdiction = 'EU' AND doc.year = 2023
       description: The search response results.
       x-vectaraParents:
@@ -6189,19 +6392,19 @@ components:
             - corpus_key: ops_manuals
               metadata_filter: doc.topic = 'QA' AND doc.severity = 'high'
               lexical_interpolation: 0.005
-              context_configuration:
-                sentences_before: 2
-                sentences_after: 2
             - corpus_key: fin_docs
               metadata_filter: doc.region = 'EMEA' AND doc.type = 'risk_report'
               lexical_interpolation: 0.005
-              context_configuration:
-                sentences_before: 2
-                sentences_after: 2
-              reranker:
-                type: customer_reranker
-                reranker_name: Rerank_Multilingual_v1
+          context_configuration:
+            sentences_before: 2
+            sentences_after: 2
+            start_tag: <em>
+            end_tag: </em>
+          reranker:
+            type: customer_reranker
+            reranker_name: Rerank_Multilingual_v1
         generation:
+          generation_preset_name: vectara-summary-ext-24-05-med-omni
           response_language: eng
           enable_factual_consistency_score: true
         stream_response: false
@@ -6381,18 +6584,22 @@ components:
         id:
           type: string
           description: The ID of the query history.
+          example: qry_1234567890
         query:
           $ref: '#/components/schemas/QueryRequest'
         chat_id:
           type: string
           description: The ID of the chat the query is a part of.
+          example: chat_1234567890
         latency_millis:
           type: integer
           description: 'Time taken to complete the query, measured in milliseconds.'
+          example: 150
         started_at:
           type: string
           description: ISO date time indicating when the query was first received.
           format: date-time
+          example: '2025-06-01T12:00:00.0000000+00:00'
         spans:
           type: array
           items:
@@ -6405,6 +6612,7 @@ components:
         id:
           type: string
           description: The ID of the query history.
+          example: qry_1234567890
         query:
           maxLength: 5000
           type: string
@@ -6412,23 +6620,29 @@ components:
         corpus_key:
           type: string
           description: The corpus key that the query was made on.
+          example: eu_carbon
         started_at:
           type: string
           description: ISO date time indicating when the query was first received.
           format: date-time
+          example: '2025-06-01T12:00:00.0000000+00:00'
         latency_millis:
           type: integer
           description: Time that the query took in milliseconds.
+          example: 50
         chat_id:
           type: string
           description: 'The unique ID of the chat associated with the query, if this query is part of a chat.'
+          example: chat_1234567890
         generation:
           type: string
           description: 'Generated response to the query, if requested.'
+          example: 'The carbon reduction efforts by EU banks in 2023 show a significant increase, with a 20% rise in initiatives driven by regulatory pressure.'
         factual_consistency_score:
           type: number
           description: The factual consistency score of the generation.
           format: float
+          example: 0.98
       description: 'A summary of a previously executed query, including metadata but not full results.'
     ListQueryHistoriesResponse:
       type: object
@@ -6691,12 +6905,15 @@ components:
           pattern: llm_.*
           type: string
           description: The ID of the LLM.
+          example: llm_1021844
         name:
           type: string
           description: Name of the LLM.
+          example: Claude 3.7 Sonnet
         description:
           type: string
           description: The description of the LLM.
+          example: The Anthropic Claude 3.7 Sonnet model.
         enabled:
           type: boolean
           description: Indicates whether the LLM is enabled.
@@ -6730,9 +6947,11 @@ components:
           type: string
           description: Must be "bearer" for bearer token auth
           default: bearer
+          example: bearer
         token:
           type: string
           description: The bearer token to use for authentication
+          example: abcdef......
       description: Bearer token authentication
       x-vectaraParents:
         - RemoteAuth
@@ -6747,12 +6966,15 @@ components:
           type: string
           description: Must be "header" for header-based auth
           default: header
+          example: header
         header:
           type: string
           description: The header name to use (e.g. x-api-key)
+          example: x-api-key
         value:
           type: string
           description: The header value to use
+          example: sk-ant.....
       description: Custom header-based authentication
       x-vectaraParents:
         - RemoteAuth
@@ -6769,32 +6991,33 @@ components:
         mapping:
           bearer: '#/components/schemas/BearerAuth'
           header: '#/components/schemas/HeaderAuth'
-    CreateOpenAILLMRequest:
+    OpenAILLMRequestBase:
       required:
-        - type
         - name
-        - model
         - uri
       type: object
       properties:
-        type:
-          type: string
-          description: 'Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs (like Anthropic Claude, Azure OpenAI, etc)'
-          default: openai-compatible
         name:
+          maxLength: 255
+          minLength: 1
           type: string
-          description: 'Name to reference the LLM.  This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is precofnigured with the Vectara platform), then it will override that LLM for all usages.'
+          description: 'Name to reference the LLM. This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is preconfigured with the Vectara platform), then it will override that LLM for all usages.'
+          example: Claude 3.7 Sonnet
         description:
+          maxLength: 1000
           type: string
           description: Description of the LLM.
           default: ''
+          example: The Anthropic Claude 3.7 Sonnet model
         model:
           type: string
           description: 'The model name to use with the API (e.g. gpt-4, claude-2, etc). This is used in the API request to the remote LLM provider.'
+          example: claude-3-7-sonnet-20250219
         uri:
           type: string
           description: The URI endpoint for the API (can be OpenAI or any compatible API endpoint)
           format: uri
+          example: https://api.anthropic.com/v1/chat/completions
         auth:
           $ref: '#/components/schemas/RemoteAuth'
         headers:
@@ -6805,7 +7028,128 @@ components:
         test_model_parameters:
           type: object
           description: Any additional parameters that are required for the LLM during the test call.
+          example:
+            max_tokens: 512
+      description: Common fields for OpenAI-compatible and Responses API LLM requests.
+    CreateOpenAILLMRequest:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/OpenAILLMRequestBase'
+        - required:
+            - type
+            - model
+          type: object
+          properties:
+            type:
+              type: string
+              description: 'Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs (like Anthropic Claude, Azure OpenAI, etc)'
+              default: openai-compatible
+            model:
+              minLength: 1
+              type: string
+              description: 'The model name to use with the API (e.g. gpt-4, claude-2, etc). This is used in the API request to the remote LLM provider.'
       description: Request to create an OpenAI-compatible Large Language Model connection.
+      x-vectaraParents:
+        - CreateLLMRequest
+    CreateOpenAIResponsesLLMRequest:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/OpenAILLMRequestBase'
+        - required:
+            - type
+            - model
+          type: object
+          properties:
+            type:
+              type: string
+              description: 'Must be "openai-responses" for OpenAI Responses API (reasoning models like o1, o3)'
+              default: openai-responses
+            model:
+              minLength: 1
+              type: string
+              description: 'The model name to use with the Responses API (e.g. o1-preview, o1-mini). This is used in the API request to the remote LLM provider.'
+      description: 'Request to create an OpenAI Responses API Large Language Model connection for reasoning models like o1, o3.'
+      x-vectaraParents:
+        - CreateLLMRequest
+    VertexAiApiKeyAuth:
+      required:
+        - type
+        - api_key
+      type: object
+      properties:
+        type:
+          type: string
+          description: Must be "api_key" for API key authentication
+          default: api_key
+        api_key:
+          type: string
+          description: The Google Cloud API key for authentication
+      description: API key authentication for Vertex AI
+      x-vectaraParents:
+        - VertexAiAuth
+    VertexAiServiceAccountAuth:
+      required:
+        - type
+        - key_json
+      type: object
+      properties:
+        type:
+          type: string
+          description: Must be "service_account" for service account authentication
+          default: service_account
+        key_json:
+          type: string
+          description: The service account JSON key file contents as a string
+      description: Service account authentication for Vertex AI
+      x-vectaraParents:
+        - VertexAiAuth
+    VertexAiAuth:
+      required:
+        - type
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/VertexAiApiKeyAuth'
+        - $ref: '#/components/schemas/VertexAiServiceAccountAuth'
+      description: Authentication configuration for Vertex AI
+      discriminator:
+        propertyName: type
+        mapping:
+          api_key: '#/components/schemas/VertexAiApiKeyAuth'
+          service_account: '#/components/schemas/VertexAiServiceAccountAuth'
+    CreateVertexAILLMRequest:
+      required:
+        - type
+        - name
+        - model
+        - uri
+        - auth
+      type: object
+      properties:
+        type:
+          type: string
+          description: Must be "vertex-ai" for Google Cloud Vertex AI Gemini models
+          default: vertex-ai
+        name:
+          type: string
+          description: 'Name to reference the LLM. This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is preconfigured with the Vectara platform), then it will override that LLM for all usages.'
+        description:
+          type: string
+          description: Description of the LLM.
+          default: ''
+        model:
+          type: string
+          description: 'The model name to use (e.g. gemini-2.5-flash, gemini-2.5-pro, gemini-2.0-experimental-1219, etc).'
+        uri:
+          type: string
+          description: The URI endpoint for the Vertex AI API
+          format: uri
+          example: https://aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
+        auth:
+          $ref: '#/components/schemas/VertexAiAuth'
+        test_model_parameters:
+          type: object
+          description: Any additional parameters that are required for the LLM during the test call.
+      description: Request to create a Vertex AI Large Language Model connection for Gemini models.
       x-vectaraParents:
         - CreateLLMRequest
     CreateLLMRequest:
@@ -6814,11 +7158,15 @@ components:
       type: object
       oneOf:
         - $ref: '#/components/schemas/CreateOpenAILLMRequest'
+        - $ref: '#/components/schemas/CreateOpenAIResponsesLLMRequest'
+        - $ref: '#/components/schemas/CreateVertexAILLMRequest'
       description: Request to create a Large Language Model connection for generative capabilities.
       discriminator:
         propertyName: type
         mapping:
           openai-compatible: '#/components/schemas/CreateOpenAILLMRequest'
+          openai-responses: '#/components/schemas/CreateOpenAIResponsesLLMRequest'
+          vertex-ai: '#/components/schemas/CreateVertexAILLMRequest'
     ChatCompletionRequestMessage:
       required:
         - role
@@ -6935,12 +7283,15 @@ components:
         name:
           type: string
           description: Name of the generation preset to be used with configuring generation.
+          example: Mockingbird 2.0
         description:
           type: string
           description: Description of the generation preset.
+          example: Mockingbird LLM 2.0 prompt for summarizing query results as an answer. Designed for RAG.
         llm_name:
           type: string
           description: Name of the model that these presets are used with. The list of available names can be fetched by the `GET /v2/llms` endpoint.
+          example: mockingbird-2.0
         prompt_template:
           type: string
           description: Preset template used to render the prompt sent to generation.
@@ -6949,23 +7300,28 @@ components:
           type: integer
           description: Preset maximum number of search results that will be available to the prompt.
           format: int32
+          example: 50
         max_tokens:
           minimum: 1
           type: integer
           description: Preset maximum number of tokens to be returned by the generation.
           format: int32
+          example: 500
         temperature:
           type: number
           description: 'The sampling temperature to use. Higher values make the output more random, while lower values make it more focused and deterministic.'
           format: float
+          example: 0.4
         frequency_penalty:
           type: number
           description: 'Higher values penalize new tokens based on their existing frequency in the generation so far, decreasing the model''s likelihood to repeat the same line verbatim.'
           format: float
+          example: 0.2
         presence_penalty:
           type: number
           description: 'Higher values penalize new tokens based on whether they appear in the generation so far, increasing the model''s likelihood to talk about new topics.'
           format: float
+          example: 0.2
         enabled:
           type: boolean
           description: Indicates whether the prompt is enabled.
@@ -6995,7 +7351,7 @@ components:
           properties:
             model_name:
               type: string
-              description: The name of the model to use for evaluation.
+              description: The name of the model to use for evaluation. Only hhem_v2.3 is supported.
               default: hhem_v2.3
               example: hhem_v2.3
           description: The model parameters for the evaluation.
@@ -7017,7 +7373,7 @@ components:
           maximum: 1
           minimum: 0
           type: number
-          description: 'A prediction score (0.0-1.0) from HHEM, monotonically indicates the likelihood of hallucinations.'
+          description: 'A prediction score that must be greater than 0 but less than 1 from HHEM, monotonically indicates the likelihood of hallucinations.'
           format: double
       description: Results of the factual consistency evaluation.
     Encoder:
@@ -7175,11 +7531,11 @@ components:
           pattern: 'hcm_[0-9]+$'
           type: string
           description: The unique ID for the Hallucination Corrector (HC).
-          example: hcm_123
+          example: hcm_520721853
         name:
           type: string
           description: 'The hallucination corrector name, typically including the base name and variant.'
-          example: qwen2.5-7b-instruct-hcm
+          example: vhc-small-1.0
         type:
           type: string
           description: The hallucination corrector type. Defaults to `vectara`.
@@ -7187,7 +7543,7 @@ components:
         description:
           type: string
           description: A short description of the hallucination corrector’s purpose.
-          example: Qwen/Qwen2.5-7B-Instruct for hallucination correction in AI-generated text.
+          example: Basic model for hallucination correction in AI-generated text.
         enabled:
           type: boolean
           description: Indicates whether the hallucination corrector is enabled and available for use in hallucination correction workflows.
@@ -7231,7 +7587,7 @@ components:
         model_name:
           type: string
           description: The name of the LLM model to use for hallucination correction.
-          example: vhc-large-10
+          example: vhc-large-1.0
         query:
           type: string
           description: 'Optional query that provides context for the expected response format and factual information. When provided, enables query-aware hallucination correction that considers the specific response format and factual context expected for the query.'
@@ -7289,6 +7645,7 @@ components:
           pattern: job_.+$
           type: string
           description: The ID of the job.
+          example: job_1234
         type:
           enum:
             - rebuild_vector_index

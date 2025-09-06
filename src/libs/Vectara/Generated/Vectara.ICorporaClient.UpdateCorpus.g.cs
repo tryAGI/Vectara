@@ -40,7 +40,7 @@ namespace Vectara
         /// </param>
         /// <param name="name">
         /// The name for the corpus. If unset or null, then the corpus will remain in the same state.<br/>
-        /// Example: new-name
+        /// Example: new-corpus-name
         /// </param>
         /// <param name="description">
         /// Description of the corpus. If unset or null, then the corpus will remain in the same state.<br/>

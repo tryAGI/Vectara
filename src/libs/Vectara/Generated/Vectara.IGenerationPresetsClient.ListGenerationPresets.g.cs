@@ -10,7 +10,9 @@ namespace Vectara
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="llmName"></param>
+        /// <param name="llmName">
+        /// Example: mockingbird-2.0
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>

@@ -6,7 +6,7 @@ namespace Vectara
     /// <summary>
     /// Any additional parameters that are required for the LLM during the test call.
     /// </summary>
-    public sealed partial class CreateOpenAILLMRequestTestModelParameters
+    public sealed partial class CreateVertexAILLMRequestTestModelParameters
     {
 
         /// <summary>

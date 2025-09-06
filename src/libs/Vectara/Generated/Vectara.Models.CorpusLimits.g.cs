@@ -9,26 +9,34 @@ namespace Vectara
     public sealed partial class CorpusLimits
     {
         /// <summary>
-        /// The number of documents contained in the corpus.
+        /// The number of documents contained in the corpus.<br/>
+        /// Example: 8L
         /// </summary>
+        /// <example>8L</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_docs")]
         public long? UsedDocs { get; set; }
 
         /// <summary>
-        /// The number of document parts contained in the corpus.
+        /// The number of document parts contained in the corpus.<br/>
+        /// Example: 3748L
         /// </summary>
+        /// <example>3748L</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_parts")]
         public long? UsedParts { get; set; }
 
         /// <summary>
-        /// NOTE: This field is currently not populated by the system. The number of bytes contained in the corpus. This includes the document metadata, document part metadata, and document contents.
+        /// NOTE: This field is currently not populated by the system. The number of bytes contained in the corpus. This includes the document metadata, document part metadata, and document contents.<br/>
+        /// Example: 795790L
         /// </summary>
+        /// <example>795790L</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_bytes")]
         public long? UsedBytes { get; set; }
 
         /// <summary>
-        /// The number of characters contained in the corpus. This includes the document metadata, document part metadata, and document contents.
+        /// The number of characters contained in the corpus. This includes the document metadata, document part metadata, and document contents.<br/>
+        /// Example: 1839847L
         /// </summary>
+        /// <example>1839847L</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_characters")]
         public long? UsedCharacters { get; set; }
 
@@ -39,8 +47,10 @@ namespace Vectara
         public long? MaxBytes { get; set; }
 
         /// <summary>
-        /// The maximum size that metadata can be on documents.
+        /// The maximum size that metadata can be on documents.<br/>
+        /// Example: 10485760L
         /// </summary>
+        /// <example>10485760L</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_metadata_bytes")]
         public long? MaxMetadataBytes { get; set; }
 
@@ -60,22 +70,27 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CorpusLimits" /> class.
         /// </summary>
         /// <param name="usedDocs">
-        /// The number of documents contained in the corpus.
+        /// The number of documents contained in the corpus.<br/>
+        /// Example: 8L
         /// </param>
         /// <param name="usedParts">
-        /// The number of document parts contained in the corpus.
+        /// The number of document parts contained in the corpus.<br/>
+        /// Example: 3748L
         /// </param>
         /// <param name="usedBytes">
-        /// NOTE: This field is currently not populated by the system. The number of bytes contained in the corpus. This includes the document metadata, document part metadata, and document contents.
+        /// NOTE: This field is currently not populated by the system. The number of bytes contained in the corpus. This includes the document metadata, document part metadata, and document contents.<br/>
+        /// Example: 795790L
         /// </param>
         /// <param name="usedCharacters">
-        /// The number of characters contained in the corpus. This includes the document metadata, document part metadata, and document contents.
+        /// The number of characters contained in the corpus. This includes the document metadata, document part metadata, and document contents.<br/>
+        /// Example: 1839847L
         /// </param>
         /// <param name="maxBytes">
         /// NOTE: This field is currently not populated by the system. The maximum number of bytes the corpus can be.
         /// </param>
         /// <param name="maxMetadataBytes">
-        /// The maximum size that metadata can be on documents.
+        /// The maximum size that metadata can be on documents.<br/>
+        /// Example: 10485760L
         /// </param>
         /// <param name="indexRate">
         /// NOTE: This field is currently not populated by the system. The maximum per-second addition of new documents to corpus.

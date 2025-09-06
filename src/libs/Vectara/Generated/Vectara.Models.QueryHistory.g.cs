@@ -9,8 +9,10 @@ namespace Vectara
     public sealed partial class QueryHistory
     {
         /// <summary>
-        /// The ID of the query history.
+        /// The ID of the query history.<br/>
+        /// Example: qry_1234567890
         /// </summary>
+        /// <example>qry_1234567890</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
@@ -21,14 +23,18 @@ namespace Vectara
         public global::Vectara.QueryRequest? Query { get; set; }
 
         /// <summary>
-        /// The ID of the chat the query is a part of.
+        /// The ID of the chat the query is a part of.<br/>
+        /// Example: chat_1234567890
         /// </summary>
+        /// <example>chat_1234567890</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("chat_id")]
         public string? ChatId { get; set; }
 
         /// <summary>
-        /// Time taken to complete the query, measured in milliseconds.
+        /// Time taken to complete the query, measured in milliseconds.<br/>
+        /// Example: 150
         /// </summary>
+        /// <example>150</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("latency_millis")]
         public int? LatencyMillis { get; set; }
 
@@ -54,16 +60,19 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="QueryHistory" /> class.
         /// </summary>
         /// <param name="id">
-        /// The ID of the query history.
+        /// The ID of the query history.<br/>
+        /// Example: qry_1234567890
         /// </param>
         /// <param name="query">
         /// Query one or more corpora.
         /// </param>
         /// <param name="chatId">
-        /// The ID of the chat the query is a part of.
+        /// The ID of the chat the query is a part of.<br/>
+        /// Example: chat_1234567890
         /// </param>
         /// <param name="latencyMillis">
-        /// Time taken to complete the query, measured in milliseconds.
+        /// Time taken to complete the query, measured in milliseconds.<br/>
+        /// Example: 150
         /// </param>
         /// <param name="startedAt">
         /// ISO date time indicating when the query was first received.

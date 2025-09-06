@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class EvaluateFactualConsistencyRequestModelParameters
     {
         /// <summary>
-        /// The name of the model to use for evaluation.<br/>
+        /// The name of the model to use for evaluation. Only hhem_v2.3 is supported.<br/>
         /// Default Value: hhem_v2.3<br/>
         /// Example: hhem_v2.3
         /// </summary>
@@ -27,7 +27,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="EvaluateFactualConsistencyRequestModelParameters" /> class.
         /// </summary>
         /// <param name="modelName">
-        /// The name of the model to use for evaluation.<br/>
+        /// The name of the model to use for evaluation. Only hhem_v2.3 is supported.<br/>
         /// Default Value: hhem_v2.3<br/>
         /// Example: hhem_v2.3
         /// </param>
