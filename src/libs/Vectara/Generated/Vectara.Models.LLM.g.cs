@@ -9,20 +9,26 @@ namespace Vectara
     public sealed partial class LLM
     {
         /// <summary>
-        /// The ID of the LLM.
+        /// The ID of the LLM.<br/>
+        /// Example: llm_1021844
         /// </summary>
+        /// <example>llm_1021844</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
         /// <summary>
-        /// Name of the LLM.
+        /// Name of the LLM.<br/>
+        /// Example: Claude 3.7 Sonnet
         /// </summary>
+        /// <example>Claude 3.7 Sonnet</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
-        /// The description of the LLM.
+        /// The description of the LLM.<br/>
+        /// Example: The Anthropic Claude 3.7 Sonnet model.
         /// </summary>
+        /// <example>The Anthropic Claude 3.7 Sonnet model.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
 
@@ -55,13 +61,16 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="LLM" /> class.
         /// </summary>
         /// <param name="id">
-        /// The ID of the LLM.
+        /// The ID of the LLM.<br/>
+        /// Example: llm_1021844
         /// </param>
         /// <param name="name">
-        /// Name of the LLM.
+        /// Name of the LLM.<br/>
+        /// Example: Claude 3.7 Sonnet
         /// </param>
         /// <param name="description">
-        /// The description of the LLM.
+        /// The description of the LLM.<br/>
+        /// Example: The Anthropic Claude 3.7 Sonnet model.
         /// </param>
         /// <param name="enabled">
         /// Indicates whether the LLM is enabled.

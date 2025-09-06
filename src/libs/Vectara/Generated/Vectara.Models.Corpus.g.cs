@@ -9,8 +9,10 @@ namespace Vectara
     public sealed partial class Corpus
     {
         /// <summary>
-        /// Vectara ID of the corpus.
+        /// Vectara ID of the corpus.<br/>
+        /// Example: crp_1
         /// </summary>
+        /// <example>crp_1</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
 
@@ -23,14 +25,18 @@ namespace Vectara
         public string? Key { get; set; }
 
         /// <summary>
-        /// Name for the corpus. This value defaults to the key.
+        /// Name for the corpus. This value defaults to the key.<br/>
+        /// Example: Vectara Content
         /// </summary>
+        /// <example>Vectara Content</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         public string? Name { get; set; }
 
         /// <summary>
-        /// Corpus description.
+        /// Corpus description.<br/>
+        /// Example: Description about the Vectara Content corpus.
         /// </summary>
+        /// <example>Description about the Vectara Content corpus.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
 
@@ -115,17 +121,20 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="Corpus" /> class.
         /// </summary>
         /// <param name="id">
-        /// Vectara ID of the corpus.
+        /// Vectara ID of the corpus.<br/>
+        /// Example: crp_1
         /// </param>
         /// <param name="key">
         /// A user-provided key for a corpus.<br/>
         /// Example: my-corpus
         /// </param>
         /// <param name="name">
-        /// Name for the corpus. This value defaults to the key.
+        /// Name for the corpus. This value defaults to the key.<br/>
+        /// Example: Vectara Content
         /// </param>
         /// <param name="description">
-        /// Corpus description.
+        /// Corpus description.<br/>
+        /// Example: Description about the Vectara Content corpus.
         /// </param>
         /// <param name="enabled">
         /// Specifies whether the corpus is enabled or not.

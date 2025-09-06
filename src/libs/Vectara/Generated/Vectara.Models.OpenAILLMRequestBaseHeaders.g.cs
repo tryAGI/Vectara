@@ -6,7 +6,7 @@ namespace Vectara
     /// <summary>
     /// Additional HTTP headers to include with requests to the LLM API.
     /// </summary>
-    public sealed partial class CreateOpenAILLMRequestHeaders
+    public sealed partial class OpenAILLMRequestBaseHeaders
     {
 
         /// <summary>

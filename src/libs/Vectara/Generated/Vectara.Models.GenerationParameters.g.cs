@@ -9,21 +9,23 @@ namespace Vectara
     public sealed partial class GenerationParameters
     {
         /// <summary>
-        /// The preset values to use to feed the query results and other context to the model.<br/>
-        /// A `generation_preset` is an object with a bundle of properties that specifies: * The `prompt_template` that is rendered and then sent to the LLM. * The LLM used. * `model_parameter`s such as temperature.<br/>
+        /// The preset values to use to feed the query results and other context to the model.  <br/>
+        /// A `generation_preset` is an object with a bundle of properties that specifies: <br/>
+        /// * The `prompt_template` that is rendered and then sent to the LLM. <br/>
+        /// * The LLM used. * `model_parameter`s such as temperature.<br/>
         /// All of these properties except the model can be overridden by setting them in this object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set the model used. See `model_parameters.model` if you want to set the model explicitly.<br/>
-        /// If `generation_preset_name` is not set, the Vectara platform will use the default model and prompt.<br/>
-        /// Example: vectara-summary-ext-v1.2.0
+        /// If `generation_preset_name` is not set, the Vectara platform will use the default model and prompt.'<br/>
+        /// Example: mockingbird-2.0
         /// </summary>
-        /// <example>vectara-summary-ext-v1.2.0</example>
+        /// <example>mockingbird-2.0</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("generation_preset_name")]
         public string? GenerationPresetName { get; set; }
 
         /// <summary>
         /// Use `generation_preset_name` instead of `prompt_name`.<br/>
-        /// Example: vectara-summary-ext-v1.2.0
+        /// Example: mockingbird-2.0
         /// </summary>
-        /// <example>vectara-summary-ext-v1.2.0</example>
+        /// <example>mockingbird-2.0</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_name")]
         [global::System.Obsolete("This property marked as deprecated.")]
         public string? PromptName { get; set; }
@@ -129,11 +131,13 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="GenerationParameters" /> class.
         /// </summary>
         /// <param name="generationPresetName">
-        /// The preset values to use to feed the query results and other context to the model.<br/>
-        /// A `generation_preset` is an object with a bundle of properties that specifies: * The `prompt_template` that is rendered and then sent to the LLM. * The LLM used. * `model_parameter`s such as temperature.<br/>
+        /// The preset values to use to feed the query results and other context to the model.  <br/>
+        /// A `generation_preset` is an object with a bundle of properties that specifies: <br/>
+        /// * The `prompt_template` that is rendered and then sent to the LLM. <br/>
+        /// * The LLM used. * `model_parameter`s such as temperature.<br/>
         /// All of these properties except the model can be overridden by setting them in this object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set the model used. See `model_parameters.model` if you want to set the model explicitly.<br/>
-        /// If `generation_preset_name` is not set, the Vectara platform will use the default model and prompt.<br/>
-        /// Example: vectara-summary-ext-v1.2.0
+        /// If `generation_preset_name` is not set, the Vectara platform will use the default model and prompt.'<br/>
+        /// Example: mockingbird-2.0
         /// </param>
         /// <param name="maxUsedSearchResults">
         /// The maximum number of search results to be available to the prompt.<br/>

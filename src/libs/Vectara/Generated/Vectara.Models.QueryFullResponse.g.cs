@@ -9,8 +9,10 @@ namespace Vectara
     public sealed partial class QueryFullResponse
     {
         /// <summary>
-        /// The summary of the search results.
+        /// The summary of the search results.<br/>
+        /// Example: The carbon reduction efforts by EU banks in 2023 show...
         /// </summary>
+        /// <example>The carbon reduction efforts by EU banks in 2023 show...</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("summary")]
         public string? Summary { get; set; }
 
@@ -66,7 +68,8 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="QueryFullResponse" /> class.
         /// </summary>
         /// <param name="summary">
-        /// The summary of the search results.
+        /// The summary of the search results.<br/>
+        /// Example: The carbon reduction efforts by EU banks in 2023 show...
         /// </param>
         /// <param name="responseLanguage">
         /// Languages that the Vectara platform supports.<br/>

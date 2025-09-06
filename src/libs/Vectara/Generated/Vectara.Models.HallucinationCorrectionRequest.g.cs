@@ -24,9 +24,9 @@ namespace Vectara
 
         /// <summary>
         /// The name of the LLM model to use for hallucination correction.<br/>
-        /// Example: vhc-large-10
+        /// Example: vhc-large-1.0
         /// </summary>
-        /// <example>vhc-large-10</example>
+        /// <example>vhc-large-1.0</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model_name")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string ModelName { get; set; }
@@ -54,7 +54,7 @@ namespace Vectara
         /// </param>
         /// <param name="modelName">
         /// The name of the LLM model to use for hallucination correction.<br/>
-        /// Example: vhc-large-10
+        /// Example: vhc-large-1.0
         /// </param>
         /// <param name="query">
         /// Optional query that provides context for the expected response format and factual information. When provided, enables query-aware hallucination correction that considers the specific response format and factual context expected for the query.

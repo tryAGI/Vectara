@@ -38,10 +38,12 @@ namespace Vectara
         /// </param>
         /// <param name="documentId"></param>
         /// <param name="llmName">
-        /// The name of the LLM.
+        /// The name of the LLM.<br/>
+        /// Example: mockingbird-2.0
         /// </param>
         /// <param name="promptTemplate">
-        /// The prompt template to use when generating the summary. Vectara manages both system and user roles and prompts for the generative LLM out of the box by default. However, users can override the `prompt_template` via this variable. The `prompt_template` is in the form of an Apache Velocity template. For more details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).
+        /// The prompt template to use when generating the summary. Vectara manages both system and user roles and prompts for the generative LLM out of the box by default. However, users can override the `prompt_template` via this variable. The `prompt_template` is in the form of an Apache Velocity template. For more details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
+        /// Example: Provide a concise summary of the document.
         /// </param>
         /// <param name="modelParameters">
         /// Optional parameters for the specified model used when generating the summary.
