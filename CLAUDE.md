@@ -10,10 +10,10 @@ C# SDK for the [Vectara](https://vectara.com/) RAG-as-a-Service platform, auto-g
 
 ```bash
 # Build the solution
-dotnet build Vectara.sln
+dotnet build Vectara.slnx
 
 # Build for release (also produces NuGet package)
-dotnet build Vectara.sln -c Release
+dotnet build Vectara.slnx -c Release
 
 # Run integration tests (requires VECTARA_API_KEY env var)
 dotnet test src/tests/IntegrationTests/Vectara.IntegrationTests.csproj
