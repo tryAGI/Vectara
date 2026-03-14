@@ -71,18 +71,24 @@ namespace Vectara.JsonConverters
                 error = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.QueryStreamedResponse(
+            var __value = new global::Vectara.QueryStreamedResponse(
                 discriminator?.Type,
                 searchResults,
+
                 generationChunk,
+
                 generationEnd,
+
                 end,
+
                 factualConsistencyScore,
+
                 generationInfo,
+
                 error
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

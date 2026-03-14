@@ -56,10 +56,18 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, string>? Headers { get; set; }
 
         /// <summary>
-        /// Any additional parameters that are required for the LLM during the test call.
+        /// Any additional parameters that are required for the LLM during the test call.<br/>
+        /// Example: {"max_tokens":512}
         /// </summary>
+        /// <example>{"max_tokens":512}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("test_model_parameters")]
         public object? TestModelParameters { get; set; }
+
+        /// <summary>
+        /// Capabilities of a Large Language Model.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
+        public global::Vectara.LLMCapabilities? Capabilities { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -93,7 +101,11 @@ namespace Vectara
         /// Additional HTTP headers to include with requests to the LLM API.
         /// </param>
         /// <param name="testModelParameters">
-        /// Any additional parameters that are required for the LLM during the test call.
+        /// Any additional parameters that are required for the LLM during the test call.<br/>
+        /// Example: {"max_tokens":512}
+        /// </param>
+        /// <param name="capabilities">
+        /// Capabilities of a Large Language Model.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -105,7 +117,8 @@ namespace Vectara
             string? model,
             global::Vectara.RemoteAuth? auth,
             global::System.Collections.Generic.Dictionary<string, string>? headers,
-            object? testModelParameters)
+            object? testModelParameters,
+            global::Vectara.LLMCapabilities? capabilities)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Uri = uri ?? throw new global::System.ArgumentNullException(nameof(uri));
@@ -114,6 +127,7 @@ namespace Vectara
             this.Auth = auth;
             this.Headers = headers;
             this.TestModelParameters = testModelParameters;
+            this.Capabilities = capabilities;
         }
 
         /// <summary>

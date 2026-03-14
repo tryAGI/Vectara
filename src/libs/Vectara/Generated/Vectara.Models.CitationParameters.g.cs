@@ -9,7 +9,11 @@ namespace Vectara
     public sealed partial class CitationParameters
     {
         /// <summary>
-        /// The citation style to be used in summary. Can be one of: * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ... * `none` - Citations removed from text. * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`. * `markdown` - Formatted as `[text_pattern](url_pattern)`.
+        /// The citation style that you want to use in the summary: <br/>
+        /// * `numeric` - Citations formatted as simple numerals: \[1\], \[2\], etc.<br/>
+        /// * `none` - Citations removed from text.<br/>
+        /// * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`.<br/>
+        /// * `markdown` - Formatted as `[text_pattern](url_pattern)`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("style")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CitationParametersStyleJsonConverter))]
@@ -41,7 +45,11 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CitationParameters" /> class.
         /// </summary>
         /// <param name="style">
-        /// The citation style to be used in summary. Can be one of: * `numeric` - Citations formatted as simple numerals: \[1\], \[2\] ... * `none` - Citations removed from text. * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`. * `markdown` - Formatted as `[text_pattern](url_pattern)`.
+        /// The citation style that you want to use in the summary: <br/>
+        /// * `numeric` - Citations formatted as simple numerals: \[1\], \[2\], etc.<br/>
+        /// * `none` - Citations removed from text.<br/>
+        /// * `html` - Citation formatted as a URL like `&lt;a href="url_pattern"&gt;text_pattern&lt;/a&gt;`.<br/>
+        /// * `markdown` - Formatted as `[text_pattern](url_pattern)`.
         /// </param>
         /// <param name="urlPattern">
         /// The URL pattern if the citation_style is set to `html` or `markdown`. The pattern can access metadata attributes in the document or part. e.g. `https://my.doc/foo/{doc.id}/{part.id}` The default `url_pattern` is an empty string.<br/>

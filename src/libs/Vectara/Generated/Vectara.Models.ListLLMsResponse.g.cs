@@ -12,11 +12,13 @@ namespace Vectara
         /// List of LLMs.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("llms")]
-        public global::System.Collections.Generic.IList<global::Vectara.LLM>? Llms { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.Llm>? Llms { get; set; }
 
         /// <summary>
-        /// The standard metadata in the response of a list operation.
+        /// The standard metadata in the response of a list operation.<br/>
+        /// Example: {"page_key":"eyJvZmZzZXQiOjF9"}
         /// </summary>
+        /// <example>{"page_key":"eyJvZmZzZXQiOjF9"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public global::Vectara.ListMetadata? Metadata { get; set; }
 
@@ -33,13 +35,14 @@ namespace Vectara
         /// List of LLMs.
         /// </param>
         /// <param name="metadata">
-        /// The standard metadata in the response of a list operation.
+        /// The standard metadata in the response of a list operation.<br/>
+        /// Example: {"page_key":"eyJvZmZzZXQiOjF9"}
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ListLLMsResponse(
-            global::System.Collections.Generic.IList<global::Vectara.LLM>? llms,
+            global::System.Collections.Generic.IList<global::Vectara.Llm>? llms,
             global::Vectara.ListMetadata? metadata)
         {
             this.Llms = llms;

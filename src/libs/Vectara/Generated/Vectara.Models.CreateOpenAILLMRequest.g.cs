@@ -29,6 +29,22 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateOpenAILLMRequestVariant2? Value2 { get; init; }
+#else
+        public global::Vectara.CreateOpenAILLMRequestVariant2? Value2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+#endif
+        public bool IsValue2 => Value2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateOpenAILLMRequest(global::Vectara.OpenAILLMRequestBase value) => new CreateOpenAILLMRequest((global::Vectara.OpenAILLMRequestBase?)value);
 
         /// <summary>
@@ -43,23 +59,6 @@ namespace Vectara
         {
             Value1 = value;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.CreateOpenAILLMRequestVariant2? Value2 { get; init; }
-#else
-        public global::Vectara.CreateOpenAILLMRequestVariant2? Value2 { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
-#endif
-        public bool IsValue2 => Value2 != null;
 
         /// <summary>
         /// 

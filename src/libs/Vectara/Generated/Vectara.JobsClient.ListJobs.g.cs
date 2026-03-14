@@ -73,11 +73,11 @@ namespace Vectara
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/jobs",
                 baseUri: HttpClient.BaseAddress); 
-            __pathBuilder 
-                .AddOptionalParameter("corpus_key", corpusKey, delimiter: ",", explode: true) 
-                .AddOptionalParameter("after", after?.ToString("yyyy-MM-ddTHH:mm:ssZ")) 
-                .AddOptionalParameter("state", state, selector: static x => x.ToValueString(), delimiter: ",", explode: true) 
-                .AddOptionalParameter("limit", limit?.ToString()) 
+            __pathBuilder
+                .AddOptionalParameter("corpus_key", corpusKey, delimiter: ",", explode: true)
+                .AddOptionalParameter("after", after?.ToString("yyyy-MM-ddTHH:mm:ssZ"))
+                .AddOptionalParameter("state", state, selector: static x => x.ToValueString(), delimiter: ",", explode: true)
+                .AddOptionalParameter("limit", limit?.ToString())
                 .AddOptionalParameter("page_key", pageKey) 
                 ; 
             var __path = __pathBuilder.ToString();

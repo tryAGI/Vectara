@@ -18,9 +18,9 @@ namespace Vectara
 
         /// <summary>
         /// List of field-specific queries to apply fuzzy matching.<br/>
-        /// Example: [, ]
+        /// Example: [{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]
         /// </summary>
-        /// <example>[, ]</example>
+        /// <example>[{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("queries")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.Collections.Generic.IList<global::Vectara.FieldQuery> Queries { get; set; }
@@ -63,7 +63,7 @@ namespace Vectara
         /// </param>
         /// <param name="queries">
         /// List of field-specific queries to apply fuzzy matching.<br/>
-        /// Example: [, ]
+        /// Example: [{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]
         /// </param>
         /// <param name="metadataFilter">
         /// Optional filter expression to narrow down results before fuzzy matching is applied. <br/>

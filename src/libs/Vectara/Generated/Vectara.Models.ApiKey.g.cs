@@ -33,12 +33,30 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
+        /// Customer-level roles for this API key.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("api_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? ApiRoles { get; set; }
+
+        /// <summary>
         /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
         /// A personal API key has all the same permissions as the creator of the API key.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_key_role")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ApiKeyRoleJsonConverter))]
         public global::Vectara.ApiKeyRole? ApiKeyRole { get; set; }
+
+        /// <summary>
+        /// Corpus-specific role assignments for this API key.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("corpus_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? CorpusRoles { get; set; }
+
+        /// <summary>
+        /// Agent-specific role assignments for this API key.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("agent_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
 
         /// <summary>
         /// What actions a principal can take on the Vectara platform.
@@ -67,9 +85,18 @@ namespace Vectara
         /// <param name="enabled">
         /// If this API key is enabled.
         /// </param>
+        /// <param name="apiRoles">
+        /// Customer-level roles for this API key.
+        /// </param>
         /// <param name="apiKeyRole">
         /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
         /// A personal API key has all the same permissions as the creator of the API key.
+        /// </param>
+        /// <param name="corpusRoles">
+        /// Corpus-specific role assignments for this API key.
+        /// </param>
+        /// <param name="agentRoles">
+        /// Agent-specific role assignments for this API key.
         /// </param>
         /// <param name="apiPolicy">
         /// What actions a principal can take on the Vectara platform.
@@ -82,14 +109,20 @@ namespace Vectara
             string? name,
             string? secretKey,
             bool? enabled,
+            global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
             global::Vectara.ApiKeyRole? apiKeyRole,
+            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
+            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles,
             global::Vectara.ApiPolicy? apiPolicy)
         {
             this.Id = id;
             this.Name = name;
             this.SecretKey = secretKey;
             this.Enabled = enabled;
+            this.ApiRoles = apiRoles;
             this.ApiKeyRole = apiKeyRole;
+            this.CorpusRoles = corpusRoles;
+            this.AgentRoles = agentRoles;
             this.ApiPolicy = apiPolicy;
         }
 

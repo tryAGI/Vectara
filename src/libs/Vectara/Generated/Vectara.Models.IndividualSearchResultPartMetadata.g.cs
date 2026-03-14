@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// The metadata for the document part.
+    /// The metadata for the document part.<br/>
+    /// Example: {"section":"executive_summary"}
     /// </summary>
     public sealed partial class IndividualSearchResultPartMetadata
     {

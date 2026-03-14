@@ -31,7 +31,8 @@ namespace Vectara
 
         /// <summary>
         /// List users in the account<br/>
-        /// Lists all users in the account.
+        /// The List Users API lets you list all users on your team and also their corpus access and customer-level authorizations.<br/>
+        /// Other activities such as adding, deleting, enabling, disabling, resetting passwords, and editing user roles are performed by the [Update User](/docs/rest-api/update-user) endpoint.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -66,9 +67,9 @@ namespace Vectara
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/users",
                 baseUri: HttpClient.BaseAddress); 
-            __pathBuilder 
-                .AddOptionalParameter("limit", limit?.ToString()) 
-                .AddOptionalParameter("page_key", pageKey) 
+            __pathBuilder
+                .AddOptionalParameter("limit", limit?.ToString())
+                .AddOptionalParameter("page_key", pageKey)
                 .AddOptionalParameter("corpus_key", corpusKey) 
                 ; 
             var __path = __pathBuilder.ToString();

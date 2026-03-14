@@ -33,7 +33,8 @@ namespace Vectara
 
         /// <summary>
         /// List corpora<br/>
-        /// List corpora in the account. The returned corpus objects contain less detail compared to those retrieved the direct corpus retrieval operation.
+        /// The List Corpora API lets you retrieve a list of corpora in your account. This endpoint returns a paginated list of corpora objects, which contain basic information about each corpus. The returned corpus objects contain less detail compared to those retrieved the direct corpus retrieval operation.<br/>
+        /// You can specify optional parameters to control the pagination and filtering of the results. The limit parameter determines the maximum number of corpora to return, with a default value of 10 and a maximum value of 100.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -68,10 +69,10 @@ namespace Vectara
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/corpora",
                 baseUri: HttpClient.BaseAddress); 
-            __pathBuilder 
-                .AddOptionalParameter("limit", limit?.ToString()) 
-                .AddOptionalParameter("filter", filter) 
-                .AddOptionalParameter("corpus_id", corpusId, delimiter: ",", explode: true) 
+            __pathBuilder
+                .AddOptionalParameter("limit", limit?.ToString())
+                .AddOptionalParameter("filter", filter)
+                .AddOptionalParameter("corpus_id", corpusId, delimiter: ",", explode: true)
                 .AddOptionalParameter("page_key", pageKey) 
                 ; 
             var __path = __pathBuilder.ToString();

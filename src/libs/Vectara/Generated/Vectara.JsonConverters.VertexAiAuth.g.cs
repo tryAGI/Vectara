@@ -36,13 +36,14 @@ namespace Vectara.JsonConverters
                 serviceAccount = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.VertexAiAuth(
+            var __value = new global::Vectara.VertexAiAuth(
                 discriminator?.Type,
                 apiKey,
+
                 serviceAccount
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

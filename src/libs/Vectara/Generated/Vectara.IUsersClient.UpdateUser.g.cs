@@ -16,6 +16,7 @@ namespace Vectara
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.User> UpdateUserAsync(
             string username,
+
             global::Vectara.UpdateUserRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,

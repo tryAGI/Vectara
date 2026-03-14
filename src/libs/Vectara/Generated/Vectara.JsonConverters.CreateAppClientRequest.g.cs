@@ -29,12 +29,12 @@ namespace Vectara.JsonConverters
                 clientCredentials = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.CreateAppClientRequest(
+            var __value = new global::Vectara.CreateAppClientRequest(
                 discriminator?.Type,
                 clientCredentials
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

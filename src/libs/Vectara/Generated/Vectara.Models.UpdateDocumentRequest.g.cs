@@ -9,8 +9,10 @@ namespace Vectara
     public sealed partial class UpdateDocumentRequest
     {
         /// <summary>
-        /// The metadata for a document as an arbitrary object. Properties of this object can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary object. Properties of this object can be used by document level filter attributes.<br/>
+        /// Example: {"title":"2024 ESG Annual Report \u2013 EuroBank","region":"EU","industry":"banking","year":2024}
         /// </summary>
+        /// <example>{"title":"2024 ESG Annual Report \u2013 EuroBank","region":"EU","industry":"banking","year":2024}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
 
@@ -24,7 +26,8 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="UpdateDocumentRequest" /> class.
         /// </summary>
         /// <param name="metadata">
-        /// The metadata for a document as an arbitrary object. Properties of this object can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary object. Properties of this object can be used by document level filter attributes.<br/>
+        /// Example: {"title":"2024 ESG Annual Report \u2013 EuroBank","region":"EU","industry":"banking","year":2024}
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

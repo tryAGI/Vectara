@@ -27,14 +27,17 @@ namespace Vectara
 
         /// <summary>
         /// Get an LLM<br/>
-        /// Get details about a specific LLM.
+        /// The Get LLM API allows users to retrieve details about a specific Large Language Model (LLM) that has been configured within the Vectara platform. This API provides metadata about the LLM, including its name, description, model type, API endpoint, and authentication method.<br/>
+        /// Use this API to verify model configurations, confirm connectivity details, and ensure that the correct LLM is being utilized within their workflows.<br/>
+        /// ## Authentication methods<br/>
+        /// The request requires authentication details, and you can provide them either as a Bearer token or custom header-based authentication.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="llmId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.LLM> GetLLMAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.Llm> GetLLMAsync(
             string llmId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
@@ -204,7 +207,7 @@ namespace Vectara
                     __response.EnsureSuccessStatusCode();
 
                     return
-                        global::Vectara.LLM.FromJson(__content, JsonSerializerContext) ??
+                        global::Vectara.Llm.FromJson(__content, JsonSerializerContext) ??
                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
                 }
                 catch (global::System.Exception __ex)
@@ -235,7 +238,7 @@ namespace Vectara
                     ).ConfigureAwait(false);
 
                     return
-                        await global::Vectara.LLM.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                        await global::Vectara.Llm.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                         throw new global::System.InvalidOperationException("Response deserialization failed.");
                 }
                 catch (global::System.Exception __ex)

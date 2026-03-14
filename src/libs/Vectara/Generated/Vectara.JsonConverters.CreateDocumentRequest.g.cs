@@ -36,13 +36,14 @@ namespace Vectara.JsonConverters
                 structured = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.CreateDocumentRequest(
+            var __value = new global::Vectara.CreateDocumentRequest(
                 discriminator?.Type,
                 core,
+
                 structured
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

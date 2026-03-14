@@ -5,7 +5,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Creating a document using this endpoint can take multiple forms depending on how much control of the resulting document parts you desire. You can create a document with natural structure, and Vectara will use its proprietary strategy to create document parts. Otherwise, you can create a document with all the document parts explicitly specified. A document part is the search result item in search and Retrieval Augmented Generation endpoints.
+    /// Creating a document using this endpoint can take multiple forms depending on how much control of the resulting document parts you desire. You can create a document with natural structure, and Vectara will use its proprietary strategy to create document parts. Otherwise, you can create a document with all the document parts explicitly specified. A document part is the search result item in search and Retrieval Augmented Generation endpoints.<br/>
+    /// Example: {"type":"structured","id":"esg_report_2024","title":"2024 ESG Annual Report \u2013 EuroBank","description":"Comprehensive report on EuroBank\u2019s environmental, social, and governance initiatives for 2024, outlining sustainability goals and compliance with EU regulations.","metadata":{"doc_type":"esg_report","region":"EU","industry":"banking","year":2024,"status":"published","owner":"sustainability_team"},"sections":[{"id":1,"title":"Environmental Initiatives","text":"In 2024, EuroBank reduced carbon emissions by 22% through investments in renewable energy and energy-efficient infrastructure.","metadata":{"section_type":"environmental","priority":"high"}},{"id":2,"title":"Social Responsibility","text":"EuroBank expanded its community outreach programs, supporting over 500 local initiatives and increasing employee volunteer hours by 30%.","metadata":"","section_type":"social","priority":"medium"}]}
     /// </summary>
     public readonly partial struct CreateDocumentRequest : global::System.IEquatable<CreateDocumentRequest>
     {
@@ -15,7 +16,8 @@ namespace Vectara
         public global::Vectara.CreateDocumentRequestDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// The document structure that most closely corresponds to Vectara's internal document data model.
+        /// The document structure that most closely corresponds to Vectara's internal document data model.<br/>
+        /// Example: {"id":"invoice-001","type":"core","metadata":{"doc_type":"invoice","industry":"manufacturing"},"tables":[{"id":"billing_table_1","title":"Customer Billing Info","description":"Monthly billing for top manufacturing clients","data":{"headers":[[{"text_value":"Customer Name"},{"text_value":"Balance"},{"text_value":"Account Created"}]],"rows":[[{"text_value":"Acme Corp"},{"float_value":10230.25},{"text_value":"2023-01-15"}],[{"text_value":"Beta Industries"},{"float_value":8750},{"text_value":"2022-11-03"}],[{"text_value":"Zeta Manufacturing"},{"float_value":13499.99},{"text_value":"2023-06-30"}]]}}],"images":[{"id":"image_1","title":"Quarterly Sales Performance","caption":"Sales growth trends for Q1 to Q4 of 2024","description":"A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%","image_data":{"data":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX\u002BAv4N70a4AAAAAElFTkSuQmCC","mime_type":"image/jpeg"}}],"document_parts":[{"text":"This invoice includes customer billing history for Q1.","metadata":{"quarter":1,"year":2023}}],"storage_usage":{"bytes_used":1024,"metadata_bytes_used":256},"extraction_usage":{"table_extraction_used":1}}
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CoreDocument? Core { get; init; }
@@ -30,24 +32,6 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Core))]
 #endif
         public bool IsCore => Core != null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator CreateDocumentRequest(global::Vectara.CoreDocument value) => new CreateDocumentRequest((global::Vectara.CoreDocument?)value);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator global::Vectara.CoreDocument?(CreateDocumentRequest @this) => @this.Core;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public CreateDocumentRequest(global::Vectara.CoreDocument? value)
-        {
-            Core = value;
-        }
 
         /// <summary>
         /// A document with layout features.
@@ -65,6 +49,23 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Structured))]
 #endif
         public bool IsStructured => Structured != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator CreateDocumentRequest(global::Vectara.CoreDocument value) => new CreateDocumentRequest((global::Vectara.CoreDocument?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.CoreDocument?(CreateDocumentRequest @this) => @this.Core;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateDocumentRequest(global::Vectara.CoreDocument? value)
+        {
+            Core = value;
+        }
 
         /// <summary>
         /// 

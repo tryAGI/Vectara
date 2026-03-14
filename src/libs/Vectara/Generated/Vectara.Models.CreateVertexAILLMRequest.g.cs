@@ -38,10 +38,13 @@ namespace Vectara
         public required string Model { get; set; }
 
         /// <summary>
-        /// The URI endpoint for the Vertex AI API<br/>
-        /// Example: https://aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
+        /// The base URI for the Gemini API. You can provide URIs in various formats — the system will normalize them automatically, stripping any model path, method suffix, or query parameters.<br/>
+        /// **Vertex AI** (for service account auth): Provide the project/location base URI. Example: `https://us-central1-aiplatform.googleapis.com/v1/projects/YOUR-PROJECT/locations/us-central1`<br/>
+        /// **Google AI Studio** (for API key auth): Provide the Generative Language API base URI. Example: `https://generativelanguage.googleapis.com/v1beta`<br/>
+        /// Full URIs copied from Google docs also work — the model path and `:generateContent` suffix will be stripped and rebuilt automatically from the `model` field.<br/>
+        /// Example: https://us-central1-aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
         /// </summary>
-        /// <example>https://aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1</example>
+        /// <example>https://us-central1-aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("uri")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Uri { get; set; }
@@ -59,6 +62,12 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("test_model_parameters")]
         public object? TestModelParameters { get; set; }
+
+        /// <summary>
+        /// Capabilities of a Large Language Model.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
+        public global::Vectara.LLMCapabilities? Capabilities { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -83,14 +92,20 @@ namespace Vectara
         /// The model name to use (e.g. gemini-2.5-flash, gemini-2.5-pro, gemini-2.0-experimental-1219, etc).
         /// </param>
         /// <param name="uri">
-        /// The URI endpoint for the Vertex AI API<br/>
-        /// Example: https://aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
+        /// The base URI for the Gemini API. You can provide URIs in various formats — the system will normalize them automatically, stripping any model path, method suffix, or query parameters.<br/>
+        /// **Vertex AI** (for service account auth): Provide the project/location base URI. Example: `https://us-central1-aiplatform.googleapis.com/v1/projects/YOUR-PROJECT/locations/us-central1`<br/>
+        /// **Google AI Studio** (for API key auth): Provide the Generative Language API base URI. Example: `https://generativelanguage.googleapis.com/v1beta`<br/>
+        /// Full URIs copied from Google docs also work — the model path and `:generateContent` suffix will be stripped and rebuilt automatically from the `model` field.<br/>
+        /// Example: https://us-central1-aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
         /// </param>
         /// <param name="auth">
         /// Authentication configuration for Vertex AI
         /// </param>
         /// <param name="testModelParameters">
         /// Any additional parameters that are required for the LLM during the test call.
+        /// </param>
+        /// <param name="capabilities">
+        /// Capabilities of a Large Language Model.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -102,7 +117,8 @@ namespace Vectara
             string uri,
             global::Vectara.VertexAiAuth auth,
             string? description,
-            object? testModelParameters)
+            object? testModelParameters,
+            global::Vectara.LLMCapabilities? capabilities)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -111,6 +127,7 @@ namespace Vectara
             this.Auth = auth;
             this.Description = description;
             this.TestModelParameters = testModelParameters;
+            this.Capabilities = capabilities;
         }
 
         /// <summary>

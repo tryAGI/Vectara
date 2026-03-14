@@ -21,6 +21,18 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? ApiRoles { get; set; }
 
         /// <summary>
+        /// The new corpus role assignments. These will replace the current corpus roles.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("corpus_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? CorpusRoles { get; set; }
+
+        /// <summary>
+        /// The new agent role assignments. These will replace the current agent roles.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("agent_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -35,15 +47,25 @@ namespace Vectara
         /// <param name="apiRoles">
         /// The new roles attached to the App Client. These roles will replace the current roles.
         /// </param>
+        /// <param name="corpusRoles">
+        /// The new corpus role assignments. These will replace the current corpus roles.
+        /// </param>
+        /// <param name="agentRoles">
+        /// The new agent role assignments. These will replace the current agent roles.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public UpdateAppClientRequest(
             string? description,
-            global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles)
+            global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
+            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
+            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles)
         {
             this.Description = description;
             this.ApiRoles = apiRoles;
+            this.CorpusRoles = corpusRoles;
+            this.AgentRoles = agentRoles;
         }
 
         /// <summary>

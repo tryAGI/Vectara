@@ -15,8 +15,10 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.Corpus>? Corpora { get; set; }
 
         /// <summary>
-        /// The standard metadata in the response of a list operation.
+        /// The standard metadata in the response of a list operation.<br/>
+        /// Example: {"page_key":"eyJvZmZzZXQiOjF9"}
         /// </summary>
+        /// <example>{"page_key":"eyJvZmZzZXQiOjF9"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public global::Vectara.ListMetadata? Metadata { get; set; }
 
@@ -31,7 +33,8 @@ namespace Vectara
         /// </summary>
         /// <param name="corpora"></param>
         /// <param name="metadata">
-        /// The standard metadata in the response of a list operation.
+        /// The standard metadata in the response of a list operation.<br/>
+        /// Example: {"page_key":"eyJvZmZzZXQiOjF9"}
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

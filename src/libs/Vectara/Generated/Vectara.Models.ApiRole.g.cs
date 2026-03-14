@@ -40,6 +40,18 @@ namespace Vectara
         /// 
         /// </summary>
         AgentDeveloper,
+        /// <summary>
+        /// 
+        /// </summary>
+        AgentUser,
+        /// <summary>
+        /// 
+        /// </summary>
+        PipelineAdministrator,
+        /// <summary>
+        /// 
+        /// </summary>
+        PipelineViewer,
     }
 
     /// <summary>
@@ -62,6 +74,9 @@ namespace Vectara
                 ApiRole.AgentAdministrator => "agent_administrator",
                 ApiRole.AgentViewer => "agent_viewer",
                 ApiRole.AgentDeveloper => "agent_developer",
+                ApiRole.AgentUser => "agent_user",
+                ApiRole.PipelineAdministrator => "pipeline_administrator",
+                ApiRole.PipelineViewer => "pipeline_viewer",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -80,6 +95,9 @@ namespace Vectara
                 "agent_administrator" => ApiRole.AgentAdministrator,
                 "agent_viewer" => ApiRole.AgentViewer,
                 "agent_developer" => ApiRole.AgentDeveloper,
+                "agent_user" => ApiRole.AgentUser,
+                "pipeline_administrator" => ApiRole.PipelineAdministrator,
+                "pipeline_viewer" => ApiRole.PipelineViewer,
                 _ => null,
             };
         }

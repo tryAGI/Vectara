@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// List available extractors for tabular data from documents<br/>
+    /// List available extractors for tabular data from documents.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>

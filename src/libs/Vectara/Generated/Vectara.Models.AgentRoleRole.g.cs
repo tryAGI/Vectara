@@ -4,14 +4,18 @@
 namespace Vectara
 {
     /// <summary>
-    /// The role assigned for this specific agent.
+    /// The role assigned for this specific agent.<br/>
+    /// * `agent_administrator` - Full administrative access to the agent including deletion and configuration.<br/>
+    /// * `agent_viewer` - Read-only access to view agent configuration, sessions, events, instructions, and tools.<br/>
+    /// * `agent_developer` - Can modify agent configuration, create/manage sessions, update tools and instructions.<br/>
+    /// * `agent_user` - Limited access to interact with the agent by creating sessions and sending inputs. Cannot view agent configuration or modify settings.
     /// </summary>
     public enum AgentRoleRole
     {
         /// <summary>
         /// 
         /// </summary>
-        AgentAdmin,
+        AgentAdministrator,
         /// <summary>
         /// 
         /// </summary>
@@ -20,6 +24,10 @@ namespace Vectara
         /// 
         /// </summary>
         AgentDeveloper,
+        /// <summary>
+        /// 
+        /// </summary>
+        AgentUser,
     }
 
     /// <summary>
@@ -34,9 +42,10 @@ namespace Vectara
         {
             return value switch
             {
-                AgentRoleRole.AgentAdmin => "agent_admin",
+                AgentRoleRole.AgentAdministrator => "agent_administrator",
                 AgentRoleRole.AgentViewer => "agent_viewer",
                 AgentRoleRole.AgentDeveloper => "agent_developer",
+                AgentRoleRole.AgentUser => "agent_user",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -47,9 +56,10 @@ namespace Vectara
         {
             return value switch
             {
-                "agent_admin" => AgentRoleRole.AgentAdmin,
+                "agent_administrator" => AgentRoleRole.AgentAdministrator,
                 "agent_viewer" => AgentRoleRole.AgentViewer,
                 "agent_developer" => AgentRoleRole.AgentDeveloper,
+                "agent_user" => AgentRoleRole.AgentUser,
                 _ => null,
             };
         }

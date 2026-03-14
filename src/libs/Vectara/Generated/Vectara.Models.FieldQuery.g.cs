@@ -24,10 +24,24 @@ namespace Vectara
 
         /// <summary>
         /// Weight to apply to this field during scoring (higher values increase importance of this field).<br/>
-        /// Default Value: 1F
+        /// Default Value: 1
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("weight")]
         public float? Weight { get; set; }
+
+        /// <summary>
+        /// Whether to apply fuzzy matching for typo tolerance.<br/>
+        /// Default Value: true
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("fuzzy")]
+        public bool? Fuzzy { get; set; }
+
+        /// <summary>
+        /// Minimum query length to enable prefix matching. Set to null to disable prefix matching. Prefix matching allows finding documents where the field value starts with the query text.<br/>
+        /// Default Value: 3
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("prefix")]
+        public int? Prefix { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -46,7 +60,15 @@ namespace Vectara
         /// </param>
         /// <param name="weight">
         /// Weight to apply to this field during scoring (higher values increase importance of this field).<br/>
-        /// Default Value: 1F
+        /// Default Value: 1
+        /// </param>
+        /// <param name="fuzzy">
+        /// Whether to apply fuzzy matching for typo tolerance.<br/>
+        /// Default Value: true
+        /// </param>
+        /// <param name="prefix">
+        /// Minimum query length to enable prefix matching. Set to null to disable prefix matching. Prefix matching allows finding documents where the field value starts with the query text.<br/>
+        /// Default Value: 3
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -54,11 +76,15 @@ namespace Vectara
         public FieldQuery(
             string field,
             string query,
-            float? weight)
+            float? weight,
+            bool? fuzzy,
+            int? prefix)
         {
             this.Field = field ?? throw new global::System.ArgumentNullException(nameof(field));
             this.Query = query ?? throw new global::System.ArgumentNullException(nameof(query));
             this.Weight = weight;
+            this.Fuzzy = fuzzy;
+            this.Prefix = prefix;
         }
 
         /// <summary>

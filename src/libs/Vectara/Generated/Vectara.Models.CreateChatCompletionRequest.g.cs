@@ -30,6 +30,15 @@ namespace Vectara
         public bool? Stream { get; set; }
 
         /// <summary>
+        /// Specifies the format the model must output.<br/>
+        /// - `text`: Plain text responses (default).<br/>
+        /// - `json_object`: Ensures the response is valid JSON.<br/>
+        /// - `json_schema`: Ensures the response conforms to the provided JSON schema.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("response_format")]
+        public global::Vectara.ResponseFormat? ResponseFormat { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -48,17 +57,25 @@ namespace Vectara
         /// Optional. When set to `true`, the API streams partial message deltas as they become available, similar to ChatGPT's streaming mode.<br/>
         /// Default Value: false
         /// </param>
+        /// <param name="responseFormat">
+        /// Specifies the format the model must output.<br/>
+        /// - `text`: Plain text responses (default).<br/>
+        /// - `json_object`: Ensures the response is valid JSON.<br/>
+        /// - `json_schema`: Ensures the response conforms to the provided JSON schema.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public CreateChatCompletionRequest(
             string model,
             global::System.Collections.Generic.IList<global::Vectara.ChatCompletionRequestMessage> messages,
-            bool? stream)
+            bool? stream,
+            global::Vectara.ResponseFormat? responseFormat)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
             this.Messages = messages ?? throw new global::System.ArgumentNullException(nameof(messages));
             this.Stream = stream;
+            this.ResponseFormat = responseFormat;
         }
 
         /// <summary>

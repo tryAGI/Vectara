@@ -36,13 +36,14 @@ namespace Vectara.JsonConverters
                 sentenceChunkingStrategy = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.ChunkingStrategy(
+            var __value = new global::Vectara.ChunkingStrategy(
                 discriminator?.Type,
                 maxCharsChunkingStrategy,
+
                 sentenceChunkingStrategy
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

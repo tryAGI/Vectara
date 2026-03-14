@@ -29,12 +29,12 @@ namespace Vectara.JsonConverters
                 openaiCompatible = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.CreateEncoderRequest(
+            var __value = new global::Vectara.CreateEncoderRequest(
                 discriminator?.Type,
                 openaiCompatible
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

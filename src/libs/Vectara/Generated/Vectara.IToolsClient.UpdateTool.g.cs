@@ -1,0 +1,44 @@
+#nullable enable
+
+namespace Vectara
+{
+    public partial interface IToolsClient
+    {
+        /// <summary>
+        /// Update tool<br/>
+        /// Update an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool modifies how agents can invoke it during conversation.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="toolId">
+        /// Example: tol_rag_search
+        /// </param>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Vectara.Tool> UpdateToolAsync(
+            string toolId,
+
+            global::Vectara.UpdateToolRequest request,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update tool<br/>
+        /// Update an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool modifies how agents can invoke it during conversation.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="toolId">
+        /// Example: tol_rag_search
+        /// </param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::System.InvalidOperationException"></exception>
+        global::System.Threading.Tasks.Task<global::Vectara.Tool> UpdateToolAsync(
+            string toolId,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+    }
+}

@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Any additional parameters that are required for the LLM during the test call.
+    /// Any additional parameters that are required for the LLM during the test call.<br/>
+    /// Example: {"max_tokens":512}
     /// </summary>
     public sealed partial class OpenAILLMRequestBaseTestModelParameters
     {

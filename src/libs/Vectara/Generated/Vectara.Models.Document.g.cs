@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// A document stored in a corpus, containing metadata and indexed content.
+    /// A document stored in a corpus, containing metadata and indexed content.<br/>
+    /// Example: {"id":"manufacturing_invoice-2331","metadata":{"doc_type":"invoice","industry":"manufacturing"},"tables":[{"id":"billing_table_1","title":"Customer Billing Info","description":"Monthly billing for top manufacturing clients","data":{"headers":[[{"text_value":"Customer Name"},{"text_value":"Balance"},{"text_value":"Account Created"}]],"rows":[[{"text_value":"Acme Corp"},{"float_value":10230.25},{"text_value":"2023-01-15"}],[{"text_value":"Beta Industries"},{"float_value":8750},{"text_value":"2022-11-03"}],[{"text_value":"Zeta Manufacturing"},{"float_value":13499.99},{"text_value":"2023-06-30"}]]}}],"images":[{"id":"image_1","title":"Quarterly Sales Performance","caption":"Sales growth trends for Q1 to Q4 of 2024","description":"A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%","mime_type":"image/png","image_data":{"data":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX\u002BAv4N70a4AAAAAElFTkSuQmCC"}}],"parts":[{"text":"This invoice includes customer billing history for Q1.","metadata":{"part.rank":9000}}],"storage_usage":{"bytes_used":1024,"metadata_bytes_used":256},"extraction_usage":{"table_extraction_used":3}}
     /// </summary>
     public sealed partial class Document
     {
@@ -17,8 +18,10 @@ namespace Vectara
         public string? Id { get; set; }
 
         /// <summary>
-        /// The document metadata.
+        /// The document metadata.<br/>
+        /// Example: {"priority":"High"}
         /// </summary>
+        /// <example>{"priority":"High"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
 
@@ -66,7 +69,8 @@ namespace Vectara
         /// Example: Invoice-403
         /// </param>
         /// <param name="metadata">
-        /// The document metadata.
+        /// The document metadata.<br/>
+        /// Example: {"priority":"High"}
         /// </param>
         /// <param name="tables">
         /// The tables that this document contains. Tables are not available when table extraction is not enabled.

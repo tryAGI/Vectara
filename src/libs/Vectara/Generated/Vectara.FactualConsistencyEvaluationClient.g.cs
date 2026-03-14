@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Evaluate text quality metrics like factual consistency and hallucination detection<br/>
+    /// Evaluate text quality metrics like factual consistency and hallucination detection.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>

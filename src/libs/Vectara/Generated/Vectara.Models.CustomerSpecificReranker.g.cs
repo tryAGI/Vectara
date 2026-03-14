@@ -58,6 +58,12 @@ namespace Vectara
         public bool? IncludeContext { get; set; }
 
         /// <summary>
+        /// Instructions for instruction-following rerankers that guide relevance scoring behavior. Only applicable to rerankers that support custom instructions.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("instructions")]
+        public string? Instructions { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -90,6 +96,9 @@ namespace Vectara
         /// If true, the reranker will use text with context (see "context_configuration") for scoring.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="instructions">
+        /// Instructions for instruction-following rerankers that guide relevance scoring behavior. Only applicable to rerankers that support custom instructions.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -98,13 +107,15 @@ namespace Vectara
             string? rerankerName,
             int? limit,
             float? cutoff,
-            bool? includeContext)
+            bool? includeContext,
+            string? instructions)
         {
             this.Type = type;
             this.RerankerName = rerankerName;
             this.Limit = limit;
             this.Cutoff = cutoff;
             this.IncludeContext = includeContext;
+            this.Instructions = instructions;
         }
 
         /// <summary>

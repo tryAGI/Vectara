@@ -16,11 +16,11 @@ namespace Vectara
         public required string Role { get; set; }
 
         /// <summary>
-        /// The contents of the message.
+        /// The contents of the message. Follows the exact format of the content field in the OpenAI Chat Completions API (https://platform.openai.com/docs/api-reference/chat/create). Can be a string for text-only messages, or an array of content parts for multimodal messages with text and images.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("content")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Content { get; set; }
+        public required object Content { get; set; }
 
         /// <summary>
         /// The name of the author of this message, used to connect messages in a conversation.
@@ -41,7 +41,7 @@ namespace Vectara
         /// The role of the author of this message. Common values include 'system', 'user', 'assistant', 'function', and 'tool'.
         /// </param>
         /// <param name="content">
-        /// The contents of the message.
+        /// The contents of the message. Follows the exact format of the content field in the OpenAI Chat Completions API (https://platform.openai.com/docs/api-reference/chat/create). Can be a string for text-only messages, or an array of content parts for multimodal messages with text and images.
         /// </param>
         /// <param name="name">
         /// The name of the author of this message, used to connect messages in a conversation.
@@ -51,7 +51,7 @@ namespace Vectara
 #endif
         public ChatCompletionRequestMessage(
             string role,
-            string content,
+            object content,
             string? name)
         {
             this.Role = role ?? throw new global::System.ArgumentNullException(nameof(role));

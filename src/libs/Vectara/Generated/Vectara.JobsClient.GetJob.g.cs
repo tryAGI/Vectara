@@ -27,7 +27,7 @@ namespace Vectara
 
         /// <summary>
         /// Get a job by ID<br/>
-        /// Get a job by a specific ID. Jobs are background processes like replacing the filterable metadata attributes.
+        /// Get a job by a specific `job_id`. Jobs are background processes like replacing the filterable metadata attributes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

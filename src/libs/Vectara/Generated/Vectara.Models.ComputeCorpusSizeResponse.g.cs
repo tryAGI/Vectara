@@ -10,33 +10,33 @@ namespace Vectara
     {
         /// <summary>
         /// Number of documents in the corpus<br/>
-        /// Example: 14L
+        /// Example: 14
         /// </summary>
-        /// <example>14L</example>
+        /// <example>14</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_docs")]
         public long? UsedDocs { get; set; }
 
         /// <summary>
         /// Number of document parts in the corpus<br/>
-        /// Example: 5893L
+        /// Example: 5893
         /// </summary>
-        /// <example>5893L</example>
+        /// <example>5893</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_parts")]
         public long? UsedParts { get; set; }
 
         /// <summary>
         /// Total number of characters in the corpus<br/>
-        /// Example: 1459786L
+        /// Example: 1459786
         /// </summary>
-        /// <example>1459786L</example>
+        /// <example>1459786</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_characters")]
         public long? UsedCharacters { get; set; }
 
         /// <summary>
         /// Number of metadata characters in the corpus<br/>
-        /// Example: 56294L
+        /// Example: 56294
         /// </summary>
-        /// <example>56294L</example>
+        /// <example>56294</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("used_metadata_characters")]
         public long? UsedMetadataCharacters { get; set; }
 
@@ -51,19 +51,19 @@ namespace Vectara
         /// </summary>
         /// <param name="usedDocs">
         /// Number of documents in the corpus<br/>
-        /// Example: 14L
+        /// Example: 14
         /// </param>
         /// <param name="usedParts">
         /// Number of document parts in the corpus<br/>
-        /// Example: 5893L
+        /// Example: 5893
         /// </param>
         /// <param name="usedCharacters">
         /// Total number of characters in the corpus<br/>
-        /// Example: 1459786L
+        /// Example: 1459786
         /// </param>
         /// <param name="usedMetadataCharacters">
         /// Number of metadata characters in the corpus<br/>
-        /// Example: 56294L
+        /// Example: 56294
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
