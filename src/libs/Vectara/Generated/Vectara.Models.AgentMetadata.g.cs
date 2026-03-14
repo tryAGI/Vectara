@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// Arbitrary metadata associated with the agent for customization and configuration.<br/>
-    /// Example: {"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B04:00","owner":"support-team"}
+    /// Example: {"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B00:00","owner":"support-team"}
     /// </summary>
     public sealed partial class AgentMetadata
     {

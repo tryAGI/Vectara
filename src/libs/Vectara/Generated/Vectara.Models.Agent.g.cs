@@ -87,9 +87,9 @@ namespace Vectara
 
         /// <summary>
         /// Arbitrary metadata associated with the agent for customization and configuration.<br/>
-        /// Example: {"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B04:00","owner":"support-team"}
+        /// Example: {"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B00:00","owner":"support-team"}
         /// </summary>
-        /// <example>{"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B04:00","owner":"support-team"}</example>
+        /// <example>{"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B00:00","owner":"support-team"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
 
@@ -184,7 +184,7 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the agent for customization and configuration.<br/>
-        /// Example: {"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B04:00","owner":"support-team"}
+        /// Example: {"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B00:00","owner":"support-team"}
         /// </param>
         /// <param name="enabled">
         /// Whether the agent is currently enabled and available for use.<br/>
