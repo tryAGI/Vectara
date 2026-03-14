@@ -57,16 +57,20 @@ namespace Vectara.JsonConverters
                 error = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.SummarizeDocumentStreamedResponse(
+            var __value = new global::Vectara.SummarizeDocumentStreamedResponse(
                 discriminator?.Type,
                 generationChunk,
+
                 generationInfo,
+
                 generationEnd,
+
                 end,
+
                 error
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

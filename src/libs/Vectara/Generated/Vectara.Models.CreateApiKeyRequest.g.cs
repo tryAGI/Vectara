@@ -16,19 +16,37 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
+        /// Customer-level roles for this API key.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("api_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? ApiRoles { get; set; }
+
+        /// <summary>
         /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
         /// A personal API key has all the same permissions as the creator of the API key.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_key_role")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ApiKeyRoleJsonConverter))]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.ApiKeyRole ApiKeyRole { get; set; }
+        public global::Vectara.ApiKeyRole? ApiKeyRole { get; set; }
 
         /// <summary>
-        /// Corpora this API key has roles on if it is not a Personal API key. This property should be null or missing if this `api_key_role` is `personal`.
+        /// Deprecated: Use corpus_roles instead. Corpora this API key has roles on.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("corpus_keys")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public global::System.Collections.Generic.IList<string>? CorpusKeys { get; set; }
+
+        /// <summary>
+        /// Corpus-specific role assignments for this API key.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("corpus_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? CorpusRoles { get; set; }
+
+        /// <summary>
+        /// Agent-specific role assignments for this API key.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("agent_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -42,24 +60,34 @@ namespace Vectara
         /// <param name="name">
         /// The human-readable name of the API key.
         /// </param>
+        /// <param name="apiRoles">
+        /// Customer-level roles for this API key.
+        /// </param>
         /// <param name="apiKeyRole">
         /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
         /// A personal API key has all the same permissions as the creator of the API key.
         /// </param>
-        /// <param name="corpusKeys">
-        /// Corpora this API key has roles on if it is not a Personal API key. This property should be null or missing if this `api_key_role` is `personal`.
+        /// <param name="corpusRoles">
+        /// Corpus-specific role assignments for this API key.
+        /// </param>
+        /// <param name="agentRoles">
+        /// Agent-specific role assignments for this API key.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public CreateApiKeyRequest(
             string name,
-            global::Vectara.ApiKeyRole apiKeyRole,
-            global::System.Collections.Generic.IList<string>? corpusKeys)
+            global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
+            global::Vectara.ApiKeyRole? apiKeyRole,
+            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
+            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
+            this.ApiRoles = apiRoles;
             this.ApiKeyRole = apiKeyRole;
-            this.CorpusKeys = corpusKeys;
+            this.CorpusRoles = corpusRoles;
+            this.AgentRoles = agentRoles;
         }
 
         /// <summary>

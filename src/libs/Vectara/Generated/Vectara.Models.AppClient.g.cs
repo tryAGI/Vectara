@@ -45,6 +45,18 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? ApiRoles { get; set; }
 
         /// <summary>
+        /// Corpus-specific role assignments for this App Client.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("corpus_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? CorpusRoles { get; set; }
+
+        /// <summary>
+        /// Agent-specific role assignments for this App Client.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("agent_roles")]
+        public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
+
+        /// <summary>
         /// What actions a principal can take on the Vectara platform.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_policy")]
@@ -77,6 +89,12 @@ namespace Vectara
         /// <param name="apiRoles">
         /// The API roles attached to the App Client.
         /// </param>
+        /// <param name="corpusRoles">
+        /// Corpus-specific role assignments for this App Client.
+        /// </param>
+        /// <param name="agentRoles">
+        /// Agent-specific role assignments for this App Client.
+        /// </param>
         /// <param name="apiPolicy">
         /// What actions a principal can take on the Vectara platform.
         /// </param>
@@ -90,6 +108,8 @@ namespace Vectara
             string? clientId,
             string? clientSecret,
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
+            global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
+            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles,
             global::Vectara.ApiPolicy? apiPolicy)
         {
             this.Id = id;
@@ -98,6 +118,8 @@ namespace Vectara
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;
             this.ApiRoles = apiRoles;
+            this.CorpusRoles = corpusRoles;
+            this.AgentRoles = agentRoles;
             this.ApiPolicy = apiPolicy;
         }
 

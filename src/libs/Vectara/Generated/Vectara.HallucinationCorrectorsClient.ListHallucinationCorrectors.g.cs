@@ -31,7 +31,8 @@ namespace Vectara
 
         /// <summary>
         /// List hallucination correctors<br/>
-        /// Retrieves a list of available hallucination correctors used for detecting and correcting hallucinations in AI-generated content. This endpoint supports filtering by name or description, pagination, and metadata for navigating large result sets.
+        /// The List Hallucination Correctors API enables users to list available hallucination correctors used for detecting and correcting hallucinations in AI-generated content. Vectara provides these models as part of its broader hallucination evaluation framework, and the Hallucination Correctors endpoint uses these models to propose factual corrections to summaries and other generative outputs.<br/>
+        /// Use this API to inspect available correctors, filter results, and determine which hallucination corrector to reference in downstream workflows or evaluation pipelines.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -63,9 +64,9 @@ namespace Vectara
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/hallucination_correctors",
                 baseUri: HttpClient.BaseAddress); 
-            __pathBuilder 
-                .AddOptionalParameter("filter", filter) 
-                .AddOptionalParameter("limit", limit?.ToString()) 
+            __pathBuilder
+                .AddOptionalParameter("filter", filter)
+                .AddOptionalParameter("limit", limit?.ToString())
                 .AddOptionalParameter("page_key", pageKey) 
                 ; 
             var __path = __pathBuilder.ToString();

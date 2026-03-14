@@ -63,9 +63,9 @@ namespace Vectara
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/app_clients",
                 baseUri: HttpClient.BaseAddress); 
-            __pathBuilder 
-                .AddOptionalParameter("limit", limit?.ToString()) 
-                .AddOptionalParameter("filter", filter) 
+            __pathBuilder
+                .AddOptionalParameter("limit", limit?.ToString())
+                .AddOptionalParameter("filter", filter)
                 .AddOptionalParameter("page_key", pageKey) 
                 ; 
             var __path = __pathBuilder.ToString();

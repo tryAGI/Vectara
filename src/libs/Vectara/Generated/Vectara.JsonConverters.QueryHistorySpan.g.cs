@@ -64,17 +64,22 @@ namespace Vectara.JsonConverters
                 rewrittenQuery = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.QueryHistorySpan(
+            var __value = new global::Vectara.QueryHistorySpan(
                 discriminator?.Type,
                 rephrase,
+
                 search,
+
                 rerank,
+
                 generation,
+
                 fcs,
+
                 rewrittenQuery
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

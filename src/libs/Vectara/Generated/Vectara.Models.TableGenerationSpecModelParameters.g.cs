@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Optional parameters for the specified model used when generating the table summary.
+    /// Optional parameters for the specified model used when generating the table summary.<br/>
+    /// Example: {"temperature":0,"max_tokens":512}
     /// </summary>
     public sealed partial class TableGenerationSpecModelParameters
     {

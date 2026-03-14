@@ -19,6 +19,7 @@ namespace Vectara
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.MetadataQueryResponse> QueryMetadataAsync(
             string corpusKey,
+
             global::Vectara.MetadataQueryRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
@@ -40,7 +41,7 @@ namespace Vectara
         /// </param>
         /// <param name="queries">
         /// List of field-specific queries to apply fuzzy matching.<br/>
-        /// Example: [, ]
+        /// Example: [{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]
         /// </param>
         /// <param name="metadataFilter">
         /// Optional filter expression to narrow down results before fuzzy matching is applied. <br/>

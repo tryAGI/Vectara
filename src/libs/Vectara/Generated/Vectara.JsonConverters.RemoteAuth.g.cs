@@ -36,13 +36,14 @@ namespace Vectara.JsonConverters
                 header = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.RemoteAuth(
+            var __value = new global::Vectara.RemoteAuth(
                 discriminator?.Type,
                 bearer,
+
                 header
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

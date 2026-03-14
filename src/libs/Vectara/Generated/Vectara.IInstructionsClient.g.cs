@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Create and manage instructions that guide agent behavior<br/>
+    /// Create and manage instructions that guide agent behavior.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>

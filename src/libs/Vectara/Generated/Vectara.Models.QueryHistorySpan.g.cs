@@ -32,6 +32,90 @@ namespace Vectara
         public bool IsRephrase => Rephrase != null;
 
         /// <summary>
+        /// The search portion of the query pipeline. This occurs before any reranking span.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.SearchSpan? Search { get; init; }
+#else
+        public global::Vectara.SearchSpan? Search { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Search))]
+#endif
+        public bool IsSearch => Search != null;
+
+        /// <summary>
+        /// The reranking of the search result.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.RerankSpan? Rerank { get; init; }
+#else
+        public global::Vectara.RerankSpan? Rerank { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Rerank))]
+#endif
+        public bool IsRerank => Rerank != null;
+
+        /// <summary>
+        /// The generation by an LLM.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.GenerationSpan? Generation { get; init; }
+#else
+        public global::Vectara.GenerationSpan? Generation { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Generation))]
+#endif
+        public bool IsGeneration => Generation != null;
+
+        /// <summary>
+        /// The factual consistency of the generation.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.FactualConsistencyScoreSpan? Fcs { get; init; }
+#else
+        public global::Vectara.FactualConsistencyScoreSpan? Fcs { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Fcs))]
+#endif
+        public bool IsFcs => Fcs != null;
+
+        /// <summary>
+        /// Provides detailed information about a rewritten query generated for a specific corpus when intelligent query rewriting is enabled.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.RewrittenQuerySpan? RewrittenQuery { get; init; }
+#else
+        public global::Vectara.RewrittenQuerySpan? RewrittenQuery { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(RewrittenQuery))]
+#endif
+        public bool IsRewrittenQuery => RewrittenQuery != null;
+        /// <summary>
         /// 
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.RephraseSpan value) => new QueryHistorySpan((global::Vectara.RephraseSpan?)value);
@@ -48,23 +132,6 @@ namespace Vectara
         {
             Rephrase = value;
         }
-
-        /// <summary>
-        /// The search portion of the query pipeline. This occurs before any reranking span.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.SearchSpan? Search { get; init; }
-#else
-        public global::Vectara.SearchSpan? Search { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Search))]
-#endif
-        public bool IsSearch => Search != null;
 
         /// <summary>
         /// 
@@ -85,23 +152,6 @@ namespace Vectara
         }
 
         /// <summary>
-        /// The reranking of the search result.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.RerankSpan? Rerank { get; init; }
-#else
-        public global::Vectara.RerankSpan? Rerank { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Rerank))]
-#endif
-        public bool IsRerank => Rerank != null;
-
-        /// <summary>
         /// 
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.RerankSpan value) => new QueryHistorySpan((global::Vectara.RerankSpan?)value);
@@ -118,23 +168,6 @@ namespace Vectara
         {
             Rerank = value;
         }
-
-        /// <summary>
-        /// The generation by an LLM.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.GenerationSpan? Generation { get; init; }
-#else
-        public global::Vectara.GenerationSpan? Generation { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Generation))]
-#endif
-        public bool IsGeneration => Generation != null;
 
         /// <summary>
         /// 
@@ -155,23 +188,6 @@ namespace Vectara
         }
 
         /// <summary>
-        /// The factual consistency of the generation.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.FactualConsistencyScoreSpan? Fcs { get; init; }
-#else
-        public global::Vectara.FactualConsistencyScoreSpan? Fcs { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Fcs))]
-#endif
-        public bool IsFcs => Fcs != null;
-
-        /// <summary>
         /// 
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.FactualConsistencyScoreSpan value) => new QueryHistorySpan((global::Vectara.FactualConsistencyScoreSpan?)value);
@@ -188,23 +204,6 @@ namespace Vectara
         {
             Fcs = value;
         }
-
-        /// <summary>
-        /// Provides detailed information about a rewritten query generated for a specific corpus when intelligent query rewriting is enabled.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.RewrittenQuerySpan? RewrittenQuery { get; init; }
-#else
-        public global::Vectara.RewrittenQuerySpan? RewrittenQuery { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(RewrittenQuery))]
-#endif
-        public bool IsRewrittenQuery => RewrittenQuery != null;
 
         /// <summary>
         /// 

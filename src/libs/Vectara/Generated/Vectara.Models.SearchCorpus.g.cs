@@ -24,9 +24,9 @@ namespace Vectara
 
         /// <summary>
         /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
-        /// Example: 0.005F
+        /// Example: 0.005
         /// </summary>
-        /// <example>0.005F</example>
+        /// <example>0.005</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("lexical_interpolation")]
         public float? LexicalInterpolation { get; set; }
 
@@ -56,7 +56,7 @@ namespace Vectara
         /// </param>
         /// <param name="lexicalInterpolation">
         /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
-        /// Example: 0.005F
+        /// Example: 0.005
         /// </param>
         /// <param name="semantics">
         /// Indicates whether to consider a query against this corpus as a query or a response.<br/>

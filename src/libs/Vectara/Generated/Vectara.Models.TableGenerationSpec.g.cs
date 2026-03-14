@@ -23,8 +23,10 @@ namespace Vectara
         public string? PromptTemplate { get; set; }
 
         /// <summary>
-        /// Optional parameters for the specified model used when generating the table summary.
+        /// Optional parameters for the specified model used when generating the table summary.<br/>
+        /// Example: {"temperature":0,"max_tokens":512}
         /// </summary>
+        /// <example>{"temperature":0,"max_tokens":512}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("model_parameters")]
         public object? ModelParameters { get; set; }
 
@@ -45,7 +47,8 @@ namespace Vectara
         /// The prompt template to use when generating the table summary. Vectara manages both system and user roles and prompts for the generative LLM out of the box by default. However, users can override the `prompt_template` via this variable. The `prompt_template` is in the form of an Apache Velocity template. For more details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).
         /// </param>
         /// <param name="modelParameters">
-        /// Optional parameters for the specified model used when generating the table summary.
+        /// Optional parameters for the specified model used when generating the table summary.<br/>
+        /// Example: {"temperature":0,"max_tokens":512}
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

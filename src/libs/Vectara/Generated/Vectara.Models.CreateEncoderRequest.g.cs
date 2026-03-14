@@ -30,7 +30,6 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiCompatible))]
 #endif
         public bool IsOpenaiCompatible => OpenaiCompatible != null;
-
         /// <summary>
         /// 
         /// </summary>

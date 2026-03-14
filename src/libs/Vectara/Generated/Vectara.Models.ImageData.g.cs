@@ -9,8 +9,10 @@ namespace Vectara
     public sealed partial class ImageData
     {
         /// <summary>
-        /// Base64-encoded representation of the image data.
+        /// Base64-encoded representation of the image data.<br/>
+        /// Example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
         /// </summary>
+        /// <example>iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("data")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required byte[] Data { get; set; }
@@ -34,7 +36,8 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ImageData" /> class.
         /// </summary>
         /// <param name="data">
-        /// Base64-encoded representation of the image data.
+        /// Base64-encoded representation of the image data.<br/>
+        /// Example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
         /// </param>
         /// <param name="mimeType">
         /// The MIME type of the image, indicating the format of the binary data (e.g., image/jpeg for JPEG images).<br/>

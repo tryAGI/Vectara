@@ -29,6 +29,7 @@ namespace Vectara
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.GetOAuthTokenResponse> GetOAuthTokenAsync(
+
             global::Vectara.GetOAuthTokenRequest request,
             global::System.Threading.CancellationToken cancellationToken = default)
         {

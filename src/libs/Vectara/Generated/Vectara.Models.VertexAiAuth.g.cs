@@ -32,6 +32,22 @@ namespace Vectara
         public bool IsApiKey => ApiKey != null;
 
         /// <summary>
+        /// Service account authentication for Vertex AI
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.VertexAiServiceAccountAuth? ServiceAccount { get; init; }
+#else
+        public global::Vectara.VertexAiServiceAccountAuth? ServiceAccount { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ServiceAccount))]
+#endif
+        public bool IsServiceAccount => ServiceAccount != null;
+        /// <summary>
         /// 
         /// </summary>
         public static implicit operator VertexAiAuth(global::Vectara.VertexAiApiKeyAuth value) => new VertexAiAuth((global::Vectara.VertexAiApiKeyAuth?)value);
@@ -48,23 +64,6 @@ namespace Vectara
         {
             ApiKey = value;
         }
-
-        /// <summary>
-        /// Service account authentication for Vertex AI
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.VertexAiServiceAccountAuth? ServiceAccount { get; init; }
-#else
-        public global::Vectara.VertexAiServiceAccountAuth? ServiceAccount { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ServiceAccount))]
-#endif
-        public bool IsServiceAccount => ServiceAccount != null;
 
         /// <summary>
         /// 

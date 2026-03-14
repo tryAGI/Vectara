@@ -43,8 +43,10 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// The metadata for a document as an arbitrary JSON object. Properties of this object can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary JSON object. Properties of this object can be used by document level filter attributes.<br/>
+        /// Example: {"region":"EU","industry":"banking","year":2024}
         /// </summary>
+        /// <example>{"region":"EU","industry":"banking","year":2024}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
 
@@ -94,7 +96,8 @@ namespace Vectara
         /// Example: Comprehensive report on EuroBank’s environmental, social, and governance initiatives for 2024.
         /// </param>
         /// <param name="metadata">
-        /// The metadata for a document as an arbitrary JSON object. Properties of this object can be used by document level filter attributes.
+        /// The metadata for a document as an arbitrary JSON object. Properties of this object can be used by document level filter attributes.<br/>
+        /// Example: {"region":"EU","industry":"banking","year":2024}
         /// </param>
         /// <param name="customDimensions">
         /// The custom dimensions as additional weights.

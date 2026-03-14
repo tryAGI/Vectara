@@ -27,7 +27,7 @@ namespace Vectara
 
         /// <summary>
         /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account.
+        /// Create a user for the current customer account. For example, a company wants to onboard new team members efficiently and this endpoint lets you streamline the process by adding new users programmatically, assigning appropriate roles, and setting up access permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -35,6 +35,7 @@ namespace Vectara
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateUserAsync(
+
             global::Vectara.CreateUserRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
@@ -264,7 +265,7 @@ namespace Vectara
 
         /// <summary>
         /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account.
+        /// Create a user for the current customer account. For example, a company wants to onboard new team members efficiently and this endpoint lets you streamline the process by adding new users programmatically, assigning appropriate roles, and setting up access permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

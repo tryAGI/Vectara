@@ -32,6 +32,73 @@ namespace Vectara
         public bool IsGenerationChunk => GenerationChunk != null;
 
         /// <summary>
+        /// Event containing information on how the generation was accomplished.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.GenerationInfo? GenerationInfo { get; init; }
+#else
+        public global::Vectara.GenerationInfo? GenerationInfo { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationInfo))]
+#endif
+        public bool IsGenerationInfo => GenerationInfo != null;
+
+        /// <summary>
+        /// The end of generation. There may still be more information such as the factual consistency score, but generation has stopped.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.StreamGenerationEnd? GenerationEnd { get; init; }
+#else
+        public global::Vectara.StreamGenerationEnd? GenerationEnd { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationEnd))]
+#endif
+        public bool IsGenerationEnd => GenerationEnd != null;
+
+        /// <summary>
+        /// The end of a query response stream.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.StreamResponseEnd? End { get; init; }
+#else
+        public global::Vectara.StreamResponseEnd? End { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(End))]
+#endif
+        public bool IsEnd => End != null;
+
+        /// <summary>
+        /// Event signaling there was an error with the request.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.StreamError? Error { get; init; }
+#else
+        public global::Vectara.StreamError? Error { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
+#endif
+        public bool IsError => Error != null;
+        /// <summary>
         /// 
         /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationChunk value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamGenerationChunk?)value);
@@ -48,23 +115,6 @@ namespace Vectara
         {
             GenerationChunk = value;
         }
-
-        /// <summary>
-        /// Event containing information on how the generation was accomplished.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.GenerationInfo? GenerationInfo { get; init; }
-#else
-        public global::Vectara.GenerationInfo? GenerationInfo { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationInfo))]
-#endif
-        public bool IsGenerationInfo => GenerationInfo != null;
 
         /// <summary>
         /// 
@@ -85,23 +135,6 @@ namespace Vectara
         }
 
         /// <summary>
-        /// The end of generation. There may still be more information such as the factual consistency score, but generation has stopped.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.StreamGenerationEnd? GenerationEnd { get; init; }
-#else
-        public global::Vectara.StreamGenerationEnd? GenerationEnd { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationEnd))]
-#endif
-        public bool IsGenerationEnd => GenerationEnd != null;
-
-        /// <summary>
         /// 
         /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationEnd value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamGenerationEnd?)value);
@@ -120,23 +153,6 @@ namespace Vectara
         }
 
         /// <summary>
-        /// The end of a query response stream.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.StreamResponseEnd? End { get; init; }
-#else
-        public global::Vectara.StreamResponseEnd? End { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(End))]
-#endif
-        public bool IsEnd => End != null;
-
-        /// <summary>
         /// 
         /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamResponseEnd value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamResponseEnd?)value);
@@ -153,23 +169,6 @@ namespace Vectara
         {
             End = value;
         }
-
-        /// <summary>
-        /// Event signaling there was an error with the request.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.StreamError? Error { get; init; }
-#else
-        public global::Vectara.StreamError? Error { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
-#endif
-        public bool IsError => Error != null;
 
         /// <summary>
         /// 

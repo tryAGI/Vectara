@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configuration on the presentation of each document part in the result set. You can only use characters_before/after or sentences_before/after, but not both. If you specify both in the query, sentences_before/after takes precedence
+    /// Configuration on the presentation of each document part in the result set. You can only use characters_before/after or sentences_before/after, but not both. If you specify both in the query, sentences_before/after takes precedence<br/>
+    /// Example: {"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"}
     /// </summary>
     public sealed partial class ContextConfiguration
     {

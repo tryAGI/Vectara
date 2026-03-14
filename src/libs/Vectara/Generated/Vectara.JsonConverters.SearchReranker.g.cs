@@ -57,16 +57,20 @@ namespace Vectara.JsonConverters
                 none = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            var result = new global::Vectara.SearchReranker(
+            var __value = new global::Vectara.SearchReranker(
                 discriminator?.Type,
                 customerReranker,
+
                 userfn,
+
                 mmr,
+
                 chain,
+
                 none
                 );
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

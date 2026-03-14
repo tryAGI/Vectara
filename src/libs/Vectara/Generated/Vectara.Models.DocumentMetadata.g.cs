@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// The document metadata.
+    /// The document metadata.<br/>
+    /// Example: {"priority":"High"}
     /// </summary>
     public sealed partial class DocumentMetadata
     {

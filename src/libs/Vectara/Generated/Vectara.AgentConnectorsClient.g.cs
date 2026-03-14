@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Create and manage connectors that allow agents to receive events from external platforms like Slack<br/>
+    /// Create and manage connectors that allow agents to receive events from external platforms like Slack.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>

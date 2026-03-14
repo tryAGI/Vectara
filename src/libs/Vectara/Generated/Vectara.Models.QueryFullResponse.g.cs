@@ -52,9 +52,9 @@ namespace Vectara
 
         /// <summary>
         /// The rewritten queries for the corpora that were searched. Only populated when `intelligent_query_rewriting` is enabled.<br/>
-        /// Example: []
+        /// Example: [{"corpus_key":"fin_docs","filter_extraction":{"query":"ESG compliance trends in EU","metadata_filter":"doc.industry = \u0027banking\u0027 AND doc.region = \u0027EU\u0027 AND doc.year = 2023"}}]
         /// </summary>
-        /// <example>[]</example>
+        /// <example>[{"corpus_key":"fin_docs","filter_extraction":{"query":"ESG compliance trends in EU","metadata_filter":"doc.industry = \u0027banking\u0027 AND doc.region = \u0027EU\u0027 AND doc.year = 2023"}}]</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("rewritten_queries")]
         public global::System.Collections.Generic.IList<global::Vectara.RewrittenQuery>? RewrittenQueries { get; set; }
 
@@ -90,7 +90,7 @@ namespace Vectara
         /// </param>
         /// <param name="rewrittenQueries">
         /// The rewritten queries for the corpora that were searched. Only populated when `intelligent_query_rewriting` is enabled.<br/>
-        /// Example: []
+        /// Example: [{"corpus_key":"fin_docs","filter_extraction":{"query":"ESG compliance trends in EU","metadata_filter":"doc.industry = \u0027banking\u0027 AND doc.region = \u0027EU\u0027 AND doc.year = 2023"}}]
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

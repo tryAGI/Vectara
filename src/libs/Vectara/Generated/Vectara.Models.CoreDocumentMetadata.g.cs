@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Arbitrary object of document level metadata. Properties of this object can be used by document filters if defined as a corpus filter attribute.
+    /// Arbitrary object of document level metadata. Properties of this object can be used by document filters if defined as a corpus filter attribute.<br/>
+    /// Example: {"title":"Customer Billing Information","lang":"eng"}
     /// </summary>
     public sealed partial class CoreDocumentMetadata
     {

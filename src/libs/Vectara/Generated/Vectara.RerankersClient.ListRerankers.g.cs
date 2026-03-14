@@ -31,7 +31,8 @@ namespace Vectara
 
         /// <summary>
         /// List rerankers<br/>
-        /// Rerankers are used to improve the ranking (ordering) of search results.
+        /// The List Rerankers API retrieves a list of available rerankers used to improve the ranking and ordering of search results.<br/>
+        /// For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/rerankers/reranking-overview).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -65,9 +66,9 @@ namespace Vectara
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/rerankers",
                 baseUri: HttpClient.BaseAddress); 
-            __pathBuilder 
-                .AddOptionalParameter("filter", filter) 
-                .AddOptionalParameter("limit", limit?.ToString()) 
+            __pathBuilder
+                .AddOptionalParameter("filter", filter)
+                .AddOptionalParameter("limit", limit?.ToString())
                 .AddOptionalParameter("page_key", pageKey) 
                 ; 
             var __path = __pathBuilder.ToString();

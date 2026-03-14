@@ -27,6 +27,23 @@ namespace Vectara
         public bool IsValue1 => Value1 != null;
 
         /// <summary>
+        /// Search parameters to retrieve knowledge for the query.<br/>
+        /// Example: {"limit":50}
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.SearchParameters? Value2 { get; init; }
+#else
+        public global::Vectara.SearchParameters? Value2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+#endif
+        public bool IsValue2 => Value2 != null;
+        /// <summary>
         /// 
         /// </summary>
         public static implicit operator SearchCorporaParameters(global::Vectara.SearchCorporaParametersVariant1 value) => new SearchCorporaParameters((global::Vectara.SearchCorporaParametersVariant1?)value);
@@ -43,23 +60,6 @@ namespace Vectara
         {
             Value1 = value;
         }
-
-        /// <summary>
-        /// Search parameters to retrieve knowledge for the query.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.SearchParameters? Value2 { get; init; }
-#else
-        public global::Vectara.SearchParameters? Value2 { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
-#endif
-        public bool IsValue2 => Value2 != null;
 
         /// <summary>
         /// 

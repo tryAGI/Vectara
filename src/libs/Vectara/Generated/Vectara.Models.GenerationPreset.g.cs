@@ -56,25 +56,25 @@ namespace Vectara
 
         /// <summary>
         /// The sampling temperature to use. Higher values make the output more random, while lower values make it more focused and deterministic.<br/>
-        /// Example: 0.4F
+        /// Example: 0.4
         /// </summary>
-        /// <example>0.4F</example>
+        /// <example>0.4</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("temperature")]
         public float? Temperature { get; set; }
 
         /// <summary>
         /// Higher values penalize new tokens based on their existing frequency in the generation so far, decreasing the model's likelihood to repeat the same line verbatim.<br/>
-        /// Example: 0.2F
+        /// Example: 0.2
         /// </summary>
-        /// <example>0.2F</example>
+        /// <example>0.2</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("frequency_penalty")]
         public float? FrequencyPenalty { get; set; }
 
         /// <summary>
         /// Higher values penalize new tokens based on whether they appear in the generation so far, increasing the model's likelihood to talk about new topics.<br/>
-        /// Example: 0.2F
+        /// Example: 0.2
         /// </summary>
-        /// <example>0.2F</example>
+        /// <example>0.2</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("presence_penalty")]
         public float? PresencePenalty { get; set; }
 
@@ -124,15 +124,15 @@ namespace Vectara
         /// </param>
         /// <param name="temperature">
         /// The sampling temperature to use. Higher values make the output more random, while lower values make it more focused and deterministic.<br/>
-        /// Example: 0.4F
+        /// Example: 0.4
         /// </param>
         /// <param name="frequencyPenalty">
         /// Higher values penalize new tokens based on their existing frequency in the generation so far, decreasing the model's likelihood to repeat the same line verbatim.<br/>
-        /// Example: 0.2F
+        /// Example: 0.2
         /// </param>
         /// <param name="presencePenalty">
         /// Higher values penalize new tokens based on whether they appear in the generation so far, increasing the model's likelihood to talk about new topics.<br/>
-        /// Example: 0.2F
+        /// Example: 0.2
         /// </param>
         /// <param name="enabled">
         /// Indicates whether the prompt is enabled.

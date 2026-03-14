@@ -40,8 +40,9 @@ namespace Vectara.JsonConverters
             {
             }
 
-            var result = new global::Vectara.KeyedSearchCorpus(
+            var __value = new global::Vectara.KeyedSearchCorpus(
                 value1,
+
                 value2
                 );
 
@@ -58,7 +59,7 @@ namespace Vectara.JsonConverters
                 _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
-            return result;
+            return __value;
         }
 
         /// <inheritdoc />

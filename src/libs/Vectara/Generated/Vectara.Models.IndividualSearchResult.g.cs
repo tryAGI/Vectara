@@ -25,14 +25,18 @@ namespace Vectara
         public double? Score { get; set; }
 
         /// <summary>
-        /// The metadata for the document part.
+        /// The metadata for the document part.<br/>
+        /// Example: {"section":"executive_summary"}
         /// </summary>
+        /// <example>{"section":"executive_summary"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("part_metadata")]
         public object? PartMetadata { get; set; }
 
         /// <summary>
-        /// The metadata for the document that contains the document part.
+        /// The metadata for the document that contains the document part.<br/>
+        /// Example: {"industry":"banking","year":2023,"doc_type":"annual_report"}
         /// </summary>
+        /// <example>{"industry":"banking","year":2023,"doc_type":"annual_report"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("document_metadata")]
         public object? DocumentMetadata { get; set; }
 
@@ -65,6 +69,14 @@ namespace Vectara
         public int? RequestCorporaIndex { get; set; }
 
         /// <summary>
+        /// The corpus key that this search result originated from. For queries across multiple corpora, this identifies which corpus the result came from.<br/>
+        /// Example: fin_docs
+        /// </summary>
+        /// <example>fin_docs</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("corpus_key")]
+        public string? CorpusKey { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -82,10 +94,12 @@ namespace Vectara
         /// Example: 0.92
         /// </param>
         /// <param name="partMetadata">
-        /// The metadata for the document part.
+        /// The metadata for the document part.<br/>
+        /// Example: {"section":"executive_summary"}
         /// </param>
         /// <param name="documentMetadata">
-        /// The metadata for the document that contains the document part.
+        /// The metadata for the document that contains the document part.<br/>
+        /// Example: {"industry":"banking","year":2023,"doc_type":"annual_report"}
         /// </param>
         /// <param name="documentId">
         /// The ID of the document that contains the document part.<br/>
@@ -101,6 +115,10 @@ namespace Vectara
         /// A query request can search over multiple corpora at a time. This property is set to the index in the list of corpora in the original search request that this search result originated from. If the query request is only over one corpus, this property is 0.<br/>
         /// Example: 0
         /// </param>
+        /// <param name="corpusKey">
+        /// The corpus key that this search result originated from. For queries across multiple corpora, this identifies which corpus the result came from.<br/>
+        /// Example: fin_docs
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -112,7 +130,8 @@ namespace Vectara
             string? documentId,
             global::Vectara.Table? table,
             global::Vectara.ImageMetadata? image,
-            int? requestCorporaIndex)
+            int? requestCorporaIndex,
+            string? corpusKey)
         {
             this.Text = text;
             this.Score = score;
@@ -122,6 +141,7 @@ namespace Vectara
             this.Table = table;
             this.Image = image;
             this.RequestCorporaIndex = requestCorporaIndex;
+            this.CorpusKey = corpusKey;
         }
 
         /// <summary>

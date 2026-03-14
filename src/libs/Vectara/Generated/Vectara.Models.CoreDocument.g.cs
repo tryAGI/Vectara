@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// The document structure that most closely corresponds to Vectara's internal document data model.
+    /// The document structure that most closely corresponds to Vectara's internal document data model.<br/>
+    /// Example: {"id":"invoice-001","type":"core","metadata":{"doc_type":"invoice","industry":"manufacturing"},"tables":[{"id":"billing_table_1","title":"Customer Billing Info","description":"Monthly billing for top manufacturing clients","data":{"headers":[[{"text_value":"Customer Name"},{"text_value":"Balance"},{"text_value":"Account Created"}]],"rows":[[{"text_value":"Acme Corp"},{"float_value":10230.25},{"text_value":"2023-01-15"}],[{"text_value":"Beta Industries"},{"float_value":8750},{"text_value":"2022-11-03"}],[{"text_value":"Zeta Manufacturing"},{"float_value":13499.99},{"text_value":"2023-06-30"}]]}}],"images":[{"id":"image_1","title":"Quarterly Sales Performance","caption":"Sales growth trends for Q1 to Q4 of 2024","description":"A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%","image_data":{"data":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX\u002BAv4N70a4AAAAAElFTkSuQmCC","mime_type":"image/jpeg"}}],"document_parts":[{"text":"This invoice includes customer billing history for Q1.","metadata":{"quarter":1,"year":2023}}],"storage_usage":{"bytes_used":1024,"metadata_bytes_used":256},"extraction_usage":{"table_extraction_used":1}}
     /// </summary>
     public sealed partial class CoreDocument
     {
@@ -27,8 +28,10 @@ namespace Vectara
         public required string Type { get; set; } = "core";
 
         /// <summary>
-        /// Arbitrary object of document level metadata. Properties of this object can be used by document filters if defined as a corpus filter attribute.
+        /// Arbitrary object of document level metadata. Properties of this object can be used by document filters if defined as a corpus filter attribute.<br/>
+        /// Example: {"title":"Customer Billing Information","lang":"eng"}
         /// </summary>
+        /// <example>{"title":"Customer Billing Information","lang":"eng"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
 
@@ -69,7 +72,8 @@ namespace Vectara
         /// Default Value: core
         /// </param>
         /// <param name="metadata">
-        /// Arbitrary object of document level metadata. Properties of this object can be used by document filters if defined as a corpus filter attribute.
+        /// Arbitrary object of document level metadata. Properties of this object can be used by document filters if defined as a corpus filter attribute.<br/>
+        /// Example: {"title":"Customer Billing Information","lang":"eng"}
         /// </param>
         /// <param name="tables">
         /// The tables that this document contains.

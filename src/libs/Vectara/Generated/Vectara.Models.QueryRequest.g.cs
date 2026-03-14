@@ -4,7 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Query one or more corpora.
+    /// Query one or more corpora.<br/>
+    /// Example: {"query":"Summarize risk exposure and QA issues across divisions","search":{"corpora":[{"corpus_key":"ops_manuals","metadata_filter":"doc.topic = \u0027QA\u0027 AND doc.severity = \u0027high\u0027","lexical_interpolation":0.005},{"corpus_key":"fin_docs","metadata_filter":"doc.region = \u0027EMEA\u0027 AND doc.type = \u0027risk_report\u0027","lexical_interpolation":0.005}],"context_configuration":{"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"},"reranker":{"type":"customer_reranker","reranker_name":"Rerank_Multilingual_v1"}},"generation":{"generation_preset_name":"vectara-summary-ext-24-05-med-omni","response_language":"eng","enable_factual_consistency_score":true},"stream_response":false}
     /// </summary>
     public sealed partial class QueryRequest
     {

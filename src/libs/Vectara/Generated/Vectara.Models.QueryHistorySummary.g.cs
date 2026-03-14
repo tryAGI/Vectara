@@ -31,8 +31,10 @@ namespace Vectara
         public string? CorpusKey { get; set; }
 
         /// <summary>
-        /// ISO date time indicating when the query was first received.
+        /// ISO date time indicating when the query was first received.<br/>
+        /// Example: 2025-06-01T12:00:00.0000000+00:00
         /// </summary>
+        /// <example>2025-06-01T12:00:00.0000000+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("started_at")]
         public global::System.DateTime? StartedAt { get; set; }
 
@@ -62,11 +64,23 @@ namespace Vectara
 
         /// <summary>
         /// The factual consistency score of the generation.<br/>
-        /// Example: 0.98F
+        /// Example: 0.98
         /// </summary>
-        /// <example>0.98F</example>
+        /// <example>0.98</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("factual_consistency_score")]
         public float? FactualConsistencyScore { get; set; }
+
+        /// <summary>
+        /// The agent key if this query was made through an agent.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("agent_key")]
+        public string? AgentKey { get; set; }
+
+        /// <summary>
+        /// The session key if this query was made through an agent session.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("session_key")]
+        public string? SessionKey { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -89,7 +103,8 @@ namespace Vectara
         /// Example: eu_carbon
         /// </param>
         /// <param name="startedAt">
-        /// ISO date time indicating when the query was first received.
+        /// ISO date time indicating when the query was first received.<br/>
+        /// Example: 2025-06-01T12:00:00.0000000+00:00
         /// </param>
         /// <param name="latencyMillis">
         /// Time that the query took in milliseconds.<br/>
@@ -105,7 +120,13 @@ namespace Vectara
         /// </param>
         /// <param name="factualConsistencyScore">
         /// The factual consistency score of the generation.<br/>
-        /// Example: 0.98F
+        /// Example: 0.98
+        /// </param>
+        /// <param name="agentKey">
+        /// The agent key if this query was made through an agent.
+        /// </param>
+        /// <param name="sessionKey">
+        /// The session key if this query was made through an agent session.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -118,7 +139,9 @@ namespace Vectara
             int? latencyMillis,
             string? chatId,
             string? generation,
-            float? factualConsistencyScore)
+            float? factualConsistencyScore,
+            string? agentKey,
+            string? sessionKey)
         {
             this.Id = id;
             this.Query = query;
@@ -128,6 +151,8 @@ namespace Vectara
             this.ChatId = chatId;
             this.Generation = generation;
             this.FactualConsistencyScore = factualConsistencyScore;
+            this.AgentKey = agentKey;
+            this.SessionKey = sessionKey;
         }
 
         /// <summary>

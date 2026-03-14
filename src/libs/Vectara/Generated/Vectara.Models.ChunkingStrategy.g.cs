@@ -32,6 +32,22 @@ namespace Vectara
         public bool IsMaxCharsChunkingStrategy => MaxCharsChunkingStrategy != null;
 
         /// <summary>
+        /// Sets a chunking strategy that creates one chunk per sentence. This is the default strategy used when no chunking strategy is specified.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.SentenceChunkingStrategy? SentenceChunkingStrategy { get; init; }
+#else
+        public global::Vectara.SentenceChunkingStrategy? SentenceChunkingStrategy { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SentenceChunkingStrategy))]
+#endif
+        public bool IsSentenceChunkingStrategy => SentenceChunkingStrategy != null;
+        /// <summary>
         /// 
         /// </summary>
         public static implicit operator ChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy value) => new ChunkingStrategy((global::Vectara.MaxCharsChunkingStrategy?)value);
@@ -48,23 +64,6 @@ namespace Vectara
         {
             MaxCharsChunkingStrategy = value;
         }
-
-        /// <summary>
-        /// Sets a chunking strategy that creates one chunk per sentence. This is the default strategy used when no chunking strategy is specified.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.SentenceChunkingStrategy? SentenceChunkingStrategy { get; init; }
-#else
-        public global::Vectara.SentenceChunkingStrategy? SentenceChunkingStrategy { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SentenceChunkingStrategy))]
-#endif
-        public bool IsSentenceChunkingStrategy => SentenceChunkingStrategy != null;
 
         /// <summary>
         /// 

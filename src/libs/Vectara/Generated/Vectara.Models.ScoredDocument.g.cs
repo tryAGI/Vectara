@@ -18,9 +18,9 @@ namespace Vectara
 
         /// <summary>
         /// The overall relevance score for this document.<br/>
-        /// Example: 0.92F
+        /// Example: 0.92
         /// </summary>
-        /// <example>0.92F</example>
+        /// <example>0.92</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("score")]
         public float? Score { get; set; }
 
@@ -45,7 +45,7 @@ namespace Vectara
         /// </param>
         /// <param name="score">
         /// The overall relevance score for this document.<br/>
-        /// Example: 0.92F
+        /// Example: 0.92
         /// </param>
         /// <param name="metadata">
         /// Document metadata object containing all document metadata fields.

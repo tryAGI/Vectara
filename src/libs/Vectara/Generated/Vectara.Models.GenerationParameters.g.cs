@@ -9,6 +9,13 @@ namespace Vectara
     public sealed partial class GenerationParameters
     {
         /// <summary>
+        /// Whether generation is enabled for this query. This field is ignored if using chat.<br/>
+        /// Default Value: true
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>
         /// The preset values to use to feed the query results and other context to the model.  <br/>
         /// A `generation_preset` is an object with a bundle of properties that specifies: <br/>
         /// * The `prompt_template` that is rendered and then sent to the LLM. <br/>
@@ -130,6 +137,10 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="GenerationParameters" /> class.
         /// </summary>
+        /// <param name="enabled">
+        /// Whether generation is enabled for this query. This field is ignored if using chat.<br/>
+        /// Default Value: true
+        /// </param>
         /// <param name="generationPresetName">
         /// The preset values to use to feed the query results and other context to the model.  <br/>
         /// A `generation_preset` is an object with a bundle of properties that specifies: <br/>
@@ -176,6 +187,7 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public GenerationParameters(
+            bool? enabled,
             string? generationPresetName,
             int? maxUsedSearchResults,
             string? promptTemplate,
@@ -185,6 +197,7 @@ namespace Vectara
             global::Vectara.CitationParameters? citations,
             bool? enableFactualConsistencyScore)
         {
+            this.Enabled = enabled;
             this.GenerationPresetName = generationPresetName;
             this.MaxUsedSearchResults = maxUsedSearchResults;
             this.PromptTemplate = promptTemplate;

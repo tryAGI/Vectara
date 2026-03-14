@@ -18,10 +18,28 @@ namespace Vectara
         public required string Text { get; set; }
 
         /// <summary>
-        /// The metadata for a document part. These may be used in metadata filters at query time if filter attributes are configured on the corpus.
+        /// The metadata for a document part. These may be used in metadata filters at query time if filter attributes are configured on the corpus.<br/>
+        /// Example: {"part.rank":9000}
         /// </summary>
+        /// <example>{"part.rank":9000}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
+
+        /// <summary>
+        /// The ID of the table that this document part is summarizing.<br/>
+        /// Example: billing_table_111
+        /// </summary>
+        /// <example>billing_table_111</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("table_id")]
+        public string? TableId { get; set; }
+
+        /// <summary>
+        /// The ID of the image that this document part is summarizing.<br/>
+        /// Example: image_1
+        /// </summary>
+        /// <example>image_1</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("image_id")]
+        public string? ImageId { get; set; }
 
         /// <summary>
         /// The context text for the document part.<br/>
@@ -51,7 +69,16 @@ namespace Vectara
         /// Example: This invoice includes customer billing history for Q1.
         /// </param>
         /// <param name="metadata">
-        /// The metadata for a document part. These may be used in metadata filters at query time if filter attributes are configured on the corpus.
+        /// The metadata for a document part. These may be used in metadata filters at query time if filter attributes are configured on the corpus.<br/>
+        /// Example: {"part.rank":9000}
+        /// </param>
+        /// <param name="tableId">
+        /// The ID of the table that this document part is summarizing.<br/>
+        /// Example: billing_table_111
+        /// </param>
+        /// <param name="imageId">
+        /// The ID of the image that this document part is summarizing.<br/>
+        /// Example: image_1
         /// </param>
         /// <param name="context">
         /// The context text for the document part.<br/>
@@ -66,11 +93,15 @@ namespace Vectara
         public DocumentPart(
             string text,
             object? metadata,
+            string? tableId,
+            string? imageId,
             string? context,
             global::System.Collections.Generic.Dictionary<string, double>? customDimensions)
         {
             this.Text = text ?? throw new global::System.ArgumentNullException(nameof(text));
             this.Metadata = metadata;
+            this.TableId = tableId;
+            this.ImageId = imageId;
             this.Context = context;
             this.CustomDimensions = customDimensions;
         }

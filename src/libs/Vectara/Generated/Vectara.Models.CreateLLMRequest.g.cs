@@ -32,6 +32,56 @@ namespace Vectara
         public bool IsOpenaiCompatible => OpenaiCompatible != null;
 
         /// <summary>
+        /// Request to create an OpenAI Responses API Large Language Model connection for reasoning models like o1, o3.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateOpenAIResponsesLLMRequest? OpenaiResponses { get; init; }
+#else
+        public global::Vectara.CreateOpenAIResponsesLLMRequest? OpenaiResponses { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiResponses))]
+#endif
+        public bool IsOpenaiResponses => OpenaiResponses != null;
+
+        /// <summary>
+        /// Request to create a Vertex AI Large Language Model connection for Gemini models.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateVertexAILLMRequest? VertexAi { get; init; }
+#else
+        public global::Vectara.CreateVertexAILLMRequest? VertexAi { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VertexAi))]
+#endif
+        public bool IsVertexAi => VertexAi != null;
+
+        /// <summary>
+        /// Request to create an Anthropic Large Language Model connection for Claude models (direct API, Bedrock, or Vertex).
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateAnthropicLLMRequest? Anthropic { get; init; }
+#else
+        public global::Vectara.CreateAnthropicLLMRequest? Anthropic { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Anthropic))]
+#endif
+        public bool IsAnthropic => Anthropic != null;
+        /// <summary>
         /// 
         /// </summary>
         public static implicit operator CreateLLMRequest(global::Vectara.CreateOpenAILLMRequest value) => new CreateLLMRequest((global::Vectara.CreateOpenAILLMRequest?)value);
@@ -50,23 +100,6 @@ namespace Vectara
         }
 
         /// <summary>
-        /// Request to create an OpenAI Responses API Large Language Model connection for reasoning models like o1, o3.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.CreateOpenAIResponsesLLMRequest? OpenaiResponses { get; init; }
-#else
-        public global::Vectara.CreateOpenAIResponsesLLMRequest? OpenaiResponses { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiResponses))]
-#endif
-        public bool IsOpenaiResponses => OpenaiResponses != null;
-
-        /// <summary>
         /// 
         /// </summary>
         public static implicit operator CreateLLMRequest(global::Vectara.CreateOpenAIResponsesLLMRequest value) => new CreateLLMRequest((global::Vectara.CreateOpenAIResponsesLLMRequest?)value);
@@ -83,23 +116,6 @@ namespace Vectara
         {
             OpenaiResponses = value;
         }
-
-        /// <summary>
-        /// Request to create a Vertex AI Large Language Model connection for Gemini models.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.CreateVertexAILLMRequest? VertexAi { get; init; }
-#else
-        public global::Vectara.CreateVertexAILLMRequest? VertexAi { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VertexAi))]
-#endif
-        public bool IsVertexAi => VertexAi != null;
 
         /// <summary>
         /// 
@@ -122,11 +138,30 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator CreateLLMRequest(global::Vectara.CreateAnthropicLLMRequest value) => new CreateLLMRequest((global::Vectara.CreateAnthropicLLMRequest?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.CreateAnthropicLLMRequest?(CreateLLMRequest @this) => @this.Anthropic;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateLLMRequest(global::Vectara.CreateAnthropicLLMRequest? value)
+        {
+            Anthropic = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public CreateLLMRequest(
             global::Vectara.CreateLLMRequestDiscriminatorType? type,
             global::Vectara.CreateOpenAILLMRequest? openaiCompatible,
             global::Vectara.CreateOpenAIResponsesLLMRequest? openaiResponses,
-            global::Vectara.CreateVertexAILLMRequest? vertexAi
+            global::Vectara.CreateVertexAILLMRequest? vertexAi,
+            global::Vectara.CreateAnthropicLLMRequest? anthropic
             )
         {
             Type = type;
@@ -134,12 +169,14 @@ namespace Vectara
             OpenaiCompatible = openaiCompatible;
             OpenaiResponses = openaiResponses;
             VertexAi = vertexAi;
+            Anthropic = anthropic;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            Anthropic as object ??
             VertexAi as object ??
             OpenaiResponses as object ??
             OpenaiCompatible as object 
@@ -151,7 +188,8 @@ namespace Vectara
         public override string? ToString() =>
             OpenaiCompatible?.ToString() ??
             OpenaiResponses?.ToString() ??
-            VertexAi?.ToString() 
+            VertexAi?.ToString() ??
+            Anthropic?.ToString() 
             ;
 
         /// <summary>
@@ -159,7 +197,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsOpenaiCompatible && !IsOpenaiResponses && !IsVertexAi || !IsOpenaiCompatible && IsOpenaiResponses && !IsVertexAi || !IsOpenaiCompatible && !IsOpenaiResponses && IsVertexAi;
+            return IsOpenaiCompatible && !IsOpenaiResponses && !IsVertexAi && !IsAnthropic || !IsOpenaiCompatible && IsOpenaiResponses && !IsVertexAi && !IsAnthropic || !IsOpenaiCompatible && !IsOpenaiResponses && IsVertexAi && !IsAnthropic || !IsOpenaiCompatible && !IsOpenaiResponses && !IsVertexAi && IsAnthropic;
         }
 
         /// <summary>
@@ -169,6 +207,7 @@ namespace Vectara
             global::System.Func<global::Vectara.CreateOpenAILLMRequest?, TResult>? openaiCompatible = null,
             global::System.Func<global::Vectara.CreateOpenAIResponsesLLMRequest?, TResult>? openaiResponses = null,
             global::System.Func<global::Vectara.CreateVertexAILLMRequest?, TResult>? vertexAi = null,
+            global::System.Func<global::Vectara.CreateAnthropicLLMRequest?, TResult>? anthropic = null,
             bool validate = true)
         {
             if (validate)
@@ -188,6 +227,10 @@ namespace Vectara
             {
                 return vertexAi(VertexAi!);
             }
+            else if (IsAnthropic && anthropic != null)
+            {
+                return anthropic(Anthropic!);
+            }
 
             return default(TResult);
         }
@@ -199,6 +242,7 @@ namespace Vectara
             global::System.Action<global::Vectara.CreateOpenAILLMRequest?>? openaiCompatible = null,
             global::System.Action<global::Vectara.CreateOpenAIResponsesLLMRequest?>? openaiResponses = null,
             global::System.Action<global::Vectara.CreateVertexAILLMRequest?>? vertexAi = null,
+            global::System.Action<global::Vectara.CreateAnthropicLLMRequest?>? anthropic = null,
             bool validate = true)
         {
             if (validate)
@@ -218,6 +262,10 @@ namespace Vectara
             {
                 vertexAi?.Invoke(VertexAi!);
             }
+            else if (IsAnthropic)
+            {
+                anthropic?.Invoke(Anthropic!);
+            }
         }
 
         /// <summary>
@@ -233,6 +281,8 @@ namespace Vectara
                 typeof(global::Vectara.CreateOpenAIResponsesLLMRequest),
                 VertexAi,
                 typeof(global::Vectara.CreateVertexAILLMRequest),
+                Anthropic,
+                typeof(global::Vectara.CreateAnthropicLLMRequest),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -251,7 +301,8 @@ namespace Vectara
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAILLMRequest?>.Default.Equals(OpenaiCompatible, other.OpenaiCompatible) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAIResponsesLLMRequest?>.Default.Equals(OpenaiResponses, other.OpenaiResponses) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateVertexAILLMRequest?>.Default.Equals(VertexAi, other.VertexAi) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateVertexAILLMRequest?>.Default.Equals(VertexAi, other.VertexAi) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateAnthropicLLMRequest?>.Default.Equals(Anthropic, other.Anthropic) 
                 ;
         }
 
