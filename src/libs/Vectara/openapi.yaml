@@ -11509,7 +11509,7 @@ components:
           type: object
           description: Arbitrary metadata associated with the instruction.
           example:
-            version: '2000-01-01T00:00:00.0000000+04:00'
+            version: '2000-01-01T00:00:00.0000000+00:00'
             author: support-team
             last_reviewed: '2024-01-15'
         enabled:
@@ -12777,7 +12777,7 @@ components:
           description: Arbitrary metadata associated with the agent for customization and configuration.
           example:
             department: customer_service
-            version: '2000-01-02T00:00:00.0000000+04:00'
+            version: '2000-01-02T00:00:00.0000000+00:00'
             owner: support-team
         enabled:
           type: boolean
@@ -13027,7 +13027,7 @@ components:
           nullable: true
           example:
             department: customer_service
-            version: '2000-01-01T00:00:00.0000000+04:00'
+            version: '2000-01-01T00:00:00.0000000+00:00'
             owner: support-team
             last_reviewed: '2024-01-15'
         enabled:

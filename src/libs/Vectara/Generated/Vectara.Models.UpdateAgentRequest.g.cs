@@ -64,9 +64,9 @@ namespace Vectara
 
         /// <summary>
         /// Arbitrary metadata associated with the agent. Set to null to clear.<br/>
-        /// Example: {"department":"customer_service","version":"2000-01-01T00:00:00.0000000\u002B04:00","owner":"support-team","last_reviewed":"2024-01-15"}
+        /// Example: {"department":"customer_service","version":"2000-01-01T00:00:00.0000000\u002B00:00","owner":"support-team","last_reviewed":"2024-01-15"}
         /// </summary>
-        /// <example>{"department":"customer_service","version":"2000-01-01T00:00:00.0000000\u002B04:00","owner":"support-team","last_reviewed":"2024-01-15"}</example>
+        /// <example>{"department":"customer_service","version":"2000-01-01T00:00:00.0000000\u002B00:00","owner":"support-team","last_reviewed":"2024-01-15"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
 
@@ -143,7 +143,7 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the agent. Set to null to clear.<br/>
-        /// Example: {"department":"customer_service","version":"2000-01-01T00:00:00.0000000\u002B04:00","owner":"support-team","last_reviewed":"2024-01-15"}
+        /// Example: {"department":"customer_service","version":"2000-01-01T00:00:00.0000000\u002B00:00","owner":"support-team","last_reviewed":"2024-01-15"}
         /// </param>
         /// <param name="enabled">
         /// Whether the agent is enabled. Set to null to reset to default (true).<br/>
