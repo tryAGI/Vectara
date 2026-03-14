@@ -25,7 +25,7 @@ namespace Vectara
             string agentKey,
             string sessionKey,
 
-            global::Vectara.CreateInputRequest request,
+            object request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default);
@@ -44,9 +44,6 @@ namespace Vectara
         /// A unique key that identifies an agent session.<br/>
         /// Example: customer_support_chat
         /// </param>
-        /// <param name="type">
-        /// Default Value: input_message
-        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AgentResponse> CreateAgentInputAsync(
@@ -54,7 +51,6 @@ namespace Vectara
             string sessionKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            string type = "input_message",
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
