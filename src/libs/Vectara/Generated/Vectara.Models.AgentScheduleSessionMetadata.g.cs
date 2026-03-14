@@ -5,6 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// Arbitrary metadata to include in each session created by this schedule.<br/>
+    /// Default Value: {}<br/>
     /// Example: {"report_type":"daily","format":"markdown"}
     /// </summary>
     public sealed partial class AgentScheduleSessionMetadata

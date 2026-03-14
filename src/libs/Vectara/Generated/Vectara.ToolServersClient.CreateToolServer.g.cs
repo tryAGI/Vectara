@@ -3,11 +3,7 @@
 
 namespace Vectara
 {
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.CreateToolServer.g.cs
     public partial class ToolServersClient
-========
-    public partial class LlmChatCompletionsClient
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.LLMChatCompletionsClient.CreateChatCompletion.g.cs
     {
         partial void PrepareCreateToolServerArguments(
             global::System.Net.Http.HttpClient httpClient,
@@ -30,83 +26,23 @@ namespace Vectara
             ref string content);
 
         /// <summary>
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.CreateToolServer.g.cs
         /// Create tool server<br/>
         /// Create a new tool server to expose tools for use by agents.
-========
-        /// Creates a model response for the given chat conversation<br/>
-        /// The Chat Completions API provides an OpenAI-compatible interface for generating model responses in multi-turn chat conversations. This API enables you to integrate our language models directly into applications designed to work with the OpenAI Chat Completions format, making it easy to leverage Vectara capabilities with minimal changes to existing tools or code.<br/>
-        /// Use this API to enable interactive chat experiences that support context-aware responses, streaming output, and token usage tracking.<br/>
-        /// The request includes a series of chat messages and optional parameters that control the behavior and structure of the model response. The request body must include the `messages` parameter, an array of message objects (role, content) representing the full conversation so far.<br/>
-        /// ### Streaming responses<br/>
-        /// If the `stream` parameter is set to `true`, the response appears as a series of text/event-stream parts (also known as chunks). Each chunk includes a `delta` field showing the incremental message update.<br/>
-        /// ### Example request<br/>
-        /// This example sends a simple chat conversation to the API, asking the assistant for the capital of France. The request includes a system prompt, a user message, and a temperature setting for response variability.<br/>
-        /// ```json<br/>
-        /// {<br/>
-        ///   "model": "chat-model-001","messages": [{ "role": "system", "content": "You are a helpful assistant." },<br/>
-        ///   { "role": "user", "content": "What is the capital of France?" }<br/>
-        /// ],<br/>
-        /// "temperature": 0.7,<br/>
-        /// "stream": false<br/>
-        /// }<br/>
-        /// ```<br/>
-        /// ### Example response<br/>
-        /// The response includes a generated reply from the assistant, along with token usage statistics. In this example, the model returns a direct answer to a user question.<br/>
-        /// ```json<br/>
-        /// {<br/>
-        /// "id": "chatcmpl-abc123",}<br/>
-        /// "object": "chat.completion",<br/>
-        /// "created": 1712454830,<br/>
-        /// "model": "chat-model-001",<br/>
-        /// "choices": [<br/>
-        ///   {<br/>
-        ///     "index": 0,<br/>
-        ///     "message": {<br/>
-        ///       "role": "assistant",<br/>
-        ///       "content": "The capital of France is Paris."<br/>
-        ///   },<br/>
-        ///     "finish_reason": "stop"<br/>
-        ///   }<br/>
-        /// ],<br/>
-        /// "usage": {<br/>
-        ///   "prompt_tokens": 21,<br/>
-        ///   "completion_tokens": 9,<br/>
-        ///   "total_tokens": 30<br/>
-        ///   } <br/>
-        /// } <br/>
-        /// ```<br/>
-        /// If the input summary is accurate, the `corrected_summary` matches the `original_summary`.
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.LLMChatCompletionsClient.CreateChatCompletion.g.cs
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="request"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.CreateToolServer.g.cs
         public async global::System.Threading.Tasks.Task<global::Vectara.ToolServer> CreateToolServerAsync(
 
             global::Vectara.CreateToolServerRequest request,
-========
-        public async global::System.Threading.Tasks.Task<global::Vectara.CreateChatCompletionResponse> CreateChatCompletionAsync(
-
-            global::Vectara.CreateChatCompletionRequest request,
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.LLMChatCompletionsClient.CreateChatCompletion.g.cs
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             request = request ?? throw new global::System.ArgumentNullException(nameof(request));
 
-
-            request = new global::Vectara.CreateChatCompletionRequest
-            {
-                Model = request.Model,
-                Messages = request.Messages,
-                Stream = false,
-                ResponseFormat = request.ResponseFormat,
-            };
             PrepareArguments(
                 client: HttpClient);
             PrepareCreateToolServerArguments(
@@ -328,54 +264,8 @@ namespace Vectara
         }
 
         /// <summary>
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.CreateToolServer.g.cs
         /// Create tool server<br/>
         /// Create a new tool server to expose tools for use by agents.
-========
-        /// Creates a model response for the given chat conversation<br/>
-        /// The Chat Completions API provides an OpenAI-compatible interface for generating model responses in multi-turn chat conversations. This API enables you to integrate our language models directly into applications designed to work with the OpenAI Chat Completions format, making it easy to leverage Vectara capabilities with minimal changes to existing tools or code.<br/>
-        /// Use this API to enable interactive chat experiences that support context-aware responses, streaming output, and token usage tracking.<br/>
-        /// The request includes a series of chat messages and optional parameters that control the behavior and structure of the model response. The request body must include the `messages` parameter, an array of message objects (role, content) representing the full conversation so far.<br/>
-        /// ### Streaming responses<br/>
-        /// If the `stream` parameter is set to `true`, the response appears as a series of text/event-stream parts (also known as chunks). Each chunk includes a `delta` field showing the incremental message update.<br/>
-        /// ### Example request<br/>
-        /// This example sends a simple chat conversation to the API, asking the assistant for the capital of France. The request includes a system prompt, a user message, and a temperature setting for response variability.<br/>
-        /// ```json<br/>
-        /// {<br/>
-        ///   "model": "chat-model-001","messages": [{ "role": "system", "content": "You are a helpful assistant." },<br/>
-        ///   { "role": "user", "content": "What is the capital of France?" }<br/>
-        /// ],<br/>
-        /// "temperature": 0.7,<br/>
-        /// "stream": false<br/>
-        /// }<br/>
-        /// ```<br/>
-        /// ### Example response<br/>
-        /// The response includes a generated reply from the assistant, along with token usage statistics. In this example, the model returns a direct answer to a user question.<br/>
-        /// ```json<br/>
-        /// {<br/>
-        /// "id": "chatcmpl-abc123",}<br/>
-        /// "object": "chat.completion",<br/>
-        /// "created": 1712454830,<br/>
-        /// "model": "chat-model-001",<br/>
-        /// "choices": [<br/>
-        ///   {<br/>
-        ///     "index": 0,<br/>
-        ///     "message": {<br/>
-        ///       "role": "assistant",<br/>
-        ///       "content": "The capital of France is Paris."<br/>
-        ///   },<br/>
-        ///     "finish_reason": "stop"<br/>
-        ///   }<br/>
-        /// ],<br/>
-        /// "usage": {<br/>
-        ///   "prompt_tokens": 21,<br/>
-        ///   "completion_tokens": 9,<br/>
-        ///   "total_tokens": 30<br/>
-        ///   } <br/>
-        /// } <br/>
-        /// ```<br/>
-        /// If the input summary is accurate, the `corrected_summary` matches the `original_summary`.
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.LLMChatCompletionsClient.CreateChatCompletion.g.cs
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -387,7 +277,6 @@ namespace Vectara
         /// The type of tool server.<br/>
         /// Example: mcp
         /// </param>
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.CreateToolServer.g.cs
         /// <param name="description">
         /// A detailed description of what this tool server does.<br/>
         /// Example: Provides RAG search capabilities for documents.
@@ -414,13 +303,6 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the tool server.
-========
-        /// <param name="responseFormat">
-        /// Specifies the format the model must output.<br/>
-        /// - `text`: Plain text responses (default).<br/>
-        /// - `json_object`: Ensures the response is valid JSON.<br/>
-        /// - `json_schema`: Ensures the response conforms to the provided JSON schema.
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.LLMChatCompletionsClient.CreateChatCompletion.g.cs
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -430,21 +312,16 @@ namespace Vectara
             global::Vectara.ToolServerTransport transport,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.CreateToolServer.g.cs
             global::Vectara.ToolServerType type = default,
             string? description = default,
             global::System.Collections.Generic.Dictionary<string, string>? headers = default,
             global::Vectara.RemoteAuth? auth = default,
             bool? enabled = default,
             object? metadata = default,
-========
-            global::Vectara.ResponseFormat? responseFormat = default,
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.LLMChatCompletionsClient.CreateChatCompletion.g.cs
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::Vectara.CreateToolServerRequest
             {
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.CreateToolServer.g.cs
                 Name = name,
                 Type = type,
                 Description = description,
@@ -454,12 +331,6 @@ namespace Vectara
                 Auth = auth,
                 Enabled = enabled,
                 Metadata = metadata,
-========
-                Model = model,
-                Messages = messages,
-                Stream = false,
-                ResponseFormat = responseFormat,
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.LLMChatCompletionsClient.CreateChatCompletion.g.cs
             };
 
             return await CreateToolServerAsync(

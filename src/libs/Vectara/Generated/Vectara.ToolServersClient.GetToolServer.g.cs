@@ -3,7 +3,6 @@
 
 namespace Vectara
 {
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
     public partial class ToolServersClient
     {
         partial void PrepareGetToolServerArguments(
@@ -12,41 +11,21 @@ namespace Vectara
             ref int? requestTimeoutMillis,
             ref string toolServerId);
         partial void PrepareGetToolServerRequest(
-========
-    public partial class AgentsClient
-    {
-        partial void PrepareGetAgentArguments(
-            global::System.Net.Http.HttpClient httpClient,
-            ref int? requestTimeout,
-            ref int? requestTimeoutMillis,
-            ref string agentKey);
-        partial void PrepareGetAgentRequest(
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
             string toolServerId);
         partial void ProcessGetToolServerResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
         partial void ProcessGetToolServerResponseContent(
-========
-            string agentKey);
-        partial void ProcessGetAgentResponse(
-            global::System.Net.Http.HttpClient httpClient,
-            global::System.Net.Http.HttpResponseMessage httpResponseMessage);
-
-        partial void ProcessGetAgentResponseContent(
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
         /// Get tool Server<br/>
         /// Retrieve details about a specific tool server by its Id.
         /// </summary>
@@ -59,29 +38,12 @@ namespace Vectara
         /// <exception cref="global::Vectara.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.ToolServer> GetToolServerAsync(
             string toolServerId,
-========
-        /// Get agent<br/>
-        /// The Get Agent API enables you to retrieve the complete configuration and operational details of a specific AI agent, providing comprehensive visibility into agent capabilities, tool integrations, behavioral instructions, and metadata.<br/>
-        /// Use this API to inspect agent configurations before creating sessions, troubleshoot agent behavior issues, clone agent configurations for new deployments, and maintain documentation of agent capabilities across your enterprise AI infrastructure.
-        /// </summary>
-        /// <param name="requestTimeout"></param>
-        /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
-        /// </param>
-        /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.Agent> GetAgentAsync(
-            string agentKey,
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             PrepareArguments(
                 client: HttpClient);
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
             PrepareGetToolServerArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
@@ -90,16 +52,6 @@ namespace Vectara
 
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/tool_servers/{toolServerId}",
-========
-            PrepareGetAgentArguments(
-                httpClient: HttpClient,
-                requestTimeout: ref requestTimeout,
-                requestTimeoutMillis: ref requestTimeoutMillis,
-                agentKey: ref agentKey);
-
-            var __pathBuilder = new global::Vectara.PathBuilder(
-                path: $"/v2/agents/{agentKey}",
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
                 baseUri: HttpClient.BaseAddress); 
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
@@ -139,20 +91,12 @@ namespace Vectara
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
             PrepareGetToolServerRequest(
-========
-            PrepareGetAgentRequest(
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
                 toolServerId: toolServerId);
-========
-                agentKey: agentKey);
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
 
             using var __response = await HttpClient.SendAsync(
                 request: __httpRequest,
@@ -162,17 +106,10 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
             ProcessGetToolServerResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
             // Permissions do not allow accessing this tool.
-========
-            ProcessGetAgentResponse(
-                httpClient: HttpClient,
-                httpResponseMessage: __response);
-            // Permissions do not allow accessing this agent.
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
             if ((int)__response.StatusCode == 403)
             {
                 string? __content_403 = null;
@@ -209,11 +146,7 @@ namespace Vectara
                         h => h.Value),
                 };
             }
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
             // Tool Server not found.
-========
-            // Agent not found.
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
             if ((int)__response.StatusCode == 404)
             {
                 string? __content_404 = null;
@@ -263,11 +196,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
                 ProcessGetToolServerResponseContent(
-========
-                ProcessGetAgentResponseContent(
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);
@@ -277,11 +206,7 @@ namespace Vectara
                     __response.EnsureSuccessStatusCode();
 
                     return
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
                         global::Vectara.ToolServer.FromJson(__content, JsonSerializerContext) ??
-========
-                        global::Vectara.Agent.FromJson(__content, JsonSerializerContext) ??
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
                 }
                 catch (global::System.Exception __ex)
@@ -312,11 +237,7 @@ namespace Vectara
                     ).ConfigureAwait(false);
 
                     return
-<<<<<<<< HEAD:src/libs/Vectara/Generated/Vectara.ToolServersClient.GetToolServer.g.cs
                         await global::Vectara.ToolServer.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
-========
-                        await global::Vectara.Agent.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
->>>>>>>> 28f6600 (Remove FixOpenApiSpec and regenerate with AutoSDK 0.29.1-dev.32):src/libs/Vectara/Generated/Vectara.AgentsClient.GetAgent.g.cs
                         throw new global::System.InvalidOperationException("Response deserialization failed.");
                 }
                 catch (global::System.Exception __ex)

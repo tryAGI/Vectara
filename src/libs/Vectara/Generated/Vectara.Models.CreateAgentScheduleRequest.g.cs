@@ -55,7 +55,8 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Arbitrary metadata to include in each session created by this schedule.
+        /// Arbitrary metadata to include in each session created by this schedule.<br/>
+        /// Default Value: {}
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("session_metadata")]
         public object? SessionMetadata { get; set; }
@@ -99,7 +100,8 @@ namespace Vectara
         /// Default Value: true
         /// </param>
         /// <param name="sessionMetadata">
-        /// Arbitrary metadata to include in each session created by this schedule.
+        /// Arbitrary metadata to include in each session created by this schedule.<br/>
+        /// Default Value: {}
         /// </param>
         /// <param name="maxExecutionsToKeep">
         /// Maximum number of past execution records to keep. Defaults to 10.<br/>

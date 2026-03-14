@@ -17,6 +17,7 @@ namespace Vectara
 
         /// <summary>
         /// List of JSONPath expressions for metadata fields to exclude from the returned metadata.<br/>
+        /// Default Value: []<br/>
         /// Example: [$.internal.processedAt, $.debug]
         /// </summary>
         /// <example>[$.internal.processedAt, $.debug]</example>
@@ -38,6 +39,7 @@ namespace Vectara
         /// </param>
         /// <param name="excludePaths">
         /// List of JSONPath expressions for metadata fields to exclude from the returned metadata.<br/>
+        /// Default Value: []<br/>
         /// Example: [$.internal.processedAt, $.debug]
         /// </param>
 #if NET7_0_OR_GREATER

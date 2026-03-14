@@ -32,6 +32,7 @@ namespace Vectara
 
         /// <summary>
         /// Optional metadata to associate with the sub-agent session. Can contain any key-value pairs.<br/>
+        /// Default Value: {}<br/>
         /// Example: {"source":"parent_agent","task_type":"code_review"}
         /// </summary>
         /// <example>{"source":"parent_agent","task_type":"code_review"}</example>
@@ -61,6 +62,7 @@ namespace Vectara
         /// </param>
         /// <param name="sessionMetadata">
         /// Optional metadata to associate with the sub-agent session. Can contain any key-value pairs.<br/>
+        /// Default Value: {}<br/>
         /// Example: {"source":"parent_agent","task_type":"code_review"}
         /// </param>
 #if NET7_0_OR_GREATER

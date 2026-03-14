@@ -87,9 +87,9 @@ namespace Vectara
 
         /// <summary>
         /// Arbitrary metadata associated with the agent for customization and configuration.<br/>
-        /// Example: {"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B00:00","owner":"support-team"}
+        /// Example: {"department":"customer_service","version":"1.2.0","owner":"support-team"}
         /// </summary>
-        /// <example>{"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B00:00","owner":"support-team"}</example>
+        /// <example>{"department":"customer_service","version":"1.2.0","owner":"support-team"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
 
@@ -121,17 +121,17 @@ namespace Vectara
 
         /// <summary>
         /// Timestamp when the agent was created.<br/>
-        /// Example: 2024-01-15T10:30:00.0000000+00:00
+        /// Example: 2024-01-15T10:30:00Z
         /// </summary>
-        /// <example>2024-01-15T10:30:00.0000000+00:00</example>
+        /// <example>2024-01-15T10:30:00Z</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
         public global::System.DateTime? CreatedAt { get; set; }
 
         /// <summary>
         /// Timestamp when the agent was last updated.<br/>
-        /// Example: 2024-01-16T14:45:00.0000000+00:00
+        /// Example: 2024-01-16T14:45:00Z
         /// </summary>
-        /// <example>2024-01-16T14:45:00.0000000+00:00</example>
+        /// <example>2024-01-16T14:45:00Z</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("updated_at")]
         public global::System.DateTime? UpdatedAt { get; set; }
 
@@ -184,7 +184,7 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the agent for customization and configuration.<br/>
-        /// Example: {"department":"customer_service","version":"2000-01-02T00:00:00.0000000\u002B00:00","owner":"support-team"}
+        /// Example: {"department":"customer_service","version":"1.2.0","owner":"support-team"}
         /// </param>
         /// <param name="enabled">
         /// Whether the agent is currently enabled and available for use.<br/>
@@ -203,11 +203,11 @@ namespace Vectara
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the agent was created.<br/>
-        /// Example: 2024-01-15T10:30:00.0000000+00:00
+        /// Example: 2024-01-15T10:30:00Z
         /// </param>
         /// <param name="updatedAt">
         /// Timestamp when the agent was last updated.<br/>
-        /// Example: 2024-01-16T14:45:00.0000000+00:00
+        /// Example: 2024-01-16T14:45:00Z
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
