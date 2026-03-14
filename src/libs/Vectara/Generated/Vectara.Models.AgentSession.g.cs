@@ -81,9 +81,9 @@ namespace Vectara
 
         /// <summary>
         /// Timestamp when the session was created.<br/>
-        /// Example: 2024-01-15T10:30:00.0000000+00:00
+        /// Example: 2024-01-15T10:30:00Z
         /// </summary>
-        /// <example>2024-01-15T10:30:00.0000000+00:00</example>
+        /// <example>2024-01-15T10:30:00Z</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.DateTime CreatedAt { get; set; }
@@ -146,7 +146,7 @@ namespace Vectara
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the session was created.<br/>
-        /// Example: 2024-01-15T10:30:00.0000000+00:00
+        /// Example: 2024-01-15T10:30:00Z
         /// </param>
         /// <param name="sessionContextUsage">
         /// Token usage statistics for a session.

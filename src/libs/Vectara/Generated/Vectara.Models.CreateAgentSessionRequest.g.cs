@@ -34,6 +34,7 @@ namespace Vectara
 
         /// <summary>
         /// Arbitrary metadata associated with the session.<br/>
+        /// Default Value: {}<br/>
         /// Example: {"customer_id":"12345","priority":"medium","channel":"web_chat"}
         /// </summary>
         /// <example>{"customer_id":"12345","priority":"medium","channel":"web_chat"}</example>
@@ -87,6 +88,7 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the session.<br/>
+        /// Default Value: {}<br/>
         /// Example: {"customer_id":"12345","priority":"medium","channel":"web_chat"}
         /// </param>
         /// <param name="enabled">

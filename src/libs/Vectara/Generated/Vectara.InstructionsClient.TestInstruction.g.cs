@@ -376,7 +376,9 @@ namespace Vectara
         /// Example: {"currentDate":"2024-01-15","companyName":"Acme Corp"}
         /// </param>
         /// <param name="tools">
-        /// List of tools to include in the instruction context for testing.
+        /// List of tools to include in the instruction context for testing.<br/>
+        /// Default Value: []<br/>
+        /// Example: []
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>

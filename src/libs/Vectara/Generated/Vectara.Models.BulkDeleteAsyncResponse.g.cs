@@ -26,9 +26,9 @@ namespace Vectara
 
         /// <summary>
         /// ISO 8601 timestamp captured at workflow launch. Only documents created or updated before this timestamp will be deleted.<br/>
-        /// Example: 2025-12-18T15:30:00.0000000+00:00
+        /// Example: 2025-12-18T15:30:00Z
         /// </summary>
-        /// <example>2025-12-18T15:30:00.0000000+00:00</example>
+        /// <example>2025-12-18T15:30:00Z</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("cutoff_timestamp")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.DateTime CutoffTimestamp { get; set; }
@@ -51,7 +51,7 @@ namespace Vectara
         /// </param>
         /// <param name="cutoffTimestamp">
         /// ISO 8601 timestamp captured at workflow launch. Only documents created or updated before this timestamp will be deleted.<br/>
-        /// Example: 2025-12-18T15:30:00.0000000+00:00
+        /// Example: 2025-12-18T15:30:00Z
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

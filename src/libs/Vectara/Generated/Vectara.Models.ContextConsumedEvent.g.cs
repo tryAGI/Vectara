@@ -28,9 +28,9 @@ namespace Vectara
 
         /// <summary>
         /// Timestamp when the event was created.<br/>
-        /// Example: 2024-01-15T10:35:00.0000000+00:00
+        /// Example: 2024-01-15T10:35:00Z
         /// </summary>
-        /// <example>2024-01-15T10:35:00.0000000+00:00</example>
+        /// <example>2024-01-15T10:35:00Z</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.DateTime CreatedAt { get; set; }
@@ -54,7 +54,7 @@ namespace Vectara
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the event was created.<br/>
-        /// Example: 2024-01-15T10:35:00.0000000+00:00
+        /// Example: 2024-01-15T10:35:00Z
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

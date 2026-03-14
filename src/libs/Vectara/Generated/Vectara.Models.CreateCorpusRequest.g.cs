@@ -72,13 +72,15 @@ namespace Vectara
         public string? EncoderName { get; set; }
 
         /// <summary>
-        /// The new filter attributes of the corpus. If unset then the corpus will not have filter attributes.
+        /// The new filter attributes of the corpus. If unset then the corpus will not have filter attributes.<br/>
+        /// Default Value: []
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("filter_attributes")]
         public global::System.Collections.Generic.IList<global::Vectara.FilterAttribute>? FilterAttributes { get; set; }
 
         /// <summary>
-        /// A custom dimension is an additional numerical field attached to a document part. You can then multiply this numerical field with a query time custom dimension of the same name. This allows boosting (or burying) document parts for arbitrary reasons. This feature is only enabled for Pro and Enterprise customers.
+        /// A custom dimension is an additional numerical field attached to a document part. You can then multiply this numerical field with a query time custom dimension of the same name. This allows boosting (or burying) document parts for arbitrary reasons. This feature is only enabled for Pro and Enterprise customers.<br/>
+        /// Default Value: []
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("custom_dimensions")]
         public global::System.Collections.Generic.IList<global::Vectara.CorpusCustomDimension>? CustomDimensions { get; set; }
@@ -121,10 +123,12 @@ namespace Vectara
         /// Example: boomerang-2023-q3
         /// </param>
         /// <param name="filterAttributes">
-        /// The new filter attributes of the corpus. If unset then the corpus will not have filter attributes.
+        /// The new filter attributes of the corpus. If unset then the corpus will not have filter attributes.<br/>
+        /// Default Value: []
         /// </param>
         /// <param name="customDimensions">
-        /// A custom dimension is an additional numerical field attached to a document part. You can then multiply this numerical field with a query time custom dimension of the same name. This allows boosting (or burying) document parts for arbitrary reasons. This feature is only enabled for Pro and Enterprise customers.
+        /// A custom dimension is an additional numerical field attached to a document part. You can then multiply this numerical field with a query time custom dimension of the same name. This allows boosting (or burying) document parts for arbitrary reasons. This feature is only enabled for Pro and Enterprise customers.<br/>
+        /// Default Value: []
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

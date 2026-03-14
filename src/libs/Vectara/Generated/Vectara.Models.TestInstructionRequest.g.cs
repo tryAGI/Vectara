@@ -18,8 +18,11 @@ namespace Vectara
         public object? Context { get; set; }
 
         /// <summary>
-        /// List of tools to include in the instruction context for testing.
+        /// List of tools to include in the instruction context for testing.<br/>
+        /// Default Value: []<br/>
+        /// Example: []
         /// </summary>
+        /// <example>[]</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("tools")]
         public global::System.Collections.Generic.IList<global::Vectara.Tool>? Tools { get; set; }
 
@@ -38,7 +41,9 @@ namespace Vectara
         /// Example: {"currentDate":"2024-01-15","companyName":"Acme Corp"}
         /// </param>
         /// <param name="tools">
-        /// List of tools to include in the instruction context for testing.
+        /// List of tools to include in the instruction context for testing.<br/>
+        /// Default Value: []<br/>
+        /// Example: []
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
