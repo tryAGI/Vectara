@@ -29,9 +29,8 @@ cd src/libs/Vectara && ./generate.sh
 The SDK code is **entirely auto-generated** -- do not manually edit files in `src/libs/Vectara/Generated/`.
 
 1. `src/libs/Vectara/openapi.yaml` -- the Vectara OpenAPI spec (fetched from `https://docs.vectara.com/vectara-oas-v2.yaml`)
-2. `src/helpers/FixOpenApiSpec/` -- converts OpenAPI 3.1 to 3.0 format for compatibility
-3. `src/libs/Vectara/generate.sh` -- orchestrates: download spec, fix spec, run AutoSDK CLI, output to `Generated/`
-4. CI auto-updates the spec and creates PRs if changes are detected
+2. `src/libs/Vectara/generate.sh` -- orchestrates: download spec, run AutoSDK CLI, output to `Generated/`
+3. CI auto-updates the spec and creates PRs if changes are detected
 
 ### Project Layout
 
@@ -39,7 +38,6 @@ The SDK code is **entirely auto-generated** -- do not manually edit files in `sr
 |---------|---------|
 | `src/libs/Vectara/` | Main SDK library (`VectaraClient`) |
 | `src/tests/IntegrationTests/` | Integration tests against real Vectara API |
-| `src/helpers/FixOpenApiSpec/` | OpenAPI spec fixer tool |
 | `src/helpers/GenerateDocs/` | Documentation generator from integration tests |
 | `src/helpers/TrimmingHelper/` | NativeAOT/trimming compatibility validator |
 
