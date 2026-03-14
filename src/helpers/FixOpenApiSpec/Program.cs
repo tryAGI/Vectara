@@ -16,6 +16,24 @@ var openApiDocument = new OpenApiStringReader().Read(text, out var diagnostics);
 
 //openApiDocument.Components.Schemas["GenerateCompletionRequest"]!.Properties["stream"]!.Default = new OpenApiBoolean(true);
 
+if (openApiDocument.Components?.Schemas is { } schemas)
+{
+    foreach (var schema in schemas.Values)
+    {
+        var discriminatorProperty = schema.Discriminator?.PropertyName;
+        if (string.IsNullOrWhiteSpace(discriminatorProperty))
+        {
+            continue;
+        }
+
+        schema.Required ??= new HashSet<string>(StringComparer.Ordinal);
+        if (!schema.Required.Contains(discriminatorProperty))
+        {
+            schema.Required.Add(discriminatorProperty);
+        }
+    }
+}
+
 text = openApiDocument.SerializeAsYaml(OpenApiSpecVersion.OpenApi3_0);
 _ = new OpenApiStringReader().Read(text, out diagnostics);
 
