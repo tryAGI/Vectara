@@ -11,7 +11,7 @@ namespace Vectara
             ref int? requestTimeoutMillis,
             ref string agentKey,
             ref string sessionKey,
-            global::Vectara.CreateInputRequest request);
+            object request);
         partial void PrepareCreateAgentInputRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
@@ -19,7 +19,7 @@ namespace Vectara
             int? requestTimeoutMillis,
             string agentKey,
             string sessionKey,
-            global::Vectara.CreateInputRequest request);
+            object request);
         partial void ProcessCreateAgentInputResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
@@ -50,7 +50,7 @@ namespace Vectara
             string agentKey,
             string sessionKey,
 
-            global::Vectara.CreateInputRequest request,
+            object request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -104,7 +104,7 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
-            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
+            var __httpRequestContentBody = global::System.Text.Json.JsonSerializer.Serialize(request, request.GetType(), JsonSerializerContext);
             var __httpRequestContent = new global::System.Net.Http.StringContent(
                 content: __httpRequestContentBody,
                 encoding: global::System.Text.Encoding.UTF8,
@@ -443,9 +443,6 @@ namespace Vectara
         /// A unique key that identifies an agent session.<br/>
         /// Example: customer_support_chat
         /// </param>
-        /// <param name="type">
-        /// Default Value: input_message
-        /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.AgentResponse> CreateAgentInputAsync(
@@ -453,12 +450,10 @@ namespace Vectara
             string sessionKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            string type = "input_message",
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __request = new global::Vectara.CreateInputRequest
+            var __request = new object
             {
-                Type = type,
             };
 
             return await CreateAgentInputAsync(
