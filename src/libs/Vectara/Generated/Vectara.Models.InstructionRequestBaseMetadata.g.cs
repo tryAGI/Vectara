@@ -5,7 +5,6 @@ namespace Vectara
 {
     /// <summary>
     /// Arbitrary metadata associated with the instruction.<br/>
-    /// Default Value: {}<br/>
     /// Example: {"version":"1.0.0","author":"support-team"}
     /// </summary>
     public sealed partial class InstructionRequestBaseMetadata

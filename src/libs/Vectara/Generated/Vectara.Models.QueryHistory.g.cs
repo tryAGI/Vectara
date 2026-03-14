@@ -42,9 +42,9 @@ namespace Vectara
 
         /// <summary>
         /// ISO date time indicating when the query was first received.<br/>
-        /// Example: 2025-06-01T12:00:00Z
+        /// Example: 2025-06-01T12:00:00.0000000+00:00
         /// </summary>
-        /// <example>2025-06-01T12:00:00Z</example>
+        /// <example>2025-06-01T12:00:00.0000000+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("started_at")]
         public global::System.DateTime? StartedAt { get; set; }
 
@@ -93,7 +93,7 @@ namespace Vectara
         /// </param>
         /// <param name="startedAt">
         /// ISO date time indicating when the query was first received.<br/>
-        /// Example: 2025-06-01T12:00:00Z
+        /// Example: 2025-06-01T12:00:00.0000000+00:00
         /// </param>
         /// <param name="agentKey">
         /// The agent key if this query was made through an agent.

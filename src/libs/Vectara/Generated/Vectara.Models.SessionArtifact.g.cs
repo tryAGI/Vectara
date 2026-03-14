@@ -83,18 +83,18 @@ namespace Vectara
 
         /// <summary>
         /// Timestamp when the artifact was created<br/>
-        /// Example: 2024-01-15T10:35:00Z
+        /// Example: 2024-01-15T10:35:00.0000000+00:00
         /// </summary>
-        /// <example>2024-01-15T10:35:00Z</example>
+        /// <example>2024-01-15T10:35:00.0000000+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// Timestamp when the artifact was last updated<br/>
-        /// Example: 2024-01-15T10:35:00Z
+        /// Example: 2024-01-15T10:35:00.0000000+00:00
         /// </summary>
-        /// <example>2024-01-15T10:35:00Z</example>
+        /// <example>2024-01-15T10:35:00.0000000+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("updated_at")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.DateTime UpdatedAt { get; set; }
@@ -150,11 +150,11 @@ namespace Vectara
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the artifact was created<br/>
-        /// Example: 2024-01-15T10:35:00Z
+        /// Example: 2024-01-15T10:35:00.0000000+00:00
         /// </param>
         /// <param name="updatedAt">
         /// Timestamp when the artifact was last updated<br/>
-        /// Example: 2024-01-15T10:35:00Z
+        /// Example: 2024-01-15T10:35:00.0000000+00:00
         /// </param>
         /// <param name="data">
         /// Base64-encoded file content (only included in single artifact fetch, not in list responses)<br/>

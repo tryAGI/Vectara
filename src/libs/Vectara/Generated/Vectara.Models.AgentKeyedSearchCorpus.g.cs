@@ -19,7 +19,7 @@ namespace Vectara
         public required global::Vectara.OneOf<string, global::Vectara.EagerReference> CorpusKey { get; set; }
 
         /// <summary>
-        /// Default Value: openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("custom_dimensions")]
         public global::System.Collections.Generic.Dictionary<string, double>? CustomDimensions { get; set; }
@@ -63,9 +63,7 @@ namespace Vectara
         /// <param name="corpusKey">
         /// The corpus to search. Can be either a static string (e.g. "my-corpus") or an EagerReference object (e.g. {"$ref": "session.metadata.corpus"}). When an EagerReference is provided, the $ref path is resolved from the session context at the start of each turn, before LLM processing begins.
         /// </param>
-        /// <param name="customDimensions">
-        /// Default Value: openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464
-        /// </param>
+        /// <param name="customDimensions"></param>
         /// <param name="metadataFilter">
         /// The filter to narrow search results. Can be either a static string (e.g. "doc.department = 'engineering'") or an EagerReference object (e.g. {"$ref": "session.metadata.filters.user"}). When an EagerReference is provided, the $ref path is resolved from the session context at the start of each turn, before LLM processing begins.
         /// </param>

@@ -234,6 +234,7 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.CreateInputMessageRequestJsonConverter),
             typeof(global::Vectara.JsonConverters.CreateInterruptRequestJsonConverter),
             typeof(global::Vectara.JsonConverters.CreateCompactRequestJsonConverter),
+            typeof(global::Vectara.JsonConverters.CreateInputRequestJsonConverter),
             typeof(global::Vectara.JsonConverters.CompactionStartedEventJsonConverter),
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter),
             typeof(global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter),

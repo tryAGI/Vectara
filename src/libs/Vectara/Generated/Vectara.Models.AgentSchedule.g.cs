@@ -73,7 +73,6 @@ namespace Vectara
 
         /// <summary>
         /// Arbitrary metadata to include in each session created by this schedule.<br/>
-        /// Default Value: {}<br/>
         /// Example: {"report_type":"daily","format":"markdown"}
         /// </summary>
         /// <example>{"report_type":"daily","format":"markdown"}</example>
@@ -92,18 +91,18 @@ namespace Vectara
         /// <summary>
         /// Timestamp of the most recent execution. Tracked by Temporal and updated automatically<br/>
         /// after each execution. Null if the schedule has never executed.<br/>
-        /// Example: 2024-01-15T10:30:00Z
+        /// Example: 2024-01-15T10:30:00.0000000+00:00
         /// </summary>
-        /// <example>2024-01-15T10:30:00Z</example>
+        /// <example>2024-01-15T10:30:00.0000000+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("last_execution_at")]
         public global::System.DateTime? LastExecutionAt { get; set; }
 
         /// <summary>
         /// Timestamp when the schedule was created. Note: This is a placeholder value as Temporal<br/>
         /// does not store creation timestamps. Use for API compatibility only.<br/>
-        /// Example: 1970-01-01T00:00:00Z
+        /// Example: 1970-01-01T00:00:00.0000000+00:00
         /// </summary>
-        /// <example>1970-01-01T00:00:00Z</example>
+        /// <example>1970-01-01T00:00:00.0000000+00:00</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.DateTime CreatedAt { get; set; }
@@ -148,7 +147,6 @@ namespace Vectara
         /// </param>
         /// <param name="sessionMetadata">
         /// Arbitrary metadata to include in each session created by this schedule.<br/>
-        /// Default Value: {}<br/>
         /// Example: {"report_type":"daily","format":"markdown"}
         /// </param>
         /// <param name="maxExecutionsToKeep">
@@ -159,12 +157,12 @@ namespace Vectara
         /// <param name="lastExecutionAt">
         /// Timestamp of the most recent execution. Tracked by Temporal and updated automatically<br/>
         /// after each execution. Null if the schedule has never executed.<br/>
-        /// Example: 2024-01-15T10:30:00Z
+        /// Example: 2024-01-15T10:30:00.0000000+00:00
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the schedule was created. Note: This is a placeholder value as Temporal<br/>
         /// does not store creation timestamps. Use for API compatibility only.<br/>
-        /// Example: 1970-01-01T00:00:00Z
+        /// Example: 1970-01-01T00:00:00.0000000+00:00
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

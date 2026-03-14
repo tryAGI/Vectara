@@ -4,8 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Arbitrary metadata to include in each session created by this schedule.<br/>
-    /// Default Value: {}
+    /// Arbitrary metadata to include in each session created by this schedule.
     /// </summary>
     public sealed partial class CreateAgentScheduleRequestSessionMetadata
     {

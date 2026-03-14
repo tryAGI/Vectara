@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "autosdk.cli": {
+      "version": "0.29.1-dev.30",
+      "commands": [
+        "autosdk"
+      ],
+      "rollForward": false
+    }
+  }
+}

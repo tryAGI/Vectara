@@ -29,7 +29,7 @@ namespace Vectara
         public int? Limit { get; set; }
 
         /// <summary>
-        /// Default Value: openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("context_configuration")]
         public global::Vectara.ContextConfiguration? ContextConfiguration { get; set; }
@@ -61,9 +61,7 @@ namespace Vectara
         /// Maximum number of results to return.<br/>
         /// Default Value: 10
         /// </param>
-        /// <param name="contextConfiguration">
-        /// Default Value: openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464
-        /// </param>
+        /// <param name="contextConfiguration"></param>
         /// <param name="reranker">
         /// Rerank results of the search. Rerankers are very powerful tools to improve the order of search results. By default the search will use the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.
         /// </param>

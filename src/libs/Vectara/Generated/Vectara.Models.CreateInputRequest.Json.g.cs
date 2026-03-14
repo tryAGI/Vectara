@@ -2,7 +2,7 @@
 
 namespace Vectara
 {
-    public partial class CreateInputRequest
+    public readonly partial struct CreateInputRequest
     {
         /// <summary>
         /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
@@ -12,7 +12,7 @@ namespace Vectara
         {
             return global::System.Text.Json.JsonSerializer.Serialize(
                 this,
-                typeof(CreateInputRequest),
+                this.GetType(),
                 jsonSerializerContext);
         }
 
@@ -28,22 +28,20 @@ namespace Vectara
         {
             return global::System.Text.Json.JsonSerializer.Serialize(
                 this,
-                typeof(CreateInputRequest),
                 jsonSerializerOptions);
         }
 
         /// <summary>
         /// Deserializes a JSON string using the provided JsonSerializerContext.
         /// </summary>
-        public static T? FromJson<T>(
+        public static global::Vectara.CreateInputRequest? FromJson(
             string json,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-            where T : CreateInputRequest
         {
             return global::System.Text.Json.JsonSerializer.Deserialize(
                 json,
-                typeof(CreateInputRequest),
-                jsonSerializerContext) as T;
+                typeof(global::Vectara.CreateInputRequest),
+                jsonSerializerContext) as global::Vectara.CreateInputRequest?;
         }
 
         /// <summary>
@@ -53,28 +51,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static T? FromJson<T>(
+        public static global::Vectara.CreateInputRequest? FromJson(
             string json,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-            where T : CreateInputRequest
         {
-            return global::System.Text.Json.JsonSerializer.Deserialize<CreateInputRequest>(
+            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.CreateInputRequest>(
                 json,
-                jsonSerializerOptions) as T;
+                jsonSerializerOptions);
         }
 
         /// <summary>
         /// Deserializes a JSON stream using the provided JsonSerializerContext.
         /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<T?> FromJsonStreamAsync<T>(
+        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.CreateInputRequest?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
-            where T : CreateInputRequest
         {
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
                 jsonStream,
-                typeof(CreateInputRequest),
-                jsonSerializerContext).ConfigureAwait(false)) as T;
+                typeof(global::Vectara.CreateInputRequest),
+                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.CreateInputRequest?;
         }
 
         /// <summary>
@@ -84,14 +80,13 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static async global::System.Threading.Tasks.ValueTask<T?> FromJsonStreamAsync<T>(
+        public static global::System.Threading.Tasks.ValueTask<global::Vectara.CreateInputRequest?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
-            where T : CreateInputRequest
         {
-            return (await global::System.Text.Json.JsonSerializer.DeserializeAsync<CreateInputRequest?>(
+            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.CreateInputRequest?>(
                 jsonStream,
-                jsonSerializerOptions).ConfigureAwait(false)) as T;
+                jsonSerializerOptions);
         }
     }
 }

@@ -44,8 +44,7 @@ namespace Vectara
         public required global::Vectara.AgentOutputParser OutputParser { get; set; }
 
         /// <summary>
-        /// Reminders injected into conversation messages when specific events occur.<br/>
-        /// Default Value: []
+        /// Reminders injected into conversation messages when specific events occur.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("reminders")]
         public global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>? Reminders { get; set; }
@@ -110,8 +109,7 @@ namespace Vectara
         /// Default Value: {"type":"default"}
         /// </param>
         /// <param name="reminders">
-        /// Reminders injected into conversation messages when specific events occur.<br/>
-        /// Default Value: []
+        /// Reminders injected into conversation messages when specific events occur.
         /// </param>
         /// <param name="nextSteps">
         /// Conditional transitions to other steps.<br/>

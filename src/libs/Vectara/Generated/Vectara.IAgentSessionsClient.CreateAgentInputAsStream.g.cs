@@ -25,7 +25,7 @@ namespace Vectara
             string agentKey,
             string sessionKey,
 
-            object request,
+            global::Vectara.CreateInputRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default);

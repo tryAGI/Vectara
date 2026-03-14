@@ -83,7 +83,6 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the session.<br/>
-        /// Default Value: {}<br/>
         /// Example: {"customer_id":"12345","priority":"medium","channel":"web_chat"}
         /// </param>
         /// <param name="enabled">

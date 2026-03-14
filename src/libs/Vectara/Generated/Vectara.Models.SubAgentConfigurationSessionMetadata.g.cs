@@ -5,7 +5,6 @@ namespace Vectara
 {
     /// <summary>
     /// Optional metadata to associate with the sub-agent session. Can contain any key-value pairs.<br/>
-    /// Default Value: {}<br/>
     /// Example: {"source":"parent_agent","task_type":"code_review"}
     /// </summary>
     public sealed partial class SubAgentConfigurationSessionMetadata

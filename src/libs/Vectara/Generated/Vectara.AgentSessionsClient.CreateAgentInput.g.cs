@@ -11,7 +11,7 @@ namespace Vectara
             ref int? requestTimeoutMillis,
             ref string agentKey,
             ref string sessionKey,
-            object request);
+            global::Vectara.CreateInputRequest request);
         partial void PrepareCreateAgentInputRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
@@ -19,7 +19,7 @@ namespace Vectara
             int? requestTimeoutMillis,
             string agentKey,
             string sessionKey,
-            object request);
+            global::Vectara.CreateInputRequest request);
         partial void ProcessCreateAgentInputResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
@@ -50,13 +50,11 @@ namespace Vectara
             string agentKey,
             string sessionKey,
 
-            object request,
+            global::Vectara.CreateInputRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            request = request ?? throw new global::System.ArgumentNullException(nameof(request));
-
             PrepareArguments(
                 client: HttpClient);
             PrepareCreateAgentInputArguments(
@@ -104,7 +102,7 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
-            var __httpRequestContentBody = global::System.Text.Json.JsonSerializer.Serialize(request, request.GetType(), JsonSerializerContext);
+            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
             var __httpRequestContent = new global::System.Net.Http.StringContent(
                 content: __httpRequestContentBody,
                 encoding: global::System.Text.Encoding.UTF8,
@@ -452,7 +450,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __request = new object
+            var __request = new global::Vectara.CreateInputRequest
             {
             };
 

@@ -25,10 +25,8 @@ namespace Vectara
         public bool? OutputValid { get; set; }
 
         /// <summary>
-        /// Details of any schema validation errors.<br/>
-        /// Example: []
+        /// Details of any schema validation errors.
         /// </summary>
-        /// <example>[]</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("validation_errors")]
         public global::System.Collections.Generic.IList<string>? ValidationErrors { get; set; }
 
@@ -50,8 +48,7 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="validationErrors">
-        /// Details of any schema validation errors.<br/>
-        /// Example: []
+        /// Details of any schema validation errors.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

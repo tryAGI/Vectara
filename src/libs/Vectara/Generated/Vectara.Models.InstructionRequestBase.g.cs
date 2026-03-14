@@ -55,7 +55,6 @@ namespace Vectara
 
         /// <summary>
         /// Arbitrary metadata associated with the instruction.<br/>
-        /// Default Value: {}<br/>
         /// Example: {"version":"1.0.0","author":"support-team"}
         /// </summary>
         /// <example>{"version":"1.0.0","author":"support-team"}</example>
@@ -108,7 +107,6 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the instruction.<br/>
-        /// Default Value: {}<br/>
         /// Example: {"version":"1.0.0","author":"support-team"}
         /// </param>
         /// <param name="enabled">
