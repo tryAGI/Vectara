@@ -1,7 +1,10 @@
 site_name: Vectara .NET Documentation
 nav:
 - Overview: index.md
-# EXAMPLES #
+# EXAMPLES:START
+- Examples:
+  - ListRerankers: samples/ListRerankers.md
+# EXAMPLES:END
         
 theme:
   name: material
