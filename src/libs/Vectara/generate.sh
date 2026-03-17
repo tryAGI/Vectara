@@ -1,6 +1,7 @@
+set -e
 dotnet tool restore
 rm -rf Generated
-curl -L -o openapi.yaml https://docs.vectara.com/vectara-oas-v2.yaml
+curl --fail --silent --show-error -L -o openapi.yaml https://docs.vectara.com/vectara-oas-v2.yaml
 dotnet tool run autosdk generate openapi.yaml \
   --namespace Vectara \
   --clientClassName VectaraClient \
