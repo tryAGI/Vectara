@@ -142,6 +142,12 @@ namespace Vectara
         ///     return {"client_id": client_id, "adjustment": adjustment}<br/>
         /// ```<br/>
         /// TypedDict supports inheritance, `Optional` fields, nested TypedDicts, and `total=False` to make all fields optional.<br/>
+        /// **Constraining parameters to specific values with Literal**: Use `Literal` to restrict a parameter to a fixed set of allowed values. This generates an `enum` constraint in the JSON schema, helping the agent choose valid options.<br/>
+        /// ```python<br/>
+        /// from typing import Literal<br/>
+        /// def process(status: Literal["active", "inactive", "pending"], priority: Literal[1, 2, 3]) -&gt; dict:<br/>
+        ///     return {"status": status, "priority": priority}<br/>
+        /// ```<br/>
         /// Example: def process(order_count: int, total_revenue: float, days_active: int = 1) -&gt; dict:<br/>
         ///     score = (order_count * 10 + total_revenue * 0.1) / days_active<br/>
         ///     return {'score': round(score, 2)}
@@ -277,6 +283,12 @@ namespace Vectara
         ///     return {"client_id": client_id, "adjustment": adjustment}<br/>
         /// ```<br/>
         /// TypedDict supports inheritance, `Optional` fields, nested TypedDicts, and `total=False` to make all fields optional.<br/>
+        /// **Constraining parameters to specific values with Literal**: Use `Literal` to restrict a parameter to a fixed set of allowed values. This generates an `enum` constraint in the JSON schema, helping the agent choose valid options.<br/>
+        /// ```python<br/>
+        /// from typing import Literal<br/>
+        /// def process(status: Literal["active", "inactive", "pending"], priority: Literal[1, 2, 3]) -&gt; dict:<br/>
+        ///     return {"status": status, "priority": priority}<br/>
+        /// ```<br/>
         /// Example: def process(order_count: int, total_revenue: float, days_active: int = 1) -&gt; dict:<br/>
         ///     score = (order_count * 10 + total_revenue * 0.1) / days_active<br/>
         ///     return {'score': round(score, 2)}
