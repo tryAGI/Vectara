@@ -97,7 +97,10 @@ namespace Vectara
         /// Example: 60
         /// </param>
         /// <param name="fromSession">
-        /// Create a new session by forking an existing one. Compacts the source history into a summary and copies artifacts.
+        /// Create a new session by forking an existing one. By default, copies all visible events<br/>
+        /// and artifacts from the source session without compaction. Optionally specify exactly one of<br/>
+        /// include_up_to_event_id or compact_up_to_event_id to control which events are included<br/>
+        /// and whether they are compacted. These two fields are mutually exclusive.
         /// </param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>

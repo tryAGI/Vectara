@@ -59,6 +59,13 @@ namespace Vectara
         public required bool Enabled { get; set; }
 
         /// <summary>
+        /// Whether this tool is experimental and may change or be removed without notice.<br/>
+        /// Default Value: false
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("experimental")]
+        public bool? Experimental { get; set; }
+
+        /// <summary>
         /// Timestamp when the tool was created.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
@@ -149,6 +156,10 @@ namespace Vectara
         /// Whether the tool is currently enabled and available for use.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="experimental">
+        /// Whether this tool is experimental and may change or be removed without notice.<br/>
+        /// Default Value: false
+        /// </param>
         /// <param name="createdAt">
         /// Timestamp when the tool was created.
         /// </param>
@@ -187,6 +198,7 @@ namespace Vectara
             object inputSchema,
             string? title,
             string? descriptionTemplate,
+            bool? experimental,
             global::System.DateTime? createdAt,
             global::System.DateTime? updatedAt,
             string? category,
@@ -202,6 +214,7 @@ namespace Vectara
             this.InputSchema = inputSchema ?? throw new global::System.ArgumentNullException(nameof(inputSchema));
             this.Title = title;
             this.DescriptionTemplate = descriptionTemplate;
+            this.Experimental = experimental;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
             this.Category = category;

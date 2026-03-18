@@ -16,7 +16,7 @@ namespace Vectara
     /// - No custom package installation supported (security constraint)<br/>
     /// **Type Annotations:**<br/>
     /// - Use type annotations for automatic input/output schema discovery<br/>
-    /// - Supported typing constructs: `List`, `Dict`, `Optional`, `Union`<br/>
+    /// - Supported typing constructs: `List`, `Dict`, `Optional`, `Union`, `Literal`<br/>
     /// - Import from `typing` module when using complex types<br/>
     /// **Docstring Parameter Descriptions:**<br/>
     /// - Use docstrings to provide descriptions for parameters (Google, NumPy, ReST, and Epydoc styles are supported)<br/>
