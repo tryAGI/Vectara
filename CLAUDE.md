@@ -39,7 +39,6 @@ The SDK code is **entirely auto-generated** -- do not manually edit files in `sr
 |---------|---------|
 | `src/libs/Vectara/` | Main SDK library (`VectaraClient`) |
 | `src/tests/IntegrationTests/` | Integration tests against real Vectara API |
-| `src/helpers/GenerateDocs/` | Documentation generator from integration tests |
 
 ### Build Configuration
 
