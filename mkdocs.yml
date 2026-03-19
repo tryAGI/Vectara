@@ -3,7 +3,7 @@ nav:
 - Overview: index.md
 # EXAMPLES:START
 - Examples:
-  - ListRerankers: samples/ListRerankers.md
+  - List Rerankers: examples/list-rerankers.md
 # EXAMPLES:END
         
 theme:
