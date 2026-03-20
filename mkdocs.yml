@@ -4,6 +4,9 @@ nav:
 # EXAMPLES:START
 - Examples:
   - List Rerankers: examples/list-rerankers.md
+  - List Corpora: examples/list-corpora.md
+  - List LLMs: examples/list-llms.md
+  - List Encoders: examples/list-encoders.md
 # EXAMPLES:END
         
 theme:
