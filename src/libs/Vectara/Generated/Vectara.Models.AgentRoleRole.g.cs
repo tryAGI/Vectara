@@ -19,15 +19,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        AgentViewer,
-        /// <summary>
-        /// 
-        /// </summary>
         AgentDeveloper,
         /// <summary>
         /// 
         /// </summary>
         AgentUser,
+        /// <summary>
+        /// 
+        /// </summary>
+        AgentViewer,
     }
 
     /// <summary>
@@ -43,9 +43,9 @@ namespace Vectara
             return value switch
             {
                 AgentRoleRole.AgentAdministrator => "agent_administrator",
-                AgentRoleRole.AgentViewer => "agent_viewer",
                 AgentRoleRole.AgentDeveloper => "agent_developer",
                 AgentRoleRole.AgentUser => "agent_user",
+                AgentRoleRole.AgentViewer => "agent_viewer",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -57,9 +57,9 @@ namespace Vectara
             return value switch
             {
                 "agent_administrator" => AgentRoleRole.AgentAdministrator,
-                "agent_viewer" => AgentRoleRole.AgentViewer,
                 "agent_developer" => AgentRoleRole.AgentDeveloper,
                 "agent_user" => AgentRoleRole.AgentUser,
+                "agent_viewer" => AgentRoleRole.AgentViewer,
                 _ => null,
             };
         }

@@ -11,11 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Success,
+        Error,
         /// <summary>
         /// 
         /// </summary>
-        Error,
+        Success,
     }
 
     /// <summary>
@@ -30,8 +30,8 @@ namespace Vectara
         {
             return value switch
             {
-                AgentScheduleExecutionStatus.Success => "success",
                 AgentScheduleExecutionStatus.Error => "error",
+                AgentScheduleExecutionStatus.Success => "success",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -42,8 +42,8 @@ namespace Vectara
         {
             return value switch
             {
-                "success" => AgentScheduleExecutionStatus.Success,
                 "error" => AgentScheduleExecutionStatus.Error,
+                "success" => AgentScheduleExecutionStatus.Success,
                 _ => null,
             };
         }

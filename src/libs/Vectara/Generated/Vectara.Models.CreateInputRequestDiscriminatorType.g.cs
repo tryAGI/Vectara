@@ -11,15 +11,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Compact,
+        /// <summary>
+        /// 
+        /// </summary>
         InputMessage,
         /// <summary>
         /// 
         /// </summary>
         Interrupt,
-        /// <summary>
-        /// 
-        /// </summary>
-        Compact,
     }
 
     /// <summary>
@@ -34,9 +34,9 @@ namespace Vectara
         {
             return value switch
             {
+                CreateInputRequestDiscriminatorType.Compact => "compact",
                 CreateInputRequestDiscriminatorType.InputMessage => "input_message",
                 CreateInputRequestDiscriminatorType.Interrupt => "interrupt",
-                CreateInputRequestDiscriminatorType.Compact => "compact",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -47,9 +47,9 @@ namespace Vectara
         {
             return value switch
             {
+                "compact" => CreateInputRequestDiscriminatorType.Compact,
                 "input_message" => CreateInputRequestDiscriminatorType.InputMessage,
                 "interrupt" => CreateInputRequestDiscriminatorType.Interrupt,
-                "compact" => CreateInputRequestDiscriminatorType.Compact,
                 _ => null,
             };
         }

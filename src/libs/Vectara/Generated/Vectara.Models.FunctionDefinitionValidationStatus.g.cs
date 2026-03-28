@@ -12,15 +12,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Invalid,
+        /// <summary>
+        /// 
+        /// </summary>
         Pending,
         /// <summary>
         /// 
         /// </summary>
         Valid,
-        /// <summary>
-        /// 
-        /// </summary>
-        Invalid,
     }
 
     /// <summary>
@@ -35,9 +35,9 @@ namespace Vectara
         {
             return value switch
             {
+                FunctionDefinitionValidationStatus.Invalid => "invalid",
                 FunctionDefinitionValidationStatus.Pending => "pending",
                 FunctionDefinitionValidationStatus.Valid => "valid",
-                FunctionDefinitionValidationStatus.Invalid => "invalid",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -48,9 +48,9 @@ namespace Vectara
         {
             return value switch
             {
+                "invalid" => FunctionDefinitionValidationStatus.Invalid,
                 "pending" => FunctionDefinitionValidationStatus.Pending,
                 "valid" => FunctionDefinitionValidationStatus.Valid,
-                "invalid" => FunctionDefinitionValidationStatus.Invalid,
                 _ => null,
             };
         }

@@ -11,11 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Text,
+        Skill,
         /// <summary>
         /// 
         /// </summary>
-        Skill,
+        Text,
     }
 
     /// <summary>
@@ -30,8 +30,8 @@ namespace Vectara
         {
             return value switch
             {
-                AgentInputDiscriminatorType.Text => "text",
                 AgentInputDiscriminatorType.Skill => "skill",
+                AgentInputDiscriminatorType.Text => "text",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -42,8 +42,8 @@ namespace Vectara
         {
             return value switch
             {
-                "text" => AgentInputDiscriminatorType.Text,
                 "skill" => AgentInputDiscriminatorType.Skill,
+                "text" => AgentInputDiscriminatorType.Text,
                 _ => null,
             };
         }

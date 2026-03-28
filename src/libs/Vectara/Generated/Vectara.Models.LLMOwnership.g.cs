@@ -12,11 +12,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Platform,
+        Customer,
         /// <summary>
         /// 
         /// </summary>
-        Customer,
+        Platform,
     }
 
     /// <summary>
@@ -31,8 +31,8 @@ namespace Vectara
         {
             return value switch
             {
-                LLMOwnership.Platform => "platform",
                 LLMOwnership.Customer => "customer",
+                LLMOwnership.Platform => "platform",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -43,8 +43,8 @@ namespace Vectara
         {
             return value switch
             {
-                "platform" => LLMOwnership.Platform,
                 "customer" => LLMOwnership.Customer,
+                "platform" => LLMOwnership.Platform,
                 _ => null,
             };
         }

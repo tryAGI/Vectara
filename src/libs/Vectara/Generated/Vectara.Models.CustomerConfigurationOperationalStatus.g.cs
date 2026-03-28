@@ -16,15 +16,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        MarkedForDeletion,
-        /// <summary>
-        /// 
-        /// </summary>
         Deleted,
         /// <summary>
         /// 
         /// </summary>
         Expired,
+        /// <summary>
+        /// 
+        /// </summary>
+        MarkedForDeletion,
     }
 
     /// <summary>
@@ -40,9 +40,9 @@ namespace Vectara
             return value switch
             {
                 CustomerConfigurationOperationalStatus.Active => "ACTIVE",
-                CustomerConfigurationOperationalStatus.MarkedForDeletion => "MARKED_FOR_DELETION",
                 CustomerConfigurationOperationalStatus.Deleted => "DELETED",
                 CustomerConfigurationOperationalStatus.Expired => "EXPIRED",
+                CustomerConfigurationOperationalStatus.MarkedForDeletion => "MARKED_FOR_DELETION",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -54,9 +54,9 @@ namespace Vectara
             return value switch
             {
                 "ACTIVE" => CustomerConfigurationOperationalStatus.Active,
-                "MARKED_FOR_DELETION" => CustomerConfigurationOperationalStatus.MarkedForDeletion,
                 "DELETED" => CustomerConfigurationOperationalStatus.Deleted,
                 "EXPIRED" => CustomerConfigurationOperationalStatus.Expired,
+                "MARKED_FOR_DELETION" => CustomerConfigurationOperationalStatus.MarkedForDeletion,
                 _ => null,
             };
         }

@@ -11,19 +11,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Initializing,
-        /// <summary>
-        /// 
-        /// </summary>
         Active,
         /// <summary>
         /// 
         /// </summary>
-        Paused,
+        Error,
         /// <summary>
         /// 
         /// </summary>
-        Error,
+        Initializing,
+        /// <summary>
+        /// 
+        /// </summary>
+        Paused,
     }
 
     /// <summary>
@@ -38,10 +38,10 @@ namespace Vectara
         {
             return value switch
             {
-                PipelineStatus.Initializing => "initializing",
                 PipelineStatus.Active => "active",
-                PipelineStatus.Paused => "paused",
                 PipelineStatus.Error => "error",
+                PipelineStatus.Initializing => "initializing",
+                PipelineStatus.Paused => "paused",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -52,10 +52,10 @@ namespace Vectara
         {
             return value switch
             {
-                "initializing" => PipelineStatus.Initializing,
                 "active" => PipelineStatus.Active,
-                "paused" => PipelineStatus.Paused,
                 "error" => PipelineStatus.Error,
+                "initializing" => PipelineStatus.Initializing,
+                "paused" => PipelineStatus.Paused,
                 _ => null,
             };
         }

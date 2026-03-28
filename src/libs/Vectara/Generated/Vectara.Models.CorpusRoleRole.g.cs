@@ -11,19 +11,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Owner,
-        /// <summary>
-        /// 
-        /// </summary>
         Administrator,
         /// <summary>
         /// 
         /// </summary>
-        Viewer,
+        Editor,
         /// <summary>
         /// 
         /// </summary>
-        Editor,
+        Owner,
+        /// <summary>
+        /// 
+        /// </summary>
+        Viewer,
     }
 
     /// <summary>
@@ -38,10 +38,10 @@ namespace Vectara
         {
             return value switch
             {
-                CorpusRoleRole.Owner => "owner",
                 CorpusRoleRole.Administrator => "administrator",
-                CorpusRoleRole.Viewer => "viewer",
                 CorpusRoleRole.Editor => "editor",
+                CorpusRoleRole.Owner => "owner",
+                CorpusRoleRole.Viewer => "viewer",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -52,10 +52,10 @@ namespace Vectara
         {
             return value switch
             {
-                "owner" => CorpusRoleRole.Owner,
                 "administrator" => CorpusRoleRole.Administrator,
-                "viewer" => CorpusRoleRole.Viewer,
                 "editor" => CorpusRoleRole.Editor,
+                "owner" => CorpusRoleRole.Owner,
+                "viewer" => CorpusRoleRole.Viewer,
                 _ => null,
             };
         }

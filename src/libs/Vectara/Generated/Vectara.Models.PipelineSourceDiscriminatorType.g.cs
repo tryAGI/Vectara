@@ -11,15 +11,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Sharepoint,
-        /// <summary>
-        /// 
-        /// </summary>
         Documentum,
         /// <summary>
         /// 
         /// </summary>
         S3,
+        /// <summary>
+        /// 
+        /// </summary>
+        Sharepoint,
     }
 
     /// <summary>
@@ -34,9 +34,9 @@ namespace Vectara
         {
             return value switch
             {
-                PipelineSourceDiscriminatorType.Sharepoint => "sharepoint",
                 PipelineSourceDiscriminatorType.Documentum => "documentum",
                 PipelineSourceDiscriminatorType.S3 => "s3",
+                PipelineSourceDiscriminatorType.Sharepoint => "sharepoint",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -47,9 +47,9 @@ namespace Vectara
         {
             return value switch
             {
-                "sharepoint" => PipelineSourceDiscriminatorType.Sharepoint,
                 "documentum" => PipelineSourceDiscriminatorType.Documentum,
                 "s3" => PipelineSourceDiscriminatorType.S3,
+                "sharepoint" => PipelineSourceDiscriminatorType.Sharepoint,
                 _ => null,
             };
         }

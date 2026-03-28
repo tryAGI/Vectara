@@ -12,11 +12,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        JsonSchema,
+        JsonObject,
         /// <summary>
         /// 
         /// </summary>
-        JsonObject,
+        JsonSchema,
         /// <summary>
         /// 
         /// </summary>
@@ -35,8 +35,8 @@ namespace Vectara
         {
             return value switch
             {
-                ResponseFormatType.JsonSchema => "json_schema",
                 ResponseFormatType.JsonObject => "json_object",
+                ResponseFormatType.JsonSchema => "json_schema",
                 ResponseFormatType.Text => "text",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -48,8 +48,8 @@ namespace Vectara
         {
             return value switch
             {
-                "json_schema" => ResponseFormatType.JsonSchema,
                 "json_object" => ResponseFormatType.JsonObject,
+                "json_schema" => ResponseFormatType.JsonSchema,
                 "text" => ResponseFormatType.Text,
                 _ => null,
             };

@@ -11,11 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Reference,
+        Inline,
         /// <summary>
         /// 
         /// </summary>
-        Inline,
+        Reference,
     }
 
     /// <summary>
@@ -30,8 +30,8 @@ namespace Vectara
         {
             return value switch
             {
-                AgentStepInstructionDiscriminatorType.Reference => "reference",
                 AgentStepInstructionDiscriminatorType.Inline => "inline",
+                AgentStepInstructionDiscriminatorType.Reference => "reference",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -42,8 +42,8 @@ namespace Vectara
         {
             return value switch
             {
-                "reference" => AgentStepInstructionDiscriminatorType.Reference,
                 "inline" => AgentStepInstructionDiscriminatorType.Inline,
+                "reference" => AgentStepInstructionDiscriminatorType.Reference,
                 _ => null,
             };
         }

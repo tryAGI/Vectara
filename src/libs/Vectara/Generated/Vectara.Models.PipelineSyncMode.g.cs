@@ -12,13 +12,13 @@ namespace Vectara
     public enum PipelineSyncMode
     {
         /// <summary>
-        /// Only process new or changed records since the last watermark.
-        /// </summary>
-        Incremental,
-        /// <summary>
         /// Process all records from the source on each run.
         /// </summary>
         FullRefresh,
+        /// <summary>
+        /// Only process new or changed records since the last watermark.
+        /// </summary>
+        Incremental,
     }
 
     /// <summary>
@@ -33,8 +33,8 @@ namespace Vectara
         {
             return value switch
             {
-                PipelineSyncMode.Incremental => "incremental",
                 PipelineSyncMode.FullRefresh => "full_refresh",
+                PipelineSyncMode.Incremental => "incremental",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -45,8 +45,8 @@ namespace Vectara
         {
             return value switch
             {
-                "incremental" => PipelineSyncMode.Incremental,
                 "full_refresh" => PipelineSyncMode.FullRefresh,
+                "incremental" => PipelineSyncMode.Incremental,
                 _ => null,
             };
         }

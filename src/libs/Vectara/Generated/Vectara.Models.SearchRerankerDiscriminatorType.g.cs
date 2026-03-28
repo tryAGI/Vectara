@@ -11,11 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        CustomerReranker,
+        Chain,
         /// <summary>
         /// 
         /// </summary>
-        Userfn,
+        CustomerReranker,
         /// <summary>
         /// 
         /// </summary>
@@ -23,11 +23,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Chain,
+        None,
         /// <summary>
         /// 
         /// </summary>
-        None,
+        Userfn,
     }
 
     /// <summary>
@@ -42,11 +42,11 @@ namespace Vectara
         {
             return value switch
             {
-                SearchRerankerDiscriminatorType.CustomerReranker => "customer_reranker",
-                SearchRerankerDiscriminatorType.Userfn => "userfn",
-                SearchRerankerDiscriminatorType.Mmr => "mmr",
                 SearchRerankerDiscriminatorType.Chain => "chain",
+                SearchRerankerDiscriminatorType.CustomerReranker => "customer_reranker",
+                SearchRerankerDiscriminatorType.Mmr => "mmr",
                 SearchRerankerDiscriminatorType.None => "none",
+                SearchRerankerDiscriminatorType.Userfn => "userfn",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -57,11 +57,11 @@ namespace Vectara
         {
             return value switch
             {
-                "customer_reranker" => SearchRerankerDiscriminatorType.CustomerReranker,
-                "userfn" => SearchRerankerDiscriminatorType.Userfn,
-                "mmr" => SearchRerankerDiscriminatorType.Mmr,
                 "chain" => SearchRerankerDiscriminatorType.Chain,
+                "customer_reranker" => SearchRerankerDiscriminatorType.CustomerReranker,
+                "mmr" => SearchRerankerDiscriminatorType.Mmr,
                 "none" => SearchRerankerDiscriminatorType.None,
+                "userfn" => SearchRerankerDiscriminatorType.Userfn,
                 _ => null,
             };
         }
