@@ -11,19 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Object,
-        /// <summary>
-        /// 
-        /// </summary>
         Array,
         /// <summary>
         /// 
         /// </summary>
-        String,
-        /// <summary>
-        /// 
-        /// </summary>
-        Number,
+        Boolean,
         /// <summary>
         /// 
         /// </summary>
@@ -31,7 +23,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Boolean,
+        Number,
+        /// <summary>
+        /// 
+        /// </summary>
+        Object,
+        /// <summary>
+        /// 
+        /// </summary>
+        String,
     }
 
     /// <summary>
@@ -46,12 +46,12 @@ namespace Vectara
         {
             return value switch
             {
-                JsonSchemaDefinitionType.Object => "object",
                 JsonSchemaDefinitionType.Array => "array",
-                JsonSchemaDefinitionType.String => "string",
-                JsonSchemaDefinitionType.Number => "number",
-                JsonSchemaDefinitionType.Integer => "integer",
                 JsonSchemaDefinitionType.Boolean => "boolean",
+                JsonSchemaDefinitionType.Integer => "integer",
+                JsonSchemaDefinitionType.Number => "number",
+                JsonSchemaDefinitionType.Object => "object",
+                JsonSchemaDefinitionType.String => "string",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -62,12 +62,12 @@ namespace Vectara
         {
             return value switch
             {
-                "object" => JsonSchemaDefinitionType.Object,
                 "array" => JsonSchemaDefinitionType.Array,
-                "string" => JsonSchemaDefinitionType.String,
-                "number" => JsonSchemaDefinitionType.Number,
-                "integer" => JsonSchemaDefinitionType.Integer,
                 "boolean" => JsonSchemaDefinitionType.Boolean,
+                "integer" => JsonSchemaDefinitionType.Integer,
+                "number" => JsonSchemaDefinitionType.Number,
+                "object" => JsonSchemaDefinitionType.Object,
+                "string" => JsonSchemaDefinitionType.String,
                 _ => null,
             };
         }

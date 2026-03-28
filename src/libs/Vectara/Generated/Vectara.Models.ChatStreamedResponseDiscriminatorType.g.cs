@@ -11,11 +11,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        SearchResults,
+        ChatInfo,
         /// <summary>
         /// 
         /// </summary>
-        ChatInfo,
+        End,
+        /// <summary>
+        /// 
+        /// </summary>
+        Error,
+        /// <summary>
+        /// 
+        /// </summary>
+        FactualConsistencyScore,
         /// <summary>
         /// 
         /// </summary>
@@ -31,15 +39,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        FactualConsistencyScore,
-        /// <summary>
-        /// 
-        /// </summary>
-        End,
-        /// <summary>
-        /// 
-        /// </summary>
-        Error,
+        SearchResults,
     }
 
     /// <summary>
@@ -54,14 +54,14 @@ namespace Vectara
         {
             return value switch
             {
-                ChatStreamedResponseDiscriminatorType.SearchResults => "search_results",
                 ChatStreamedResponseDiscriminatorType.ChatInfo => "chat_info",
+                ChatStreamedResponseDiscriminatorType.End => "end",
+                ChatStreamedResponseDiscriminatorType.Error => "error",
+                ChatStreamedResponseDiscriminatorType.FactualConsistencyScore => "factual_consistency_score",
                 ChatStreamedResponseDiscriminatorType.GenerationChunk => "generation_chunk",
                 ChatStreamedResponseDiscriminatorType.GenerationEnd => "generation_end",
                 ChatStreamedResponseDiscriminatorType.GenerationInfo => "generation_info",
-                ChatStreamedResponseDiscriminatorType.FactualConsistencyScore => "factual_consistency_score",
-                ChatStreamedResponseDiscriminatorType.End => "end",
-                ChatStreamedResponseDiscriminatorType.Error => "error",
+                ChatStreamedResponseDiscriminatorType.SearchResults => "search_results",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -72,14 +72,14 @@ namespace Vectara
         {
             return value switch
             {
-                "search_results" => ChatStreamedResponseDiscriminatorType.SearchResults,
                 "chat_info" => ChatStreamedResponseDiscriminatorType.ChatInfo,
+                "end" => ChatStreamedResponseDiscriminatorType.End,
+                "error" => ChatStreamedResponseDiscriminatorType.Error,
+                "factual_consistency_score" => ChatStreamedResponseDiscriminatorType.FactualConsistencyScore,
                 "generation_chunk" => ChatStreamedResponseDiscriminatorType.GenerationChunk,
                 "generation_end" => ChatStreamedResponseDiscriminatorType.GenerationEnd,
                 "generation_info" => ChatStreamedResponseDiscriminatorType.GenerationInfo,
-                "factual_consistency_score" => ChatStreamedResponseDiscriminatorType.FactualConsistencyScore,
-                "end" => ChatStreamedResponseDiscriminatorType.End,
-                "error" => ChatStreamedResponseDiscriminatorType.Error,
+                "search_results" => ChatStreamedResponseDiscriminatorType.SearchResults,
                 _ => null,
             };
         }

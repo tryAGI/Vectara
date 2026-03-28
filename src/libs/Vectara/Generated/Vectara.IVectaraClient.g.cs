@@ -32,6 +32,9 @@ namespace Vectara
         /// <summary>
         /// Gets or sets a value indicating whether the response content should be read as a string.
         /// True by default in debug builds, false otherwise.
+        /// When false, successful responses are deserialized directly from the response stream for better performance.
+        /// Error responses are always read as strings regardless of this setting,
+        /// ensuring <see cref="ApiException.ResponseBody"/> is populated.
         /// </summary>
         public bool ReadResponseAsString { get; set; }
 
@@ -42,94 +45,39 @@ namespace Vectara
 
 
         /// <summary>
-        /// Create and interact with AI agents that can use tools and corpora to perform complex queries.
+        /// 
         /// </summary>
-        public AgentsClient Agents { get; }
+        public AgentArtifactsClient AgentArtifacts { get; }
 
         /// <summary>
-        /// Manage agent sessions and interact with agents through conversational events.
+        /// 
         /// </summary>
-        public AgentSessionsClient AgentSessions { get; }
+        public AgentEventsClient AgentEvents { get; }
 
         /// <summary>
-        /// Create and manage scheduled automated execution of agents at specified intervals.
+        /// 
         /// </summary>
-        public AgentSchedulesClient AgentSchedules { get; }
+        public AgentSchedules2Client AgentSchedules2 { get; }
 
         /// <summary>
-        /// List predefined guardrails for validating tool calls, agent outputs, and agent actions.
+        /// 
         /// </summary>
-        public GuardrailsClient Guardrails { get; }
+        public AgentSessions2Client AgentSessions2 { get; }
 
         /// <summary>
-        /// Create and manage instructions that guide agent behavior.
+        /// 
         /// </summary>
-        public InstructionsClient Instructions { get; }
+        public Agents2Client Agents2 { get; }
 
         /// <summary>
-        /// Manage and discover tools available for AI agents to use in their workflows.
+        /// 
         /// </summary>
-        public ToolsClient Tools { get; }
+        public ApiKeys2Client ApiKeys2 { get; }
 
         /// <summary>
-        /// Manage tool servers that provide access to external tools for AI agents.
+        /// 
         /// </summary>
-        public ToolServersClient ToolServers { get; }
-
-        /// <summary>
-        /// Create and manage connectors that allow agents to receive events from external platforms like Slack.
-        /// </summary>
-        public AgentConnectorsClient AgentConnectors { get; }
-
-        /// <summary>
-        /// Create and manage automated data pipelines. A pipeline is a one-directional flow that sends all data from a source system to an agent, creating a new session per source record for the agent to act on. This is distinct from agent schedules (recurring single executions) and connectors (bidirectional chat integrations like Slack).
-        /// </summary>
-        public PipelinesClient Pipelines { get; }
-
-        /// <summary>
-        /// Monitor pipeline execution runs and their processing outcomes.
-        /// </summary>
-        public PipelineRunsClient PipelineRuns { get; }
-
-        /// <summary>
-        /// The Query APIs are the primary interface for searching your data and generating AI-powered summaries. After indexing documents into corpora, you use these endpoints to retrieve relevant information and optionally generate grounded summaries using Retrieval Augmented Generation (RAG).
-        /// </summary>
-        public QueriesClient Queries { get; }
-
-        /// <summary>
-        /// Query across arbitrary metadata fields in a corpus.
-        /// </summary>
-        public MetadataQueryClient MetadataQuery { get; }
-
-        /// <summary>
-        /// Upload files to a corpus for automatic parsing, text extraction, chunking, and indexing.
-        /// </summary>
-        public UploadClient Upload { get; }
-
-        /// <summary>
-        /// Index and manage both core and structured documents to enable efficient search and retrieval.
-        /// </summary>
-        public IndexClient Index { get; }
-
-        /// <summary>
-        /// Create, manage, and update corpora and their associated settings.
-        /// </summary>
-        public CorporaClient Corpora { get; }
-
-        /// <summary>
-        /// Retrieve and manage documents stored in a corpus for administrative tasks.
-        /// </summary>
-        public DocumentsClient Documents { get; }
-
-        /// <summary>
-        /// Manage generation presets for controlling the behavior of generative AI responses.
-        /// </summary>
-        public GenerationPresetsClient GenerationPresets { get; }
-
-        /// <summary>
-        /// Retrieve and manage the history of previous queries for analytics and auditing.
-        /// </summary>
-        public QueryHistoryClient QueryHistory { get; }
+        public AppClientsClient AppClients { get; }
 
         /// <summary>
         /// Authenticate with the API using OAuth 2.0 or API keys.
@@ -137,69 +85,99 @@ namespace Vectara
         public AuthenticationClient Authentication { get; }
 
         /// <summary>
-        /// Create, manage, and revoke API keys for secure access to the platform.
+        /// 
         /// </summary>
-        public ApiKeysClient ApiKeys { get; }
+        public Corpora2Client Corpora2 { get; }
 
         /// <summary>
-        /// Configure and manage application clients for OAuth authentication.
+        /// 
         /// </summary>
-        public ApplicationClientsClient ApplicationClients { get; }
+        public Documents2Client Documents2 { get; }
 
         /// <summary>
-        /// List LLMs for text summarization, chat, and other generation tasks.
+        /// 
         /// </summary>
-        public LargeLanguageModelsClient LargeLanguageModels { get; }
+        public Encoders2Client Encoders2 { get; }
 
         /// <summary>
-        /// List available encoders (such as Boomerang) that turn text into vectors.
+        /// 
         /// </summary>
-        public EncodersClient Encoders { get; }
+        public FactualConsistencyClient FactualConsistency { get; }
 
         /// <summary>
-        /// List rerankers for reranking search results.
+        /// 
         /// </summary>
-        public RerankersClient Rerankers { get; }
+        public GenerationPresets2Client GenerationPresets2 { get; }
 
         /// <summary>
-        /// Monitor background jobs such as rebuilding indexes or updating corpus settings.
+        /// 
         /// </summary>
-        public JobsClient Jobs { get; }
+        public HallucinationCorrectors2Client HallucinationCorrectors2 { get; }
 
         /// <summary>
-        /// Create, manage, and authenticate users within the platform for user administration.
+        /// 
         /// </summary>
-        public UsersClient Users { get; }
+        public Instructions2Client Instructions2 { get; }
 
         /// <summary>
-        /// List available extractors for tabular data from documents.
+        /// 
         /// </summary>
-        public TableExtractorsClient TableExtractors { get; }
+        public Jobs2Client Jobs2 { get; }
 
         /// <summary>
-        /// API for managing hallucination correction, including listing available models and correcting hallucinated content in generated text.
+        /// 
         /// </summary>
-        public HallucinationCorrectorsClient HallucinationCorrectors { get; }
+        public LlmClient Llm { get; }
 
         /// <summary>
-        /// Create model responses for chat conversations using OpenAI-compatible endpoints.
+        /// 
         /// </summary>
-        public LlmChatCompletionsClient LlmChatCompletions { get; }
+        public LlmsClient Llms { get; }
 
         /// <summary>
-        /// Evaluate text quality metrics like factual consistency and hallucination detection.
+        /// 
         /// </summary>
-        public FactualConsistencyEvaluationClient FactualConsistencyEvaluation { get; }
+        public MetadataClient Metadata { get; }
 
         /// <summary>
-        /// Retrieve customer configuration and authentication details.
+        /// 
         /// </summary>
-        public CustomerConfigurationClient CustomerConfiguration { get; }
+        public Queries2Client Queries2 { get; }
 
         /// <summary>
-        /// Deprecated: use Agents instead. Chat endpoints are no longer supported.
+        /// 
         /// </summary>
-        public ChatsClient Chats { get; }
+        public QueryHistory2Client QueryHistory2 { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Rerankers2Client Rerankers2 { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TableExtractors2Client TableExtractors2 { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ToolServers2Client ToolServers2 { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Tools2Client Tools2 { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Upload2Client Upload2 { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Users2Client Users2 { get; }
 
     }
 }

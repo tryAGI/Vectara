@@ -11,11 +11,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Queued,
-        /// <summary>
-        /// 
-        /// </summary>
-        Running,
+        Cancelled,
         /// <summary>
         /// 
         /// </summary>
@@ -27,7 +23,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Cancelled,
+        Queued,
+        /// <summary>
+        /// 
+        /// </summary>
+        Running,
     }
 
     /// <summary>
@@ -42,11 +42,11 @@ namespace Vectara
         {
             return value switch
             {
-                PipelineRunStatus.Queued => "queued",
-                PipelineRunStatus.Running => "running",
+                PipelineRunStatus.Cancelled => "cancelled",
                 PipelineRunStatus.Completed => "completed",
                 PipelineRunStatus.Failed => "failed",
-                PipelineRunStatus.Cancelled => "cancelled",
+                PipelineRunStatus.Queued => "queued",
+                PipelineRunStatus.Running => "running",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -57,11 +57,11 @@ namespace Vectara
         {
             return value switch
             {
-                "queued" => PipelineRunStatus.Queued,
-                "running" => PipelineRunStatus.Running,
+                "cancelled" => PipelineRunStatus.Cancelled,
                 "completed" => PipelineRunStatus.Completed,
                 "failed" => PipelineRunStatus.Failed,
-                "cancelled" => PipelineRunStatus.Cancelled,
+                "queued" => PipelineRunStatus.Queued,
+                "running" => PipelineRunStatus.Running,
                 _ => null,
             };
         }

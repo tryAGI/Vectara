@@ -1,6 +1,4 @@
 
-#pragma warning disable CS0618 // Type or member is obsolete
-
 #nullable enable
 
 namespace Vectara
@@ -77,8 +75,8 @@ namespace Vectara
         /// Maximum response size in bytes before truncation.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_content_bytes")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<int?, global::Vectara.EagerReference>))]
-        public global::Vectara.OneOf<int?, global::Vectara.EagerReference>? MaxContentBytes { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<long?, global::Vectara.EagerReference>))]
+        public global::Vectara.OneOf<long?, global::Vectara.EagerReference>? MaxContentBytes { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -132,7 +130,7 @@ namespace Vectara
             global::Vectara.OneOf<int?, global::Vectara.EagerReference>? headLines,
             global::Vectara.OneOf<int?, global::Vectara.EagerReference>? tailLines,
             global::Vectara.OneOf<bool?, global::Vectara.EagerReference>? sslVerify,
-            global::Vectara.OneOf<int?, global::Vectara.EagerReference>? maxContentBytes)
+            global::Vectara.OneOf<long?, global::Vectara.EagerReference>? maxContentBytes)
         {
             this.Url = url;
             this.Method = method;

@@ -15,29 +15,64 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            var
-            readerCopy = reader;
-            global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1? value1 = default;
-            try
+            using var __jsonDocument = global::System.Text.Json.JsonDocument.ParseValue(ref reader);
+            var __rawJson = __jsonDocument.RootElement.GetRawText();
+            var __jsonProps = new global::System.Collections.Generic.HashSet<string>();
+            if (__jsonDocument.RootElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1).Name}");
-                value1 = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, typeInfo);
+                foreach (var __jsonProp in __jsonDocument.RootElement.EnumerateObject())
+                {
+                    __jsonProps.Add(__jsonProp.Name);
+                }
             }
-            catch (global::System.Text.Json.JsonException)
+
+            var __score0 = 0;
+            if (__jsonProps.Contains("argument_override")) __score0++;
+            if (__jsonProps.Contains("tool_configuration")) __score0++;
+            if (__jsonProps.Contains("type")) __score0++;
+            var __bestScore = 0;
+            var __bestIndex = -1;
+            if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
+
+            global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1? value1 = default;
+            if (__bestIndex >= 0)
             {
+                if (__bestIndex == 0)
+                {
+                    try
+                    {
+                        var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1> ??
+                                       throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1).Name}");
+                        value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    }
+                    catch (global::System.Text.Json.JsonException)
+                    {
+                    }
+                    catch (global::System.InvalidOperationException)
+                    {
+                    }
+                }
+            }
+
+            if (value1 == null)
+            {
+                try
+                {
+                    var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1> ??
+                                   throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1).Name}");
+                    value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                }
+                catch (global::System.Text.Json.JsonException)
+                {
+                }
+                catch (global::System.InvalidOperationException)
+                {
+                }
             }
 
             var __value = new global::Vectara.UpdateArtifactReadToolConfigurationRequest(
                 value1
                 );
-
-            if (value1 != null)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1).Name}");
-                _ = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
-            }
 
             return __value;
         }

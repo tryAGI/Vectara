@@ -12,19 +12,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Integer,
-        /// <summary>
-        /// 
-        /// </summary>
-        RealNumber,
-        /// <summary>
-        /// 
-        /// </summary>
-        Text,
-        /// <summary>
-        /// 
-        /// </summary>
         Boolean,
+        /// <summary>
+        /// 
+        /// </summary>
+        Integer,
         /// <summary>
         /// 
         /// </summary>
@@ -37,6 +29,14 @@ namespace Vectara
         /// 
         /// </summary>
         Listtext,
+        /// <summary>
+        /// 
+        /// </summary>
+        RealNumber,
+        /// <summary>
+        /// 
+        /// </summary>
+        Text,
     }
 
     /// <summary>
@@ -51,13 +51,13 @@ namespace Vectara
         {
             return value switch
             {
-                FilterAttributeType.Integer => "integer",
-                FilterAttributeType.RealNumber => "real_number",
-                FilterAttributeType.Text => "text",
                 FilterAttributeType.Boolean => "boolean",
+                FilterAttributeType.Integer => "integer",
                 FilterAttributeType.Listinteger => "list[integer]",
                 FilterAttributeType.ListrealNumber => "list[real_number]",
                 FilterAttributeType.Listtext => "list[text]",
+                FilterAttributeType.RealNumber => "real_number",
+                FilterAttributeType.Text => "text",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -68,13 +68,13 @@ namespace Vectara
         {
             return value switch
             {
-                "integer" => FilterAttributeType.Integer,
-                "real_number" => FilterAttributeType.RealNumber,
-                "text" => FilterAttributeType.Text,
                 "boolean" => FilterAttributeType.Boolean,
+                "integer" => FilterAttributeType.Integer,
                 "list[integer]" => FilterAttributeType.Listinteger,
                 "list[real_number]" => FilterAttributeType.ListrealNumber,
                 "list[text]" => FilterAttributeType.Listtext,
+                "real_number" => FilterAttributeType.RealNumber,
+                "text" => FilterAttributeType.Text,
                 _ => null,
             };
         }

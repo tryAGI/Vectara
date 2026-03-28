@@ -15,7 +15,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Header,
+        BedrockApiKey,
         /// <summary>
         /// 
         /// </summary>
@@ -23,15 +23,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        BedrockApiKey,
-        /// <summary>
-        /// 
-        /// </summary>
-        VertexServiceAccount,
+        Header,
         /// <summary>
         /// 
         /// </summary>
         VertexAccessToken,
+        /// <summary>
+        /// 
+        /// </summary>
+        VertexServiceAccount,
     }
 
     /// <summary>
@@ -47,11 +47,11 @@ namespace Vectara
             return value switch
             {
                 AnthropicAuthDiscriminatorType.Bearer => "bearer",
-                AnthropicAuthDiscriminatorType.Header => "header",
-                AnthropicAuthDiscriminatorType.BedrockStaticIam => "bedrock_static_iam",
                 AnthropicAuthDiscriminatorType.BedrockApiKey => "bedrock_api_key",
-                AnthropicAuthDiscriminatorType.VertexServiceAccount => "vertex_service_account",
+                AnthropicAuthDiscriminatorType.BedrockStaticIam => "bedrock_static_iam",
+                AnthropicAuthDiscriminatorType.Header => "header",
                 AnthropicAuthDiscriminatorType.VertexAccessToken => "vertex_access_token",
+                AnthropicAuthDiscriminatorType.VertexServiceAccount => "vertex_service_account",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -63,11 +63,11 @@ namespace Vectara
             return value switch
             {
                 "bearer" => AnthropicAuthDiscriminatorType.Bearer,
-                "header" => AnthropicAuthDiscriminatorType.Header,
-                "bedrock_static_iam" => AnthropicAuthDiscriminatorType.BedrockStaticIam,
                 "bedrock_api_key" => AnthropicAuthDiscriminatorType.BedrockApiKey,
-                "vertex_service_account" => AnthropicAuthDiscriminatorType.VertexServiceAccount,
+                "bedrock_static_iam" => AnthropicAuthDiscriminatorType.BedrockStaticIam,
+                "header" => AnthropicAuthDiscriminatorType.Header,
                 "vertex_access_token" => AnthropicAuthDiscriminatorType.VertexAccessToken,
+                "vertex_service_account" => AnthropicAuthDiscriminatorType.VertexServiceAccount,
                 _ => null,
             };
         }

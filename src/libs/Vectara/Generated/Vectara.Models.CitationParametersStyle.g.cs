@@ -15,19 +15,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        None,
-        /// <summary>
-        /// \[1\], \[2\], etc.
-        /// </summary>
-        Numeric,
-        /// <summary>
-        /// 
-        /// </summary>
         Html,
         /// <summary>
         /// 
         /// </summary>
         Markdown,
+        /// <summary>
+        /// 
+        /// </summary>
+        None,
+        /// <summary>
+        /// \[1\], \[2\], etc.
+        /// </summary>
+        Numeric,
     }
 
     /// <summary>
@@ -42,10 +42,10 @@ namespace Vectara
         {
             return value switch
             {
-                CitationParametersStyle.None => "none",
-                CitationParametersStyle.Numeric => "numeric",
                 CitationParametersStyle.Html => "html",
                 CitationParametersStyle.Markdown => "markdown",
+                CitationParametersStyle.None => "none",
+                CitationParametersStyle.Numeric => "numeric",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -56,10 +56,10 @@ namespace Vectara
         {
             return value switch
             {
-                "none" => CitationParametersStyle.None,
-                "numeric" => CitationParametersStyle.Numeric,
                 "html" => CitationParametersStyle.Html,
                 "markdown" => CitationParametersStyle.Markdown,
+                "none" => CitationParametersStyle.None,
+                "numeric" => CitationParametersStyle.Numeric,
                 _ => null,
             };
         }

@@ -17,11 +17,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Low,
+        High,
         /// <summary>
         /// 
         /// </summary>
-        High,
+        Low,
     }
 
     /// <summary>
@@ -37,8 +37,8 @@ namespace Vectara
             return value switch
             {
                 ImageReadToolParametersDetail.Auto => "auto",
-                ImageReadToolParametersDetail.Low => "low",
                 ImageReadToolParametersDetail.High => "high",
+                ImageReadToolParametersDetail.Low => "low",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -50,8 +50,8 @@ namespace Vectara
             return value switch
             {
                 "auto" => ImageReadToolParametersDetail.Auto,
-                "low" => ImageReadToolParametersDetail.Low,
                 "high" => ImageReadToolParametersDetail.High,
+                "low" => ImageReadToolParametersDetail.Low,
                 _ => null,
             };
         }

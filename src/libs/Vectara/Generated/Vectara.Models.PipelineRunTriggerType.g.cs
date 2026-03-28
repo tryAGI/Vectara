@@ -11,11 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Scheduled,
+        Manual,
         /// <summary>
         /// 
         /// </summary>
-        Manual,
+        Scheduled,
     }
 
     /// <summary>
@@ -30,8 +30,8 @@ namespace Vectara
         {
             return value switch
             {
-                PipelineRunTriggerType.Scheduled => "scheduled",
                 PipelineRunTriggerType.Manual => "manual",
+                PipelineRunTriggerType.Scheduled => "scheduled",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -42,8 +42,8 @@ namespace Vectara
         {
             return value switch
             {
-                "scheduled" => PipelineRunTriggerType.Scheduled,
                 "manual" => PipelineRunTriggerType.Manual,
+                "scheduled" => PipelineRunTriggerType.Scheduled,
                 _ => null,
             };
         }

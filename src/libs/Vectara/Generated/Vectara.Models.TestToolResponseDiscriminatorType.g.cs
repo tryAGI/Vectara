@@ -11,11 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Success,
+        Error,
         /// <summary>
         /// 
         /// </summary>
-        Error,
+        Success,
     }
 
     /// <summary>
@@ -30,8 +30,8 @@ namespace Vectara
         {
             return value switch
             {
-                TestToolResponseDiscriminatorType.Success => "success",
                 TestToolResponseDiscriminatorType.Error => "error",
+                TestToolResponseDiscriminatorType.Success => "success",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -42,8 +42,8 @@ namespace Vectara
         {
             return value switch
             {
-                "success" => TestToolResponseDiscriminatorType.Success,
                 "error" => TestToolResponseDiscriminatorType.Error,
+                "success" => TestToolResponseDiscriminatorType.Success,
                 _ => null,
             };
         }

@@ -12,11 +12,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Raw,
+        Base64,
         /// <summary>
         /// 
         /// </summary>
-        Base64,
+        Raw,
     }
 
     /// <summary>
@@ -31,8 +31,8 @@ namespace Vectara
         {
             return value switch
             {
-                ArtifactReadToolParametersEncoding.Raw => "raw",
                 ArtifactReadToolParametersEncoding.Base64 => "base64",
+                ArtifactReadToolParametersEncoding.Raw => "raw",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -43,8 +43,8 @@ namespace Vectara
         {
             return value switch
             {
-                "raw" => ArtifactReadToolParametersEncoding.Raw,
                 "base64" => ArtifactReadToolParametersEncoding.Base64,
+                "raw" => ArtifactReadToolParametersEncoding.Raw,
                 _ => null,
             };
         }

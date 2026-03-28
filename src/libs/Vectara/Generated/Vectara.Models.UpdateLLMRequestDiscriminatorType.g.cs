@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Anthropic,
+        /// <summary>
+        /// 
+        /// </summary>
         OpenaiCompatible,
         /// <summary>
         /// 
@@ -20,10 +24,6 @@ namespace Vectara
         /// 
         /// </summary>
         VertexAi,
-        /// <summary>
-        /// 
-        /// </summary>
-        Anthropic,
     }
 
     /// <summary>
@@ -38,10 +38,10 @@ namespace Vectara
         {
             return value switch
             {
+                UpdateLLMRequestDiscriminatorType.Anthropic => "anthropic",
                 UpdateLLMRequestDiscriminatorType.OpenaiCompatible => "openai-compatible",
                 UpdateLLMRequestDiscriminatorType.OpenaiResponses => "openai-responses",
                 UpdateLLMRequestDiscriminatorType.VertexAi => "vertex-ai",
-                UpdateLLMRequestDiscriminatorType.Anthropic => "anthropic",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -52,10 +52,10 @@ namespace Vectara
         {
             return value switch
             {
+                "anthropic" => UpdateLLMRequestDiscriminatorType.Anthropic,
                 "openai-compatible" => UpdateLLMRequestDiscriminatorType.OpenaiCompatible,
                 "openai-responses" => UpdateLLMRequestDiscriminatorType.OpenaiResponses,
                 "vertex-ai" => UpdateLLMRequestDiscriminatorType.VertexAi,
-                "anthropic" => UpdateLLMRequestDiscriminatorType.Anthropic,
                 _ => null,
             };
         }

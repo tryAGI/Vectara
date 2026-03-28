@@ -11,11 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        DynamicVectara,
+        ArtifactGrep,
         /// <summary>
         /// 
         /// </summary>
-        Mcp,
+        ArtifactRead,
         /// <summary>
         /// 
         /// </summary>
@@ -23,11 +23,27 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        WebSearch,
+        DocumentConversion,
+        /// <summary>
+        /// 
+        /// </summary>
+        DynamicVectara,
+        /// <summary>
+        /// 
+        /// </summary>
+        GetDocumentText,
+        /// <summary>
+        /// 
+        /// </summary>
+        ImageRead,
         /// <summary>
         /// 
         /// </summary>
         Lambda,
+        /// <summary>
+        /// 
+        /// </summary>
+        Mcp,
         /// <summary>
         /// 
         /// </summary>
@@ -39,23 +55,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        ArtifactRead,
-        /// <summary>
-        /// 
-        /// </summary>
-        ArtifactGrep,
-        /// <summary>
-        /// 
-        /// </summary>
-        ImageRead,
-        /// <summary>
-        /// 
-        /// </summary>
-        DocumentConversion,
-        /// <summary>
-        /// 
-        /// </summary>
-        GetDocumentText,
+        WebSearch,
     }
 
     /// <summary>
@@ -70,18 +70,18 @@ namespace Vectara
         {
             return value switch
             {
-                ToolConfigurationDiscriminatorType.DynamicVectara => "dynamic_vectara",
-                ToolConfigurationDiscriminatorType.Mcp => "mcp",
+                ToolConfigurationDiscriminatorType.ArtifactGrep => "artifact_grep",
+                ToolConfigurationDiscriminatorType.ArtifactRead => "artifact_read",
                 ToolConfigurationDiscriminatorType.CorporaSearch => "corpora_search",
-                ToolConfigurationDiscriminatorType.WebSearch => "web_search",
+                ToolConfigurationDiscriminatorType.DocumentConversion => "document_conversion",
+                ToolConfigurationDiscriminatorType.DynamicVectara => "dynamic_vectara",
+                ToolConfigurationDiscriminatorType.GetDocumentText => "get_document_text",
+                ToolConfigurationDiscriminatorType.ImageRead => "image_read",
                 ToolConfigurationDiscriminatorType.Lambda => "lambda",
+                ToolConfigurationDiscriminatorType.Mcp => "mcp",
                 ToolConfigurationDiscriminatorType.StructuredIndexing => "structured_indexing",
                 ToolConfigurationDiscriminatorType.SubAgent => "sub_agent",
-                ToolConfigurationDiscriminatorType.ArtifactRead => "artifact_read",
-                ToolConfigurationDiscriminatorType.ArtifactGrep => "artifact_grep",
-                ToolConfigurationDiscriminatorType.ImageRead => "image_read",
-                ToolConfigurationDiscriminatorType.DocumentConversion => "document_conversion",
-                ToolConfigurationDiscriminatorType.GetDocumentText => "get_document_text",
+                ToolConfigurationDiscriminatorType.WebSearch => "web_search",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -92,18 +92,18 @@ namespace Vectara
         {
             return value switch
             {
-                "dynamic_vectara" => ToolConfigurationDiscriminatorType.DynamicVectara,
-                "mcp" => ToolConfigurationDiscriminatorType.Mcp,
+                "artifact_grep" => ToolConfigurationDiscriminatorType.ArtifactGrep,
+                "artifact_read" => ToolConfigurationDiscriminatorType.ArtifactRead,
                 "corpora_search" => ToolConfigurationDiscriminatorType.CorporaSearch,
-                "web_search" => ToolConfigurationDiscriminatorType.WebSearch,
+                "document_conversion" => ToolConfigurationDiscriminatorType.DocumentConversion,
+                "dynamic_vectara" => ToolConfigurationDiscriminatorType.DynamicVectara,
+                "get_document_text" => ToolConfigurationDiscriminatorType.GetDocumentText,
+                "image_read" => ToolConfigurationDiscriminatorType.ImageRead,
                 "lambda" => ToolConfigurationDiscriminatorType.Lambda,
+                "mcp" => ToolConfigurationDiscriminatorType.Mcp,
                 "structured_indexing" => ToolConfigurationDiscriminatorType.StructuredIndexing,
                 "sub_agent" => ToolConfigurationDiscriminatorType.SubAgent,
-                "artifact_read" => ToolConfigurationDiscriminatorType.ArtifactRead,
-                "artifact_grep" => ToolConfigurationDiscriminatorType.ArtifactGrep,
-                "image_read" => ToolConfigurationDiscriminatorType.ImageRead,
-                "document_conversion" => ToolConfigurationDiscriminatorType.DocumentConversion,
-                "get_document_text" => ToolConfigurationDiscriminatorType.GetDocumentText,
+                "web_search" => ToolConfigurationDiscriminatorType.WebSearch,
                 _ => null,
             };
         }

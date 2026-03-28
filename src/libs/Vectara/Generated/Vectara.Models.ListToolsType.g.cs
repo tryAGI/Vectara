@@ -11,11 +11,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Mcp,
+        Lambda,
         /// <summary>
         /// 
         /// </summary>
-        Lambda,
+        Mcp,
     }
 
     /// <summary>
@@ -30,8 +30,8 @@ namespace Vectara
         {
             return value switch
             {
-                ListToolsType.Mcp => "mcp",
                 ListToolsType.Lambda => "lambda",
+                ListToolsType.Mcp => "mcp",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -42,8 +42,8 @@ namespace Vectara
         {
             return value switch
             {
-                "mcp" => ListToolsType.Mcp,
                 "lambda" => ListToolsType.Lambda,
+                "mcp" => ListToolsType.Mcp,
                 _ => null,
             };
         }
