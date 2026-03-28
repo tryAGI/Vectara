@@ -10,7 +10,7 @@ namespace Vectara
         TypeDiscriminatorPropertyName = "type",
         IgnoreUnrecognizedTypeDiscriminators = true,
         UnknownDerivedTypeHandling = global::System.Text.Json.Serialization.JsonUnknownDerivedTypeHandling.FallBackToBaseType)]
-    [global::System.Text.Json.Serialization.JsonDerivedType(typeof(Vectara.AgentTransformConfiguration), typeDiscriminator: "agent")]
+    [global::System.Text.Json.Serialization.JsonDerivedType(typeof(global::Vectara.AgentTransformConfiguration), typeDiscriminator: "agent")]
     public partial class PipelineTransform
     {
 
