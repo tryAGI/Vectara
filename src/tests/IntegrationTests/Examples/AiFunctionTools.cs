@@ -21,7 +21,7 @@ public partial class Tests
         //// These can be passed to any IChatClient's ChatOptions.Tools.
 
         //// First, get a corpus key to configure the search tool.
-        ListCorporaResponse corporaResponse = await client.Corpora.ListCorporaAsync();
+        ListCorporaResponse corporaResponse = await client.Corpora.ListAsync();
 
         corporaResponse.Should().NotBeNull();
         corporaResponse.Corpora.Should().NotBeNull();

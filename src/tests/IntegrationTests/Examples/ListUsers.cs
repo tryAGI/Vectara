@@ -15,7 +15,7 @@ public partial class Tests
     {
         using var client = GetAuthenticatedClient();
 
-        ListUsersResponse response = await client.Users.ListUsersAsync();
+        ListUsersResponse response = await client.Users.ListAsync();
 
         response.Should().NotBeNull();
         response.Users.Should().NotBeNull();

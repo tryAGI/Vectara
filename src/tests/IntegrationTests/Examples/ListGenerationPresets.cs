@@ -16,7 +16,7 @@ public partial class Tests
     {
         using var client = GetAuthenticatedClient();
 
-        ListGenerationPresetsResponse response = await client.GenerationPresets.ListGenerationPresetsAsync();
+        ListGenerationPresetsResponse response = await client.GenerationPresets.ListAsync();
 
         response.Should().NotBeNull();
         response.GenerationPresets.Should().NotBeNull();

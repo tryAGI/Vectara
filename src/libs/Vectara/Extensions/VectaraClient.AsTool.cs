@@ -27,7 +27,7 @@ public static class VectaraToolExtensions
         return AIFunctionFactory.Create(
             async (string query, CancellationToken cancellationToken) =>
             {
-                var response = await client.Queries.QueryAsync(
+                var response = await client.Queries.Query2Async(
                     query: query,
                     search: new SearchCorporaParameters
                     {
@@ -67,7 +67,7 @@ public static class VectaraToolExtensions
         return AIFunctionFactory.Create(
             async (CancellationToken cancellationToken) =>
             {
-                var response = await client.Corpora.ListCorporaAsync(
+                var response = await client.Corpora.ListAsync(
                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 return FormatCorporaResponse(response);
@@ -89,7 +89,7 @@ public static class VectaraToolExtensions
         return AIFunctionFactory.Create(
             async (CancellationToken cancellationToken) =>
             {
-                var response = await client.LargeLanguageModels.ListLLMsAsync(
+                var response = await client.Llms.ListAsync(
                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 return FormatLlmsResponse(response);

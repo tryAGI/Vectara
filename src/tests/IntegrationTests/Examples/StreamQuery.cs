@@ -18,7 +18,7 @@ public partial class Tests
         using var client = GetAuthenticatedClient();
 
         //// First, list available corpora to get a corpus key.
-        ListCorporaResponse corporaResponse = await client.Corpora.ListCorporaAsync();
+        ListCorporaResponse corporaResponse = await client.Corpora.ListAsync();
 
         corporaResponse.Should().NotBeNull();
         corporaResponse.Corpora.Should().NotBeNull();
@@ -35,7 +35,7 @@ public partial class Tests
         var summaryBuilder = new System.Text.StringBuilder();
         var searchResultCount = 0;
 
-        await foreach (var chunk in client.Queries.QueryAsStreamAsync(
+        await foreach (var chunk in client.Queries.Query2AsStreamAsync(
             query: "What is this about?",
             search: new SearchCorporaParameters
             {

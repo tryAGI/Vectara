@@ -421,6 +421,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: create
     get:
       summary: List corpora
       x-supported-api-key-type:
@@ -613,6 +615,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -830,6 +834,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: get
     delete:
       tags:
       - Corpora
@@ -866,6 +872,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: delete
     patch:
       tags:
       - Corpora
@@ -917,6 +925,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: update
   /v2/corpora/{corpus_key}/reset:
     post:
       tags:
@@ -953,6 +963,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: reset
   /v2/corpora/{corpus_key}/replace_filter_attributes:
     post:
       tags:
@@ -1078,6 +1090,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: replaceFilterAttributes
   /v2/corpora/{corpus_key}/compute_size:
     post:
       tags:
@@ -1116,6 +1130,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: compute_size
   /v2/corpora/{corpus_key}/filter_attribute_stats:
     get:
       tags:
@@ -1363,6 +1379,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: get_filter_attribute_stats
   /v2/corpora/{corpus_key}/upload_file:
     post:
       tags:
@@ -1502,6 +1520,8 @@ paths:
             YOUR_API_KEY\",\n    # or\n    client_id=\"YOUR_CLIENT_ID\",\n    client_secret=\"\
             YOUR_CLIENT_SECRET\",\n)\nclient.upload.file(\n    corpus_key=corpus_key,\n\
             \    file=content,\n    filename=slugify(url),\n)\n"
+      x-fern-sdk-group-name: upload
+      x-fern-sdk-method-name: file
   /v2/corpora/{corpus_key}/documents:
     post:
       tags:
@@ -1618,6 +1638,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: create
       x-fern-examples:
       - path-parameters:
           corpus_key: my-corpus-key
@@ -1713,6 +1735,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -1838,6 +1862,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: bulk_delete
   /v2/corpora/{corpus_key}/documents/{document_id}:
     delete:
       tags:
@@ -1880,6 +1906,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: delete
     get:
       tags:
       - Documents
@@ -1936,6 +1964,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Index
@@ -1993,6 +2023,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: update
   /v2/corpora/{corpus_key}/documents/{document_id}/metadata:
     put:
       tags:
@@ -2050,6 +2082,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: update_metadata
   /v2/corpora/{corpus_key}/documents/{document_id}/summarize:
     post:
       tags:
@@ -2220,6 +2254,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: summarize
   /v2/corpora/{corpus_key}/documents/{document_id}/images/{image_id}:
     get:
       tags:
@@ -2284,6 +2320,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: get
   /v2/corpora/{corpus_key}/metadata_query:
     post:
       tags:
@@ -2337,6 +2375,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: metadata
+      x-fern-sdk-method-name: queryMetadata
   /v2/corpora/{corpus_key}/query:
     get:
       tags:
@@ -2538,6 +2578,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: search
     post:
       tags:
       - Queries
@@ -3004,6 +3046,8 @@ paths:
           - $ref: '#/components/schemas/FactualConsistencyScore'
           - $ref: '#/components/schemas/GenerationInfo'
           - $ref: '#/components/schemas/StreamError'
+      x-fern-sdk-group-name: corpora
+      x-fern-sdk-method-name: query
   /v2/query:
     post:
       tags:
@@ -3402,6 +3446,7 @@ paths:
           - $ref: '#/components/schemas/FactualConsistencyScore'
           - $ref: '#/components/schemas/GenerationInfo'
           - $ref: '#/components/schemas/StreamError'
+      x-fern-sdk-method-name: query
       x-fern-examples:
       - name: Batch
         request:
@@ -3443,6 +3488,7 @@ paths:
             enable_factual_consistency_score: true
         response:
           stream: []
+      x-fern-sdk-group-name: queries
   /v2/queries/{query_id}:
     get:
       tags:
@@ -3496,6 +3542,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: query_history
+      x-fern-sdk-method-name: get
   /v2/queries:
     get:
       tags:
@@ -3588,6 +3636,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: query_history
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -3678,6 +3728,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Large Language Models
@@ -3730,6 +3782,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -3787,6 +3841,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: get
     delete:
       tags:
       - Large Language Models
@@ -3833,6 +3889,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: delete
     patch:
       tags:
       - Large Language Models
@@ -3919,6 +3977,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: update
   /v2/llms/chat/completions:
     post:
       tags:
@@ -3990,6 +4050,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: llm
+      x-fern-sdk-method-name: chatCompletion
   /v2/generation_presets:
     get:
       tags:
@@ -4080,6 +4142,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: generation_presets
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -4154,6 +4218,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: factual-consistency
+      x-fern-sdk-method-name: evaluate
   /v2/encoders:
     post:
       tags:
@@ -4190,6 +4256,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: encoders
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Encoders
@@ -4242,6 +4310,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: encoders
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -4302,6 +4372,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: rerankers
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -4316,6 +4388,8 @@ paths:
       description: Table extractors are used to extract tabular data from documents
         during indexing.
       operationId: listTableExtractors
+      x-fern-sdk-group-name: table_extractors
+      x-fern-sdk-method-name: list
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
@@ -4354,6 +4428,8 @@ paths:
 
         '
       operationId: listHallucinationCorrectors
+      x-fern-sdk-group-name: hallucination_correctors
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -4468,6 +4544,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: hallucination_correctors
+      x-fern-sdk-method-name: hallucinationCorrection
   /v2/jobs:
     get:
       tags:
@@ -4534,6 +4612,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: jobs
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -4577,6 +4657,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: jobs
+      x-fern-sdk-method-name: get
   /v2/users:
     post:
       tags:
@@ -4633,6 +4715,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Users
@@ -4688,6 +4772,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -4731,6 +4817,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Users
@@ -4773,6 +4861,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: update
     delete:
       tags:
       - Users
@@ -4806,6 +4896,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: delete
   /v2/users/{username}/reset_password:
     post:
       tags:
@@ -4853,6 +4945,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: users
+      x-fern-sdk-method-name: resetPassword
   /v2/api_keys:
     post:
       tags:
@@ -4905,6 +4999,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: create
     get:
       tags:
       - API Keys
@@ -4972,6 +5068,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -5015,6 +5113,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - API Keys
@@ -5058,6 +5158,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: update
     delete:
       tags:
       - API Keys
@@ -5086,6 +5188,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: apiKeys
+      x-fern-sdk-method-name: delete
   /v2/app_clients:
     post:
       tags:
@@ -5124,6 +5228,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Application Clients
@@ -5178,6 +5284,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -5213,6 +5321,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Application Clients
@@ -5249,6 +5359,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: update
     delete:
       tags:
       - Application Clients
@@ -5275,11 +5387,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: appClients
+      x-fern-sdk-method-name: delete
   /oauth/token:
     post:
       security: []
       summary: Request an access token
       description: Obtain an OAuth2 access token using client credentials
+      x-fern-sdk-group-name:
+      - auth
+      x-fern-sdk-method-name: getToken
       x-fern-server-name: Auth
       requestBody:
         required: true
@@ -5388,6 +5505,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: tool-servers
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -5428,6 +5547,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: tool-servers
+      x-fern-sdk-method-name: create
   /v2/tool_servers/{tool_server_id}:
     get:
       tags:
@@ -5467,6 +5588,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: tool-servers
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Tool Servers
@@ -5517,6 +5640,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: tool-servers
+      x-fern-sdk-method-name: update
     delete:
       tags:
       - Tool Servers
@@ -5552,6 +5677,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: tool-servers
+      x-fern-sdk-method-name: delete
   /v2/tool_servers/{tool_server_id}/sync:
     post:
       tags:
@@ -5588,6 +5715,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: tool-servers
+      x-fern-sdk-method-name: sync
   /v2/tools:
     post:
       tags:
@@ -5645,6 +5774,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: tools
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Tools
@@ -5736,6 +5867,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: tools
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -5796,6 +5929,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: tools
+      x-fern-sdk-method-name: testWithoutCreation
   /v2/tools/{tool_id}:
     get:
       tags:
@@ -5839,6 +5974,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: tools
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Tools
@@ -5891,6 +6028,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: tools
+      x-fern-sdk-method-name: update
     delete:
       tags:
       - Tools
@@ -5927,6 +6066,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: tools
+      x-fern-sdk-method-name: delete
   /v2/tools/{tool_id}/test:
     post:
       tags:
@@ -5992,6 +6133,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: tools
+      x-fern-sdk-method-name: test
   /v2/instructions:
     post:
       tags:
@@ -6060,6 +6203,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: instructions
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Instructions
@@ -6129,6 +6274,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: instructions
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -6184,6 +6331,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: instructions
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Instructions
@@ -6261,6 +6410,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: instructions
+      x-fern-sdk-method-name: update
     delete:
       tags:
       - Instructions
@@ -6304,6 +6455,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: instructions
+      x-fern-sdk-method-name: delete
   /v2/instructions/{instruction_id}/test:
     post:
       tags:
@@ -6373,6 +6526,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: instructions
+      x-fern-sdk-method-name: test
   /v2/instructions/{instruction_id}/versions/{version}:
     delete:
       tags:
@@ -6422,6 +6577,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: instructions
+      x-fern-sdk-method-name: deleteVersion
   /v2/agents:
     post:
       tags:
@@ -6493,6 +6650,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Agents
@@ -6551,6 +6710,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -6603,6 +6764,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Agents
@@ -6663,6 +6826,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: update
     put:
       tags:
       - Agents
@@ -6715,6 +6880,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: replace
     delete:
       tags:
       - Agents
@@ -6758,6 +6925,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: delete
   /v2/agents/{agent_key}/sessions:
     post:
       tags:
@@ -6823,6 +6992,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_sessions
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Agent Sessions
@@ -6887,6 +7058,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_sessions
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -6937,6 +7110,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_sessions
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Agent Sessions
@@ -6999,6 +7174,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_sessions
+      x-fern-sdk-method-name: update
     delete:
       tags:
       - Agent Sessions
@@ -7037,6 +7214,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_sessions
+      x-fern-sdk-method-name: delete
   /v2/agents/{agent_key}/sessions/{session_key}/events:
     post:
       tags:
@@ -7133,6 +7312,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agent_events
+      x-fern-sdk-method-name: create
       x-fern-streaming:
         format: sse
         stream-condition: $request.stream_response
@@ -7283,6 +7464,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_events
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -7338,6 +7521,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_events
+      x-fern-sdk-method-name: get
     delete:
       tags:
       - Agent Sessions
@@ -7375,6 +7560,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_events
+      x-fern-sdk-method-name: delete
   /v2/agents/{agent_key}/sessions/{session_key}/events/{event_id}/hide:
     post:
       tags:
@@ -7416,6 +7603,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_events
+      x-fern-sdk-method-name: hide
   /v2/agents/{agent_key}/sessions/{session_key}/events/{event_id}/unhide:
     post:
       tags:
@@ -7457,6 +7646,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_events
+      x-fern-sdk-method-name: unhide
   /v2/agents/{agent_key}/sessions/{session_key}/artifacts:
     get:
       tags:
@@ -7540,6 +7731,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_artifacts
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -7596,6 +7789,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_artifacts
+      x-fern-sdk-method-name: get
   /v2/agents/{agent_key}/schedules:
     post:
       tags:
@@ -7664,6 +7859,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agent_schedules
+      x-fern-sdk-method-name: create
     get:
       tags:
       - Agent Schedules
@@ -7719,6 +7916,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_schedules
+      x-fern-sdk-method-name: list
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
@@ -7768,6 +7967,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_schedules
+      x-fern-sdk-method-name: get
     patch:
       tags:
       - Agent Schedules
@@ -7830,6 +8031,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_schedules
+      x-fern-sdk-method-name: update
     delete:
       tags:
       - Agent Schedules
@@ -7875,6 +8078,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_schedules
+      x-fern-sdk-method-name: delete
   /v2/agents/{agent_key}/schedules/{schedule_key}/executions:
     get:
       tags:
@@ -7917,6 +8122,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListAgentScheduleExecutionsResponse'
+      x-fern-sdk-group-name: agent_schedules
+      x-fern-sdk-method-name: list_executions
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key

@@ -45,29 +45,39 @@ namespace Vectara
 
 
         /// <summary>
-        /// Create and manage scheduled automated execution of agents at specified intervals.
+        /// 
+        /// </summary>
+        public AgentArtifactsClient AgentArtifacts { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentEventsClient AgentEvents { get; }
+
+        /// <summary>
+        /// 
         /// </summary>
         public AgentSchedulesClient AgentSchedules { get; }
 
         /// <summary>
-        /// Manage agent sessions and interact with agents through conversational events.
+        /// 
         /// </summary>
         public AgentSessionsClient AgentSessions { get; }
 
         /// <summary>
-        /// Create and interact with AI agents that can use tools and corpora to perform complex queries.
+        /// 
         /// </summary>
         public AgentsClient Agents { get; }
 
         /// <summary>
-        /// Create, manage, and revoke API keys for secure access to the platform.
+        /// 
         /// </summary>
         public ApiKeysClient ApiKeys { get; }
 
         /// <summary>
-        /// Configure and manage application clients for OAuth authentication.
+        /// 
         /// </summary>
-        public ApplicationClientsClient ApplicationClients { get; }
+        public AppClientsClient AppClients { get; }
 
         /// <summary>
         /// Authenticate with the API using OAuth 2.0 or API keys.
@@ -75,102 +85,97 @@ namespace Vectara
         public AuthenticationClient Authentication { get; }
 
         /// <summary>
-        /// Create, manage, and update corpora and their associated settings.
+        /// 
         /// </summary>
         public CorporaClient Corpora { get; }
 
         /// <summary>
-        /// Retrieve and manage documents stored in a corpus for administrative tasks.
+        /// 
         /// </summary>
         public DocumentsClient Documents { get; }
 
         /// <summary>
-        /// List available encoders (such as Boomerang) that turn text into vectors.
+        /// 
         /// </summary>
         public EncodersClient Encoders { get; }
 
         /// <summary>
-        /// Evaluate text quality metrics like factual consistency and hallucination detection.
+        /// 
         /// </summary>
-        public FactualConsistencyEvaluationClient FactualConsistencyEvaluation { get; }
+        public FactualConsistencyClient FactualConsistency { get; }
 
         /// <summary>
-        /// Manage generation presets for controlling the behavior of generative AI responses.
+        /// 
         /// </summary>
         public GenerationPresetsClient GenerationPresets { get; }
 
         /// <summary>
-        /// API for managing hallucination correction, including listing available models and correcting hallucinated content in generated text.
+        /// 
         /// </summary>
         public HallucinationCorrectorsClient HallucinationCorrectors { get; }
 
         /// <summary>
-        /// Index and manage both core and structured documents to enable efficient search and retrieval.
-        /// </summary>
-        public IndexClient Index { get; }
-
-        /// <summary>
-        /// Create and manage instructions that guide agent behavior.
+        /// 
         /// </summary>
         public InstructionsClient Instructions { get; }
 
         /// <summary>
-        /// Monitor background jobs such as rebuilding indexes or updating corpus settings.
+        /// 
         /// </summary>
         public JobsClient Jobs { get; }
 
         /// <summary>
-        /// List LLMs for text summarization, chat, and other generation tasks.
+        /// 
         /// </summary>
-        public LargeLanguageModelsClient LargeLanguageModels { get; }
+        public LlmClient Llm { get; }
 
         /// <summary>
-        /// Create model responses for chat conversations using OpenAI-compatible endpoints.
+        /// 
         /// </summary>
-        public LlmChatCompletionsClient LlmChatCompletions { get; }
+        public LlmsClient Llms { get; }
 
         /// <summary>
-        /// Query across arbitrary metadata fields in a corpus.
+        /// 
         /// </summary>
-        public MetadataQueryClient MetadataQuery { get; }
+        public MetadataClient Metadata { get; }
 
         /// <summary>
-        /// The Query APIs are the primary interface for searching your data and generating AI-powered summaries. After indexing documents into corpora, you use these endpoints to retrieve relevant information and optionally generate grounded summaries using Retrieval Augmented Generation (RAG).
+        /// 
         /// </summary>
         public QueriesClient Queries { get; }
 
         /// <summary>
-        /// Retrieve and manage the history of previous queries for analytics and auditing.
+        /// 
         /// </summary>
         public QueryHistoryClient QueryHistory { get; }
 
         /// <summary>
-        /// List rerankers for reranking search results.
+        /// 
         /// </summary>
         public RerankersClient Rerankers { get; }
 
         /// <summary>
-        /// List available extractors for tabular data from documents.
+        /// 
         /// </summary>
         public TableExtractorsClient TableExtractors { get; }
 
         /// <summary>
-        /// Manage tool servers that provide access to external tools for AI agents.
+        /// 
         /// </summary>
         public ToolServersClient ToolServers { get; }
 
         /// <summary>
-        /// Manage and discover tools available for AI agents to use in their workflows.
+        /// 
         /// </summary>
         public ToolsClient Tools { get; }
 
         /// <summary>
-        /// Upload files to a corpus for automatic parsing, text extraction, chunking, and indexing.
+        /// 
         /// </summary>
         public UploadClient Upload { get; }
 
         /// <summary>
-        /// Create, manage, and authenticate users within the platform for user administration.
+        /// 
         /// </summary>
         public UsersClient Users { get; }
 

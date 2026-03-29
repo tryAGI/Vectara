@@ -4,7 +4,6 @@
 namespace Vectara
 {
     /// <summary>
-    /// Create and interact with AI agents that can use tools and corpora to perform complex queries.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>
