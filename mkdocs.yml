@@ -8,8 +8,10 @@ nav:
   - List LLMs: examples/list-llms.md
   - List Encoders: examples/list-encoders.md
   - Query: examples/query.md
+  - Stream Query: examples/stream-query.md
   - List Users: examples/list-users.md
   - List Generation Presets: examples/list-generation-presets.md
+  - AI Function Tools: examples/ai-function-tools.md
 # EXAMPLES:END
         
 theme:
