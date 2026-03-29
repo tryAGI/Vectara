@@ -7,6 +7,9 @@ nav:
   - List Corpora: examples/list-corpora.md
   - List LLMs: examples/list-llms.md
   - List Encoders: examples/list-encoders.md
+  - Query: examples/query.md
+  - List Users: examples/list-users.md
+  - List Generation Presets: examples/list-generation-presets.md
 # EXAMPLES:END
         
 theme:
