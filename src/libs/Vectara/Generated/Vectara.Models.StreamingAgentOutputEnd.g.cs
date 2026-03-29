@@ -50,13 +50,13 @@ namespace Vectara
         /// Default Value: streaming_agent_output_end<br/>
         /// Example: streaming_agent_output_end
         /// </param>
-        /// <param name="eventId">
-        /// The ID of the persisted AgentOutputEvent.<br/>
-        /// Example: aev_user_001
-        /// </param>
         /// <param name="createdAt">
         /// Timestamp when the event was created.<br/>
         /// Example: 2024-01-15T10:35:00Z
+        /// </param>
+        /// <param name="eventId">
+        /// The ID of the persisted AgentOutputEvent.<br/>
+        /// Example: aev_user_001
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -67,8 +67,8 @@ namespace Vectara
             string? eventId)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.CreatedAt = createdAt;
             this.EventId = eventId;
+            this.CreatedAt = createdAt;
         }
 
         /// <summary>

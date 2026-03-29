@@ -46,11 +46,11 @@ namespace Vectara
         /// Default Value: sub_agent<br/>
         /// Example: sub_agent
         /// </param>
-        /// <param name="argumentOverride">
-        /// Configurable parameters for the sub-agent tool. If not overridden, they will be required by the LLM to fill in.
-        /// </param>
         /// <param name="subAgentConfiguration">
         /// User-configurable settings for the sub-agent tool. These parameters are never exposed to the agent.
+        /// </param>
+        /// <param name="argumentOverride">
+        /// Configurable parameters for the sub-agent tool. If not overridden, they will be required by the LLM to fill in.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -61,8 +61,8 @@ namespace Vectara
             global::Vectara.SubAgentToolParameters? argumentOverride)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.SubAgentConfiguration = subAgentConfiguration ?? throw new global::System.ArgumentNullException(nameof(subAgentConfiguration));
             this.ArgumentOverride = argumentOverride;
+            this.SubAgentConfiguration = subAgentConfiguration ?? throw new global::System.ArgumentNullException(nameof(subAgentConfiguration));
         }
 
         /// <summary>

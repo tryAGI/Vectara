@@ -42,63 +42,45 @@ namespace Vectara
 
 
         /// <summary>
-        /// 
+        /// Create and manage scheduled automated execution of agents at specified intervals.
         /// </summary>
-        public AgentArtifactsClient AgentArtifacts => new AgentArtifactsClient(HttpClient, authorizations: Authorizations)
+        public AgentSchedulesClient AgentSchedules => new AgentSchedulesClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Manage agent sessions and interact with agents through conversational events.
         /// </summary>
-        public AgentEventsClient AgentEvents => new AgentEventsClient(HttpClient, authorizations: Authorizations)
+        public AgentSessionsClient AgentSessions => new AgentSessionsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Create and interact with AI agents that can use tools and corpora to perform complex queries.
         /// </summary>
-        public AgentSchedules2Client AgentSchedules2 => new AgentSchedules2Client(HttpClient, authorizations: Authorizations)
+        public AgentsClient Agents => new AgentsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Create, manage, and revoke API keys for secure access to the platform.
         /// </summary>
-        public AgentSessions2Client AgentSessions2 => new AgentSessions2Client(HttpClient, authorizations: Authorizations)
+        public ApiKeysClient ApiKeys => new ApiKeysClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Configure and manage application clients for OAuth authentication.
         /// </summary>
-        public Agents2Client Agents2 => new Agents2Client(HttpClient, authorizations: Authorizations)
-        {
-            ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
-        };
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ApiKeys2Client ApiKeys2 => new ApiKeys2Client(HttpClient, authorizations: Authorizations)
-        {
-            ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
-        };
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public AppClientsClient AppClients => new AppClientsClient(HttpClient, authorizations: Authorizations)
+        public ApplicationClientsClient ApplicationClients => new ApplicationClientsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -114,171 +96,180 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        /// Create, manage, and update corpora and their associated settings.
         /// </summary>
-        public Corpora2Client Corpora2 => new Corpora2Client(HttpClient, authorizations: Authorizations)
+        public CorporaClient Corpora => new CorporaClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Retrieve and manage documents stored in a corpus for administrative tasks.
         /// </summary>
-        public Documents2Client Documents2 => new Documents2Client(HttpClient, authorizations: Authorizations)
+        public DocumentsClient Documents => new DocumentsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// List available encoders (such as Boomerang) that turn text into vectors.
         /// </summary>
-        public Encoders2Client Encoders2 => new Encoders2Client(HttpClient, authorizations: Authorizations)
+        public EncodersClient Encoders => new EncodersClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Evaluate text quality metrics like factual consistency and hallucination detection.
         /// </summary>
-        public FactualConsistencyClient FactualConsistency => new FactualConsistencyClient(HttpClient, authorizations: Authorizations)
+        public FactualConsistencyEvaluationClient FactualConsistencyEvaluation => new FactualConsistencyEvaluationClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Manage generation presets for controlling the behavior of generative AI responses.
         /// </summary>
-        public GenerationPresets2Client GenerationPresets2 => new GenerationPresets2Client(HttpClient, authorizations: Authorizations)
+        public GenerationPresetsClient GenerationPresets => new GenerationPresetsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// API for managing hallucination correction, including listing available models and correcting hallucinated content in generated text.
         /// </summary>
-        public HallucinationCorrectors2Client HallucinationCorrectors2 => new HallucinationCorrectors2Client(HttpClient, authorizations: Authorizations)
+        public HallucinationCorrectorsClient HallucinationCorrectors => new HallucinationCorrectorsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Index and manage both core and structured documents to enable efficient search and retrieval.
         /// </summary>
-        public Instructions2Client Instructions2 => new Instructions2Client(HttpClient, authorizations: Authorizations)
+        public IndexClient Index => new IndexClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Create and manage instructions that guide agent behavior.
         /// </summary>
-        public Jobs2Client Jobs2 => new Jobs2Client(HttpClient, authorizations: Authorizations)
+        public InstructionsClient Instructions => new InstructionsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Monitor background jobs such as rebuilding indexes or updating corpus settings.
         /// </summary>
-        public LlmClient Llm => new LlmClient(HttpClient, authorizations: Authorizations)
+        public JobsClient Jobs => new JobsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// List LLMs for text summarization, chat, and other generation tasks.
         /// </summary>
-        public LlmsClient Llms => new LlmsClient(HttpClient, authorizations: Authorizations)
+        public LargeLanguageModelsClient LargeLanguageModels => new LargeLanguageModelsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Create model responses for chat conversations using OpenAI-compatible endpoints.
         /// </summary>
-        public MetadataClient Metadata => new MetadataClient(HttpClient, authorizations: Authorizations)
+        public LlmChatCompletionsClient LlmChatCompletions => new LlmChatCompletionsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Query across arbitrary metadata fields in a corpus.
         /// </summary>
-        public Queries2Client Queries2 => new Queries2Client(HttpClient, authorizations: Authorizations)
+        public MetadataQueryClient MetadataQuery => new MetadataQueryClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// The Query APIs are the primary interface for searching your data and generating AI-powered summaries. After indexing documents into corpora, you use these endpoints to retrieve relevant information and optionally generate grounded summaries using Retrieval Augmented Generation (RAG).
         /// </summary>
-        public QueryHistory2Client QueryHistory2 => new QueryHistory2Client(HttpClient, authorizations: Authorizations)
+        public QueriesClient Queries => new QueriesClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Retrieve and manage the history of previous queries for analytics and auditing.
         /// </summary>
-        public Rerankers2Client Rerankers2 => new Rerankers2Client(HttpClient, authorizations: Authorizations)
+        public QueryHistoryClient QueryHistory => new QueryHistoryClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// List rerankers for reranking search results.
         /// </summary>
-        public TableExtractors2Client TableExtractors2 => new TableExtractors2Client(HttpClient, authorizations: Authorizations)
+        public RerankersClient Rerankers => new RerankersClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// List available extractors for tabular data from documents.
         /// </summary>
-        public ToolServers2Client ToolServers2 => new ToolServers2Client(HttpClient, authorizations: Authorizations)
+        public TableExtractorsClient TableExtractors => new TableExtractorsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Manage tool servers that provide access to external tools for AI agents.
         /// </summary>
-        public Tools2Client Tools2 => new Tools2Client(HttpClient, authorizations: Authorizations)
+        public ToolServersClient ToolServers => new ToolServersClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Manage and discover tools available for AI agents to use in their workflows.
         /// </summary>
-        public Upload2Client Upload2 => new Upload2Client(HttpClient, authorizations: Authorizations)
+        public ToolsClient Tools => new ToolsClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
         };
 
         /// <summary>
-        /// 
+        /// Upload files to a corpus for automatic parsing, text extraction, chunking, and indexing.
         /// </summary>
-        public Users2Client Users2 => new Users2Client(HttpClient, authorizations: Authorizations)
+        public UploadClient Upload => new UploadClient(HttpClient, authorizations: Authorizations)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+        };
+
+        /// <summary>
+        /// Create, manage, and authenticate users within the platform for user administration.
+        /// </summary>
+        public UsersClient Users => new UsersClient(HttpClient, authorizations: Authorizations)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,

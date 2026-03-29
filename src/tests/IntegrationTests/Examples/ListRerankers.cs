@@ -13,7 +13,7 @@ public partial class Tests
     {
         using var client = GetAuthenticatedClient();
 
-        ListRerankersResponse response = await client.Rerankers2.ListAsync();
+        ListRerankersResponse response = await client.Rerankers.ListRerankersAsync();
         
         foreach (var reranker in response.Rerankers ?? [])
         {

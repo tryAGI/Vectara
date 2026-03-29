@@ -15,7 +15,7 @@ public partial class Tests
     {
         using var client = GetAuthenticatedClient();
 
-        ListEncodersResponse response = await client.Encoders2.ListAsync();
+        ListEncodersResponse response = await client.Encoders.ListEncodersAsync();
 
         response.Should().NotBeNull();
         response.Encoders.Should().NotBeNull();

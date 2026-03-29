@@ -31,11 +31,11 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateChatCompletionResponse" /> class.
         /// </summary>
-        /// <param name="object">
-        /// The object type, which is always 'chat.completion'.
-        /// </param>
         /// <param name="choices">
         /// A list of chat completion choices. Can be more than one if `n` is greater than `1`.
+        /// </param>
+        /// <param name="object">
+        /// The object type, which is always 'chat.completion'.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -44,8 +44,8 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.ChatCompletionResponseChoice> choices,
             global::Vectara.CreateChatCompletionResponseObject @object)
         {
-            this.Choices = choices ?? throw new global::System.ArgumentNullException(nameof(choices));
             this.Object = @object;
+            this.Choices = choices ?? throw new global::System.ArgumentNullException(nameof(choices));
         }
 
         /// <summary>

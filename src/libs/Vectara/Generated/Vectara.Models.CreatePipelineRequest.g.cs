@@ -83,14 +83,10 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="CreatePipelineRequest" /> class.
         /// </summary>
-        /// <param name="key">
-        /// A user-provided key for the pipeline. If omitted, one is auto-generated.
-        /// </param>
         /// <param name="name">
         /// The human-readable name of the pipeline.<br/>
         /// Example: SharePoint Legal Docs Ingest
         /// </param>
-        /// <param name="description"></param>
         /// <param name="source">
         /// The source system to ingest data from.
         /// </param>
@@ -100,6 +96,10 @@ namespace Vectara
         /// <param name="transform">
         /// Defines how source data is processed. Currently only agent transforms are supported.
         /// </param>
+        /// <param name="key">
+        /// A user-provided key for the pipeline. If omitted, one is auto-generated.
+        /// </param>
+        /// <param name="description"></param>
         /// <param name="syncMode">
         /// How the pipeline syncs data from the source.<br/>
         /// - `incremental`: Only process new or changed records since the last watermark.<br/>
@@ -126,12 +126,12 @@ namespace Vectara
             bool? enabled,
             global::System.Collections.Generic.Dictionary<string, string>? metadata)
         {
+            this.Key = key;
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
+            this.Description = description;
             this.Source = source;
             this.Trigger = trigger;
             this.Transform = transform ?? throw new global::System.ArgumentNullException(nameof(transform));
-            this.Key = key;
-            this.Description = description;
             this.SyncMode = syncMode;
             this.Enabled = enabled;
             this.Metadata = metadata;

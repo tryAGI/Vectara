@@ -136,11 +136,18 @@ namespace Vectara
         /// <param name="name">
         /// Unique identifier for the tool.
         /// </param>
-        /// <param name="title">
-        /// Human-readable title of the tool.
-        /// </param>
         /// <param name="description">
         /// A detailed description of what the tool does and how it can be used.
+        /// </param>
+        /// <param name="enabled">
+        /// Whether the tool is currently enabled and available for use.<br/>
+        /// Default Value: true
+        /// </param>
+        /// <param name="inputSchema">
+        /// The schema that defines the expected input structure for the tool.
+        /// </param>
+        /// <param name="title">
+        /// Human-readable title of the tool.
         /// </param>
         /// <param name="descriptionTemplate">
         /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
@@ -152,10 +159,6 @@ namespace Vectara
         /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
         /// Example: "Search tool configured for agent $agent.name on $currentDate"
         /// </param>
-        /// <param name="enabled">
-        /// Whether the tool is currently enabled and available for use.<br/>
-        /// Default Value: true
-        /// </param>
         /// <param name="experimental">
         /// Whether this tool is experimental and may change or be removed without notice.<br/>
         /// Default Value: false
@@ -165,9 +168,6 @@ namespace Vectara
         /// </param>
         /// <param name="updatedAt">
         /// Timestamp when the tool was last updated.
-        /// </param>
-        /// <param name="inputSchema">
-        /// The schema that defines the expected input structure for the tool.
         /// </param>
         /// <param name="category">
         /// Functional category of the tool (e.g., retrieval, artifacts, indexing, utilities, orchestration).
@@ -209,14 +209,14 @@ namespace Vectara
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
-            this.Description = description ?? throw new global::System.ArgumentNullException(nameof(description));
-            this.Enabled = enabled;
-            this.InputSchema = inputSchema ?? throw new global::System.ArgumentNullException(nameof(inputSchema));
             this.Title = title;
+            this.Description = description ?? throw new global::System.ArgumentNullException(nameof(description));
             this.DescriptionTemplate = descriptionTemplate;
+            this.Enabled = enabled;
             this.Experimental = experimental;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
+            this.InputSchema = inputSchema ?? throw new global::System.ArgumentNullException(nameof(inputSchema));
             this.Category = category;
             this.Lineage = lineage;
             this.Version = version;

@@ -95,6 +95,10 @@ namespace Vectara
         /// Unique identifier for a tool configuration.<br/>
         /// Example: tcf_123e4567-e89b-12d3-a456-426614174000
         /// </param>
+        /// <param name="version">
+        /// The version identifier for this tool configuration. This is automatically incremented when the configuration is updated.<br/>
+        /// Example: 1
+        /// </param>
         /// <param name="name">
         /// The human-readable name of a tool configuration.<br/>
         /// Example: Customer Support Search Config
@@ -112,10 +116,6 @@ namespace Vectara
         /// - `$session.metadata` - Session metadata map<br/>
         /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
         /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="version">
-        /// The version identifier for this tool configuration. This is automatically incremented when the configuration is updated.<br/>
-        /// Example: 1
         /// </param>
         /// <param name="enabled">
         /// Whether the tool configuration is currently enabled and available for use.<br/>
@@ -146,10 +146,10 @@ namespace Vectara
             global::System.DateTime? updatedAt)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
-            this.Version = version;
             this.Name = name;
             this.Description = description;
             this.DescriptionTemplate = descriptionTemplate;
+            this.Version = version;
             this.Enabled = enabled;
             this.Metadata = metadata;
             this.CreatedAt = createdAt;

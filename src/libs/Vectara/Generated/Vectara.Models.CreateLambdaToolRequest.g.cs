@@ -193,11 +193,6 @@ namespace Vectara
         /// A detailed description of what the function does, when to use it, and what it returns.<br/>
         /// Example: Calculate a customer score based on order history and revenue. Returns a score between 0-100.
         /// </param>
-        /// <param name="language">
-        /// The programming language. Currently only 'python' (Python 3.12) is supported.<br/>
-        /// Default Value: python<br/>
-        /// Example: python
-        /// </param>
         /// <param name="code">
         /// The Python 3.12 code for the function.<br/>
         /// **Required**: Must define a `process()` entry point function. Use type annotations on parameters for automatic schema discovery.<br/>
@@ -293,6 +288,11 @@ namespace Vectara
         ///     score = (order_count * 10 + total_revenue * 0.1) / days_active<br/>
         ///     return {'score': round(score, 2)}
         /// </param>
+        /// <param name="language">
+        /// The programming language. Currently only 'python' (Python 3.12) is supported.<br/>
+        /// Default Value: python<br/>
+        /// Example: python
+        /// </param>
         /// <param name="executionConfiguration">
         /// Execution configuration for the function.
         /// </param>
@@ -312,8 +312,8 @@ namespace Vectara
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Title = title ?? throw new global::System.ArgumentNullException(nameof(title));
             this.Description = description ?? throw new global::System.ArgumentNullException(nameof(description));
-            this.Code = code ?? throw new global::System.ArgumentNullException(nameof(code));
             this.Language = language;
+            this.Code = code ?? throw new global::System.ArgumentNullException(nameof(code));
             this.ExecutionConfiguration = executionConfiguration;
         }
 

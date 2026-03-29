@@ -72,11 +72,6 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="TestLambdaToolRequest" /> class.
         /// </summary>
-        /// <param name="language">
-        /// The programming language. Currently only 'python' (Python 3.12) is supported.<br/>
-        /// Default Value: python<br/>
-        /// Example: python
-        /// </param>
         /// <param name="code">
         /// The Python 3.12 code for the function. Must define a `process()` entry point.<br/>
         /// Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters are rejected.<br/>
@@ -85,12 +80,17 @@ namespace Vectara
         ///     score = order_count * 10 + total_revenue * 0.1<br/>
         ///     return {'score': round(score, 2)}
         /// </param>
-        /// <param name="executionConfiguration">
-        /// Execution configuration for the function.
-        /// </param>
         /// <param name="testInput">
         /// The input parameters to test the function with. Will be validated against the discovered input schema.<br/>
         /// Example: {"order_count":10,"total_revenue":500}
+        /// </param>
+        /// <param name="language">
+        /// The programming language. Currently only 'python' (Python 3.12) is supported.<br/>
+        /// Default Value: python<br/>
+        /// Example: python
+        /// </param>
+        /// <param name="executionConfiguration">
+        /// Execution configuration for the function.
         /// </param>
         /// <param name="timeoutSeconds">
         /// Maximum execution time in seconds for this test. Overrides execution_configuration if specified.<br/>
@@ -106,10 +106,10 @@ namespace Vectara
             global::Vectara.ExecutionConfiguration? executionConfiguration,
             int? timeoutSeconds)
         {
-            this.Code = code ?? throw new global::System.ArgumentNullException(nameof(code));
-            this.TestInput = testInput ?? throw new global::System.ArgumentNullException(nameof(testInput));
             this.Language = language;
+            this.Code = code ?? throw new global::System.ArgumentNullException(nameof(code));
             this.ExecutionConfiguration = executionConfiguration;
+            this.TestInput = testInput ?? throw new global::System.ArgumentNullException(nameof(testInput));
             this.TimeoutSeconds = timeoutSeconds;
         }
 

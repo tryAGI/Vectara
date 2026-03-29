@@ -57,13 +57,13 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="MetadataQueryRequest" /> class.
         /// </summary>
-        /// <param name="level">
-        /// Whether to search document-level or part-level metadata. Document-level returns unique documents, part-level can return multiple parts from the same document.<br/>
-        /// Default Value: document
-        /// </param>
         /// <param name="queries">
         /// List of field-specific queries to apply fuzzy matching.<br/>
         /// Example: [{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]
+        /// </param>
+        /// <param name="level">
+        /// Whether to search document-level or part-level metadata. Document-level returns unique documents, part-level can return multiple parts from the same document.<br/>
+        /// Default Value: document
         /// </param>
         /// <param name="metadataFilter">
         /// Optional filter expression to narrow down results before fuzzy matching is applied. <br/>
@@ -88,8 +88,8 @@ namespace Vectara
             int? limit,
             int? offset)
         {
-            this.Queries = queries ?? throw new global::System.ArgumentNullException(nameof(queries));
             this.Level = level;
+            this.Queries = queries ?? throw new global::System.ArgumentNullException(nameof(queries));
             this.MetadataFilter = metadataFilter;
             this.Limit = limit;
             this.Offset = offset;

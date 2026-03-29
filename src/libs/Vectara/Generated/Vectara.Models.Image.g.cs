@@ -61,6 +61,9 @@ namespace Vectara
         /// The unique identifier of the image within the document, used to reference it in related content.<br/>
         /// Example: chart_1
         /// </param>
+        /// <param name="imageData">
+        /// An object containing an image's binary data and format information. The image data is provided as a Base64-encoded string along with its MIME type.
+        /// </param>
         /// <param name="title">
         /// A short, human-readable title for the image, often displayed above or alongside it.<br/>
         /// Example: Quarterly Sales Performance
@@ -68,9 +71,6 @@ namespace Vectara
         /// <param name="caption">
         /// A brief caption providing context or an explanation for the image, typically displayed below it.<br/>
         /// Example: Sales growth trends for Q1 to Q4 of 2024
-        /// </param>
-        /// <param name="imageData">
-        /// An object containing an image's binary data and format information. The image data is provided as a Base64-encoded string along with its MIME type.
         /// </param>
         /// <param name="description">
         /// A longer, detailed description of the image for accessibility or additional context.<br/>
@@ -87,9 +87,9 @@ namespace Vectara
             string? description)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
-            this.ImageData = imageData ?? throw new global::System.ArgumentNullException(nameof(imageData));
             this.Title = title;
             this.Caption = caption;
+            this.ImageData = imageData ?? throw new global::System.ArgumentNullException(nameof(imageData));
             this.Description = description;
         }
 

@@ -16,7 +16,7 @@ public partial class Tests
     {
         using var client = GetAuthenticatedClient();
 
-        ListLLMsResponse response = await client.Llms.ListAsync();
+        ListLLMsResponse response = await client.LargeLanguageModels.ListLLMsAsync();
 
         response.Should().NotBeNull();
         response.Llms.Should().NotBeNull();

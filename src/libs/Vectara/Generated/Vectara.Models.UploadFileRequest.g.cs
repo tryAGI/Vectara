@@ -54,6 +54,9 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="UploadFileRequest" /> class.
         /// </summary>
+        /// <param name="file">
+        /// Binary file contents. The file name of the file will be used as the document ID.
+        /// </param>
         /// <param name="metadata">
         /// Arbitrary object that will be attached as document metadata to the extracted document.<br/>
         /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
@@ -68,9 +71,6 @@ namespace Vectara
         /// Optional multipart section to override the filename.<br/>
         /// Example: system_design_v1.pdf
         /// </param>
-        /// <param name="file">
-        /// Binary file contents. The file name of the file will be used as the document ID.
-        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -81,11 +81,11 @@ namespace Vectara
             global::Vectara.TableExtractionConfig? tableExtractionConfig,
             string? filename)
         {
-            this.File = file ?? throw new global::System.ArgumentNullException(nameof(file));
             this.Metadata = metadata;
             this.ChunkingStrategy = chunkingStrategy;
             this.TableExtractionConfig = tableExtractionConfig;
             this.Filename = filename;
+            this.File = file ?? throw new global::System.ArgumentNullException(nameof(file));
         }
 
         /// <summary>

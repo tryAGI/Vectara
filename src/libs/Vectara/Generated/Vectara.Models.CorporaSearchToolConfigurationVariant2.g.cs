@@ -46,11 +46,11 @@ namespace Vectara
         /// Default Value: corpora_search<br/>
         /// Example: corpora_search
         /// </param>
-        /// <param name="argumentOverride">
-        /// LLM-exposed parameters for the corpora search tool that can be filled in during execution.
-        /// </param>
         /// <param name="queryConfiguration">
         /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when turn-start resolution is needed.
+        /// </param>
+        /// <param name="argumentOverride">
+        /// LLM-exposed parameters for the corpora search tool that can be filled in during execution.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -61,8 +61,8 @@ namespace Vectara
             global::Vectara.CorporaSearchToolParameters? argumentOverride)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.QueryConfiguration = queryConfiguration ?? throw new global::System.ArgumentNullException(nameof(queryConfiguration));
             this.ArgumentOverride = argumentOverride;
+            this.QueryConfiguration = queryConfiguration ?? throw new global::System.ArgumentNullException(nameof(queryConfiguration));
         }
 
         /// <summary>

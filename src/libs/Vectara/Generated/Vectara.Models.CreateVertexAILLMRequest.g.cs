@@ -85,9 +85,6 @@ namespace Vectara
         /// <param name="name">
         /// Name to reference the LLM. This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is preconfigured with the Vectara platform), then it will override that LLM for all usages.
         /// </param>
-        /// <param name="description">
-        /// Description of the LLM.
-        /// </param>
         /// <param name="model">
         /// The model name to use (e.g. gemini-2.5-flash, gemini-2.5-pro, gemini-2.0-experimental-1219, etc).
         /// </param>
@@ -100,6 +97,9 @@ namespace Vectara
         /// </param>
         /// <param name="auth">
         /// Authentication configuration for Vertex AI
+        /// </param>
+        /// <param name="description">
+        /// Description of the LLM.
         /// </param>
         /// <param name="testModelParameters">
         /// Any additional parameters that are required for the LLM during the test call.
@@ -122,10 +122,10 @@ namespace Vectara
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
+            this.Description = description;
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
             this.Uri = uri ?? throw new global::System.ArgumentNullException(nameof(uri));
             this.Auth = auth;
-            this.Description = description;
             this.TestModelParameters = testModelParameters;
             this.Capabilities = capabilities;
         }

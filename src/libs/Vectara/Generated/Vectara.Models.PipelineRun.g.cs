@@ -137,6 +137,9 @@ namespace Vectara
         /// <param name="sessionKeys">
         /// The agent sessions created during this run, one per source record processed.
         /// </param>
+        /// <param name="createdAt">
+        /// When the run was created.
+        /// </param>
         /// <param name="error">
         /// Error details if the run failed.
         /// </param>
@@ -145,9 +148,6 @@ namespace Vectara
         /// </param>
         /// <param name="completedAt">
         /// When the run finished.
-        /// </param>
-        /// <param name="createdAt">
-        /// When the run was created.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -174,10 +174,10 @@ namespace Vectara
             this.RecordsProcessed = recordsProcessed;
             this.RecordsFailed = recordsFailed;
             this.SessionKeys = sessionKeys ?? throw new global::System.ArgumentNullException(nameof(sessionKeys));
-            this.CreatedAt = createdAt;
             this.Error = error;
             this.StartedAt = startedAt;
             this.CompletedAt = completedAt;
+            this.CreatedAt = createdAt;
         }
 
         /// <summary>

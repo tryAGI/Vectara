@@ -142,10 +142,6 @@ namespace Vectara
         /// The human-readable name of the pipeline.<br/>
         /// Example: SharePoint Legal Docs Ingest
         /// </param>
-        /// <param name="description">
-        /// A description of what this pipeline does.<br/>
-        /// Example: Ingests legal contracts from SharePoint and indexes them into the legal corpus.
-        /// </param>
         /// <param name="source">
         /// The source system to ingest data from.
         /// </param>
@@ -161,24 +157,28 @@ namespace Vectara
         /// - `full_refresh`: Process all records from the source on each run.<br/>
         /// Default Value: incremental
         /// </param>
-        /// <param name="watermark">
-        /// The current incremental sync watermark. Null if the pipeline has never run.
-        /// </param>
         /// <param name="status">
         /// The current operational status of the pipeline.
-        /// </param>
-        /// <param name="statusMessage">
-        /// Human-readable status details, such as an error description.
         /// </param>
         /// <param name="enabled">
         /// Whether the pipeline is enabled. Disabled pipelines do not run on their trigger schedule.<br/>
         /// Default Value: true
         /// </param>
-        /// <param name="metadata">
-        /// Arbitrary key-value metadata for the pipeline.
-        /// </param>
         /// <param name="createdAt">
         /// When the pipeline was created.
+        /// </param>
+        /// <param name="description">
+        /// A description of what this pipeline does.<br/>
+        /// Example: Ingests legal contracts from SharePoint and indexes them into the legal corpus.
+        /// </param>
+        /// <param name="watermark">
+        /// The current incremental sync watermark. Null if the pipeline has never run.
+        /// </param>
+        /// <param name="statusMessage">
+        /// Human-readable status details, such as an error description.
+        /// </param>
+        /// <param name="metadata">
+        /// Arbitrary key-value metadata for the pipeline.
         /// </param>
         /// <param name="updatedAt">
         /// When the pipeline was last updated.
@@ -204,17 +204,17 @@ namespace Vectara
         {
             this.Key = key ?? throw new global::System.ArgumentNullException(nameof(key));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
+            this.Description = description;
             this.Source = source;
             this.Trigger = trigger;
             this.Transform = transform ?? throw new global::System.ArgumentNullException(nameof(transform));
             this.SyncMode = syncMode;
-            this.Status = status;
-            this.Enabled = enabled;
-            this.CreatedAt = createdAt;
-            this.Description = description;
             this.Watermark = watermark;
+            this.Status = status;
             this.StatusMessage = statusMessage;
+            this.Enabled = enabled;
             this.Metadata = metadata;
+            this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
         }
 

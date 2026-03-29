@@ -89,10 +89,6 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionDefinition" /> class.
         /// </summary>
-        /// <param name="language">
-        /// The programming language of the function. Currently only Python 3.12 is supported.<br/>
-        /// Example: python
-        /// </param>
         /// <param name="code">
         /// The function code.<br/>
         /// **Required**: Must define a `process()` entry point function. Use type annotations on parameters for automatic schema discovery.<br/>
@@ -104,6 +100,10 @@ namespace Vectara
         ///         'average': sum(filtered) / len(filtered) if filtered else 0,<br/>
         ///         'filtered_data': filtered<br/>
         ///     }
+        /// </param>
+        /// <param name="language">
+        /// The programming language of the function. Currently only Python 3.12 is supported.<br/>
+        /// Example: python
         /// </param>
         /// <param name="validationStatus">
         /// The validation status of the code.<br/>
@@ -125,8 +125,8 @@ namespace Vectara
             global::System.Collections.Generic.IList<string>? validationErrors,
             global::Vectara.ExecutionConfiguration? executionConfiguration)
         {
-            this.Code = code ?? throw new global::System.ArgumentNullException(nameof(code));
             this.Language = language;
+            this.Code = code ?? throw new global::System.ArgumentNullException(nameof(code));
             this.ValidationStatus = validationStatus;
             this.ValidationErrors = validationErrors;
             this.ExecutionConfiguration = executionConfiguration;

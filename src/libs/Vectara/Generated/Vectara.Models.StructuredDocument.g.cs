@@ -88,6 +88,9 @@ namespace Vectara
         /// Default Value: structured<br/>
         /// Example: 2024 ESG Annual Report
         /// </param>
+        /// <param name="sections">
+        /// The subsection of the document.
+        /// </param>
         /// <param name="title">
         /// The title of the document.
         /// </param>
@@ -101,9 +104,6 @@ namespace Vectara
         /// </param>
         /// <param name="customDimensions">
         /// The custom dimensions as additional weights.
-        /// </param>
-        /// <param name="sections">
-        /// The subsection of the document.
         /// </param>
         /// <param name="chunkingStrategy">
         /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
@@ -123,11 +123,11 @@ namespace Vectara
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.Sections = sections ?? throw new global::System.ArgumentNullException(nameof(sections));
             this.Title = title;
             this.Description = description;
             this.Metadata = metadata;
             this.CustomDimensions = customDimensions;
+            this.Sections = sections ?? throw new global::System.ArgumentNullException(nameof(sections));
             this.ChunkingStrategy = chunkingStrategy;
         }
 

@@ -49,11 +49,11 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateAgentSessionRequestFromSession" /> class.
         /// </summary>
-        /// <param name="agentKey">
-        /// Agent key of the source session (defaults to current agent).
-        /// </param>
         /// <param name="sessionKey">
         /// Session key of the source session.
+        /// </param>
+        /// <param name="agentKey">
+        /// Agent key of the source session (defaults to current agent).
         /// </param>
         /// <param name="includeUpToEventId">
         /// Only include events up to and including this event ID from the source session,<br/>
@@ -74,8 +74,8 @@ namespace Vectara
             string? includeUpToEventId,
             string? compactUpToEventId)
         {
-            this.SessionKey = sessionKey ?? throw new global::System.ArgumentNullException(nameof(sessionKey));
             this.AgentKey = agentKey;
+            this.SessionKey = sessionKey ?? throw new global::System.ArgumentNullException(nameof(sessionKey));
             this.IncludeUpToEventId = includeUpToEventId;
             this.CompactUpToEventId = compactUpToEventId;
         }

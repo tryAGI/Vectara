@@ -75,13 +75,13 @@ namespace Vectara
         /// The S3 bucket name.<br/>
         /// Example: my-documents-bucket
         /// </param>
-        /// <param name="prefix">
-        /// Key prefix to scope ingestion to a subset of objects.<br/>
-        /// Example: legal/contracts/
-        /// </param>
         /// <param name="region">
         /// AWS region where the bucket is located.<br/>
         /// Example: us-east-1
+        /// </param>
+        /// <param name="prefix">
+        /// Key prefix to scope ingestion to a subset of objects.<br/>
+        /// Example: legal/contracts/
         /// </param>
         /// <param name="accessKeyId">
         /// AWS access key ID. Encrypted at rest and not returned in responses.<br/>
@@ -104,8 +104,8 @@ namespace Vectara
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Bucket = bucket ?? throw new global::System.ArgumentNullException(nameof(bucket));
-            this.Region = region ?? throw new global::System.ArgumentNullException(nameof(region));
             this.Prefix = prefix;
+            this.Region = region ?? throw new global::System.ArgumentNullException(nameof(region));
             this.AccessKeyId = accessKeyId;
             this.SecretAccessKey = secretAccessKey;
         }
