@@ -15,7 +15,7 @@ public partial class Tests
     {
         using var client = GetAuthenticatedClient();
 
-        ListCorporaResponse response = await client.Corpora.ListCorporaAsync();
+        ListCorporaResponse response = await client.Corpora2.ListAsync();
 
         response.Should().NotBeNull();
         response.Corpora.Should().NotBeNull();
