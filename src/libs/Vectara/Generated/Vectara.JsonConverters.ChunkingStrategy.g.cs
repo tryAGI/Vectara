@@ -59,13 +59,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.MaxCharsChunkingStrategy), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.MaxCharsChunkingStrategy?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.MaxCharsChunkingStrategy).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.MaxCharsChunkingStrategy, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.MaxCharsChunkingStrategy!, typeInfo);
             }
             else if (value.IsSentenceChunkingStrategy)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SentenceChunkingStrategy), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SentenceChunkingStrategy?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SentenceChunkingStrategy).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SentenceChunkingStrategy, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SentenceChunkingStrategy!, typeInfo);
             }
         }
     }

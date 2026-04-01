@@ -95,37 +95,37 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RephraseSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RephraseSpan?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.RephraseSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Rephrase, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Rephrase!, typeInfo);
             }
             else if (value.IsSearch)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SearchSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SearchSpan?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SearchSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Search, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Search!, typeInfo);
             }
             else if (value.IsRerank)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RerankSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RerankSpan?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.RerankSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Rerank, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Rerank!, typeInfo);
             }
             else if (value.IsGeneration)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GenerationSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GenerationSpan?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GenerationSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Generation, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Generation!, typeInfo);
             }
             else if (value.IsFcs)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.FactualConsistencyScoreSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.FactualConsistencyScoreSpan?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.FactualConsistencyScoreSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Fcs, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Fcs!, typeInfo);
             }
             else if (value.IsRewrittenQuery)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RewrittenQuerySpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RewrittenQuerySpan?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.RewrittenQuerySpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.RewrittenQuery, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.RewrittenQuery!, typeInfo);
             }
         }
     }

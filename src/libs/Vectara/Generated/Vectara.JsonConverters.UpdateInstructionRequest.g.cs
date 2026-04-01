@@ -50,7 +50,7 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateInitialInstructionRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateInitialInstructionRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateInitialInstructionRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Initial, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Initial!, typeInfo);
             }
         }
     }

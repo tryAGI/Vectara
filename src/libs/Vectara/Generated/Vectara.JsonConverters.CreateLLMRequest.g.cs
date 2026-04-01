@@ -77,25 +77,25 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAILLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAILLMRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateOpenAILLMRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiCompatible, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiCompatible!.Value, typeInfo);
             }
             else if (value.IsOpenaiResponses)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAIResponsesLLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAIResponsesLLMRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateOpenAIResponsesLLMRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiResponses, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiResponses!.Value, typeInfo);
             }
             else if (value.IsVertexAi)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateVertexAILLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateVertexAILLMRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateVertexAILLMRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.VertexAi, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.VertexAi!, typeInfo);
             }
             else if (value.IsAnthropic)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateAnthropicLLMRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateAnthropicLLMRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateAnthropicLLMRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Anthropic, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Anthropic!, typeInfo);
             }
         }
     }

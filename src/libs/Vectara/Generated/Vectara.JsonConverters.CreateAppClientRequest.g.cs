@@ -50,7 +50,7 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateClientCredentialsRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateClientCredentialsRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateClientCredentialsRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ClientCredentials, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ClientCredentials!, typeInfo);
             }
         }
     }
