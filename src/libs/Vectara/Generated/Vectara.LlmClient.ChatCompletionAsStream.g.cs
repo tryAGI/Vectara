@@ -79,7 +79,6 @@ namespace Vectara
         {
             request = request ?? throw new global::System.ArgumentNullException(nameof(request));
 
-
             request = new global::Vectara.CreateChatCompletionRequest
             {
                 Model = request.Model,

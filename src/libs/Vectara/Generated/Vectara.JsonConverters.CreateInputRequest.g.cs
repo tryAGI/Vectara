@@ -68,19 +68,19 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateInputMessageRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateInputMessageRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateInputMessageRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.InputMessage, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.InputMessage!.Value, typeInfo);
             }
             else if (value.IsInterrupt)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateInterruptRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateInterruptRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateInterruptRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Interrupt, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Interrupt!.Value, typeInfo);
             }
             else if (value.IsCompact)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateCompactRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateCompactRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateCompactRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Compact, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Compact!.Value, typeInfo);
             }
         }
     }

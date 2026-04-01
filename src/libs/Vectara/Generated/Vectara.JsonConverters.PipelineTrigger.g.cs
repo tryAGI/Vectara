@@ -59,13 +59,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CronTriggerConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CronTriggerConfiguration?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CronTriggerConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Cron, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Cron!, typeInfo);
             }
             else if (value.IsInterval)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.IntervalTriggerConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.IntervalTriggerConfiguration?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.IntervalTriggerConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Interval, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Interval!, typeInfo);
             }
         }
     }
