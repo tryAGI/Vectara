@@ -13,35 +13,35 @@ namespace Vectara
         /// Base properties shared by all tool types.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.ToolBase? Value1 { get; init; }
+        public global::Vectara.ToolBase? Base { get; init; }
 #else
-        public global::Vectara.ToolBase? Value1 { get; }
+        public global::Vectara.ToolBase? Base { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsBase => Base != null;
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.DocumentConversionToolVariant2? Value2 { get; init; }
+        public global::Vectara.DocumentConversionToolVariant2? DocumentConversionToolVariant2 { get; init; }
 #else
-        public global::Vectara.DocumentConversionToolVariant2? Value2 { get; }
+        public global::Vectara.DocumentConversionToolVariant2? DocumentConversionToolVariant2 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(DocumentConversionToolVariant2))]
 #endif
-        public bool IsValue2 => Value2 != null;
+        public bool IsDocumentConversionToolVariant2 => DocumentConversionToolVariant2 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -50,14 +50,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.ToolBase?(DocumentConversionTool @this) => @this.Value1;
+        public static implicit operator global::Vectara.ToolBase?(DocumentConversionTool @this) => @this.Base;
 
         /// <summary>
         /// 
         /// </summary>
         public DocumentConversionTool(global::Vectara.ToolBase? value)
         {
-            Value1 = value;
+            Base = value;
         }
 
         /// <summary>
@@ -68,42 +68,42 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.DocumentConversionToolVariant2?(DocumentConversionTool @this) => @this.Value2;
+        public static implicit operator global::Vectara.DocumentConversionToolVariant2?(DocumentConversionTool @this) => @this.DocumentConversionToolVariant2;
 
         /// <summary>
         /// 
         /// </summary>
         public DocumentConversionTool(global::Vectara.DocumentConversionToolVariant2? value)
         {
-            Value2 = value;
+            DocumentConversionToolVariant2 = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public DocumentConversionTool(
-            global::Vectara.ToolBase? value1,
-            global::Vectara.DocumentConversionToolVariant2? value2
+            global::Vectara.ToolBase? @base,
+            global::Vectara.DocumentConversionToolVariant2? documentConversionToolVariant2
             )
         {
-            Value1 = value1;
-            Value2 = value2;
+            Base = @base;
+            DocumentConversionToolVariant2 = documentConversionToolVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value2 as object ??
-            Value1 as object 
+            DocumentConversionToolVariant2 as object ??
+            Base as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() ??
-            Value2?.ToString() 
+            Base?.ToString() ??
+            DocumentConversionToolVariant2?.ToString() 
             ;
 
         /// <summary>
@@ -111,15 +111,15 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsValue1 && IsValue2;
+            return IsBase && IsDocumentConversionToolVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? value1 = null,
-            global::System.Func<global::Vectara.DocumentConversionToolVariant2?, TResult>? value2 = null,
+            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
+            global::System.Func<global::Vectara.DocumentConversionToolVariant2?, TResult>? documentConversionToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -127,13 +127,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsBase && @base != null)
             {
-                return value1(Value1!);
+                return @base(Base!);
             }
-            else if (IsValue2 && value2 != null)
+            else if (IsDocumentConversionToolVariant2 && documentConversionToolVariant2 != null)
             {
-                return value2(Value2!);
+                return documentConversionToolVariant2(DocumentConversionToolVariant2!);
             }
 
             return default(TResult);
@@ -143,8 +143,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? value1 = null,
-            global::System.Action<global::Vectara.DocumentConversionToolVariant2?>? value2 = null,
+            global::System.Action<global::Vectara.ToolBase?>? @base = null,
+            global::System.Action<global::Vectara.DocumentConversionToolVariant2?>? documentConversionToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -152,13 +152,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsBase)
             {
-                value1?.Invoke(Value1!);
+                @base?.Invoke(Base!);
             }
-            else if (IsValue2)
+            else if (IsDocumentConversionToolVariant2)
             {
-                value2?.Invoke(Value2!);
+                documentConversionToolVariant2?.Invoke(DocumentConversionToolVariant2!);
             }
         }
 
@@ -169,9 +169,9 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Value1,
+                Base,
                 typeof(global::Vectara.ToolBase),
-                Value2,
+                DocumentConversionToolVariant2,
                 typeof(global::Vectara.DocumentConversionToolVariant2),
             };
             const int offset = unchecked((int)2166136261);
@@ -189,8 +189,8 @@ namespace Vectara
         public bool Equals(DocumentConversionTool other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolBase?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.DocumentConversionToolVariant2?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolBase?>.Default.Equals(Base, other.Base) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.DocumentConversionToolVariant2?>.Default.Equals(DocumentConversionToolVariant2, other.DocumentConversionToolVariant2) 
                 ;
         }
 

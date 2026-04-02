@@ -13,18 +13,18 @@ namespace Vectara
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.CreateWebGetToolConfigurationRequestVariant1? Value1 { get; init; }
+        public global::Vectara.CreateWebGetToolConfigurationRequestVariant1? CreateWebGetToolConfigurationRequestVariant1 { get; init; }
 #else
-        public global::Vectara.CreateWebGetToolConfigurationRequestVariant1? Value1 { get; }
+        public global::Vectara.CreateWebGetToolConfigurationRequestVariant1? CreateWebGetToolConfigurationRequestVariant1 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateWebGetToolConfigurationRequestVariant1))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsCreateWebGetToolConfigurationRequestVariant1 => CreateWebGetToolConfigurationRequestVariant1 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -33,28 +33,28 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.CreateWebGetToolConfigurationRequestVariant1?(CreateWebGetToolConfigurationRequest @this) => @this.Value1;
+        public static implicit operator global::Vectara.CreateWebGetToolConfigurationRequestVariant1?(CreateWebGetToolConfigurationRequest @this) => @this.CreateWebGetToolConfigurationRequestVariant1;
 
         /// <summary>
         /// 
         /// </summary>
         public CreateWebGetToolConfigurationRequest(global::Vectara.CreateWebGetToolConfigurationRequestVariant1? value)
         {
-            Value1 = value;
+            CreateWebGetToolConfigurationRequestVariant1 = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value1 as object 
+            CreateWebGetToolConfigurationRequestVariant1 as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() 
+            CreateWebGetToolConfigurationRequestVariant1?.ToString() 
             ;
 
         /// <summary>
@@ -62,14 +62,14 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsValue1;
+            return IsCreateWebGetToolConfigurationRequestVariant1;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateWebGetToolConfigurationRequestVariant1?, TResult>? value1 = null,
+            global::System.Func<global::Vectara.CreateWebGetToolConfigurationRequestVariant1?, TResult>? createWebGetToolConfigurationRequestVariant1 = null,
             bool validate = true)
         {
             if (validate)
@@ -77,9 +77,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsCreateWebGetToolConfigurationRequestVariant1 && createWebGetToolConfigurationRequestVariant1 != null)
             {
-                return value1(Value1!);
+                return createWebGetToolConfigurationRequestVariant1(CreateWebGetToolConfigurationRequestVariant1!);
             }
 
             return default(TResult);
@@ -89,7 +89,7 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateWebGetToolConfigurationRequestVariant1?>? value1 = null,
+            global::System.Action<global::Vectara.CreateWebGetToolConfigurationRequestVariant1?>? createWebGetToolConfigurationRequestVariant1 = null,
             bool validate = true)
         {
             if (validate)
@@ -97,9 +97,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsCreateWebGetToolConfigurationRequestVariant1)
             {
-                value1?.Invoke(Value1!);
+                createWebGetToolConfigurationRequestVariant1?.Invoke(CreateWebGetToolConfigurationRequestVariant1!);
             }
         }
 
@@ -110,7 +110,7 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Value1,
+                CreateWebGetToolConfigurationRequestVariant1,
                 typeof(global::Vectara.CreateWebGetToolConfigurationRequestVariant1),
             };
             const int offset = unchecked((int)2166136261);
@@ -128,7 +128,7 @@ namespace Vectara
         public bool Equals(CreateWebGetToolConfigurationRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateWebGetToolConfigurationRequestVariant1?>.Default.Equals(Value1, other.Value1) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateWebGetToolConfigurationRequestVariant1?>.Default.Equals(CreateWebGetToolConfigurationRequestVariant1, other.CreateWebGetToolConfigurationRequestVariant1) 
                 ;
         }
 

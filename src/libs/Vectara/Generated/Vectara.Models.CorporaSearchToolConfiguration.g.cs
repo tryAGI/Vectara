@@ -13,35 +13,35 @@ namespace Vectara
         /// Base properties shared by all tool configuration types.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.ToolConfigurationBase? Value1 { get; init; }
+        public global::Vectara.ToolConfigurationBase? Base { get; init; }
 #else
-        public global::Vectara.ToolConfigurationBase? Value1 { get; }
+        public global::Vectara.ToolConfigurationBase? Base { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsBase => Base != null;
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.CorporaSearchToolConfigurationVariant2? Value2 { get; init; }
+        public global::Vectara.CorporaSearchToolConfigurationVariant2? CorporaSearchToolConfigurationVariant2 { get; init; }
 #else
-        public global::Vectara.CorporaSearchToolConfigurationVariant2? Value2 { get; }
+        public global::Vectara.CorporaSearchToolConfigurationVariant2? CorporaSearchToolConfigurationVariant2 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CorporaSearchToolConfigurationVariant2))]
 #endif
-        public bool IsValue2 => Value2 != null;
+        public bool IsCorporaSearchToolConfigurationVariant2 => CorporaSearchToolConfigurationVariant2 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -50,14 +50,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.ToolConfigurationBase?(CorporaSearchToolConfiguration @this) => @this.Value1;
+        public static implicit operator global::Vectara.ToolConfigurationBase?(CorporaSearchToolConfiguration @this) => @this.Base;
 
         /// <summary>
         /// 
         /// </summary>
         public CorporaSearchToolConfiguration(global::Vectara.ToolConfigurationBase? value)
         {
-            Value1 = value;
+            Base = value;
         }
 
         /// <summary>
@@ -68,42 +68,42 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.CorporaSearchToolConfigurationVariant2?(CorporaSearchToolConfiguration @this) => @this.Value2;
+        public static implicit operator global::Vectara.CorporaSearchToolConfigurationVariant2?(CorporaSearchToolConfiguration @this) => @this.CorporaSearchToolConfigurationVariant2;
 
         /// <summary>
         /// 
         /// </summary>
         public CorporaSearchToolConfiguration(global::Vectara.CorporaSearchToolConfigurationVariant2? value)
         {
-            Value2 = value;
+            CorporaSearchToolConfigurationVariant2 = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public CorporaSearchToolConfiguration(
-            global::Vectara.ToolConfigurationBase? value1,
-            global::Vectara.CorporaSearchToolConfigurationVariant2? value2
+            global::Vectara.ToolConfigurationBase? @base,
+            global::Vectara.CorporaSearchToolConfigurationVariant2? corporaSearchToolConfigurationVariant2
             )
         {
-            Value1 = value1;
-            Value2 = value2;
+            Base = @base;
+            CorporaSearchToolConfigurationVariant2 = corporaSearchToolConfigurationVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value2 as object ??
-            Value1 as object 
+            CorporaSearchToolConfigurationVariant2 as object ??
+            Base as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() ??
-            Value2?.ToString() 
+            Base?.ToString() ??
+            CorporaSearchToolConfigurationVariant2?.ToString() 
             ;
 
         /// <summary>
@@ -111,15 +111,15 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsValue1 && IsValue2;
+            return IsBase && IsCorporaSearchToolConfigurationVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolConfigurationBase?, TResult>? value1 = null,
-            global::System.Func<global::Vectara.CorporaSearchToolConfigurationVariant2?, TResult>? value2 = null,
+            global::System.Func<global::Vectara.ToolConfigurationBase?, TResult>? @base = null,
+            global::System.Func<global::Vectara.CorporaSearchToolConfigurationVariant2?, TResult>? corporaSearchToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -127,13 +127,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsBase && @base != null)
             {
-                return value1(Value1!);
+                return @base(Base!);
             }
-            else if (IsValue2 && value2 != null)
+            else if (IsCorporaSearchToolConfigurationVariant2 && corporaSearchToolConfigurationVariant2 != null)
             {
-                return value2(Value2!);
+                return corporaSearchToolConfigurationVariant2(CorporaSearchToolConfigurationVariant2!);
             }
 
             return default(TResult);
@@ -143,8 +143,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolConfigurationBase?>? value1 = null,
-            global::System.Action<global::Vectara.CorporaSearchToolConfigurationVariant2?>? value2 = null,
+            global::System.Action<global::Vectara.ToolConfigurationBase?>? @base = null,
+            global::System.Action<global::Vectara.CorporaSearchToolConfigurationVariant2?>? corporaSearchToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -152,13 +152,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsBase)
             {
-                value1?.Invoke(Value1!);
+                @base?.Invoke(Base!);
             }
-            else if (IsValue2)
+            else if (IsCorporaSearchToolConfigurationVariant2)
             {
-                value2?.Invoke(Value2!);
+                corporaSearchToolConfigurationVariant2?.Invoke(CorporaSearchToolConfigurationVariant2!);
             }
         }
 
@@ -169,9 +169,9 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Value1,
+                Base,
                 typeof(global::Vectara.ToolConfigurationBase),
-                Value2,
+                CorporaSearchToolConfigurationVariant2,
                 typeof(global::Vectara.CorporaSearchToolConfigurationVariant2),
             };
             const int offset = unchecked((int)2166136261);
@@ -189,8 +189,8 @@ namespace Vectara
         public bool Equals(CorporaSearchToolConfiguration other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CorporaSearchToolConfigurationVariant2?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CorporaSearchToolConfigurationVariant2?>.Default.Equals(CorporaSearchToolConfigurationVariant2, other.CorporaSearchToolConfigurationVariant2) 
                 ;
         }
 
