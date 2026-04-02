@@ -25,9 +25,9 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        /// <default>"client_credentials"</default>
         [global::System.Text.Json.Serialization.JsonPropertyName("grant_type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required object GrantType { get; set; }
+        public string GrantType { get; set; } = "client_credentials";
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -51,11 +51,11 @@ namespace Vectara
         public GetOAuthTokenRequest(
             string clientId,
             string clientSecret,
-            object grantType)
+            string grantType = "client_credentials")
         {
             this.ClientId = clientId ?? throw new global::System.ArgumentNullException(nameof(clientId));
             this.ClientSecret = clientSecret ?? throw new global::System.ArgumentNullException(nameof(clientSecret));
-            this.GrantType = grantType ?? throw new global::System.ArgumentNullException(nameof(grantType));
+            this.GrantType = grantType;
         }
 
         /// <summary>
