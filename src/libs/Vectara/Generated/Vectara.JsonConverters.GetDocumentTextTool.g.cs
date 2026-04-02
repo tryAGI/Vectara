@@ -49,8 +49,8 @@ namespace Vectara.JsonConverters
             if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
             if (__score1 > __bestScore) { __bestScore = __score1; __bestIndex = 1; }
 
-            global::Vectara.ToolBase? value1 = default;
-            global::Vectara.GetDocumentTextToolVariant2? value2 = default;
+            global::Vectara.ToolBase? @base = default;
+            global::Vectara.GetDocumentTextToolVariant2? getDocumentTextToolVariant2 = default;
             if (__bestIndex >= 0)
             {
                 if (__bestIndex == 0)
@@ -59,7 +59,7 @@ namespace Vectara.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolBase> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ToolBase).Name}");
-                        value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        @base = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -74,7 +74,7 @@ namespace Vectara.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GetDocumentTextToolVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GetDocumentTextToolVariant2> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GetDocumentTextToolVariant2).Name}");
-                        value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        getDocumentTextToolVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -85,13 +85,13 @@ namespace Vectara.JsonConverters
                 }
             }
 
-            if (value1 == null && value2 == null)
+            if (@base == null && getDocumentTextToolVariant2 == null)
             {
                 try
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolBase> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ToolBase).Name}");
-                    value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    @base = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -104,7 +104,7 @@ namespace Vectara.JsonConverters
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GetDocumentTextToolVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GetDocumentTextToolVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GetDocumentTextToolVariant2).Name}");
-                    value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    getDocumentTextToolVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -115,9 +115,9 @@ namespace Vectara.JsonConverters
             }
 
             var __value = new global::Vectara.GetDocumentTextTool(
-                value1,
+                @base,
 
-                value2
+                getDocumentTextToolVariant2
                 );
 
             return __value;
@@ -132,17 +132,17 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsValue1)
+            if (value.IsBase)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolBase?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ToolBase).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value1!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Base!, typeInfo);
             }
-            else if (value.IsValue2)
+            else if (value.IsGetDocumentTextToolVariant2)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GetDocumentTextToolVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GetDocumentTextToolVariant2?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GetDocumentTextToolVariant2).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GetDocumentTextToolVariant2!, typeInfo);
             }
         }
     }

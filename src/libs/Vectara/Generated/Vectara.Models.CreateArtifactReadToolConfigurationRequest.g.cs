@@ -13,18 +13,18 @@ namespace Vectara
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1? Value1 { get; init; }
+        public global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1? CreateArtifactReadToolConfigurationRequestVariant1 { get; init; }
 #else
-        public global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1? Value1 { get; }
+        public global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1? CreateArtifactReadToolConfigurationRequestVariant1 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateArtifactReadToolConfigurationRequestVariant1))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsCreateArtifactReadToolConfigurationRequestVariant1 => CreateArtifactReadToolConfigurationRequestVariant1 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -33,28 +33,28 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1?(CreateArtifactReadToolConfigurationRequest @this) => @this.Value1;
+        public static implicit operator global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1?(CreateArtifactReadToolConfigurationRequest @this) => @this.CreateArtifactReadToolConfigurationRequestVariant1;
 
         /// <summary>
         /// 
         /// </summary>
         public CreateArtifactReadToolConfigurationRequest(global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1? value)
         {
-            Value1 = value;
+            CreateArtifactReadToolConfigurationRequestVariant1 = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value1 as object 
+            CreateArtifactReadToolConfigurationRequestVariant1 as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() 
+            CreateArtifactReadToolConfigurationRequestVariant1?.ToString() 
             ;
 
         /// <summary>
@@ -62,14 +62,14 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsValue1;
+            return IsCreateArtifactReadToolConfigurationRequestVariant1;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1?, TResult>? value1 = null,
+            global::System.Func<global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1?, TResult>? createArtifactReadToolConfigurationRequestVariant1 = null,
             bool validate = true)
         {
             if (validate)
@@ -77,9 +77,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsCreateArtifactReadToolConfigurationRequestVariant1 && createArtifactReadToolConfigurationRequestVariant1 != null)
             {
-                return value1(Value1!);
+                return createArtifactReadToolConfigurationRequestVariant1(CreateArtifactReadToolConfigurationRequestVariant1!);
             }
 
             return default(TResult);
@@ -89,7 +89,7 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1?>? value1 = null,
+            global::System.Action<global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1?>? createArtifactReadToolConfigurationRequestVariant1 = null,
             bool validate = true)
         {
             if (validate)
@@ -97,9 +97,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsCreateArtifactReadToolConfigurationRequestVariant1)
             {
-                value1?.Invoke(Value1!);
+                createArtifactReadToolConfigurationRequestVariant1?.Invoke(CreateArtifactReadToolConfigurationRequestVariant1!);
             }
         }
 
@@ -110,7 +110,7 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Value1,
+                CreateArtifactReadToolConfigurationRequestVariant1,
                 typeof(global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1),
             };
             const int offset = unchecked((int)2166136261);
@@ -128,7 +128,7 @@ namespace Vectara
         public bool Equals(CreateArtifactReadToolConfigurationRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1?>.Default.Equals(Value1, other.Value1) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1?>.Default.Equals(CreateArtifactReadToolConfigurationRequestVariant1, other.CreateArtifactReadToolConfigurationRequestVariant1) 
                 ;
         }
 

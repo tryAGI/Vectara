@@ -13,36 +13,36 @@ namespace Vectara
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.SearchCorporaParametersVariant1? Value1 { get; init; }
+        public global::Vectara.SearchCorporaParametersVariant1? SearchCorporaParametersVariant1 { get; init; }
 #else
-        public global::Vectara.SearchCorporaParametersVariant1? Value1 { get; }
+        public global::Vectara.SearchCorporaParametersVariant1? SearchCorporaParametersVariant1 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SearchCorporaParametersVariant1))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsSearchCorporaParametersVariant1 => SearchCorporaParametersVariant1 != null;
 
         /// <summary>
         /// Search parameters to retrieve knowledge for the query.<br/>
         /// Example: {"limit":50}
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.SearchParameters? Value2 { get; init; }
+        public global::Vectara.SearchParameters? SearchParameters { get; init; }
 #else
-        public global::Vectara.SearchParameters? Value2 { get; }
+        public global::Vectara.SearchParameters? SearchParameters { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SearchParameters))]
 #endif
-        public bool IsValue2 => Value2 != null;
+        public bool IsSearchParameters => SearchParameters != null;
         /// <summary>
         /// 
         /// </summary>
@@ -51,14 +51,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.SearchCorporaParametersVariant1?(SearchCorporaParameters @this) => @this.Value1;
+        public static implicit operator global::Vectara.SearchCorporaParametersVariant1?(SearchCorporaParameters @this) => @this.SearchCorporaParametersVariant1;
 
         /// <summary>
         /// 
         /// </summary>
         public SearchCorporaParameters(global::Vectara.SearchCorporaParametersVariant1? value)
         {
-            Value1 = value;
+            SearchCorporaParametersVariant1 = value;
         }
 
         /// <summary>
@@ -69,42 +69,42 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.SearchParameters?(SearchCorporaParameters @this) => @this.Value2;
+        public static implicit operator global::Vectara.SearchParameters?(SearchCorporaParameters @this) => @this.SearchParameters;
 
         /// <summary>
         /// 
         /// </summary>
         public SearchCorporaParameters(global::Vectara.SearchParameters? value)
         {
-            Value2 = value;
+            SearchParameters = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public SearchCorporaParameters(
-            global::Vectara.SearchCorporaParametersVariant1? value1,
-            global::Vectara.SearchParameters? value2
+            global::Vectara.SearchCorporaParametersVariant1? searchCorporaParametersVariant1,
+            global::Vectara.SearchParameters? searchParameters
             )
         {
-            Value1 = value1;
-            Value2 = value2;
+            SearchCorporaParametersVariant1 = searchCorporaParametersVariant1;
+            SearchParameters = searchParameters;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value2 as object ??
-            Value1 as object 
+            SearchParameters as object ??
+            SearchCorporaParametersVariant1 as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() ??
-            Value2?.ToString() 
+            SearchCorporaParametersVariant1?.ToString() ??
+            SearchParameters?.ToString() 
             ;
 
         /// <summary>
@@ -112,15 +112,15 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsValue1 && IsValue2;
+            return IsSearchCorporaParametersVariant1 && IsSearchParameters;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.SearchCorporaParametersVariant1?, TResult>? value1 = null,
-            global::System.Func<global::Vectara.SearchParameters?, TResult>? value2 = null,
+            global::System.Func<global::Vectara.SearchCorporaParametersVariant1?, TResult>? searchCorporaParametersVariant1 = null,
+            global::System.Func<global::Vectara.SearchParameters?, TResult>? searchParameters = null,
             bool validate = true)
         {
             if (validate)
@@ -128,13 +128,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsSearchCorporaParametersVariant1 && searchCorporaParametersVariant1 != null)
             {
-                return value1(Value1!);
+                return searchCorporaParametersVariant1(SearchCorporaParametersVariant1!);
             }
-            else if (IsValue2 && value2 != null)
+            else if (IsSearchParameters && searchParameters != null)
             {
-                return value2(Value2!);
+                return searchParameters(SearchParameters!);
             }
 
             return default(TResult);
@@ -144,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.SearchCorporaParametersVariant1?>? value1 = null,
-            global::System.Action<global::Vectara.SearchParameters?>? value2 = null,
+            global::System.Action<global::Vectara.SearchCorporaParametersVariant1?>? searchCorporaParametersVariant1 = null,
+            global::System.Action<global::Vectara.SearchParameters?>? searchParameters = null,
             bool validate = true)
         {
             if (validate)
@@ -153,13 +153,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsSearchCorporaParametersVariant1)
             {
-                value1?.Invoke(Value1!);
+                searchCorporaParametersVariant1?.Invoke(SearchCorporaParametersVariant1!);
             }
-            else if (IsValue2)
+            else if (IsSearchParameters)
             {
-                value2?.Invoke(Value2!);
+                searchParameters?.Invoke(SearchParameters!);
             }
         }
 
@@ -170,9 +170,9 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Value1,
+                SearchCorporaParametersVariant1,
                 typeof(global::Vectara.SearchCorporaParametersVariant1),
-                Value2,
+                SearchParameters,
                 typeof(global::Vectara.SearchParameters),
             };
             const int offset = unchecked((int)2166136261);
@@ -190,8 +190,8 @@ namespace Vectara
         public bool Equals(SearchCorporaParameters other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SearchCorporaParametersVariant1?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SearchParameters?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SearchCorporaParametersVariant1?>.Default.Equals(SearchCorporaParametersVariant1, other.SearchCorporaParametersVariant1) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SearchParameters?>.Default.Equals(SearchParameters, other.SearchParameters) 
                 ;
         }
 

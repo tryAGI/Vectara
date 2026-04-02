@@ -13,35 +13,35 @@ namespace Vectara
         /// Base properties shared by all agent event types.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.AgentEventBase? Value1 { get; init; }
+        public global::Vectara.AgentEventBase? AgentBase { get; init; }
 #else
-        public global::Vectara.AgentEventBase? Value1 { get; }
+        public global::Vectara.AgentEventBase? AgentBase { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.ThinkingEventVariant2? Value2 { get; init; }
+        public global::Vectara.ThinkingEventVariant2? ThinkingEventVariant2 { get; init; }
 #else
-        public global::Vectara.ThinkingEventVariant2? Value2 { get; }
+        public global::Vectara.ThinkingEventVariant2? ThinkingEventVariant2 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ThinkingEventVariant2))]
 #endif
-        public bool IsValue2 => Value2 != null;
+        public bool IsThinkingEventVariant2 => ThinkingEventVariant2 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -50,14 +50,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.AgentEventBase?(ThinkingEvent @this) => @this.Value1;
+        public static implicit operator global::Vectara.AgentEventBase?(ThinkingEvent @this) => @this.AgentBase;
 
         /// <summary>
         /// 
         /// </summary>
         public ThinkingEvent(global::Vectara.AgentEventBase? value)
         {
-            Value1 = value;
+            AgentBase = value;
         }
 
         /// <summary>
@@ -68,42 +68,42 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.ThinkingEventVariant2?(ThinkingEvent @this) => @this.Value2;
+        public static implicit operator global::Vectara.ThinkingEventVariant2?(ThinkingEvent @this) => @this.ThinkingEventVariant2;
 
         /// <summary>
         /// 
         /// </summary>
         public ThinkingEvent(global::Vectara.ThinkingEventVariant2? value)
         {
-            Value2 = value;
+            ThinkingEventVariant2 = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public ThinkingEvent(
-            global::Vectara.AgentEventBase? value1,
-            global::Vectara.ThinkingEventVariant2? value2
+            global::Vectara.AgentEventBase? agentBase,
+            global::Vectara.ThinkingEventVariant2? thinkingEventVariant2
             )
         {
-            Value1 = value1;
-            Value2 = value2;
+            AgentBase = agentBase;
+            ThinkingEventVariant2 = thinkingEventVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value2 as object ??
-            Value1 as object 
+            ThinkingEventVariant2 as object ??
+            AgentBase as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() ??
-            Value2?.ToString() 
+            AgentBase?.ToString() ??
+            ThinkingEventVariant2?.ToString() 
             ;
 
         /// <summary>
@@ -111,15 +111,15 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsValue1 && IsValue2;
+            return IsAgentBase && IsThinkingEventVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentEventBase?, TResult>? value1 = null,
-            global::System.Func<global::Vectara.ThinkingEventVariant2?, TResult>? value2 = null,
+            global::System.Func<global::Vectara.AgentEventBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.ThinkingEventVariant2?, TResult>? thinkingEventVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -127,13 +127,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsAgentBase && agentBase != null)
             {
-                return value1(Value1!);
+                return agentBase(AgentBase!);
             }
-            else if (IsValue2 && value2 != null)
+            else if (IsThinkingEventVariant2 && thinkingEventVariant2 != null)
             {
-                return value2(Value2!);
+                return thinkingEventVariant2(ThinkingEventVariant2!);
             }
 
             return default(TResult);
@@ -143,8 +143,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentEventBase?>? value1 = null,
-            global::System.Action<global::Vectara.ThinkingEventVariant2?>? value2 = null,
+            global::System.Action<global::Vectara.AgentEventBase?>? agentBase = null,
+            global::System.Action<global::Vectara.ThinkingEventVariant2?>? thinkingEventVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -152,13 +152,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsAgentBase)
             {
-                value1?.Invoke(Value1!);
+                agentBase?.Invoke(AgentBase!);
             }
-            else if (IsValue2)
+            else if (IsThinkingEventVariant2)
             {
-                value2?.Invoke(Value2!);
+                thinkingEventVariant2?.Invoke(ThinkingEventVariant2!);
             }
         }
 
@@ -169,9 +169,9 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Value1,
+                AgentBase,
                 typeof(global::Vectara.AgentEventBase),
-                Value2,
+                ThinkingEventVariant2,
                 typeof(global::Vectara.ThinkingEventVariant2),
             };
             const int offset = unchecked((int)2166136261);
@@ -189,8 +189,8 @@ namespace Vectara
         public bool Equals(ThinkingEvent other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingEventVariant2?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingEventVariant2?>.Default.Equals(ThinkingEventVariant2, other.ThinkingEventVariant2) 
                 ;
         }
 

@@ -38,8 +38,8 @@ namespace Vectara.JsonConverters
             if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
             if (__score1 > __bestScore) { __bestScore = __score1; __bestIndex = 1; }
 
-            global::Vectara.AgentEventBase? value1 = default;
-            global::Vectara.ArtifactUploadEventVariant2? value2 = default;
+            global::Vectara.AgentEventBase? agentBase = default;
+            global::Vectara.ArtifactUploadEventVariant2? artifactUploadEventVariant2 = default;
             if (__bestIndex >= 0)
             {
                 if (__bestIndex == 0)
@@ -48,7 +48,7 @@ namespace Vectara.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.AgentEventBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.AgentEventBase> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.AgentEventBase).Name}");
-                        value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        agentBase = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -63,7 +63,7 @@ namespace Vectara.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ArtifactUploadEventVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ArtifactUploadEventVariant2> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ArtifactUploadEventVariant2).Name}");
-                        value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        artifactUploadEventVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -74,13 +74,13 @@ namespace Vectara.JsonConverters
                 }
             }
 
-            if (value1 == null && value2 == null)
+            if (agentBase == null && artifactUploadEventVariant2 == null)
             {
                 try
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.AgentEventBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.AgentEventBase> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.AgentEventBase).Name}");
-                    value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    agentBase = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -93,7 +93,7 @@ namespace Vectara.JsonConverters
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ArtifactUploadEventVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ArtifactUploadEventVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ArtifactUploadEventVariant2).Name}");
-                    value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    artifactUploadEventVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -104,9 +104,9 @@ namespace Vectara.JsonConverters
             }
 
             var __value = new global::Vectara.ArtifactUploadEvent(
-                value1,
+                agentBase,
 
-                value2
+                artifactUploadEventVariant2
                 );
 
             return __value;
@@ -121,17 +121,17 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsValue1)
+            if (value.IsAgentBase)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.AgentEventBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.AgentEventBase?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.AgentEventBase).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value1!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.AgentBase!, typeInfo);
             }
-            else if (value.IsValue2)
+            else if (value.IsArtifactUploadEventVariant2)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ArtifactUploadEventVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ArtifactUploadEventVariant2?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ArtifactUploadEventVariant2).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ArtifactUploadEventVariant2!, typeInfo);
             }
         }
     }

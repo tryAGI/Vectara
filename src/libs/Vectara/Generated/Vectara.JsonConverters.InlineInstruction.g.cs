@@ -40,8 +40,8 @@ namespace Vectara.JsonConverters
             if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
             if (__score1 > __bestScore) { __bestScore = __score1; __bestIndex = 1; }
 
-            global::Vectara.InstructionRequestBase? value1 = default;
-            global::Vectara.InlineInstructionVariant2? value2 = default;
+            global::Vectara.InstructionRequestBase? requestBase = default;
+            global::Vectara.InlineInstructionVariant2? inlineInstructionVariant2 = default;
             if (__bestIndex >= 0)
             {
                 if (__bestIndex == 0)
@@ -50,7 +50,7 @@ namespace Vectara.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InstructionRequestBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InstructionRequestBase> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InstructionRequestBase).Name}");
-                        value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        requestBase = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -65,7 +65,7 @@ namespace Vectara.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineInstructionVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineInstructionVariant2> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InlineInstructionVariant2).Name}");
-                        value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        inlineInstructionVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -76,13 +76,13 @@ namespace Vectara.JsonConverters
                 }
             }
 
-            if (value1 == null && value2 == null)
+            if (requestBase == null && inlineInstructionVariant2 == null)
             {
                 try
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InstructionRequestBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InstructionRequestBase> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InstructionRequestBase).Name}");
-                    value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    requestBase = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -95,7 +95,7 @@ namespace Vectara.JsonConverters
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineInstructionVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineInstructionVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InlineInstructionVariant2).Name}");
-                    value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    inlineInstructionVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -106,9 +106,9 @@ namespace Vectara.JsonConverters
             }
 
             var __value = new global::Vectara.InlineInstruction(
-                value1,
+                requestBase,
 
-                value2
+                inlineInstructionVariant2
                 );
 
             return __value;
@@ -123,17 +123,17 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsValue1)
+            if (value.IsRequestBase)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InstructionRequestBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InstructionRequestBase?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InstructionRequestBase).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value1!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.RequestBase!, typeInfo);
             }
-            else if (value.IsValue2)
+            else if (value.IsInlineInstructionVariant2)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineInstructionVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineInstructionVariant2?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InlineInstructionVariant2).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.InlineInstructionVariant2!, typeInfo);
             }
         }
     }

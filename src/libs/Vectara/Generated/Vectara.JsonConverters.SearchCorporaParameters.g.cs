@@ -38,8 +38,8 @@ namespace Vectara.JsonConverters
             if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
             if (__score1 > __bestScore) { __bestScore = __score1; __bestIndex = 1; }
 
-            global::Vectara.SearchCorporaParametersVariant1? value1 = default;
-            global::Vectara.SearchParameters? value2 = default;
+            global::Vectara.SearchCorporaParametersVariant1? searchCorporaParametersVariant1 = default;
+            global::Vectara.SearchParameters? searchParameters = default;
             if (__bestIndex >= 0)
             {
                 if (__bestIndex == 0)
@@ -48,7 +48,7 @@ namespace Vectara.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SearchCorporaParametersVariant1), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SearchCorporaParametersVariant1> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SearchCorporaParametersVariant1).Name}");
-                        value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        searchCorporaParametersVariant1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -63,7 +63,7 @@ namespace Vectara.JsonConverters
                     {
                         var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SearchParameters), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SearchParameters> ??
                                        throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SearchParameters).Name}");
-                        value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                        searchParameters = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
                     {
@@ -74,13 +74,13 @@ namespace Vectara.JsonConverters
                 }
             }
 
-            if (value1 == null && value2 == null)
+            if (searchCorporaParametersVariant1 == null && searchParameters == null)
             {
                 try
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SearchCorporaParametersVariant1), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SearchCorporaParametersVariant1> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SearchCorporaParametersVariant1).Name}");
-                    value1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    searchCorporaParametersVariant1 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -93,7 +93,7 @@ namespace Vectara.JsonConverters
                 {
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SearchParameters), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SearchParameters> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SearchParameters).Name}");
-                    value2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+                    searchParameters = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
                 {
@@ -104,9 +104,9 @@ namespace Vectara.JsonConverters
             }
 
             var __value = new global::Vectara.SearchCorporaParameters(
-                value1,
+                searchCorporaParametersVariant1,
 
-                value2
+                searchParameters
                 );
 
             return __value;
@@ -121,17 +121,17 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsValue1)
+            if (value.IsSearchCorporaParametersVariant1)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SearchCorporaParametersVariant1), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SearchCorporaParametersVariant1?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SearchCorporaParametersVariant1).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value1!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SearchCorporaParametersVariant1!, typeInfo);
             }
-            else if (value.IsValue2)
+            else if (value.IsSearchParameters)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SearchParameters), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SearchParameters?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SearchParameters).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Value2!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SearchParameters!, typeInfo);
             }
         }
     }

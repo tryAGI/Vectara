@@ -13,35 +13,35 @@ namespace Vectara
         /// Base properties shared by all tool types.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.ToolBase? Value1 { get; init; }
+        public global::Vectara.ToolBase? Base { get; init; }
 #else
-        public global::Vectara.ToolBase? Value1 { get; }
+        public global::Vectara.ToolBase? Base { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsBase => Base != null;
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.ArtifactCreateToolVariant2? Value2 { get; init; }
+        public global::Vectara.ArtifactCreateToolVariant2? ArtifactCreateToolVariant2 { get; init; }
 #else
-        public global::Vectara.ArtifactCreateToolVariant2? Value2 { get; }
+        public global::Vectara.ArtifactCreateToolVariant2? ArtifactCreateToolVariant2 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactCreateToolVariant2))]
 #endif
-        public bool IsValue2 => Value2 != null;
+        public bool IsArtifactCreateToolVariant2 => ArtifactCreateToolVariant2 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -50,14 +50,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.ToolBase?(ArtifactCreateTool @this) => @this.Value1;
+        public static implicit operator global::Vectara.ToolBase?(ArtifactCreateTool @this) => @this.Base;
 
         /// <summary>
         /// 
         /// </summary>
         public ArtifactCreateTool(global::Vectara.ToolBase? value)
         {
-            Value1 = value;
+            Base = value;
         }
 
         /// <summary>
@@ -68,42 +68,42 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.ArtifactCreateToolVariant2?(ArtifactCreateTool @this) => @this.Value2;
+        public static implicit operator global::Vectara.ArtifactCreateToolVariant2?(ArtifactCreateTool @this) => @this.ArtifactCreateToolVariant2;
 
         /// <summary>
         /// 
         /// </summary>
         public ArtifactCreateTool(global::Vectara.ArtifactCreateToolVariant2? value)
         {
-            Value2 = value;
+            ArtifactCreateToolVariant2 = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public ArtifactCreateTool(
-            global::Vectara.ToolBase? value1,
-            global::Vectara.ArtifactCreateToolVariant2? value2
+            global::Vectara.ToolBase? @base,
+            global::Vectara.ArtifactCreateToolVariant2? artifactCreateToolVariant2
             )
         {
-            Value1 = value1;
-            Value2 = value2;
+            Base = @base;
+            ArtifactCreateToolVariant2 = artifactCreateToolVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value2 as object ??
-            Value1 as object 
+            ArtifactCreateToolVariant2 as object ??
+            Base as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() ??
-            Value2?.ToString() 
+            Base?.ToString() ??
+            ArtifactCreateToolVariant2?.ToString() 
             ;
 
         /// <summary>
@@ -111,15 +111,15 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsValue1 && IsValue2;
+            return IsBase && IsArtifactCreateToolVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? value1 = null,
-            global::System.Func<global::Vectara.ArtifactCreateToolVariant2?, TResult>? value2 = null,
+            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
+            global::System.Func<global::Vectara.ArtifactCreateToolVariant2?, TResult>? artifactCreateToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -127,13 +127,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsBase && @base != null)
             {
-                return value1(Value1!);
+                return @base(Base!);
             }
-            else if (IsValue2 && value2 != null)
+            else if (IsArtifactCreateToolVariant2 && artifactCreateToolVariant2 != null)
             {
-                return value2(Value2!);
+                return artifactCreateToolVariant2(ArtifactCreateToolVariant2!);
             }
 
             return default(TResult);
@@ -143,8 +143,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? value1 = null,
-            global::System.Action<global::Vectara.ArtifactCreateToolVariant2?>? value2 = null,
+            global::System.Action<global::Vectara.ToolBase?>? @base = null,
+            global::System.Action<global::Vectara.ArtifactCreateToolVariant2?>? artifactCreateToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -152,13 +152,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsBase)
             {
-                value1?.Invoke(Value1!);
+                @base?.Invoke(Base!);
             }
-            else if (IsValue2)
+            else if (IsArtifactCreateToolVariant2)
             {
-                value2?.Invoke(Value2!);
+                artifactCreateToolVariant2?.Invoke(ArtifactCreateToolVariant2!);
             }
         }
 
@@ -169,9 +169,9 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Value1,
+                Base,
                 typeof(global::Vectara.ToolBase),
-                Value2,
+                ArtifactCreateToolVariant2,
                 typeof(global::Vectara.ArtifactCreateToolVariant2),
             };
             const int offset = unchecked((int)2166136261);
@@ -189,8 +189,8 @@ namespace Vectara
         public bool Equals(ArtifactCreateTool other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolBase?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactCreateToolVariant2?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolBase?>.Default.Equals(Base, other.Base) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactCreateToolVariant2?>.Default.Equals(ArtifactCreateToolVariant2, other.ArtifactCreateToolVariant2) 
                 ;
         }
 

@@ -13,35 +13,35 @@ namespace Vectara
         /// Base properties shared by all tool configuration types.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.ToolConfigurationBase? Value1 { get; init; }
+        public global::Vectara.ToolConfigurationBase? Base { get; init; }
 #else
-        public global::Vectara.ToolConfigurationBase? Value1 { get; }
+        public global::Vectara.ToolConfigurationBase? Base { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value1))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
 #endif
-        public bool IsValue1 => Value1 != null;
+        public bool IsBase => Base != null;
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.ArtifactGrepToolConfigurationVariant2? Value2 { get; init; }
+        public global::Vectara.ArtifactGrepToolConfigurationVariant2? ArtifactGrepToolConfigurationVariant2 { get; init; }
 #else
-        public global::Vectara.ArtifactGrepToolConfigurationVariant2? Value2 { get; }
+        public global::Vectara.ArtifactGrepToolConfigurationVariant2? ArtifactGrepToolConfigurationVariant2 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Value2))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactGrepToolConfigurationVariant2))]
 #endif
-        public bool IsValue2 => Value2 != null;
+        public bool IsArtifactGrepToolConfigurationVariant2 => ArtifactGrepToolConfigurationVariant2 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -50,14 +50,14 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.ToolConfigurationBase?(ArtifactGrepToolConfiguration @this) => @this.Value1;
+        public static implicit operator global::Vectara.ToolConfigurationBase?(ArtifactGrepToolConfiguration @this) => @this.Base;
 
         /// <summary>
         /// 
         /// </summary>
         public ArtifactGrepToolConfiguration(global::Vectara.ToolConfigurationBase? value)
         {
-            Value1 = value;
+            Base = value;
         }
 
         /// <summary>
@@ -68,42 +68,42 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.ArtifactGrepToolConfigurationVariant2?(ArtifactGrepToolConfiguration @this) => @this.Value2;
+        public static implicit operator global::Vectara.ArtifactGrepToolConfigurationVariant2?(ArtifactGrepToolConfiguration @this) => @this.ArtifactGrepToolConfigurationVariant2;
 
         /// <summary>
         /// 
         /// </summary>
         public ArtifactGrepToolConfiguration(global::Vectara.ArtifactGrepToolConfigurationVariant2? value)
         {
-            Value2 = value;
+            ArtifactGrepToolConfigurationVariant2 = value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public ArtifactGrepToolConfiguration(
-            global::Vectara.ToolConfigurationBase? value1,
-            global::Vectara.ArtifactGrepToolConfigurationVariant2? value2
+            global::Vectara.ToolConfigurationBase? @base,
+            global::Vectara.ArtifactGrepToolConfigurationVariant2? artifactGrepToolConfigurationVariant2
             )
         {
-            Value1 = value1;
-            Value2 = value2;
+            Base = @base;
+            ArtifactGrepToolConfigurationVariant2 = artifactGrepToolConfigurationVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            Value2 as object ??
-            Value1 as object 
+            ArtifactGrepToolConfigurationVariant2 as object ??
+            Base as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
-            Value1?.ToString() ??
-            Value2?.ToString() 
+            Base?.ToString() ??
+            ArtifactGrepToolConfigurationVariant2?.ToString() 
             ;
 
         /// <summary>
@@ -111,15 +111,15 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsValue1 && IsValue2;
+            return IsBase && IsArtifactGrepToolConfigurationVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolConfigurationBase?, TResult>? value1 = null,
-            global::System.Func<global::Vectara.ArtifactGrepToolConfigurationVariant2?, TResult>? value2 = null,
+            global::System.Func<global::Vectara.ToolConfigurationBase?, TResult>? @base = null,
+            global::System.Func<global::Vectara.ArtifactGrepToolConfigurationVariant2?, TResult>? artifactGrepToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -127,13 +127,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1 && value1 != null)
+            if (IsBase && @base != null)
             {
-                return value1(Value1!);
+                return @base(Base!);
             }
-            else if (IsValue2 && value2 != null)
+            else if (IsArtifactGrepToolConfigurationVariant2 && artifactGrepToolConfigurationVariant2 != null)
             {
-                return value2(Value2!);
+                return artifactGrepToolConfigurationVariant2(ArtifactGrepToolConfigurationVariant2!);
             }
 
             return default(TResult);
@@ -143,8 +143,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolConfigurationBase?>? value1 = null,
-            global::System.Action<global::Vectara.ArtifactGrepToolConfigurationVariant2?>? value2 = null,
+            global::System.Action<global::Vectara.ToolConfigurationBase?>? @base = null,
+            global::System.Action<global::Vectara.ArtifactGrepToolConfigurationVariant2?>? artifactGrepToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -152,13 +152,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsValue1)
+            if (IsBase)
             {
-                value1?.Invoke(Value1!);
+                @base?.Invoke(Base!);
             }
-            else if (IsValue2)
+            else if (IsArtifactGrepToolConfigurationVariant2)
             {
-                value2?.Invoke(Value2!);
+                artifactGrepToolConfigurationVariant2?.Invoke(ArtifactGrepToolConfigurationVariant2!);
             }
         }
 
@@ -169,9 +169,9 @@ namespace Vectara
         {
             var fields = new object?[]
             {
-                Value1,
+                Base,
                 typeof(global::Vectara.ToolConfigurationBase),
-                Value2,
+                ArtifactGrepToolConfigurationVariant2,
                 typeof(global::Vectara.ArtifactGrepToolConfigurationVariant2),
             };
             const int offset = unchecked((int)2166136261);
@@ -189,8 +189,8 @@ namespace Vectara
         public bool Equals(ArtifactGrepToolConfiguration other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Value1, other.Value1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactGrepToolConfigurationVariant2?>.Default.Equals(Value2, other.Value2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactGrepToolConfigurationVariant2?>.Default.Equals(ArtifactGrepToolConfigurationVariant2, other.ArtifactGrepToolConfigurationVariant2) 
                 ;
         }
 
