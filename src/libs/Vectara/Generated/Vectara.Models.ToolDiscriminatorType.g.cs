@@ -51,10 +51,6 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        StructuredIndexing,
-        /// <summary>
-        /// 
-        /// </summary>
         SubAgent,
         /// <summary>
         /// 
@@ -88,7 +84,6 @@ namespace Vectara
                 ToolDiscriminatorType.ImageRead => "image_read",
                 ToolDiscriminatorType.Lambda => "lambda",
                 ToolDiscriminatorType.Mcp => "mcp",
-                ToolDiscriminatorType.StructuredIndexing => "structured_indexing",
                 ToolDiscriminatorType.SubAgent => "sub_agent",
                 ToolDiscriminatorType.WebGet => "web_get",
                 ToolDiscriminatorType.WebSearch => "web_search",
@@ -112,7 +107,6 @@ namespace Vectara
                 "image_read" => ToolDiscriminatorType.ImageRead,
                 "lambda" => ToolDiscriminatorType.Lambda,
                 "mcp" => ToolDiscriminatorType.Mcp,
-                "structured_indexing" => ToolDiscriminatorType.StructuredIndexing,
                 "sub_agent" => ToolDiscriminatorType.SubAgent,
                 "web_get" => ToolDiscriminatorType.WebGet,
                 "web_search" => ToolDiscriminatorType.WebSearch,

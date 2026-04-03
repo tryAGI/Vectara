@@ -37,7 +37,6 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("input_schema")) __score0++;
             if (__jsonProps.Contains("lineage")) __score0++;
             if (__jsonProps.Contains("name")) __score0++;
-            if (__jsonProps.Contains("permissions")) __score0++;
             if (__jsonProps.Contains("title")) __score0++;
             if (__jsonProps.Contains("tool_groups")) __score0++;
             if (__jsonProps.Contains("updated_at")) __score0++;

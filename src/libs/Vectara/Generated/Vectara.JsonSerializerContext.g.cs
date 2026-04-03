@@ -81,10 +81,6 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.ChatStreamedResponseDiscriminatorTypeNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.CustomerConfigurationOperationalStatusJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.CustomerConfigurationOperationalStatusNullableJsonConverter),
-
             typeof(global::Vectara.JsonConverters.LLMOwnershipJsonConverter),
 
             typeof(global::Vectara.JsonConverters.LLMOwnershipNullableJsonConverter),
@@ -205,9 +201,29 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.TestToolResponseDiscriminatorTypeNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.TemplateTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TemplateTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InstructionDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InstructionDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInstructionRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInstructionRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateInstructionRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateInstructionRequestDiscriminatorTypeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderJsonConverter),
 
             typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetToolParametersMethodJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetToolParametersMethodNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.SubAgentSessionModeJsonConverter),
 
@@ -224,30 +240,6 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.DocumentConversionToolParametersOutputFormatJsonConverter),
 
             typeof(global::Vectara.JsonConverters.DocumentConversionToolParametersOutputFormatNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.ToolConfigurationDiscriminatorTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.ToolConfigurationDiscriminatorTypeNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.WebGetToolParametersMethodJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.WebGetToolParametersMethodNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.TemplateTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.TemplateTypeNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.InstructionDiscriminatorTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.InstructionDiscriminatorTypeNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.CreateInstructionRequestDiscriminatorTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.CreateInstructionRequestDiscriminatorTypeNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.UpdateInstructionRequestDiscriminatorTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.UpdateInstructionRequestDiscriminatorTypeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AgentToolConfigurationDiscriminatorTypeJsonConverter),
 
@@ -309,33 +301,9 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.AgentScheduleExecutionStatusNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.PipelineStatusJsonConverter),
+            typeof(global::Vectara.JsonConverters.AgentIdentityModeJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineTransformDiscriminatorTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineTransformDiscriminatorTypeNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineSyncModeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineSyncModeNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineRunStatusJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineRunStatusNullableJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineRunTriggerTypeJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineRunTriggerTypeNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.AgentIdentityModeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateCorpusDocumentWaitForJsonConverter),
 
@@ -415,8 +383,6 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.LambdaToolJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.StructuredIndexingToolJsonConverter),
-
             typeof(global::Vectara.JsonConverters.SubAgentToolJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ArtifactCreateToolJsonConverter),
@@ -438,38 +404,6 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.UpdateToolRequestJsonConverter),
 
             typeof(global::Vectara.JsonConverters.TestToolResponseJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.DynamicVectaraToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.McpToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.CorporaSearchToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.WebSearchToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.LambdaToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.StructuredIndexingToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.SubAgentToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.ArtifactReadToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.ArtifactGrepToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.ImageReadToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.DocumentConversionToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.GetDocumentTextToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.ToolConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.CreateWebGetToolConfigurationRequestJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.CreateArtifactReadToolConfigurationRequestJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.UpdateArtifactReadToolConfigurationRequestJsonConverter),
 
             typeof(global::Vectara.JsonConverters.InstructionJsonConverter),
 
@@ -536,10 +470,6 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineSourceJsonConverter),
-
-            typeof(global::Vectara.JsonConverters.PipelineTriggerJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>),
 
@@ -739,10 +669,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListChatTurnsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Turn>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateTurnRequest))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CustomerConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CustomerConfigurationOperationalStatus), TypeInfoPropertyName = "CustomerConfigurationOperationalStatus2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListCustomerConfigurationsResponse))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.CustomerConfiguration>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LLMCapabilities))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LLMOwnership), TypeInfoPropertyName = "LLMOwnership2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Prompt))]
@@ -877,7 +803,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.ToolServer>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateToolServerRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateToolServerRequest))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolPermissions))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolBase))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DynamicVectaraTool), TypeInfoPropertyName = "DynamicVectaraTool2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DynamicVectaraToolVariant2))]
@@ -897,8 +822,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LambdaTool), TypeInfoPropertyName = "LambdaTool2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LambdaToolVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LambdaToolVariant2Language), TypeInfoPropertyName = "LambdaToolVariant2Language2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.StructuredIndexingTool), TypeInfoPropertyName = "StructuredIndexingTool2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.StructuredIndexingToolVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentTool), TypeInfoPropertyName = "SubAgentTool2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentToolVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactCreateTool), TypeInfoPropertyName = "ArtifactCreateTool2")]
@@ -944,70 +867,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolResponse), TypeInfoPropertyName = "TestToolResponse2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolResponseDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolResponseDiscriminatorType), TypeInfoPropertyName = "TestToolResponseDiscriminatorType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolConfigurationBase))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DynamicVectaraToolConfiguration), TypeInfoPropertyName = "DynamicVectaraToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DynamicVectaraToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.McpToolConfiguration), TypeInfoPropertyName = "McpToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.McpToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CorporaSearchToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.EagerReference))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentKeyedSearchCorpus))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<string, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfStringEagerReference2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentSearchCorporaParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentKeyedSearchCorpus>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentCorporaSearchQueryConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CorporaSearchToolConfiguration), TypeInfoPropertyName = "CorporaSearchToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CorporaSearchToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSearchToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSearchToolParametersProvider), TypeInfoPropertyName = "WebSearchToolParametersProvider2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSearchToolConfiguration), TypeInfoPropertyName = "WebSearchToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSearchToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LambdaToolConfiguration), TypeInfoPropertyName = "LambdaToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LambdaToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.StructuredIndexingToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.StructuredIndexingToolConfiguration), TypeInfoPropertyName = "StructuredIndexingToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.StructuredIndexingToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentSessionMode), TypeInfoPropertyName = "SubAgentSessionMode2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentToolConfiguration), TypeInfoPropertyName = "SubAgentToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactReadToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactReadToolParametersEncoding), TypeInfoPropertyName = "ArtifactReadToolParametersEncoding2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactReadConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactReadToolConfiguration), TypeInfoPropertyName = "ArtifactReadToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactReadToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactGrepToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactGrepToolConfiguration), TypeInfoPropertyName = "ArtifactGrepToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactGrepToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageReadToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageReadToolParametersDetail), TypeInfoPropertyName = "ImageReadToolParametersDetail2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageReadToolConfiguration), TypeInfoPropertyName = "ImageReadToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageReadToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DocumentConversionToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DocumentConversionToolParametersOutputFormat), TypeInfoPropertyName = "DocumentConversionToolParametersOutputFormat2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DocumentConversionToolConfiguration), TypeInfoPropertyName = "DocumentConversionToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DocumentConversionToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetDocumentTextParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetDocumentTextConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetDocumentTextConfigurationMetadata))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetDocumentTextToolConfiguration), TypeInfoPropertyName = "GetDocumentTextToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetDocumentTextToolConfigurationVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolConfiguration), TypeInfoPropertyName = "ToolConfiguration2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolConfigurationDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolConfigurationDiscriminatorType), TypeInfoPropertyName = "ToolConfigurationDiscriminatorType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetToolParameters))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetToolParametersMethod), TypeInfoPropertyName = "WebGetToolParametersMethod2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<global::System.Collections.Generic.Dictionary<string, string>, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfDictionaryStringStringEagerReference2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<bool?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfBooleanEagerReference2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<int?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfInt32EagerReference2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<long?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfInt64EagerReference2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateWebGetToolConfigurationRequest), TypeInfoPropertyName = "CreateWebGetToolConfigurationRequest2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateWebGetToolConfigurationRequestVariant1))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateArtifactReadToolConfigurationRequest), TypeInfoPropertyName = "CreateArtifactReadToolConfigurationRequest2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateArtifactReadToolConfigurationRequestVariant1))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequest), TypeInfoPropertyName = "UpdateArtifactReadToolConfigurationRequest2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateArtifactReadToolConfigurationRequestVariant1))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TemplateType), TypeInfoPropertyName = "TemplateType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InitialInstruction))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Instruction), TypeInfoPropertyName = "Instruction2")]
@@ -1029,16 +888,44 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestInstructionResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineDynamicVectaraToolConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineMcpToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CorporaSearchToolParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.EagerReference))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentKeyedSearchCorpus))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<string, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfStringEagerReference2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentSearchCorporaParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentKeyedSearchCorpus>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentCorporaSearchQueryConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineCorporaSearchToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSearchToolParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSearchToolParametersProvider), TypeInfoPropertyName = "WebSearchToolParametersProvider2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineWebSearchToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetToolParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetToolParametersMethod), TypeInfoPropertyName = "WebGetToolParametersMethod2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<global::System.Collections.Generic.Dictionary<string, string>, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfDictionaryStringStringEagerReference2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<bool?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfBooleanEagerReference2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<int?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfInt32EagerReference2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<long?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfInt64EagerReference2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineWebGetToolConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineLambdaToolConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineStructuredIndexingToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentToolParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentSessionMode), TypeInfoPropertyName = "SubAgentSessionMode2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineSubAgentToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactReadToolParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactReadToolParametersEncoding), TypeInfoPropertyName = "ArtifactReadToolParametersEncoding2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactReadConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineArtifactReadToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactGrepToolParameters))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineArtifactGrepToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageReadToolParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageReadToolParametersDetail), TypeInfoPropertyName = "ImageReadToolParametersDetail2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineImageReadToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DocumentConversionToolParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DocumentConversionToolParametersOutputFormat), TypeInfoPropertyName = "DocumentConversionToolParametersOutputFormat2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineDocumentConversionToolConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetDocumentTextParameters))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetDocumentTextConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetDocumentTextConfigurationMetadata))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineGetDocumentTextToolConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentToolConfiguration), TypeInfoPropertyName = "AgentToolConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentToolConfigurationDiscriminator))]
@@ -1175,34 +1062,9 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentScheduleExecutionStatus), TypeInfoPropertyName = "AgentScheduleExecutionStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListAgentScheduleExecutionsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentScheduleExecution>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineStatus), TypeInfoPropertyName = "PipelineStatus2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SharepointSourceConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DocumentumSourceConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.S3SourceConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSource), TypeInfoPropertyName = "PipelineSource2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSourceDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSourceDiscriminatorType), TypeInfoPropertyName = "PipelineSourceDiscriminatorType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CronTriggerConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.IntervalTriggerConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTrigger), TypeInfoPropertyName = "PipelineTrigger2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTriggerDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTriggerDiscriminatorType), TypeInfoPropertyName = "PipelineTriggerDiscriminatorType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTransformConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTransform))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTransformDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTransformDiscriminatorType), TypeInfoPropertyName = "PipelineTransformDiscriminatorType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSyncMode), TypeInfoPropertyName = "PipelineSyncMode2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineWatermark))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Pipeline))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelinesResponse))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Pipeline>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreatePipelineRequest))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdatePipelineRequest))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunStatus), TypeInfoPropertyName = "PipelineRunStatus2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunTriggerType), TypeInfoPropertyName = "PipelineRunTriggerType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRun))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelineRunsResponse))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PipelineRun>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentIdentityMode), TypeInfoPropertyName = "AgentIdentityMode2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentIdentity))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateAgentIdentityRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetOAuthTokenRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateCorpusDocumentWaitFor), TypeInfoPropertyName = "CreateCorpusDocumentWaitFor2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.JobState>))]
@@ -1243,7 +1105,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.QueryHistorySummary>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Chat>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Turn>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.CustomerConfiguration>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Prompt>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Llm>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ChatCompletionRequestMessage>))]
@@ -1266,8 +1127,8 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AppClient>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ToolServer>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Tool>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentKeyedSearchCorpus>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Instruction>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentKeyedSearchCorpus>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.TemplatedReminderHook>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentStepInstruction>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentStepReminder>))]
@@ -1280,8 +1141,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.SessionArtifact>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentSchedule>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentScheduleExecution>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Pipeline>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRun>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.JobState>))]
     public sealed partial class SourceGenerationContext : global::System.Text.Json.Serialization.JsonSerializerContext
     {

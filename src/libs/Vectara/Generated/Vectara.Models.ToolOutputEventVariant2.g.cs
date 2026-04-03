@@ -54,6 +54,14 @@ namespace Vectara
         public required object ToolOutput { get; set; }
 
         /// <summary>
+        /// Whether the tool call resulted in an error.<br/>
+        /// Default Value: false
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("error")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required bool Error { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -82,6 +90,10 @@ namespace Vectara
         /// Output data from the tool.<br/>
         /// Example: {"result":"Current weather is 70\u00B0F and sunny"}
         /// </param>
+        /// <param name="error">
+        /// Whether the tool call resulted in an error.<br/>
+        /// Default Value: false
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -90,13 +102,15 @@ namespace Vectara
             string toolCallId,
             string toolConfigurationName,
             string toolName,
-            object toolOutput)
+            object toolOutput,
+            bool error)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.ToolCallId = toolCallId ?? throw new global::System.ArgumentNullException(nameof(toolCallId));
             this.ToolConfigurationName = toolConfigurationName ?? throw new global::System.ArgumentNullException(nameof(toolConfigurationName));
             this.ToolName = toolName ?? throw new global::System.ArgumentNullException(nameof(toolName));
             this.ToolOutput = toolOutput ?? throw new global::System.ArgumentNullException(nameof(toolOutput));
+            this.Error = error;
         }
 
         /// <summary>

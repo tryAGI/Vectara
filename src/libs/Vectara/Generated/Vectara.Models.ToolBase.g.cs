@@ -115,12 +115,6 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? ToolGroups { get; set; }
 
         /// <summary>
-        /// The permissions that will be granted to the agent's dedicated service account when this tool is added to an agent.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("permissions")]
-        public global::Vectara.ToolPermissions? Permissions { get; set; }
-
-        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -184,9 +178,6 @@ namespace Vectara
         /// Groups this tool belongs to. Tools in the same group form a functional set and should be added or removed together by default.<br/>
         /// Example: [document_ingestion]
         /// </param>
-        /// <param name="permissions">
-        /// The permissions that will be granted to the agent's dedicated service account when this tool is added to an agent.
-        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -204,8 +195,7 @@ namespace Vectara
             string? category,
             string? lineage,
             string? version,
-            global::System.Collections.Generic.IList<string>? toolGroups,
-            global::Vectara.ToolPermissions? permissions)
+            global::System.Collections.Generic.IList<string>? toolGroups)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -221,7 +211,6 @@ namespace Vectara
             this.Lineage = lineage;
             this.Version = version;
             this.ToolGroups = toolGroups;
-            this.Permissions = permissions;
         }
 
         /// <summary>

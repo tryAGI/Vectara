@@ -43,6 +43,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        CorpusViewer,
+        /// <summary>
+        /// 
+        /// </summary>
         Owner,
         /// <summary>
         /// 
@@ -52,6 +56,10 @@ namespace Vectara
         /// 
         /// </summary>
         PipelineViewer,
+        /// <summary>
+        /// 
+        /// </summary>
+        Viewer,
     }
 
     /// <summary>
@@ -74,9 +82,11 @@ namespace Vectara
                 ApiRole.BillingAdministrator => "billing_administrator",
                 ApiRole.CorpusAdministrator => "corpus_administrator",
                 ApiRole.CorpusDeveloper => "corpus_developer",
+                ApiRole.CorpusViewer => "corpus_viewer",
                 ApiRole.Owner => "owner",
                 ApiRole.PipelineAdministrator => "pipeline_administrator",
                 ApiRole.PipelineViewer => "pipeline_viewer",
+                ApiRole.Viewer => "viewer",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -95,9 +105,11 @@ namespace Vectara
                 "billing_administrator" => ApiRole.BillingAdministrator,
                 "corpus_administrator" => ApiRole.CorpusAdministrator,
                 "corpus_developer" => ApiRole.CorpusDeveloper,
+                "corpus_viewer" => ApiRole.CorpusViewer,
                 "owner" => ApiRole.Owner,
                 "pipeline_administrator" => ApiRole.PipelineAdministrator,
                 "pipeline_viewer" => ApiRole.PipelineViewer,
+                "viewer" => ApiRole.Viewer,
                 _ => null,
             };
         }
