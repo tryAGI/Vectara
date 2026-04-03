@@ -118,23 +118,6 @@ namespace Vectara
         public bool IsLambda => Lambda != null;
 
         /// <summary>
-        /// A structured indexing tool configuration defined inline in the agent for indexing into the Vectara platform.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.InlineStructuredIndexingToolConfiguration? StructuredIndexing { get; init; }
-#else
-        public global::Vectara.InlineStructuredIndexingToolConfiguration? StructuredIndexing { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StructuredIndexing))]
-#endif
-        public bool IsStructuredIndexing => StructuredIndexing != null;
-
-        /// <summary>
         /// A sub-agent tool configuration defined inline in the agent for invoking specialized sub-agents.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -346,24 +329,6 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator AgentToolConfiguration(global::Vectara.InlineStructuredIndexingToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineStructuredIndexingToolConfiguration?)value);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator global::Vectara.InlineStructuredIndexingToolConfiguration?(AgentToolConfiguration @this) => @this.StructuredIndexing;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public AgentToolConfiguration(global::Vectara.InlineStructuredIndexingToolConfiguration? value)
-        {
-            StructuredIndexing = value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public static implicit operator AgentToolConfiguration(global::Vectara.InlineSubAgentToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineSubAgentToolConfiguration?)value);
 
         /// <summary>
@@ -480,7 +445,6 @@ namespace Vectara
             global::Vectara.InlineWebSearchToolConfiguration? webSearch,
             global::Vectara.InlineWebGetToolConfiguration? webGet,
             global::Vectara.InlineLambdaToolConfiguration? lambda,
-            global::Vectara.InlineStructuredIndexingToolConfiguration? structuredIndexing,
             global::Vectara.InlineSubAgentToolConfiguration? subAgent,
             global::Vectara.InlineArtifactReadToolConfiguration? artifactRead,
             global::Vectara.InlineArtifactGrepToolConfiguration? artifactGrep,
@@ -497,7 +461,6 @@ namespace Vectara
             WebSearch = webSearch;
             WebGet = webGet;
             Lambda = lambda;
-            StructuredIndexing = structuredIndexing;
             SubAgent = subAgent;
             ArtifactRead = artifactRead;
             ArtifactGrep = artifactGrep;
@@ -516,7 +479,6 @@ namespace Vectara
             ArtifactGrep as object ??
             ArtifactRead as object ??
             SubAgent as object ??
-            StructuredIndexing as object ??
             Lambda as object ??
             WebGet as object ??
             WebSearch as object ??
@@ -535,7 +497,6 @@ namespace Vectara
             WebSearch?.ToString() ??
             WebGet?.ToString() ??
             Lambda?.ToString() ??
-            StructuredIndexing?.ToString() ??
             SubAgent?.ToString() ??
             ArtifactRead?.ToString() ??
             ArtifactGrep?.ToString() ??
@@ -549,7 +510,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsStructuredIndexing && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && IsGetDocumentText;
+            return IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && IsGetDocumentText;
         }
 
         /// <summary>
@@ -562,7 +523,6 @@ namespace Vectara
             global::System.Func<global::Vectara.InlineWebSearchToolConfiguration?, TResult>? webSearch = null,
             global::System.Func<global::Vectara.InlineWebGetToolConfiguration?, TResult>? webGet = null,
             global::System.Func<global::Vectara.InlineLambdaToolConfiguration?, TResult>? lambda = null,
-            global::System.Func<global::Vectara.InlineStructuredIndexingToolConfiguration?, TResult>? structuredIndexing = null,
             global::System.Func<global::Vectara.InlineSubAgentToolConfiguration?, TResult>? subAgent = null,
             global::System.Func<global::Vectara.InlineArtifactReadToolConfiguration?, TResult>? artifactRead = null,
             global::System.Func<global::Vectara.InlineArtifactGrepToolConfiguration?, TResult>? artifactGrep = null,
@@ -599,10 +559,6 @@ namespace Vectara
             else if (IsLambda && lambda != null)
             {
                 return lambda(Lambda!);
-            }
-            else if (IsStructuredIndexing && structuredIndexing != null)
-            {
-                return structuredIndexing(StructuredIndexing!);
             }
             else if (IsSubAgent && subAgent != null)
             {
@@ -642,7 +598,6 @@ namespace Vectara
             global::System.Action<global::Vectara.InlineWebSearchToolConfiguration?>? webSearch = null,
             global::System.Action<global::Vectara.InlineWebGetToolConfiguration?>? webGet = null,
             global::System.Action<global::Vectara.InlineLambdaToolConfiguration?>? lambda = null,
-            global::System.Action<global::Vectara.InlineStructuredIndexingToolConfiguration?>? structuredIndexing = null,
             global::System.Action<global::Vectara.InlineSubAgentToolConfiguration?>? subAgent = null,
             global::System.Action<global::Vectara.InlineArtifactReadToolConfiguration?>? artifactRead = null,
             global::System.Action<global::Vectara.InlineArtifactGrepToolConfiguration?>? artifactGrep = null,
@@ -679,10 +634,6 @@ namespace Vectara
             else if (IsLambda)
             {
                 lambda?.Invoke(Lambda!);
-            }
-            else if (IsStructuredIndexing)
-            {
-                structuredIndexing?.Invoke(StructuredIndexing!);
             }
             else if (IsSubAgent)
             {
@@ -729,8 +680,6 @@ namespace Vectara
                 typeof(global::Vectara.InlineWebGetToolConfiguration),
                 Lambda,
                 typeof(global::Vectara.InlineLambdaToolConfiguration),
-                StructuredIndexing,
-                typeof(global::Vectara.InlineStructuredIndexingToolConfiguration),
                 SubAgent,
                 typeof(global::Vectara.InlineSubAgentToolConfiguration),
                 ArtifactRead,
@@ -765,7 +714,6 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineWebSearchToolConfiguration?>.Default.Equals(WebSearch, other.WebSearch) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineWebGetToolConfiguration?>.Default.Equals(WebGet, other.WebGet) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineLambdaToolConfiguration?>.Default.Equals(Lambda, other.Lambda) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineStructuredIndexingToolConfiguration?>.Default.Equals(StructuredIndexing, other.StructuredIndexing) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineSubAgentToolConfiguration?>.Default.Equals(SubAgent, other.SubAgent) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineArtifactReadToolConfiguration?>.Default.Equals(ArtifactRead, other.ArtifactRead) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineArtifactGrepToolConfiguration?>.Default.Equals(ArtifactGrep, other.ArtifactGrep) &&

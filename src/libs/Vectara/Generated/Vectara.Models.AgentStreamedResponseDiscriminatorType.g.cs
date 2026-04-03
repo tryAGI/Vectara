@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        ArtifactUpload,
+        /// <summary>
+        /// 
+        /// </summary>
         Compaction,
         /// <summary>
         /// 
@@ -47,6 +51,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        SkillLoad,
+        /// <summary>
+        /// 
+        /// </summary>
         StepTransition,
         /// <summary>
         /// 
@@ -75,6 +83,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Thinking,
+        /// <summary>
+        /// 
+        /// </summary>
         ToolInput,
         /// <summary>
         /// 
@@ -94,6 +106,7 @@ namespace Vectara
         {
             return value switch
             {
+                AgentStreamedResponseDiscriminatorType.ArtifactUpload => "artifact_upload",
                 AgentStreamedResponseDiscriminatorType.Compaction => "compaction",
                 AgentStreamedResponseDiscriminatorType.CompactionStarted => "compaction_started",
                 AgentStreamedResponseDiscriminatorType.ContextConsumed => "context_consumed",
@@ -103,6 +116,7 @@ namespace Vectara
                 AgentStreamedResponseDiscriminatorType.ImageRead => "image_read",
                 AgentStreamedResponseDiscriminatorType.InputMessage => "input_message",
                 AgentStreamedResponseDiscriminatorType.SessionInterrupted => "session_interrupted",
+                AgentStreamedResponseDiscriminatorType.SkillLoad => "skill_load",
                 AgentStreamedResponseDiscriminatorType.StepTransition => "step_transition",
                 AgentStreamedResponseDiscriminatorType.StepTransitionLimitExceeded => "step_transition_limit_exceeded",
                 AgentStreamedResponseDiscriminatorType.StreamingAgentOutput => "streaming_agent_output",
@@ -110,6 +124,7 @@ namespace Vectara
                 AgentStreamedResponseDiscriminatorType.StreamingThinking => "streaming_thinking",
                 AgentStreamedResponseDiscriminatorType.StreamingThinkingEnd => "streaming_thinking_end",
                 AgentStreamedResponseDiscriminatorType.StructuredOutput => "structured_output",
+                AgentStreamedResponseDiscriminatorType.Thinking => "thinking",
                 AgentStreamedResponseDiscriminatorType.ToolInput => "tool_input",
                 AgentStreamedResponseDiscriminatorType.ToolOutput => "tool_output",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
@@ -122,6 +137,7 @@ namespace Vectara
         {
             return value switch
             {
+                "artifact_upload" => AgentStreamedResponseDiscriminatorType.ArtifactUpload,
                 "compaction" => AgentStreamedResponseDiscriminatorType.Compaction,
                 "compaction_started" => AgentStreamedResponseDiscriminatorType.CompactionStarted,
                 "context_consumed" => AgentStreamedResponseDiscriminatorType.ContextConsumed,
@@ -131,6 +147,7 @@ namespace Vectara
                 "image_read" => AgentStreamedResponseDiscriminatorType.ImageRead,
                 "input_message" => AgentStreamedResponseDiscriminatorType.InputMessage,
                 "session_interrupted" => AgentStreamedResponseDiscriminatorType.SessionInterrupted,
+                "skill_load" => AgentStreamedResponseDiscriminatorType.SkillLoad,
                 "step_transition" => AgentStreamedResponseDiscriminatorType.StepTransition,
                 "step_transition_limit_exceeded" => AgentStreamedResponseDiscriminatorType.StepTransitionLimitExceeded,
                 "streaming_agent_output" => AgentStreamedResponseDiscriminatorType.StreamingAgentOutput,
@@ -138,6 +155,7 @@ namespace Vectara
                 "streaming_thinking" => AgentStreamedResponseDiscriminatorType.StreamingThinking,
                 "streaming_thinking_end" => AgentStreamedResponseDiscriminatorType.StreamingThinkingEnd,
                 "structured_output" => AgentStreamedResponseDiscriminatorType.StructuredOutput,
+                "thinking" => AgentStreamedResponseDiscriminatorType.Thinking,
                 "tool_input" => AgentStreamedResponseDiscriminatorType.ToolInput,
                 "tool_output" => AgentStreamedResponseDiscriminatorType.ToolOutput,
                 _ => null,

@@ -21,6 +21,27 @@ namespace Vectara.JsonConverters
                             throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.AgentStreamedResponseDiscriminator)}");
             var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
+            global::Vectara.SkillLoadEvent? skillLoad = default;
+            if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.SkillLoad)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SkillLoadEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SkillLoadEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.SkillLoadEvent)}");
+                skillLoad = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.ThinkingEvent? thinking = default;
+            if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.Thinking)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ThinkingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ThinkingEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ThinkingEvent)}");
+                thinking = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.ArtifactUploadEvent? artifactUpload = default;
+            if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.ArtifactUpload)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ArtifactUploadEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ArtifactUploadEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ArtifactUploadEvent)}");
+                artifactUpload = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.InputMessageEvent? inputMessage = default;
             if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.InputMessage)
             {
@@ -150,6 +171,12 @@ namespace Vectara.JsonConverters
 
             var __value = new global::Vectara.AgentStreamedResponse(
                 discriminator?.Type,
+                skillLoad,
+
+                thinking,
+
+                artifactUpload,
+
                 inputMessage,
 
                 streamingAgentOutput,
@@ -199,7 +226,25 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsInputMessage)
+            if (value.IsSkillLoad)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SkillLoadEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SkillLoadEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SkillLoadEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SkillLoad!.Value, typeInfo);
+            }
+            else if (value.IsThinking)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ThinkingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ThinkingEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ThinkingEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Thinking!.Value, typeInfo);
+            }
+            else if (value.IsArtifactUpload)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ArtifactUploadEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ArtifactUploadEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ArtifactUploadEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ArtifactUpload!.Value, typeInfo);
+            }
+            else if (value.IsInputMessage)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InputMessageEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InputMessageEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InputMessageEvent).Name}");

@@ -31,6 +31,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("id")) __score0++;
             if (__jsonProps.Contains("session_key")) __score0++;
             var __score1 = 0;
+            if (__jsonProps.Contains("error")) __score1++;
             if (__jsonProps.Contains("tool_call_id")) __score1++;
             if (__jsonProps.Contains("tool_configuration_name")) __score1++;
             if (__jsonProps.Contains("tool_name")) __score1++;

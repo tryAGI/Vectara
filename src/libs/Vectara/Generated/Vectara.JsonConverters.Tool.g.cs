@@ -63,13 +63,6 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.LambdaTool)}");
                 lambda = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.StructuredIndexingTool? structuredIndexing = default;
-            if (discriminator?.Type == global::Vectara.ToolDiscriminatorType.StructuredIndexing)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StructuredIndexingTool), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StructuredIndexingTool> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StructuredIndexingTool)}");
-                structuredIndexing = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
-            }
             global::Vectara.SubAgentTool? subAgent = default;
             if (discriminator?.Type == global::Vectara.ToolDiscriminatorType.SubAgent)
             {
@@ -134,8 +127,6 @@ namespace Vectara.JsonConverters
 
                 lambda,
 
-                structuredIndexing,
-
                 subAgent,
 
                 artifactCreate,
@@ -198,12 +189,6 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.LambdaTool), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.LambdaTool> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.LambdaTool).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Lambda!.Value, typeInfo);
-            }
-            else if (value.IsStructuredIndexing)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StructuredIndexingTool), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StructuredIndexingTool> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StructuredIndexingTool).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.StructuredIndexing!.Value, typeInfo);
             }
             else if (value.IsSubAgent)
             {
