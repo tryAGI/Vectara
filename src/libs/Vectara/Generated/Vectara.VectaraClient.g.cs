@@ -45,6 +45,9 @@ namespace Vectara
 #if DEBUG
             = true;
 #endif
+
+
+        internal global::Vectara.VectaraClient.AutoSDKOAuth2Coordinator AutoSDKOAuth2State { get; set; } = new global::Vectara.VectaraClient.AutoSDKOAuth2Coordinator();
         /// <summary>
         /// 
         /// </summary>
@@ -58,6 +61,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -67,6 +71,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -76,6 +81,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -85,6 +91,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -94,6 +101,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -103,6 +111,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -112,6 +121,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -121,6 +131,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -130,6 +141,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -139,6 +151,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -148,6 +161,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -157,6 +171,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -166,6 +181,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -175,6 +191,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -184,6 +201,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -193,6 +211,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -202,6 +221,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -211,6 +231,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -220,6 +241,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -229,6 +251,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -238,6 +261,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -247,6 +271,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -256,6 +281,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -265,6 +291,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -274,6 +301,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -283,6 +311,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>
@@ -292,6 +321,7 @@ namespace Vectara
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
         /// <summary>

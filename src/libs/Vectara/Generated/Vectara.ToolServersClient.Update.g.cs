@@ -113,9 +113,12 @@ namespace Vectara
                 toolServerId: toolServerId,
                 request: request);
 
-            using var __response = await HttpClient.SendAsync(
+            using var __response = await global::Vectara.VectaraClient.AutoSDKOAuth2Helpers.SendAsync(
+                httpClient: HttpClient,
                 request: __httpRequest,
                 completionOption: global::System.Net.Http.HttpCompletionOption.ResponseContentRead,
+                authorizations: Authorizations,
+                oAuth2Coordinator: AutoSDKOAuth2State,
                 cancellationToken: cancellationToken).ConfigureAwait(false);
 
             ProcessResponse(
