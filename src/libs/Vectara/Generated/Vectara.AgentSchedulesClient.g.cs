@@ -30,6 +30,9 @@ namespace Vectara
 #if DEBUG
             = true;
 #endif
+
+
+        internal global::Vectara.VectaraClient.AutoSDKOAuth2Coordinator AutoSDKOAuth2State { get; set; } = new global::Vectara.VectaraClient.AutoSDKOAuth2Coordinator();
         /// <summary>
         /// 
         /// </summary>
