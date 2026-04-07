@@ -1,26 +1,27 @@
 openapi: 3.0.0
 info:
   title: Vectara REST API v2
-  description: "The Vectara REST API gives you server-side control over agentic AI\
-    \ applications with enterprise-grade RBAC, multi-tenancy, and full observability.\
-    \ Build agents that combine Vectara's multimodal retrieval with tool use, structured\
-    \ instructions, and managed sessions \u2014 all through simple REST endpoints.\n\
-    \nAll endpoints live at `https://api.vectara.io/v2/<resource>` using lowercase,\
-    \ hyphenated paths (e.g. `/corpora/:corpus_key/documents`).\n\n## API conventions\n\
-    \nWe follow standard REST conventions: `GET` to read, `POST` to create, `PATCH`\
-    \ to update, `PUT` to replace, and `DELETE` to remove. Actions that don't map\
-    \ to CRUD verbs use a separate `POST /<resource>/<action>` path (e.g. `POST /corpora/:corpus_key/reset`).\n\
-    \n**Backward compatibility** \u2014 New fields may be added to any response at\
-    \ any time. Fields are never removed, only deprecated. Clients should ignore unknown\
-    \ fields. We aim for strong backward compatibility, though the agentic AI space\
-    \ is evolving rapidly and agent-related APIs may see more frequent additions.\n\
-    \n## Authentication methods\n\nEvery API request must be authenticated using one\
-    \ of these methods:\n\n**API Key** \u2014 Pass your key in the `x-api-key` header.\
-    \ API keys inherit the roles of the user who created them. Use query-scoped keys\
-    \ for read-only access and personal keys for full account operations.\n\n**OAuth\
-    \ 2.0** \u2014 Use the client credentials flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`,\
-    \ then pass it in the `Authorization: Bearer <token>` header. Tokens expire after\
-    \ 30 minutes.\n\n## Role-based access control\n\nEach endpoint requires specific\
+  description: "The Vectara Platform to context engineer Enterprise Agents. The REST\
+    \ API gives you server-side control with enterprise-grade RBAC, multi-tenancy,\
+    \ and full observability. Build agents that combine Vectara's multimodal retrieval\
+    \ with tool use, structured instructions, and managed sessions \u2014 all through\
+    \ simple REST endpoints.\n\nAll endpoints live at `https://api.vectara.io/v2/<resource>`\
+    \ using lowercase, hyphenated paths (e.g. `/corpora/:corpus_key/documents`).\n\
+    \n## API conventions\n\nWe follow standard REST conventions: `GET` to read, `POST`\
+    \ to create, `PATCH` to update, `PUT` to replace, and `DELETE` to remove. Actions\
+    \ that don't map to CRUD verbs use a separate `POST /<resource>/<action>` path\
+    \ (e.g. `POST /corpora/:corpus_key/reset`).\n\n**Backward compatibility** \u2014\
+    \ New fields may be added to any response at any time. Fields are never removed,\
+    \ only deprecated. Clients should ignore unknown fields. We aim for strong backward\
+    \ compatibility, though the agentic AI space is evolving rapidly and agent-related\
+    \ APIs may see more frequent additions.\n\n## Authentication methods\n\nEvery\
+    \ API request must be authenticated using one of these methods:\n\n**API Key**\
+    \ \u2014 Pass your key in the `x-api-key` header. Create API keys with precise\
+    \ roles for least-privilege access, or use personal API keys that inherit the\
+    \ same roles as your user account.\n\n**OAuth 2.0** \u2014 Use the client credentials\
+    \ flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`, then\
+    \ pass it in the `Authorization: Bearer <token>` header. Tokens expire after 30\
+    \ minutes.\n\n## Role-based access control\n\nEach endpoint requires specific\
     \ roles. The role badges on each endpoint page show which roles grant access.\
     \ Vectara uses three role types:\n\n**API Roles** (account-wide, assigned to users):\
     \ Roles like `owner`, `administrator`, `corpus_administrator`, `corpus_developer`,\
@@ -5576,6 +5577,171 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.generation_presets
+    post:
+      tags:
+      - Generation Presets
+      summary: Create a generation preset
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      x-supported-api-key-type:
+      - Personal
+      description: 'Create a custom generation preset for use in query and chat requests.
+        A generation preset bundles a prompt template, an LLM, and model parameters
+        into a reusable configuration.
+
+
+        The created preset can be referenced by name using the `generation_preset_name`
+        field in query or chat requests.
+
+        '
+      operationId: createGenerationPreset
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGenerationPresetRequest'
+      responses:
+        '201':
+          description: The created generation preset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerationPreset'
+        '400':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Permissions do not allow creating generation presets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: generation_presets
+      x-fern-sdk-method-name: create
+  /v2/generation_presets/{generation_preset_id}:
+    put:
+      tags:
+      - Generation Presets
+      summary: Replace a generation preset
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      x-supported-api-key-type:
+      - Personal
+      description: 'Replace an existing custom generation preset. This performs a
+        full replacement of the preset configuration.
+
+        The preset must have been created by the customer (platform presets cannot
+        be replaced).
+
+        '
+      operationId: replaceGenerationPreset
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: generation_preset_id
+        description: The ID of the generation preset to replace.
+        required: true
+        schema:
+          type: string
+          pattern: gnp_.*
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGenerationPresetRequest'
+      responses:
+        '200':
+          description: The replaced generation preset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerationPreset'
+        '400':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Permissions do not allow replacing generation presets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Generation preset not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: generation_presets
+      x-fern-sdk-method-name: replace
+    delete:
+      tags:
+      - Generation Presets
+      summary: Delete a generation preset
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      x-supported-api-key-type:
+      - Personal
+      description: 'Delete an existing custom generation preset.
+
+        The preset must have been created by the customer (platform presets cannot
+        be deleted).
+
+        '
+      operationId: deleteGenerationPreset
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: generation_preset_id
+        description: The ID of the generation preset to delete.
+        required: true
+        schema:
+          type: string
+          pattern: gnp_.*
+      responses:
+        '204':
+          description: The generation preset has been deleted successfully.
+        '400':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Permissions do not allow deleting generation presets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Generation preset not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: generation_presets
+      x-fern-sdk-method-name: delete
   /v2/evaluate_factual_consistency:
     post:
       tags:
@@ -14315,6 +14481,11 @@ components:
         except model name can be overridden at generation time.
       type: object
       properties:
+        id:
+          description: The ID of the generation preset.
+          type: string
+          pattern: gnp_.*
+          example: gnp_123
         name:
           description: Name of the generation preset to be used with configuring generation.
           type: string
@@ -14365,6 +14536,10 @@ components:
           type: number
           format: float
           example: 0.2
+        additional_model_params:
+          description: Additional model parameters beyond the standard fields above.
+          type: object
+          additionalProperties: true
         enabled:
           description: Indicates whether the prompt is enabled.
           type: boolean
@@ -14384,6 +14559,15 @@ components:
             $ref: '#/components/schemas/GenerationPreset'
         metadata:
           $ref: '#/components/schemas/ListMetadata'
+    CreateGenerationPresetRequest:
+      description: Request to create a new generation preset.
+      allOf:
+      - $ref: '#/components/schemas/GenerationPreset'
+      - type: object
+        required:
+        - name
+        - llm_name
+        - prompt_template
     EvaluateFactualConsistencyRequest:
       description: Request to evaluate the factual consistency of a generated text
         against source documents.

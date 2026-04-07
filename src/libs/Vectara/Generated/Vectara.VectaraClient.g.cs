@@ -4,14 +4,14 @@
 namespace Vectara
 {
     /// <summary>
-    /// The Vectara REST API gives you server-side control over agentic AI applications with enterprise-grade RBAC, multi-tenancy, and full observability. Build agents that combine Vectara's multimodal retrieval with tool use, structured instructions, and managed sessions — all through simple REST endpoints.<br/>
+    /// The Vectara Platform to context engineer Enterprise Agents. The REST API gives you server-side control with enterprise-grade RBAC, multi-tenancy, and full observability. Build agents that combine Vectara's multimodal retrieval with tool use, structured instructions, and managed sessions — all through simple REST endpoints.<br/>
     /// All endpoints live at `https://api.vectara.io/v2/&lt;resource&gt;` using lowercase, hyphenated paths (e.g. `/corpora/:corpus_key/documents`).<br/>
     /// ## API conventions<br/>
     /// We follow standard REST conventions: `GET` to read, `POST` to create, `PATCH` to update, `PUT` to replace, and `DELETE` to remove. Actions that don't map to CRUD verbs use a separate `POST /&lt;resource&gt;/&lt;action&gt;` path (e.g. `POST /corpora/:corpus_key/reset`).<br/>
     /// **Backward compatibility** — New fields may be added to any response at any time. Fields are never removed, only deprecated. Clients should ignore unknown fields. We aim for strong backward compatibility, though the agentic AI space is evolving rapidly and agent-related APIs may see more frequent additions.<br/>
     /// ## Authentication methods<br/>
     /// Every API request must be authenticated using one of these methods:<br/>
-    /// **API Key** — Pass your key in the `x-api-key` header. API keys inherit the roles of the user who created them. Use query-scoped keys for read-only access and personal keys for full account operations.<br/>
+    /// **API Key** — Pass your key in the `x-api-key` header. Create API keys with precise roles for least-privilege access, or use personal API keys that inherit the same roles as your user account.<br/>
     /// **OAuth 2.0** — Use the client credentials flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`, then pass it in the `Authorization: Bearer &lt;token&gt;` header. Tokens expire after 30 minutes.<br/>
     /// ## Role-based access control<br/>
     /// Each endpoint requires specific roles. The role badges on each endpoint page show which roles grant access. Vectara uses three role types:<br/>

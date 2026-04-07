@@ -367,6 +367,8 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UpdateLLMRequestJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.CreateGenerationPresetRequestJsonConverter),
+
             typeof(global::Vectara.JsonConverters.CreateEncoderRequestJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateAppClientRequestJsonConverter),
@@ -735,6 +737,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GenerationPreset))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListGenerationPresetsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.GenerationPreset>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateGenerationPresetRequest), TypeInfoPropertyName = "CreateGenerationPresetRequest2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.EvaluateFactualConsistencyRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.EvaluateFactualConsistencyRequestModelParameters))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.EvaluateFactualConsistencyResponse))]

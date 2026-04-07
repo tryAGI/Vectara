@@ -9,6 +9,14 @@ namespace Vectara
     public sealed partial class GenerationPreset
     {
         /// <summary>
+        /// The ID of the generation preset.<br/>
+        /// Example: gnp_123
+        /// </summary>
+        /// <example>gnp_123</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("id")]
+        public string? Id { get; set; }
+
+        /// <summary>
         /// Name of the generation preset to be used with configuring generation.<br/>
         /// Example: Mockingbird 2.0
         /// </summary>
@@ -79,6 +87,12 @@ namespace Vectara
         public float? PresencePenalty { get; set; }
 
         /// <summary>
+        /// Additional model parameters beyond the standard fields above.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("additional_model_params")]
+        public object? AdditionalModelParams { get; set; }
+
+        /// <summary>
         /// Indicates whether the prompt is enabled.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
@@ -99,6 +113,10 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="GenerationPreset" /> class.
         /// </summary>
+        /// <param name="id">
+        /// The ID of the generation preset.<br/>
+        /// Example: gnp_123
+        /// </param>
         /// <param name="name">
         /// Name of the generation preset to be used with configuring generation.<br/>
         /// Example: Mockingbird 2.0
@@ -134,6 +152,9 @@ namespace Vectara
         /// Higher values penalize new tokens based on whether they appear in the generation so far, increasing the model's likelihood to talk about new topics.<br/>
         /// Example: 0.2
         /// </param>
+        /// <param name="additionalModelParams">
+        /// Additional model parameters beyond the standard fields above.
+        /// </param>
         /// <param name="enabled">
         /// Indicates whether the prompt is enabled.
         /// </param>
@@ -144,6 +165,7 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public GenerationPreset(
+            string? id,
             string? name,
             string? description,
             string? llmName,
@@ -153,9 +175,11 @@ namespace Vectara
             float? temperature,
             float? frequencyPenalty,
             float? presencePenalty,
+            object? additionalModelParams,
             bool? enabled,
             bool? @default)
         {
+            this.Id = id;
             this.Name = name;
             this.Description = description;
             this.LlmName = llmName;
@@ -165,6 +189,7 @@ namespace Vectara
             this.Temperature = temperature;
             this.FrequencyPenalty = frequencyPenalty;
             this.PresencePenalty = presencePenalty;
+            this.AdditionalModelParams = additionalModelParams;
             this.Enabled = enabled;
             this.Default = @default;
         }
