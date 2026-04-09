@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Authentication configuration for an LLM
+    /// Authentication configuration for connecting to a remote service.
     /// </summary>
     public readonly partial struct RemoteAuth : global::System.IEquatable<RemoteAuth>
     {
@@ -47,6 +47,23 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Header))]
 #endif
         public bool IsHeader => Header != null;
+
+        /// <summary>
+        /// OAuth 2.0 client credentials authentication. The platform acquires an access token from the token endpoint before connecting to the remote service.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.OAuthClientCredentialsAuth? OauthClientCredentials { get; init; }
+#else
+        public global::Vectara.OAuthClientCredentialsAuth? OauthClientCredentials { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OauthClientCredentials))]
+#endif
+        public bool IsOauthClientCredentials => OauthClientCredentials != null;
         /// <summary>
         /// 
         /// </summary>
@@ -86,22 +103,43 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator RemoteAuth(global::Vectara.OAuthClientCredentialsAuth value) => new RemoteAuth((global::Vectara.OAuthClientCredentialsAuth?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.OAuthClientCredentialsAuth?(RemoteAuth @this) => @this.OauthClientCredentials;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public RemoteAuth(global::Vectara.OAuthClientCredentialsAuth? value)
+        {
+            OauthClientCredentials = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public RemoteAuth(
             global::Vectara.RemoteAuthDiscriminatorType? type,
             global::Vectara.BearerAuth? bearer,
-            global::Vectara.HeaderAuth? header
+            global::Vectara.HeaderAuth? header,
+            global::Vectara.OAuthClientCredentialsAuth? oauthClientCredentials
             )
         {
             Type = type;
 
             Bearer = bearer;
             Header = header;
+            OauthClientCredentials = oauthClientCredentials;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            OauthClientCredentials as object ??
             Header as object ??
             Bearer as object 
             ;
@@ -111,7 +149,8 @@ namespace Vectara
         /// </summary>
         public override string? ToString() =>
             Bearer?.ToString() ??
-            Header?.ToString() 
+            Header?.ToString() ??
+            OauthClientCredentials?.ToString() 
             ;
 
         /// <summary>
@@ -119,7 +158,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsBearer && !IsHeader || !IsBearer && IsHeader;
+            return IsBearer && !IsHeader && !IsOauthClientCredentials || !IsBearer && IsHeader && !IsOauthClientCredentials || !IsBearer && !IsHeader && IsOauthClientCredentials;
         }
 
         /// <summary>
@@ -128,6 +167,7 @@ namespace Vectara
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BearerAuth?, TResult>? bearer = null,
             global::System.Func<global::Vectara.HeaderAuth?, TResult>? header = null,
+            global::System.Func<global::Vectara.OAuthClientCredentialsAuth?, TResult>? oauthClientCredentials = null,
             bool validate = true)
         {
             if (validate)
@@ -143,6 +183,10 @@ namespace Vectara
             {
                 return header(Header!);
             }
+            else if (IsOauthClientCredentials && oauthClientCredentials != null)
+            {
+                return oauthClientCredentials(OauthClientCredentials!);
+            }
 
             return default(TResult);
         }
@@ -153,6 +197,7 @@ namespace Vectara
         public void Match(
             global::System.Action<global::Vectara.BearerAuth?>? bearer = null,
             global::System.Action<global::Vectara.HeaderAuth?>? header = null,
+            global::System.Action<global::Vectara.OAuthClientCredentialsAuth?>? oauthClientCredentials = null,
             bool validate = true)
         {
             if (validate)
@@ -168,6 +213,10 @@ namespace Vectara
             {
                 header?.Invoke(Header!);
             }
+            else if (IsOauthClientCredentials)
+            {
+                oauthClientCredentials?.Invoke(OauthClientCredentials!);
+            }
         }
 
         /// <summary>
@@ -181,6 +230,8 @@ namespace Vectara
                 typeof(global::Vectara.BearerAuth),
                 Header,
                 typeof(global::Vectara.HeaderAuth),
+                OauthClientCredentials,
+                typeof(global::Vectara.OAuthClientCredentialsAuth),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -198,7 +249,8 @@ namespace Vectara
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BearerAuth?>.Default.Equals(Bearer, other.Bearer) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.HeaderAuth?>.Default.Equals(Header, other.Header) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.HeaderAuth?>.Default.Equals(Header, other.Header) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.OAuthClientCredentialsAuth?>.Default.Equals(OauthClientCredentials, other.OauthClientCredentials) 
                 ;
         }
 

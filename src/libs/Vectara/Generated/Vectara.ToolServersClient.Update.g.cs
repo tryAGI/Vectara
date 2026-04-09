@@ -397,7 +397,7 @@ namespace Vectara
         /// Example: sse
         /// </param>
         /// <param name="auth">
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </param>
         /// <param name="enabled">
         /// Whether the tool server is currently enabled and available for use.

@@ -7,7 +7,7 @@ namespace Vectara
     {
 
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_Get2SecurityRequirement0 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_GetImageSecurityRequirement0 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -21,7 +21,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_Get2SecurityRequirement1 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_GetImageSecurityRequirement1 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -34,19 +34,19 @@ namespace Vectara
                     },
                 },
             };
-        private static readonly global::Vectara.EndPointSecurityRequirement[] s_Get2SecurityRequirements =
+        private static readonly global::Vectara.EndPointSecurityRequirement[] s_GetImageSecurityRequirements =
             new global::Vectara.EndPointSecurityRequirement[]
-            {                s_Get2SecurityRequirement0,
-                s_Get2SecurityRequirement1,
+            {                s_GetImageSecurityRequirement0,
+                s_GetImageSecurityRequirement1,
             };
-        partial void PrepareGet2Arguments(
+        partial void PrepareGetImageArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
             ref string corpusKey,
             ref string documentId,
             ref string imageId);
-        partial void PrepareGet2Request(
+        partial void PrepareGetImageRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
@@ -54,11 +54,11 @@ namespace Vectara
             string corpusKey,
             string documentId,
             string imageId);
-        partial void ProcessGet2Response(
+        partial void ProcessGetImageResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessGet2ResponseContent(
+        partial void ProcessGetImageResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
@@ -77,7 +77,7 @@ namespace Vectara
         /// <param name="imageId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.Image> Get2Async(
+        public async global::System.Threading.Tasks.Task<global::Vectara.Image> GetImageAsync(
             string corpusKey,
             string documentId,
             string imageId,
@@ -87,7 +87,7 @@ namespace Vectara
         {
             PrepareArguments(
                 client: HttpClient);
-            PrepareGet2Arguments(
+            PrepareGetImageArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
@@ -98,8 +98,8 @@ namespace Vectara
 
             var __authorizations = global::Vectara.EndPointSecurityResolver.ResolveAuthorizations(
                 availableAuthorizations: Authorizations,
-                securityRequirements: s_Get2SecurityRequirements,
-                operationName: "Get2Async");
+                securityRequirements: s_GetImageSecurityRequirements,
+                operationName: "GetImageAsync");
 
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/corpora/{corpusKey}/documents/{documentId}/images/{imageId}",
@@ -142,7 +142,7 @@ namespace Vectara
             PrepareRequest(
                 client: HttpClient,
                 request: __httpRequest);
-            PrepareGet2Request(
+            PrepareGetImageRequest(
                 httpClient: HttpClient,
                 httpRequestMessage: __httpRequest,
                 requestTimeout: requestTimeout,
@@ -162,7 +162,7 @@ namespace Vectara
             ProcessResponse(
                 client: HttpClient,
                 response: __response);
-            ProcessGet2Response(
+            ProcessGetImageResponse(
                 httpClient: HttpClient,
                 httpResponseMessage: __response);
             // Permissions do not allow retrieving the image.
@@ -254,7 +254,7 @@ namespace Vectara
                     client: HttpClient,
                     response: __response,
                     content: ref __content);
-                ProcessGet2ResponseContent(
+                ProcessGetImageResponseContent(
                     httpClient: HttpClient,
                     httpResponseMessage: __response,
                     content: ref __content);

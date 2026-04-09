@@ -62,7 +62,7 @@ namespace Vectara
         public required global::Vectara.ToolServerTransport Transport { get; set; }
 
         /// <summary>
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RemoteAuthJsonConverter))]
@@ -116,7 +116,7 @@ namespace Vectara
         /// Optional HTTP headers to include when connecting to the server.
         /// </param>
         /// <param name="auth">
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </param>
         /// <param name="enabled">
         /// Whether the tool server is currently enabled and available for use.<br/>

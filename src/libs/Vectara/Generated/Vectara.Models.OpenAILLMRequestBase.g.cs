@@ -43,7 +43,7 @@ namespace Vectara
         public required string Uri { get; set; }
 
         /// <summary>
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RemoteAuthJsonConverter))]
@@ -95,7 +95,7 @@ namespace Vectara
         /// Example: claude-3-7-sonnet-20250219
         /// </param>
         /// <param name="auth">
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </param>
         /// <param name="headers">
         /// Additional HTTP headers to include with requests to the LLM API.
