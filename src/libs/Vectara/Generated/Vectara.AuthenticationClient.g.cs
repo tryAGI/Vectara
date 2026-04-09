@@ -13,7 +13,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public const string DefaultBaseUrl = "https://api.vectara.io";
+        public const string DefaultBaseUrl = "https://api.vectara.io/";
 
         private bool _disposeHttpClient = true;
 

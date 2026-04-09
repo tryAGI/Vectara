@@ -5,6 +5,40 @@ namespace Vectara
 {
     public partial class CorporaClient
     {
+
+
+        private static readonly global::Vectara.EndPointSecurityRequirement s_QueryAsStreamSecurityRequirement0 =
+            new global::Vectara.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
+                {                    new global::Vectara.EndPointAuthorizationRequirement
+                    {
+                        Type = "ApiKey",
+                        Location = "Header",
+                        Name = "x-api-key",
+                        FriendlyName = "ApiKeyInHeader",
+                    },
+                },
+            };
+
+        private static readonly global::Vectara.EndPointSecurityRequirement s_QueryAsStreamSecurityRequirement1 =
+            new global::Vectara.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
+                {                    new global::Vectara.EndPointAuthorizationRequirement
+                    {
+                        Type = "OAuth2",
+                        Location = "Header",
+                        Name = "",
+                        FriendlyName = "OAuth2",
+                    },
+                },
+            };
+        private static readonly global::Vectara.EndPointSecurityRequirement[] s_QueryAsStreamSecurityRequirements =
+            new global::Vectara.EndPointSecurityRequirement[]
+            {                s_QueryAsStreamSecurityRequirement0,
+                s_QueryAsStreamSecurityRequirement1,
+            };
         partial void PrepareQueryAsStreamArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
@@ -175,9 +209,15 @@ namespace Vectara
                 corpusKey: ref corpusKey,
                 request: request);
 
+
+            var __authorizations = global::Vectara.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_QueryAsStreamSecurityRequirements,
+                operationName: "QueryAsStreamAsync");
+
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: $"/v2/corpora/{corpusKey}/query",
-                baseUri: HttpClient.BaseAddress); 
+                baseUri: HttpClient.BaseAddress);
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Post,
@@ -187,7 +227,7 @@ namespace Vectara
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")
@@ -234,7 +274,7 @@ namespace Vectara
                 httpClient: HttpClient,
                 request: __httpRequest,
                 completionOption: global::System.Net.Http.HttpCompletionOption.ResponseHeadersRead,
-                authorizations: Authorizations,
+                authorizations: __authorizations,
                 oAuth2Coordinator: AutoSDKOAuth2State,
                 cancellationToken: cancellationToken).ConfigureAwait(false);
 
