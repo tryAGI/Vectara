@@ -6,6 +6,16 @@ namespace Vectara
     public partial interface IVectaraClient
     {
         /// <summary>
+        /// Gets the OAuth2 metadata URL declared by the security scheme, if any.
+        /// </summary>
+        public string? OAuth2MetadataUrl { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the OAuth2 security scheme is deprecated.
+        /// </summary>
+        public bool IsOAuth2Deprecated { get; }
+
+        /// <summary>
         /// Gets or sets the OAuth2 token store.
         /// </summary>
         public global::Vectara.VectaraClient.IOAuth2TokenStore OAuth2TokenStore { get; set; }
@@ -42,6 +52,7 @@ namespace Vectara
         /// Authorize using an OAuth2 access token.
         /// </summary>
         /// <param name="accessToken"></param>
+
         public void AuthorizeUsingOAuth2(
             string accessToken);
 
@@ -49,6 +60,7 @@ namespace Vectara
         /// Authorize using an OAuth2 token.
         /// </summary>
         /// <param name="token"></param>
+
         public void AuthorizeUsingOAuth2(
             global::Vectara.VectaraClient.OAuth2Token token);
         /// <summary>
@@ -58,6 +70,7 @@ namespace Vectara
         /// <param name="clientSecret"></param>
         /// <param name="scope"></param>
         /// <param name="cancellationToken"></param>
+
         public global::System.Threading.Tasks.Task AuthorizeUsingOAuth2WithCredentialsAsync(
             string clientId,
             string clientSecret,

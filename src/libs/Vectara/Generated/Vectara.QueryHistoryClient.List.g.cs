@@ -5,6 +5,40 @@ namespace Vectara
 {
     public partial class QueryHistoryClient
     {
+
+
+        private static readonly global::Vectara.EndPointSecurityRequirement s_ListSecurityRequirement0 =
+            new global::Vectara.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
+                {                    new global::Vectara.EndPointAuthorizationRequirement
+                    {
+                        Type = "ApiKey",
+                        Location = "Header",
+                        Name = "x-api-key",
+                        FriendlyName = "ApiKeyInHeader",
+                    },
+                },
+            };
+
+        private static readonly global::Vectara.EndPointSecurityRequirement s_ListSecurityRequirement1 =
+            new global::Vectara.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
+                {                    new global::Vectara.EndPointAuthorizationRequirement
+                    {
+                        Type = "OAuth2",
+                        Location = "Header",
+                        Name = "",
+                        FriendlyName = "OAuth2",
+                    },
+                },
+            };
+        private static readonly global::Vectara.EndPointSecurityRequirement[] s_ListSecurityRequirements =
+            new global::Vectara.EndPointSecurityRequirement[]
+            {                s_ListSecurityRequirement0,
+                s_ListSecurityRequirement1,
+            };
         partial void PrepareListArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
@@ -81,6 +115,12 @@ namespace Vectara
                 limit: ref limit,
                 pageKey: ref pageKey);
 
+
+            var __authorizations = global::Vectara.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_ListSecurityRequirements,
+                operationName: "ListAsync");
+
             var __pathBuilder = new global::Vectara.PathBuilder(
                 path: "/v2/queries",
                 baseUri: HttpClient.BaseAddress); 
@@ -92,7 +132,7 @@ namespace Vectara
                 .AddOptionalParameter("history_id", historyId)
                 .AddOptionalParameter("limit", limit?.ToString())
                 .AddOptionalParameter("page_key", pageKey) 
-                ; 
+                ;
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Get,
@@ -102,7 +142,7 @@ namespace Vectara
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")
@@ -148,7 +188,7 @@ namespace Vectara
                 httpClient: HttpClient,
                 request: __httpRequest,
                 completionOption: global::System.Net.Http.HttpCompletionOption.ResponseContentRead,
-                authorizations: Authorizations,
+                authorizations: __authorizations,
                 oAuth2Coordinator: AutoSDKOAuth2State,
                 cancellationToken: cancellationToken).ConfigureAwait(false);
 
