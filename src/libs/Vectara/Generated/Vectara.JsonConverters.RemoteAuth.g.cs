@@ -35,12 +35,21 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.HeaderAuth)}");
                 header = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.OAuthClientCredentialsAuth? oauthClientCredentials = default;
+            if (discriminator?.Type == global::Vectara.RemoteAuthDiscriminatorType.OauthClientCredentials)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.OAuthClientCredentialsAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.OAuthClientCredentialsAuth> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.OAuthClientCredentialsAuth)}");
+                oauthClientCredentials = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.RemoteAuth(
                 discriminator?.Type,
                 bearer,
 
-                header
+                header,
+
+                oauthClientCredentials
                 );
 
             return __value;
@@ -66,6 +75,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.HeaderAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.HeaderAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.HeaderAuth).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Header!, typeInfo);
+            }
+            else if (value.IsOauthClientCredentials)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.OAuthClientCredentialsAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.OAuthClientCredentialsAuth?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.OAuthClientCredentialsAuth).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OauthClientCredentials!, typeInfo);
             }
         }
     }

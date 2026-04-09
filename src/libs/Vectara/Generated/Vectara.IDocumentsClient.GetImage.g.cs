@@ -18,7 +18,7 @@ namespace Vectara
         /// <param name="imageId"></param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        global::System.Threading.Tasks.Task<global::Vectara.Image> Get2Async(
+        global::System.Threading.Tasks.Task<global::Vectara.Image> GetImageAsync(
             string corpusKey,
             string documentId,
             string imageId,

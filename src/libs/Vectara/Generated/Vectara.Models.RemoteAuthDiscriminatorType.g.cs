@@ -16,6 +16,10 @@ namespace Vectara
         /// 
         /// </summary>
         Header,
+        /// <summary>
+        /// 
+        /// </summary>
+        OauthClientCredentials,
     }
 
     /// <summary>
@@ -32,6 +36,7 @@ namespace Vectara
             {
                 RemoteAuthDiscriminatorType.Bearer => "bearer",
                 RemoteAuthDiscriminatorType.Header => "header",
+                RemoteAuthDiscriminatorType.OauthClientCredentials => "oauth_client_credentials",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -44,6 +49,7 @@ namespace Vectara
             {
                 "bearer" => RemoteAuthDiscriminatorType.Bearer,
                 "header" => RemoteAuthDiscriminatorType.Header,
+                "oauth_client_credentials" => RemoteAuthDiscriminatorType.OauthClientCredentials,
                 _ => null,
             };
         }

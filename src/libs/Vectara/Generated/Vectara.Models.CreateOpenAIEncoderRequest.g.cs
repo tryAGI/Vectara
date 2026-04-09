@@ -58,7 +58,7 @@ namespace Vectara
         public required string Model { get; set; }
 
         /// <summary>
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RemoteAuthJsonConverter))]
@@ -97,7 +97,7 @@ namespace Vectara
         /// The number of dimensions in the output embedding vector. If provided and the model supports truncation, the response will be truncated to this number of dimensions.
         /// </param>
         /// <param name="auth">
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

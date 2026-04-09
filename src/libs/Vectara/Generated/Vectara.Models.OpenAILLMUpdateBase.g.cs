@@ -27,7 +27,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RemoteAuthJsonConverter))]
@@ -78,7 +78,7 @@ namespace Vectara
         /// Description of the LLM.
         /// </param>
         /// <param name="auth">
-        /// Authentication configuration for an LLM
+        /// Authentication configuration for connecting to a remote service.
         /// </param>
         /// <param name="headers">
         /// Additional HTTP headers to include with requests to the LLM API.

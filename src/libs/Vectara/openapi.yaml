@@ -83,6 +83,9 @@ tags:
     like Slack).
 - name: Pipeline Runs
   description: Monitor pipeline execution runs and their processing outcomes.
+- name: Pipeline Dead Letters
+  description: View and manage dead letters (failed records) for a pipeline. Dead
+    letters are pipeline-scoped and can be retried individually or in bulk.
 - name: Queries
   description: The Query APIs are the primary interface for searching your data and
     generating AI-powered summaries. After indexing documents into corpora, you use
@@ -2526,7 +2529,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: documents
-      x-fern-sdk-method-name: get
+      x-fern-sdk-method-name: get_image
   /v2/corpora/{corpus_key}/metadata_query:
     post:
       tags:
@@ -13659,17 +13662,57 @@ components:
       x-vectaraParents:
       - RemoteAuth
       - AnthropicAuth
+    OAuthClientCredentialsAuth:
+      type: object
+      description: OAuth 2.0 client credentials authentication. The platform acquires
+        an access token from the token endpoint before connecting to the remote service.
+      properties:
+        type:
+          description: Must be "oauth_client_credentials" for OAuth client credentials
+            auth.
+          type: string
+          default: oauth_client_credentials
+          example: oauth_client_credentials
+        client_id:
+          description: The OAuth2 client ID.
+          type: string
+        client_secret:
+          description: The OAuth2 client secret.
+          type: string
+        token_endpoint:
+          description: The OAuth2 token endpoint URL where the platform will exchange
+            credentials for an access token.
+          type: string
+          format: uri
+          example: https://auth.example.com/oauth2/token
+        scopes:
+          description: OAuth2 scopes to request when acquiring the access token.
+          type: array
+          items:
+            type: string
+          example:
+          - read:jira-work
+          - write:jira-work
+      required:
+      - type
+      - client_id
+      - client_secret
+      - token_endpoint
+      x-vectaraParents:
+      - RemoteAuth
     RemoteAuth:
       type: object
-      description: Authentication configuration for an LLM
+      description: Authentication configuration for connecting to a remote service.
       discriminator:
         propertyName: type
         mapping:
           bearer: '#/components/schemas/BearerAuth'
           header: '#/components/schemas/HeaderAuth'
+          oauth_client_credentials: '#/components/schemas/OAuthClientCredentialsAuth'
       oneOf:
       - $ref: '#/components/schemas/BearerAuth'
       - $ref: '#/components/schemas/HeaderAuth'
+      - $ref: '#/components/schemas/OAuthClientCredentialsAuth'
       required:
       - type
     OpenAILLMRequestBase:
