@@ -52,6 +52,7 @@ namespace Vectara
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.CreateChatCompletionResponse> ChatCompletionAsync(
@@ -59,6 +60,7 @@ namespace Vectara
             global::Vectara.CreateChatCompletionRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Creates a model response for the given chat conversation<br/>
@@ -119,6 +121,7 @@ namespace Vectara
         /// - `json_object`: Ensures the response is valid JSON.<br/>
         /// - `json_schema`: Ensures the response conforms to the provided JSON schema.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.CreateChatCompletionResponse> ChatCompletionAsync(
@@ -127,6 +130,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::Vectara.ResponseFormat? responseFormat = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

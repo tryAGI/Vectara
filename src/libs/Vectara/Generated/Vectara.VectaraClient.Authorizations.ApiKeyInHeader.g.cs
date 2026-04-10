@@ -26,6 +26,7 @@ namespace Vectara
             Authorizations.Add(new global::Vectara.EndPointAuthorization
             {
                 Type = "ApiKey",
+                SchemeId = "ApiKeyAuth",
                 Location = "Header",
                 Name = "x-api-key",
                 Value = apiKey,

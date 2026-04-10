@@ -15,6 +15,7 @@ namespace Vectara
         /// Example: my-corpus
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.MetadataQueryResponse> QueryMetadataAsync(
@@ -23,6 +24,7 @@ namespace Vectara
             global::Vectara.MetadataQueryRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Query across metadata fields in a corpus<br/>
@@ -55,6 +57,7 @@ namespace Vectara
         /// Starting position for pagination.<br/>
         /// Default Value: 0
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.MetadataQueryResponse> QueryMetadataAsync(
@@ -66,6 +69,7 @@ namespace Vectara
             string? metadataFilter = default,
             int? limit = default,
             int? offset = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

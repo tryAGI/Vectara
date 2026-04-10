@@ -18,6 +18,7 @@ namespace Vectara
         /// Example: 1
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.TestInstructionResponse> TestAsync(
@@ -27,6 +28,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             int? version = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Test instruction<br/>
@@ -51,6 +53,7 @@ namespace Vectara
         /// Default Value: []<br/>
         /// Example: []
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.TestInstructionResponse> TestAsync(
@@ -60,6 +63,7 @@ namespace Vectara
             int? version = default,
             object? context = default,
             global::System.Collections.Generic.IList<global::Vectara.Tool>? tools = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

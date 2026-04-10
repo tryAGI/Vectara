@@ -16,6 +16,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Agent> UpdateAsync(
@@ -24,6 +25,7 @@ namespace Vectara
             global::Vectara.UpdateAgentRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent<br/>
@@ -88,6 +90,7 @@ namespace Vectara
         /// Set a key's value to null to delete that step.<br/>
         /// Example: {"sales_handler":{"instructions":[{"type":"inline","template":"Handle sales inquiries"}]}}
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Agent> UpdateAsync(
@@ -106,6 +109,7 @@ namespace Vectara
             global::Vectara.CompactionConfig? compaction = default,
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading = default,
             global::System.Collections.Generic.Dictionary<string, global::Vectara.UpdateAgentStep>? steps = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

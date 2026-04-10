@@ -34,6 +34,7 @@ namespace Vectara
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Agent> CreateAsync(
@@ -41,6 +42,7 @@ namespace Vectara
             global::Vectara.CreateAgentRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent<br/>
@@ -130,6 +132,7 @@ namespace Vectara
         /// artifact_read or artifact_grep to access the full content on demand.<br/>
         /// All fields are optional; omitted fields use model-inferred defaults.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Agent> CreateAsync(
@@ -148,6 +151,7 @@ namespace Vectara
             bool? enabled = default,
             global::Vectara.CompactionConfig? compaction = default,
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
