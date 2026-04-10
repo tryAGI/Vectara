@@ -17,6 +17,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AgentIdentity> UpdateIdentityAsync(
@@ -25,6 +26,7 @@ namespace Vectara
             global::Vectara.UpdateAgentIdentityRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent identity<br/>
@@ -53,6 +55,7 @@ namespace Vectara
         /// <param name="agentRoles">
         /// Agent-specific roles to assign. Only applied in `manual` mode.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AgentIdentity> UpdateIdentityAsync(
@@ -63,6 +66,7 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
             global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles = default,
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

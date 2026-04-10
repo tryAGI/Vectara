@@ -22,6 +22,7 @@ namespace Vectara
         /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
         /// A personal API key has all the same permissions as the creator of the API key.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.ListApiKeysResponse> ListAsync(
@@ -31,6 +32,7 @@ namespace Vectara
             string? pageKey = default,
             string? corpusKey = default,
             global::Vectara.ApiKeyRole? apiKeyRole = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

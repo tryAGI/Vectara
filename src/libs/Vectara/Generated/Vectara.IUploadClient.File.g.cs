@@ -75,6 +75,7 @@ namespace Vectara
         /// Example: my-corpus
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Document> FileAsync(
@@ -83,6 +84,7 @@ namespace Vectara
             global::Vectara.UploadFileRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Upload a file to the corpus<br/>
@@ -171,6 +173,7 @@ namespace Vectara
         /// <param name="file">
         /// Binary file contents. The file name of the file will be used as the document ID.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Document> FileAsync(
@@ -182,6 +185,7 @@ namespace Vectara
             global::Vectara.ChunkingStrategy? chunkingStrategy = default,
             global::Vectara.TableExtractionConfig? tableExtractionConfig = default,
             string? filename = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

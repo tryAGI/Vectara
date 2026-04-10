@@ -11,6 +11,7 @@ namespace Vectara
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateAsync(
@@ -18,6 +19,7 @@ namespace Vectara
             global::Vectara.CreateUserRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create a user in the current customer account<br/>
@@ -43,6 +45,7 @@ namespace Vectara
         /// <param name="agentRoles">
         /// Agent-specific role assignments for the user.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>> CreateAsync(
@@ -54,6 +57,7 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
             global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles = default,
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

@@ -16,6 +16,7 @@ namespace Vectara
         /// Example: tol_python_function_123
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.TestToolResponse> TestAsync(
@@ -24,6 +25,7 @@ namespace Vectara
             global::Vectara.TestToolRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Test Lambda tool<br/>
@@ -44,6 +46,7 @@ namespace Vectara
         /// Maximum execution time in seconds. If not specified, uses the tool's configured timeout.<br/>
         /// Example: 10
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.TestToolResponse> TestAsync(
@@ -52,6 +55,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             int? timeoutSeconds = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

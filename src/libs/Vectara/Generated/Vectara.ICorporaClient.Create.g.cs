@@ -29,6 +29,7 @@ namespace Vectara
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Corpus> CreateAsync(
@@ -36,6 +37,7 @@ namespace Vectara
             global::Vectara.CreateCorpusRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create a corpus<br/>
@@ -95,6 +97,7 @@ namespace Vectara
         /// A custom dimension is an additional numerical field attached to a document part. You can then multiply this numerical field with a query time custom dimension of the same name. This allows boosting (or burying) document parts for arbitrary reasons. This feature is only enabled for Pro and Enterprise customers.<br/>
         /// Default Value: []
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Corpus> CreateAsync(
@@ -109,6 +112,7 @@ namespace Vectara
             string? encoderName = default,
             global::System.Collections.Generic.IList<global::Vectara.FilterAttribute>? filterAttributes = default,
             global::System.Collections.Generic.IList<global::Vectara.CorpusCustomDimension>? customDimensions = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

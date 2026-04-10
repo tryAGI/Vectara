@@ -16,6 +16,7 @@ namespace Vectara
         /// </param>
         /// <param name="documentId"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Document> UpdateMetadataAsync(
@@ -25,6 +26,7 @@ namespace Vectara
             global::Vectara.UpdateDocumentRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Replace the document metadata.<br/>
@@ -41,6 +43,7 @@ namespace Vectara
         /// The metadata for a document as an arbitrary object. Properties of this object can be used by document level filter attributes.<br/>
         /// Example: {"title":"2024 ESG Annual Report \u2013 EuroBank","region":"EU","industry":"banking","year":2024}
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Document> UpdateMetadataAsync(
@@ -49,6 +52,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             object? metadata = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

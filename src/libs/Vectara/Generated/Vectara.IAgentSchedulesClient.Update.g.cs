@@ -21,6 +21,7 @@ namespace Vectara
         /// Example: daily-report
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AgentSchedule> UpdateAsync(
@@ -30,6 +31,7 @@ namespace Vectara
             global::Vectara.UpdateAgentScheduleRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent schedule<br/>
@@ -69,6 +71,7 @@ namespace Vectara
         /// <param name="maxExecutionsToKeep">
         /// Updated maximum number of past execution records to keep.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AgentSchedule> UpdateAsync(
@@ -83,6 +86,7 @@ namespace Vectara
             bool? enabled = default,
             object? sessionMetadata = default,
             int? maxExecutionsToKeep = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

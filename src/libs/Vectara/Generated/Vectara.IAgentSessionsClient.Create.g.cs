@@ -32,6 +32,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AgentSession> CreateAsync(
@@ -40,6 +41,7 @@ namespace Vectara
             global::Vectara.CreateAgentSessionRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent session<br/>
@@ -101,6 +103,7 @@ namespace Vectara
         /// include_up_to_event_id or compact_up_to_event_id to control which events are included<br/>
         /// and whether they are compacted. These two fields are mutually exclusive.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AgentSession> CreateAsync(
@@ -114,6 +117,7 @@ namespace Vectara
             bool? enabled = default,
             long? ttiMinutes = default,
             global::Vectara.CreateAgentSessionRequestFromSession? fromSession = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

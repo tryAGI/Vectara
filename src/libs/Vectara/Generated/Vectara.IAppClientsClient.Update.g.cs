@@ -12,6 +12,7 @@ namespace Vectara
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="appClientId"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AppClient> UpdateAsync(
@@ -20,6 +21,7 @@ namespace Vectara
             global::Vectara.UpdateAppClientRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update an App Client<br/>
@@ -40,6 +42,7 @@ namespace Vectara
         /// <param name="agentRoles">
         /// The new agent role assignments. These will replace the current agent roles.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.AppClient> UpdateAsync(
@@ -50,6 +53,7 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
             global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles = default,
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
