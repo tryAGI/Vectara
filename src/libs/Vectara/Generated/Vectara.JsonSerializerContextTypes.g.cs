@@ -1832,515 +1832,739 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentStepReminder? Type451 { get; set; }
+        public global::Vectara.GlossaryExpansionReminder? Type451 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentStepReminderDiscriminator? Type452 { get; set; }
+        public global::Vectara.AgentStepReminder? Type452 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentStepReminderDiscriminatorType? Type453 { get; set; }
+        public global::Vectara.AgentStepReminderDiscriminator? Type453 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.NextStep? Type454 { get; set; }
+        public global::Vectara.AgentStepReminderDiscriminatorType? Type454 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.FirstAgentStep? Type455 { get; set; }
+        public global::Vectara.NextStep? Type455 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.AgentStepInstruction>? Type456 { get; set; }
+        public global::Vectara.FirstAgentStep? Type456 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>? Type457 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.AgentStepInstruction>? Type457 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.NextStep>? Type458 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>? Type458 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentStep? Type459 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.NextStep>? Type459 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CompactionConfig? Type460 { get; set; }
+        public global::Vectara.AgentStep? Type460 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CompactionConfigToolEventPolicy? Type461 { get; set; }
+        public global::Vectara.CompactionConfig? Type461 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ToolOutputOffloadingConfiguration? Type462 { get; set; }
+        public global::Vectara.CompactionConfigToolEventPolicy? Type462 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.Agent? Type463 { get; set; }
+        public global::Vectara.ToolOutputOffloadingConfiguration? Type463 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentSkill>? Type464 { get; set; }
+        public global::Vectara.Agent? Type464 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentStep>? Type465 { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentSkill>? Type465 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListAgentsResponse? Type466 { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentStep>? Type466 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.Agent>? Type467 { get; set; }
+        public global::Vectara.ListAgentsResponse? Type467 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateAgentRequest? Type468 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.Agent>? Type468 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateFirstAgentStep? Type469 { get; set; }
+        public global::Vectara.CreateAgentRequest? Type469 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateAgentStep? Type470 { get; set; }
+        public global::Vectara.UpdateFirstAgentStep? Type470 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateAgentRequest? Type471 { get; set; }
+        public global::Vectara.UpdateAgentStep? Type471 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.Dictionary<string, global::Vectara.UpdateAgentStep>? Type472 { get; set; }
+        public global::Vectara.UpdateAgentRequest? Type472 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.InputTokens? Type473 { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, global::Vectara.UpdateAgentStep>? Type473 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.OutputTokens? Type474 { get; set; }
+        public global::Vectara.InputTokens? Type474 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.SessionContextUsage? Type475 { get; set; }
+        public global::Vectara.OutputTokens? Type475 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentSession? Type476 { get; set; }
+        public global::Vectara.SessionContextUsage? Type476 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListAgentSessionsResponse? Type477 { get; set; }
+        public global::Vectara.AgentSession? Type477 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.AgentSession>? Type478 { get; set; }
+        public global::Vectara.ListAgentSessionsResponse? Type478 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateAgentSessionRequest? Type479 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.AgentSession>? Type479 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateAgentSessionRequestFromSession? Type480 { get; set; }
+        public global::Vectara.CreateAgentSessionRequest? Type480 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateAgentSessionRequest? Type481 { get; set; }
+        public global::Vectara.CreateAgentSessionRequestFromSession? Type481 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentEventBase? Type482 { get; set; }
+        public global::Vectara.UpdateAgentSessionRequest? Type482 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentTextInput? Type483 { get; set; }
+        public global::Vectara.AgentEventBase? Type483 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentSkillInput? Type484 { get; set; }
+        public global::Vectara.AgentTextInput? Type484 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentInput? Type485 { get; set; }
+        public global::Vectara.AgentSkillInput? Type485 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentInputDiscriminator? Type486 { get; set; }
+        public global::Vectara.AgentInput? Type486 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentInputDiscriminatorType? Type487 { get; set; }
+        public global::Vectara.AgentInputDiscriminator? Type487 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.InputMessageEvent? Type488 { get; set; }
+        public global::Vectara.AgentInputDiscriminatorType? Type488 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.InputMessageEventVariant2? Type489 { get; set; }
+        public global::Vectara.InputMessageEvent? Type489 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.AgentInput>? Type490 { get; set; }
+        public global::Vectara.InputMessageEventVariant2? Type490 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.SkillLoadEvent? Type491 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.AgentInput>? Type491 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.SkillLoadEventVariant2? Type492 { get; set; }
+        public global::Vectara.SkillLoadEvent? Type492 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ArtifactReference? Type493 { get; set; }
+        public global::Vectara.SkillLoadEventVariant2? Type493 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ArtifactUploadEvent? Type494 { get; set; }
+        public global::Vectara.ArtifactReference? Type494 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ArtifactUploadEventVariant2? Type495 { get; set; }
+        public global::Vectara.ArtifactUploadEvent? Type495 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.ArtifactReference>? Type496 { get; set; }
+        public global::Vectara.ArtifactUploadEventVariant2? Type496 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ToolInputEvent? Type497 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.ArtifactReference>? Type497 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ToolInputEventVariant2? Type498 { get; set; }
+        public global::Vectara.ToolInputEvent? Type498 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ToolOutputEvent? Type499 { get; set; }
+        public global::Vectara.ToolInputEventVariant2? Type499 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ToolOutputEventVariant2? Type500 { get; set; }
+        public global::Vectara.ToolOutputEvent? Type500 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ThinkingEvent? Type501 { get; set; }
+        public global::Vectara.ToolOutputEventVariant2? Type501 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ThinkingEventVariant2? Type502 { get; set; }
+        public global::Vectara.ThinkingEvent? Type502 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentOutputEvent? Type503 { get; set; }
+        public global::Vectara.ThinkingEventVariant2? Type503 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentOutputEventVariant2? Type504 { get; set; }
+        public global::Vectara.AgentOutputEvent? Type504 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StructuredOutputEvent? Type505 { get; set; }
+        public global::Vectara.AgentOutputEventVariant2? Type505 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StructuredOutputEventVariant2? Type506 { get; set; }
+        public global::Vectara.StructuredOutputEvent? Type506 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ContextLimitExceededEvent? Type507 { get; set; }
+        public global::Vectara.StructuredOutputEventVariant2? Type507 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ContextLimitExceededEventVariant2? Type508 { get; set; }
+        public global::Vectara.ContextLimitExceededEvent? Type508 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StepTransitionLimitExceededEvent? Type509 { get; set; }
+        public global::Vectara.ContextLimitExceededEventVariant2? Type509 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StepTransitionLimitExceededEventVariant2? Type510 { get; set; }
+        public global::Vectara.StepTransitionLimitExceededEvent? Type510 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.SessionInterruptedEvent? Type511 { get; set; }
+        public global::Vectara.StepTransitionLimitExceededEventVariant2? Type511 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.SessionInterruptedEventVariant2? Type512 { get; set; }
+        public global::Vectara.SessionInterruptedEvent? Type512 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ImageReadEvent? Type513 { get; set; }
+        public global::Vectara.SessionInterruptedEventVariant2? Type513 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ImageReadEventVariant2? Type514 { get; set; }
+        public global::Vectara.ImageReadEvent? Type514 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ImageReadEventVariant2Detail? Type515 { get; set; }
+        public global::Vectara.ImageReadEventVariant2? Type515 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StepTransitionEvent? Type516 { get; set; }
+        public global::Vectara.ImageReadEventVariant2Detail? Type516 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StepTransitionEventVariant2? Type517 { get; set; }
+        public global::Vectara.StepTransitionEvent? Type517 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CompactionEvent? Type518 { get; set; }
+        public global::Vectara.StepTransitionEventVariant2? Type518 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CompactionEventVariant2? Type519 { get; set; }
+        public global::Vectara.CompactionEvent? Type519 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentEvent? Type520 { get; set; }
+        public global::Vectara.CompactionEventVariant2? Type520 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentEventDiscriminator? Type521 { get; set; }
+        public global::Vectara.AgentEvent? Type521 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentEventDiscriminatorType? Type522 { get; set; }
+        public global::Vectara.AgentEventDiscriminator? Type522 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListAgentEventsResponse? Type523 { get; set; }
+        public global::Vectara.AgentEventDiscriminatorType? Type523 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.AgentEvent>? Type524 { get; set; }
+        public global::Vectara.ListAgentEventsResponse? Type524 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateInputRequestBase? Type525 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.AgentEvent>? Type525 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.InputBehavior? Type526 { get; set; }
+        public global::Vectara.CreateInputRequestBase? Type526 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateInputMessageRequest? Type527 { get; set; }
+        public global::Vectara.InputBehavior? Type527 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateInputMessageRequestVariant2? Type528 { get; set; }
+        public global::Vectara.CreateInputMessageRequest? Type528 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateInterruptRequest? Type529 { get; set; }
+        public global::Vectara.CreateInputMessageRequestVariant2? Type529 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateInterruptRequestVariant2? Type530 { get; set; }
+        public global::Vectara.CreateInterruptRequest? Type530 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateCompactRequest? Type531 { get; set; }
+        public global::Vectara.CreateInterruptRequestVariant2? Type531 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateCompactRequestVariant2? Type532 { get; set; }
+        public global::Vectara.CreateCompactRequest? Type532 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateInputRequest? Type533 { get; set; }
+        public global::Vectara.CreateCompactRequestVariant2? Type533 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateInputRequestDiscriminator? Type534 { get; set; }
+        public global::Vectara.CreateInputRequest? Type534 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateInputRequestDiscriminatorType? Type535 { get; set; }
+        public global::Vectara.CreateInputRequestDiscriminator? Type535 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentResponse? Type536 { get; set; }
+        public global::Vectara.CreateInputRequestDiscriminatorType? Type536 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StreamingAgentOutput? Type537 { get; set; }
+        public global::Vectara.AgentResponse? Type537 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StreamingAgentOutputEnd? Type538 { get; set; }
+        public global::Vectara.StreamingAgentOutput? Type538 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StreamingThinking? Type539 { get; set; }
+        public global::Vectara.StreamingAgentOutputEnd? Type539 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StreamingThinkingEnd? Type540 { get; set; }
+        public global::Vectara.StreamingThinking? Type540 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ContextConsumedEvent? Type541 { get; set; }
+        public global::Vectara.StreamingThinkingEnd? Type541 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CompactionStartedEvent? Type542 { get; set; }
+        public global::Vectara.ContextConsumedEvent? Type542 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CompactionStartedEventVariant2? Type543 { get; set; }
+        public global::Vectara.CompactionStartedEvent? Type543 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentStreamedResponse? Type544 { get; set; }
+        public global::Vectara.CompactionStartedEventVariant2? Type544 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentStreamedResponseDiscriminator? Type545 { get; set; }
+        public global::Vectara.AgentStreamedResponse? Type545 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentStreamedResponseDiscriminatorType? Type546 { get; set; }
+        public global::Vectara.AgentStreamedResponseDiscriminator? Type546 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.SessionArtifact? Type547 { get; set; }
+        public global::Vectara.AgentStreamedResponseDiscriminatorType? Type547 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListSessionArtifactsResponse? Type548 { get; set; }
+        public global::Vectara.SessionArtifact? Type548 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.SessionArtifact>? Type549 { get; set; }
+        public global::Vectara.ListSessionArtifactsResponse? Type549 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.IntervalScheduleConfiguration? Type550 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.SessionArtifact>? Type550 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.IntervalScheduleConfigurationType? Type551 { get; set; }
+        public global::Vectara.IntervalScheduleConfiguration? Type551 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CronScheduleConfiguration? Type552 { get; set; }
+        public global::Vectara.IntervalScheduleConfigurationType? Type552 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CronScheduleConfigurationType? Type553 { get; set; }
+        public global::Vectara.CronScheduleConfiguration? Type553 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ScheduleConfiguration? Type554 { get; set; }
+        public global::Vectara.CronScheduleConfigurationType? Type554 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentSchedule? Type555 { get; set; }
+        public global::Vectara.ScheduleConfiguration? Type555 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListAgentSchedulesResponse? Type556 { get; set; }
+        public global::Vectara.AgentSchedule? Type556 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.AgentSchedule>? Type557 { get; set; }
+        public global::Vectara.ListAgentSchedulesResponse? Type557 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateAgentScheduleRequest? Type558 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.AgentSchedule>? Type558 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateAgentScheduleRequest? Type559 { get; set; }
+        public global::Vectara.CreateAgentScheduleRequest? Type559 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentScheduleExecution? Type560 { get; set; }
+        public global::Vectara.UpdateAgentScheduleRequest? Type560 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentScheduleExecutionStatus? Type561 { get; set; }
+        public global::Vectara.AgentScheduleExecution? Type561 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListAgentScheduleExecutionsResponse? Type562 { get; set; }
+        public global::Vectara.AgentScheduleExecutionStatus? Type562 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.AgentScheduleExecution>? Type563 { get; set; }
+        public global::Vectara.ListAgentScheduleExecutionsResponse? Type563 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentIdentityMode? Type564 { get; set; }
+        public global::System.Collections.Generic.IList<global::Vectara.AgentScheduleExecution>? Type564 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AgentIdentity? Type565 { get; set; }
+        public global::Vectara.AgentIdentityMode? Type565 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.UpdateAgentIdentityRequest? Type566 { get; set; }
+        public global::Vectara.AgentIdentity? Type566 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.GetOAuthTokenRequest? Type567 { get; set; }
+        public global::Vectara.UpdateAgentIdentityRequest? Type567 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateCorpusDocumentWaitFor? Type568 { get; set; }
+        public global::Vectara.PipelineStatus? Type568 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.IList<global::Vectara.JobState>? Type569 { get; set; }
+        public global::Vectara.BaseS3SourceConfiguration? Type569 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListToolServersType? Type570 { get; set; }
+        public global::Vectara.S3SourceConfiguration? Type570 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListToolsType? Type571 { get; set; }
+        public global::Vectara.PipelineSource? Type571 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListInstructionsType? Type572 { get; set; }
+        public global::Vectara.PipelineSourceDiscriminator? Type572 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListSessionArtifactsSortBy? Type573 { get; set; }
+        public global::Vectara.PipelineSourceDiscriminatorType? Type573 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ListSessionArtifactsOrderBy? Type574 { get; set; }
+        public global::Vectara.CronTriggerConfiguration? Type574 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>? Type575 { get; set; }
+        public global::Vectara.IntervalTriggerConfiguration? Type575 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.CreateUserResponse2? Type576 { get; set; }
+        public global::Vectara.ManualTriggerConfiguration? Type576 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ResetUserPasswordResponse? Type577 { get; set; }
+        public global::Vectara.PipelineTrigger? Type577 { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.GetTokenResponse? Type578 { get; set; }
+        public global::Vectara.PipelineTriggerDiscriminator? Type578 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineTriggerDiscriminatorType? Type579 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ConditionVerification? Type580 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentVerification? Type581 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineVerification? Type582 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineVerificationDiscriminator? Type583 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineVerificationDiscriminatorType? Type584 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentTransformConfiguration? Type585 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineTransform? Type586 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineTransformDiscriminator? Type587 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineTransformDiscriminatorType? Type588 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineSyncMode? Type589 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineWatermark? Type590 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.Pipeline? Type591 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListPipelinesResponse? Type592 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.IList<global::Vectara.Pipeline>? Type593 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreatePipelineRequest? Type594 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateS3SourceConfiguration? Type595 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdatePipelineSource? Type596 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdatePipelineSourceDiscriminator? Type597 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdatePipelineSourceDiscriminatorType? Type598 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdatePipelineRequest? Type599 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineRunStatus? Type600 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineRunTriggerType? Type601 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineRun? Type602 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DeadLetterStatus? Type603 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DeadLetterOrigin? Type604 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.PipelineDeadLetterEntry? Type605 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListPipelineDeadLetterEntriesResponse? Type606 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.IList<global::Vectara.PipelineDeadLetterEntry>? Type607 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreatePipelineDeadLetterEntryRequest? Type608 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ProcessPipelineDeadLetterEntriesRequest? Type609 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListPipelineRunsResponse? Type610 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.IList<global::Vectara.PipelineRun>? Type611 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.Glossary? Type612 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListGlossariesResponse? Type613 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.IList<global::Vectara.Glossary>? Type614 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateGlossaryRequest? Type615 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateGlossaryRequest? Type616 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GlossaryEntry? Type617 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GlossaryEntriesResponse? Type618 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.IList<global::Vectara.GlossaryEntry>? Type619 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpsertGlossaryEntriesRequest? Type620 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DeleteGlossaryEntriesRequest? Type621 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GetOAuthTokenRequest? Type622 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateCorpusDocumentWaitFor? Type623 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.IList<global::Vectara.JobState>? Type624 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListToolServersType? Type625 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListToolsType? Type626 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListInstructionsType? Type627 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListSessionArtifactsSortBy? Type628 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListSessionArtifactsOrderBy? Type629 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ListPipelinesSourceType? Type630 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>? Type631 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateUserResponse2? Type632 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ResetUserPasswordResponse? Type633 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GetTokenResponse? Type634 { get; set; }
 
         /// <summary>
         /// 
@@ -2601,6 +2825,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Collections.Generic.List<global::Vectara.JobState>? ListType64 { get; set; }
+        public global::System.Collections.Generic.List<global::Vectara.Pipeline>? ListType64 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.List<global::Vectara.PipelineDeadLetterEntry>? ListType65 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.List<global::Vectara.PipelineRun>? ListType66 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.List<global::Vectara.Glossary>? ListType67 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.List<global::Vectara.GlossaryEntry>? ListType68 { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::System.Collections.Generic.List<global::Vectara.JobState>? ListType69 { get; set; }
     }
 }

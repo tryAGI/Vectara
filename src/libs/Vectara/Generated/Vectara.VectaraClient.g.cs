@@ -190,6 +190,16 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public GlossariesClient Glossaries => new GlossariesClient(HttpClient, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
         public HallucinationCorrectorsClient HallucinationCorrectors => new HallucinationCorrectorsClient(HttpClient, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
@@ -241,6 +251,36 @@ namespace Vectara
         /// 
         /// </summary>
         public MetadataClient Metadata => new MetadataClient(HttpClient, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PipelineDeadLetterEntriesClient PipelineDeadLetterEntries => new PipelineDeadLetterEntriesClient(HttpClient, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PipelineRunsClient PipelineRuns => new PipelineRunsClient(HttpClient, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PipelinesClient Pipelines => new PipelinesClient(HttpClient, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,

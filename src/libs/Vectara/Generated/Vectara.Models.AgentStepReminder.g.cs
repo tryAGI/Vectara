@@ -30,6 +30,25 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Templated))]
 #endif
         public bool IsTemplated => Templated != null;
+
+        /// <summary>
+        /// A reminder that expands terms, acronyms, and abbreviations in user messages using a glossary.<br/>
+        /// When attached to a step, user input is run through the glossary's lookup index and matching<br/>
+        /// terms are expanded before the message reaches the LLM.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.GlossaryExpansionReminder? GlossaryExpansion { get; init; }
+#else
+        public global::Vectara.GlossaryExpansionReminder? GlossaryExpansion { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GlossaryExpansion))]
+#endif
+        public bool IsGlossaryExpansion => GlossaryExpansion != null;
         /// <summary>
         /// 
         /// </summary>
@@ -51,20 +70,41 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator AgentStepReminder(global::Vectara.GlossaryExpansionReminder value) => new AgentStepReminder((global::Vectara.GlossaryExpansionReminder?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.GlossaryExpansionReminder?(AgentStepReminder @this) => @this.GlossaryExpansion;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentStepReminder(global::Vectara.GlossaryExpansionReminder? value)
+        {
+            GlossaryExpansion = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AgentStepReminder(
             global::Vectara.AgentStepReminderDiscriminatorType? type,
-            global::Vectara.TemplatedReminder? templated
+            global::Vectara.TemplatedReminder? templated,
+            global::Vectara.GlossaryExpansionReminder? glossaryExpansion
             )
         {
             Type = type;
 
             Templated = templated;
+            GlossaryExpansion = glossaryExpansion;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            GlossaryExpansion as object ??
             Templated as object 
             ;
 
@@ -72,7 +112,8 @@ namespace Vectara
         /// 
         /// </summary>
         public override string? ToString() =>
-            Templated?.ToString() 
+            Templated?.ToString() ??
+            GlossaryExpansion?.ToString() 
             ;
 
         /// <summary>
@@ -80,7 +121,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsTemplated;
+            return IsTemplated && !IsGlossaryExpansion || !IsTemplated && IsGlossaryExpansion;
         }
 
         /// <summary>
@@ -88,6 +129,7 @@ namespace Vectara
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.TemplatedReminder?, TResult>? templated = null,
+            global::System.Func<global::Vectara.GlossaryExpansionReminder?, TResult>? glossaryExpansion = null,
             bool validate = true)
         {
             if (validate)
@@ -99,6 +141,10 @@ namespace Vectara
             {
                 return templated(Templated!);
             }
+            else if (IsGlossaryExpansion && glossaryExpansion != null)
+            {
+                return glossaryExpansion(GlossaryExpansion!);
+            }
 
             return default(TResult);
         }
@@ -108,6 +154,7 @@ namespace Vectara
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.TemplatedReminder?>? templated = null,
+            global::System.Action<global::Vectara.GlossaryExpansionReminder?>? glossaryExpansion = null,
             bool validate = true)
         {
             if (validate)
@@ -118,6 +165,10 @@ namespace Vectara
             if (IsTemplated)
             {
                 templated?.Invoke(Templated!);
+            }
+            else if (IsGlossaryExpansion)
+            {
+                glossaryExpansion?.Invoke(GlossaryExpansion!);
             }
         }
 
@@ -130,6 +181,8 @@ namespace Vectara
             {
                 Templated,
                 typeof(global::Vectara.TemplatedReminder),
+                GlossaryExpansion,
+                typeof(global::Vectara.GlossaryExpansionReminder),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -146,7 +199,8 @@ namespace Vectara
         public bool Equals(AgentStepReminder other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.TemplatedReminder?>.Default.Equals(Templated, other.Templated) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.TemplatedReminder?>.Default.Equals(Templated, other.Templated) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GlossaryExpansionReminder?>.Default.Equals(GlossaryExpansion, other.GlossaryExpansion) 
                 ;
         }
 
