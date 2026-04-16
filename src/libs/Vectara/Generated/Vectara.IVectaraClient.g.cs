@@ -127,6 +127,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public GlossariesClient Glossaries { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public HallucinationCorrectorsClient HallucinationCorrectors { get; }
 
         /// <summary>
@@ -153,6 +158,21 @@ namespace Vectara
         /// 
         /// </summary>
         public MetadataClient Metadata { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PipelineDeadLetterEntriesClient PipelineDeadLetterEntries { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PipelineRunsClient PipelineRuns { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PipelinesClient Pipelines { get; }
 
         /// <summary>
         /// 

@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        GlossaryExpansion,
+        /// <summary>
+        /// 
+        /// </summary>
         Templated,
     }
 
@@ -26,6 +30,7 @@ namespace Vectara
         {
             return value switch
             {
+                AgentStepReminderDiscriminatorType.GlossaryExpansion => "glossary_expansion",
                 AgentStepReminderDiscriminatorType.Templated => "templated",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -37,6 +42,7 @@ namespace Vectara
         {
             return value switch
             {
+                "glossary_expansion" => AgentStepReminderDiscriminatorType.GlossaryExpansion,
                 "templated" => AgentStepReminderDiscriminatorType.Templated,
                 _ => null,
             };

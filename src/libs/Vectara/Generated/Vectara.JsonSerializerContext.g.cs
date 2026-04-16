@@ -305,6 +305,50 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.AgentIdentityModeNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.PipelineStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineVerificationDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineVerificationDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTransformDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTransformDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSyncModeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSyncModeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdatePipelineSourceDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdatePipelineSourceDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunTriggerTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunTriggerTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DeadLetterStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DeadLetterStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DeadLetterOriginJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DeadLetterOriginNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.CreateCorpusDocumentWaitForJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateCorpusDocumentWaitForNullableJsonConverter),
@@ -328,6 +372,10 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.ListSessionArtifactsOrderByJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ListSessionArtifactsOrderByNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListPipelinesSourceTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListPipelinesSourceTypeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ChunkingStrategyJsonConverter),
 
@@ -472,6 +520,18 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.S3SourceConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTriggerJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineVerificationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateS3SourceConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>),
 
@@ -953,6 +1013,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TemplatedReminder))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.TemplatedReminderHook>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TemplatedReminderHook), TypeInfoPropertyName = "TemplatedReminderHook2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GlossaryExpansionReminder))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminder), TypeInfoPropertyName = "AgentStepReminder2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminderDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminderDiscriminatorType), TypeInfoPropertyName = "AgentStepReminderDiscriminatorType2")]
@@ -1069,6 +1130,60 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentIdentityMode), TypeInfoPropertyName = "AgentIdentityMode2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentIdentity))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateAgentIdentityRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineStatus), TypeInfoPropertyName = "PipelineStatus2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseS3SourceConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.S3SourceConfiguration), TypeInfoPropertyName = "S3SourceConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSource), TypeInfoPropertyName = "PipelineSource2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSourceDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSourceDiscriminatorType), TypeInfoPropertyName = "PipelineSourceDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CronTriggerConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.IntervalTriggerConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ManualTriggerConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTrigger), TypeInfoPropertyName = "PipelineTrigger2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTriggerDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTriggerDiscriminatorType), TypeInfoPropertyName = "PipelineTriggerDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConditionVerification))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentVerification))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineVerification), TypeInfoPropertyName = "PipelineVerification2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineVerificationDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineVerificationDiscriminatorType), TypeInfoPropertyName = "PipelineVerificationDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTransformConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTransform))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTransformDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineTransformDiscriminatorType), TypeInfoPropertyName = "PipelineTransformDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSyncMode), TypeInfoPropertyName = "PipelineSyncMode2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineWatermark))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Pipeline))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelinesResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Pipeline>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreatePipelineRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateS3SourceConfiguration), TypeInfoPropertyName = "UpdateS3SourceConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdatePipelineSource), TypeInfoPropertyName = "UpdatePipelineSource2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdatePipelineSourceDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdatePipelineSourceDiscriminatorType), TypeInfoPropertyName = "UpdatePipelineSourceDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdatePipelineRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunStatus), TypeInfoPropertyName = "PipelineRunStatus2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunTriggerType), TypeInfoPropertyName = "PipelineRunTriggerType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRun))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DeadLetterStatus), TypeInfoPropertyName = "DeadLetterStatus2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DeadLetterOrigin), TypeInfoPropertyName = "DeadLetterOrigin2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineDeadLetterEntry))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelineDeadLetterEntriesResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PipelineDeadLetterEntry>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreatePipelineDeadLetterEntryRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ProcessPipelineDeadLetterEntriesRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelineRunsResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PipelineRun>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Glossary))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListGlossariesResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Glossary>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateGlossaryRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateGlossaryRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GlossaryEntry))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GlossaryEntriesResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.GlossaryEntry>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpsertGlossaryEntriesRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DeleteGlossaryEntriesRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GetOAuthTokenRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateCorpusDocumentWaitFor), TypeInfoPropertyName = "CreateCorpusDocumentWaitFor2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.JobState>))]
@@ -1077,6 +1192,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListInstructionsType), TypeInfoPropertyName = "ListInstructionsType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListSessionArtifactsSortBy), TypeInfoPropertyName = "ListSessionArtifactsSortBy2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListSessionArtifactsOrderBy), TypeInfoPropertyName = "ListSessionArtifactsOrderBy2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelinesSourceType), TypeInfoPropertyName = "ListPipelinesSourceType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AllOf<global::Vectara.User, global::Vectara.CreateUserResponse2>), TypeInfoPropertyName = "AllOfUserCreateUserResponse22")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateUserResponse2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ResetUserPasswordResponse))]
@@ -1145,6 +1261,11 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.SessionArtifact>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentSchedule>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentScheduleExecution>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Pipeline>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineDeadLetterEntry>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRun>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Glossary>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.GlossaryEntry>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.JobState>))]
     public sealed partial class SourceGenerationContext : global::System.Text.Json.Serialization.JsonSerializerContext
     {

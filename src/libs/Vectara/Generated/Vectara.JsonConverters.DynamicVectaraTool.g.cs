@@ -31,6 +31,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("created_at")) __score0++;
             if (__jsonProps.Contains("description")) __score0++;
             if (__jsonProps.Contains("description_template")) __score0++;
+            if (__jsonProps.Contains("documentation")) __score0++;
             if (__jsonProps.Contains("enabled")) __score0++;
             if (__jsonProps.Contains("experimental")) __score0++;
             if (__jsonProps.Contains("id")) __score0++;

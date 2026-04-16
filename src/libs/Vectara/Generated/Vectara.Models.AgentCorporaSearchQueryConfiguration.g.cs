@@ -12,8 +12,7 @@ namespace Vectara
         /// Agent-specific search parameters that support eager references.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("search")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.AgentSearchCorporaParameters Search { get; set; }
+        public global::Vectara.AgentSearchCorporaParameters? Search { get; set; }
 
         /// <summary>
         /// Default Value: {"enabled":false}
@@ -51,11 +50,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public AgentCorporaSearchQueryConfiguration(
-            global::Vectara.AgentSearchCorporaParameters search,
+            global::Vectara.AgentSearchCorporaParameters? search,
             global::Vectara.GenerationParameters? generation,
             bool? saveHistory)
         {
-            this.Search = search ?? throw new global::System.ArgumentNullException(nameof(search));
+            this.Search = search;
             this.Generation = generation;
             this.SaveHistory = saveHistory;
         }

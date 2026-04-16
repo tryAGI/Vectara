@@ -31,7 +31,8 @@ namespace Vectara
         public string? Title { get; set; }
 
         /// <summary>
-        /// A detailed description of what the tool does and how it can be used.
+        /// The description provided to the agent (LLM) to guide tool selection during conversations.<br/>
+        /// This is what the agent sees when deciding which tool to use.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -49,6 +50,14 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
         public string? DescriptionTemplate { get; set; }
+
+        /// <summary>
+        /// User-facing documentation describing the tool and how to configure it for an agent.<br/>
+        /// Intended for developers and administrators browsing the tool catalog.<br/>
+        /// Defaults to the agent-facing description if not explicitly set.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("documentation")]
+        public string? Documentation { get; set; }
 
         /// <summary>
         /// Whether the tool is currently enabled and available for use.<br/>
@@ -131,7 +140,8 @@ namespace Vectara
         /// Unique identifier for the tool.
         /// </param>
         /// <param name="description">
-        /// A detailed description of what the tool does and how it can be used.
+        /// The description provided to the agent (LLM) to guide tool selection during conversations.<br/>
+        /// This is what the agent sees when deciding which tool to use.
         /// </param>
         /// <param name="enabled">
         /// Whether the tool is currently enabled and available for use.<br/>
@@ -152,6 +162,11 @@ namespace Vectara
         /// - `$session.metadata` - Session metadata map<br/>
         /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
         /// Example: "Search tool configured for agent $agent.name on $currentDate"
+        /// </param>
+        /// <param name="documentation">
+        /// User-facing documentation describing the tool and how to configure it for an agent.<br/>
+        /// Intended for developers and administrators browsing the tool catalog.<br/>
+        /// Defaults to the agent-facing description if not explicitly set.
         /// </param>
         /// <param name="experimental">
         /// Whether this tool is experimental and may change or be removed without notice.<br/>
@@ -189,6 +204,7 @@ namespace Vectara
             object inputSchema,
             string? title,
             string? descriptionTemplate,
+            string? documentation,
             bool? experimental,
             global::System.DateTime? createdAt,
             global::System.DateTime? updatedAt,
@@ -202,6 +218,7 @@ namespace Vectara
             this.Title = title;
             this.Description = description ?? throw new global::System.ArgumentNullException(nameof(description));
             this.DescriptionTemplate = descriptionTemplate;
+            this.Documentation = documentation;
             this.Enabled = enabled;
             this.Experimental = experimental;
             this.CreatedAt = createdAt;
