@@ -23,6 +23,14 @@ namespace Vectara.JsonConverters
                 foreach (var __jsonProp in __jsonDocument.RootElement.EnumerateObject())
                 {
                     __jsonProps.Add(__jsonProp.Name);
+                    if (__jsonProp.Value.ValueKind == global::System.Text.Json.JsonValueKind.Object)
+                    {
+                        foreach (var __nestedJsonProp in __jsonProp.Value.EnumerateObject())
+                        {
+                            __jsonProps.Add(__jsonProp.Name + "." + __nestedJsonProp.Name);
+                        }
+                    }
+
                 }
             }
 
@@ -44,6 +52,11 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("version")) __score0++;
             var __score1 = 0;
             if (__jsonProps.Contains("function_definition")) __score1++;
+            if (__jsonProps.Contains("function_definition.code")) __score1++;
+            if (__jsonProps.Contains("function_definition.execution_configuration")) __score1++;
+            if (__jsonProps.Contains("function_definition.language")) __score1++;
+            if (__jsonProps.Contains("function_definition.validation_errors")) __score1++;
+            if (__jsonProps.Contains("function_definition.validation_status")) __score1++;
             if (__jsonProps.Contains("language")) __score1++;
             if (__jsonProps.Contains("output_schema")) __score1++;
             if (__jsonProps.Contains("type")) __score1++;

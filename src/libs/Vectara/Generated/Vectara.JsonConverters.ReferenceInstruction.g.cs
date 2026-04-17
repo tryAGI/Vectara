@@ -23,6 +23,7 @@ namespace Vectara.JsonConverters
                 foreach (var __jsonProp in __jsonDocument.RootElement.EnumerateObject())
                 {
                     __jsonProps.Add(__jsonProp.Name);
+
                 }
             }
 
