@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        ArtifactCreate,
+        /// <summary>
+        /// 
+        /// </summary>
         ArtifactGrep,
         /// <summary>
         /// 
@@ -70,6 +74,7 @@ namespace Vectara
         {
             return value switch
             {
+                AgentToolConfigurationDiscriminatorType.ArtifactCreate => "artifact_create",
                 AgentToolConfigurationDiscriminatorType.ArtifactGrep => "artifact_grep",
                 AgentToolConfigurationDiscriminatorType.ArtifactRead => "artifact_read",
                 AgentToolConfigurationDiscriminatorType.CorporaSearch => "corpora_search",
@@ -92,6 +97,7 @@ namespace Vectara
         {
             return value switch
             {
+                "artifact_create" => AgentToolConfigurationDiscriminatorType.ArtifactCreate,
                 "artifact_grep" => AgentToolConfigurationDiscriminatorType.ArtifactGrep,
                 "artifact_read" => AgentToolConfigurationDiscriminatorType.ArtifactRead,
                 "corpora_search" => AgentToolConfigurationDiscriminatorType.CorporaSearch,
