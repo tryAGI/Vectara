@@ -5,7 +5,7 @@ namespace Vectara
     public partial interface IPipelinesClient
     {
         /// <summary>
-        /// Update pipeline<br/>
+        /// Replace pipeline<br/>
         /// Replace a pipeline's configuration. The full pipeline definition must be provided.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -27,7 +27,7 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Update pipeline<br/>
+        /// Replace pipeline<br/>
         /// Replace a pipeline's configuration. The full pipeline definition must be provided.
         /// </summary>
         /// <param name="requestTimeout"></param>

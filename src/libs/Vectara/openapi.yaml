@@ -10618,7 +10618,7 @@ paths:
     put:
       tags:
       - Pipelines
-      summary: Update pipeline
+      summary: Replace pipeline
       x-required-roles:
       - type: ApiRole
         roles:
@@ -10633,7 +10633,7 @@ paths:
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: path
         name: pipeline_key
-        description: The unique key of the pipeline to update.
+        description: The unique key of the pipeline to replace.
         required: true
         schema:
           $ref: '#/components/schemas/PipelineKey'
@@ -10645,19 +10645,20 @@ paths:
               $ref: '#/components/schemas/CreatePipelineRequest'
       responses:
         '200':
-          description: The pipeline has been updated successfully.
+          description: The pipeline has been replaced successfully.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Pipeline'
         '400':
-          description: Pipeline update request was malformed or contains invalid configuration.
+          description: Pipeline replace request was malformed or contains invalid
+            configuration.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow updating this pipeline.
+          description: Permissions do not allow replacing this pipeline.
           content:
             application/json:
               schema:
@@ -15841,13 +15842,13 @@ components:
           $ref: '#/components/schemas/ListMetadata'
     CreateGenerationPresetRequest:
       description: Request to create a new generation preset.
+      type: object
       allOf:
       - $ref: '#/components/schemas/GenerationPreset'
-      - type: object
-        required:
-        - name
-        - llm_name
-        - prompt_template
+      required:
+      - name
+      - llm_name
+      - prompt_template
     EvaluateFactualConsistencyRequest:
       description: Request to evaluate the factual consistency of a generated text
         against source documents.
@@ -19555,11 +19556,11 @@ components:
           default: 80
           example: 80
         keep_recent_inputs:
-          description: Number of recent inputs to keep verbatim (not compacted).
+          description: Number of recent turns to keep verbatim (not compacted).
           type: integer
           minimum: 1
-          default: 3
-          example: 3
+          default: 1
+          example: 1
         compaction_message:
           description: Custom additional instructions for the compaction summarization
             prompt.

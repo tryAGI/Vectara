@@ -64,7 +64,7 @@ namespace Vectara
             ref string content);
 
         /// <summary>
-        /// Update pipeline<br/>
+        /// Replace pipeline<br/>
         /// Replace a pipeline's configuration. The full pipeline definition must be provided.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -345,7 +345,7 @@ namespace Vectara
                                 willRetry: false,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Pipeline update request was malformed or contains invalid configuration.
+                            // Pipeline replace request was malformed or contains invalid configuration.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -383,7 +383,7 @@ namespace Vectara
                                         h => h.Value),
                                 };
                             }
-                            // Permissions do not allow updating this pipeline.
+                            // Permissions do not allow replacing this pipeline.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -552,7 +552,7 @@ namespace Vectara
             }
         }
         /// <summary>
-        /// Update pipeline<br/>
+        /// Replace pipeline<br/>
         /// Replace a pipeline's configuration. The full pipeline definition must be provided.
         /// </summary>
         /// <param name="requestTimeout"></param>
