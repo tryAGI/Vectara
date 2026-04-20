@@ -169,6 +169,23 @@ namespace Vectara
         public bool IsArtifactGrep => ArtifactGrep != null;
 
         /// <summary>
+        /// An artifact create tool configuration defined inline in the agent for creating artifacts from text or structured data content.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineArtifactCreateToolConfiguration? ArtifactCreate { get; init; }
+#else
+        public global::Vectara.InlineArtifactCreateToolConfiguration? ArtifactCreate { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactCreate))]
+#endif
+        public bool IsArtifactCreate => ArtifactCreate != null;
+
+        /// <summary>
         /// An image read tool configuration defined inline in the agent for loading images into the conversation context.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -383,6 +400,24 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator AgentToolConfiguration(global::Vectara.InlineArtifactCreateToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineArtifactCreateToolConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineArtifactCreateToolConfiguration?(AgentToolConfiguration @this) => @this.ArtifactCreate;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentToolConfiguration(global::Vectara.InlineArtifactCreateToolConfiguration? value)
+        {
+            ArtifactCreate = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentToolConfiguration(global::Vectara.InlineImageReadToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineImageReadToolConfiguration?)value);
 
         /// <summary>
@@ -448,6 +483,7 @@ namespace Vectara
             global::Vectara.InlineSubAgentToolConfiguration? subAgent,
             global::Vectara.InlineArtifactReadToolConfiguration? artifactRead,
             global::Vectara.InlineArtifactGrepToolConfiguration? artifactGrep,
+            global::Vectara.InlineArtifactCreateToolConfiguration? artifactCreate,
             global::Vectara.InlineImageReadToolConfiguration? imageRead,
             global::Vectara.InlineDocumentConversionToolConfiguration? documentConversion,
             global::Vectara.InlineGetDocumentTextToolConfiguration? getDocumentText
@@ -464,6 +500,7 @@ namespace Vectara
             SubAgent = subAgent;
             ArtifactRead = artifactRead;
             ArtifactGrep = artifactGrep;
+            ArtifactCreate = artifactCreate;
             ImageRead = imageRead;
             DocumentConversion = documentConversion;
             GetDocumentText = getDocumentText;
@@ -476,6 +513,7 @@ namespace Vectara
             GetDocumentText as object ??
             DocumentConversion as object ??
             ImageRead as object ??
+            ArtifactCreate as object ??
             ArtifactGrep as object ??
             ArtifactRead as object ??
             SubAgent as object ??
@@ -500,6 +538,7 @@ namespace Vectara
             SubAgent?.ToString() ??
             ArtifactRead?.ToString() ??
             ArtifactGrep?.ToString() ??
+            ArtifactCreate?.ToString() ??
             ImageRead?.ToString() ??
             DocumentConversion?.ToString() ??
             GetDocumentText?.ToString() 
@@ -510,7 +549,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && IsGetDocumentText;
+            return IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && IsArtifactCreate && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactRead && !IsArtifactGrep && !IsArtifactCreate && !IsImageRead && !IsDocumentConversion && IsGetDocumentText;
         }
 
         /// <summary>
@@ -526,6 +565,7 @@ namespace Vectara
             global::System.Func<global::Vectara.InlineSubAgentToolConfiguration?, TResult>? subAgent = null,
             global::System.Func<global::Vectara.InlineArtifactReadToolConfiguration?, TResult>? artifactRead = null,
             global::System.Func<global::Vectara.InlineArtifactGrepToolConfiguration?, TResult>? artifactGrep = null,
+            global::System.Func<global::Vectara.InlineArtifactCreateToolConfiguration?, TResult>? artifactCreate = null,
             global::System.Func<global::Vectara.InlineImageReadToolConfiguration?, TResult>? imageRead = null,
             global::System.Func<global::Vectara.InlineDocumentConversionToolConfiguration?, TResult>? documentConversion = null,
             global::System.Func<global::Vectara.InlineGetDocumentTextToolConfiguration?, TResult>? getDocumentText = null,
@@ -572,6 +612,10 @@ namespace Vectara
             {
                 return artifactGrep(ArtifactGrep!);
             }
+            else if (IsArtifactCreate && artifactCreate != null)
+            {
+                return artifactCreate(ArtifactCreate!);
+            }
             else if (IsImageRead && imageRead != null)
             {
                 return imageRead(ImageRead!);
@@ -601,6 +645,7 @@ namespace Vectara
             global::System.Action<global::Vectara.InlineSubAgentToolConfiguration?>? subAgent = null,
             global::System.Action<global::Vectara.InlineArtifactReadToolConfiguration?>? artifactRead = null,
             global::System.Action<global::Vectara.InlineArtifactGrepToolConfiguration?>? artifactGrep = null,
+            global::System.Action<global::Vectara.InlineArtifactCreateToolConfiguration?>? artifactCreate = null,
             global::System.Action<global::Vectara.InlineImageReadToolConfiguration?>? imageRead = null,
             global::System.Action<global::Vectara.InlineDocumentConversionToolConfiguration?>? documentConversion = null,
             global::System.Action<global::Vectara.InlineGetDocumentTextToolConfiguration?>? getDocumentText = null,
@@ -647,6 +692,10 @@ namespace Vectara
             {
                 artifactGrep?.Invoke(ArtifactGrep!);
             }
+            else if (IsArtifactCreate)
+            {
+                artifactCreate?.Invoke(ArtifactCreate!);
+            }
             else if (IsImageRead)
             {
                 imageRead?.Invoke(ImageRead!);
@@ -686,6 +735,8 @@ namespace Vectara
                 typeof(global::Vectara.InlineArtifactReadToolConfiguration),
                 ArtifactGrep,
                 typeof(global::Vectara.InlineArtifactGrepToolConfiguration),
+                ArtifactCreate,
+                typeof(global::Vectara.InlineArtifactCreateToolConfiguration),
                 ImageRead,
                 typeof(global::Vectara.InlineImageReadToolConfiguration),
                 DocumentConversion,
@@ -717,6 +768,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineSubAgentToolConfiguration?>.Default.Equals(SubAgent, other.SubAgent) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineArtifactReadToolConfiguration?>.Default.Equals(ArtifactRead, other.ArtifactRead) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineArtifactGrepToolConfiguration?>.Default.Equals(ArtifactGrep, other.ArtifactGrep) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineArtifactCreateToolConfiguration?>.Default.Equals(ArtifactCreate, other.ArtifactCreate) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineImageReadToolConfiguration?>.Default.Equals(ImageRead, other.ImageRead) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineDocumentConversionToolConfiguration?>.Default.Equals(DocumentConversion, other.DocumentConversion) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineGetDocumentTextToolConfiguration?>.Default.Equals(GetDocumentText, other.GetDocumentText) 
