@@ -27,11 +27,11 @@ namespace Vectara
         public int? ThresholdPercent { get; set; }
 
         /// <summary>
-        /// Number of recent inputs to keep verbatim (not compacted).<br/>
-        /// Default Value: 3<br/>
-        /// Example: 3
+        /// Number of recent turns to keep verbatim (not compacted).<br/>
+        /// Default Value: 1<br/>
+        /// Example: 1
         /// </summary>
-        /// <example>3</example>
+        /// <example>1</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("keep_recent_inputs")]
         public int? KeepRecentInputs { get; set; }
 
@@ -69,9 +69,9 @@ namespace Vectara
         /// Example: 80
         /// </param>
         /// <param name="keepRecentInputs">
-        /// Number of recent inputs to keep verbatim (not compacted).<br/>
-        /// Default Value: 3<br/>
-        /// Example: 3
+        /// Number of recent turns to keep verbatim (not compacted).<br/>
+        /// Default Value: 1<br/>
+        /// Example: 1
         /// </param>
         /// <param name="compactionMessage">
         /// Custom additional instructions for the compaction summarization prompt.

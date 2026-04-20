@@ -41,14 +41,11 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("presence_penalty")) __score0++;
             if (__jsonProps.Contains("prompt_template")) __score0++;
             if (__jsonProps.Contains("temperature")) __score0++;
-            var __score1 = 0;
             var __bestScore = 0;
             var __bestIndex = -1;
             if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
-            if (__score1 > __bestScore) { __bestScore = __score1; __bestIndex = 1; }
 
             global::Vectara.GenerationPreset? generationPreset = default;
-            object? createGenerationPresetRequestVariant2 = default;
             if (__bestIndex >= 0)
             {
                 if (__bestIndex == 0)
@@ -66,24 +63,9 @@ namespace Vectara.JsonConverters
                     {
                     }
                 }
-                else if (__bestIndex == 1)
-                {
-                    try
-                    {
-                        var typeInfo = typeInfoResolver.GetTypeInfo(typeof(object), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<object> ??
-                                       throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(object).Name}");
-                        createGenerationPresetRequestVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
-                    }
-                    catch (global::System.Text.Json.JsonException)
-                    {
-                    }
-                    catch (global::System.InvalidOperationException)
-                    {
-                    }
-                }
             }
 
-            if (generationPreset == null && createGenerationPresetRequestVariant2 == null)
+            if (generationPreset == null)
             {
                 try
                 {
@@ -97,25 +79,10 @@ namespace Vectara.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
-
-                try
-                {
-                    var typeInfo = typeInfoResolver.GetTypeInfo(typeof(object), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<object> ??
-                                   throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(object).Name}");
-                    createGenerationPresetRequestVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
-                }
-                catch (global::System.Text.Json.JsonException)
-                {
-                }
-                catch (global::System.InvalidOperationException)
-                {
-                }
             }
 
             var __value = new global::Vectara.CreateGenerationPresetRequest(
-                generationPreset,
-
-                createGenerationPresetRequestVariant2
+                generationPreset
                 );
 
             return __value;
@@ -135,12 +102,6 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GenerationPreset), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GenerationPreset?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GenerationPreset).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.GenerationPreset!, typeInfo);
-            }
-            else if (value.IsCreateGenerationPresetRequestVariant2)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(object), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<object?> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(object).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.CreateGenerationPresetRequestVariant2!, typeInfo);
             }
         }
     }

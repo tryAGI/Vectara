@@ -25,23 +25,6 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationPreset))]
 #endif
         public bool IsGenerationPreset => GenerationPreset != null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public object? CreateGenerationPresetRequestVariant2 { get; init; }
-#else
-        public object? CreateGenerationPresetRequestVariant2 { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateGenerationPresetRequestVariant2))]
-#endif
-        public bool IsCreateGenerationPresetRequestVariant2 => CreateGenerationPresetRequestVariant2 != null;
         /// <summary>
         /// 
         /// </summary>
@@ -63,20 +46,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public CreateGenerationPresetRequest(
-            global::Vectara.GenerationPreset? generationPreset,
-            object? createGenerationPresetRequestVariant2
-            )
-        {
-            GenerationPreset = generationPreset;
-            CreateGenerationPresetRequestVariant2 = createGenerationPresetRequestVariant2;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public object? Object =>
-            CreateGenerationPresetRequestVariant2 as object ??
             GenerationPreset as object 
             ;
 
@@ -84,8 +54,7 @@ namespace Vectara
         /// 
         /// </summary>
         public override string? ToString() =>
-            GenerationPreset?.ToString() ??
-            CreateGenerationPresetRequestVariant2?.ToString() 
+            GenerationPreset?.ToString() 
             ;
 
         /// <summary>
@@ -93,7 +62,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsGenerationPreset && IsCreateGenerationPresetRequestVariant2;
+            return IsGenerationPreset;
         }
 
         /// <summary>
@@ -101,7 +70,6 @@ namespace Vectara
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.GenerationPreset?, TResult>? generationPreset = null,
-            global::System.Func<object?, TResult>? createGenerationPresetRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -113,10 +81,6 @@ namespace Vectara
             {
                 return generationPreset(GenerationPreset!);
             }
-            else if (IsCreateGenerationPresetRequestVariant2 && createGenerationPresetRequestVariant2 != null)
-            {
-                return createGenerationPresetRequestVariant2(CreateGenerationPresetRequestVariant2!);
-            }
 
             return default(TResult);
         }
@@ -126,7 +90,6 @@ namespace Vectara
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.GenerationPreset?>? generationPreset = null,
-            global::System.Action<object?>? createGenerationPresetRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -137,10 +100,6 @@ namespace Vectara
             if (IsGenerationPreset)
             {
                 generationPreset?.Invoke(GenerationPreset!);
-            }
-            else if (IsCreateGenerationPresetRequestVariant2)
-            {
-                createGenerationPresetRequestVariant2?.Invoke(CreateGenerationPresetRequestVariant2!);
             }
         }
 
@@ -153,8 +112,6 @@ namespace Vectara
             {
                 GenerationPreset,
                 typeof(global::Vectara.GenerationPreset),
-                CreateGenerationPresetRequestVariant2,
-                typeof(object),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -171,8 +128,7 @@ namespace Vectara
         public bool Equals(CreateGenerationPresetRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GenerationPreset?>.Default.Equals(GenerationPreset, other.GenerationPreset) &&
-                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(CreateGenerationPresetRequestVariant2, other.CreateGenerationPresetRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GenerationPreset?>.Default.Equals(GenerationPreset, other.GenerationPreset) 
                 ;
         }
 
