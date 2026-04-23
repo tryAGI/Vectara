@@ -84,13 +84,6 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.InlineArtifactGrepToolConfiguration)}");
                 artifactGrep = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.InlineArtifactCreateToolConfiguration? artifactCreate = default;
-            if (discriminator?.Type == global::Vectara.AgentToolConfigurationDiscriminatorType.ArtifactCreate)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineArtifactCreateToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineArtifactCreateToolConfiguration> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.InlineArtifactCreateToolConfiguration)}");
-                artifactCreate = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
-            }
             global::Vectara.InlineImageReadToolConfiguration? imageRead = default;
             if (discriminator?.Type == global::Vectara.AgentToolConfigurationDiscriminatorType.ImageRead)
             {
@@ -132,8 +125,6 @@ namespace Vectara.JsonConverters
                 artifactRead,
 
                 artifactGrep,
-
-                artifactCreate,
 
                 imageRead,
 
@@ -207,12 +198,6 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineArtifactGrepToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineArtifactGrepToolConfiguration?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InlineArtifactGrepToolConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.ArtifactGrep!, typeInfo);
-            }
-            else if (value.IsArtifactCreate)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineArtifactCreateToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineArtifactCreateToolConfiguration?> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InlineArtifactCreateToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ArtifactCreate!, typeInfo);
             }
             else if (value.IsImageRead)
             {

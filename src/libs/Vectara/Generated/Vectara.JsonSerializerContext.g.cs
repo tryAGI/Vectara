@@ -121,6 +121,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.CreateChatCompletionStreamResponseObjectNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.GenerationPresetOwnershipJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.GenerationPresetOwnershipNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.CreateEncoderRequestDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateEncoderRequestDiscriminatorTypeNullableJsonConverter),
@@ -795,6 +799,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateChatCompletionStreamResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateChatCompletionStreamResponseObject), TypeInfoPropertyName = "CreateChatCompletionStreamResponseObject2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.ChatCompletionStreamResponseChoice>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GenerationPresetOwnership), TypeInfoPropertyName = "GenerationPresetOwnership2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GenerationPreset))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListGenerationPresetsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.GenerationPreset>))]
@@ -981,7 +986,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineArtifactReadToolConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ArtifactGrepToolParameters))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineArtifactGrepToolConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineArtifactCreateToolConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageReadToolParameters))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageReadToolParametersDetail), TypeInfoPropertyName = "ImageReadToolParametersDetail2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineImageReadToolConfiguration))]

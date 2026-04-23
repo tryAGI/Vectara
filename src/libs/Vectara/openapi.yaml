@@ -5549,6 +5549,14 @@ paths:
         schema:
           type: string
           example: mockingbird-2.0
+      - name: filter
+        in: query
+        description: A regular expression to match names and descriptions of the generation
+          presets.
+        required: false
+        schema:
+          type: string
+          example: mockingbird.*
       - name: limit
         in: query
         description: The maximum number of results to return in the list.
@@ -15757,6 +15765,15 @@ components:
           items:
             $ref: '#/components/schemas/ChatCompletionStreamResponseChoice'
       additionalProperties: true
+    GenerationPresetOwnership:
+      description: Indicates whether the generation preset is provided by the platform
+        or created by the customer. Platform presets are pre-configured and cannot
+        be modified or deleted. Customer presets are created and managed by the customer.
+      type: string
+      enum:
+      - platform
+      - customer
+      example: platform
     GenerationPreset:
       description: Bundle of default values used when calling generation. All values
         except model name can be overridden at generation time.
@@ -15828,6 +15845,10 @@ components:
           description: Indicates if this prompt is the default prompt used with the
             LLM.
           type: boolean
+        ownership:
+          description: Indicates whether the preset is provided by the platform (`platform`)
+            or created by the customer (`customer`).
+          $ref: '#/components/schemas/GenerationPresetOwnership'
     ListGenerationPresetsResponse:
       description: Response containing a list of generation presets for configuring
         RAG behavior.
@@ -18753,23 +18774,6 @@ components:
       - type
       x-vectaraParents:
       - AgentToolConfiguration
-    InlineArtifactCreateToolConfiguration:
-      title: InlineArtifactCreateToolConfiguration
-      description: An artifact create tool configuration defined inline in the agent
-        for creating artifacts from text or structured data content.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'artifact_create'
-            for inline artifact create tool configurations.
-          default: artifact_create
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-      required:
-      - type
-      x-vectaraParents:
-      - AgentToolConfiguration
     ImageReadToolParameters:
       description: Configurable parameters for the image read tool. If not overridden,
         they will be required by the LLM to fill in.
@@ -18926,7 +18930,6 @@ components:
           sub_agent: '#/components/schemas/InlineSubAgentToolConfiguration'
           artifact_read: '#/components/schemas/InlineArtifactReadToolConfiguration'
           artifact_grep: '#/components/schemas/InlineArtifactGrepToolConfiguration'
-          artifact_create: '#/components/schemas/InlineArtifactCreateToolConfiguration'
           image_read: '#/components/schemas/InlineImageReadToolConfiguration'
           document_conversion: '#/components/schemas/InlineDocumentConversionToolConfiguration'
           get_document_text: '#/components/schemas/InlineGetDocumentTextToolConfiguration'
@@ -18940,7 +18943,6 @@ components:
       - $ref: '#/components/schemas/InlineSubAgentToolConfiguration'
       - $ref: '#/components/schemas/InlineArtifactReadToolConfiguration'
       - $ref: '#/components/schemas/InlineArtifactGrepToolConfiguration'
-      - $ref: '#/components/schemas/InlineArtifactCreateToolConfiguration'
       - $ref: '#/components/schemas/InlineImageReadToolConfiguration'
       - $ref: '#/components/schemas/InlineDocumentConversionToolConfiguration'
       - $ref: '#/components/schemas/InlineGetDocumentTextToolConfiguration'
