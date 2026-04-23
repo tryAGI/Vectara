@@ -603,6 +603,10 @@ namespace Vectara
         /// <param name="default">
         /// Indicates if this prompt is the default prompt used with the LLM.
         /// </param>
+        /// <param name="ownership">
+        /// Indicates whether the generation preset is provided by the platform or created by the customer. Platform presets are pre-configured and cannot be modified or deleted. Customer presets are created and managed by the customer.<br/>
+        /// Example: platform
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -623,6 +627,7 @@ namespace Vectara
             object? additionalModelParams = default,
             bool? enabled = default,
             bool? @default = default,
+            global::Vectara.GenerationPresetOwnership? ownership = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -642,6 +647,7 @@ namespace Vectara
                 AdditionalModelParams = additionalModelParams,
                 Enabled = enabled,
                 Default = @default,
+                Ownership = ownership,
                 });
 
             return await ReplaceAsync(

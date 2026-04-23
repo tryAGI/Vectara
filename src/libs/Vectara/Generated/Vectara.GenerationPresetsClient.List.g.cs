@@ -46,6 +46,7 @@ namespace Vectara
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
             ref string? llmName,
+            ref string? filter,
             ref int? limit,
             ref string? pageKey);
         partial void PrepareListRequest(
@@ -54,6 +55,7 @@ namespace Vectara
             int? requestTimeout,
             int? requestTimeoutMillis,
             string? llmName,
+            string? filter,
             int? limit,
             string? pageKey);
         partial void ProcessListResponse(
@@ -79,6 +81,9 @@ namespace Vectara
         /// <param name="llmName">
         /// Example: mockingbird-2.0
         /// </param>
+        /// <param name="filter">
+        /// Example: mockingbird.*
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -90,6 +95,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? llmName = default,
+            string? filter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -102,6 +108,7 @@ namespace Vectara
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 llmName: ref llmName,
+                filter: ref filter,
                 limit: ref limit,
                 pageKey: ref pageKey);
 
@@ -132,6 +139,7 @@ namespace Vectara
                                 baseUri: HttpClient.BaseAddress); 
                             __pathBuilder
                                 .AddOptionalParameter("llm_name", llmName)
+                                .AddOptionalParameter("filter", filter)
                                 .AddOptionalParameter("limit", limit?.ToString())
                                 .AddOptionalParameter("page_key", pageKey) 
                                 ;
@@ -188,6 +196,7 @@ namespace Vectara
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
                     llmName: llmName,
+                    filter: filter,
                     limit: limit,
                     pageKey: pageKey);
 

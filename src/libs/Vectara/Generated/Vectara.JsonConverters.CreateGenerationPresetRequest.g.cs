@@ -38,6 +38,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("max_tokens")) __score0++;
             if (__jsonProps.Contains("max_used_search_results")) __score0++;
             if (__jsonProps.Contains("name")) __score0++;
+            if (__jsonProps.Contains("ownership")) __score0++;
             if (__jsonProps.Contains("presence_penalty")) __score0++;
             if (__jsonProps.Contains("prompt_template")) __score0++;
             if (__jsonProps.Contains("temperature")) __score0++;

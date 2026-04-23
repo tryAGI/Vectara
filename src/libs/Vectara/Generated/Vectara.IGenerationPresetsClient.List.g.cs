@@ -18,6 +18,9 @@ namespace Vectara
         /// <param name="llmName">
         /// Example: mockingbird-2.0
         /// </param>
+        /// <param name="filter">
+        /// Example: mockingbird.*
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -29,6 +32,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? llmName = default,
+            string? filter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

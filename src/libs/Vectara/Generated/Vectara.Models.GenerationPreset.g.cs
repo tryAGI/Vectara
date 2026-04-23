@@ -105,6 +105,15 @@ namespace Vectara
         public bool? Default { get; set; }
 
         /// <summary>
+        /// Indicates whether the generation preset is provided by the platform or created by the customer. Platform presets are pre-configured and cannot be modified or deleted. Customer presets are created and managed by the customer.<br/>
+        /// Example: platform
+        /// </summary>
+        /// <example>platform</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("ownership")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.GenerationPresetOwnershipJsonConverter))]
+        public global::Vectara.GenerationPresetOwnership? Ownership { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -161,6 +170,10 @@ namespace Vectara
         /// <param name="default">
         /// Indicates if this prompt is the default prompt used with the LLM.
         /// </param>
+        /// <param name="ownership">
+        /// Indicates whether the generation preset is provided by the platform or created by the customer. Platform presets are pre-configured and cannot be modified or deleted. Customer presets are created and managed by the customer.<br/>
+        /// Example: platform
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -177,7 +190,8 @@ namespace Vectara
             float? presencePenalty,
             object? additionalModelParams,
             bool? enabled,
-            bool? @default)
+            bool? @default,
+            global::Vectara.GenerationPresetOwnership? ownership)
         {
             this.Id = id;
             this.Name = name;
@@ -192,6 +206,7 @@ namespace Vectara
             this.AdditionalModelParams = additionalModelParams;
             this.Enabled = enabled;
             this.Default = @default;
+            this.Ownership = ownership;
         }
 
         /// <summary>
