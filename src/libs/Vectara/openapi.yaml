@@ -83,6 +83,9 @@ tags:
     like Slack).
 - name: Pipeline Runs
   description: Monitor pipeline execution runs and their processing outcomes.
+- name: Agent Analytics
+  description: Inspect traces emitted by agent executions and retrieve evaluation
+    data.
 - name: Pipeline Dead Letters
   description: View and manage dead letters (failed records) for a pipeline. Dead
     letters are pipeline-scoped and can be retried individually or in bulk.
@@ -10441,6 +10444,321 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: updateIdentity
+  /v2/agents/{agent_key}/connectors:
+    post:
+      tags:
+      - Agent Connectors
+      summary: Create agent connector
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: Create a new connector for an agent to receive events from external
+        platforms like Slack.
+      operationId: createAgentConnector
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique identifier of the agent to create a connector for.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgentConnectorRequest'
+      responses:
+        '201':
+          description: The connector has been created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentConnector'
+        '400':
+          description: Connector creation request was malformed or contains invalid
+            configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow creating connectors for this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: createConnector
+    get:
+      tags:
+      - Agent Connectors
+      summary: List agent connectors
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: List all connectors for a specific agent, with optional filtering
+        and pagination.
+      operationId: listAgentConnectors
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique identifier of the agent to list connectors for.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: query
+        name: type
+        description: Filter connectors by type.
+        required: false
+        schema:
+          type: string
+          enum:
+          - slack
+          example: slack
+      - in: query
+        name: enabled
+        description: Filter connectors by enabled status.
+        required: false
+        schema:
+          type: boolean
+          example: true
+      - in: query
+        name: limit
+        description: The maximum number of connectors to return in the list.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 10
+      - name: page_key
+        in: query
+        description: Used to retrieve the next page of connectors after the limit
+          has been reached.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of available connectors for the agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentConnectorsResponse'
+        '403':
+          description: Permissions do not allow listing connectors for this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: listConnectors
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.connectors
+  /v2/agents/{agent_key}/connectors/{connector_id}:
+    get:
+      tags:
+      - Agent Connectors
+      summary: Get agent connector
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: Retrieve the details of a specific agent connector by its ID, including
+        its configuration and status.
+      operationId: getAgentConnector
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique identifier of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: connector_id
+        description: The unique identifier of the connector to retrieve.
+        required: true
+        schema:
+          type: string
+          pattern: con_[0-9a-zA-Z_-]+$
+          example: con_slack_support
+      responses:
+        '200':
+          description: The requested connector details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentConnector'
+        '403':
+          description: Permissions do not allow accessing this connector.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent or connector not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: getConnector
+    patch:
+      tags:
+      - Agent Connectors
+      summary: Update agent connector
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: Update an existing agent connector's configuration, status, or
+        other properties.
+      operationId: updateAgentConnector
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique identifier of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: connector_id
+        description: The unique identifier of the connector to update.
+        required: true
+        schema:
+          type: string
+          pattern: con_[0-9a-zA-Z_-]+$
+          example: con_slack_support
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentConnectorRequest'
+      responses:
+        '200':
+          description: The connector has been updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentConnector'
+        '400':
+          description: Connector update request was malformed or contains invalid
+            configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow updating this connector.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent or connector not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: updateConnector
+    delete:
+      tags:
+      - Agent Connectors
+      summary: Delete agent connector
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: Permanently delete an agent connector and all its associated configuration.
+        This action cannot be undone.
+      operationId: deleteAgentConnector
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique identifier of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: connector_id
+        description: The unique identifier of the connector to delete.
+        required: true
+        schema:
+          type: string
+          pattern: con_[0-9a-zA-Z_-]+$
+          example: con_slack_support
+      responses:
+        '204':
+          description: The connector has been deleted successfully.
+        '403':
+          description: Permissions do not allow deleting this connector.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent or connector not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: deleteConnector
   /v2/pipelines:
     post:
       tags:
@@ -11263,6 +11581,379 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: pipeline_runs
       x-fern-sdk-method-name: get
+  /v2/agent_analytics/traces:
+    get:
+      tags:
+      - Agent Analytics
+      summary: List agent traces
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: List agent traces with optional filtering by agent, session, status,
+        and time range.
+      operationId: listTraces
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - name: agent_key
+        in: query
+        description: Filter traces by agent key.
+        required: false
+        schema:
+          type: string
+      - name: session_key
+        in: query
+        description: Filter traces by session key.
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter traces by status.
+        required: false
+        schema:
+          type: string
+          enum:
+          - ok
+          - error
+      - name: error_type
+        in: query
+        description: Filter to traces containing a span with this exact error type.
+        required: false
+        schema:
+          type: string
+          enum:
+          - context_limit_exceeded
+          - step_transition_limit_exceeded
+          - actions_limit_reached
+          - llm_generation_error
+          - stream_error
+          - internal
+      - name: operation
+        in: query
+        description: Filter to traces containing at least one span with this operation.
+        required: false
+        schema:
+          type: string
+          enum:
+          - invoke_agent
+          - chat
+          - execute_tool
+          - thinking
+          - output
+          - guardrail
+          - step_transition
+          - image_read
+          - compaction
+      - name: tool_name
+        in: query
+        description: Filter to traces containing a tool execution span with this exact
+          tool name.
+        required: false
+        schema:
+          type: string
+      - name: tool_error_type
+        in: query
+        description: Filter to traces containing a tool span with this exact error
+          type.
+        required: false
+        schema:
+          type: string
+          enum:
+          - invalid_input
+          - not_found
+          - invalid_configuration
+          - timeout
+          - execution_error
+          - dependency_failed
+      - name: started_after
+        in: query
+        description: Return only traces started after this time (ISO 8601).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: started_before
+        in: query
+        description: Return only traces started before this time (ISO 8601).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: min_duration_ms
+        in: query
+        description: Return only traces with duration at or above this threshold in
+          milliseconds.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: max_duration_ms
+        in: query
+        description: Return only traces with duration at or below this threshold in
+          milliseconds.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum number of traces to return.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 10
+      - name: page_key
+        in: query
+        description: Used to retrieve the next page of results.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of agent traces.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentTracesResponse'
+        '403':
+          description: Permissions do not allow listing traces.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agent_analytics
+      x-fern-sdk-method-name: list_traces
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.traces
+  /v2/agent_analytics/traces/{trace_id}:
+    get:
+      tags:
+      - Agent Analytics
+      summary: Get agent trace
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Retrieve the summary of a specific agent trace by its trace ID.
+      operationId: getTrace
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: trace_id
+        description: The unique identifier of the trace.
+        required: true
+        schema:
+          type: string
+          example: 0af7651916cd43dd8448eb211c80319c
+      responses:
+        '200':
+          description: The requested agent trace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentTrace'
+        '403':
+          description: Permissions do not allow accessing this trace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trace not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_analytics
+      x-fern-sdk-method-name: get_trace
+  /v2/agent_analytics/traces/{trace_id}/spans:
+    get:
+      tags:
+      - Agent Analytics
+      summary: List spans in a trace
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Retrieve the flat list of spans for a given trace, each with its
+        parent_span_id for reconstructing the tree.
+      operationId: listTraceSpans
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: trace_id
+        description: The unique identifier of the trace.
+        required: true
+        schema:
+          type: string
+      - name: include_content
+        in: query
+        description: When true, include decrypted span content such as input/output
+          messages and tool arguments.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: operation
+        in: query
+        description: Restrict to spans with this operation.
+        required: false
+        schema:
+          type: string
+          enum:
+          - invoke_agent
+          - chat
+          - execute_tool
+          - thinking
+          - output
+          - guardrail
+          - step_transition
+          - image_read
+          - compaction
+      - name: limit
+        in: query
+        description: The maximum number of spans to return.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 500
+          default: 100
+      - name: page_key
+        in: query
+        description: Used to retrieve the next page of results.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of spans in the trace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentTraceSpansResponse'
+        '403':
+          description: Permissions do not allow accessing this trace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trace not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_analytics
+      x-fern-sdk-method-name: list_trace_spans
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.spans
+  /v2/agent_analytics/traces/{trace_id}/spans/{span_id}:
+    get:
+      tags:
+      - Agent Analytics
+      summary: Get span in a trace
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Retrieve the details of a specific span within a trace.
+      operationId: getTraceSpan
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: trace_id
+        description: The unique identifier of the trace.
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: span_id
+        description: The unique identifier of the span.
+        required: true
+        schema:
+          type: string
+      - name: include_content
+        in: query
+        description: When true, include decrypted span content.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: The requested span.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentTraceSpan'
+        '403':
+          description: Permissions do not allow accessing this span.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trace or span not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_analytics
+      x-fern-sdk-method-name: get_trace_span
   /v2/glossaries:
     post:
       tags:
@@ -18665,6 +19356,23 @@ components:
       - sub_agent_configuration
       x-vectaraParents:
       - AgentToolConfiguration
+    InlineArtifactCreateToolConfiguration:
+      title: InlineArtifactCreateToolConfiguration
+      description: An artifact create tool configuration defined inline in the agent
+        for creating artifacts on-the-fly from text or structured data content.
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of tool configuration, which is always 'artifact_create'
+            for inline artifact create tool configurations.
+          default: artifact_create
+        description_template:
+          $ref: '#/components/schemas/ToolDescriptionTemplate'
+      required:
+      - type
+      x-vectaraParents:
+      - AgentToolConfiguration
     ArtifactReadToolParameters:
       description: Configurable parameters for the artifact read tool. If not overridden,
         they will be required by the LLM to fill in.
@@ -18928,6 +19636,7 @@ components:
           web_get: '#/components/schemas/InlineWebGetToolConfiguration'
           lambda: '#/components/schemas/InlineLambdaToolConfiguration'
           sub_agent: '#/components/schemas/InlineSubAgentToolConfiguration'
+          artifact_create: '#/components/schemas/InlineArtifactCreateToolConfiguration'
           artifact_read: '#/components/schemas/InlineArtifactReadToolConfiguration'
           artifact_grep: '#/components/schemas/InlineArtifactGrepToolConfiguration'
           image_read: '#/components/schemas/InlineImageReadToolConfiguration'
@@ -18941,6 +19650,7 @@ components:
       - $ref: '#/components/schemas/InlineWebGetToolConfiguration'
       - $ref: '#/components/schemas/InlineLambdaToolConfiguration'
       - $ref: '#/components/schemas/InlineSubAgentToolConfiguration'
+      - $ref: '#/components/schemas/InlineArtifactCreateToolConfiguration'
       - $ref: '#/components/schemas/InlineArtifactReadToolConfiguration'
       - $ref: '#/components/schemas/InlineArtifactGrepToolConfiguration'
       - $ref: '#/components/schemas/InlineImageReadToolConfiguration'
@@ -21847,6 +22557,199 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AgentRole'
+    SlackConnectorConfiguration:
+      description: Configuration for Slack connectors.
+      type: object
+      x-vectaraParents:
+      - ConnectorConfiguration
+      properties:
+        type:
+          description: The type of connector configuration.
+          type: string
+          default: slack
+          example: slack
+        bot_token:
+          description: Slack bot token (xoxb-) for API access. Will be encrypted when
+            stored.
+          type: string
+          example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
+        signing_secret:
+          description: Slack signing secret for webhook verification. Will be encrypted
+            when stored.
+          type: string
+          example: abcdef1234567890abcdef1234567890abcdef12
+        api_app_id:
+          description: Slack App ID for customer lookup in webhooks.
+          type: string
+          example: A1234567890
+        webhook_path:
+          description: The webhook path for this Slack connector to receive events.
+          type: string
+          example: /v2/agents/customer_support/connectors/con_slack_support/input
+      required:
+      - type
+      - bot_token
+      - signing_secret
+      - api_app_id
+    ConnectorConfiguration:
+      description: Configuration for different types of connectors.
+      discriminator:
+        propertyName: type
+        mapping:
+          slack: '#/components/schemas/SlackConnectorConfiguration'
+      oneOf:
+      - $ref: '#/components/schemas/SlackConnectorConfiguration'
+    AgentConnector:
+      description: A connector that allows an agent to receive events from external
+        platforms like Slack.
+      type: object
+      properties:
+        id:
+          description: The unique identifier for the connector.
+          type: string
+          pattern: con_[0-9a-zA-Z_-]+$
+          example: con_slack_support
+        agent_key:
+          $ref: '#/components/schemas/AgentKey'
+        name:
+          description: The human-readable name of the connector.
+          type: string
+          example: Customer Support Slack Channel
+        description:
+          description: A detailed description of what this connector does.
+          type: string
+          example: Receives customer support messages from the
+        type:
+          description: The type of connector.
+          type: string
+          enum:
+          - slack
+          example: slack
+        status:
+          description: The current status of the connector.
+          type: string
+          enum:
+          - active
+          - inactive
+          - error
+          default: active
+          example: active
+        status_message:
+          description: Detailed status message (e.g., error description or success
+            confirmation).
+          type: string
+          example: Slack authentication successful
+        metadata:
+          description: Arbitrary metadata associated with the connector.
+          type: object
+          additionalProperties: true
+          example:
+            priority: high
+            department: customer_service
+        enabled:
+          description: Whether the connector is currently enabled and can receive
+            events.
+          type: boolean
+          default: true
+          example: true
+        configuration:
+          $ref: '#/components/schemas/ConnectorConfiguration'
+        created_at:
+          description: Timestamp when the connector was created.
+          type: string
+          format: date-time
+          example: '2024-01-15T10:30:00Z'
+        updated_at:
+          description: Timestamp when the connector was last updated.
+          type: string
+          format: date-time
+          example: '2024-01-16T14:45:00Z'
+      required:
+      - id
+      - agent_key
+      - name
+      - type
+      - status
+      - enabled
+      - configuration
+      - created_at
+    ListAgentConnectorsResponse:
+      description: Response containing a list of agent connectors.
+      type: object
+      properties:
+        connectors:
+          description: List of agent connectors.
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentConnector'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+      required:
+      - connectors
+      - metadata
+    CreateAgentConnectorRequest:
+      description: Request object for creating a new agent connector.
+      type: object
+      properties:
+        name:
+          description: The human-readable name of the connector.
+          type: string
+          example: Customer Support Slack Channel
+        description:
+          description: A detailed description of what this connector does.
+          type: string
+          example: Receives customer support messages from the
+        type:
+          description: The type of connector.
+          type: string
+          enum:
+          - slack
+          example: slack
+        metadata:
+          description: Arbitrary metadata associated with the connector.
+          type: object
+          additionalProperties: true
+          default: {}
+          example:
+            priority: high
+            department: customer_service
+        enabled:
+          description: Whether the connector should be enabled upon creation.
+          type: boolean
+          default: true
+          example: true
+        configuration:
+          $ref: '#/components/schemas/ConnectorConfiguration'
+      required:
+      - name
+      - type
+      - configuration
+    UpdateAgentConnectorRequest:
+      description: Request object for updating an existing agent connector.
+      type: object
+      properties:
+        name:
+          description: The human-readable name of the connector.
+          type: string
+          example: Updated Customer Support Slack Channel
+        description:
+          description: A detailed description of what this connector does.
+          type: string
+          example: Updated description for the Slack connector
+        metadata:
+          description: Arbitrary metadata associated with the connector.
+          type: object
+          additionalProperties: true
+          example:
+            priority: medium
+            department: customer_service
+            last_reviewed: '2024-01-15'
+        enabled:
+          description: Whether the connector is enabled.
+          type: boolean
+          example: false
+        configuration:
+          $ref: '#/components/schemas/ConnectorConfiguration'
     PipelineStatus:
       description: The current operational status of the pipeline.
       type: string
@@ -22524,6 +23427,568 @@ components:
       required:
       - runs
       - metadata
+    AgentTrace:
+      description: A summary of an agent trace representing one complete agent invocation.
+      type: object
+      properties:
+        trace_id:
+          description: The unique identifier of the trace.
+          type: string
+          example: 0af7651916cd43dd8448eb211c80319c
+        agent_key:
+          $ref: '#/components/schemas/AgentKey'
+        session_key:
+          $ref: '#/components/schemas/AgentSessionKey'
+        started_at:
+          description: The time the trace started.
+          type: string
+          format: date-time
+        duration_ms:
+          description: Total duration of the trace in milliseconds.
+          type: integer
+          format: int64
+        status:
+          description: The final status of the trace.
+          type: string
+          enum:
+          - ok
+          - error
+        input_tokens:
+          description: Total input tokens consumed across all spans.
+          type: integer
+          format: int64
+        output_tokens:
+          description: Total output tokens produced across all spans.
+          type: integer
+          format: int64
+      required:
+      - trace_id
+      - started_at
+      - status
+    ListAgentTracesResponse:
+      description: A list of agent traces.
+      type: object
+      properties:
+        traces:
+          description: The list of agent traces.
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentTrace'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+      required:
+      - traces
+    AgentTraceSpanStatus:
+      description: The status of an agent trace span.
+      type: string
+      enum:
+      - ok
+      - error
+    AgentTraceSpanBase:
+      description: Common properties shared by all agent trace span types.
+      type: object
+      properties:
+        span_id:
+          description: The unique identifier of the span.
+          type: string
+          example: b7ad6b7169203331
+        parent_span_id:
+          description: The identifier of the parent span, if any.
+          type: string
+          nullable: true
+        trace_id:
+          description: The identifier of the trace this span belongs to.
+          type: string
+        started_at:
+          description: The time this span started.
+          type: string
+          format: date-time
+        duration_ms:
+          description: Duration of this span in milliseconds.
+          type: integer
+          format: int64
+        status:
+          $ref: '#/components/schemas/AgentTraceSpanStatus'
+        error_message:
+          description: Error message if the span status is error.
+          type: string
+          nullable: true
+        step_name:
+          description: The name of the agent step active when this span was created.
+          type: string
+          nullable: true
+      required:
+      - span_id
+      - trace_id
+      - started_at
+      - status
+    AgentTraceInputFile:
+      description: Metadata for a file uploaded alongside an agent input message.
+      type: object
+      properties:
+        name:
+          description: The original filename.
+          type: string
+        size_bytes:
+          description: The file size in bytes.
+          type: integer
+          format: int64
+      required:
+      - name
+      - size_bytes
+    InvokeAgentSpanAttributes:
+      description: Attributes for an invoke_agent span.
+      type: object
+      properties:
+        model:
+          description: The LLM model used in this invocation.
+          type: string
+        input_tokens:
+          description: Total input tokens consumed across all LLM calls in this invocation.
+          type: integer
+          format: int64
+        output_tokens:
+          description: Total output tokens produced across all LLM calls in this invocation.
+          type: integer
+          format: int64
+        cache_read_input_tokens:
+          description: Number of input tokens read from cache.
+          type: integer
+          format: int64
+        temperature:
+          description: The temperature parameter used for generation.
+          type: number
+          format: double
+        max_tokens:
+          description: The maximum tokens parameter used for generation.
+          type: integer
+          format: int64
+        provider_name:
+          description: The LLM provider name.
+          type: string
+        agent_name:
+          description: The name of the agent.
+          type: string
+        agent_description:
+          description: The description of the agent.
+          type: string
+        output_type:
+          description: The requested output format of the agent invocation.
+          type: string
+          enum:
+          - text
+          - json
+        input_event_id:
+          description: The event ID of the input message.
+          type: string
+        output_event_id:
+          description: The event ID of the output message.
+          type: string
+        input_files:
+          description: Metadata for files uploaded with the input, if any.
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentTraceInputFile'
+    InvokeAgentSpanContent:
+      description: Decrypted content of an invoke_agent span.
+      type: object
+      properties:
+        input_messages:
+          description: Input messages sent to the LLM.
+          type: string
+        output_messages:
+          description: Output messages returned by the LLM.
+          type: string
+        thinking:
+          description: Extended thinking content, if available.
+          type: string
+        system_instructions:
+          description: System instructions provided to the LLM.
+          type: string
+    InvokeAgentTraceSpan:
+      description: A span representing a top-level agent invocation.
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: invoke_agent
+            example: invoke_agent
+          attributes:
+            $ref: '#/components/schemas/InvokeAgentSpanAttributes'
+          content:
+            description: Span content, only included when include_content=true is
+              requested.
+            allOf:
+            - $ref: '#/components/schemas/InvokeAgentSpanContent'
+            nullable: true
+        required:
+        - operation
+      x-vectaraParents:
+      - AgentTraceSpan
+    ChatSpanAttributes:
+      description: Attributes for a chat (LLM completion) span.
+      type: object
+      properties:
+        model:
+          description: The LLM model used for this completion.
+          type: string
+        input_tokens:
+          description: Number of input tokens in this completion.
+          type: integer
+          format: int64
+        output_tokens:
+          description: Number of output tokens in this completion.
+          type: integer
+          format: int64
+        cache_read_input_tokens:
+          description: Number of input tokens read from cache.
+          type: integer
+          format: int64
+        finish_reasons:
+          description: 'The reasons the LLM generation finished, one per returned
+            completion. Typically a single-element array
+
+            (e.g., `["stop"]`), but providers may return multiple entries when batching
+            completions.
+
+            '
+          type: array
+          items:
+            type: string
+        temperature:
+          description: The temperature parameter used for generation.
+          type: number
+          format: double
+        max_tokens:
+          description: The maximum tokens parameter used for generation.
+          type: integer
+          format: int64
+        provider_name:
+          description: The LLM provider name.
+          type: string
+        response_id:
+          description: The provider response identifier.
+          type: string
+    ChatTraceSpan:
+      description: A span representing a single LLM chat completion call within an
+        agent turn.
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: chat
+            example: chat
+          attributes:
+            $ref: '#/components/schemas/ChatSpanAttributes'
+        required:
+        - operation
+      x-vectaraParents:
+      - AgentTraceSpan
+    ExecuteToolSpanAttributes:
+      description: Attributes for an execute_tool span.
+      type: object
+      properties:
+        tool_name:
+          description: The name of the tool called.
+          type: string
+        tool_key:
+          description: The configuration key of the tool called.
+          type: string
+        tool_call_id:
+          description: The LLM-assigned tool call identifier.
+          type: string
+        tool_type:
+          description: The type of the tool (e.g. corpora_search, web_search).
+          type: string
+        tool_input_event_id:
+          description: The event ID for the tool input.
+          type: string
+        tool_output_event_id:
+          description: The event ID for the tool output.
+          type: string
+        corpus_keys:
+          description: Corpus keys accessed by the tool.
+          type: array
+          items:
+            type: string
+    ExecuteToolSpanContent:
+      description: Decrypted content of an execute_tool span.
+      type: object
+      properties:
+        tool_arguments:
+          description: Arguments passed to the tool call.
+          type: string
+        tool_result:
+          description: Result returned by the tool call.
+          type: string
+    ExecuteToolTraceSpan:
+      description: A span representing a tool execution within an agent turn.
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: execute_tool
+            example: execute_tool
+          attributes:
+            $ref: '#/components/schemas/ExecuteToolSpanAttributes'
+          content:
+            description: Span content, only included when include_content=true is
+              requested.
+            allOf:
+            - $ref: '#/components/schemas/ExecuteToolSpanContent'
+            nullable: true
+        required:
+        - operation
+      x-vectaraParents:
+      - AgentTraceSpan
+    ThinkingSpanContent:
+      description: Decrypted content of a thinking span.
+      type: object
+      properties:
+        thinking:
+          description: Extended thinking content.
+          type: string
+    ThinkingTraceSpan:
+      description: A span representing extended thinking output from the LLM.
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: thinking
+            example: thinking
+          content:
+            description: Span content, only included when include_content=true is
+              requested.
+            allOf:
+            - $ref: '#/components/schemas/ThinkingSpanContent'
+            nullable: true
+        required:
+        - operation
+      x-vectaraParents:
+      - AgentTraceSpan
+    OutputSpanContent:
+      description: Decrypted content of an output span.
+      type: object
+      properties:
+        output_text:
+          description: The text output produced by the agent.
+          type: string
+    OutputTraceSpan:
+      description: A span representing the final text output of an agent turn.
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: output
+            example: output
+          event_id:
+            description: Session event that this span was generated by.
+            type: string
+          content:
+            description: Span content, only included when include_content=true is
+              requested.
+            allOf:
+            - $ref: '#/components/schemas/OutputSpanContent'
+            nullable: true
+        required:
+        - operation
+        - event_id
+      x-vectaraParents:
+      - AgentTraceSpan
+    GuardrailSpanAttributes:
+      description: Attributes for a guardrail span.
+      type: object
+      properties:
+        guardrail_passed:
+          description: Whether the guardrail check passed.
+          type: boolean
+        retry_attempt:
+          description: The retry attempt number, if this span was retried.
+          type: integer
+          format: int32
+    GuardrailSpanContent:
+      description: Decrypted content of a guardrail span.
+      type: object
+      properties:
+        guardrail_issues:
+          description: Details of guardrail violations found, if any.
+          type: string
+    GuardrailTraceSpan:
+      description: A span representing a guardrail safety check on tool call results.
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: guardrail
+            example: guardrail
+          attributes:
+            $ref: '#/components/schemas/GuardrailSpanAttributes'
+          content:
+            description: Span content, only included when include_content=true is
+              requested.
+            allOf:
+            - $ref: '#/components/schemas/GuardrailSpanContent'
+            nullable: true
+        required:
+        - operation
+      x-vectaraParents:
+      - AgentTraceSpan
+    StepTransitionSpanAttributes:
+      description: Attributes for a step_transition span.
+      type: object
+      properties:
+        from_step:
+          description: The name of the step being transitioned from.
+          type: string
+        to_step:
+          description: The name of the step being transitioned to.
+          type: string
+    StepTransitionTraceSpan:
+      description: A span representing a transition between agent steps.
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: step_transition
+            example: step_transition
+          event_id:
+            description: Session event that this span was generated by.
+            type: string
+          attributes:
+            $ref: '#/components/schemas/StepTransitionSpanAttributes'
+        required:
+        - operation
+        - event_id
+      x-vectaraParents:
+      - AgentTraceSpan
+    ImageReadSpanAttributes:
+      description: Attributes for an image_read span.
+      type: object
+      properties:
+        artifact_id:
+          description: The ID of the image artifact being loaded.
+          type: string
+        detail:
+          description: The detail level used for image processing.
+          type: string
+    ImageReadTraceSpan:
+      description: A span representing an image being loaded into conversation context.
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: image_read
+            example: image_read
+          event_id:
+            description: Session event that this span was generated by.
+            type: string
+          attributes:
+            $ref: '#/components/schemas/ImageReadSpanAttributes'
+        required:
+        - operation
+        - event_id
+      x-vectaraParents:
+      - AgentTraceSpan
+    CompactionSpanAttributes:
+      description: Attributes for a compaction span.
+      type: object
+      properties:
+        turns_compacted:
+          description: Number of conversation turns compacted.
+          type: integer
+          format: int64
+        events_compacted:
+          description: Number of events hidden by compaction.
+          type: integer
+          format: int64
+        summary_key:
+          description: Key of the summary created by compaction.
+          type: string
+    CompactionTraceSpan:
+      description: A span representing context compaction (summarization of older
+        conversation turns).
+      allOf:
+      - $ref: '#/components/schemas/AgentTraceSpanBase'
+      - type: object
+        properties:
+          operation:
+            description: The operation type for this span.
+            type: string
+            default: compaction
+            example: compaction
+          event_id:
+            description: Session event that this span was generated by.
+            type: string
+          attributes:
+            $ref: '#/components/schemas/CompactionSpanAttributes'
+        required:
+        - operation
+        - event_id
+      x-vectaraParents:
+      - AgentTraceSpan
+    AgentTraceSpan:
+      description: A single span within an agent trace. The shape of attributes and
+        content varies by operation type.
+      x-vectara-base-schema: '#/AgentTraceSpanBase'
+      discriminator:
+        propertyName: operation
+        mapping:
+          invoke_agent: '#/components/schemas/InvokeAgentTraceSpan'
+          chat: '#/components/schemas/ChatTraceSpan'
+          execute_tool: '#/components/schemas/ExecuteToolTraceSpan'
+          thinking: '#/components/schemas/ThinkingTraceSpan'
+          output: '#/components/schemas/OutputTraceSpan'
+          guardrail: '#/components/schemas/GuardrailTraceSpan'
+          step_transition: '#/components/schemas/StepTransitionTraceSpan'
+          image_read: '#/components/schemas/ImageReadTraceSpan'
+          compaction: '#/components/schemas/CompactionTraceSpan'
+      oneOf:
+      - $ref: '#/components/schemas/InvokeAgentTraceSpan'
+      - $ref: '#/components/schemas/ChatTraceSpan'
+      - $ref: '#/components/schemas/ExecuteToolTraceSpan'
+      - $ref: '#/components/schemas/ThinkingTraceSpan'
+      - $ref: '#/components/schemas/OutputTraceSpan'
+      - $ref: '#/components/schemas/GuardrailTraceSpan'
+      - $ref: '#/components/schemas/StepTransitionTraceSpan'
+      - $ref: '#/components/schemas/ImageReadTraceSpan'
+      - $ref: '#/components/schemas/CompactionTraceSpan'
+    ListAgentTraceSpansResponse:
+      description: A list of spans for an agent trace.
+      type: object
+      properties:
+        spans:
+          description: The list of spans.
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentTraceSpan'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+      required:
+      - spans
     Glossary:
       description: 'A glossary is a reusable mapping of terms to their expanded forms.
         Agents are reminded by
@@ -22727,6 +24192,7 @@ x-tagGroups:
   - Users
 - name: Analytics
   tags:
+  - Agent Analytics
   - Query History
   - Jobs
 - name: Platform

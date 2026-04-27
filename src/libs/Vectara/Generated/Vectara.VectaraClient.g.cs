@@ -60,6 +60,16 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public AgentAnalyticsClient AgentAnalytics => new AgentAnalyticsClient(HttpClient, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AgentArtifactsClient AgentArtifacts => new AgentArtifactsClient(HttpClient, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
