@@ -161,7 +161,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    corpusKey: corpusKey);
+                    corpusKey: corpusKey!);
 
                 return __httpRequest;
             }

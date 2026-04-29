@@ -161,7 +161,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    glossaryKey: glossaryKey);
+                    glossaryKey: glossaryKey!);
 
                 return __httpRequest;
             }

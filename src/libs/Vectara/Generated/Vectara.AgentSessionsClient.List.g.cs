@@ -190,7 +190,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    agentKey: agentKey,
+                    agentKey: agentKey!,
                     filter: filter,
                     limit: limit,
                     pageKey: pageKey);

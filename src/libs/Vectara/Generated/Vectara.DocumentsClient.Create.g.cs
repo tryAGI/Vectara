@@ -209,7 +209,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    corpusKey: corpusKey,
+                    corpusKey: corpusKey!,
                     waitFor: waitFor,
                     request: request);
 

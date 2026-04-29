@@ -193,7 +193,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    traceId: traceId,
+                    traceId: traceId!,
                     includeContent: includeContent,
                     operation: operation,
                     limit: limit,

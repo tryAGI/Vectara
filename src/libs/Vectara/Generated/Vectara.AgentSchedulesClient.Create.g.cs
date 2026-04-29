@@ -200,7 +200,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    agentKey: agentKey,
+                    agentKey: agentKey!,
                     request: request);
 
                 return __httpRequest;

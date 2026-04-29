@@ -163,7 +163,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    jobId: jobId);
+                    jobId: jobId!);
 
                 return __httpRequest;
             }

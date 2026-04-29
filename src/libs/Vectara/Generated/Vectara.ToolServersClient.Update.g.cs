@@ -179,7 +179,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    toolServerId: toolServerId,
+                    toolServerId: toolServerId!,
                     request: request);
 
                 return __httpRequest;

@@ -163,7 +163,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    username: username);
+                    username: username!);
 
                 return __httpRequest;
             }

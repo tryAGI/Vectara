@@ -177,7 +177,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    appClientId: appClientId,
+                    appClientId: appClientId!,
                     request: request);
 
                 return __httpRequest;

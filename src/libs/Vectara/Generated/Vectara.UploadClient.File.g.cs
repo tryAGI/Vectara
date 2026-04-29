@@ -226,48 +226,76 @@ namespace Vectara
                             {
 
                                 __httpRequestContent.Add(
-                                    content: new global::System.Net.Http.StringContent($"{requestTimeout}"),
+                                    content: new global::System.Net.Http.StringContent(global::System.Convert.ToString(requestTimeout, global::System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty),
                                     name: "\"Request-Timeout\"");
                             } 
                             if (requestTimeoutMillis != default)
                             {
 
                                 __httpRequestContent.Add(
-                                    content: new global::System.Net.Http.StringContent($"{requestTimeoutMillis}"),
+                                    content: new global::System.Net.Http.StringContent(global::System.Convert.ToString(requestTimeoutMillis, global::System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty),
                                     name: "\"Request-Timeout-Millis\"");
                             }
                             __httpRequestContent.Add(
-                                content: new global::System.Net.Http.StringContent($"{corpusKey}"),
+                                content: new global::System.Net.Http.StringContent(corpusKey ?? string.Empty),
                                 name: "\"corpus_key\"");
                             if (request.Metadata != default)
                             {
 
                                 __httpRequestContent.Add(
-                                    content: new global::System.Net.Http.StringContent($"{request.Metadata}"),
+                                    content: new global::System.Net.Http.StringContent(request.Metadata.ToString() ?? string.Empty),
                                     name: "\"metadata\"");
                             } 
                             if (request.ChunkingStrategy != default)
                             {
 
                                 __httpRequestContent.Add(
-                                    content: new global::System.Net.Http.StringContent(request.ChunkingStrategy?.ToString() ?? string.Empty),
+                                    content: new global::System.Net.Http.StringContent(request.ChunkingStrategy.ToString() ?? string.Empty),
                                     name: "\"chunking_strategy\"");
                             } 
                             if (request.TableExtractionConfig != default)
                             {
 
                                 __httpRequestContent.Add(
-                                    content: new global::System.Net.Http.StringContent($"{request.TableExtractionConfig}"),
+                                    content: new global::System.Net.Http.StringContent(request.TableExtractionConfig.ToJson(JsonSerializerContext)),
                                     name: "\"table_extraction_config\"");
                             } 
                             if (request.Filename != default)
                             {
 
                                 __httpRequestContent.Add(
-                                    content: new global::System.Net.Http.StringContent($"{request.Filename}"),
+                                    content: new global::System.Net.Http.StringContent(request.Filename ?? string.Empty),
                                     name: "\"filename\"");
                             }
                             var __contentFile = new global::System.Net.Http.ByteArrayContent(request.File ?? global::System.Array.Empty<byte>());
+                            __contentFile.Headers.ContentType = new global::System.Net.Http.Headers.MediaTypeHeaderValue(
+                                request.Filename is null
+                                    ? "application/octet-stream"
+                                    : (global::System.IO.Path.GetExtension(request.Filename) ?? string.Empty).ToLowerInvariant() switch
+                                    {
+                                        ".aac" => "audio/aac",
+                                        ".flac" => "audio/flac",
+                                        ".gif" => "image/gif",
+                                        ".jpeg" => "image/jpeg",
+                                        ".jpg" => "image/jpeg",
+                                        ".json" => "application/json",
+                                        ".m4a" => "audio/mp4",
+                                        ".mp3" => "audio/mpeg",
+                                        ".mp4" => "video/mp4",
+                                        ".mpeg" => "audio/mpeg",
+                                        ".mpga" => "audio/mpeg",
+                                        ".oga" => "audio/ogg",
+                                        ".ogg" => "audio/ogg",
+                                        ".opus" => "audio/ogg",
+                                        ".pdf" => "application/pdf",
+                                        ".png" => "image/png",
+                                        ".txt" => "text/plain",
+                                        ".wav" => "audio/wav",
+                                        ".weba" => "audio/webm",
+                                        ".webm" => "video/webm",
+                                        ".webp" => "image/webp",
+                                        _ => "application/octet-stream",
+                                    });
                             __httpRequestContent.Add(
                                 content: __contentFile,
                                 name: "\"file\"",
@@ -290,7 +318,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    corpusKey: corpusKey,
+                    corpusKey: corpusKey!,
                     request: request);
 
                 return __httpRequest;
