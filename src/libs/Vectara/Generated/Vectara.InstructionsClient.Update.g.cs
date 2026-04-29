@@ -186,7 +186,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    instructionId: instructionId,
+                    instructionId: instructionId!,
                     request: request);
 
                 return __httpRequest;

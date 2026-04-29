@@ -178,8 +178,8 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    traceId: traceId,
-                    spanId: spanId,
+                    traceId: traceId!,
+                    spanId: spanId!,
                     includeContent: includeContent);
 
                 return __httpRequest;

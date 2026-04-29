@@ -187,8 +187,8 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    agentKey: agentKey,
-                    connectorId: connectorId,
+                    agentKey: agentKey!,
+                    connectorId: connectorId!,
                     request: request);
 
                 return __httpRequest;

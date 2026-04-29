@@ -174,8 +174,8 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    pipelineKey: pipelineKey,
-                    runId: runId);
+                    pipelineKey: pipelineKey!,
+                    runId: runId!);
 
                 return __httpRequest;
             }

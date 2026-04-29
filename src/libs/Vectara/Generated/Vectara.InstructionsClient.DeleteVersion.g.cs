@@ -168,8 +168,8 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    instructionId: instructionId,
-                    version: version);
+                    instructionId: instructionId!,
+                    version: version!);
 
                 return __httpRequest;
             }

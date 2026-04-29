@@ -160,7 +160,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    llmId: llmId);
+                    llmId: llmId!);
 
                 return __httpRequest;
             }

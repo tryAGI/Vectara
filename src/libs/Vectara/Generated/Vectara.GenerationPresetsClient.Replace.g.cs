@@ -176,7 +176,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    generationPresetId: generationPresetId,
+                    generationPresetId: generationPresetId!,
                     request: request);
 
                 return __httpRequest;

@@ -179,9 +179,9 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    agentKey: agentKey,
-                    sessionKey: sessionKey,
-                    eventId: eventId);
+                    agentKey: agentKey!,
+                    sessionKey: sessionKey!,
+                    eventId: eventId!);
 
                 return __httpRequest;
             }

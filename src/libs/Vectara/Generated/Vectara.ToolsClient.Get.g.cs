@@ -165,7 +165,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    toolId: toolId);
+                    toolId: toolId!);
 
                 return __httpRequest;
             }

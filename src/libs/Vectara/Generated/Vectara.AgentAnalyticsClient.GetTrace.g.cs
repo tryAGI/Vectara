@@ -165,7 +165,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    traceId: traceId);
+                    traceId: traceId!);
 
                 return __httpRequest;
             }
