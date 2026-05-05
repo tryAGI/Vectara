@@ -39,6 +39,29 @@ namespace Vectara
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.TestLambdaToolResponse>> TestWithoutCreationAsResponseAsync(
+
+            global::Vectara.TestLambdaToolRequest request,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Test Lambda tool without creation<br/>
+        /// Test a Lambda tool without creating it first. This endpoint allows you to validate code, discover schemas, and test execution before committing to tool creation.<br/>
+        /// Use this to:<br/>
+        /// - Validate Python code syntax and security constraints<br/>
+        /// - Discover input/output schemas from type annotations<br/>
+        /// - Test execution with sample input<br/>
+        /// - Verify schema compatibility<br/>
+        /// The function is executed in the same secure sandbox environment as production tools.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
         /// <param name="language">
         /// The programming language. Currently only 'python' (Python 3.12) is supported.<br/>
         /// Default Value: python<br/>

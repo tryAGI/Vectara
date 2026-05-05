@@ -27,6 +27,23 @@ namespace Vectara
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.Pipeline>> CreateAsResponseAsync(
+
+            global::Vectara.CreatePipelineRequest request,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Create pipeline<br/>
+        /// Create a new pipeline that continuously ingests data from a source system and sends each record to an agent for processing. A new agent session is created per source record. A pipeline is distinct from an agent schedule (which is a recurring single execution of an agent) and from a connector (which is a bidirectional chat integration like Slack). A pipeline is an automated, one-directional flow of all source data through an agent.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
         /// <param name="key">
         /// A user-provided key for the pipeline. If omitted, one is auto-generated.
         /// </param>

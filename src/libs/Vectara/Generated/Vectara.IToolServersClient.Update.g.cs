@@ -34,6 +34,27 @@ namespace Vectara
         /// <param name="toolServerId">
         /// Example: tsr_rag_search
         /// </param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.ToolServer>> UpdateAsResponseAsync(
+            string toolServerId,
+
+            global::Vectara.UpdateToolServerRequest request,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Update tool server<br/>
+        /// Update the configuration of a specific tool server.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="toolServerId">
+        /// Example: tsr_rag_search
+        /// </param>
         /// <param name="name">
         /// The human-readable name of a tool server.<br/>
         /// Example: RAG Search Server
