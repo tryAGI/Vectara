@@ -40,6 +40,30 @@ namespace Vectara
         /// A unique key that identifies an agent.<br/>
         /// Example: customer_support
         /// </param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentIdentity>> UpdateIdentityAsResponseAsync(
+            string agentKey,
+
+            global::Vectara.UpdateAgentIdentityRequest request,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Update agent identity<br/>
+        /// Update the agent's identity role management mode and/or roles.<br/>
+        /// Setting mode to `manual` freezes the current roles. The platform will no longer recompute roles when the agent's tool configuration changes. This is useful when you need to grant the agent additional permissions beyond what its tools require.<br/>
+        /// Setting mode to `auto` resumes platform-managed roles. The platform will immediately resync the roles to match the current tool configuration.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="agentKey">
+        /// A unique key that identifies an agent.<br/>
+        /// Example: customer_support
+        /// </param>
         /// <param name="mode">
         /// The role management mode of the agent's identity.<br/>
         /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, roles are automatically recomputed.<br/>

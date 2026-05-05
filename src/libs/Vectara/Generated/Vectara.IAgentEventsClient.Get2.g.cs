@@ -32,5 +32,33 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Get event in agent session<br/>
+        /// Retrieve the details of a specific event within an agent session.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="agentKey">
+        /// A unique key that identifies an agent.<br/>
+        /// Example: customer_support
+        /// </param>
+        /// <param name="sessionKey">
+        /// A unique key that identifies an agent session.<br/>
+        /// Example: customer_support_chat
+        /// </param>
+        /// <param name="eventId">
+        /// Example: aev_user_001
+        /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentEvent>> Get2AsResponseAsync(
+            string agentKey,
+            string sessionKey,
+            string eventId,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

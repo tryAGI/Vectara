@@ -114,6 +114,70 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+            var __response = await CreateAsResponseAsync(
+
+                request: request,
+                requestTimeout: requestTimeout,
+                requestTimeoutMillis: requestTimeoutMillis,
+                requestOptions: requestOptions,
+                cancellationToken: cancellationToken
+            ).ConfigureAwait(false);
+
+            return __response.Body;
+        }
+        /// <summary>
+        /// Create instruction<br/>
+        /// Create a new instruction that defines how an agent should behave, reason, and respond. Instructions act as system-level guidelines that shape the agent's tone, style, constraints, and tool usage.<br/>
+        /// Instructions support dynamic content using the Apache Velocity templating engine. Velocity variables allow instructions to reference runtime context:<br/>
+        /// - `\$\tools`: The list of tools available to the agent.<br/>
+        /// - `\$\{session.metadata.field}`: Session-level metadata (user context, permissions, preferences).<br/>
+        /// - `\$\{agent.metadata.field}`: Agent-level metadata (configuration or environment).<br/>
+        /// Example tool iteration:<br/>
+        /// ```velocity<br/>
+        /// You have access to the following tools:<br/>
+        /// \#foreach(\$\tool in $tools)<br/>
+        ///   - \$\{tool.name}: \$\{tool.description}<br/>
+        /// #end<br/>
+        /// ```<br/>
+        /// :::tip Tips for effective instruction design<br/>
+        /// Instructions are one of the most critical parts of an agent's design. Best practices vary by model, but at a minimum you should provide clear guidance on what tools are available, what output format is desired, and what steps to follow for common queries. Instructions typically need to be iterated on and tested over time.<br/>
+        /// For guidance on writing effective instructions, see:<br/>
+        /// - [Claude Prompt Engineering](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview)<br/>
+        /// - [OpenAI Prompt Engineering](https://platform.openai.com/docs/guides/prompt-engineering)<br/>
+        /// :::<br/>
+        /// Metadata can personalize behavior at runtime. For example:<br/>
+        /// ```velocity<br/>
+        /// Hello ${session.metadata.user_name}, how can I help with ${session.metadata.department} today?<br/>
+        /// ```<br/>
+        /// **Example request:**<br/>
+        /// ```json<br/>
+        /// {<br/>
+        ///   "name": "Customer Support Tone and Style Guide",<br/>
+        ///   "description": "Defines tone and behavior for customer interactions.",<br/>
+        ///   "template": "You are a customer support agent for the ${session.metadata.department} department.",<br/>
+        ///   "enabled": true,<br/>
+        ///   "metadata": {<br/>
+        ///     "owner": "customer-support-team",<br/>
+        ///     "version": "1.0.0"<br/>
+        ///   }<br/>
+        /// }<br/>
+        /// ```<br/>
+        /// A successful response returns the full instruction definition, including its unique ID, version, and timestamps.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.Instruction>> CreateAsResponseAsync(
+
+            global::Vectara.CreateInstructionRequest request,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
             PrepareArguments(
                 client: HttpClient);
             PrepareCreateArguments(
@@ -144,6 +208,7 @@ namespace Vectara
 
             global::System.Net.Http.HttpRequestMessage __CreateHttpRequest()
             {
+
                             var __pathBuilder = new global::Vectara.PathBuilder(
                                 path: "/v2/instructions",
                                 baseUri: HttpClient.BaseAddress);
@@ -235,6 +300,8 @@ namespace Vectara
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                     try
                     {
@@ -248,6 +315,11 @@ namespace Vectara
                     }
                     catch (global::System.Net.Http.HttpRequestException __exception)
                     {
+                        var __retryDelay = global::Vectara.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: null,
+                            attempt: __attempt);
                         var __willRetry = __attempt < __maxAttempts && !__effectiveCancellationToken.IsCancellationRequested;
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
@@ -265,6 +337,8 @@ namespace Vectara
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: __willRetry,
+                                retryDelay: __willRetry ? __retryDelay : (global::System.TimeSpan?)null,
+                                retryReason: "exception",
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         if (!__willRetry)
                         {
@@ -274,8 +348,7 @@ namespace Vectara
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::Vectara.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -284,6 +357,11 @@ namespace Vectara
                         __attempt < __maxAttempts &&
                         global::Vectara.AutoSDKRequestOptionsSupport.ShouldRetryStatusCode(__response.StatusCode))
                     {
+                        var __retryDelay = global::Vectara.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: __response,
+                            attempt: __attempt);
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
@@ -300,14 +378,15 @@ namespace Vectara
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: true,
+                                retryDelay: __retryDelay,
+                                retryReason: "status:" + ((int)__response.StatusCode).ToString(global::System.Globalization.CultureInfo.InvariantCulture),
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         __response.Dispose();
                         __response = null;
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::Vectara.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -347,6 +426,8 @@ namespace Vectara
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                 else
@@ -367,6 +448,8 @@ namespace Vectara
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                             // Instruction creation request was malformed or contains invalid content.
@@ -467,9 +550,13 @@ namespace Vectara
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    return
-                                        global::Vectara.Instruction.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::Vectara.Instruction.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.Instruction>(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri,
+                                        body: __value);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -497,9 +584,13 @@ namespace Vectara
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    return
-                                        await global::Vectara.Instruction.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::Vectara.Instruction.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.Instruction>(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri,
+                                        body: __value);
                                 }
                                 catch (global::System.Exception __ex)
                                 {

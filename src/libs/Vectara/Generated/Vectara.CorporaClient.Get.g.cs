@@ -87,6 +87,42 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+            var __response = await GetAsResponseAsync(
+                corpusKey: corpusKey,
+                requestTimeout: requestTimeout,
+                requestTimeoutMillis: requestTimeoutMillis,
+                requestOptions: requestOptions,
+                cancellationToken: cancellationToken
+            ).ConfigureAwait(false);
+
+            return __response.Body;
+        }
+        /// <summary>
+        /// Retrieve metadata about a corpus<br/>
+        /// The Get Corpus API lets you view metadata about a specific corpus. This is useful for getting information about a corpus without performing a search. This operation does not search the corpus contents. Specify the `corpus_key` to identify the corpus whose metadata you want to retrieve.<br/>
+        /// This endpoint helps administrators understand the access control details and monitor the size of corpora to understand information like the amount of quota consumed. You can also use this information for optimizing search and storage utilization.<br/>
+        /// For example, you can track the read and write activity of a specific corpus which can help you change your security strategy proactively. You noticed a corpus with an API key with read/write access that is only being used for high volume reads. You may decide to switch to a read-only key.<br/>
+        /// In another case, you might respond to a security incident by disabling a specific corpus because of information returned by this endpoint.<br/>
+        /// ## Get the number of documents or document parts in a corpus<br/>
+        /// Tracking the usage of documents in a corpus enables adminstrators to manage resource allocation efficiently. Monitoring corpus metrics also helps data usage stay within allocated quotas and identify trends in document growth and document segmentation.<br/>
+        /// The `limit` object in the response provides comprehensive information about the current usage and limits of a corpus including the number of stored documents, document parts, and character count.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="corpusKey">
+        /// A user-provided key for a corpus.<br/>
+        /// Example: my-corpus
+        /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.Corpus>> GetAsResponseAsync(
+            string corpusKey,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
             PrepareArguments(
                 client: HttpClient);
             PrepareGetArguments(
@@ -117,6 +153,7 @@ namespace Vectara
 
             global::System.Net.Http.HttpRequestMessage __CreateHttpRequest()
             {
+
                             var __pathBuilder = new global::Vectara.PathBuilder(
                                 path: $"/v2/corpora/{corpusKey}",
                                 baseUri: HttpClient.BaseAddress);
@@ -202,6 +239,8 @@ namespace Vectara
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                     try
                     {
@@ -215,6 +254,11 @@ namespace Vectara
                     }
                     catch (global::System.Net.Http.HttpRequestException __exception)
                     {
+                        var __retryDelay = global::Vectara.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: null,
+                            attempt: __attempt);
                         var __willRetry = __attempt < __maxAttempts && !__effectiveCancellationToken.IsCancellationRequested;
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
@@ -232,6 +276,8 @@ namespace Vectara
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: __willRetry,
+                                retryDelay: __willRetry ? __retryDelay : (global::System.TimeSpan?)null,
+                                retryReason: "exception",
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         if (!__willRetry)
                         {
@@ -241,8 +287,7 @@ namespace Vectara
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::Vectara.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -251,6 +296,11 @@ namespace Vectara
                         __attempt < __maxAttempts &&
                         global::Vectara.AutoSDKRequestOptionsSupport.ShouldRetryStatusCode(__response.StatusCode))
                     {
+                        var __retryDelay = global::Vectara.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: __response,
+                            attempt: __attempt);
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
@@ -267,14 +317,15 @@ namespace Vectara
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: true,
+                                retryDelay: __retryDelay,
+                                retryReason: "status:" + ((int)__response.StatusCode).ToString(global::System.Globalization.CultureInfo.InvariantCulture),
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         __response.Dispose();
                         __response = null;
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::Vectara.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -314,6 +365,8 @@ namespace Vectara
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                 else
@@ -334,6 +387,8 @@ namespace Vectara
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                             // Permissions do not allow retrieving the corpus.
@@ -434,9 +489,13 @@ namespace Vectara
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    return
-                                        global::Vectara.Corpus.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::Vectara.Corpus.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.Corpus>(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri,
+                                        body: __value);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -464,9 +523,13 @@ namespace Vectara
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    return
-                                        await global::Vectara.Corpus.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::Vectara.Corpus.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.Corpus>(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri,
+                                        body: __value);
                                 }
                                 catch (global::System.Exception __ex)
                                 {

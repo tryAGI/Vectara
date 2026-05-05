@@ -30,6 +30,25 @@ namespace Vectara
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="username"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::Vectara.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.User>> UpdateAsResponseAsync(
+            string username,
+
+            global::Vectara.UpdateUserRequest request,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Update a user<br/>
+        /// Update details about a user such as role names.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="username"></param>
         /// <param name="enabled">
         /// Indicates whether to enable or disable the user.
         /// </param>
