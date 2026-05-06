@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,116 +7,215 @@ namespace Vectara
     /// <summary>
     /// An inline configuration for built-in Vectara tools that have implementations within the platform but do not have a dedicated configuration type schema. Use the List Tools endpoint to discover available tools and obtain the `tool_id` required for this configuration.
     /// </summary>
-    public sealed partial class InlineDynamicVectaraToolConfiguration
+    public readonly partial struct InlineDynamicVectaraToolConfiguration : global::System.IEquatable<InlineDynamicVectaraToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'dynamic_vectara' for generic Vectara tool configurations.<br/>
-        /// Default Value: dynamic_vectara
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"dynamic_vectara"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "dynamic_vectara";
-
-        /// <summary>
-        /// Unique identifier for a tool.<br/>
-        /// Example: tol_123e4567-e89b-12d3-a456-426614174000
-        /// </summary>
-        /// <example>tol_123e4567-e89b-12d3-a456-426614174000</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("tool_id")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string ToolId { get; set; }
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The LLM will not be able to change the parameters, nor know those values exist within the tool.<br/>
-        /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
-        /// - Static value: "fixed_value" or 123<br/>
-        /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
-        /// References are resolved at runtime from context:<br/>
-        /// - session.metadata.* - Access session metadata fields<br/>
-        /// - agent.metadata.* - Access agent metadata fields<br/>
-        /// Example:<br/>
-        ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
-        /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>
-        /// Example: {"custom_param":"value","limit":10}
-        /// </summary>
-        /// <example>{"custom_param":"value","limit":10}</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
-        public object? ArgumentOverride { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineDynamicVectaraToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'dynamic_vectara' for generic Vectara tool configurations.<br/>
-        /// Default Value: dynamic_vectara
-        /// </param>
-        /// <param name="toolId">
-        /// Unique identifier for a tool.<br/>
-        /// Example: tol_123e4567-e89b-12d3-a456-426614174000
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="argumentOverride">
-        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The LLM will not be able to change the parameters, nor know those values exist within the tool.<br/>
-        /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
-        /// - Static value: "fixed_value" or 123<br/>
-        /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
-        /// References are resolved at runtime from context:<br/>
-        /// - session.metadata.* - Access session metadata fields<br/>
-        /// - agent.metadata.* - Access agent metadata fields<br/>
-        /// Example:<br/>
-        ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
-        /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>
-        /// Example: {"custom_param":"value","limit":10}
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; }
 #endif
-        public InlineDynamicVectaraToolConfiguration(
-            string type,
-            string toolId,
-            string? descriptionTemplate,
-            object? argumentOverride)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
+#endif
+        public bool IsAgentBase => AgentBase != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineDynamicVectaraToolConfigurationVariant2? InlineDynamicVectaraToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineDynamicVectaraToolConfigurationVariant2? InlineDynamicVectaraToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineDynamicVectaraToolConfigurationVariant2))]
+#endif
+        public bool IsInlineDynamicVectaraToolConfigurationVariant2 => InlineDynamicVectaraToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineDynamicVectaraToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineDynamicVectaraToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineDynamicVectaraToolConfiguration @this) => @this.AgentBase;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineDynamicVectaraToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.ToolId = toolId ?? throw new global::System.ArgumentNullException(nameof(toolId));
-            this.DescriptionTemplate = descriptionTemplate;
-            this.ArgumentOverride = argumentOverride;
+            AgentBase = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineDynamicVectaraToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineDynamicVectaraToolConfiguration()
+        public static implicit operator InlineDynamicVectaraToolConfiguration(global::Vectara.InlineDynamicVectaraToolConfigurationVariant2 value) => new InlineDynamicVectaraToolConfiguration((global::Vectara.InlineDynamicVectaraToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineDynamicVectaraToolConfigurationVariant2?(InlineDynamicVectaraToolConfiguration @this) => @this.InlineDynamicVectaraToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineDynamicVectaraToolConfiguration(global::Vectara.InlineDynamicVectaraToolConfigurationVariant2? value)
         {
+            InlineDynamicVectaraToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineDynamicVectaraToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? agentBase,
+            global::Vectara.InlineDynamicVectaraToolConfigurationVariant2? inlineDynamicVectaraToolConfigurationVariant2
+            )
+        {
+            AgentBase = agentBase;
+            InlineDynamicVectaraToolConfigurationVariant2 = inlineDynamicVectaraToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineDynamicVectaraToolConfigurationVariant2 as object ??
+            AgentBase as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            AgentBase?.ToString() ??
+            InlineDynamicVectaraToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsAgentBase && IsInlineDynamicVectaraToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineDynamicVectaraToolConfigurationVariant2?, TResult>? inlineDynamicVectaraToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase && agentBase != null)
+            {
+                return agentBase(AgentBase!);
+            }
+            else if (IsInlineDynamicVectaraToolConfigurationVariant2 && inlineDynamicVectaraToolConfigurationVariant2 != null)
+            {
+                return inlineDynamicVectaraToolConfigurationVariant2(InlineDynamicVectaraToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
+            global::System.Action<global::Vectara.InlineDynamicVectaraToolConfigurationVariant2?>? inlineDynamicVectaraToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineDynamicVectaraToolConfigurationVariant2)
+            {
+                inlineDynamicVectaraToolConfigurationVariant2?.Invoke(InlineDynamicVectaraToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                AgentBase,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineDynamicVectaraToolConfigurationVariant2,
+                typeof(global::Vectara.InlineDynamicVectaraToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineDynamicVectaraToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineDynamicVectaraToolConfigurationVariant2?>.Default.Equals(InlineDynamicVectaraToolConfigurationVariant2, other.InlineDynamicVectaraToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineDynamicVectaraToolConfiguration obj1, InlineDynamicVectaraToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineDynamicVectaraToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineDynamicVectaraToolConfiguration obj1, InlineDynamicVectaraToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineDynamicVectaraToolConfiguration o && Equals(o);
         }
     }
 }

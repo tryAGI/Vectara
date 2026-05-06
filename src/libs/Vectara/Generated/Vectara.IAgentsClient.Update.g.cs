@@ -101,11 +101,16 @@ namespace Vectara
         /// Configuration for automatic context compaction.
         /// </param>
         /// <param name="toolOutputOffloading">
-        /// Configuration for offloading large tool outputs to artifacts.<br/>
-        /// When tools produce outputs exceeding the size threshold, the output is stored<br/>
-        /// as an artifact and replaced with a compact reference. The agent can then use<br/>
-        /// artifact_read or artifact_grep to access the full content on demand.<br/>
-        /// All fields are optional; omitted fields use model-inferred defaults.
+        /// Controls how large tool outputs are kept from overwhelming the agent context window.<br/>
+        /// Tool outputs are inspected as they are produced. A small output is always passed through<br/>
+        /// unchanged. A larger output is handled in one of two cases: when the output on its own is<br/>
+        /// big enough to dominate the context, or when adding it to the conversation would leave<br/>
+        /// too little room for the agent to continue. In either case the output is handled according<br/>
+        /// to `mode` — stored as an artifact and replaced with a compact reference, or truncated in<br/>
+        /// place with the head and tail preserved and the middle omitted. When stored as an artifact,<br/>
+        /// the agent is expected to have artifact_read, artifact_grep, or artifact_jq configured so<br/>
+        /// it can retrieve the full content on demand.<br/>
+        /// All fields are optional; omitted fields fall back to defaults.
         /// </param>
         /// <param name="steps">
         /// A map of additional named steps keyed by step name for partial update.<br/>
@@ -122,7 +127,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? name = default,
             string? description = default,
-            object? toolConfigurations = default,
+            global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? toolConfigurations = default,
             global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentSkill>? skills = default,
             global::Vectara.AgentModel? model = default,
             global::Vectara.UpdateFirstAgentStep? firstStep = default,

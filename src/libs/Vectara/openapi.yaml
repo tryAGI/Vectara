@@ -11581,6 +11581,61 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: pipeline_runs
       x-fern-sdk-method-name: get
+  /v2/pipelines/{pipeline_key}/runs/{run_id}/cancel:
+    post:
+      tags:
+      - Pipeline Runs
+      summary: Cancel pipeline run
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - pipeline_administrator
+        - administrator
+        - owner
+      description: Request cancellation of an in-progress pipeline run. The run is
+        asked to stop at the next checkpoint; it may take a moment to transition to
+        the cancelled state. Runs that have already completed, failed, or been cancelled
+        cannot be cancelled again.
+      operationId: cancelPipelineRun
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: pipeline_key
+        description: The unique key of the pipeline.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PipelineKey'
+      - in: path
+        name: run_id
+        description: The unique identifier of the run.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PipelineRunId'
+      responses:
+        '204':
+          description: Cancellation has been requested.
+        '403':
+          description: Permissions do not allow cancelling this run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Pipeline or run not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: The run is not in a cancellable state. It has already completed,
+            failed, or had cancellation requested.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: pipeline_runs
+      x-fern-sdk-method-name: cancel
   /v2/agent_analytics/traces:
     get:
       tags:
@@ -15454,7 +15509,9 @@ components:
           type: boolean
           example: false
     LLMCapabilities:
-      description: Capabilities of a Large Language Model.
+      description: Capabilities of a Large Language Model. If not provided when creating
+        an LLM, capabilities are automatically inferred from the model name and provider
+        type. Any explicitly provided fields override the inferred defaults.
       type: object
       properties:
         image_support:
@@ -15652,6 +15709,21 @@ components:
       - $ref: '#/components/schemas/OAuthClientCredentialsAuth'
       required:
       - type
+    IdleTimeoutSeconds:
+      description: "Maximum time in seconds the platform will wait for the model to\
+        \ send data before considering the connection stale and terminating it. For\
+        \ example, this is used as the SSE idle timeout during streaming \u2014 if\
+        \ no new server-sent events arrive within this window the stream is closed\
+        \ with an error. If unset, the platform falls back to its default read timeout\
+        \ for that provider (typically 60 seconds for OpenAI / Anthropic; provider\
+        \ SDK default for Vertex). On update, omit the field to leave the configured\
+        \ value unchanged or send an explicit null to clear it."
+      type: integer
+      format: int32
+      nullable: true
+      minimum: 1
+      maximum: 3600
+      example: 300
     OpenAILLMRequestBase:
       description: Common fields for OpenAI-compatible and Responses API LLM requests.
       type: object
@@ -15691,6 +15763,8 @@ components:
           type: object
           additionalProperties:
             type: string
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
         test_model_parameters:
           description: Any additional parameters that are required for the LLM during
             the test call.
@@ -15833,6 +15907,8 @@ components:
           example: https://us-central1-aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
         auth:
           $ref: '#/components/schemas/VertexAiAuth'
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
         test_model_parameters:
           description: Any additional parameters that are required for the LLM during
             the test call.
@@ -16019,6 +16095,8 @@ components:
           type: object
           additionalProperties:
             type: string
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
         test_model_parameters:
           description: Any additional parameters that are required for the LLM during
             the test call.
@@ -16077,6 +16155,8 @@ components:
           type: object
           additionalProperties:
             type: string
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
         enabled:
           description: Whether the LLM is enabled.
           type: boolean
@@ -16146,6 +16226,8 @@ components:
           nullable: false
         auth:
           $ref: '#/components/schemas/VertexAiAuth'
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
         enabled:
           description: Whether the LLM is enabled.
           type: boolean
@@ -16186,6 +16268,8 @@ components:
           type: object
           additionalProperties:
             type: string
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
         enabled:
           description: Whether the LLM is enabled.
           type: boolean
@@ -18870,6 +18954,33 @@ components:
       minLength: 1
       maxLength: 50
       example: Customer Support Agent
+    OutputTransform:
+      description: "An optional jq expression applied to the tool's JSON output before\
+        \ it is returned to the LLM.\nUse this to project, filter, or summarize tool\
+        \ output to keep responses concise and on-topic.\n\nThe expression operates\
+        \ on the tool's response JSON and the result replaces the original output.\n\
+        If the expression fails to compile or evaluate at runtime, the tool call is\
+        \ reported to the LLM as\nan error so the agent can react.\n\nExamples:\n\
+        \  - `.results | map({title, url})` \u2014 keep only title/url for each result\n\
+        \  - `.items[0:5]` \u2014 first 5 items\n  - `del(.debug)` \u2014 drop a noisy\
+        \ field\n"
+      type: string
+      maxLength: 4096
+      example: .results | map({title, url})
+    AgentToolConfigurationBase:
+      description: Base properties shared by all inline tool configurations on an
+        agent.
+      type: object
+      properties:
+        description:
+          description: Optional override for the tool's description shown to the LLM.
+            When set, replaces the description from the underlying tool definition.
+          type: string
+          example: Search the customer support knowledge base
+        description_template:
+          $ref: '#/components/schemas/ToolDescriptionTemplate'
+        output_transform:
+          $ref: '#/components/schemas/OutputTransform'
     InlineDynamicVectaraToolConfiguration:
       title: InlineDynamicVectaraToolConfiguration
       description: 'An inline configuration for built-in Vectara tools that have implementations
@@ -18878,75 +18989,75 @@ components:
         required for this configuration.
 
         '
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'dynamic_vectara'
-            for generic Vectara tool configurations.
-          default: dynamic_vectara
-        tool_id:
-          $ref: '#/components/schemas/ToolId'
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          description: "Optional hardcoded arguments for tool calls. The key specifies\
-            \ the location in the tool arguments to overide, and the value specifies\
-            \ what to override with. The LLM will not be able to change the parameters,\
-            \ nor know those values exist within the tool.\n\nThe values can also\
-            \ be dynamic references to context values using $ref with dot notation\
-            \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
-            \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
-            \ at runtime from context:\n- session.metadata.* - Access session metadata\
-            \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
-            \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you want\
-            \ to have a real value `\"$ref\"` use `\"$$ref\"`, that is you can escape\
-            \ the first $ by using $$."
-          type: object
-          additionalProperties: true
-          example:
-            custom_param: value
-            limit: 10
-      required:
-      - tool_id
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'dynamic_vectara'
+              for generic Vectara tool configurations.
+            default: dynamic_vectara
+          tool_id:
+            $ref: '#/components/schemas/ToolId'
+          argument_override:
+            description: "Optional hardcoded arguments for tool calls. The key specifies\
+              \ the location in the tool arguments to overide, and the value specifies\
+              \ what to override with. The LLM will not be able to change the parameters,\
+              \ nor know those values exist within the tool.\n\nThe values can also\
+              \ be dynamic references to context values using $ref with dot notation\
+              \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
+              \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
+              \ at runtime from context:\n- session.metadata.* - Access session metadata\
+              \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
+              \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you\
+              \ want to have a real value `\"$ref\"` use `\"$$ref\"`, that is you\
+              \ can escape the first $ by using $$."
+            type: object
+            additionalProperties: true
+            example:
+              custom_param: value
+              limit: 10
+        required:
+        - tool_id
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     InlineMcpToolConfiguration:
       title: InlineMcpToolConfiguration
       description: An MCP tool configuration defined inline in the agent.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'mcp' for inline
-            MCP tool configurations.
-          default: mcp
-        tool_id:
-          $ref: '#/components/schemas/ToolId'
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          description: "Optional hardcoded arguments for tool calls. The key specifies\
-            \ the location in the tool arguments to overide, and the value specifies\
-            \ what to override with. The LLM will not be able to change the parameters,\
-            \ nor know those values exist within the tool.\n\nThe values can also\
-            \ be dynamic references to context values using $ref with dot notation\
-            \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
-            \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
-            \ at runtime from context:\n- session.metadata.* - Access session metadata\
-            \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
-            \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you want\
-            \ to have a real value `\"$ref\"` use `\"$$ref\"`, that is you can escape\
-            \ the first $ by using $$."
-          type: object
-          additionalProperties: true
-          example:
-            custom_param: value
-            limit: 10
-      required:
-      - tool_id
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'mcp' for
+              inline MCP tool configurations.
+            default: mcp
+          tool_id:
+            $ref: '#/components/schemas/ToolId'
+          argument_override:
+            description: "Optional hardcoded arguments for tool calls. The key specifies\
+              \ the location in the tool arguments to overide, and the value specifies\
+              \ what to override with. The LLM will not be able to change the parameters,\
+              \ nor know those values exist within the tool.\n\nThe values can also\
+              \ be dynamic references to context values using $ref with dot notation\
+              \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
+              \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
+              \ at runtime from context:\n- session.metadata.* - Access session metadata\
+              \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
+              \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you\
+              \ want to have a real value `\"$ref\"` use `\"$$ref\"`, that is you\
+              \ can escape the first $ by using $$."
+            type: object
+            additionalProperties: true
+            example:
+              custom_param: value
+              limit: 10
+        required:
+        - tool_id
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     CorporaSearchToolParameters:
@@ -19077,28 +19188,28 @@ components:
     InlineCorporaSearchToolConfiguration:
       title: InlineCorporaSearchToolConfiguration
       description: A corpora search tool configuration defined inline in the agent.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'corpora_search'
-            for inline corpora search tool configurations.
-          default: corpora_search
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          description: Optional hardcoded arguments for the corpus search call such
-            as the query. When specified, these values will be used instead of allowing
-            the LLM to fill in those parameters.
-          $ref: '#/components/schemas/CorporaSearchToolParameters'
-        query_configuration:
-          description: User-configurable settings for the corpus search that are not
-            exposed to the LLM. Supports dynamic references for runtime resolution
-            from session context.
-          $ref: '#/components/schemas/AgentCorporaSearchQueryConfiguration'
-      required:
-      - type
-      - query_configuration
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'corpora_search'
+              for inline corpora search tool configurations.
+            default: corpora_search
+          argument_override:
+            description: Optional hardcoded arguments for the corpus search call such
+              as the query. When specified, these values will be used instead of allowing
+              the LLM to fill in those parameters.
+            $ref: '#/components/schemas/CorporaSearchToolParameters'
+          query_configuration:
+            description: User-configurable settings for the corpus search that are
+              not exposed to the LLM. Supports dynamic references for runtime resolution
+              from session context.
+            $ref: '#/components/schemas/AgentCorporaSearchQueryConfiguration'
+        required:
+        - type
+        - query_configuration
       x-vectaraParents:
       - AgentToolConfiguration
     WebSearchToolParameters:
@@ -19150,22 +19261,22 @@ components:
     InlineWebSearchToolConfiguration:
       title: InlineWebSearchToolConfiguration
       description: A web search tool configuration defined inline in the agent.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'web_search'
-            for inline web search tool configurations.
-          default: web_search
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          description: Optional hardcoded arguments for the web search tool call such
-            as limit etc. When specified, these values will be used instead of allowing
-            the LLM to fill in those parameters.
-          $ref: '#/components/schemas/WebSearchToolParameters'
-      required:
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'web_search'
+              for inline web search tool configurations.
+            default: web_search
+          argument_override:
+            description: Optional hardcoded arguments for the web search tool call
+              such as limit etc. When specified, these values will be used instead
+              of allowing the LLM to fill in those parameters.
+            $ref: '#/components/schemas/WebSearchToolParameters'
+        required:
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     WebGetToolParameters:
@@ -19234,50 +19345,50 @@ components:
       title: InlineWebGetToolConfiguration
       description: A web get tool configuration defined inline in the agent for fetching
         content from URLs.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'web_get' for
-            inline web get tool configurations.
-          default: web_get
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          description: Optional hardcoded arguments for the web get tool call. When
-            specified, these values will be used instead of allowing the LLM to fill
-            in those parameters.
-          $ref: '#/components/schemas/WebGetToolParameters'
-      required:
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'web_get'
+              for inline web get tool configurations.
+            default: web_get
+          argument_override:
+            description: Optional hardcoded arguments for the web get tool call. When
+              specified, these values will be used instead of allowing the LLM to
+              fill in those parameters.
+            $ref: '#/components/schemas/WebGetToolParameters'
+        required:
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     InlineLambdaToolConfiguration:
       title: InlineLambdaToolConfiguration
       description: A lambda tool configuration defined inline in the agent for executing
         user-defined functions.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'lambda' for
-            inline lambda tool configurations.
-          default: lambda
-        tool_id:
-          $ref: '#/components/schemas/ToolId'
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          description: Optional hardcoded arguments that will be passed to the lambda
-            function. When specified, these values will be used instead of allowing
-            the LLM to fill in those parameters.
-          type: object
-          additionalProperties: true
-          example:
-            custom_param: value
-      required:
-      - tool_id
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'lambda'
+              for inline lambda tool configurations.
+            default: lambda
+          tool_id:
+            $ref: '#/components/schemas/ToolId'
+          argument_override:
+            description: Optional hardcoded arguments that will be passed to the lambda
+              function. When specified, these values will be used instead of allowing
+              the LLM to fill in those parameters.
+            type: object
+            additionalProperties: true
+            example:
+              custom_param: value
+        required:
+        - tool_id
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     SubAgentToolParameters:
@@ -19338,39 +19449,39 @@ components:
       title: InlineSubAgentToolConfiguration
       description: A sub-agent tool configuration defined inline in the agent for
         invoking specialized sub-agents.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'sub_agent'
-            for inline sub-agent tool configurations.
-          default: sub_agent
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          $ref: '#/components/schemas/SubAgentToolParameters'
-        sub_agent_configuration:
-          $ref: '#/components/schemas/SubAgentConfiguration'
-      required:
-      - type
-      - sub_agent_configuration
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'sub_agent'
+              for inline sub-agent tool configurations.
+            default: sub_agent
+          argument_override:
+            $ref: '#/components/schemas/SubAgentToolParameters'
+          sub_agent_configuration:
+            $ref: '#/components/schemas/SubAgentConfiguration'
+        required:
+        - type
+        - sub_agent_configuration
       x-vectaraParents:
       - AgentToolConfiguration
     InlineArtifactCreateToolConfiguration:
       title: InlineArtifactCreateToolConfiguration
       description: An artifact create tool configuration defined inline in the agent
         for creating artifacts on-the-fly from text or structured data content.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'artifact_create'
-            for inline artifact create tool configurations.
-          default: artifact_create
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-      required:
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'artifact_create'
+              for inline artifact create tool configurations.
+            default: artifact_create
+        required:
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     ArtifactReadToolParameters:
@@ -19424,21 +19535,21 @@ components:
       title: InlineArtifactReadToolConfiguration
       description: An artifact read tool configuration defined inline in the agent
         for reading artifacts from the session workspace.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'artifact_read'
-            for inline artifact read tool configurations.
-          default: artifact_read
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          $ref: '#/components/schemas/ArtifactReadToolParameters'
-        tool_configuration:
-          $ref: '#/components/schemas/ArtifactReadConfiguration'
-      required:
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'artifact_read'
+              for inline artifact read tool configurations.
+            default: artifact_read
+          argument_override:
+            $ref: '#/components/schemas/ArtifactReadToolParameters'
+          tool_configuration:
+            $ref: '#/components/schemas/ArtifactReadConfiguration'
+        required:
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     ArtifactGrepToolParameters:
@@ -19467,19 +19578,19 @@ components:
       title: InlineArtifactGrepToolConfiguration
       description: An artifact grep tool configuration defined inline in the agent
         for searching through artifact content.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'artifact_grep'
-            for inline artifact grep tool configurations.
-          default: artifact_grep
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          $ref: '#/components/schemas/ArtifactGrepToolParameters'
-      required:
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'artifact_grep'
+              for inline artifact grep tool configurations.
+            default: artifact_grep
+          argument_override:
+            $ref: '#/components/schemas/ArtifactGrepToolParameters'
+        required:
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     ImageReadToolParameters:
@@ -19506,19 +19617,19 @@ components:
       title: InlineImageReadToolConfiguration
       description: An image read tool configuration defined inline in the agent for
         loading images into the conversation context.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'image_read'
-            for inline image read tool configurations.
-          default: image_read
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          $ref: '#/components/schemas/ImageReadToolParameters'
-      required:
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'image_read'
+              for inline image read tool configurations.
+            default: image_read
+          argument_override:
+            $ref: '#/components/schemas/ImageReadToolParameters'
+        required:
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     DocumentConversionToolParameters:
@@ -19546,19 +19657,19 @@ components:
       title: InlineDocumentConversionToolConfiguration
       description: A document conversion tool configuration defined inline in the
         agent for converting document artifacts to various formats.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'document_conversion'
-            for inline document conversion tool configurations.
-          default: document_conversion
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          $ref: '#/components/schemas/DocumentConversionToolParameters'
-      required:
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'document_conversion'
+              for inline document conversion tool configurations.
+            default: document_conversion
+          argument_override:
+            $ref: '#/components/schemas/DocumentConversionToolParameters'
+        required:
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     GetDocumentTextParameters:
@@ -19605,27 +19716,29 @@ components:
       title: InlineGetDocumentTextToolConfiguration
       description: A get document text tool configuration defined inline in the agent
         for fetching document text content from a corpus.
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of tool configuration, which is always 'get_document_text'
-            for inline get document text tool configurations.
-          default: get_document_text
-        description_template:
-          $ref: '#/components/schemas/ToolDescriptionTemplate'
-        argument_override:
-          $ref: '#/components/schemas/GetDocumentTextParameters'
-        tool_configuration:
-          $ref: '#/components/schemas/GetDocumentTextConfiguration'
-      required:
-      - type
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'get_document_text'
+              for inline get document text tool configurations.
+            default: get_document_text
+          argument_override:
+            $ref: '#/components/schemas/GetDocumentTextParameters'
+          tool_configuration:
+            $ref: '#/components/schemas/GetDocumentTextConfiguration'
+        required:
+        - type
       x-vectaraParents:
       - AgentToolConfiguration
     AgentToolConfiguration:
       title: AgentToolConfiguration
       description: A tool configuration that can be used by an agent, defined inline
         with a specific configuration type.
+      type: object
+      x-vectara-base-schema: '#/AgentToolConfigurationBase'
       discriminator:
         propertyName: type
         mapping:
@@ -19944,6 +20057,42 @@ components:
           minItems: 1
           example:
           - tool_output
+        fire_every:
+          description: 'Fire this reminder on every Nth matching hook event (counted
+            independently per hook). Defaults to 1, which preserves the legacy
+
+            behavior of firing on every matching event. Must be at least 1.
+
+
+            Counters reset after a session compaction: the post-compaction event stream
+            is treated as a fresh sequence (index 0), so
+
+            `skip_first` warmup applies again from the first new matching event.
+
+            '
+          type: integer
+          format: int32
+          minimum: 1
+          default: 1
+          example: 3
+        skip_first:
+          description: 'Skip the first N matching hook events at session start before
+            firing this reminder for the first time (counted independently per hook).
+
+            Defaults to 0, meaning no warmup delay. Must be non-negative.
+
+
+            Counters reset after a session compaction: the post-compaction event stream
+            is treated as a fresh sequence (index 0), so
+
+            the warmup applies again from the first new matching event.
+
+            '
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+          example: 2
       required:
       - type
       - template
@@ -20307,78 +20456,157 @@ components:
           default: include_outputs
     ToolOutputOffloadingConfiguration:
       title: ToolOutputOffloadingConfiguration
-      description: 'Configuration for offloading large tool outputs to artifacts.
-
-        When tools produce outputs exceeding the size threshold, the output is stored
-
-        as an artifact and replaced with a compact reference. The agent can then use
-
-        artifact_read or artifact_grep to access the full content on demand.
-
-        All fields are optional; omitted fields use model-inferred defaults.
-
-        '
+      description: "Controls how large tool outputs are kept from overwhelming the\
+        \ agent context window.\n\nTool outputs are inspected as they are produced.\
+        \ A small output is always passed through\nunchanged. A larger output is handled\
+        \ in one of two cases: when the output on its own is\nbig enough to dominate\
+        \ the context, or when adding it to the conversation would leave\ntoo little\
+        \ room for the agent to continue. In either case the output is handled according\n\
+        to `mode` \u2014 stored as an artifact and replaced with a compact reference,\
+        \ or truncated in\nplace with the head and tail preserved and the middle omitted.\
+        \ When stored as an artifact,\nthe agent is expected to have artifact_read,\
+        \ artifact_grep, or artifact_jq configured so\nit can retrieve the full content\
+        \ on demand.\n\nAll fields are optional; omitted fields fall back to defaults.\n"
       type: object
       properties:
         enabled:
-          description: 'Whether tool output offloading is enabled. If not specified,
-            defaults to true
+          description: 'Whether tool output offloading is active. Defaults to true.
+            When disabled, tool
 
-            when the agent has artifact_read configured, false otherwise.
+            outputs are always passed through to the agent verbatim.
 
             '
           type: boolean
           example: true
+        mode:
+          description: 'How a large tool output is handled once it has been selected
+            for offloading.
+
+
+            In `artifact` mode, the full output is stored as a session artifact and
+            replaced in
+
+            the conversation with a compact reference containing the artifact id,
+            size, shape,
+
+            and hints for the available artifact tools. The agent can then use artifact_read,
+
+            artifact_grep, or artifact_jq to retrieve just the parts it needs.
+
+
+            In `truncate` mode, the output is shortened in place to fit within the
+            target size.
+
+            The head and tail are preserved and the middle is replaced with a short
+            notice
+
+            explaining that content was omitted. No artifact is created.
+
+
+            When unset, the default is `artifact` if the agent has any of artifact_read,
+
+            artifact_grep, or artifact_jq configured, and `truncate` otherwise.
+
+            '
+          type: string
+          enum:
+          - artifact
+          - truncate
+          example: artifact
         context_percentage:
-          description: 'Percentage of the model''s context window to use as the offloading
-            threshold,
+          description: 'The fraction of the model''s context window that a single
+            tool output is allowed to
 
-            estimated at 4 characters per token. This is a rough heuristic that varies
+            occupy before it is considered large enough to offload on its own, estimated
+            at four
 
-            across LLMs. The resulting byte threshold is clamped between min_threshold_bytes
+            characters per token. The resulting byte threshold is clamped between
 
-            and max_threshold_bytes, so this percentage only has an effect when it
-            produces
+            `min_threshold_bytes` and `max_threshold_bytes`, so for very large context
+            models
 
-            a value lower than max_threshold_bytes.
+            this percentage is usually dominated by `max_threshold_bytes`, and for
+            very small
+
+            context models it is dominated by `min_threshold_bytes`.
 
             '
           type: number
           format: double
           minimum: 0.01
           maximum: 1
-          default: 0.05
-          example: 0.05
+          default: 0.25
+          example: 0.25
         max_threshold_bytes:
-          description: 'Tool outputs above this size (in bytes) will always be offloaded.
-            Acts as a
+          description: 'An absolute ceiling on single-output size. Any output above
+            this many bytes is
 
-            ceiling on the context_percentage-derived threshold. For large-context
-            models,
+            considered large enough to offload on its own, regardless of the model''s
+            context
 
-            max_threshold_bytes is typically the effective threshold since the
+            window. This prevents unusually large outputs from slipping through on
+            models with
 
-            context_percentage calculation exceeds it.
+            very large context windows.
 
             '
           type: integer
           format: int64
           minimum: 1024
-          example: 32768
+          example: 1048576
         min_threshold_bytes:
-          description: 'Tool outputs below this size (in bytes) will never be offloaded.
-            Acts as a
+          description: 'A hard floor on offloading. Tool outputs below this size are
+            always passed through
 
-            floor on the context_percentage-derived threshold, ensuring small outputs
-            are
+            to the agent unchanged, even when cumulative context usage is high. This
+            ensures that
 
-            never offloaded even for models with small context windows.
+            short, useful outputs are never unnecessarily truncated or replaced with
+            a reference.
 
             '
           type: integer
           format: int64
           minimum: 1024
           example: 4096
+        headroom_percentage:
+          description: 'The fraction of the model''s context window at which offloading
+            becomes sensitive to
+
+            cumulative usage. When adding a tool output would push total input tokens
+            above this
+
+            fraction of the context window (estimated at four characters per token),
+            the output
+
+            is offloaded even if it would otherwise be considered small enough to
+            pass through.
+
+
+            This is independent of the compaction `threshold_percent`: both can be
+            configured on
+
+            the same agent and both can apply. In practice it is often useful to set
+            this below
+
+            the compaction threshold so that large tool outputs are offloaded before
+            compaction
+
+            is triggered, avoiding the case where a large tool result is immediately
+            summarized
+
+            away. Setting this to 1.0 effectively disables the headroom behavior,
+            leaving only
+
+            the per-output size thresholds in effect.
+
+            '
+          type: number
+          format: double
+          minimum: 0.01
+          maximum: 1
+          default: 0.7
+          example: 0.7
     Agent:
       description: An AI agent that can use tools to provide intelligent responses
         and actions.
@@ -21253,8 +21481,8 @@ components:
         **Lifecycle**: Artifacts are created when users upload files via multipart
         requests or when agent tools generate new files (such as converting a PDF
         to markdown). Artifacts have a configurable time-to-live and are automatically
-        removed when they expire or when the session is deleted. Size limits apply
-        to individual artifacts and total session storage.
+        removed when they expire or when the session is deleted. A per-artifact size
+        limit applies to each upload.
 
 
         **How Agents Use Artifacts**: Agent tools can read artifacts, process them,
@@ -23326,8 +23554,7 @@ components:
           type: string
           nullable: true
         last_run_id:
-          description: The ID of the pipeline run that most recently processed (or
-            failed) this record.
+          description: The ID of the run that most recently attempted this record.
           allOf:
           - $ref: '#/components/schemas/PipelineRunId'
           nullable: true
@@ -23408,7 +23635,8 @@ components:
           items:
             type: string
         last_run_id:
-          description: Only process dead letters from this specific run.
+          description: Only process dead letters whose `last_run_id` matches this
+            value.
           allOf:
           - $ref: '#/components/schemas/PipelineRunId'
         origin:

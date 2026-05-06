@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,80 +7,215 @@ namespace Vectara
     /// <summary>
     /// An image read tool configuration defined inline in the agent for loading images into the conversation context.
     /// </summary>
-    public sealed partial class InlineImageReadToolConfiguration
+    public readonly partial struct InlineImageReadToolConfiguration : global::System.IEquatable<InlineImageReadToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'image_read' for inline image read tool configurations.<br/>
-        /// Default Value: image_read
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"image_read"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "image_read";
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// Configurable parameters for the image read tool. If not overridden, they will be required by the LLM to fill in.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
-        public global::Vectara.ImageReadToolParameters? ArgumentOverride { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineImageReadToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'image_read' for inline image read tool configurations.<br/>
-        /// Default Value: image_read
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="argumentOverride">
-        /// Configurable parameters for the image read tool. If not overridden, they will be required by the LLM to fill in.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; }
 #endif
-        public InlineImageReadToolConfiguration(
-            string type,
-            string? descriptionTemplate,
-            global::Vectara.ImageReadToolParameters? argumentOverride)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
+#endif
+        public bool IsAgentBase => AgentBase != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineImageReadToolConfigurationVariant2? InlineImageReadToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineImageReadToolConfigurationVariant2? InlineImageReadToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineImageReadToolConfigurationVariant2))]
+#endif
+        public bool IsInlineImageReadToolConfigurationVariant2 => InlineImageReadToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineImageReadToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineImageReadToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineImageReadToolConfiguration @this) => @this.AgentBase;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineImageReadToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.DescriptionTemplate = descriptionTemplate;
-            this.ArgumentOverride = argumentOverride;
+            AgentBase = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineImageReadToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineImageReadToolConfiguration()
+        public static implicit operator InlineImageReadToolConfiguration(global::Vectara.InlineImageReadToolConfigurationVariant2 value) => new InlineImageReadToolConfiguration((global::Vectara.InlineImageReadToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineImageReadToolConfigurationVariant2?(InlineImageReadToolConfiguration @this) => @this.InlineImageReadToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineImageReadToolConfiguration(global::Vectara.InlineImageReadToolConfigurationVariant2? value)
         {
+            InlineImageReadToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineImageReadToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? agentBase,
+            global::Vectara.InlineImageReadToolConfigurationVariant2? inlineImageReadToolConfigurationVariant2
+            )
+        {
+            AgentBase = agentBase;
+            InlineImageReadToolConfigurationVariant2 = inlineImageReadToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineImageReadToolConfigurationVariant2 as object ??
+            AgentBase as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            AgentBase?.ToString() ??
+            InlineImageReadToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsAgentBase && IsInlineImageReadToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineImageReadToolConfigurationVariant2?, TResult>? inlineImageReadToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase && agentBase != null)
+            {
+                return agentBase(AgentBase!);
+            }
+            else if (IsInlineImageReadToolConfigurationVariant2 && inlineImageReadToolConfigurationVariant2 != null)
+            {
+                return inlineImageReadToolConfigurationVariant2(InlineImageReadToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
+            global::System.Action<global::Vectara.InlineImageReadToolConfigurationVariant2?>? inlineImageReadToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineImageReadToolConfigurationVariant2)
+            {
+                inlineImageReadToolConfigurationVariant2?.Invoke(InlineImageReadToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                AgentBase,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineImageReadToolConfigurationVariant2,
+                typeof(global::Vectara.InlineImageReadToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineImageReadToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineImageReadToolConfigurationVariant2?>.Default.Equals(InlineImageReadToolConfigurationVariant2, other.InlineImageReadToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineImageReadToolConfiguration obj1, InlineImageReadToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineImageReadToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineImageReadToolConfiguration obj1, InlineImageReadToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineImageReadToolConfiguration o && Equals(o);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Vectara
 {
-    public sealed partial class InlineMcpToolConfiguration
+    public readonly partial struct InlineMcpToolConfiguration
     {
         /// <summary>
         /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
@@ -41,7 +41,7 @@ namespace Vectara
             return global::System.Text.Json.JsonSerializer.Deserialize(
                 json,
                 typeof(global::Vectara.InlineMcpToolConfiguration),
-                jsonSerializerContext) as global::Vectara.InlineMcpToolConfiguration;
+                jsonSerializerContext) as global::Vectara.InlineMcpToolConfiguration?;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Vectara
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
                 jsonStream,
                 typeof(global::Vectara.InlineMcpToolConfiguration),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.InlineMcpToolConfiguration;
+                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.InlineMcpToolConfiguration?;
         }
 
         /// <summary>

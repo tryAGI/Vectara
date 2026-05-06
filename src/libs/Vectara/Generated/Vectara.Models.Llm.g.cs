@@ -47,7 +47,7 @@ namespace Vectara
         public bool? Default { get; set; }
 
         /// <summary>
-        /// Capabilities of a Large Language Model.
+        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
         public global::Vectara.LLMCapabilities? Capabilities { get; set; }
@@ -96,7 +96,7 @@ namespace Vectara
         /// If this is the default LLM, it is used in queries when the generator is not specified.
         /// </param>
         /// <param name="capabilities">
-        /// Capabilities of a Large Language Model.
+        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
         /// </param>
         /// <param name="ownership">
         /// Indicates whether the LLM is provided by the platform or created by the customer. Platform LLMs are pre-configured and cannot be modified or deleted. Customer LLMs are created and managed by the customer.<br/>

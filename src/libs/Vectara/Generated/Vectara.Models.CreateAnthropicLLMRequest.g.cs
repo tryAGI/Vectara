@@ -61,13 +61,21 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, string>? Headers { get; set; }
 
         /// <summary>
+        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. For example, this is used as the SSE idle timeout during streaming — if no new server-sent events arrive within this window the stream is closed with an error. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// Example: 300
+        /// </summary>
+        /// <example>300</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("idle_timeout_seconds")]
+        public int? IdleTimeoutSeconds { get; set; }
+
+        /// <summary>
         /// Any additional parameters that are required for the LLM during the test call.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("test_model_parameters")]
         public object? TestModelParameters { get; set; }
 
         /// <summary>
-        /// Capabilities of a Large Language Model.
+        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
         public global::Vectara.LLMCapabilities? Capabilities { get; set; }
@@ -105,11 +113,15 @@ namespace Vectara
         /// <param name="headers">
         /// Optional additional headers to send with the request
         /// </param>
+        /// <param name="idleTimeoutSeconds">
+        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. For example, this is used as the SSE idle timeout during streaming — if no new server-sent events arrive within this window the stream is closed with an error. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// Example: 300
+        /// </param>
         /// <param name="testModelParameters">
         /// Any additional parameters that are required for the LLM during the test call.
         /// </param>
         /// <param name="capabilities">
-        /// Capabilities of a Large Language Model.
+        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -122,6 +134,7 @@ namespace Vectara
             string? description,
             string? uri,
             global::System.Collections.Generic.Dictionary<string, string>? headers,
+            int? idleTimeoutSeconds,
             object? testModelParameters,
             global::Vectara.LLMCapabilities? capabilities)
         {
@@ -132,6 +145,7 @@ namespace Vectara
             this.Uri = uri;
             this.Auth = auth;
             this.Headers = headers;
+            this.IdleTimeoutSeconds = idleTimeoutSeconds;
             this.TestModelParameters = testModelParameters;
             this.Capabilities = capabilities;
         }

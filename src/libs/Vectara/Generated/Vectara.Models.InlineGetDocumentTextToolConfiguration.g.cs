@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,91 +7,215 @@ namespace Vectara
     /// <summary>
     /// A get document text tool configuration defined inline in the agent for fetching document text content from a corpus.
     /// </summary>
-    public sealed partial class InlineGetDocumentTextToolConfiguration
+    public readonly partial struct InlineGetDocumentTextToolConfiguration : global::System.IEquatable<InlineGetDocumentTextToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'get_document_text' for inline get document text tool configurations.<br/>
-        /// Default Value: get_document_text
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"get_document_text"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "get_document_text";
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// Configurable parameters for the get document text tool. If not overridden, they will be required by the LLM to fill in.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
-        public global::Vectara.GetDocumentTextParameters? ArgumentOverride { get; set; }
-
-        /// <summary>
-        /// User-configurable settings for the get document text tool. These parameters are never exposed to the agent.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("tool_configuration")]
-        public global::Vectara.GetDocumentTextConfiguration? ToolConfiguration { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineGetDocumentTextToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'get_document_text' for inline get document text tool configurations.<br/>
-        /// Default Value: get_document_text
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="argumentOverride">
-        /// Configurable parameters for the get document text tool. If not overridden, they will be required by the LLM to fill in.
-        /// </param>
-        /// <param name="toolConfiguration">
-        /// User-configurable settings for the get document text tool. These parameters are never exposed to the agent.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; }
 #endif
-        public InlineGetDocumentTextToolConfiguration(
-            string type,
-            string? descriptionTemplate,
-            global::Vectara.GetDocumentTextParameters? argumentOverride,
-            global::Vectara.GetDocumentTextConfiguration? toolConfiguration)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
+#endif
+        public bool IsAgentBase => AgentBase != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? InlineGetDocumentTextToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? InlineGetDocumentTextToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineGetDocumentTextToolConfigurationVariant2))]
+#endif
+        public bool IsInlineGetDocumentTextToolConfigurationVariant2 => InlineGetDocumentTextToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineGetDocumentTextToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineGetDocumentTextToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineGetDocumentTextToolConfiguration @this) => @this.AgentBase;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineGetDocumentTextToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.DescriptionTemplate = descriptionTemplate;
-            this.ArgumentOverride = argumentOverride;
-            this.ToolConfiguration = toolConfiguration;
+            AgentBase = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineGetDocumentTextToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineGetDocumentTextToolConfiguration()
+        public static implicit operator InlineGetDocumentTextToolConfiguration(global::Vectara.InlineGetDocumentTextToolConfigurationVariant2 value) => new InlineGetDocumentTextToolConfiguration((global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?(InlineGetDocumentTextToolConfiguration @this) => @this.InlineGetDocumentTextToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineGetDocumentTextToolConfiguration(global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? value)
         {
+            InlineGetDocumentTextToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineGetDocumentTextToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? agentBase,
+            global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? inlineGetDocumentTextToolConfigurationVariant2
+            )
+        {
+            AgentBase = agentBase;
+            InlineGetDocumentTextToolConfigurationVariant2 = inlineGetDocumentTextToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineGetDocumentTextToolConfigurationVariant2 as object ??
+            AgentBase as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            AgentBase?.ToString() ??
+            InlineGetDocumentTextToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsAgentBase && IsInlineGetDocumentTextToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?, TResult>? inlineGetDocumentTextToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase && agentBase != null)
+            {
+                return agentBase(AgentBase!);
+            }
+            else if (IsInlineGetDocumentTextToolConfigurationVariant2 && inlineGetDocumentTextToolConfigurationVariant2 != null)
+            {
+                return inlineGetDocumentTextToolConfigurationVariant2(InlineGetDocumentTextToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
+            global::System.Action<global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?>? inlineGetDocumentTextToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineGetDocumentTextToolConfigurationVariant2)
+            {
+                inlineGetDocumentTextToolConfigurationVariant2?.Invoke(InlineGetDocumentTextToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                AgentBase,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineGetDocumentTextToolConfigurationVariant2,
+                typeof(global::Vectara.InlineGetDocumentTextToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineGetDocumentTextToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?>.Default.Equals(InlineGetDocumentTextToolConfigurationVariant2, other.InlineGetDocumentTextToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineGetDocumentTextToolConfiguration obj1, InlineGetDocumentTextToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineGetDocumentTextToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineGetDocumentTextToolConfiguration obj1, InlineGetDocumentTextToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineGetDocumentTextToolConfiguration o && Equals(o);
         }
     }
 }

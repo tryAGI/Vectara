@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,91 +7,215 @@ namespace Vectara
     /// <summary>
     /// An artifact read tool configuration defined inline in the agent for reading artifacts from the session workspace.
     /// </summary>
-    public sealed partial class InlineArtifactReadToolConfiguration
+    public readonly partial struct InlineArtifactReadToolConfiguration : global::System.IEquatable<InlineArtifactReadToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'artifact_read' for inline artifact read tool configurations.<br/>
-        /// Default Value: artifact_read
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"artifact_read"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "artifact_read";
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// Configurable parameters for the artifact read tool. If not overridden, they will be required by the LLM to fill in.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
-        public global::Vectara.ArtifactReadToolParameters? ArgumentOverride { get; set; }
-
-        /// <summary>
-        /// User-configurable settings for the artifact read tool.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("tool_configuration")]
-        public global::Vectara.ArtifactReadConfiguration? ToolConfiguration { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineArtifactReadToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'artifact_read' for inline artifact read tool configurations.<br/>
-        /// Default Value: artifact_read
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="argumentOverride">
-        /// Configurable parameters for the artifact read tool. If not overridden, they will be required by the LLM to fill in.
-        /// </param>
-        /// <param name="toolConfiguration">
-        /// User-configurable settings for the artifact read tool.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; }
 #endif
-        public InlineArtifactReadToolConfiguration(
-            string type,
-            string? descriptionTemplate,
-            global::Vectara.ArtifactReadToolParameters? argumentOverride,
-            global::Vectara.ArtifactReadConfiguration? toolConfiguration)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
+#endif
+        public bool IsAgentBase => AgentBase != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineArtifactReadToolConfigurationVariant2? InlineArtifactReadToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineArtifactReadToolConfigurationVariant2? InlineArtifactReadToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineArtifactReadToolConfigurationVariant2))]
+#endif
+        public bool IsInlineArtifactReadToolConfigurationVariant2 => InlineArtifactReadToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineArtifactReadToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineArtifactReadToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineArtifactReadToolConfiguration @this) => @this.AgentBase;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactReadToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.DescriptionTemplate = descriptionTemplate;
-            this.ArgumentOverride = argumentOverride;
-            this.ToolConfiguration = toolConfiguration;
+            AgentBase = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineArtifactReadToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineArtifactReadToolConfiguration()
+        public static implicit operator InlineArtifactReadToolConfiguration(global::Vectara.InlineArtifactReadToolConfigurationVariant2 value) => new InlineArtifactReadToolConfiguration((global::Vectara.InlineArtifactReadToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineArtifactReadToolConfigurationVariant2?(InlineArtifactReadToolConfiguration @this) => @this.InlineArtifactReadToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactReadToolConfiguration(global::Vectara.InlineArtifactReadToolConfigurationVariant2? value)
         {
+            InlineArtifactReadToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactReadToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? agentBase,
+            global::Vectara.InlineArtifactReadToolConfigurationVariant2? inlineArtifactReadToolConfigurationVariant2
+            )
+        {
+            AgentBase = agentBase;
+            InlineArtifactReadToolConfigurationVariant2 = inlineArtifactReadToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineArtifactReadToolConfigurationVariant2 as object ??
+            AgentBase as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            AgentBase?.ToString() ??
+            InlineArtifactReadToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsAgentBase && IsInlineArtifactReadToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineArtifactReadToolConfigurationVariant2?, TResult>? inlineArtifactReadToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase && agentBase != null)
+            {
+                return agentBase(AgentBase!);
+            }
+            else if (IsInlineArtifactReadToolConfigurationVariant2 && inlineArtifactReadToolConfigurationVariant2 != null)
+            {
+                return inlineArtifactReadToolConfigurationVariant2(InlineArtifactReadToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
+            global::System.Action<global::Vectara.InlineArtifactReadToolConfigurationVariant2?>? inlineArtifactReadToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineArtifactReadToolConfigurationVariant2)
+            {
+                inlineArtifactReadToolConfigurationVariant2?.Invoke(InlineArtifactReadToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                AgentBase,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineArtifactReadToolConfigurationVariant2,
+                typeof(global::Vectara.InlineArtifactReadToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineArtifactReadToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineArtifactReadToolConfigurationVariant2?>.Default.Equals(InlineArtifactReadToolConfigurationVariant2, other.InlineArtifactReadToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineArtifactReadToolConfiguration obj1, InlineArtifactReadToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineArtifactReadToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineArtifactReadToolConfiguration obj1, InlineArtifactReadToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineArtifactReadToolConfiguration o && Equals(o);
         }
     }
 }

@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,80 +7,215 @@ namespace Vectara
     /// <summary>
     /// An artifact grep tool configuration defined inline in the agent for searching through artifact content.
     /// </summary>
-    public sealed partial class InlineArtifactGrepToolConfiguration
+    public readonly partial struct InlineArtifactGrepToolConfiguration : global::System.IEquatable<InlineArtifactGrepToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'artifact_grep' for inline artifact grep tool configurations.<br/>
-        /// Default Value: artifact_grep
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"artifact_grep"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "artifact_grep";
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// Configurable parameters for the artifact grep tool. If not overridden, they will be required by the LLM to fill in.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
-        public global::Vectara.ArtifactGrepToolParameters? ArgumentOverride { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineArtifactGrepToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'artifact_grep' for inline artifact grep tool configurations.<br/>
-        /// Default Value: artifact_grep
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="argumentOverride">
-        /// Configurable parameters for the artifact grep tool. If not overridden, they will be required by the LLM to fill in.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; }
 #endif
-        public InlineArtifactGrepToolConfiguration(
-            string type,
-            string? descriptionTemplate,
-            global::Vectara.ArtifactGrepToolParameters? argumentOverride)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
+#endif
+        public bool IsAgentBase => AgentBase != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineArtifactGrepToolConfigurationVariant2? InlineArtifactGrepToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineArtifactGrepToolConfigurationVariant2? InlineArtifactGrepToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineArtifactGrepToolConfigurationVariant2))]
+#endif
+        public bool IsInlineArtifactGrepToolConfigurationVariant2 => InlineArtifactGrepToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineArtifactGrepToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineArtifactGrepToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineArtifactGrepToolConfiguration @this) => @this.AgentBase;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactGrepToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.DescriptionTemplate = descriptionTemplate;
-            this.ArgumentOverride = argumentOverride;
+            AgentBase = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineArtifactGrepToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineArtifactGrepToolConfiguration()
+        public static implicit operator InlineArtifactGrepToolConfiguration(global::Vectara.InlineArtifactGrepToolConfigurationVariant2 value) => new InlineArtifactGrepToolConfiguration((global::Vectara.InlineArtifactGrepToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineArtifactGrepToolConfigurationVariant2?(InlineArtifactGrepToolConfiguration @this) => @this.InlineArtifactGrepToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactGrepToolConfiguration(global::Vectara.InlineArtifactGrepToolConfigurationVariant2? value)
         {
+            InlineArtifactGrepToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactGrepToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? agentBase,
+            global::Vectara.InlineArtifactGrepToolConfigurationVariant2? inlineArtifactGrepToolConfigurationVariant2
+            )
+        {
+            AgentBase = agentBase;
+            InlineArtifactGrepToolConfigurationVariant2 = inlineArtifactGrepToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineArtifactGrepToolConfigurationVariant2 as object ??
+            AgentBase as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            AgentBase?.ToString() ??
+            InlineArtifactGrepToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsAgentBase && IsInlineArtifactGrepToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineArtifactGrepToolConfigurationVariant2?, TResult>? inlineArtifactGrepToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase && agentBase != null)
+            {
+                return agentBase(AgentBase!);
+            }
+            else if (IsInlineArtifactGrepToolConfigurationVariant2 && inlineArtifactGrepToolConfigurationVariant2 != null)
+            {
+                return inlineArtifactGrepToolConfigurationVariant2(InlineArtifactGrepToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
+            global::System.Action<global::Vectara.InlineArtifactGrepToolConfigurationVariant2?>? inlineArtifactGrepToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineArtifactGrepToolConfigurationVariant2)
+            {
+                inlineArtifactGrepToolConfigurationVariant2?.Invoke(InlineArtifactGrepToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                AgentBase,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineArtifactGrepToolConfigurationVariant2,
+                typeof(global::Vectara.InlineArtifactGrepToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineArtifactGrepToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineArtifactGrepToolConfigurationVariant2?>.Default.Equals(InlineArtifactGrepToolConfigurationVariant2, other.InlineArtifactGrepToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineArtifactGrepToolConfiguration obj1, InlineArtifactGrepToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineArtifactGrepToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineArtifactGrepToolConfiguration obj1, InlineArtifactGrepToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineArtifactGrepToolConfiguration o && Equals(o);
         }
     }
 }

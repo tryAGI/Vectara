@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,69 +7,215 @@ namespace Vectara
     /// <summary>
     /// An artifact create tool configuration defined inline in the agent for creating artifacts on-the-fly from text or structured data content.
     /// </summary>
-    public sealed partial class InlineArtifactCreateToolConfiguration
+    public readonly partial struct InlineArtifactCreateToolConfiguration : global::System.IEquatable<InlineArtifactCreateToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'artifact_create' for inline artifact create tool configurations.<br/>
-        /// Default Value: artifact_create
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"artifact_create"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "artifact_create";
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineArtifactCreateToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'artifact_create' for inline artifact create tool configurations.<br/>
-        /// Default Value: artifact_create
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; }
 #endif
-        public InlineArtifactCreateToolConfiguration(
-            string type,
-            string? descriptionTemplate)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
+#endif
+        public bool IsAgentBase => AgentBase != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineArtifactCreateToolConfigurationVariant2? InlineArtifactCreateToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineArtifactCreateToolConfigurationVariant2? InlineArtifactCreateToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineArtifactCreateToolConfigurationVariant2))]
+#endif
+        public bool IsInlineArtifactCreateToolConfigurationVariant2 => InlineArtifactCreateToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineArtifactCreateToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineArtifactCreateToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineArtifactCreateToolConfiguration @this) => @this.AgentBase;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactCreateToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.DescriptionTemplate = descriptionTemplate;
+            AgentBase = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineArtifactCreateToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineArtifactCreateToolConfiguration()
+        public static implicit operator InlineArtifactCreateToolConfiguration(global::Vectara.InlineArtifactCreateToolConfigurationVariant2 value) => new InlineArtifactCreateToolConfiguration((global::Vectara.InlineArtifactCreateToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineArtifactCreateToolConfigurationVariant2?(InlineArtifactCreateToolConfiguration @this) => @this.InlineArtifactCreateToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactCreateToolConfiguration(global::Vectara.InlineArtifactCreateToolConfigurationVariant2? value)
         {
+            InlineArtifactCreateToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineArtifactCreateToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? agentBase,
+            global::Vectara.InlineArtifactCreateToolConfigurationVariant2? inlineArtifactCreateToolConfigurationVariant2
+            )
+        {
+            AgentBase = agentBase;
+            InlineArtifactCreateToolConfigurationVariant2 = inlineArtifactCreateToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineArtifactCreateToolConfigurationVariant2 as object ??
+            AgentBase as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            AgentBase?.ToString() ??
+            InlineArtifactCreateToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsAgentBase && IsInlineArtifactCreateToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineArtifactCreateToolConfigurationVariant2?, TResult>? inlineArtifactCreateToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase && agentBase != null)
+            {
+                return agentBase(AgentBase!);
+            }
+            else if (IsInlineArtifactCreateToolConfigurationVariant2 && inlineArtifactCreateToolConfigurationVariant2 != null)
+            {
+                return inlineArtifactCreateToolConfigurationVariant2(InlineArtifactCreateToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
+            global::System.Action<global::Vectara.InlineArtifactCreateToolConfigurationVariant2?>? inlineArtifactCreateToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineArtifactCreateToolConfigurationVariant2)
+            {
+                inlineArtifactCreateToolConfigurationVariant2?.Invoke(InlineArtifactCreateToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                AgentBase,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineArtifactCreateToolConfigurationVariant2,
+                typeof(global::Vectara.InlineArtifactCreateToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineArtifactCreateToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineArtifactCreateToolConfigurationVariant2?>.Default.Equals(InlineArtifactCreateToolConfigurationVariant2, other.InlineArtifactCreateToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineArtifactCreateToolConfiguration obj1, InlineArtifactCreateToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineArtifactCreateToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineArtifactCreateToolConfiguration obj1, InlineArtifactCreateToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineArtifactCreateToolConfiguration o && Equals(o);
         }
     }
 }

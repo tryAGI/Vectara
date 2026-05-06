@@ -16,7 +16,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? SourceRecordIds { get; set; }
 
         /// <summary>
-        /// Only process dead letters from this specific run.
+        /// Only process dead letters whose `last_run_id` matches this value.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("last_run_id")]
         public string? LastRunId { get; set; }
@@ -41,7 +41,7 @@ namespace Vectara
         /// Specific source record IDs to process. If omitted, processes all matching dead letters.
         /// </param>
         /// <param name="lastRunId">
-        /// Only process dead letters from this specific run.
+        /// Only process dead letters whose `last_run_id` matches this value.
         /// </param>
         /// <param name="origin">
         /// How this dead letter was created.

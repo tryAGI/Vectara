@@ -665,7 +665,7 @@ namespace Vectara
         /// Specific source record IDs to process. If omitted, processes all matching dead letters.
         /// </param>
         /// <param name="lastRunId">
-        /// Only process dead letters from this specific run.
+        /// Only process dead letters whose `last_run_id` matches this value.
         /// </param>
         /// <param name="origin">
         /// How this dead letter was created.
