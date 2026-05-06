@@ -16,7 +16,7 @@ namespace Vectara
     /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>
     /// Example: {"custom_param":"value","limit":10}
     /// </summary>
-    public sealed partial class InlineDynamicVectaraToolConfigurationArgumentOverride
+    public sealed partial class InlineDynamicVectaraToolConfigurationVariant2ArgumentOverride
     {
 
         /// <summary>

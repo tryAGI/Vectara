@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,92 +7,215 @@ namespace Vectara
     /// <summary>
     /// A corpora search tool configuration defined inline in the agent.
     /// </summary>
-    public sealed partial class InlineCorporaSearchToolConfiguration
+    public readonly partial struct InlineCorporaSearchToolConfiguration : global::System.IEquatable<InlineCorporaSearchToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'corpora_search' for inline corpora search tool configurations.<br/>
-        /// Default Value: corpora_search
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"corpora_search"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "corpora_search";
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// LLM-exposed parameters for the corpora search tool that can be filled in during execution.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
-        public global::Vectara.CorporaSearchToolParameters? ArgumentOverride { get; set; }
-
-        /// <summary>
-        /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when turn-start resolution is needed.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("query_configuration")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.AgentCorporaSearchQueryConfiguration QueryConfiguration { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineCorporaSearchToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'corpora_search' for inline corpora search tool configurations.<br/>
-        /// Default Value: corpora_search
-        /// </param>
-        /// <param name="queryConfiguration">
-        /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when turn-start resolution is needed.
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="argumentOverride">
-        /// LLM-exposed parameters for the corpora search tool that can be filled in during execution.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; }
 #endif
-        public InlineCorporaSearchToolConfiguration(
-            string type,
-            global::Vectara.AgentCorporaSearchQueryConfiguration queryConfiguration,
-            string? descriptionTemplate,
-            global::Vectara.CorporaSearchToolParameters? argumentOverride)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
+#endif
+        public bool IsAgentBase => AgentBase != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineCorporaSearchToolConfigurationVariant2? InlineCorporaSearchToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineCorporaSearchToolConfigurationVariant2? InlineCorporaSearchToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineCorporaSearchToolConfigurationVariant2))]
+#endif
+        public bool IsInlineCorporaSearchToolConfigurationVariant2 => InlineCorporaSearchToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineCorporaSearchToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineCorporaSearchToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineCorporaSearchToolConfiguration @this) => @this.AgentBase;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineCorporaSearchToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.DescriptionTemplate = descriptionTemplate;
-            this.ArgumentOverride = argumentOverride;
-            this.QueryConfiguration = queryConfiguration ?? throw new global::System.ArgumentNullException(nameof(queryConfiguration));
+            AgentBase = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineCorporaSearchToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineCorporaSearchToolConfiguration()
+        public static implicit operator InlineCorporaSearchToolConfiguration(global::Vectara.InlineCorporaSearchToolConfigurationVariant2 value) => new InlineCorporaSearchToolConfiguration((global::Vectara.InlineCorporaSearchToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineCorporaSearchToolConfigurationVariant2?(InlineCorporaSearchToolConfiguration @this) => @this.InlineCorporaSearchToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineCorporaSearchToolConfiguration(global::Vectara.InlineCorporaSearchToolConfigurationVariant2? value)
         {
+            InlineCorporaSearchToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineCorporaSearchToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? agentBase,
+            global::Vectara.InlineCorporaSearchToolConfigurationVariant2? inlineCorporaSearchToolConfigurationVariant2
+            )
+        {
+            AgentBase = agentBase;
+            InlineCorporaSearchToolConfigurationVariant2 = inlineCorporaSearchToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineCorporaSearchToolConfigurationVariant2 as object ??
+            AgentBase as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            AgentBase?.ToString() ??
+            InlineCorporaSearchToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsAgentBase && IsInlineCorporaSearchToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineCorporaSearchToolConfigurationVariant2?, TResult>? inlineCorporaSearchToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase && agentBase != null)
+            {
+                return agentBase(AgentBase!);
+            }
+            else if (IsInlineCorporaSearchToolConfigurationVariant2 && inlineCorporaSearchToolConfigurationVariant2 != null)
+            {
+                return inlineCorporaSearchToolConfigurationVariant2(InlineCorporaSearchToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
+            global::System.Action<global::Vectara.InlineCorporaSearchToolConfigurationVariant2?>? inlineCorporaSearchToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineCorporaSearchToolConfigurationVariant2)
+            {
+                inlineCorporaSearchToolConfigurationVariant2?.Invoke(InlineCorporaSearchToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                AgentBase,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineCorporaSearchToolConfigurationVariant2,
+                typeof(global::Vectara.InlineCorporaSearchToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineCorporaSearchToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineCorporaSearchToolConfigurationVariant2?>.Default.Equals(InlineCorporaSearchToolConfigurationVariant2, other.InlineCorporaSearchToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineCorporaSearchToolConfiguration obj1, InlineCorporaSearchToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineCorporaSearchToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineCorporaSearchToolConfiguration obj1, InlineCorporaSearchToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineCorporaSearchToolConfiguration o && Equals(o);
         }
     }
 }

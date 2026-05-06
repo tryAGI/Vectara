@@ -7,7 +7,7 @@ namespace Vectara
     /// Optional hardcoded arguments that will be passed to the lambda function. When specified, these values will be used instead of allowing the LLM to fill in those parameters.<br/>
     /// Example: {"custom_param":"value"}
     /// </summary>
-    public sealed partial class InlineLambdaToolConfigurationArgumentOverride
+    public sealed partial class InlineLambdaToolConfigurationVariant2ArgumentOverride
     {
 
         /// <summary>

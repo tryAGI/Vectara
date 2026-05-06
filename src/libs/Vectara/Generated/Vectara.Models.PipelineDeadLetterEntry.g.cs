@@ -44,7 +44,7 @@ namespace Vectara
         public string? ErrorMessage { get; set; }
 
         /// <summary>
-        /// The ID of the pipeline run that most recently processed (or failed) this record.
+        /// The ID of the run that most recently attempted this record.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("last_run_id")]
         public string? LastRunId { get; set; }
@@ -107,7 +107,7 @@ namespace Vectara
         /// The error message from the most recent failed processing attempt.
         /// </param>
         /// <param name="lastRunId">
-        /// The ID of the pipeline run that most recently processed (or failed) this record.
+        /// The ID of the run that most recently attempted this record.
         /// </param>
         /// <param name="updatedAt">
         /// When this dead letter was last updated.

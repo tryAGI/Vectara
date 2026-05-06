@@ -44,6 +44,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("capabilities.tool_calling")) __score0++;
             if (__jsonProps.Contains("description")) __score0++;
             if (__jsonProps.Contains("headers")) __score0++;
+            if (__jsonProps.Contains("idle_timeout_seconds")) __score0++;
             if (__jsonProps.Contains("model")) __score0++;
             if (__jsonProps.Contains("name")) __score0++;
             if (__jsonProps.Contains("test_model_parameters")) __score0++;

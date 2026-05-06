@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,92 +7,215 @@ namespace Vectara
     /// <summary>
     /// A sub-agent tool configuration defined inline in the agent for invoking specialized sub-agents.
     /// </summary>
-    public sealed partial class InlineSubAgentToolConfiguration
+    public readonly partial struct InlineSubAgentToolConfiguration : global::System.IEquatable<InlineSubAgentToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'sub_agent' for inline sub-agent tool configurations.<br/>
-        /// Default Value: sub_agent
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"sub_agent"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "sub_agent";
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// Configurable parameters for the sub-agent tool. If not overridden, they will be required by the LLM to fill in.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
-        public global::Vectara.SubAgentToolParameters? ArgumentOverride { get; set; }
-
-        /// <summary>
-        /// User-configurable settings for the sub-agent tool. These parameters are never exposed to the agent.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("sub_agent_configuration")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.SubAgentConfiguration SubAgentConfiguration { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineSubAgentToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'sub_agent' for inline sub-agent tool configurations.<br/>
-        /// Default Value: sub_agent
-        /// </param>
-        /// <param name="subAgentConfiguration">
-        /// User-configurable settings for the sub-agent tool. These parameters are never exposed to the agent.
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="argumentOverride">
-        /// Configurable parameters for the sub-agent tool. If not overridden, they will be required by the LLM to fill in.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? Base { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? Base { get; }
 #endif
-        public InlineSubAgentToolConfiguration(
-            string type,
-            global::Vectara.SubAgentConfiguration subAgentConfiguration,
-            string? descriptionTemplate,
-            global::Vectara.SubAgentToolParameters? argumentOverride)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
+#endif
+        public bool IsBase => Base != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineSubAgentToolConfigurationVariant2? InlineSubAgentToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineSubAgentToolConfigurationVariant2? InlineSubAgentToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineSubAgentToolConfigurationVariant2))]
+#endif
+        public bool IsInlineSubAgentToolConfigurationVariant2 => InlineSubAgentToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineSubAgentToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineSubAgentToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineSubAgentToolConfiguration @this) => @this.Base;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineSubAgentToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.DescriptionTemplate = descriptionTemplate;
-            this.ArgumentOverride = argumentOverride;
-            this.SubAgentConfiguration = subAgentConfiguration ?? throw new global::System.ArgumentNullException(nameof(subAgentConfiguration));
+            Base = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineSubAgentToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineSubAgentToolConfiguration()
+        public static implicit operator InlineSubAgentToolConfiguration(global::Vectara.InlineSubAgentToolConfigurationVariant2 value) => new InlineSubAgentToolConfiguration((global::Vectara.InlineSubAgentToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineSubAgentToolConfigurationVariant2?(InlineSubAgentToolConfiguration @this) => @this.InlineSubAgentToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineSubAgentToolConfiguration(global::Vectara.InlineSubAgentToolConfigurationVariant2? value)
         {
+            InlineSubAgentToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineSubAgentToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? @base,
+            global::Vectara.InlineSubAgentToolConfigurationVariant2? inlineSubAgentToolConfigurationVariant2
+            )
+        {
+            Base = @base;
+            InlineSubAgentToolConfigurationVariant2 = inlineSubAgentToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineSubAgentToolConfigurationVariant2 as object ??
+            Base as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            Base?.ToString() ??
+            InlineSubAgentToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsBase && IsInlineSubAgentToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? @base = null,
+            global::System.Func<global::Vectara.InlineSubAgentToolConfigurationVariant2?, TResult>? inlineSubAgentToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase && @base != null)
+            {
+                return @base(Base!);
+            }
+            else if (IsInlineSubAgentToolConfigurationVariant2 && inlineSubAgentToolConfigurationVariant2 != null)
+            {
+                return inlineSubAgentToolConfigurationVariant2(InlineSubAgentToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? @base = null,
+            global::System.Action<global::Vectara.InlineSubAgentToolConfigurationVariant2?>? inlineSubAgentToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsInlineSubAgentToolConfigurationVariant2)
+            {
+                inlineSubAgentToolConfigurationVariant2?.Invoke(InlineSubAgentToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                Base,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineSubAgentToolConfigurationVariant2,
+                typeof(global::Vectara.InlineSubAgentToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineSubAgentToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineSubAgentToolConfigurationVariant2?>.Default.Equals(InlineSubAgentToolConfigurationVariant2, other.InlineSubAgentToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineSubAgentToolConfiguration obj1, InlineSubAgentToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineSubAgentToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineSubAgentToolConfiguration obj1, InlineSubAgentToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineSubAgentToolConfiguration o && Equals(o);
         }
     }
 }

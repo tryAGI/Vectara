@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Capabilities of a Large Language Model.
+    /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
     /// </summary>
     public sealed partial class LLMCapabilities
     {

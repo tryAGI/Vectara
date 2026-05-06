@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,98 +7,215 @@ namespace Vectara
     /// <summary>
     /// A lambda tool configuration defined inline in the agent for executing user-defined functions.
     /// </summary>
-    public sealed partial class InlineLambdaToolConfiguration
+    public readonly partial struct InlineLambdaToolConfiguration : global::System.IEquatable<InlineLambdaToolConfiguration>
     {
         /// <summary>
-        /// The type of tool configuration, which is always 'lambda' for inline lambda tool configurations.<br/>
-        /// Default Value: lambda
+        /// Base properties shared by all inline tool configurations on an agent.
         /// </summary>
-        /// <default>"lambda"</default>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "lambda";
-
-        /// <summary>
-        /// Unique identifier for a tool.<br/>
-        /// Example: tol_123e4567-e89b-12d3-a456-426614174000
-        /// </summary>
-        /// <example>tol_123e4567-e89b-12d3-a456-426614174000</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("tool_id")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string ToolId { get; set; }
-
-        /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description_template")]
-        public string? DescriptionTemplate { get; set; }
-
-        /// <summary>
-        /// Optional hardcoded arguments that will be passed to the lambda function. When specified, these values will be used instead of allowing the LLM to fill in those parameters.<br/>
-        /// Example: {"custom_param":"value"}
-        /// </summary>
-        /// <example>{"custom_param":"value"}</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
-        public object? ArgumentOverride { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InlineLambdaToolConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of tool configuration, which is always 'lambda' for inline lambda tool configurations.<br/>
-        /// Default Value: lambda
-        /// </param>
-        /// <param name="toolId">
-        /// Unique identifier for a tool.<br/>
-        /// Example: tol_123e4567-e89b-12d3-a456-426614174000
-        /// </param>
-        /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
-        /// Available Velocity variables:<br/>
-        /// - `$agent.name` - Agent name<br/>
-        /// - `$agent.metadata` - Agent metadata map<br/>
-        /// - `$session.key` - Session key<br/>
-        /// - `$session.metadata` - Session metadata map<br/>
-        /// - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")<br/>
-        /// Example: "Search tool configured for agent $agent.name on $currentDate"
-        /// </param>
-        /// <param name="argumentOverride">
-        /// Optional hardcoded arguments that will be passed to the lambda function. When specified, these values will be used instead of allowing the LLM to fill in those parameters.<br/>
-        /// Example: {"custom_param":"value"}
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; init; }
+#else
+        public global::Vectara.AgentToolConfigurationBase? AgentBase { get; }
 #endif
-        public InlineLambdaToolConfiguration(
-            string type,
-            string toolId,
-            string? descriptionTemplate,
-            object? argumentOverride)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
+#endif
+        public bool IsAgentBase => AgentBase != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.InlineLambdaToolConfigurationVariant2? InlineLambdaToolConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.InlineLambdaToolConfigurationVariant2? InlineLambdaToolConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineLambdaToolConfigurationVariant2))]
+#endif
+        public bool IsInlineLambdaToolConfigurationVariant2 => InlineLambdaToolConfigurationVariant2 != null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator InlineLambdaToolConfiguration(global::Vectara.AgentToolConfigurationBase value) => new InlineLambdaToolConfiguration((global::Vectara.AgentToolConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.AgentToolConfigurationBase?(InlineLambdaToolConfiguration @this) => @this.AgentBase;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineLambdaToolConfiguration(global::Vectara.AgentToolConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.ToolId = toolId ?? throw new global::System.ArgumentNullException(nameof(toolId));
-            this.DescriptionTemplate = descriptionTemplate;
-            this.ArgumentOverride = argumentOverride;
+            AgentBase = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InlineLambdaToolConfiguration" /> class.
+        /// 
         /// </summary>
-        public InlineLambdaToolConfiguration()
+        public static implicit operator InlineLambdaToolConfiguration(global::Vectara.InlineLambdaToolConfigurationVariant2 value) => new InlineLambdaToolConfiguration((global::Vectara.InlineLambdaToolConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.InlineLambdaToolConfigurationVariant2?(InlineLambdaToolConfiguration @this) => @this.InlineLambdaToolConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineLambdaToolConfiguration(global::Vectara.InlineLambdaToolConfigurationVariant2? value)
         {
+            InlineLambdaToolConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InlineLambdaToolConfiguration(
+            global::Vectara.AgentToolConfigurationBase? agentBase,
+            global::Vectara.InlineLambdaToolConfigurationVariant2? inlineLambdaToolConfigurationVariant2
+            )
+        {
+            AgentBase = agentBase;
+            InlineLambdaToolConfigurationVariant2 = inlineLambdaToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            InlineLambdaToolConfigurationVariant2 as object ??
+            AgentBase as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            AgentBase?.ToString() ??
+            InlineLambdaToolConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsAgentBase && IsInlineLambdaToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineLambdaToolConfigurationVariant2?, TResult>? inlineLambdaToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase && agentBase != null)
+            {
+                return agentBase(AgentBase!);
+            }
+            else if (IsInlineLambdaToolConfigurationVariant2 && inlineLambdaToolConfigurationVariant2 != null)
+            {
+                return inlineLambdaToolConfigurationVariant2(InlineLambdaToolConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
+            global::System.Action<global::Vectara.InlineLambdaToolConfigurationVariant2?>? inlineLambdaToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineLambdaToolConfigurationVariant2)
+            {
+                inlineLambdaToolConfigurationVariant2?.Invoke(InlineLambdaToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                AgentBase,
+                typeof(global::Vectara.AgentToolConfigurationBase),
+                InlineLambdaToolConfigurationVariant2,
+                typeof(global::Vectara.InlineLambdaToolConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(InlineLambdaToolConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentToolConfigurationBase?>.Default.Equals(AgentBase, other.AgentBase) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineLambdaToolConfigurationVariant2?>.Default.Equals(InlineLambdaToolConfigurationVariant2, other.InlineLambdaToolConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(InlineLambdaToolConfiguration obj1, InlineLambdaToolConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<InlineLambdaToolConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(InlineLambdaToolConfiguration obj1, InlineLambdaToolConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is InlineLambdaToolConfiguration o && Equals(o);
         }
     }
 }

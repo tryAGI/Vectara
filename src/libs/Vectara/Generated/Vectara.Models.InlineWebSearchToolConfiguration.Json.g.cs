@@ -2,7 +2,7 @@
 
 namespace Vectara
 {
-    public sealed partial class InlineWebSearchToolConfiguration
+    public readonly partial struct InlineWebSearchToolConfiguration
     {
         /// <summary>
         /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
@@ -41,7 +41,7 @@ namespace Vectara
             return global::System.Text.Json.JsonSerializer.Deserialize(
                 json,
                 typeof(global::Vectara.InlineWebSearchToolConfiguration),
-                jsonSerializerContext) as global::Vectara.InlineWebSearchToolConfiguration;
+                jsonSerializerContext) as global::Vectara.InlineWebSearchToolConfiguration?;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Vectara
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
                 jsonStream,
                 typeof(global::Vectara.InlineWebSearchToolConfiguration),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.InlineWebSearchToolConfiguration;
+                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.InlineWebSearchToolConfiguration?;
         }
 
         /// <summary>
