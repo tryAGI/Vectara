@@ -1173,6 +1173,677 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListAgentSessionsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentSession>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateAgentSessionRequest))]
+    internal sealed partial class SourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext
+    {
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [global::System.Text.Json.Serialization.JsonSourceGenerationOptions(
+        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+        Converters = new global::System.Type[]
+        {
+            typeof(global::Vectara.JsonConverters.FilterAttributeLevelJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FilterAttributeLevelNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FilterAttributeTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FilterAttributeTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FilterAttributeStatTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FilterAttributeStatTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.MetadataQueryRequestLevelJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.MetadataQueryRequestLevelNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.LanguageJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.LanguageNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.QueryWarningJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.QueryWarningNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SearchSemanticsJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SearchSemanticsNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SearchRerankerDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SearchRerankerDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CitationParametersStyleJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CitationParametersStyleNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.QueryStreamedResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.QueryStreamedResponseDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RewrittenQueryWarningJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RewrittenQueryWarningNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.QueryHistorySpanDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.QueryHistorySpanDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ChatStreamedResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ChatStreamedResponseDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.LLMOwnershipJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.LLMOwnershipNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RemoteAuthDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RemoteAuthDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.VertexAiAuthDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.VertexAiAuthDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AnthropicAuthDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AnthropicAuthDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateLLMRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateLLMRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateLLMRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateLLMRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ResponseFormatTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ResponseFormatTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateChatCompletionResponseObjectJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateChatCompletionResponseObjectNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateChatCompletionStreamResponseObjectJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateChatCompletionStreamResponseObjectNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.GenerationPresetOwnershipJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.GenerationPresetOwnershipNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateEncoderRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateEncoderRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobStateJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobStateNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ApiRoleJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ApiRoleNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CorpusRoleRoleJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CorpusRoleRoleNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentRoleRoleJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentRoleRoleNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ApiKeyRoleJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ApiKeyRoleNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateAppClientRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateAppClientRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolServerTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolServerTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolServerTransportJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolServerTransportNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FunctionDefinitionLanguageJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FunctionDefinitionLanguageNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FunctionDefinitionValidationStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.FunctionDefinitionValidationStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.LambdaToolVariant2LanguageJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.LambdaToolVariant2LanguageNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateLambdaToolRequestLanguageJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateLambdaToolRequestLanguageNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateToolRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateToolRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TestLambdaToolRequestLanguageJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TestLambdaToolRequestLanguageNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TestLambdaToolResponseValidationStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TestLambdaToolResponseValidationStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateToolRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateToolRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TestToolResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TestToolResponseDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TemplateTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TemplateTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InstructionDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InstructionDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInstructionRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInstructionRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateInstructionRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateInstructionRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetToolParametersMethodJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetToolParametersMethodNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SubAgentSessionModeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SubAgentSessionModeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ArtifactReadToolParametersEncodingJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ArtifactReadToolParametersEncodingNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageReadToolParametersDetailJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageReadToolParametersDetailNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DocumentConversionToolParametersOutputFormatJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DocumentConversionToolParametersOutputFormatNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentToolConfigurationDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentToolConfigurationDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStepInstructionDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStepInstructionDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentOutputParserDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentOutputParserDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TemplatedReminderHookJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TemplatedReminderHookNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStepReminderDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStepReminderDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CompactionConfigToolEventPolicyJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CompactionConfigToolEventPolicyNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolOutputOffloadingConfigurationModeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolOutputOffloadingConfigurationModeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentInputDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentInputDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageReadEventVariant2DetailJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageReadEventVariant2DetailNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentEventDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentEventDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InputBehaviorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InputBehaviorNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInputRequestDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInputRequestDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.IntervalScheduleConfigurationTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.IntervalScheduleConfigurationTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CronScheduleConfigurationTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CronScheduleConfigurationTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentScheduleExecutionStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentScheduleExecutionStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentIdentityModeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentIdentityModeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ConnectorConfigurationDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ConnectorConfigurationDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentConnectorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentConnectorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentConnectorStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentConnectorStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineVerificationDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineVerificationDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTransformDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTransformDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSyncModeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSyncModeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdatePipelineSourceDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdatePipelineSourceDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunTriggerTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunTriggerTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DeadLetterStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DeadLetterStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DeadLetterOriginJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DeadLetterOriginNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentTraceStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentTraceStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentTraceSpanStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentTraceSpanStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InvokeAgentSpanAttributesOutputTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InvokeAgentSpanAttributesOutputTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentTraceSpanDiscriminatorOperationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentTraceSpanDiscriminatorOperationNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateCorpusDocumentWaitForJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateCorpusDocumentWaitForNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListToolServersTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListToolServersTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListToolsTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListToolsTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListInstructionsTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListInstructionsTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListSessionArtifactsSortByJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListSessionArtifactsSortByNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListSessionArtifactsOrderByJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListSessionArtifactsOrderByNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListAgentConnectorsTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListAgentConnectorsTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListPipelinesSourceTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListPipelinesSourceTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTracesStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTracesStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTracesErrorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTracesErrorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTracesOperationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTracesOperationNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTracesToolErrorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTracesToolErrorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTraceSpansOperationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ListTraceSpansOperationNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ChunkingStrategyJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateDocumentRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SearchRerankerJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.QueryStreamedResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.KeyedSearchCorpusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SearchCorporaParametersJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.QueryHistorySpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ChatStreamedResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RemoteAuthJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateOpenAILLMRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateOpenAIResponsesLLMRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.VertexAiAuthJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AnthropicAuthJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateLLMRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateOpenAILLMRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateOpenAIResponsesLLMRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateLLMRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateGenerationPresetRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateEncoderRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateAppClientRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DynamicVectaraToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.McpToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CorporaSearchToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebSearchToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.LambdaToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SubAgentToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ArtifactCreateToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ArtifactReadToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ArtifactGrepToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageReadToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DocumentConversionToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.GetDocumentTextToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateToolRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateToolRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TestToolResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InstructionJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInitialInstructionRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInstructionRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateInstructionRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineDynamicVectaraToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineMcpToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineCorporaSearchToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineWebSearchToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineWebGetToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineLambdaToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineSubAgentToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineArtifactCreateToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineArtifactReadToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineArtifactGrepToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineImageReadToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineDocumentConversionToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineGetDocumentTextToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentToolConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ReferenceInstructionJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InlineInstructionJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStepInstructionJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentOutputParserJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStepReminderJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentInputJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InputMessageEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SkillLoadEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ArtifactUploadEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolInputEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolOutputEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ThinkingEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentOutputEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.StructuredOutputEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ContextLimitExceededEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.StepTransitionLimitExceededEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SessionInterruptedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageReadEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.StepTransitionEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CompactionEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInputMessageRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInterruptRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateCompactRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateInputRequestJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CompactionStartedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.S3SourceConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineTriggerJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineVerificationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateS3SourceConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.InvokeAgentTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ChatTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ExecuteToolTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ThinkingTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.OutputTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.GuardrailTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.StepTransitionTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageReadTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CompactionTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AgentTraceSpanJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::System.Collections.Generic.Dictionary<string, string>, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<bool?, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<int?, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<int?, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<int?, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<bool?, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<long?, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.User, global::Vectara.CreateUserResponse2>),
+
+            typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
+        })]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateAgentSessionRequestFromSession))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateAgentSessionRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentEventBase))]
@@ -1463,7 +2134,380 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Glossary>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.GlossaryEntry>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.JobState>))]
+    internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
+    {
+    }
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed partial class SourceGenerationContext : global::System.Text.Json.Serialization.JsonSerializerContext
     {
+        private static readonly global::System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver Resolver = global::System.Text.Json.Serialization.Metadata.JsonTypeInfoResolver.Combine(
+            SourceGenerationContextChunk0.Default,
+
+            SourceGenerationContextChunk1.Default
+            );
+
+        private static readonly global::System.Text.Json.JsonSerializerOptions DefaultOptions = CreateDefaultOptions();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SourceGenerationContext Default { get; } = new(DefaultOptions);
+
+        private SourceGenerationContext(global::System.Text.Json.JsonSerializerOptions options)
+            : base(options)
+        {
+        }
+
+        /// <inheritdoc />
+        protected override global::System.Text.Json.JsonSerializerOptions? GeneratedSerializerOptions => DefaultOptions;
+
+        /// <inheritdoc />
+        public override global::System.Text.Json.Serialization.Metadata.JsonTypeInfo? GetTypeInfo(global::System.Type type)
+        {
+            return Resolver.GetTypeInfo(type, Options);
+        }
+
+        private static global::System.Text.Json.JsonSerializerOptions CreateDefaultOptions()
+        {
+            var options = new global::System.Text.Json.JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+                TypeInfoResolver = Resolver,
+            };
+            options.Converters.Add(new global::Vectara.JsonConverters.FilterAttributeLevelJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FilterAttributeLevelNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FilterAttributeTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FilterAttributeTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FilterAttributeStatTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FilterAttributeStatTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.MetadataQueryRequestLevelJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.MetadataQueryRequestLevelNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.LanguageJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.LanguageNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.QueryWarningJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.QueryWarningNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SearchSemanticsJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SearchSemanticsNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SearchRerankerDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SearchRerankerDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CitationParametersStyleJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CitationParametersStyleNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.QueryStreamedResponseDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.QueryStreamedResponseDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RewrittenQueryWarningJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RewrittenQueryWarningNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.QueryHistorySpanDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.QueryHistorySpanDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ChatStreamedResponseDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ChatStreamedResponseDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.LLMOwnershipJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.LLMOwnershipNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RemoteAuthDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RemoteAuthDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.VertexAiAuthDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.VertexAiAuthDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AnthropicAuthDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AnthropicAuthDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateLLMRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateLLMRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateLLMRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateLLMRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.JsonSchemaDefinitionTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.JsonSchemaDefinitionTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ResponseFormatTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ResponseFormatTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateChatCompletionResponseObjectJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateChatCompletionResponseObjectNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateChatCompletionStreamResponseObjectJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateChatCompletionStreamResponseObjectNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.GenerationPresetOwnershipJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.GenerationPresetOwnershipNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateEncoderRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateEncoderRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.JobStateJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.JobStateNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.JobTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.JobTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ApiRoleJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ApiRoleNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CorpusRoleRoleJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CorpusRoleRoleNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentRoleRoleJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentRoleRoleNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ApiKeyRoleJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ApiKeyRoleNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateAppClientRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateAppClientRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolServerTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolServerTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolServerTransportJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolServerTransportNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FunctionDefinitionLanguageJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FunctionDefinitionLanguageNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FunctionDefinitionValidationStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.FunctionDefinitionValidationStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.LambdaToolVariant2LanguageJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.LambdaToolVariant2LanguageNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateLambdaToolRequestLanguageJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateLambdaToolRequestLanguageNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateToolRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateToolRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TestLambdaToolRequestLanguageJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TestLambdaToolRequestLanguageNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TestLambdaToolResponseValidationStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TestLambdaToolResponseValidationStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateToolRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateToolRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TestToolResponseDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TestToolResponseDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TemplateTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TemplateTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InstructionDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InstructionDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInstructionRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInstructionRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateInstructionRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateInstructionRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebSearchToolParametersProviderJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebSearchToolParametersProviderNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebGetToolParametersMethodJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebGetToolParametersMethodNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SubAgentSessionModeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SubAgentSessionModeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ArtifactReadToolParametersEncodingJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ArtifactReadToolParametersEncodingNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ImageReadToolParametersDetailJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ImageReadToolParametersDetailNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DocumentConversionToolParametersOutputFormatJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DocumentConversionToolParametersOutputFormatNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentToolConfigurationDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentToolConfigurationDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStepInstructionDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStepInstructionDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentOutputParserDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentOutputParserDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TemplatedReminderHookJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TemplatedReminderHookNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStepReminderDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStepReminderDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CompactionConfigToolEventPolicyJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CompactionConfigToolEventPolicyNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolOutputOffloadingConfigurationModeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolOutputOffloadingConfigurationModeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentInputDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentInputDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ImageReadEventVariant2DetailJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ImageReadEventVariant2DetailNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentEventDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentEventDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InputBehaviorJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InputBehaviorNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInputRequestDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInputRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.IntervalScheduleConfigurationTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.IntervalScheduleConfigurationTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CronScheduleConfigurationTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CronScheduleConfigurationTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentScheduleExecutionStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentScheduleExecutionStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentIdentityModeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentIdentityModeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ConnectorConfigurationDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ConnectorConfigurationDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineVerificationDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineVerificationDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineTransformDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineTransformDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineSyncModeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineSyncModeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdatePipelineSourceDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdatePipelineSourceDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunTriggerTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunTriggerTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DeadLetterStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DeadLetterStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DeadLetterOriginJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DeadLetterOriginNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceSpanStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceSpanStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InvokeAgentSpanAttributesOutputTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InvokeAgentSpanAttributesOutputTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceSpanDiscriminatorOperationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceSpanDiscriminatorOperationNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateCorpusDocumentWaitForJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateCorpusDocumentWaitForNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListToolServersTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListToolServersTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListToolsTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListToolsTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListInstructionsTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListInstructionsTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListSessionArtifactsSortByJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListSessionArtifactsSortByNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListSessionArtifactsOrderByJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListSessionArtifactsOrderByNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListAgentConnectorsTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListAgentConnectorsTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListPipelinesSourceTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListPipelinesSourceTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTracesStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTracesStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTracesErrorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTracesErrorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTracesOperationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTracesOperationNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTracesToolErrorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTracesToolErrorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTraceSpansOperationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ListTraceSpansOperationNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ChunkingStrategyJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SearchRerankerJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.QueryStreamedResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.KeyedSearchCorpusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SearchCorporaParametersJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.QueryHistorySpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ChatStreamedResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RemoteAuthJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateOpenAILLMRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateOpenAIResponsesLLMRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.VertexAiAuthJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AnthropicAuthJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateLLMRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateOpenAILLMRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateOpenAIResponsesLLMRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateLLMRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateGenerationPresetRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateEncoderRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateAppClientRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DynamicVectaraToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.McpToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CorporaSearchToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebSearchToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebGetToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.LambdaToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SubAgentToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ArtifactCreateToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ArtifactReadToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ArtifactGrepToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ImageReadToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DocumentConversionToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.GetDocumentTextToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateToolRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateToolRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TestToolResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InstructionJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInitialInstructionRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInstructionRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateInstructionRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineDynamicVectaraToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineMcpToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineCorporaSearchToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineWebSearchToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineWebGetToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineLambdaToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineSubAgentToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineArtifactCreateToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineArtifactReadToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineArtifactGrepToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineImageReadToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineDocumentConversionToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineGetDocumentTextToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentToolConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ReferenceInstructionJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InlineInstructionJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStepInstructionJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentOutputParserJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStepReminderJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentInputJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InputMessageEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SkillLoadEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ArtifactUploadEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolInputEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolOutputEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ThinkingEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentOutputEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.StructuredOutputEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ContextLimitExceededEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.StepTransitionLimitExceededEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SessionInterruptedEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ImageReadEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.StepTransitionEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CompactionEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInputMessageRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInterruptRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateCompactRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateInputRequestJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CompactionStartedEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.S3SourceConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineSourceJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineTriggerJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineVerificationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateS3SourceConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.InvokeAgentTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ChatTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ExecuteToolTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ThinkingTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.OutputTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.GuardrailTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.StepTransitionTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ImageReadTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CompactionTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceSpanJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<global::System.Collections.Generic.Dictionary<string, string>, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<bool?, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<int?, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<int?, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<int?, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<bool?, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<long?, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.User, global::Vectara.CreateUserResponse2>());
+            options.Converters.Add(new global::Vectara.JsonConverters.UnixTimestampJsonConverter());
+
+            return options;
+        }
     }
 }
