@@ -31,11 +31,11 @@ public static class VectaraToolExtensions
                     query: query,
                     search: new SearchCorporaParameters
                     {
-                        Value1 = new SearchCorporaParametersVariant1
+                        SearchCorporaParametersVariant1 = new SearchCorporaParametersVariant1
                         {
                             Corpora = corpusKeys.Select(key => new KeyedSearchCorpus
                             {
-                                Value2 = new KeyedSearchCorpusVariant2
+                                KeyedSearchCorpusVariant2 = new KeyedSearchCorpusVariant2
                                 {
                                     CorpusKey = key,
                                 },

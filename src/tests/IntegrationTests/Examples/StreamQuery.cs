@@ -39,13 +39,13 @@ public partial class Tests
             query: "What is this about?",
             search: new SearchCorporaParameters
             {
-                Value1 = new SearchCorporaParametersVariant1
+                SearchCorporaParametersVariant1 = new SearchCorporaParametersVariant1
                 {
                     Corpora =
                     [
                         new KeyedSearchCorpus
                         {
-                            Value2 = new KeyedSearchCorpusVariant2
+                            KeyedSearchCorpusVariant2 = new KeyedSearchCorpusVariant2
                             {
                                 CorpusKey = corpusKey,
                             },
