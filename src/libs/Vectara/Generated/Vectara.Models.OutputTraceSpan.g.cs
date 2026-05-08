@@ -29,6 +29,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentTraceSpanBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.OutputTraceSpanVariant2? OutputTraceSpanVariant2 { get; init; }
 #else
@@ -42,6 +55,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OutputTraceSpanVariant2))]
 #endif
         public bool IsOutputTraceSpanVariant2 => OutputTraceSpanVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickOutputTraceSpanVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.OutputTraceSpanVariant2? value)
+        {
+            value = OutputTraceSpanVariant2;
+            return IsOutputTraceSpanVariant2;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -118,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentTraceSpanBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.OutputTraceSpanVariant2?, TResult>? outputTraceSpanVariant2 = null,
+            global::System.Func<global::Vectara.AgentTraceSpanBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.OutputTraceSpanVariant2, TResult>? outputTraceSpanVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +169,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentTraceSpanBase?>? agentBase = null,
-            global::System.Action<global::Vectara.OutputTraceSpanVariant2?>? outputTraceSpanVariant2 = null,
+            global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.OutputTraceSpanVariant2>? outputTraceSpanVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsOutputTraceSpanVariant2)
+            {
+                outputTraceSpanVariant2?.Invoke(OutputTraceSpanVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
+            global::System.Action<global::Vectara.OutputTraceSpanVariant2>? outputTraceSpanVariant2 = null,
             bool validate = true)
         {
             if (validate)

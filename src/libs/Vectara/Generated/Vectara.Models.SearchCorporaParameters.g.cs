@@ -27,6 +27,19 @@ namespace Vectara
         public bool IsSearchCorporaParametersVariant1 => SearchCorporaParametersVariant1 != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSearchCorporaParametersVariant1(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SearchCorporaParametersVariant1? value)
+        {
+            value = SearchCorporaParametersVariant1;
+            return IsSearchCorporaParametersVariant1;
+        }
+
+        /// <summary>
         /// Search parameters to retrieve knowledge for the query.<br/>
         /// Example: {"limit":50}
         /// </summary>
@@ -43,6 +56,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SearchParameters))]
 #endif
         public bool IsSearchParameters => SearchParameters != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSearchParameters(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SearchParameters? value)
+        {
+            value = SearchParameters;
+            return IsSearchParameters;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -119,8 +145,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.SearchCorporaParametersVariant1?, TResult>? searchCorporaParametersVariant1 = null,
-            global::System.Func<global::Vectara.SearchParameters?, TResult>? searchParameters = null,
+            global::System.Func<global::Vectara.SearchCorporaParametersVariant1, TResult>? searchCorporaParametersVariant1 = null,
+            global::System.Func<global::Vectara.SearchParameters, TResult>? searchParameters = null,
             bool validate = true)
         {
             if (validate)
@@ -144,8 +170,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.SearchCorporaParametersVariant1?>? searchCorporaParametersVariant1 = null,
-            global::System.Action<global::Vectara.SearchParameters?>? searchParameters = null,
+            global::System.Action<global::Vectara.SearchCorporaParametersVariant1>? searchCorporaParametersVariant1 = null,
+
+            global::System.Action<global::Vectara.SearchParameters>? searchParameters = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSearchCorporaParametersVariant1)
+            {
+                searchCorporaParametersVariant1?.Invoke(SearchCorporaParametersVariant1!);
+            }
+            else if (IsSearchParameters)
+            {
+                searchParameters?.Invoke(SearchParameters!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.SearchCorporaParametersVariant1>? searchCorporaParametersVariant1 = null,
+            global::System.Action<global::Vectara.SearchParameters>? searchParameters = null,
             bool validate = true)
         {
             if (validate)

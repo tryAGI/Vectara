@@ -30,6 +30,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Slack))]
 #endif
         public bool IsSlack => Slack != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSlack(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SlackConnectorConfiguration? value)
+        {
+            value = Slack;
+            return IsSlack;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -87,7 +100,7 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.SlackConnectorConfiguration?, TResult>? slack = null,
+            global::System.Func<global::Vectara.SlackConnectorConfiguration, TResult>? slack = null,
             bool validate = true)
         {
             if (validate)
@@ -107,7 +120,25 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
+            global::System.Action<global::Vectara.SlackConnectorConfiguration>? slack = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSlack)
+            {
+                slack?.Invoke(Slack!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.SlackConnectorConfiguration>? slack = null,
             bool validate = true)
         {
             if (validate)

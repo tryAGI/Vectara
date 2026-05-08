@@ -29,6 +29,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickRequestBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InstructionRequestBase? value)
+        {
+            value = RequestBase;
+            return IsRequestBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineInstructionVariant2? InlineInstructionVariant2 { get; init; }
 #else
@@ -42,6 +55,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineInstructionVariant2))]
 #endif
         public bool IsInlineInstructionVariant2 => InlineInstructionVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInlineInstructionVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineInstructionVariant2? value)
+        {
+            value = InlineInstructionVariant2;
+            return IsInlineInstructionVariant2;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -118,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.InstructionRequestBase?, TResult>? requestBase = null,
-            global::System.Func<global::Vectara.InlineInstructionVariant2?, TResult>? inlineInstructionVariant2 = null,
+            global::System.Func<global::Vectara.InstructionRequestBase, TResult>? requestBase = null,
+            global::System.Func<global::Vectara.InlineInstructionVariant2, TResult>? inlineInstructionVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +169,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.InstructionRequestBase?>? requestBase = null,
-            global::System.Action<global::Vectara.InlineInstructionVariant2?>? inlineInstructionVariant2 = null,
+            global::System.Action<global::Vectara.InstructionRequestBase>? requestBase = null,
+
+            global::System.Action<global::Vectara.InlineInstructionVariant2>? inlineInstructionVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsRequestBase)
+            {
+                requestBase?.Invoke(RequestBase!);
+            }
+            else if (IsInlineInstructionVariant2)
+            {
+                inlineInstructionVariant2?.Invoke(InlineInstructionVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.InstructionRequestBase>? requestBase = null,
+            global::System.Action<global::Vectara.InlineInstructionVariant2>? inlineInstructionVariant2 = null,
             bool validate = true)
         {
             if (validate)

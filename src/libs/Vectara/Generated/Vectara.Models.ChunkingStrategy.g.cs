@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsMaxCharsChunkingStrategy => MaxCharsChunkingStrategy != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickMaxCharsChunkingStrategy(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.MaxCharsChunkingStrategy? value)
+        {
+            value = MaxCharsChunkingStrategy;
+            return IsMaxCharsChunkingStrategy;
+        }
+
+        /// <summary>
         /// Sets a chunking strategy that creates one chunk per sentence. This is the default strategy used when no chunking strategy is specified.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +60,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SentenceChunkingStrategy))]
 #endif
         public bool IsSentenceChunkingStrategy => SentenceChunkingStrategy != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSentenceChunkingStrategy(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SentenceChunkingStrategy? value)
+        {
+            value = SentenceChunkingStrategy;
+            return IsSentenceChunkingStrategy;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -126,8 +152,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.MaxCharsChunkingStrategy?, TResult>? maxCharsChunkingStrategy = null,
-            global::System.Func<global::Vectara.SentenceChunkingStrategy?, TResult>? sentenceChunkingStrategy = null,
+            global::System.Func<global::Vectara.MaxCharsChunkingStrategy, TResult>? maxCharsChunkingStrategy = null,
+            global::System.Func<global::Vectara.SentenceChunkingStrategy, TResult>? sentenceChunkingStrategy = null,
             bool validate = true)
         {
             if (validate)
@@ -151,8 +177,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.MaxCharsChunkingStrategy?>? maxCharsChunkingStrategy = null,
-            global::System.Action<global::Vectara.SentenceChunkingStrategy?>? sentenceChunkingStrategy = null,
+            global::System.Action<global::Vectara.MaxCharsChunkingStrategy>? maxCharsChunkingStrategy = null,
+
+            global::System.Action<global::Vectara.SentenceChunkingStrategy>? sentenceChunkingStrategy = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsMaxCharsChunkingStrategy)
+            {
+                maxCharsChunkingStrategy?.Invoke(MaxCharsChunkingStrategy!);
+            }
+            else if (IsSentenceChunkingStrategy)
+            {
+                sentenceChunkingStrategy?.Invoke(SentenceChunkingStrategy!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.MaxCharsChunkingStrategy>? maxCharsChunkingStrategy = null,
+            global::System.Action<global::Vectara.SentenceChunkingStrategy>? sentenceChunkingStrategy = null,
             bool validate = true)
         {
             if (validate)

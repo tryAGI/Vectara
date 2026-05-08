@@ -30,6 +30,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiCompatible))]
 #endif
         public bool IsOpenaiCompatible => OpenaiCompatible != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickOpenaiCompatible(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateOpenAIEncoderRequest? value)
+        {
+            value = OpenaiCompatible;
+            return IsOpenaiCompatible;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -87,7 +100,7 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateOpenAIEncoderRequest?, TResult>? openaiCompatible = null,
+            global::System.Func<global::Vectara.CreateOpenAIEncoderRequest, TResult>? openaiCompatible = null,
             bool validate = true)
         {
             if (validate)
@@ -107,7 +120,25 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateOpenAIEncoderRequest?>? openaiCompatible = null,
+            global::System.Action<global::Vectara.CreateOpenAIEncoderRequest>? openaiCompatible = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsOpenaiCompatible)
+            {
+                openaiCompatible?.Invoke(OpenaiCompatible!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CreateOpenAIEncoderRequest>? openaiCompatible = null,
             bool validate = true)
         {
             if (validate)

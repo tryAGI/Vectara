@@ -29,6 +29,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentTraceSpanBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CompactionTraceSpanVariant2? CompactionTraceSpanVariant2 { get; init; }
 #else
@@ -42,6 +55,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CompactionTraceSpanVariant2))]
 #endif
         public bool IsCompactionTraceSpanVariant2 => CompactionTraceSpanVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCompactionTraceSpanVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CompactionTraceSpanVariant2? value)
+        {
+            value = CompactionTraceSpanVariant2;
+            return IsCompactionTraceSpanVariant2;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -118,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentTraceSpanBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.CompactionTraceSpanVariant2?, TResult>? compactionTraceSpanVariant2 = null,
+            global::System.Func<global::Vectara.AgentTraceSpanBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.CompactionTraceSpanVariant2, TResult>? compactionTraceSpanVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +169,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentTraceSpanBase?>? agentBase = null,
-            global::System.Action<global::Vectara.CompactionTraceSpanVariant2?>? compactionTraceSpanVariant2 = null,
+            global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.CompactionTraceSpanVariant2>? compactionTraceSpanVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsCompactionTraceSpanVariant2)
+            {
+                compactionTraceSpanVariant2?.Invoke(CompactionTraceSpanVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
+            global::System.Action<global::Vectara.CompactionTraceSpanVariant2>? compactionTraceSpanVariant2 = null,
             bool validate = true)
         {
             if (validate)

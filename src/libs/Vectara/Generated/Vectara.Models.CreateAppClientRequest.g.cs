@@ -30,6 +30,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientCredentials))]
 #endif
         public bool IsClientCredentials => ClientCredentials != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickClientCredentials(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateClientCredentialsRequest? value)
+        {
+            value = ClientCredentials;
+            return IsClientCredentials;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -87,7 +100,7 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateClientCredentialsRequest?, TResult>? clientCredentials = null,
+            global::System.Func<global::Vectara.CreateClientCredentialsRequest, TResult>? clientCredentials = null,
             bool validate = true)
         {
             if (validate)
@@ -107,7 +120,25 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateClientCredentialsRequest?>? clientCredentials = null,
+            global::System.Action<global::Vectara.CreateClientCredentialsRequest>? clientCredentials = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsClientCredentials)
+            {
+                clientCredentials?.Invoke(ClientCredentials!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CreateClientCredentialsRequest>? clientCredentials = null,
             bool validate = true)
         {
             if (validate)

@@ -30,6 +30,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(S3))]
 #endif
         public bool IsS3 => S3 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickS3(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.S3SourceConfiguration? value)
+        {
+            value = S3;
+            return IsS3;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -107,6 +120,24 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<global::Vectara.S3SourceConfiguration?>? s3 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsS3)
+            {
+                s3?.Invoke(S3!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
             global::System.Action<global::Vectara.S3SourceConfiguration?>? s3 = null,
             bool validate = true)
         {

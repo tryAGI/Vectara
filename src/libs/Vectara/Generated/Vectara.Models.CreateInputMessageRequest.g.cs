@@ -29,6 +29,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateInputRequestBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateInputMessageRequestVariant2? CreateInputMessageRequestVariant2 { get; init; }
 #else
@@ -42,6 +55,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateInputMessageRequestVariant2))]
 #endif
         public bool IsCreateInputMessageRequestVariant2 => CreateInputMessageRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCreateInputMessageRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateInputMessageRequestVariant2? value)
+        {
+            value = CreateInputMessageRequestVariant2;
+            return IsCreateInputMessageRequestVariant2;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -118,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateInputRequestBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.CreateInputMessageRequestVariant2?, TResult>? createInputMessageRequestVariant2 = null,
+            global::System.Func<global::Vectara.CreateInputRequestBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.CreateInputMessageRequestVariant2, TResult>? createInputMessageRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +169,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateInputRequestBase?>? @base = null,
-            global::System.Action<global::Vectara.CreateInputMessageRequestVariant2?>? createInputMessageRequestVariant2 = null,
+            global::System.Action<global::Vectara.CreateInputRequestBase>? @base = null,
+
+            global::System.Action<global::Vectara.CreateInputMessageRequestVariant2>? createInputMessageRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsCreateInputMessageRequestVariant2)
+            {
+                createInputMessageRequestVariant2?.Invoke(CreateInputMessageRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CreateInputRequestBase>? @base = null,
+            global::System.Action<global::Vectara.CreateInputMessageRequestVariant2>? createInputMessageRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

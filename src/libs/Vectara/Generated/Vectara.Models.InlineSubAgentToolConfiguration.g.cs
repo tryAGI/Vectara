@@ -29,6 +29,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentToolConfigurationBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineSubAgentToolConfigurationVariant2? InlineSubAgentToolConfigurationVariant2 { get; init; }
 #else
@@ -42,6 +55,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineSubAgentToolConfigurationVariant2))]
 #endif
         public bool IsInlineSubAgentToolConfigurationVariant2 => InlineSubAgentToolConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInlineSubAgentToolConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineSubAgentToolConfigurationVariant2? value)
+        {
+            value = InlineSubAgentToolConfigurationVariant2;
+            return IsInlineSubAgentToolConfigurationVariant2;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -118,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.InlineSubAgentToolConfigurationVariant2?, TResult>? inlineSubAgentToolConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.AgentToolConfigurationBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.InlineSubAgentToolConfigurationVariant2, TResult>? inlineSubAgentToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +169,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? @base = null,
-            global::System.Action<global::Vectara.InlineSubAgentToolConfigurationVariant2?>? inlineSubAgentToolConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? @base = null,
+
+            global::System.Action<global::Vectara.InlineSubAgentToolConfigurationVariant2>? inlineSubAgentToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsInlineSubAgentToolConfigurationVariant2)
+            {
+                inlineSubAgentToolConfigurationVariant2?.Invoke(InlineSubAgentToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? @base = null,
+            global::System.Action<global::Vectara.InlineSubAgentToolConfigurationVariant2>? inlineSubAgentToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)

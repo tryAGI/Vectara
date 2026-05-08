@@ -35,6 +35,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentEventBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StructuredOutputEventVariant2? StructuredOutputEventVariant2 { get; init; }
 #else
@@ -48,6 +61,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StructuredOutputEventVariant2))]
 #endif
         public bool IsStructuredOutputEventVariant2 => StructuredOutputEventVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStructuredOutputEventVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StructuredOutputEventVariant2? value)
+        {
+            value = StructuredOutputEventVariant2;
+            return IsStructuredOutputEventVariant2;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -124,8 +150,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentEventBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.StructuredOutputEventVariant2?, TResult>? structuredOutputEventVariant2 = null,
+            global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.StructuredOutputEventVariant2, TResult>? structuredOutputEventVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -149,8 +175,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentEventBase?>? agentBase = null,
-            global::System.Action<global::Vectara.StructuredOutputEventVariant2?>? structuredOutputEventVariant2 = null,
+            global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.StructuredOutputEventVariant2>? structuredOutputEventVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsStructuredOutputEventVariant2)
+            {
+                structuredOutputEventVariant2?.Invoke(StructuredOutputEventVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
+            global::System.Action<global::Vectara.StructuredOutputEventVariant2>? structuredOutputEventVariant2 = null,
             bool validate = true)
         {
             if (validate)
