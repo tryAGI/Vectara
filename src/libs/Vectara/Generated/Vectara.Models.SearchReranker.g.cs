@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsCustomerReranker => CustomerReranker != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCustomerReranker(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CustomerSpecificReranker? value)
+        {
+            value = CustomerReranker;
+            return IsCustomerReranker;
+        }
+
+        /// <summary>
         /// A reranker that uses user-defined functions to reorder search results.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +60,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Userfn))]
 #endif
         public bool IsUserfn => Userfn != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickUserfn(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UserFunctionReranker? value)
+        {
+            value = Userfn;
+            return IsUserfn;
+        }
 
         /// <summary>
         /// A reranker that uses Maximal Marginal Relevance to balance relevance and diversity in search results.
@@ -66,6 +92,19 @@ namespace Vectara
         public bool IsMmr => Mmr != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickMmr(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.MMRReranker? value)
+        {
+            value = Mmr;
+            return IsMmr;
+        }
+
+        /// <summary>
         /// A reranker that applies multiple rerankers in sequence to produce the final search results.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -83,6 +122,19 @@ namespace Vectara
         public bool IsChain => Chain != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickChain(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ChainReranker? value)
+        {
+            value = Chain;
+            return IsChain;
+        }
+
+        /// <summary>
         /// A placeholder reranker that does not modify the original search results ordering.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -98,6 +150,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(None))]
 #endif
         public bool IsNone => None != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickNone(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.NoneReranker? value)
+        {
+            value = None;
+            return IsNone;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -243,11 +308,11 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CustomerSpecificReranker?, TResult>? customerReranker = null,
-            global::System.Func<global::Vectara.UserFunctionReranker?, TResult>? userfn = null,
-            global::System.Func<global::Vectara.MMRReranker?, TResult>? mmr = null,
-            global::System.Func<global::Vectara.ChainReranker?, TResult>? chain = null,
-            global::System.Func<global::Vectara.NoneReranker?, TResult>? none = null,
+            global::System.Func<global::Vectara.CustomerSpecificReranker, TResult>? customerReranker = null,
+            global::System.Func<global::Vectara.UserFunctionReranker, TResult>? userfn = null,
+            global::System.Func<global::Vectara.MMRReranker, TResult>? mmr = null,
+            global::System.Func<global::Vectara.ChainReranker, TResult>? chain = null,
+            global::System.Func<global::Vectara.NoneReranker, TResult>? none = null,
             bool validate = true)
         {
             if (validate)
@@ -283,11 +348,53 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CustomerSpecificReranker?>? customerReranker = null,
-            global::System.Action<global::Vectara.UserFunctionReranker?>? userfn = null,
-            global::System.Action<global::Vectara.MMRReranker?>? mmr = null,
-            global::System.Action<global::Vectara.ChainReranker?>? chain = null,
-            global::System.Action<global::Vectara.NoneReranker?>? none = null,
+            global::System.Action<global::Vectara.CustomerSpecificReranker>? customerReranker = null,
+
+            global::System.Action<global::Vectara.UserFunctionReranker>? userfn = null,
+
+            global::System.Action<global::Vectara.MMRReranker>? mmr = null,
+
+            global::System.Action<global::Vectara.ChainReranker>? chain = null,
+
+            global::System.Action<global::Vectara.NoneReranker>? none = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsCustomerReranker)
+            {
+                customerReranker?.Invoke(CustomerReranker!);
+            }
+            else if (IsUserfn)
+            {
+                userfn?.Invoke(Userfn!);
+            }
+            else if (IsMmr)
+            {
+                mmr?.Invoke(Mmr!);
+            }
+            else if (IsChain)
+            {
+                chain?.Invoke(Chain!);
+            }
+            else if (IsNone)
+            {
+                none?.Invoke(None!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CustomerSpecificReranker>? customerReranker = null,
+            global::System.Action<global::Vectara.UserFunctionReranker>? userfn = null,
+            global::System.Action<global::Vectara.MMRReranker>? mmr = null,
+            global::System.Action<global::Vectara.ChainReranker>? chain = null,
+            global::System.Action<global::Vectara.NoneReranker>? none = null,
             bool validate = true)
         {
             if (validate)

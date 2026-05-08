@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsMcp => Mcp != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickMcp(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateMcpToolRequest? value)
+        {
+            value = Mcp;
+            return IsMcp;
+        }
+
+        /// <summary>
         /// Request to update a lambda tool, allowing modifications to code, configuration, and metadata.<br/>
         /// When code is updated, input and output schemas are automatically re-discovered from function parameter type annotations.
         /// </summary>
@@ -48,6 +61,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Lambda))]
 #endif
         public bool IsLambda => Lambda != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickLambda(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateLambdaToolRequest? value)
+        {
+            value = Lambda;
+            return IsLambda;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -127,8 +153,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.UpdateMcpToolRequest?, TResult>? mcp = null,
-            global::System.Func<global::Vectara.UpdateLambdaToolRequest?, TResult>? lambda = null,
+            global::System.Func<global::Vectara.UpdateMcpToolRequest, TResult>? mcp = null,
+            global::System.Func<global::Vectara.UpdateLambdaToolRequest, TResult>? lambda = null,
             bool validate = true)
         {
             if (validate)
@@ -152,8 +178,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.UpdateMcpToolRequest?>? mcp = null,
-            global::System.Action<global::Vectara.UpdateLambdaToolRequest?>? lambda = null,
+            global::System.Action<global::Vectara.UpdateMcpToolRequest>? mcp = null,
+
+            global::System.Action<global::Vectara.UpdateLambdaToolRequest>? lambda = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsMcp)
+            {
+                mcp?.Invoke(Mcp!);
+            }
+            else if (IsLambda)
+            {
+                lambda?.Invoke(Lambda!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.UpdateMcpToolRequest>? mcp = null,
+            global::System.Action<global::Vectara.UpdateLambdaToolRequest>? lambda = null,
             bool validate = true)
         {
             if (validate)

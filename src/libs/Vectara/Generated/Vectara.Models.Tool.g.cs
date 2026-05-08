@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsDynamicVectara => DynamicVectara != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDynamicVectara(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.DynamicVectaraTool? value)
+        {
+            value = DynamicVectara;
+            return IsDynamicVectara;
+        }
+
+        /// <summary>
         /// An MCP (Model Context Protocol) tool that connects to external MCP servers for extended functionality.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +60,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Mcp))]
 #endif
         public bool IsMcp => Mcp != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickMcp(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.McpTool? value)
+        {
+            value = Mcp;
+            return IsMcp;
+        }
 
         /// <summary>
         /// A corpora search tool that searches through Vectara corpora to find relevant information.
@@ -66,6 +92,19 @@ namespace Vectara
         public bool IsCorporaSearch => CorporaSearch != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCorporaSearch(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CorporaSearchTool? value)
+        {
+            value = CorporaSearch;
+            return IsCorporaSearch;
+        }
+
+        /// <summary>
         /// A web search tool that searches the internet for relevant information.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -83,6 +122,19 @@ namespace Vectara
         public bool IsWebSearch => WebSearch != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickWebSearch(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WebSearchTool? value)
+        {
+            value = WebSearch;
+            return IsWebSearch;
+        }
+
+        /// <summary>
         /// A web get tool that fetches content from URLs using HTTP requests.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -98,6 +150,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WebGet))]
 #endif
         public bool IsWebGet => WebGet != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickWebGet(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WebGetTool? value)
+        {
+            value = WebGet;
+            return IsWebGet;
+        }
 
         /// <summary>
         /// A user-defined function that can be executed as a tool by agents.<br/>
@@ -119,6 +184,19 @@ namespace Vectara
         public bool IsLambda => Lambda != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickLambda(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.LambdaTool? value)
+        {
+            value = Lambda;
+            return IsLambda;
+        }
+
+        /// <summary>
         /// A tool that spawns a specialized sub-agent to handle complex, multi-step tasks autonomously.<br/>
         /// Sub-agents maintain separate context from the main agent and can be specialized for specific types of tasks like code review, general research, or output styling.
         /// </summary>
@@ -135,6 +213,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SubAgent))]
 #endif
         public bool IsSubAgent => SubAgent != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSubAgent(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SubAgentTool? value)
+        {
+            value = SubAgent;
+            return IsSubAgent;
+        }
 
         /// <summary>
         /// A tool that creates artifacts from text or structured data content that can be stored and referenced later.
@@ -154,6 +245,19 @@ namespace Vectara
         public bool IsArtifactCreate => ArtifactCreate != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactCreate(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactCreateTool? value)
+        {
+            value = ArtifactCreate;
+            return IsArtifactCreate;
+        }
+
+        /// <summary>
         /// A tool that reads artifact content from the agent session workspace with flexible size and range options.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -169,6 +273,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactRead))]
 #endif
         public bool IsArtifactRead => ArtifactRead != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactRead(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactReadTool? value)
+        {
+            value = ArtifactRead;
+            return IsArtifactRead;
+        }
 
         /// <summary>
         /// A tool that searches through an artifact's content using grep with support for all standard grep options.
@@ -188,6 +305,19 @@ namespace Vectara
         public bool IsArtifactGrep => ArtifactGrep != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactGrep(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactGrepTool? value)
+        {
+            value = ArtifactGrep;
+            return IsArtifactGrep;
+        }
+
+        /// <summary>
         /// A tool that loads image artifacts into the conversation context for viewing and analysis.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -203,6 +333,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ImageRead))]
 #endif
         public bool IsImageRead => ImageRead != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickImageRead(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ImageReadTool? value)
+        {
+            value = ImageRead;
+            return IsImageRead;
+        }
 
         /// <summary>
         /// A tool that converts document artifacts (PDF, Word, PowerPoint, etc.) to various formats.
@@ -222,6 +365,19 @@ namespace Vectara
         public bool IsDocumentConversion => DocumentConversion != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDocumentConversion(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.DocumentConversionTool? value)
+        {
+            value = DocumentConversion;
+            return IsDocumentConversion;
+        }
+
+        /// <summary>
         /// A tool that fetches the full text content of a document from a corpus and stores it as an artifact.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -237,6 +393,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GetDocumentText))]
 #endif
         public bool IsGetDocumentText => GetDocumentText != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGetDocumentText(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GetDocumentTextTool? value)
+        {
+            value = GetDocumentText;
+            return IsGetDocumentText;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -638,6 +807,96 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<global::Vectara.DynamicVectaraTool?>? dynamicVectara = null,
+
+            global::System.Action<global::Vectara.McpTool?>? mcp = null,
+
+            global::System.Action<global::Vectara.CorporaSearchTool?>? corporaSearch = null,
+
+            global::System.Action<global::Vectara.WebSearchTool?>? webSearch = null,
+
+            global::System.Action<global::Vectara.WebGetTool?>? webGet = null,
+
+            global::System.Action<global::Vectara.LambdaTool?>? lambda = null,
+
+            global::System.Action<global::Vectara.SubAgentTool?>? subAgent = null,
+
+            global::System.Action<global::Vectara.ArtifactCreateTool?>? artifactCreate = null,
+
+            global::System.Action<global::Vectara.ArtifactReadTool?>? artifactRead = null,
+
+            global::System.Action<global::Vectara.ArtifactGrepTool?>? artifactGrep = null,
+
+            global::System.Action<global::Vectara.ImageReadTool?>? imageRead = null,
+
+            global::System.Action<global::Vectara.DocumentConversionTool?>? documentConversion = null,
+
+            global::System.Action<global::Vectara.GetDocumentTextTool?>? getDocumentText = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsDynamicVectara)
+            {
+                dynamicVectara?.Invoke(DynamicVectara!);
+            }
+            else if (IsMcp)
+            {
+                mcp?.Invoke(Mcp!);
+            }
+            else if (IsCorporaSearch)
+            {
+                corporaSearch?.Invoke(CorporaSearch!);
+            }
+            else if (IsWebSearch)
+            {
+                webSearch?.Invoke(WebSearch!);
+            }
+            else if (IsWebGet)
+            {
+                webGet?.Invoke(WebGet!);
+            }
+            else if (IsLambda)
+            {
+                lambda?.Invoke(Lambda!);
+            }
+            else if (IsSubAgent)
+            {
+                subAgent?.Invoke(SubAgent!);
+            }
+            else if (IsArtifactCreate)
+            {
+                artifactCreate?.Invoke(ArtifactCreate!);
+            }
+            else if (IsArtifactRead)
+            {
+                artifactRead?.Invoke(ArtifactRead!);
+            }
+            else if (IsArtifactGrep)
+            {
+                artifactGrep?.Invoke(ArtifactGrep!);
+            }
+            else if (IsImageRead)
+            {
+                imageRead?.Invoke(ImageRead!);
+            }
+            else if (IsDocumentConversion)
+            {
+                documentConversion?.Invoke(DocumentConversion!);
+            }
+            else if (IsGetDocumentText)
+            {
+                getDocumentText?.Invoke(GetDocumentText!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
             global::System.Action<global::Vectara.DynamicVectaraTool?>? dynamicVectara = null,
             global::System.Action<global::Vectara.McpTool?>? mcp = null,
             global::System.Action<global::Vectara.CorporaSearchTool?>? corporaSearch = null,

@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsCron => Cron != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCron(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CronTriggerConfiguration? value)
+        {
+            value = Cron;
+            return IsCron;
+        }
+
+        /// <summary>
         /// Run the pipeline at a fixed interval.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -49,6 +62,19 @@ namespace Vectara
         public bool IsInterval => Interval != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInterval(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.IntervalTriggerConfiguration? value)
+        {
+            value = Interval;
+            return IsInterval;
+        }
+
+        /// <summary>
         /// Pipeline is only triggered manually via the trigger endpoint. No automatic scheduling.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -64,6 +90,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Manual))]
 #endif
         public bool IsManual => Manual != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickManual(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ManualTriggerConfiguration? value)
+        {
+            value = Manual;
+            return IsManual;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -165,9 +204,9 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CronTriggerConfiguration?, TResult>? cron = null,
-            global::System.Func<global::Vectara.IntervalTriggerConfiguration?, TResult>? interval = null,
-            global::System.Func<global::Vectara.ManualTriggerConfiguration?, TResult>? manual = null,
+            global::System.Func<global::Vectara.CronTriggerConfiguration, TResult>? cron = null,
+            global::System.Func<global::Vectara.IntervalTriggerConfiguration, TResult>? interval = null,
+            global::System.Func<global::Vectara.ManualTriggerConfiguration, TResult>? manual = null,
             bool validate = true)
         {
             if (validate)
@@ -195,9 +234,39 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CronTriggerConfiguration?>? cron = null,
-            global::System.Action<global::Vectara.IntervalTriggerConfiguration?>? interval = null,
-            global::System.Action<global::Vectara.ManualTriggerConfiguration?>? manual = null,
+            global::System.Action<global::Vectara.CronTriggerConfiguration>? cron = null,
+
+            global::System.Action<global::Vectara.IntervalTriggerConfiguration>? interval = null,
+
+            global::System.Action<global::Vectara.ManualTriggerConfiguration>? manual = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsCron)
+            {
+                cron?.Invoke(Cron!);
+            }
+            else if (IsInterval)
+            {
+                interval?.Invoke(Interval!);
+            }
+            else if (IsManual)
+            {
+                manual?.Invoke(Manual!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CronTriggerConfiguration>? cron = null,
+            global::System.Action<global::Vectara.IntervalTriggerConfiguration>? interval = null,
+            global::System.Action<global::Vectara.ManualTriggerConfiguration>? manual = null,
             bool validate = true)
         {
             if (validate)

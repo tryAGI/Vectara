@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsSkillLoad => SkillLoad != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSkillLoad(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SkillLoadEvent? value)
+        {
+            value = SkillLoad;
+            return IsSkillLoad;
+        }
+
+        /// <summary>
         /// An event representing chain-of-thought thinking by the agent.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +60,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Thinking))]
 #endif
         public bool IsThinking => Thinking != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickThinking(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ThinkingEvent? value)
+        {
+            value = Thinking;
+            return IsThinking;
+        }
 
         /// <summary>
         /// Event representing files uploaded to the agent workspace as artifacts.<br/>
@@ -69,6 +95,19 @@ namespace Vectara
         public bool IsArtifactUpload => ArtifactUpload != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactUpload(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactUploadEvent? value)
+        {
+            value = ArtifactUpload;
+            return IsArtifactUpload;
+        }
+
+        /// <summary>
         /// An input message event from a user.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -84,6 +123,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InputMessage))]
 #endif
         public bool IsInputMessage => InputMessage != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInputMessage(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InputMessageEvent? value)
+        {
+            value = InputMessage;
+            return IsInputMessage;
+        }
 
         /// <summary>
         /// A streaming chunk of agent output (SSE only, not stored).
@@ -103,6 +155,19 @@ namespace Vectara
         public bool IsStreamingAgentOutput => StreamingAgentOutput != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStreamingAgentOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamingAgentOutput? value)
+        {
+            value = StreamingAgentOutput;
+            return IsStreamingAgentOutput;
+        }
+
+        /// <summary>
         /// Signals the end of streaming agent output (SSE only, not stored).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -118,6 +183,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StreamingAgentOutputEnd))]
 #endif
         public bool IsStreamingAgentOutputEnd => StreamingAgentOutputEnd != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStreamingAgentOutputEnd(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamingAgentOutputEnd? value)
+        {
+            value = StreamingAgentOutputEnd;
+            return IsStreamingAgentOutputEnd;
+        }
 
         /// <summary>
         /// A streaming chunk of agent thinking (SSE only, not stored).
@@ -137,6 +215,19 @@ namespace Vectara
         public bool IsStreamingThinking => StreamingThinking != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStreamingThinking(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamingThinking? value)
+        {
+            value = StreamingThinking;
+            return IsStreamingThinking;
+        }
+
+        /// <summary>
         /// Signals the end of streaming thinking (SSE only, not stored).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -152,6 +243,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StreamingThinkingEnd))]
 #endif
         public bool IsStreamingThinkingEnd => StreamingThinkingEnd != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStreamingThinkingEnd(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamingThinkingEnd? value)
+        {
+            value = StreamingThinkingEnd;
+            return IsStreamingThinkingEnd;
+        }
 
         /// <summary>
         /// An event representing input to a tool call.
@@ -171,6 +275,19 @@ namespace Vectara
         public bool IsToolInput => ToolInput != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickToolInput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolInputEvent? value)
+        {
+            value = ToolInput;
+            return IsToolInput;
+        }
+
+        /// <summary>
         /// An event representing output from a tool call.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -186,6 +303,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolOutput))]
 #endif
         public bool IsToolOutput => ToolOutput != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickToolOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolOutputEvent? value)
+        {
+            value = ToolOutput;
+            return IsToolOutput;
+        }
 
         /// <summary>
         /// An event representing a complete agent response with structured JSON content conforming to a schema.<br/>
@@ -211,6 +341,19 @@ namespace Vectara
         public bool IsStructuredOutput => StructuredOutput != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStructuredOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StructuredOutputEvent? value)
+        {
+            value = StructuredOutput;
+            return IsStructuredOutput;
+        }
+
+        /// <summary>
         /// A transient event indicating the current request exceeded the LLM's context limit.<br/>
         /// This event is not persisted to the session history.
         /// </summary>
@@ -227,6 +370,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ContextLimitExceeded))]
 #endif
         public bool IsContextLimitExceeded => ContextLimitExceeded != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickContextLimitExceeded(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ContextLimitExceededEvent? value)
+        {
+            value = ContextLimitExceeded;
+            return IsContextLimitExceeded;
+        }
 
         /// <summary>
         /// A transient event indicating the agent exceeded the maximum number of step transitions,<br/>
@@ -248,6 +404,19 @@ namespace Vectara
         public bool IsStepTransitionLimitExceeded => StepTransitionLimitExceeded != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStepTransitionLimitExceeded(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StepTransitionLimitExceededEvent? value)
+        {
+            value = StepTransitionLimitExceeded;
+            return IsStepTransitionLimitExceeded;
+        }
+
+        /// <summary>
         /// A transient event indicating the agent session was interrupted by a user request.<br/>
         /// This event is not persisted to the session history.
         /// </summary>
@@ -264,6 +433,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SessionInterrupted))]
 #endif
         public bool IsSessionInterrupted => SessionInterrupted != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSessionInterrupted(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SessionInterruptedEvent? value)
+        {
+            value = SessionInterrupted;
+            return IsSessionInterrupted;
+        }
 
         /// <summary>
         /// An event representing an image being loaded into the conversation context for viewing and analysis.
@@ -283,6 +465,19 @@ namespace Vectara
         public bool IsImageRead => ImageRead != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickImageRead(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ImageReadEvent? value)
+        {
+            value = ImageRead;
+            return IsImageRead;
+        }
+
+        /// <summary>
         /// An event representing a transition between agent steps.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -298,6 +493,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StepTransition))]
 #endif
         public bool IsStepTransition => StepTransition != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStepTransition(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StepTransitionEvent? value)
+        {
+            value = StepTransition;
+            return IsStepTransition;
+        }
 
         /// <summary>
         /// Token usage event reporting context window consumption.
@@ -317,6 +525,19 @@ namespace Vectara
         public bool IsContextConsumed => ContextConsumed != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickContextConsumed(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ContextConsumedEvent? value)
+        {
+            value = ContextConsumed;
+            return IsContextConsumed;
+        }
+
+        /// <summary>
         /// An event indicating that context compaction has started.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -332,6 +553,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CompactionStarted))]
 #endif
         public bool IsCompactionStarted => CompactionStarted != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCompactionStarted(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CompactionStartedEvent? value)
+        {
+            value = CompactionStarted;
+            return IsCompactionStarted;
+        }
 
         /// <summary>
         /// An event indicating that context compaction has completed.
@@ -351,6 +585,19 @@ namespace Vectara
         public bool IsCompaction => Compaction != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCompaction(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CompactionEvent? value)
+        {
+            value = Compaction;
+            return IsCompaction;
+        }
+
+        /// <summary>
         /// Event signaling there was an error with the request.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -368,6 +615,19 @@ namespace Vectara
         public bool IsError => Error != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickError(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamError? value)
+        {
+            value = Error;
+            return IsError;
+        }
+
+        /// <summary>
         /// The end of a query response stream.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -383,6 +643,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(End))]
 #endif
         public bool IsEnd => End != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickEnd(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamResponseEnd? value)
+        {
+            value = End;
+            return IsEnd;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -884,10 +1157,10 @@ namespace Vectara
             global::System.Func<global::Vectara.ThinkingEvent?, TResult>? thinking = null,
             global::System.Func<global::Vectara.ArtifactUploadEvent?, TResult>? artifactUpload = null,
             global::System.Func<global::Vectara.InputMessageEvent?, TResult>? inputMessage = null,
-            global::System.Func<global::Vectara.StreamingAgentOutput?, TResult>? streamingAgentOutput = null,
-            global::System.Func<global::Vectara.StreamingAgentOutputEnd?, TResult>? streamingAgentOutputEnd = null,
-            global::System.Func<global::Vectara.StreamingThinking?, TResult>? streamingThinking = null,
-            global::System.Func<global::Vectara.StreamingThinkingEnd?, TResult>? streamingThinkingEnd = null,
+            global::System.Func<global::Vectara.StreamingAgentOutput, TResult>? streamingAgentOutput = null,
+            global::System.Func<global::Vectara.StreamingAgentOutputEnd, TResult>? streamingAgentOutputEnd = null,
+            global::System.Func<global::Vectara.StreamingThinking, TResult>? streamingThinking = null,
+            global::System.Func<global::Vectara.StreamingThinkingEnd, TResult>? streamingThinkingEnd = null,
             global::System.Func<global::Vectara.ToolInputEvent?, TResult>? toolInput = null,
             global::System.Func<global::Vectara.ToolOutputEvent?, TResult>? toolOutput = null,
             global::System.Func<global::Vectara.StructuredOutputEvent?, TResult>? structuredOutput = null,
@@ -896,11 +1169,11 @@ namespace Vectara
             global::System.Func<global::Vectara.SessionInterruptedEvent?, TResult>? sessionInterrupted = null,
             global::System.Func<global::Vectara.ImageReadEvent?, TResult>? imageRead = null,
             global::System.Func<global::Vectara.StepTransitionEvent?, TResult>? stepTransition = null,
-            global::System.Func<global::Vectara.ContextConsumedEvent?, TResult>? contextConsumed = null,
+            global::System.Func<global::Vectara.ContextConsumedEvent, TResult>? contextConsumed = null,
             global::System.Func<global::Vectara.CompactionStartedEvent?, TResult>? compactionStarted = null,
             global::System.Func<global::Vectara.CompactionEvent?, TResult>? compaction = null,
-            global::System.Func<global::Vectara.StreamError?, TResult>? error = null,
-            global::System.Func<global::Vectara.StreamResponseEnd?, TResult>? end = null,
+            global::System.Func<global::Vectara.StreamError, TResult>? error = null,
+            global::System.Func<global::Vectara.StreamResponseEnd, TResult>? end = null,
             bool validate = true)
         {
             if (validate)
@@ -1001,13 +1274,151 @@ namespace Vectara
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.SkillLoadEvent?>? skillLoad = null,
+
+            global::System.Action<global::Vectara.ThinkingEvent?>? thinking = null,
+
+            global::System.Action<global::Vectara.ArtifactUploadEvent?>? artifactUpload = null,
+
+            global::System.Action<global::Vectara.InputMessageEvent?>? inputMessage = null,
+
+            global::System.Action<global::Vectara.StreamingAgentOutput>? streamingAgentOutput = null,
+
+            global::System.Action<global::Vectara.StreamingAgentOutputEnd>? streamingAgentOutputEnd = null,
+
+            global::System.Action<global::Vectara.StreamingThinking>? streamingThinking = null,
+
+            global::System.Action<global::Vectara.StreamingThinkingEnd>? streamingThinkingEnd = null,
+
+            global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
+
+            global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
+
+            global::System.Action<global::Vectara.StructuredOutputEvent?>? structuredOutput = null,
+
+            global::System.Action<global::Vectara.ContextLimitExceededEvent?>? contextLimitExceeded = null,
+
+            global::System.Action<global::Vectara.StepTransitionLimitExceededEvent?>? stepTransitionLimitExceeded = null,
+
+            global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
+
+            global::System.Action<global::Vectara.ImageReadEvent?>? imageRead = null,
+
+            global::System.Action<global::Vectara.StepTransitionEvent?>? stepTransition = null,
+
+            global::System.Action<global::Vectara.ContextConsumedEvent>? contextConsumed = null,
+
+            global::System.Action<global::Vectara.CompactionStartedEvent?>? compactionStarted = null,
+
+            global::System.Action<global::Vectara.CompactionEvent?>? compaction = null,
+
+            global::System.Action<global::Vectara.StreamError>? error = null,
+
+            global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSkillLoad)
+            {
+                skillLoad?.Invoke(SkillLoad!);
+            }
+            else if (IsThinking)
+            {
+                thinking?.Invoke(Thinking!);
+            }
+            else if (IsArtifactUpload)
+            {
+                artifactUpload?.Invoke(ArtifactUpload!);
+            }
+            else if (IsInputMessage)
+            {
+                inputMessage?.Invoke(InputMessage!);
+            }
+            else if (IsStreamingAgentOutput)
+            {
+                streamingAgentOutput?.Invoke(StreamingAgentOutput!);
+            }
+            else if (IsStreamingAgentOutputEnd)
+            {
+                streamingAgentOutputEnd?.Invoke(StreamingAgentOutputEnd!);
+            }
+            else if (IsStreamingThinking)
+            {
+                streamingThinking?.Invoke(StreamingThinking!);
+            }
+            else if (IsStreamingThinkingEnd)
+            {
+                streamingThinkingEnd?.Invoke(StreamingThinkingEnd!);
+            }
+            else if (IsToolInput)
+            {
+                toolInput?.Invoke(ToolInput!);
+            }
+            else if (IsToolOutput)
+            {
+                toolOutput?.Invoke(ToolOutput!);
+            }
+            else if (IsStructuredOutput)
+            {
+                structuredOutput?.Invoke(StructuredOutput!);
+            }
+            else if (IsContextLimitExceeded)
+            {
+                contextLimitExceeded?.Invoke(ContextLimitExceeded!);
+            }
+            else if (IsStepTransitionLimitExceeded)
+            {
+                stepTransitionLimitExceeded?.Invoke(StepTransitionLimitExceeded!);
+            }
+            else if (IsSessionInterrupted)
+            {
+                sessionInterrupted?.Invoke(SessionInterrupted!);
+            }
+            else if (IsImageRead)
+            {
+                imageRead?.Invoke(ImageRead!);
+            }
+            else if (IsStepTransition)
+            {
+                stepTransition?.Invoke(StepTransition!);
+            }
+            else if (IsContextConsumed)
+            {
+                contextConsumed?.Invoke(ContextConsumed!);
+            }
+            else if (IsCompactionStarted)
+            {
+                compactionStarted?.Invoke(CompactionStarted!);
+            }
+            else if (IsCompaction)
+            {
+                compaction?.Invoke(Compaction!);
+            }
+            else if (IsError)
+            {
+                error?.Invoke(Error!);
+            }
+            else if (IsEnd)
+            {
+                end?.Invoke(End!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.SkillLoadEvent?>? skillLoad = null,
             global::System.Action<global::Vectara.ThinkingEvent?>? thinking = null,
             global::System.Action<global::Vectara.ArtifactUploadEvent?>? artifactUpload = null,
             global::System.Action<global::Vectara.InputMessageEvent?>? inputMessage = null,
-            global::System.Action<global::Vectara.StreamingAgentOutput?>? streamingAgentOutput = null,
-            global::System.Action<global::Vectara.StreamingAgentOutputEnd?>? streamingAgentOutputEnd = null,
-            global::System.Action<global::Vectara.StreamingThinking?>? streamingThinking = null,
-            global::System.Action<global::Vectara.StreamingThinkingEnd?>? streamingThinkingEnd = null,
+            global::System.Action<global::Vectara.StreamingAgentOutput>? streamingAgentOutput = null,
+            global::System.Action<global::Vectara.StreamingAgentOutputEnd>? streamingAgentOutputEnd = null,
+            global::System.Action<global::Vectara.StreamingThinking>? streamingThinking = null,
+            global::System.Action<global::Vectara.StreamingThinkingEnd>? streamingThinkingEnd = null,
             global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
             global::System.Action<global::Vectara.StructuredOutputEvent?>? structuredOutput = null,
@@ -1016,11 +1427,11 @@ namespace Vectara
             global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
             global::System.Action<global::Vectara.ImageReadEvent?>? imageRead = null,
             global::System.Action<global::Vectara.StepTransitionEvent?>? stepTransition = null,
-            global::System.Action<global::Vectara.ContextConsumedEvent?>? contextConsumed = null,
+            global::System.Action<global::Vectara.ContextConsumedEvent>? contextConsumed = null,
             global::System.Action<global::Vectara.CompactionStartedEvent?>? compactionStarted = null,
             global::System.Action<global::Vectara.CompactionEvent?>? compaction = null,
-            global::System.Action<global::Vectara.StreamError?>? error = null,
-            global::System.Action<global::Vectara.StreamResponseEnd?>? end = null,
+            global::System.Action<global::Vectara.StreamError>? error = null,
+            global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
             bool validate = true)
         {
             if (validate)

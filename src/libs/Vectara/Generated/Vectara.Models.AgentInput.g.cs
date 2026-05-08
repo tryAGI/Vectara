@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsText => Text != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickText(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentTextInput? value)
+        {
+            value = Text;
+            return IsText;
+        }
+
+        /// <summary>
         /// An input that invokes a skill by name.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +60,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Skill))]
 #endif
         public bool IsSkill => Skill != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSkill(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentSkillInput? value)
+        {
+            value = Skill;
+            return IsSkill;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -126,8 +152,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentTextInput?, TResult>? text = null,
-            global::System.Func<global::Vectara.AgentSkillInput?, TResult>? skill = null,
+            global::System.Func<global::Vectara.AgentTextInput, TResult>? text = null,
+            global::System.Func<global::Vectara.AgentSkillInput, TResult>? skill = null,
             bool validate = true)
         {
             if (validate)
@@ -151,8 +177,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentTextInput?>? text = null,
-            global::System.Action<global::Vectara.AgentSkillInput?>? skill = null,
+            global::System.Action<global::Vectara.AgentTextInput>? text = null,
+
+            global::System.Action<global::Vectara.AgentSkillInput>? skill = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsText)
+            {
+                text?.Invoke(Text!);
+            }
+            else if (IsSkill)
+            {
+                skill?.Invoke(Skill!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentTextInput>? text = null,
+            global::System.Action<global::Vectara.AgentSkillInput>? skill = null,
             bool validate = true)
         {
             if (validate)

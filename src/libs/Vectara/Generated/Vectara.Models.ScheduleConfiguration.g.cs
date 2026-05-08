@@ -27,6 +27,19 @@ namespace Vectara
         public bool IsInterval => Interval != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInterval(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.IntervalScheduleConfiguration? value)
+        {
+            value = Interval;
+            return IsInterval;
+        }
+
+        /// <summary>
         /// Configuration for cron-based schedule execution.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -42,6 +55,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Cron))]
 #endif
         public bool IsCron => Cron != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCron(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CronScheduleConfiguration? value)
+        {
+            value = Cron;
+            return IsCron;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -118,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.IntervalScheduleConfiguration?, TResult>? interval = null,
-            global::System.Func<global::Vectara.CronScheduleConfiguration?, TResult>? cron = null,
+            global::System.Func<global::Vectara.IntervalScheduleConfiguration, TResult>? interval = null,
+            global::System.Func<global::Vectara.CronScheduleConfiguration, TResult>? cron = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +169,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.IntervalScheduleConfiguration?>? interval = null,
-            global::System.Action<global::Vectara.CronScheduleConfiguration?>? cron = null,
+            global::System.Action<global::Vectara.IntervalScheduleConfiguration>? interval = null,
+
+            global::System.Action<global::Vectara.CronScheduleConfiguration>? cron = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsInterval)
+            {
+                interval?.Invoke(Interval!);
+            }
+            else if (IsCron)
+            {
+                cron?.Invoke(Cron!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.IntervalScheduleConfiguration>? interval = null,
+            global::System.Action<global::Vectara.CronScheduleConfiguration>? cron = null,
             bool validate = true)
         {
             if (validate)

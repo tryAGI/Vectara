@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsBearer => Bearer != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickBearer(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.BearerAuth? value)
+        {
+            value = Bearer;
+            return IsBearer;
+        }
+
+        /// <summary>
         /// Custom header-based authentication
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +60,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Header))]
 #endif
         public bool IsHeader => Header != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickHeader(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.HeaderAuth? value)
+        {
+            value = Header;
+            return IsHeader;
+        }
 
         /// <summary>
         /// AWS Bedrock authentication with explicit IAM credentials
@@ -66,6 +92,19 @@ namespace Vectara
         public bool IsBedrockStaticIam => BedrockStaticIam != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickBedrockStaticIam(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.BedrockStaticIAMAuth? value)
+        {
+            value = BedrockStaticIam;
+            return IsBedrockStaticIam;
+        }
+
+        /// <summary>
         /// AWS Bedrock API key authentication
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -81,6 +120,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(BedrockApiKey))]
 #endif
         public bool IsBedrockApiKey => BedrockApiKey != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickBedrockApiKey(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.BedrockApiKeyAuth? value)
+        {
+            value = BedrockApiKey;
+            return IsBedrockApiKey;
+        }
 
         /// <summary>
         /// Google Cloud Vertex AI service account authentication
@@ -100,6 +152,19 @@ namespace Vectara
         public bool IsVertexServiceAccount => VertexServiceAccount != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickVertexServiceAccount(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.VertexServiceAccountAuth? value)
+        {
+            value = VertexServiceAccount;
+            return IsVertexServiceAccount;
+        }
+
+        /// <summary>
         /// Google Cloud Vertex AI access token authentication
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -115,6 +180,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VertexAccessToken))]
 #endif
         public bool IsVertexAccessToken => VertexAccessToken != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickVertexAccessToken(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.VertexAccessTokenAuth? value)
+        {
+            value = VertexAccessToken;
+            return IsVertexAccessToken;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -282,12 +360,12 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.BearerAuth?, TResult>? bearer = null,
-            global::System.Func<global::Vectara.HeaderAuth?, TResult>? header = null,
-            global::System.Func<global::Vectara.BedrockStaticIAMAuth?, TResult>? bedrockStaticIam = null,
-            global::System.Func<global::Vectara.BedrockApiKeyAuth?, TResult>? bedrockApiKey = null,
-            global::System.Func<global::Vectara.VertexServiceAccountAuth?, TResult>? vertexServiceAccount = null,
-            global::System.Func<global::Vectara.VertexAccessTokenAuth?, TResult>? vertexAccessToken = null,
+            global::System.Func<global::Vectara.BearerAuth, TResult>? bearer = null,
+            global::System.Func<global::Vectara.HeaderAuth, TResult>? header = null,
+            global::System.Func<global::Vectara.BedrockStaticIAMAuth, TResult>? bedrockStaticIam = null,
+            global::System.Func<global::Vectara.BedrockApiKeyAuth, TResult>? bedrockApiKey = null,
+            global::System.Func<global::Vectara.VertexServiceAccountAuth, TResult>? vertexServiceAccount = null,
+            global::System.Func<global::Vectara.VertexAccessTokenAuth, TResult>? vertexAccessToken = null,
             bool validate = true)
         {
             if (validate)
@@ -327,12 +405,60 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.BearerAuth?>? bearer = null,
-            global::System.Action<global::Vectara.HeaderAuth?>? header = null,
-            global::System.Action<global::Vectara.BedrockStaticIAMAuth?>? bedrockStaticIam = null,
-            global::System.Action<global::Vectara.BedrockApiKeyAuth?>? bedrockApiKey = null,
-            global::System.Action<global::Vectara.VertexServiceAccountAuth?>? vertexServiceAccount = null,
-            global::System.Action<global::Vectara.VertexAccessTokenAuth?>? vertexAccessToken = null,
+            global::System.Action<global::Vectara.BearerAuth>? bearer = null,
+
+            global::System.Action<global::Vectara.HeaderAuth>? header = null,
+
+            global::System.Action<global::Vectara.BedrockStaticIAMAuth>? bedrockStaticIam = null,
+
+            global::System.Action<global::Vectara.BedrockApiKeyAuth>? bedrockApiKey = null,
+
+            global::System.Action<global::Vectara.VertexServiceAccountAuth>? vertexServiceAccount = null,
+
+            global::System.Action<global::Vectara.VertexAccessTokenAuth>? vertexAccessToken = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBearer)
+            {
+                bearer?.Invoke(Bearer!);
+            }
+            else if (IsHeader)
+            {
+                header?.Invoke(Header!);
+            }
+            else if (IsBedrockStaticIam)
+            {
+                bedrockStaticIam?.Invoke(BedrockStaticIam!);
+            }
+            else if (IsBedrockApiKey)
+            {
+                bedrockApiKey?.Invoke(BedrockApiKey!);
+            }
+            else if (IsVertexServiceAccount)
+            {
+                vertexServiceAccount?.Invoke(VertexServiceAccount!);
+            }
+            else if (IsVertexAccessToken)
+            {
+                vertexAccessToken?.Invoke(VertexAccessToken!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.BearerAuth>? bearer = null,
+            global::System.Action<global::Vectara.HeaderAuth>? header = null,
+            global::System.Action<global::Vectara.BedrockStaticIAMAuth>? bedrockStaticIam = null,
+            global::System.Action<global::Vectara.BedrockApiKeyAuth>? bedrockApiKey = null,
+            global::System.Action<global::Vectara.VertexServiceAccountAuth>? vertexServiceAccount = null,
+            global::System.Action<global::Vectara.VertexAccessTokenAuth>? vertexAccessToken = null,
             bool validate = true)
         {
             if (validate)

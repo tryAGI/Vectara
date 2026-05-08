@@ -29,6 +29,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickInputBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateInputRequestBase? value)
+        {
+            value = InputBase;
+            return IsInputBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateInterruptRequestVariant2? CreateInterruptRequestVariant2 { get; init; }
 #else
@@ -42,6 +55,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateInterruptRequestVariant2))]
 #endif
         public bool IsCreateInterruptRequestVariant2 => CreateInterruptRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCreateInterruptRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateInterruptRequestVariant2? value)
+        {
+            value = CreateInterruptRequestVariant2;
+            return IsCreateInterruptRequestVariant2;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -118,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateInputRequestBase?, TResult>? inputBase = null,
-            global::System.Func<global::Vectara.CreateInterruptRequestVariant2?, TResult>? createInterruptRequestVariant2 = null,
+            global::System.Func<global::Vectara.CreateInputRequestBase, TResult>? inputBase = null,
+            global::System.Func<global::Vectara.CreateInterruptRequestVariant2, TResult>? createInterruptRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +169,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateInputRequestBase?>? inputBase = null,
-            global::System.Action<global::Vectara.CreateInterruptRequestVariant2?>? createInterruptRequestVariant2 = null,
+            global::System.Action<global::Vectara.CreateInputRequestBase>? inputBase = null,
+
+            global::System.Action<global::Vectara.CreateInterruptRequestVariant2>? createInterruptRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsInputBase)
+            {
+                inputBase?.Invoke(InputBase!);
+            }
+            else if (IsCreateInterruptRequestVariant2)
+            {
+                createInterruptRequestVariant2?.Invoke(CreateInterruptRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CreateInputRequestBase>? inputBase = null,
+            global::System.Action<global::Vectara.CreateInterruptRequestVariant2>? createInterruptRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

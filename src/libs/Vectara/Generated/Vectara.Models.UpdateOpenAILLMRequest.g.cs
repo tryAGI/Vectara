@@ -29,6 +29,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.OpenAILLMUpdateBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateOpenAILLMRequestVariant2? UpdateOpenAILLMRequestVariant2 { get; init; }
 #else
@@ -42,6 +55,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(UpdateOpenAILLMRequestVariant2))]
 #endif
         public bool IsUpdateOpenAILLMRequestVariant2 => UpdateOpenAILLMRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickUpdateOpenAILLMRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateOpenAILLMRequestVariant2? value)
+        {
+            value = UpdateOpenAILLMRequestVariant2;
+            return IsUpdateOpenAILLMRequestVariant2;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -118,8 +144,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.OpenAILLMUpdateBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.UpdateOpenAILLMRequestVariant2?, TResult>? updateOpenAILLMRequestVariant2 = null,
+            global::System.Func<global::Vectara.OpenAILLMUpdateBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.UpdateOpenAILLMRequestVariant2, TResult>? updateOpenAILLMRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +169,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.OpenAILLMUpdateBase?>? @base = null,
-            global::System.Action<global::Vectara.UpdateOpenAILLMRequestVariant2?>? updateOpenAILLMRequestVariant2 = null,
+            global::System.Action<global::Vectara.OpenAILLMUpdateBase>? @base = null,
+
+            global::System.Action<global::Vectara.UpdateOpenAILLMRequestVariant2>? updateOpenAILLMRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsUpdateOpenAILLMRequestVariant2)
+            {
+                updateOpenAILLMRequestVariant2?.Invoke(UpdateOpenAILLMRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.OpenAILLMUpdateBase>? @base = null,
+            global::System.Action<global::Vectara.UpdateOpenAILLMRequestVariant2>? updateOpenAILLMRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

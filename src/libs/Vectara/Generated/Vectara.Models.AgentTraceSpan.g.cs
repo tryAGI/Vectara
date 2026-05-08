@@ -32,6 +32,19 @@ namespace Vectara
         public bool IsInvokeAgent => InvokeAgent != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInvokeAgent(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InvokeAgentTraceSpan? value)
+        {
+            value = InvokeAgent;
+            return IsInvokeAgent;
+        }
+
+        /// <summary>
         /// A span representing a single LLM chat completion call within an agent turn.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +60,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Chat))]
 #endif
         public bool IsChat => Chat != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickChat(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ChatTraceSpan? value)
+        {
+            value = Chat;
+            return IsChat;
+        }
 
         /// <summary>
         /// A span representing a tool execution within an agent turn.
@@ -66,6 +92,19 @@ namespace Vectara
         public bool IsExecuteTool => ExecuteTool != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickExecuteTool(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ExecuteToolTraceSpan? value)
+        {
+            value = ExecuteTool;
+            return IsExecuteTool;
+        }
+
+        /// <summary>
         /// A span representing extended thinking output from the LLM.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -81,6 +120,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Thinking))]
 #endif
         public bool IsThinking => Thinking != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickThinking(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ThinkingTraceSpan? value)
+        {
+            value = Thinking;
+            return IsThinking;
+        }
 
         /// <summary>
         /// A span representing the final text output of an agent turn.
@@ -100,6 +152,19 @@ namespace Vectara
         public bool IsOutput => Output != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.OutputTraceSpan? value)
+        {
+            value = Output;
+            return IsOutput;
+        }
+
+        /// <summary>
         /// A span representing a guardrail safety check on tool call results.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -115,6 +180,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Guardrail))]
 #endif
         public bool IsGuardrail => Guardrail != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGuardrail(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GuardrailTraceSpan? value)
+        {
+            value = Guardrail;
+            return IsGuardrail;
+        }
 
         /// <summary>
         /// A span representing a transition between agent steps.
@@ -134,6 +212,19 @@ namespace Vectara
         public bool IsStepTransition => StepTransition != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStepTransition(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StepTransitionTraceSpan? value)
+        {
+            value = StepTransition;
+            return IsStepTransition;
+        }
+
+        /// <summary>
         /// A span representing an image being loaded into conversation context.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -151,6 +242,19 @@ namespace Vectara
         public bool IsImageRead => ImageRead != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickImageRead(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ImageReadTraceSpan? value)
+        {
+            value = ImageRead;
+            return IsImageRead;
+        }
+
+        /// <summary>
         /// A span representing context compaction (summarization of older conversation turns).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -166,6 +270,19 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Compaction))]
 #endif
         public bool IsCompaction => Compaction != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCompaction(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CompactionTraceSpan? value)
+        {
+            value = Compaction;
+            return IsCompaction;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -459,6 +576,72 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<global::Vectara.InvokeAgentTraceSpan?>? invokeAgent = null,
+
+            global::System.Action<global::Vectara.ChatTraceSpan?>? chat = null,
+
+            global::System.Action<global::Vectara.ExecuteToolTraceSpan?>? executeTool = null,
+
+            global::System.Action<global::Vectara.ThinkingTraceSpan?>? thinking = null,
+
+            global::System.Action<global::Vectara.OutputTraceSpan?>? output = null,
+
+            global::System.Action<global::Vectara.GuardrailTraceSpan?>? guardrail = null,
+
+            global::System.Action<global::Vectara.StepTransitionTraceSpan?>? stepTransition = null,
+
+            global::System.Action<global::Vectara.ImageReadTraceSpan?>? imageRead = null,
+
+            global::System.Action<global::Vectara.CompactionTraceSpan?>? compaction = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsInvokeAgent)
+            {
+                invokeAgent?.Invoke(InvokeAgent!);
+            }
+            else if (IsChat)
+            {
+                chat?.Invoke(Chat!);
+            }
+            else if (IsExecuteTool)
+            {
+                executeTool?.Invoke(ExecuteTool!);
+            }
+            else if (IsThinking)
+            {
+                thinking?.Invoke(Thinking!);
+            }
+            else if (IsOutput)
+            {
+                output?.Invoke(Output!);
+            }
+            else if (IsGuardrail)
+            {
+                guardrail?.Invoke(Guardrail!);
+            }
+            else if (IsStepTransition)
+            {
+                stepTransition?.Invoke(StepTransition!);
+            }
+            else if (IsImageRead)
+            {
+                imageRead?.Invoke(ImageRead!);
+            }
+            else if (IsCompaction)
+            {
+                compaction?.Invoke(Compaction!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
             global::System.Action<global::Vectara.InvokeAgentTraceSpan?>? invokeAgent = null,
             global::System.Action<global::Vectara.ChatTraceSpan?>? chat = null,
             global::System.Action<global::Vectara.ExecuteToolTraceSpan?>? executeTool = null,
