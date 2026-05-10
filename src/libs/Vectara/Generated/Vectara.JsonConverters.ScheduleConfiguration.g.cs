@@ -78,6 +78,7 @@ namespace Vectara.JsonConverters
             {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.IntervalScheduleConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.IntervalScheduleConfiguration> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.IntervalScheduleConfiguration).Name}");
                     interval = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
@@ -88,9 +89,13 @@ namespace Vectara.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (interval == null && cron == null)
+            {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CronScheduleConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CronScheduleConfiguration> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CronScheduleConfiguration).Name}");
                     cron = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);

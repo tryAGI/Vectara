@@ -77,6 +77,7 @@ namespace Vectara.JsonConverters
             {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InstructionReference), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InstructionReference> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InstructionReference).Name}");
                     instructionReference = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
@@ -87,9 +88,13 @@ namespace Vectara.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (instructionReference == null && referenceInstructionVariant2 == null)
+            {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ReferenceInstructionVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ReferenceInstructionVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ReferenceInstructionVariant2).Name}");
                     referenceInstructionVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);

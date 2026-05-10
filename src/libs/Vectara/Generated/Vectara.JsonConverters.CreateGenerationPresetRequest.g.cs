@@ -70,6 +70,7 @@ namespace Vectara.JsonConverters
             {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GenerationPreset), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GenerationPreset> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GenerationPreset).Name}");
                     generationPreset = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
