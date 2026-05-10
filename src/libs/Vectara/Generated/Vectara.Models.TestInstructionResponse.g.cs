@@ -45,5 +45,6 @@ namespace Vectara
         public TestInstructionResponse()
         {
         }
+
     }
 }

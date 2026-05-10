@@ -43,5 +43,6 @@ namespace Vectara
         public ChatParameters()
         {
         }
+
     }
 }

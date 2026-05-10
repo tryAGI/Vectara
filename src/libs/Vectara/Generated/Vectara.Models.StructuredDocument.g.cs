@@ -137,5 +137,6 @@ namespace Vectara
         public StructuredDocument()
         {
         }
+
     }
 }

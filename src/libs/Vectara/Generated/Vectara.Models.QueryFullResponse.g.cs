@@ -119,5 +119,6 @@ namespace Vectara
         public QueryFullResponse()
         {
         }
+
     }
 }

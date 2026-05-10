@@ -93,5 +93,6 @@ namespace Vectara
         public MMRReranker()
         {
         }
+
     }
 }

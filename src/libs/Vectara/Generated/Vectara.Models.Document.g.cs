@@ -114,5 +114,6 @@ namespace Vectara
         public Document()
         {
         }
+
     }
 }

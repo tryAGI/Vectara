@@ -111,5 +111,6 @@ namespace Vectara
         public JsonSchemaDefinition()
         {
         }
+
     }
 }

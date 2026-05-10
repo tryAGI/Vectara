@@ -88,5 +88,6 @@ namespace Vectara
         public GenerationParametersModelParameters()
         {
         }
+
     }
 }

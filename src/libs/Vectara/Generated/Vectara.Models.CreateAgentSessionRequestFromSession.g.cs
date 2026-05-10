@@ -86,5 +86,6 @@ namespace Vectara
         public CreateAgentSessionRequestFromSession()
         {
         }
+
     }
 }

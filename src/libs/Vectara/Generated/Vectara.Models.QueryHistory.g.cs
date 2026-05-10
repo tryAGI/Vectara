@@ -133,5 +133,6 @@ namespace Vectara
         public QueryHistory()
         {
         }
+
     }
 }

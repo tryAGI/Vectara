@@ -195,5 +195,6 @@ namespace Vectara
         public SessionArtifact()
         {
         }
+
     }
 }

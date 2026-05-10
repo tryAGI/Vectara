@@ -121,5 +121,6 @@ namespace Vectara
         public StructuredDocumentSection()
         {
         }
+
     }
 }

@@ -122,5 +122,6 @@ namespace Vectara
         public CorpusLimits()
         {
         }
+
     }
 }

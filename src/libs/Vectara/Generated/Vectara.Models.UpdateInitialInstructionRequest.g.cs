@@ -153,5 +153,6 @@ namespace Vectara
         public UpdateInitialInstructionRequest()
         {
         }
+
     }
 }

@@ -262,5 +262,6 @@ namespace Vectara
         public Agent()
         {
         }
+
     }
 }

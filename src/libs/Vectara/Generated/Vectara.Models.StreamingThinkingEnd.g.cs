@@ -63,5 +63,6 @@ namespace Vectara
         public StreamingThinkingEnd()
         {
         }
+
     }
 }

@@ -65,5 +65,6 @@ namespace Vectara
         public GlossaryExpansionReminder()
         {
         }
+
     }
 }

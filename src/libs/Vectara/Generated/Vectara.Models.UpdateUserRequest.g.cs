@@ -85,5 +85,6 @@ namespace Vectara
         public UpdateUserRequest()
         {
         }
+
     }
 }

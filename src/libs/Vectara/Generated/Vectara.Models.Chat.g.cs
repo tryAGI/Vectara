@@ -97,5 +97,6 @@ namespace Vectara
         public Chat()
         {
         }
+
     }
 }

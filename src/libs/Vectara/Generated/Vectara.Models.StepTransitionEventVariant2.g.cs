@@ -81,5 +81,6 @@ namespace Vectara
         public StepTransitionEventVariant2()
         {
         }
+
     }
 }

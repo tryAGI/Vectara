@@ -80,5 +80,6 @@ namespace Vectara
         public TableExtractor()
         {
         }
+
     }
 }

@@ -118,5 +118,6 @@ namespace Vectara
         public Glossary()
         {
         }
+
     }
 }

@@ -68,5 +68,6 @@ namespace Vectara
         public InlineSubAgentToolConfigurationVariant2()
         {
         }
+
     }
 }

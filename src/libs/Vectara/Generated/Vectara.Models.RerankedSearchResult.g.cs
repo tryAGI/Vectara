@@ -63,5 +63,6 @@ namespace Vectara
         public RerankedSearchResult()
         {
         }
+
     }
 }

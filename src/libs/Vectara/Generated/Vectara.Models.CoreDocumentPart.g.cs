@@ -112,5 +112,6 @@ namespace Vectara
         public CoreDocumentPart()
         {
         }
+
     }
 }

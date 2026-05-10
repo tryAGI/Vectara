@@ -64,5 +64,6 @@ namespace Vectara
         public TableExtractionConfig()
         {
         }
+
     }
 }

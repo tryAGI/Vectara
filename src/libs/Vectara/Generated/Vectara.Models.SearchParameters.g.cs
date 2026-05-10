@@ -83,5 +83,6 @@ namespace Vectara
         public SearchParameters()
         {
         }
+
     }
 }

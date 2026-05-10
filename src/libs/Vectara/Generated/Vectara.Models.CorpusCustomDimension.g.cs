@@ -91,5 +91,6 @@ namespace Vectara
         public CorpusCustomDimension()
         {
         }
+
     }
 }

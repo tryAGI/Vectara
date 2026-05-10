@@ -323,5 +323,6 @@ namespace Vectara
         public CreateLambdaToolRequest()
         {
         }
+
     }
 }

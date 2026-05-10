@@ -55,5 +55,6 @@ namespace Vectara
         public ListChatsResponse()
         {
         }
+
     }
 }

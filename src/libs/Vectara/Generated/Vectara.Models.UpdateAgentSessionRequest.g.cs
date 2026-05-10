@@ -100,5 +100,6 @@ namespace Vectara
         public UpdateAgentSessionRequest()
         {
         }
+
     }
 }

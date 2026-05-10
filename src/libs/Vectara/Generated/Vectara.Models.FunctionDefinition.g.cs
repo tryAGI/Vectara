@@ -138,5 +138,6 @@ namespace Vectara
         public FunctionDefinition()
         {
         }
+
     }
 }
