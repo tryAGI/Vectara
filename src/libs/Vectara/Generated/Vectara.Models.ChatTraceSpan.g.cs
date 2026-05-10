@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ChatTraceSpanVariant2? ChatTraceSpanVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ChatTraceSpanVariant2;
             return IsChatTraceSpanVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ChatTraceSpanVariant2 PickChatTraceSpanVariant2() => IsChatTraceSpanVariant2
+            ? ChatTraceSpanVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ChatTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new ChatTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatTraceSpan(global::Vectara.ChatTraceSpanVariant2 value) => new ChatTraceSpan((global::Vectara.ChatTraceSpanVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ChatTraceSpanVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatTraceSpan FromChatTraceSpanVariant2(global::Vectara.ChatTraceSpanVariant2? value) => new ChatTraceSpan(value);
 
         /// <summary>
         /// 

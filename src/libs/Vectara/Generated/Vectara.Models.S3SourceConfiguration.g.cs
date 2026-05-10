@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.BaseS3SourceConfiguration PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public object? S3SourceConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = S3SourceConfigurationVariant2;
             return IsS3SourceConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object PickS3SourceConfigurationVariant2() => IsS3SourceConfigurationVariant2
+            ? S3SourceConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'S3SourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -85,6 +99,11 @@ namespace Vectara
         {
             Base = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static S3SourceConfiguration FromBase(global::Vectara.BaseS3SourceConfiguration? value) => new S3SourceConfiguration(value);
 
         /// <summary>
         /// 

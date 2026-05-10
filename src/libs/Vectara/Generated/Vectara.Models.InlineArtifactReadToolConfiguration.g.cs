@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineArtifactReadToolConfigurationVariant2? InlineArtifactReadToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineArtifactReadToolConfigurationVariant2;
             return IsInlineArtifactReadToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactReadToolConfigurationVariant2 PickInlineArtifactReadToolConfigurationVariant2() => IsInlineArtifactReadToolConfigurationVariant2
+            ? InlineArtifactReadToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineArtifactReadToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineArtifactReadToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineArtifactReadToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineArtifactReadToolConfiguration(global::Vectara.InlineArtifactReadToolConfigurationVariant2 value) => new InlineArtifactReadToolConfiguration((global::Vectara.InlineArtifactReadToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineArtifactReadToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineArtifactReadToolConfiguration FromInlineArtifactReadToolConfigurationVariant2(global::Vectara.InlineArtifactReadToolConfigurationVariant2? value) => new InlineArtifactReadToolConfiguration(value);
 
         /// <summary>
         /// 

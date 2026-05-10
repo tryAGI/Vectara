@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CronTriggerConfiguration PickCron() => IsCron
+            ? Cron!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Cron' but the value was {ToString()}.");
+
+        /// <summary>
         /// Run the pipeline at a fixed interval.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -75,6 +82,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.IntervalTriggerConfiguration PickInterval() => IsInterval
+            ? Interval!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Interval' but the value was {ToString()}.");
+
+        /// <summary>
         /// Pipeline is only triggered manually via the trigger endpoint. No automatic scheduling.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -103,6 +117,13 @@ namespace Vectara
             value = Manual;
             return IsManual;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ManualTriggerConfiguration PickManual() => IsManual
+            ? Manual!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Manual' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -120,6 +141,11 @@ namespace Vectara
         {
             Cron = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineTrigger FromCron(global::Vectara.CronTriggerConfiguration? value) => new PipelineTrigger(value);
 
         /// <summary>
         /// 
@@ -142,6 +168,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static PipelineTrigger FromInterval(global::Vectara.IntervalTriggerConfiguration? value) => new PipelineTrigger(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PipelineTrigger(global::Vectara.ManualTriggerConfiguration value) => new PipelineTrigger((global::Vectara.ManualTriggerConfiguration?)value);
 
         /// <summary>
@@ -156,6 +187,11 @@ namespace Vectara
         {
             Manual = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineTrigger FromManual(global::Vectara.ManualTriggerConfiguration? value) => new PipelineTrigger(value);
 
         /// <summary>
         /// 

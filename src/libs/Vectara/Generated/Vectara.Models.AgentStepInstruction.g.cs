@@ -46,6 +46,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ReferenceInstruction PickReference() => IsReference
+            ? Reference!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Reference' but the value was {ToString()}.");
+
+        /// <summary>
         /// An instruction defined inline in the request.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -74,6 +81,13 @@ namespace Vectara
             value = Inline;
             return IsInline;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineInstruction PickInline() => IsInline
+            ? Inline!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Inline' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -95,6 +109,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentStepInstruction FromReference(global::Vectara.ReferenceInstruction? value) => new AgentStepInstruction(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentStepInstruction(global::Vectara.InlineInstruction value) => new AgentStepInstruction((global::Vectara.InlineInstruction?)value);
 
         /// <summary>
@@ -109,6 +128,11 @@ namespace Vectara
         {
             Inline = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentStepInstruction FromInline(global::Vectara.InlineInstruction? value) => new AgentStepInstruction(value);
 
         /// <summary>
         /// 

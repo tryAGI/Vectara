@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.AgentOutputEventVariant2? AgentOutputEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = AgentOutputEventVariant2;
             return IsAgentOutputEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentOutputEventVariant2 PickAgentOutputEventVariant2() => IsAgentOutputEventVariant2
+            ? AgentOutputEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentOutputEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentOutputEvent FromBase(global::Vectara.AgentEventBase? value) => new AgentOutputEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentOutputEvent(global::Vectara.AgentOutputEventVariant2 value) => new AgentOutputEvent((global::Vectara.AgentOutputEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             AgentOutputEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentOutputEvent FromAgentOutputEventVariant2(global::Vectara.AgentOutputEventVariant2? value) => new AgentOutputEvent(value);
 
         /// <summary>
         /// 

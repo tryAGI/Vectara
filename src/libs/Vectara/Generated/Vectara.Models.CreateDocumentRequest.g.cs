@@ -47,6 +47,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CoreDocument PickCore() => IsCore
+            ? Core!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Core' but the value was {ToString()}.");
+
+        /// <summary>
         /// A document with layout features.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -75,6 +82,13 @@ namespace Vectara
             value = Structured;
             return IsStructured;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StructuredDocument PickStructured() => IsStructured
+            ? Structured!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Structured' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -96,6 +110,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateDocumentRequest FromCore(global::Vectara.CoreDocument? value) => new CreateDocumentRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateDocumentRequest(global::Vectara.StructuredDocument value) => new CreateDocumentRequest((global::Vectara.StructuredDocument?)value);
 
         /// <summary>
@@ -110,6 +129,11 @@ namespace Vectara
         {
             Structured = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateDocumentRequest FromStructured(global::Vectara.StructuredDocument? value) => new CreateDocumentRequest(value);
 
         /// <summary>
         /// 

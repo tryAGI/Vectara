@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.CreateInputRequestBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateInputMessageRequestVariant2? CreateInputMessageRequestVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = CreateInputMessageRequestVariant2;
             return IsCreateInputMessageRequestVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateInputMessageRequestVariant2 PickCreateInputMessageRequestVariant2() => IsCreateInputMessageRequestVariant2
+            ? CreateInputMessageRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateInputMessageRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateInputMessageRequest FromBase(global::Vectara.CreateInputRequestBase? value) => new CreateInputMessageRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateInputMessageRequest(global::Vectara.CreateInputMessageRequestVariant2 value) => new CreateInputMessageRequest((global::Vectara.CreateInputMessageRequestVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             CreateInputMessageRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateInputMessageRequest FromCreateInputMessageRequestVariant2(global::Vectara.CreateInputMessageRequestVariant2? value) => new CreateInputMessageRequest(value);
 
         /// <summary>
         /// 

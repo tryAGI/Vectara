@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CustomerSpecificReranker PickCustomerReranker() => IsCustomerReranker
+            ? CustomerReranker!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CustomerReranker' but the value was {ToString()}.");
+
+        /// <summary>
         /// A reranker that uses user-defined functions to reorder search results.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = Userfn;
             return IsUserfn;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UserFunctionReranker PickUserfn() => IsUserfn
+            ? Userfn!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Userfn' but the value was {ToString()}.");
 
         /// <summary>
         /// A reranker that uses Maximal Marginal Relevance to balance relevance and diversity in search results.
@@ -105,6 +119,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.MMRReranker PickMmr() => IsMmr
+            ? Mmr!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Mmr' but the value was {ToString()}.");
+
+        /// <summary>
         /// A reranker that applies multiple rerankers in sequence to produce the final search results.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -135,6 +156,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ChainReranker PickChain() => IsChain
+            ? Chain!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Chain' but the value was {ToString()}.");
+
+        /// <summary>
         /// A placeholder reranker that does not modify the original search results ordering.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -163,6 +191,13 @@ namespace Vectara
             value = None;
             return IsNone;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.NoneReranker PickNone() => IsNone
+            ? None!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'None' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -180,6 +215,11 @@ namespace Vectara
         {
             CustomerReranker = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SearchReranker FromCustomerReranker(global::Vectara.CustomerSpecificReranker? value) => new SearchReranker(value);
 
         /// <summary>
         /// 
@@ -202,6 +242,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SearchReranker FromUserfn(global::Vectara.UserFunctionReranker? value) => new SearchReranker(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SearchReranker(global::Vectara.MMRReranker value) => new SearchReranker((global::Vectara.MMRReranker?)value);
 
         /// <summary>
@@ -216,6 +261,11 @@ namespace Vectara
         {
             Mmr = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SearchReranker FromMmr(global::Vectara.MMRReranker? value) => new SearchReranker(value);
 
         /// <summary>
         /// 
@@ -238,6 +288,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SearchReranker FromChain(global::Vectara.ChainReranker? value) => new SearchReranker(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SearchReranker(global::Vectara.NoneReranker value) => new SearchReranker((global::Vectara.NoneReranker?)value);
 
         /// <summary>
@@ -252,6 +307,11 @@ namespace Vectara
         {
             None = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SearchReranker FromNone(global::Vectara.NoneReranker? value) => new SearchReranker(value);
 
         /// <summary>
         /// 

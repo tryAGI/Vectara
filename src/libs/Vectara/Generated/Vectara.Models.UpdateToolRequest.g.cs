@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateMcpToolRequest PickMcp() => IsMcp
+            ? Mcp!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Mcp' but the value was {ToString()}.");
+
+        /// <summary>
         /// Request to update a lambda tool, allowing modifications to code, configuration, and metadata.<br/>
         /// When code is updated, input and output schemas are automatically re-discovered from function parameter type annotations.
         /// </summary>
@@ -74,6 +81,13 @@ namespace Vectara
             value = Lambda;
             return IsLambda;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateLambdaToolRequest PickLambda() => IsLambda
+            ? Lambda!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Lambda' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -95,6 +109,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static UpdateToolRequest FromMcp(global::Vectara.UpdateMcpToolRequest? value) => new UpdateToolRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdateToolRequest(global::Vectara.UpdateLambdaToolRequest value) => new UpdateToolRequest((global::Vectara.UpdateLambdaToolRequest?)value);
 
         /// <summary>
@@ -109,6 +128,11 @@ namespace Vectara
         {
             Lambda = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateToolRequest FromLambda(global::Vectara.UpdateLambdaToolRequest? value) => new UpdateToolRequest(value);
 
         /// <summary>
         /// 

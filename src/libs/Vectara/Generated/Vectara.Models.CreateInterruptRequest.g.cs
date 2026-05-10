@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.CreateInputRequestBase PickInputBase() => IsInputBase
+            ? InputBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InputBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateInterruptRequestVariant2? CreateInterruptRequestVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = CreateInterruptRequestVariant2;
             return IsCreateInterruptRequestVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateInterruptRequestVariant2 PickCreateInterruptRequestVariant2() => IsCreateInterruptRequestVariant2
+            ? CreateInterruptRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateInterruptRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateInterruptRequest FromInputBase(global::Vectara.CreateInputRequestBase? value) => new CreateInterruptRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateInterruptRequest(global::Vectara.CreateInterruptRequestVariant2 value) => new CreateInterruptRequest((global::Vectara.CreateInterruptRequestVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             CreateInterruptRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateInterruptRequest FromCreateInterruptRequestVariant2(global::Vectara.CreateInterruptRequestVariant2? value) => new CreateInterruptRequest(value);
 
         /// <summary>
         /// 

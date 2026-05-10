@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamGenerationChunk PickGenerationChunk() => IsGenerationChunk
+            ? GenerationChunk!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationChunk' but the value was {ToString()}.");
+
+        /// <summary>
         /// Event containing information on how the generation was accomplished.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = GenerationInfo;
             return IsGenerationInfo;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GenerationInfo PickGenerationInfo() => IsGenerationInfo
+            ? GenerationInfo!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationInfo' but the value was {ToString()}.");
 
         /// <summary>
         /// The end of generation. There may still be more information such as the factual consistency score, but generation has stopped.
@@ -105,6 +119,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamGenerationEnd PickGenerationEnd() => IsGenerationEnd
+            ? GenerationEnd!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationEnd' but the value was {ToString()}.");
+
+        /// <summary>
         /// The end of a query response stream.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -135,6 +156,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamResponseEnd PickEnd() => IsEnd
+            ? End!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'End' but the value was {ToString()}.");
+
+        /// <summary>
         /// Event signaling there was an error with the request.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -163,6 +191,13 @@ namespace Vectara
             value = Error;
             return IsError;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamError PickError() => IsError
+            ? Error!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -180,6 +215,11 @@ namespace Vectara
         {
             GenerationChunk = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SummarizeDocumentStreamedResponse FromGenerationChunk(global::Vectara.StreamGenerationChunk? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -202,6 +242,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SummarizeDocumentStreamedResponse FromGenerationInfo(global::Vectara.GenerationInfo? value) => new SummarizeDocumentStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationEnd value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamGenerationEnd?)value);
 
         /// <summary>
@@ -216,6 +261,11 @@ namespace Vectara
         {
             GenerationEnd = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SummarizeDocumentStreamedResponse FromGenerationEnd(global::Vectara.StreamGenerationEnd? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -238,6 +288,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SummarizeDocumentStreamedResponse FromEnd(global::Vectara.StreamResponseEnd? value) => new SummarizeDocumentStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamError value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamError?)value);
 
         /// <summary>
@@ -252,6 +307,11 @@ namespace Vectara
         {
             Error = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SummarizeDocumentStreamedResponse FromError(global::Vectara.StreamError? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
         /// 

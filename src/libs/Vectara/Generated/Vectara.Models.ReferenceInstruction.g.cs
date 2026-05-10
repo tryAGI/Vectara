@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.InstructionReference PickInstructionReference() => IsInstructionReference
+            ? InstructionReference!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InstructionReference' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ReferenceInstructionVariant2? ReferenceInstructionVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ReferenceInstructionVariant2;
             return IsReferenceInstructionVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ReferenceInstructionVariant2 PickReferenceInstructionVariant2() => IsReferenceInstructionVariant2
+            ? ReferenceInstructionVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ReferenceInstructionVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ReferenceInstruction FromInstructionReference(global::Vectara.InstructionReference? value) => new ReferenceInstruction(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ReferenceInstruction(global::Vectara.ReferenceInstructionVariant2 value) => new ReferenceInstruction((global::Vectara.ReferenceInstructionVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ReferenceInstructionVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ReferenceInstruction FromReferenceInstructionVariant2(global::Vectara.ReferenceInstructionVariant2? value) => new ReferenceInstruction(value);
 
         /// <summary>
         /// 

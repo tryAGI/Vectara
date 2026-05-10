@@ -43,6 +43,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SubAgentToolVariant2? SubAgentToolVariant2 { get; init; }
 #else
@@ -69,6 +76,13 @@ namespace Vectara
             value = SubAgentToolVariant2;
             return IsSubAgentToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SubAgentToolVariant2 PickSubAgentToolVariant2() => IsSubAgentToolVariant2
+            ? SubAgentToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgentToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -90,6 +104,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SubAgentTool FromBase(global::Vectara.ToolBase? value) => new SubAgentTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SubAgentTool(global::Vectara.SubAgentToolVariant2 value) => new SubAgentTool((global::Vectara.SubAgentToolVariant2?)value);
 
         /// <summary>
@@ -104,6 +123,11 @@ namespace Vectara
         {
             SubAgentToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SubAgentTool FromSubAgentToolVariant2(global::Vectara.SubAgentToolVariant2? value) => new SubAgentTool(value);
 
         /// <summary>
         /// 

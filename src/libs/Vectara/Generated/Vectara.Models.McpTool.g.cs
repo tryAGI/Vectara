@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.McpToolVariant2? McpToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = McpToolVariant2;
             return IsMcpToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.McpToolVariant2 PickMcpToolVariant2() => IsMcpToolVariant2
+            ? McpToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'McpToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static McpTool FromBase(global::Vectara.ToolBase? value) => new McpTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator McpTool(global::Vectara.McpToolVariant2 value) => new McpTool((global::Vectara.McpToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             McpToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static McpTool FromMcpToolVariant2(global::Vectara.McpToolVariant2? value) => new McpTool(value);
 
         /// <summary>
         /// 

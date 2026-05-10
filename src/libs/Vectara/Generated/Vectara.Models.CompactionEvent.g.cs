@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CompactionEventVariant2? CompactionEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = CompactionEventVariant2;
             return IsCompactionEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CompactionEventVariant2 PickCompactionEventVariant2() => IsCompactionEventVariant2
+            ? CompactionEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CompactionEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CompactionEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new CompactionEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CompactionEvent(global::Vectara.CompactionEventVariant2 value) => new CompactionEvent((global::Vectara.CompactionEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             CompactionEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CompactionEvent FromCompactionEventVariant2(global::Vectara.CompactionEventVariant2? value) => new CompactionEvent(value);
 
         /// <summary>
         /// 

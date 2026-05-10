@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ThinkingEventVariant2? ThinkingEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ThinkingEventVariant2;
             return IsThinkingEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ThinkingEventVariant2 PickThinkingEventVariant2() => IsThinkingEventVariant2
+            ? ThinkingEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ThinkingEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ThinkingEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ThinkingEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ThinkingEvent(global::Vectara.ThinkingEventVariant2 value) => new ThinkingEvent((global::Vectara.ThinkingEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ThinkingEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ThinkingEvent FromThinkingEventVariant2(global::Vectara.ThinkingEventVariant2? value) => new ThinkingEvent(value);
 
         /// <summary>
         /// 

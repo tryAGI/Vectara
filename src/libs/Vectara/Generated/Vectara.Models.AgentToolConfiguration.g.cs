@@ -46,6 +46,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineDynamicVectaraToolConfiguration PickDynamicVectara() => IsDynamicVectara
+            ? DynamicVectara!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'DynamicVectara' but the value was {ToString()}.");
+
+        /// <summary>
         /// An MCP tool configuration defined inline in the agent.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -74,6 +81,13 @@ namespace Vectara
             value = Mcp;
             return IsMcp;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineMcpToolConfiguration PickMcp() => IsMcp
+            ? Mcp!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Mcp' but the value was {ToString()}.");
 
         /// <summary>
         /// A corpora search tool configuration defined inline in the agent.
@@ -106,6 +120,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineCorporaSearchToolConfiguration PickCorporaSearch() => IsCorporaSearch
+            ? CorporaSearch!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CorporaSearch' but the value was {ToString()}.");
+
+        /// <summary>
         /// A web search tool configuration defined inline in the agent.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -134,6 +155,13 @@ namespace Vectara
             value = WebSearch;
             return IsWebSearch;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineWebSearchToolConfiguration PickWebSearch() => IsWebSearch
+            ? WebSearch!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WebSearch' but the value was {ToString()}.");
 
         /// <summary>
         /// A web get tool configuration defined inline in the agent for fetching content from URLs.
@@ -166,6 +194,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineWebGetToolConfiguration PickWebGet() => IsWebGet
+            ? WebGet!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WebGet' but the value was {ToString()}.");
+
+        /// <summary>
         /// A lambda tool configuration defined inline in the agent for executing user-defined functions.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -194,6 +229,13 @@ namespace Vectara
             value = Lambda;
             return IsLambda;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineLambdaToolConfiguration PickLambda() => IsLambda
+            ? Lambda!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Lambda' but the value was {ToString()}.");
 
         /// <summary>
         /// A sub-agent tool configuration defined inline in the agent for invoking specialized sub-agents.
@@ -226,6 +268,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineSubAgentToolConfiguration PickSubAgent() => IsSubAgent
+            ? SubAgent!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgent' but the value was {ToString()}.");
+
+        /// <summary>
         /// An artifact create tool configuration defined inline in the agent for creating artifacts on-the-fly from text or structured data content.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -254,6 +303,13 @@ namespace Vectara
             value = ArtifactCreate;
             return IsArtifactCreate;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactCreateToolConfiguration PickArtifactCreate() => IsArtifactCreate
+            ? ArtifactCreate!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactCreate' but the value was {ToString()}.");
 
         /// <summary>
         /// An artifact read tool configuration defined inline in the agent for reading artifacts from the session workspace.
@@ -286,6 +342,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactReadToolConfiguration PickArtifactRead() => IsArtifactRead
+            ? ArtifactRead!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactRead' but the value was {ToString()}.");
+
+        /// <summary>
         /// An artifact grep tool configuration defined inline in the agent for searching through artifact content.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -314,6 +377,13 @@ namespace Vectara
             value = ArtifactGrep;
             return IsArtifactGrep;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactGrepToolConfiguration PickArtifactGrep() => IsArtifactGrep
+            ? ArtifactGrep!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactGrep' but the value was {ToString()}.");
 
         /// <summary>
         /// An image read tool configuration defined inline in the agent for loading images into the conversation context.
@@ -346,6 +416,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineImageReadToolConfiguration PickImageRead() => IsImageRead
+            ? ImageRead!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ImageRead' but the value was {ToString()}.");
+
+        /// <summary>
         /// A document conversion tool configuration defined inline in the agent for converting document artifacts to various formats.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -376,6 +453,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineDocumentConversionToolConfiguration PickDocumentConversion() => IsDocumentConversion
+            ? DocumentConversion!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'DocumentConversion' but the value was {ToString()}.");
+
+        /// <summary>
         /// A get document text tool configuration defined inline in the agent for fetching document text content from a corpus.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -404,6 +488,13 @@ namespace Vectara
             value = GetDocumentText;
             return IsGetDocumentText;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineGetDocumentTextToolConfiguration PickGetDocumentText() => IsGetDocumentText
+            ? GetDocumentText!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GetDocumentText' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -421,6 +512,11 @@ namespace Vectara
         {
             DynamicVectara = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentToolConfiguration FromDynamicVectara(global::Vectara.InlineDynamicVectaraToolConfiguration? value) => new AgentToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -443,6 +539,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentToolConfiguration FromMcp(global::Vectara.InlineMcpToolConfiguration? value) => new AgentToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentToolConfiguration(global::Vectara.InlineCorporaSearchToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineCorporaSearchToolConfiguration?)value);
 
         /// <summary>
@@ -457,6 +558,11 @@ namespace Vectara
         {
             CorporaSearch = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentToolConfiguration FromCorporaSearch(global::Vectara.InlineCorporaSearchToolConfiguration? value) => new AgentToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -479,6 +585,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentToolConfiguration FromWebSearch(global::Vectara.InlineWebSearchToolConfiguration? value) => new AgentToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentToolConfiguration(global::Vectara.InlineWebGetToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineWebGetToolConfiguration?)value);
 
         /// <summary>
@@ -493,6 +604,11 @@ namespace Vectara
         {
             WebGet = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentToolConfiguration FromWebGet(global::Vectara.InlineWebGetToolConfiguration? value) => new AgentToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -515,6 +631,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentToolConfiguration FromLambda(global::Vectara.InlineLambdaToolConfiguration? value) => new AgentToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentToolConfiguration(global::Vectara.InlineSubAgentToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineSubAgentToolConfiguration?)value);
 
         /// <summary>
@@ -529,6 +650,11 @@ namespace Vectara
         {
             SubAgent = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentToolConfiguration FromSubAgent(global::Vectara.InlineSubAgentToolConfiguration? value) => new AgentToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -551,6 +677,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentToolConfiguration FromArtifactCreate(global::Vectara.InlineArtifactCreateToolConfiguration? value) => new AgentToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentToolConfiguration(global::Vectara.InlineArtifactReadToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineArtifactReadToolConfiguration?)value);
 
         /// <summary>
@@ -565,6 +696,11 @@ namespace Vectara
         {
             ArtifactRead = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentToolConfiguration FromArtifactRead(global::Vectara.InlineArtifactReadToolConfiguration? value) => new AgentToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -587,6 +723,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentToolConfiguration FromArtifactGrep(global::Vectara.InlineArtifactGrepToolConfiguration? value) => new AgentToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentToolConfiguration(global::Vectara.InlineImageReadToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineImageReadToolConfiguration?)value);
 
         /// <summary>
@@ -601,6 +742,11 @@ namespace Vectara
         {
             ImageRead = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentToolConfiguration FromImageRead(global::Vectara.InlineImageReadToolConfiguration? value) => new AgentToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -623,6 +769,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentToolConfiguration FromDocumentConversion(global::Vectara.InlineDocumentConversionToolConfiguration? value) => new AgentToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentToolConfiguration(global::Vectara.InlineGetDocumentTextToolConfiguration value) => new AgentToolConfiguration((global::Vectara.InlineGetDocumentTextToolConfiguration?)value);
 
         /// <summary>
@@ -637,6 +788,11 @@ namespace Vectara
         {
             GetDocumentText = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentToolConfiguration FromGetDocumentText(global::Vectara.InlineGetDocumentTextToolConfiguration? value) => new AgentToolConfiguration(value);
 
         /// <summary>
         /// 

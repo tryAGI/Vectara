@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SkillLoadEventVariant2? SkillLoadEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = SkillLoadEventVariant2;
             return IsSkillLoadEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SkillLoadEventVariant2 PickSkillLoadEventVariant2() => IsSkillLoadEventVariant2
+            ? SkillLoadEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SkillLoadEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SkillLoadEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new SkillLoadEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SkillLoadEvent(global::Vectara.SkillLoadEventVariant2 value) => new SkillLoadEvent((global::Vectara.SkillLoadEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             SkillLoadEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SkillLoadEvent FromSkillLoadEventVariant2(global::Vectara.SkillLoadEventVariant2? value) => new SkillLoadEvent(value);
 
         /// <summary>
         /// 

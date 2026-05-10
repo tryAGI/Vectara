@@ -44,6 +44,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StepTransitionLimitExceededEventVariant2? StepTransitionLimitExceededEventVariant2 { get; init; }
 #else
@@ -70,6 +77,13 @@ namespace Vectara
             value = StepTransitionLimitExceededEventVariant2;
             return IsStepTransitionLimitExceededEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StepTransitionLimitExceededEventVariant2 PickStepTransitionLimitExceededEventVariant2() => IsStepTransitionLimitExceededEventVariant2
+            ? StepTransitionLimitExceededEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransitionLimitExceededEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -91,6 +105,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static StepTransitionLimitExceededEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new StepTransitionLimitExceededEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator StepTransitionLimitExceededEvent(global::Vectara.StepTransitionLimitExceededEventVariant2 value) => new StepTransitionLimitExceededEvent((global::Vectara.StepTransitionLimitExceededEventVariant2?)value);
 
         /// <summary>
@@ -105,6 +124,11 @@ namespace Vectara
         {
             StepTransitionLimitExceededEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static StepTransitionLimitExceededEvent FromStepTransitionLimitExceededEventVariant2(global::Vectara.StepTransitionLimitExceededEventVariant2? value) => new StepTransitionLimitExceededEvent(value);
 
         /// <summary>
         /// 

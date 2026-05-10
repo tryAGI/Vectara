@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.DocumentConversionToolVariant2? DocumentConversionToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = DocumentConversionToolVariant2;
             return IsDocumentConversionToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DocumentConversionToolVariant2 PickDocumentConversionToolVariant2() => IsDocumentConversionToolVariant2
+            ? DocumentConversionToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'DocumentConversionToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static DocumentConversionTool FromBase(global::Vectara.ToolBase? value) => new DocumentConversionTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator DocumentConversionTool(global::Vectara.DocumentConversionToolVariant2 value) => new DocumentConversionTool((global::Vectara.DocumentConversionToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             DocumentConversionToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static DocumentConversionTool FromDocumentConversionToolVariant2(global::Vectara.DocumentConversionToolVariant2? value) => new DocumentConversionTool(value);
 
         /// <summary>
         /// 

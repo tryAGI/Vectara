@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CorporaSearchToolVariant2? CorporaSearchToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = CorporaSearchToolVariant2;
             return IsCorporaSearchToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CorporaSearchToolVariant2 PickCorporaSearchToolVariant2() => IsCorporaSearchToolVariant2
+            ? CorporaSearchToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CorporaSearchToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CorporaSearchTool FromBase(global::Vectara.ToolBase? value) => new CorporaSearchTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CorporaSearchTool(global::Vectara.CorporaSearchToolVariant2 value) => new CorporaSearchTool((global::Vectara.CorporaSearchToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             CorporaSearchToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CorporaSearchTool FromCorporaSearchToolVariant2(global::Vectara.CorporaSearchToolVariant2? value) => new CorporaSearchTool(value);
 
         /// <summary>
         /// 

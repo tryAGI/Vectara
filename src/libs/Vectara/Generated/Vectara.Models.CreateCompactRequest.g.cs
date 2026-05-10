@@ -43,6 +43,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.CreateInputRequestBase PickInputBase() => IsInputBase
+            ? InputBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InputBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateCompactRequestVariant2? CreateCompactRequestVariant2 { get; init; }
 #else
@@ -69,6 +76,13 @@ namespace Vectara
             value = CreateCompactRequestVariant2;
             return IsCreateCompactRequestVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateCompactRequestVariant2 PickCreateCompactRequestVariant2() => IsCreateCompactRequestVariant2
+            ? CreateCompactRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateCompactRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -90,6 +104,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateCompactRequest FromInputBase(global::Vectara.CreateInputRequestBase? value) => new CreateCompactRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateCompactRequest(global::Vectara.CreateCompactRequestVariant2 value) => new CreateCompactRequest((global::Vectara.CreateCompactRequestVariant2?)value);
 
         /// <summary>
@@ -104,6 +123,11 @@ namespace Vectara
         {
             CreateCompactRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateCompactRequest FromCreateCompactRequestVariant2(global::Vectara.CreateCompactRequestVariant2? value) => new CreateCompactRequest(value);
 
         /// <summary>
         /// 

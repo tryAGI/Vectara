@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ImageReadEventVariant2? ImageReadEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ImageReadEventVariant2;
             return IsImageReadEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ImageReadEventVariant2 PickImageReadEventVariant2() => IsImageReadEventVariant2
+            ? ImageReadEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ImageReadEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ImageReadEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ImageReadEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ImageReadEvent(global::Vectara.ImageReadEventVariant2 value) => new ImageReadEvent((global::Vectara.ImageReadEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ImageReadEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ImageReadEvent FromImageReadEventVariant2(global::Vectara.ImageReadEventVariant2? value) => new ImageReadEvent(value);
 
         /// <summary>
         /// 

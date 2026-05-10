@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebSearchToolVariant2? WebSearchToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = WebSearchToolVariant2;
             return IsWebSearchToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.WebSearchToolVariant2 PickWebSearchToolVariant2() => IsWebSearchToolVariant2
+            ? WebSearchToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WebSearchToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static WebSearchTool FromBase(global::Vectara.ToolBase? value) => new WebSearchTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator WebSearchTool(global::Vectara.WebSearchToolVariant2 value) => new WebSearchTool((global::Vectara.WebSearchToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             WebSearchToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static WebSearchTool FromWebSearchToolVariant2(global::Vectara.WebSearchToolVariant2? value) => new WebSearchTool(value);
 
         /// <summary>
         /// 

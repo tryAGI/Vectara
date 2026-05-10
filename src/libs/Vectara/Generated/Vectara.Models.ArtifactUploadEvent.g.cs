@@ -45,6 +45,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ArtifactUploadEventVariant2? ArtifactUploadEventVariant2 { get; init; }
 #else
@@ -71,6 +78,13 @@ namespace Vectara
             value = ArtifactUploadEventVariant2;
             return IsArtifactUploadEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ArtifactUploadEventVariant2 PickArtifactUploadEventVariant2() => IsArtifactUploadEventVariant2
+            ? ArtifactUploadEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactUploadEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -92,6 +106,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ArtifactUploadEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ArtifactUploadEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ArtifactUploadEvent(global::Vectara.ArtifactUploadEventVariant2 value) => new ArtifactUploadEvent((global::Vectara.ArtifactUploadEventVariant2?)value);
 
         /// <summary>
@@ -106,6 +125,11 @@ namespace Vectara
         {
             ArtifactUploadEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ArtifactUploadEvent FromArtifactUploadEventVariant2(global::Vectara.ArtifactUploadEventVariant2? value) => new ArtifactUploadEvent(value);
 
         /// <summary>
         /// 

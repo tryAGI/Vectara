@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateInputMessageRequest PickInputMessage() => IsInputMessage
+            ? InputMessage!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InputMessage' but the value was {ToString()}.");
+
+        /// <summary>
         /// Cancels the current agent operation.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = Interrupt;
             return IsInterrupt;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateInterruptRequest PickInterrupt() => IsInterrupt
+            ? Interrupt!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Interrupt' but the value was {ToString()}.");
 
         /// <summary>
         /// Requests compaction of the session history. Can be sent while the session is processing<br/>
@@ -104,6 +118,13 @@ namespace Vectara
             value = Compact;
             return IsCompact;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateCompactRequest PickCompact() => IsCompact
+            ? Compact!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Compact' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -121,6 +142,11 @@ namespace Vectara
         {
             InputMessage = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateInputRequest FromInputMessage(global::Vectara.CreateInputMessageRequest? value) => new CreateInputRequest(value);
 
         /// <summary>
         /// 
@@ -143,6 +169,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateInputRequest FromInterrupt(global::Vectara.CreateInterruptRequest? value) => new CreateInputRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateInputRequest(global::Vectara.CreateCompactRequest value) => new CreateInputRequest((global::Vectara.CreateCompactRequest?)value);
 
         /// <summary>
@@ -157,6 +188,11 @@ namespace Vectara
         {
             Compact = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateInputRequest FromCompact(global::Vectara.CreateCompactRequest? value) => new CreateInputRequest(value);
 
         /// <summary>
         /// 

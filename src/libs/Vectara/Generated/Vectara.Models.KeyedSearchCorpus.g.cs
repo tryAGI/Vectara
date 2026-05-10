@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.SearchCorpus PickSearchCorpus() => IsSearchCorpus
+            ? SearchCorpus!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SearchCorpus' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.KeyedSearchCorpusVariant2? KeyedSearchCorpusVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = KeyedSearchCorpusVariant2;
             return IsKeyedSearchCorpusVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.KeyedSearchCorpusVariant2 PickKeyedSearchCorpusVariant2() => IsKeyedSearchCorpusVariant2
+            ? KeyedSearchCorpusVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'KeyedSearchCorpusVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static KeyedSearchCorpus FromSearchCorpus(global::Vectara.SearchCorpus? value) => new KeyedSearchCorpus(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator KeyedSearchCorpus(global::Vectara.KeyedSearchCorpusVariant2 value) => new KeyedSearchCorpus((global::Vectara.KeyedSearchCorpusVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             KeyedSearchCorpusVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static KeyedSearchCorpus FromKeyedSearchCorpusVariant2(global::Vectara.KeyedSearchCorpusVariant2? value) => new KeyedSearchCorpus(value);
 
         /// <summary>
         /// 

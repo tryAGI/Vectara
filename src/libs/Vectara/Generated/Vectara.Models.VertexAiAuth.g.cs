@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.VertexAiApiKeyAuth PickApiKey() => IsApiKey
+            ? ApiKey!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ApiKey' but the value was {ToString()}.");
+
+        /// <summary>
         /// Service account authentication for Vertex AI
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = ServiceAccount;
             return IsServiceAccount;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.VertexAiServiceAccountAuth PickServiceAccount() => IsServiceAccount
+            ? ServiceAccount!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ServiceAccount' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -94,6 +108,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static VertexAiAuth FromApiKey(global::Vectara.VertexAiApiKeyAuth? value) => new VertexAiAuth(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator VertexAiAuth(global::Vectara.VertexAiServiceAccountAuth value) => new VertexAiAuth((global::Vectara.VertexAiServiceAccountAuth?)value);
 
         /// <summary>
@@ -108,6 +127,11 @@ namespace Vectara
         {
             ServiceAccount = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static VertexAiAuth FromServiceAccount(global::Vectara.VertexAiServiceAccountAuth? value) => new VertexAiAuth(value);
 
         /// <summary>
         /// 

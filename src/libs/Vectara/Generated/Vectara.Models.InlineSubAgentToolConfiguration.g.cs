@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineSubAgentToolConfigurationVariant2? InlineSubAgentToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineSubAgentToolConfigurationVariant2;
             return IsInlineSubAgentToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineSubAgentToolConfigurationVariant2 PickInlineSubAgentToolConfigurationVariant2() => IsInlineSubAgentToolConfigurationVariant2
+            ? InlineSubAgentToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineSubAgentToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineSubAgentToolConfiguration FromBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineSubAgentToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineSubAgentToolConfiguration(global::Vectara.InlineSubAgentToolConfigurationVariant2 value) => new InlineSubAgentToolConfiguration((global::Vectara.InlineSubAgentToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineSubAgentToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineSubAgentToolConfiguration FromInlineSubAgentToolConfigurationVariant2(global::Vectara.InlineSubAgentToolConfigurationVariant2? value) => new InlineSubAgentToolConfiguration(value);
 
         /// <summary>
         /// 

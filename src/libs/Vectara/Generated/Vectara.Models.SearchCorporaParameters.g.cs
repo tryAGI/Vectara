@@ -40,6 +40,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SearchCorporaParametersVariant1 PickSearchCorporaParametersVariant1() => IsSearchCorporaParametersVariant1
+            ? SearchCorporaParametersVariant1!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SearchCorporaParametersVariant1' but the value was {ToString()}.");
+
+        /// <summary>
         /// Search parameters to retrieve knowledge for the query.<br/>
         /// Example: {"limit":50}
         /// </summary>
@@ -69,6 +76,13 @@ namespace Vectara
             value = SearchParameters;
             return IsSearchParameters;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SearchParameters PickSearchParameters() => IsSearchParameters
+            ? SearchParameters!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SearchParameters' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -90,6 +104,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SearchCorporaParameters FromSearchCorporaParametersVariant1(global::Vectara.SearchCorporaParametersVariant1? value) => new SearchCorporaParameters(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SearchCorporaParameters(global::Vectara.SearchParameters value) => new SearchCorporaParameters((global::Vectara.SearchParameters?)value);
 
         /// <summary>
@@ -104,6 +123,11 @@ namespace Vectara
         {
             SearchParameters = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SearchCorporaParameters FromSearchParameters(global::Vectara.SearchParameters? value) => new SearchCorporaParameters(value);
 
         /// <summary>
         /// 

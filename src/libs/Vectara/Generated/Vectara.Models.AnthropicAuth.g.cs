@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BearerAuth PickBearer() => IsBearer
+            ? Bearer!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Bearer' but the value was {ToString()}.");
+
+        /// <summary>
         /// Custom header-based authentication
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = Header;
             return IsHeader;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.HeaderAuth PickHeader() => IsHeader
+            ? Header!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Header' but the value was {ToString()}.");
 
         /// <summary>
         /// AWS Bedrock authentication with explicit IAM credentials
@@ -105,6 +119,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BedrockStaticIAMAuth PickBedrockStaticIam() => IsBedrockStaticIam
+            ? BedrockStaticIam!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'BedrockStaticIam' but the value was {ToString()}.");
+
+        /// <summary>
         /// AWS Bedrock API key authentication
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -133,6 +154,13 @@ namespace Vectara
             value = BedrockApiKey;
             return IsBedrockApiKey;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BedrockApiKeyAuth PickBedrockApiKey() => IsBedrockApiKey
+            ? BedrockApiKey!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'BedrockApiKey' but the value was {ToString()}.");
 
         /// <summary>
         /// Google Cloud Vertex AI service account authentication
@@ -165,6 +193,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.VertexServiceAccountAuth PickVertexServiceAccount() => IsVertexServiceAccount
+            ? VertexServiceAccount!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'VertexServiceAccount' but the value was {ToString()}.");
+
+        /// <summary>
         /// Google Cloud Vertex AI access token authentication
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -193,6 +228,13 @@ namespace Vectara
             value = VertexAccessToken;
             return IsVertexAccessToken;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.VertexAccessTokenAuth PickVertexAccessToken() => IsVertexAccessToken
+            ? VertexAccessToken!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'VertexAccessToken' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -210,6 +252,11 @@ namespace Vectara
         {
             Bearer = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AnthropicAuth FromBearer(global::Vectara.BearerAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
         /// 
@@ -232,6 +279,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AnthropicAuth FromHeader(global::Vectara.HeaderAuth? value) => new AnthropicAuth(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.BedrockStaticIAMAuth value) => new AnthropicAuth((global::Vectara.BedrockStaticIAMAuth?)value);
 
         /// <summary>
@@ -246,6 +298,11 @@ namespace Vectara
         {
             BedrockStaticIam = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AnthropicAuth FromBedrockStaticIam(global::Vectara.BedrockStaticIAMAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
         /// 
@@ -268,6 +325,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AnthropicAuth FromBedrockApiKey(global::Vectara.BedrockApiKeyAuth? value) => new AnthropicAuth(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.VertexServiceAccountAuth value) => new AnthropicAuth((global::Vectara.VertexServiceAccountAuth?)value);
 
         /// <summary>
@@ -286,6 +348,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AnthropicAuth FromVertexServiceAccount(global::Vectara.VertexServiceAccountAuth? value) => new AnthropicAuth(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.VertexAccessTokenAuth value) => new AnthropicAuth((global::Vectara.VertexAccessTokenAuth?)value);
 
         /// <summary>
@@ -300,6 +367,11 @@ namespace Vectara
         {
             VertexAccessToken = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AnthropicAuth FromVertexAccessToken(global::Vectara.VertexAccessTokenAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
         /// 

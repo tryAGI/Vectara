@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateOpenAILLMRequest PickOpenaiCompatible() => IsOpenaiCompatible
+            ? OpenaiCompatible!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OpenaiCompatible' but the value was {ToString()}.");
+
+        /// <summary>
         /// Request to update an OpenAI Responses API Large Language Model connection. All fields are optional.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = OpenaiResponses;
             return IsOpenaiResponses;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateOpenAIResponsesLLMRequest PickOpenaiResponses() => IsOpenaiResponses
+            ? OpenaiResponses!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OpenaiResponses' but the value was {ToString()}.");
 
         /// <summary>
         /// Request to update a Vertex AI Large Language Model connection. All fields are optional.
@@ -105,6 +119,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateVertexAILLMRequest PickVertexAi() => IsVertexAi
+            ? VertexAi!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'VertexAi' but the value was {ToString()}.");
+
+        /// <summary>
         /// Request to update an Anthropic Large Language Model connection. All fields are optional.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -133,6 +154,13 @@ namespace Vectara
             value = Anthropic;
             return IsAnthropic;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateAnthropicLLMRequest PickAnthropic() => IsAnthropic
+            ? Anthropic!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Anthropic' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -150,6 +178,11 @@ namespace Vectara
         {
             OpenaiCompatible = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateLLMRequest FromOpenaiCompatible(global::Vectara.UpdateOpenAILLMRequest? value) => new UpdateLLMRequest(value);
 
         /// <summary>
         /// 
@@ -172,6 +205,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static UpdateLLMRequest FromOpenaiResponses(global::Vectara.UpdateOpenAIResponsesLLMRequest? value) => new UpdateLLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdateLLMRequest(global::Vectara.UpdateVertexAILLMRequest value) => new UpdateLLMRequest((global::Vectara.UpdateVertexAILLMRequest?)value);
 
         /// <summary>
@@ -190,6 +228,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static UpdateLLMRequest FromVertexAi(global::Vectara.UpdateVertexAILLMRequest? value) => new UpdateLLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdateLLMRequest(global::Vectara.UpdateAnthropicLLMRequest value) => new UpdateLLMRequest((global::Vectara.UpdateAnthropicLLMRequest?)value);
 
         /// <summary>
@@ -204,6 +247,11 @@ namespace Vectara
         {
             Anthropic = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateLLMRequest FromAnthropic(global::Vectara.UpdateAnthropicLLMRequest? value) => new UpdateLLMRequest(value);
 
         /// <summary>
         /// 

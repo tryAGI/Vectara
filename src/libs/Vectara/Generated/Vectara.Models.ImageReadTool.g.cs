@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ImageReadToolVariant2? ImageReadToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ImageReadToolVariant2;
             return IsImageReadToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ImageReadToolVariant2 PickImageReadToolVariant2() => IsImageReadToolVariant2
+            ? ImageReadToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ImageReadToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ImageReadTool FromBase(global::Vectara.ToolBase? value) => new ImageReadTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ImageReadTool(global::Vectara.ImageReadToolVariant2 value) => new ImageReadTool((global::Vectara.ImageReadToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ImageReadToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ImageReadTool FromImageReadToolVariant2(global::Vectara.ImageReadToolVariant2? value) => new ImageReadTool(value);
 
         /// <summary>
         /// 

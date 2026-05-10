@@ -46,6 +46,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DefaultOutputParser PickDefault() => IsDefault
+            ? Default!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Default' but the value was {ToString()}.");
+
+        /// <summary>
         /// Parses agent output as structured JSON conforming to a specified schema.<br/>
         /// Uses the model's native structured outputs capability to guarantee valid JSON<br/>
         /// that adheres to the provided schema. This is useful when you need the agent's<br/>
@@ -84,6 +91,13 @@ namespace Vectara
             value = Structured;
             return IsStructured;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StructuredOutputParser PickStructured() => IsStructured
+            ? Structured!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Structured' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -105,6 +119,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentOutputParser FromDefault(global::Vectara.DefaultOutputParser? value) => new AgentOutputParser(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentOutputParser(global::Vectara.StructuredOutputParser value) => new AgentOutputParser((global::Vectara.StructuredOutputParser?)value);
 
         /// <summary>
@@ -119,6 +138,11 @@ namespace Vectara
         {
             Structured = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentOutputParser FromStructured(global::Vectara.StructuredOutputParser? value) => new AgentOutputParser(value);
 
         /// <summary>
         /// 
