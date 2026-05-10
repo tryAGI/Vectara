@@ -49,6 +49,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ConditionVerification PickCondition() => IsCondition
+            ? Condition!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Condition' but the value was {ToString()}.");
+
+        /// <summary>
         /// Verify the worker agent's output using a separate judge agent. The judge agent receives<br/>
         /// a summary of the worker agent's session and must produce a structured output with<br/>
         /// `{ "success": boolean, "reason": string }`. The judge agent must be configured with a<br/>
@@ -80,6 +87,13 @@ namespace Vectara
             value = Agent;
             return IsAgent;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentVerification PickAgent() => IsAgent
+            ? Agent!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Agent' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -101,6 +115,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static PipelineVerification FromCondition(global::Vectara.ConditionVerification? value) => new PipelineVerification(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PipelineVerification(global::Vectara.AgentVerification value) => new PipelineVerification((global::Vectara.AgentVerification?)value);
 
         /// <summary>
@@ -115,6 +134,11 @@ namespace Vectara
         {
             Agent = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineVerification FromAgent(global::Vectara.AgentVerification? value) => new PipelineVerification(value);
 
         /// <summary>
         /// 

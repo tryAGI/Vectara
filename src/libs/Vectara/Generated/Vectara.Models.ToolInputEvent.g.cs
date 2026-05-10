@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ToolInputEventVariant2? ToolInputEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ToolInputEventVariant2;
             return IsToolInputEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolInputEventVariant2 PickToolInputEventVariant2() => IsToolInputEventVariant2
+            ? ToolInputEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ToolInputEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ToolInputEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ToolInputEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ToolInputEvent(global::Vectara.ToolInputEventVariant2 value) => new ToolInputEvent((global::Vectara.ToolInputEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ToolInputEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ToolInputEvent FromToolInputEventVariant2(global::Vectara.ToolInputEventVariant2? value) => new ToolInputEvent(value);
 
         /// <summary>
         /// 

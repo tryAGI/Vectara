@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.RephraseSpan PickRephrase() => IsRephrase
+            ? Rephrase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Rephrase' but the value was {ToString()}.");
+
+        /// <summary>
         /// The search portion of the query pipeline. This occurs before any reranking span.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = Search;
             return IsSearch;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SearchSpan PickSearch() => IsSearch
+            ? Search!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Search' but the value was {ToString()}.");
 
         /// <summary>
         /// The reranking of the search result.
@@ -105,6 +119,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.RerankSpan PickRerank() => IsRerank
+            ? Rerank!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Rerank' but the value was {ToString()}.");
+
+        /// <summary>
         /// The generation by an LLM.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -133,6 +154,13 @@ namespace Vectara
             value = Generation;
             return IsGeneration;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GenerationSpan PickGeneration() => IsGeneration
+            ? Generation!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Generation' but the value was {ToString()}.");
 
         /// <summary>
         /// The factual consistency of the generation.
@@ -165,6 +193,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.FactualConsistencyScoreSpan PickFcs() => IsFcs
+            ? Fcs!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Fcs' but the value was {ToString()}.");
+
+        /// <summary>
         /// Provides detailed information about a rewritten query generated for a specific corpus when intelligent query rewriting is enabled.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -193,6 +228,13 @@ namespace Vectara
             value = RewrittenQuery;
             return IsRewrittenQuery;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.RewrittenQuerySpan PickRewrittenQuery() => IsRewrittenQuery
+            ? RewrittenQuery!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'RewrittenQuery' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -210,6 +252,11 @@ namespace Vectara
         {
             Rephrase = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static QueryHistorySpan FromRephrase(global::Vectara.RephraseSpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
         /// 
@@ -232,6 +279,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static QueryHistorySpan FromSearch(global::Vectara.SearchSpan? value) => new QueryHistorySpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.RerankSpan value) => new QueryHistorySpan((global::Vectara.RerankSpan?)value);
 
         /// <summary>
@@ -246,6 +298,11 @@ namespace Vectara
         {
             Rerank = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static QueryHistorySpan FromRerank(global::Vectara.RerankSpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
         /// 
@@ -268,6 +325,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static QueryHistorySpan FromGeneration(global::Vectara.GenerationSpan? value) => new QueryHistorySpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.FactualConsistencyScoreSpan value) => new QueryHistorySpan((global::Vectara.FactualConsistencyScoreSpan?)value);
 
         /// <summary>
@@ -286,6 +348,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static QueryHistorySpan FromFcs(global::Vectara.FactualConsistencyScoreSpan? value) => new QueryHistorySpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.RewrittenQuerySpan value) => new QueryHistorySpan((global::Vectara.RewrittenQuerySpan?)value);
 
         /// <summary>
@@ -300,6 +367,11 @@ namespace Vectara
         {
             RewrittenQuery = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static QueryHistorySpan FromRewrittenQuery(global::Vectara.RewrittenQuerySpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
         /// 

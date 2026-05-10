@@ -44,6 +44,13 @@ namespace Vectara
             value = Lambda;
             return IsLambda;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateLambdaToolRequest PickLambda() => IsLambda
+            ? Lambda!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Lambda' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -61,6 +68,11 @@ namespace Vectara
         {
             Lambda = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateToolRequest FromLambda(global::Vectara.CreateLambdaToolRequest? value) => new CreateToolRequest(value);
 
         /// <summary>
         /// 

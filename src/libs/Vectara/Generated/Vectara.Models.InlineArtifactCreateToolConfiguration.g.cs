@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineArtifactCreateToolConfigurationVariant2? InlineArtifactCreateToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineArtifactCreateToolConfigurationVariant2;
             return IsInlineArtifactCreateToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactCreateToolConfigurationVariant2 PickInlineArtifactCreateToolConfigurationVariant2() => IsInlineArtifactCreateToolConfigurationVariant2
+            ? InlineArtifactCreateToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineArtifactCreateToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineArtifactCreateToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineArtifactCreateToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineArtifactCreateToolConfiguration(global::Vectara.InlineArtifactCreateToolConfigurationVariant2 value) => new InlineArtifactCreateToolConfiguration((global::Vectara.InlineArtifactCreateToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineArtifactCreateToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineArtifactCreateToolConfiguration FromInlineArtifactCreateToolConfigurationVariant2(global::Vectara.InlineArtifactCreateToolConfigurationVariant2? value) => new InlineArtifactCreateToolConfiguration(value);
 
         /// <summary>
         /// 

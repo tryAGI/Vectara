@@ -43,6 +43,13 @@ namespace Vectara
             value = S3;
             return IsS3;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.S3SourceConfiguration PickS3() => IsS3
+            ? S3!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'S3' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -60,6 +67,11 @@ namespace Vectara
         {
             S3 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineSource FromS3(global::Vectara.S3SourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
         /// 

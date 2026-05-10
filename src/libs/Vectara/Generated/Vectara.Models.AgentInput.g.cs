@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentTextInput PickText() => IsText
+            ? Text!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Text' but the value was {ToString()}.");
+
+        /// <summary>
         /// An input that invokes a skill by name.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = Skill;
             return IsSkill;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentSkillInput PickSkill() => IsSkill
+            ? Skill!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Skill' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -94,6 +108,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentInput FromText(global::Vectara.AgentTextInput? value) => new AgentInput(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentInput(global::Vectara.AgentSkillInput value) => new AgentInput((global::Vectara.AgentSkillInput?)value);
 
         /// <summary>
@@ -108,6 +127,11 @@ namespace Vectara
         {
             Skill = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentInput FromSkill(global::Vectara.AgentSkillInput? value) => new AgentInput(value);
 
         /// <summary>
         /// 

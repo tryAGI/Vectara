@@ -44,6 +44,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.LambdaToolVariant2? LambdaToolVariant2 { get; init; }
 #else
@@ -70,6 +77,13 @@ namespace Vectara
             value = LambdaToolVariant2;
             return IsLambdaToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.LambdaToolVariant2 PickLambdaToolVariant2() => IsLambdaToolVariant2
+            ? LambdaToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'LambdaToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -91,6 +105,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static LambdaTool FromBase(global::Vectara.ToolBase? value) => new LambdaTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator LambdaTool(global::Vectara.LambdaToolVariant2 value) => new LambdaTool((global::Vectara.LambdaToolVariant2?)value);
 
         /// <summary>
@@ -105,6 +124,11 @@ namespace Vectara
         {
             LambdaToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static LambdaTool FromLambdaToolVariant2(global::Vectara.LambdaToolVariant2? value) => new LambdaTool(value);
 
         /// <summary>
         /// 

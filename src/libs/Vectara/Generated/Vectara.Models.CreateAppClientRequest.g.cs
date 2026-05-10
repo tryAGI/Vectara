@@ -43,6 +43,13 @@ namespace Vectara
             value = ClientCredentials;
             return IsClientCredentials;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateClientCredentialsRequest PickClientCredentials() => IsClientCredentials
+            ? ClientCredentials!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ClientCredentials' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -60,6 +67,11 @@ namespace Vectara
         {
             ClientCredentials = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateAppClientRequest FromClientCredentials(global::Vectara.CreateClientCredentialsRequest? value) => new CreateAppClientRequest(value);
 
         /// <summary>
         /// 

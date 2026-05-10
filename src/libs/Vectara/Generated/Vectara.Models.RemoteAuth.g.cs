@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BearerAuth PickBearer() => IsBearer
+            ? Bearer!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Bearer' but the value was {ToString()}.");
+
+        /// <summary>
         /// Custom header-based authentication
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -75,6 +82,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.HeaderAuth PickHeader() => IsHeader
+            ? Header!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Header' but the value was {ToString()}.");
+
+        /// <summary>
         /// OAuth 2.0 client credentials authentication. The platform acquires an access token from the token endpoint before connecting to the remote service.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -103,6 +117,13 @@ namespace Vectara
             value = OauthClientCredentials;
             return IsOauthClientCredentials;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.OAuthClientCredentialsAuth PickOauthClientCredentials() => IsOauthClientCredentials
+            ? OauthClientCredentials!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OauthClientCredentials' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -120,6 +141,11 @@ namespace Vectara
         {
             Bearer = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static RemoteAuth FromBearer(global::Vectara.BearerAuth? value) => new RemoteAuth(value);
 
         /// <summary>
         /// 
@@ -142,6 +168,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static RemoteAuth FromHeader(global::Vectara.HeaderAuth? value) => new RemoteAuth(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator RemoteAuth(global::Vectara.OAuthClientCredentialsAuth value) => new RemoteAuth((global::Vectara.OAuthClientCredentialsAuth?)value);
 
         /// <summary>
@@ -156,6 +187,11 @@ namespace Vectara
         {
             OauthClientCredentials = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static RemoteAuth FromOauthClientCredentials(global::Vectara.OAuthClientCredentialsAuth? value) => new RemoteAuth(value);
 
         /// <summary>
         /// 

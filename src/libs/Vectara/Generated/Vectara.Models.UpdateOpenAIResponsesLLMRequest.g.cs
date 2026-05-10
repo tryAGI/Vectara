@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.OpenAILLMUpdateBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2? UpdateOpenAIResponsesLLMRequestVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = UpdateOpenAIResponsesLLMRequestVariant2;
             return IsUpdateOpenAIResponsesLLMRequestVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2 PickUpdateOpenAIResponsesLLMRequestVariant2() => IsUpdateOpenAIResponsesLLMRequestVariant2
+            ? UpdateOpenAIResponsesLLMRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'UpdateOpenAIResponsesLLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static UpdateOpenAIResponsesLLMRequest FromBase(global::Vectara.OpenAILLMUpdateBase? value) => new UpdateOpenAIResponsesLLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdateOpenAIResponsesLLMRequest(global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2 value) => new UpdateOpenAIResponsesLLMRequest((global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             UpdateOpenAIResponsesLLMRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateOpenAIResponsesLLMRequest FromUpdateOpenAIResponsesLLMRequestVariant2(global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2? value) => new UpdateOpenAIResponsesLLMRequest(value);
 
         /// <summary>
         /// 

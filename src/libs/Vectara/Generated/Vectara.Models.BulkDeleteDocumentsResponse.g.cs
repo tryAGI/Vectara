@@ -60,6 +60,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BulkDeleteAsyncResponse PickAsync() => IsAsync
+            ? Async!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Async' but the value was {ToString()}.");
+
+        /// <summary>
         /// Response when async=false and operation completes successfully (HTTP 200).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -88,6 +95,13 @@ namespace Vectara
             value = Success;
             return IsSuccess;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BulkDeleteSyncSuccessResponse PickSuccess() => IsSuccess
+            ? Success!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Success' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -109,6 +123,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static BulkDeleteDocumentsResponse FromAsync(global::Vectara.BulkDeleteAsyncResponse? value) => new BulkDeleteDocumentsResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteSyncSuccessResponse value) => new BulkDeleteDocumentsResponse((global::Vectara.BulkDeleteSyncSuccessResponse?)value);
 
         /// <summary>
@@ -123,6 +142,11 @@ namespace Vectara
         {
             Success = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static BulkDeleteDocumentsResponse FromSuccess(global::Vectara.BulkDeleteSyncSuccessResponse? value) => new BulkDeleteDocumentsResponse(value);
 
         /// <summary>
         /// 

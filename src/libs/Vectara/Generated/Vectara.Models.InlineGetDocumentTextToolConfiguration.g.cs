@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? InlineGetDocumentTextToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineGetDocumentTextToolConfigurationVariant2;
             return IsInlineGetDocumentTextToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineGetDocumentTextToolConfigurationVariant2 PickInlineGetDocumentTextToolConfigurationVariant2() => IsInlineGetDocumentTextToolConfigurationVariant2
+            ? InlineGetDocumentTextToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineGetDocumentTextToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineGetDocumentTextToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineGetDocumentTextToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineGetDocumentTextToolConfiguration(global::Vectara.InlineGetDocumentTextToolConfigurationVariant2 value) => new InlineGetDocumentTextToolConfiguration((global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineGetDocumentTextToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineGetDocumentTextToolConfiguration FromInlineGetDocumentTextToolConfigurationVariant2(global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? value) => new InlineGetDocumentTextToolConfiguration(value);
 
         /// <summary>
         /// 

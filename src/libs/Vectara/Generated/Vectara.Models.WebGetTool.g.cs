@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetToolVariant2? WebGetToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = WebGetToolVariant2;
             return IsWebGetToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.WebGetToolVariant2 PickWebGetToolVariant2() => IsWebGetToolVariant2
+            ? WebGetToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WebGetToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static WebGetTool FromBase(global::Vectara.ToolBase? value) => new WebGetTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator WebGetTool(global::Vectara.WebGetToolVariant2 value) => new WebGetTool((global::Vectara.WebGetToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             WebGetToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static WebGetTool FromWebGetToolVariant2(global::Vectara.WebGetToolVariant2? value) => new WebGetTool(value);
 
         /// <summary>
         /// 

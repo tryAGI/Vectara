@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.TemplatedReminder PickTemplated() => IsTemplated
+            ? Templated!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Templated' but the value was {ToString()}.");
+
+        /// <summary>
         /// A reminder that expands terms, acronyms, and abbreviations in user messages using a glossary.<br/>
         /// When attached to a step, user input is run through the glossary's lookup index and matching<br/>
         /// terms are expanded before the message reaches the LLM.
@@ -75,6 +82,13 @@ namespace Vectara
             value = GlossaryExpansion;
             return IsGlossaryExpansion;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GlossaryExpansionReminder PickGlossaryExpansion() => IsGlossaryExpansion
+            ? GlossaryExpansion!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GlossaryExpansion' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -96,6 +110,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentStepReminder FromTemplated(global::Vectara.TemplatedReminder? value) => new AgentStepReminder(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentStepReminder(global::Vectara.GlossaryExpansionReminder value) => new AgentStepReminder((global::Vectara.GlossaryExpansionReminder?)value);
 
         /// <summary>
@@ -110,6 +129,11 @@ namespace Vectara
         {
             GlossaryExpansion = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentStepReminder FromGlossaryExpansion(global::Vectara.GlossaryExpansionReminder? value) => new AgentStepReminder(value);
 
         /// <summary>
         /// 

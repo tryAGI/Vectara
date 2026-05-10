@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamSearchResponse PickSearchResults() => IsSearchResults
+            ? SearchResults!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SearchResults' but the value was {ToString()}.");
+
+        /// <summary>
         /// Information about the chat.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = ChatInfo;
             return IsChatInfo;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ChatInfoResponse PickChatInfo() => IsChatInfo
+            ? ChatInfo!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ChatInfo' but the value was {ToString()}.");
 
         /// <summary>
         /// The chunk response from the generation, which may be a partial generation.
@@ -105,6 +119,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamGenerationChunk PickGenerationChunk() => IsGenerationChunk
+            ? GenerationChunk!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationChunk' but the value was {ToString()}.");
+
+        /// <summary>
         /// The end of generation. There may still be more information such as the factual consistency score, but generation has stopped.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -133,6 +154,13 @@ namespace Vectara
             value = GenerationEnd;
             return IsGenerationEnd;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamGenerationEnd PickGenerationEnd() => IsGenerationEnd
+            ? GenerationEnd!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationEnd' but the value was {ToString()}.");
 
         /// <summary>
         /// Event containing information on how the generation was accomplished.
@@ -165,6 +193,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GenerationInfo PickGenerationInfo() => IsGenerationInfo
+            ? GenerationInfo!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationInfo' but the value was {ToString()}.");
+
+        /// <summary>
         /// Event containing the factual consistency score.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -193,6 +228,13 @@ namespace Vectara
             value = FactualConsistencyScore;
             return IsFactualConsistencyScore;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.FactualConsistencyScore PickFactualConsistencyScore() => IsFactualConsistencyScore
+            ? FactualConsistencyScore!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'FactualConsistencyScore' but the value was {ToString()}.");
 
         /// <summary>
         /// The end of a query response stream.
@@ -225,6 +267,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamResponseEnd PickEnd() => IsEnd
+            ? End!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'End' but the value was {ToString()}.");
+
+        /// <summary>
         /// Event signaling there was an error with the request.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -253,6 +302,13 @@ namespace Vectara
             value = Error;
             return IsError;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamError PickError() => IsError
+            ? Error!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -270,6 +326,11 @@ namespace Vectara
         {
             SearchResults = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatStreamedResponse FromSearchResults(global::Vectara.StreamSearchResponse? value) => new ChatStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -292,6 +353,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatStreamedResponse FromChatInfo(global::Vectara.ChatInfoResponse? value) => new ChatStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatStreamedResponse(global::Vectara.StreamGenerationChunk value) => new ChatStreamedResponse((global::Vectara.StreamGenerationChunk?)value);
 
         /// <summary>
@@ -306,6 +372,11 @@ namespace Vectara
         {
             GenerationChunk = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatStreamedResponse FromGenerationChunk(global::Vectara.StreamGenerationChunk? value) => new ChatStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -328,6 +399,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatStreamedResponse FromGenerationEnd(global::Vectara.StreamGenerationEnd? value) => new ChatStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatStreamedResponse(global::Vectara.GenerationInfo value) => new ChatStreamedResponse((global::Vectara.GenerationInfo?)value);
 
         /// <summary>
@@ -342,6 +418,11 @@ namespace Vectara
         {
             GenerationInfo = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatStreamedResponse FromGenerationInfo(global::Vectara.GenerationInfo? value) => new ChatStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -364,6 +445,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatStreamedResponse FromFactualConsistencyScore(global::Vectara.FactualConsistencyScore? value) => new ChatStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatStreamedResponse(global::Vectara.StreamResponseEnd value) => new ChatStreamedResponse((global::Vectara.StreamResponseEnd?)value);
 
         /// <summary>
@@ -382,6 +468,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatStreamedResponse FromEnd(global::Vectara.StreamResponseEnd? value) => new ChatStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatStreamedResponse(global::Vectara.StreamError value) => new ChatStreamedResponse((global::Vectara.StreamError?)value);
 
         /// <summary>
@@ -396,6 +487,11 @@ namespace Vectara
         {
             Error = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatStreamedResponse FromError(global::Vectara.StreamError? value) => new ChatStreamedResponse(value);
 
         /// <summary>
         /// 

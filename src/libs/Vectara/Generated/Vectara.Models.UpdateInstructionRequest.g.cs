@@ -43,6 +43,13 @@ namespace Vectara
             value = Initial;
             return IsInitial;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateInitialInstructionRequest PickInitial() => IsInitial
+            ? Initial!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Initial' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -60,6 +67,11 @@ namespace Vectara
         {
             Initial = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateInstructionRequest FromInitial(global::Vectara.UpdateInitialInstructionRequest? value) => new UpdateInstructionRequest(value);
 
         /// <summary>
         /// 

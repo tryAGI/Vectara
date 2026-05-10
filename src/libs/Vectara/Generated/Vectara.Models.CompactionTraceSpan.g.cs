@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CompactionTraceSpanVariant2? CompactionTraceSpanVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = CompactionTraceSpanVariant2;
             return IsCompactionTraceSpanVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CompactionTraceSpanVariant2 PickCompactionTraceSpanVariant2() => IsCompactionTraceSpanVariant2
+            ? CompactionTraceSpanVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CompactionTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CompactionTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new CompactionTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CompactionTraceSpan(global::Vectara.CompactionTraceSpanVariant2 value) => new CompactionTraceSpan((global::Vectara.CompactionTraceSpanVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             CompactionTraceSpanVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CompactionTraceSpan FromCompactionTraceSpanVariant2(global::Vectara.CompactionTraceSpanVariant2? value) => new CompactionTraceSpan(value);
 
         /// <summary>
         /// 

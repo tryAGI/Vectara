@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineMcpToolConfigurationVariant2? InlineMcpToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineMcpToolConfigurationVariant2;
             return IsInlineMcpToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineMcpToolConfigurationVariant2 PickInlineMcpToolConfigurationVariant2() => IsInlineMcpToolConfigurationVariant2
+            ? InlineMcpToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineMcpToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineMcpToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineMcpToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineMcpToolConfiguration(global::Vectara.InlineMcpToolConfigurationVariant2 value) => new InlineMcpToolConfiguration((global::Vectara.InlineMcpToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineMcpToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineMcpToolConfiguration FromInlineMcpToolConfigurationVariant2(global::Vectara.InlineMcpToolConfigurationVariant2? value) => new InlineMcpToolConfiguration(value);
 
         /// <summary>
         /// 

@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ArtifactCreateToolVariant2? ArtifactCreateToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ArtifactCreateToolVariant2;
             return IsArtifactCreateToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ArtifactCreateToolVariant2 PickArtifactCreateToolVariant2() => IsArtifactCreateToolVariant2
+            ? ArtifactCreateToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactCreateToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ArtifactCreateTool FromBase(global::Vectara.ToolBase? value) => new ArtifactCreateTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ArtifactCreateTool(global::Vectara.ArtifactCreateToolVariant2 value) => new ArtifactCreateTool((global::Vectara.ArtifactCreateToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ArtifactCreateToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ArtifactCreateTool FromArtifactCreateToolVariant2(global::Vectara.ArtifactCreateToolVariant2? value) => new ArtifactCreateTool(value);
 
         /// <summary>
         /// 

@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineLambdaToolConfigurationVariant2? InlineLambdaToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineLambdaToolConfigurationVariant2;
             return IsInlineLambdaToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineLambdaToolConfigurationVariant2 PickInlineLambdaToolConfigurationVariant2() => IsInlineLambdaToolConfigurationVariant2
+            ? InlineLambdaToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineLambdaToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineLambdaToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineLambdaToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineLambdaToolConfiguration(global::Vectara.InlineLambdaToolConfigurationVariant2 value) => new InlineLambdaToolConfiguration((global::Vectara.InlineLambdaToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineLambdaToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineLambdaToolConfiguration FromInlineLambdaToolConfigurationVariant2(global::Vectara.InlineLambdaToolConfigurationVariant2? value) => new InlineLambdaToolConfiguration(value);
 
         /// <summary>
         /// 

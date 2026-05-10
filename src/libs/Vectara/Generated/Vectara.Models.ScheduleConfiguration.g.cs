@@ -40,6 +40,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.IntervalScheduleConfiguration PickInterval() => IsInterval
+            ? Interval!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Interval' but the value was {ToString()}.");
+
+        /// <summary>
         /// Configuration for cron-based schedule execution.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -68,6 +75,13 @@ namespace Vectara
             value = Cron;
             return IsCron;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CronScheduleConfiguration PickCron() => IsCron
+            ? Cron!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Cron' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ScheduleConfiguration FromInterval(global::Vectara.IntervalScheduleConfiguration? value) => new ScheduleConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ScheduleConfiguration(global::Vectara.CronScheduleConfiguration value) => new ScheduleConfiguration((global::Vectara.CronScheduleConfiguration?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             Cron = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ScheduleConfiguration FromCron(global::Vectara.CronScheduleConfiguration? value) => new ScheduleConfiguration(value);
 
         /// <summary>
         /// 

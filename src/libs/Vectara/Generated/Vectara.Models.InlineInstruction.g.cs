@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.InstructionRequestBase PickRequestBase() => IsRequestBase
+            ? RequestBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'RequestBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineInstructionVariant2? InlineInstructionVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineInstructionVariant2;
             return IsInlineInstructionVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineInstructionVariant2 PickInlineInstructionVariant2() => IsInlineInstructionVariant2
+            ? InlineInstructionVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineInstructionVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineInstruction FromRequestBase(global::Vectara.InstructionRequestBase? value) => new InlineInstruction(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineInstruction(global::Vectara.InlineInstructionVariant2 value) => new InlineInstruction((global::Vectara.InlineInstructionVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineInstructionVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineInstruction FromInlineInstructionVariant2(global::Vectara.InlineInstructionVariant2? value) => new InlineInstruction(value);
 
         /// <summary>
         /// 

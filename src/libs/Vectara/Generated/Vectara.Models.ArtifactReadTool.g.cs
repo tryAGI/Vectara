@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ArtifactReadToolVariant2? ArtifactReadToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ArtifactReadToolVariant2;
             return IsArtifactReadToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ArtifactReadToolVariant2 PickArtifactReadToolVariant2() => IsArtifactReadToolVariant2
+            ? ArtifactReadToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactReadToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ArtifactReadTool FromBase(global::Vectara.ToolBase? value) => new ArtifactReadTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ArtifactReadTool(global::Vectara.ArtifactReadToolVariant2 value) => new ArtifactReadTool((global::Vectara.ArtifactReadToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ArtifactReadToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ArtifactReadTool FromArtifactReadToolVariant2(global::Vectara.ArtifactReadToolVariant2? value) => new ArtifactReadTool(value);
 
         /// <summary>
         /// 

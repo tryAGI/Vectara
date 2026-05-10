@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineDocumentConversionToolConfigurationVariant2? InlineDocumentConversionToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineDocumentConversionToolConfigurationVariant2;
             return IsInlineDocumentConversionToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineDocumentConversionToolConfigurationVariant2 PickInlineDocumentConversionToolConfigurationVariant2() => IsInlineDocumentConversionToolConfigurationVariant2
+            ? InlineDocumentConversionToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineDocumentConversionToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineDocumentConversionToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineDocumentConversionToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineDocumentConversionToolConfiguration(global::Vectara.InlineDocumentConversionToolConfigurationVariant2 value) => new InlineDocumentConversionToolConfiguration((global::Vectara.InlineDocumentConversionToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineDocumentConversionToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineDocumentConversionToolConfiguration FromInlineDocumentConversionToolConfigurationVariant2(global::Vectara.InlineDocumentConversionToolConfigurationVariant2? value) => new InlineDocumentConversionToolConfiguration(value);
 
         /// <summary>
         /// 

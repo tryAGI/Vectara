@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineWebGetToolConfigurationVariant2? InlineWebGetToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineWebGetToolConfigurationVariant2;
             return IsInlineWebGetToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineWebGetToolConfigurationVariant2 PickInlineWebGetToolConfigurationVariant2() => IsInlineWebGetToolConfigurationVariant2
+            ? InlineWebGetToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineWebGetToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineWebGetToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineWebGetToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineWebGetToolConfiguration(global::Vectara.InlineWebGetToolConfigurationVariant2 value) => new InlineWebGetToolConfiguration((global::Vectara.InlineWebGetToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineWebGetToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineWebGetToolConfiguration FromInlineWebGetToolConfigurationVariant2(global::Vectara.InlineWebGetToolConfigurationVariant2? value) => new InlineWebGetToolConfiguration(value);
 
         /// <summary>
         /// 

@@ -38,6 +38,13 @@ namespace Vectara
             value = GenerationPreset;
             return IsGenerationPreset;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GenerationPreset PickGenerationPreset() => IsGenerationPreset
+            ? GenerationPreset!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationPreset' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -55,6 +62,11 @@ namespace Vectara
         {
             GenerationPreset = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateGenerationPresetRequest FromGenerationPreset(global::Vectara.GenerationPreset? value) => new CreateGenerationPresetRequest(value);
 
         /// <summary>
         /// 

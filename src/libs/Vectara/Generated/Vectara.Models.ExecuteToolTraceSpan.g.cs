@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ExecuteToolTraceSpanVariant2? ExecuteToolTraceSpanVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ExecuteToolTraceSpanVariant2;
             return IsExecuteToolTraceSpanVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ExecuteToolTraceSpanVariant2 PickExecuteToolTraceSpanVariant2() => IsExecuteToolTraceSpanVariant2
+            ? ExecuteToolTraceSpanVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ExecuteToolTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ExecuteToolTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new ExecuteToolTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ExecuteToolTraceSpan(global::Vectara.ExecuteToolTraceSpanVariant2 value) => new ExecuteToolTraceSpan((global::Vectara.ExecuteToolTraceSpanVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ExecuteToolTraceSpanVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ExecuteToolTraceSpan FromExecuteToolTraceSpanVariant2(global::Vectara.ExecuteToolTraceSpanVariant2? value) => new ExecuteToolTraceSpan(value);
 
         /// <summary>
         /// 

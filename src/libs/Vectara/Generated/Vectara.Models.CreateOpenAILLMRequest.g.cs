@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.OpenAILLMRequestBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateOpenAILLMRequestVariant2? CreateOpenAILLMRequestVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = CreateOpenAILLMRequestVariant2;
             return IsCreateOpenAILLMRequestVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateOpenAILLMRequestVariant2 PickCreateOpenAILLMRequestVariant2() => IsCreateOpenAILLMRequestVariant2
+            ? CreateOpenAILLMRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateOpenAILLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateOpenAILLMRequest FromBase(global::Vectara.OpenAILLMRequestBase? value) => new CreateOpenAILLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateOpenAILLMRequest(global::Vectara.CreateOpenAILLMRequestVariant2 value) => new CreateOpenAILLMRequest((global::Vectara.CreateOpenAILLMRequestVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             CreateOpenAILLMRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateOpenAILLMRequest FromCreateOpenAILLMRequestVariant2(global::Vectara.CreateOpenAILLMRequestVariant2? value) => new CreateOpenAILLMRequest(value);
 
         /// <summary>
         /// 

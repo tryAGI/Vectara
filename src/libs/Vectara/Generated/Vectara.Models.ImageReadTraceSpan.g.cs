@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ImageReadTraceSpanVariant2? ImageReadTraceSpanVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ImageReadTraceSpanVariant2;
             return IsImageReadTraceSpanVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ImageReadTraceSpanVariant2 PickImageReadTraceSpanVariant2() => IsImageReadTraceSpanVariant2
+            ? ImageReadTraceSpanVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ImageReadTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ImageReadTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new ImageReadTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ImageReadTraceSpan(global::Vectara.ImageReadTraceSpanVariant2 value) => new ImageReadTraceSpan((global::Vectara.ImageReadTraceSpanVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ImageReadTraceSpanVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ImageReadTraceSpan FromImageReadTraceSpanVariant2(global::Vectara.ImageReadTraceSpanVariant2? value) => new ImageReadTraceSpan(value);
 
         /// <summary>
         /// 

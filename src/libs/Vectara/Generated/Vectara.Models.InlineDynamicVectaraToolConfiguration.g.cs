@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineDynamicVectaraToolConfigurationVariant2? InlineDynamicVectaraToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineDynamicVectaraToolConfigurationVariant2;
             return IsInlineDynamicVectaraToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineDynamicVectaraToolConfigurationVariant2 PickInlineDynamicVectaraToolConfigurationVariant2() => IsInlineDynamicVectaraToolConfigurationVariant2
+            ? InlineDynamicVectaraToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineDynamicVectaraToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineDynamicVectaraToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineDynamicVectaraToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineDynamicVectaraToolConfiguration(global::Vectara.InlineDynamicVectaraToolConfigurationVariant2 value) => new InlineDynamicVectaraToolConfiguration((global::Vectara.InlineDynamicVectaraToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineDynamicVectaraToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineDynamicVectaraToolConfiguration FromInlineDynamicVectaraToolConfigurationVariant2(global::Vectara.InlineDynamicVectaraToolConfigurationVariant2? value) => new InlineDynamicVectaraToolConfiguration(value);
 
         /// <summary>
         /// 

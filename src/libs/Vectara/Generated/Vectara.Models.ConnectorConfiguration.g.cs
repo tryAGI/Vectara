@@ -43,6 +43,13 @@ namespace Vectara
             value = Slack;
             return IsSlack;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SlackConnectorConfiguration PickSlack() => IsSlack
+            ? Slack!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Slack' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -60,6 +67,11 @@ namespace Vectara
         {
             Slack = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ConnectorConfiguration FromSlack(global::Vectara.SlackConnectorConfiguration? value) => new ConnectorConfiguration(value);
 
         /// <summary>
         /// 

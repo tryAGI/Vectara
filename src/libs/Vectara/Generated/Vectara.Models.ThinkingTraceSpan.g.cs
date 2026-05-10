@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ThinkingTraceSpanVariant2? ThinkingTraceSpanVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = ThinkingTraceSpanVariant2;
             return IsThinkingTraceSpanVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ThinkingTraceSpanVariant2 PickThinkingTraceSpanVariant2() => IsThinkingTraceSpanVariant2
+            ? ThinkingTraceSpanVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ThinkingTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ThinkingTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new ThinkingTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ThinkingTraceSpan(global::Vectara.ThinkingTraceSpanVariant2 value) => new ThinkingTraceSpan((global::Vectara.ThinkingTraceSpanVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             ThinkingTraceSpanVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ThinkingTraceSpan FromThinkingTraceSpanVariant2(global::Vectara.ThinkingTraceSpanVariant2? value) => new ThinkingTraceSpan(value);
 
         /// <summary>
         /// 

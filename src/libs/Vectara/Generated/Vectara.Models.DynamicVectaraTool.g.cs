@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.DynamicVectaraToolVariant2? DynamicVectaraToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = DynamicVectaraToolVariant2;
             return IsDynamicVectaraToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DynamicVectaraToolVariant2 PickDynamicVectaraToolVariant2() => IsDynamicVectaraToolVariant2
+            ? DynamicVectaraToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'DynamicVectaraToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static DynamicVectaraTool FromBase(global::Vectara.ToolBase? value) => new DynamicVectaraTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator DynamicVectaraTool(global::Vectara.DynamicVectaraToolVariant2 value) => new DynamicVectaraTool((global::Vectara.DynamicVectaraToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             DynamicVectaraToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static DynamicVectaraTool FromDynamicVectaraToolVariant2(global::Vectara.DynamicVectaraToolVariant2? value) => new DynamicVectaraTool(value);
 
         /// <summary>
         /// 

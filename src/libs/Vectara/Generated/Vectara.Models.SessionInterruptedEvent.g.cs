@@ -43,6 +43,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SessionInterruptedEventVariant2? SessionInterruptedEventVariant2 { get; init; }
 #else
@@ -69,6 +76,13 @@ namespace Vectara
             value = SessionInterruptedEventVariant2;
             return IsSessionInterruptedEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SessionInterruptedEventVariant2 PickSessionInterruptedEventVariant2() => IsSessionInterruptedEventVariant2
+            ? SessionInterruptedEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SessionInterruptedEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -90,6 +104,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SessionInterruptedEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new SessionInterruptedEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SessionInterruptedEvent(global::Vectara.SessionInterruptedEventVariant2 value) => new SessionInterruptedEvent((global::Vectara.SessionInterruptedEventVariant2?)value);
 
         /// <summary>
@@ -104,6 +123,11 @@ namespace Vectara
         {
             SessionInterruptedEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SessionInterruptedEvent FromSessionInterruptedEventVariant2(global::Vectara.SessionInterruptedEventVariant2? value) => new SessionInterruptedEvent(value);
 
         /// <summary>
         /// 

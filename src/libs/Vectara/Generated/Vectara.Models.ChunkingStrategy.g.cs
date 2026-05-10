@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.MaxCharsChunkingStrategy PickMaxCharsChunkingStrategy() => IsMaxCharsChunkingStrategy
+            ? MaxCharsChunkingStrategy!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'MaxCharsChunkingStrategy' but the value was {ToString()}.");
+
+        /// <summary>
         /// Sets a chunking strategy that creates one chunk per sentence. This is the default strategy used when no chunking strategy is specified.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = SentenceChunkingStrategy;
             return IsSentenceChunkingStrategy;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SentenceChunkingStrategy PickSentenceChunkingStrategy() => IsSentenceChunkingStrategy
+            ? SentenceChunkingStrategy!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SentenceChunkingStrategy' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -94,6 +108,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChunkingStrategy FromMaxCharsChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy? value) => new ChunkingStrategy(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChunkingStrategy(global::Vectara.SentenceChunkingStrategy value) => new ChunkingStrategy((global::Vectara.SentenceChunkingStrategy?)value);
 
         /// <summary>
@@ -108,6 +127,11 @@ namespace Vectara
         {
             SentenceChunkingStrategy = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChunkingStrategy FromSentenceChunkingStrategy(global::Vectara.SentenceChunkingStrategy? value) => new ChunkingStrategy(value);
 
         /// <summary>
         /// 

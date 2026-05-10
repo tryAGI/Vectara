@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.OpenAILLMUpdateBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateOpenAILLMRequestVariant2? UpdateOpenAILLMRequestVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = UpdateOpenAILLMRequestVariant2;
             return IsUpdateOpenAILLMRequestVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateOpenAILLMRequestVariant2 PickUpdateOpenAILLMRequestVariant2() => IsUpdateOpenAILLMRequestVariant2
+            ? UpdateOpenAILLMRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'UpdateOpenAILLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static UpdateOpenAILLMRequest FromBase(global::Vectara.OpenAILLMUpdateBase? value) => new UpdateOpenAILLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdateOpenAILLMRequest(global::Vectara.UpdateOpenAILLMRequestVariant2 value) => new UpdateOpenAILLMRequest((global::Vectara.UpdateOpenAILLMRequestVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             UpdateOpenAILLMRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateOpenAILLMRequest FromUpdateOpenAILLMRequestVariant2(global::Vectara.UpdateOpenAILLMRequestVariant2? value) => new UpdateOpenAILLMRequest(value);
 
         /// <summary>
         /// 

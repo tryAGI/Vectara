@@ -45,6 +45,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InvokeAgentTraceSpan PickInvokeAgent() => IsInvokeAgent
+            ? InvokeAgent!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InvokeAgent' but the value was {ToString()}.");
+
+        /// <summary>
         /// A span representing a single LLM chat completion call within an agent turn.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -73,6 +80,13 @@ namespace Vectara
             value = Chat;
             return IsChat;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ChatTraceSpan PickChat() => IsChat
+            ? Chat!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Chat' but the value was {ToString()}.");
 
         /// <summary>
         /// A span representing a tool execution within an agent turn.
@@ -105,6 +119,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ExecuteToolTraceSpan PickExecuteTool() => IsExecuteTool
+            ? ExecuteTool!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ExecuteTool' but the value was {ToString()}.");
+
+        /// <summary>
         /// A span representing extended thinking output from the LLM.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -133,6 +154,13 @@ namespace Vectara
             value = Thinking;
             return IsThinking;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ThinkingTraceSpan PickThinking() => IsThinking
+            ? Thinking!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Thinking' but the value was {ToString()}.");
 
         /// <summary>
         /// A span representing the final text output of an agent turn.
@@ -165,6 +193,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.OutputTraceSpan PickOutput() => IsOutput
+            ? Output!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Output' but the value was {ToString()}.");
+
+        /// <summary>
         /// A span representing a guardrail safety check on tool call results.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -193,6 +228,13 @@ namespace Vectara
             value = Guardrail;
             return IsGuardrail;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GuardrailTraceSpan PickGuardrail() => IsGuardrail
+            ? Guardrail!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Guardrail' but the value was {ToString()}.");
 
         /// <summary>
         /// A span representing a transition between agent steps.
@@ -225,6 +267,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StepTransitionTraceSpan PickStepTransition() => IsStepTransition
+            ? StepTransition!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransition' but the value was {ToString()}.");
+
+        /// <summary>
         /// A span representing an image being loaded into conversation context.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -255,6 +304,13 @@ namespace Vectara
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ImageReadTraceSpan PickImageRead() => IsImageRead
+            ? ImageRead!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ImageRead' but the value was {ToString()}.");
+
+        /// <summary>
         /// A span representing context compaction (summarization of older conversation turns).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -283,6 +339,13 @@ namespace Vectara
             value = Compaction;
             return IsCompaction;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CompactionTraceSpan PickCompaction() => IsCompaction
+            ? Compaction!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Compaction' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -300,6 +363,11 @@ namespace Vectara
         {
             InvokeAgent = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentTraceSpan FromInvokeAgent(global::Vectara.InvokeAgentTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
         /// 
@@ -322,6 +390,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentTraceSpan FromChat(global::Vectara.ChatTraceSpan? value) => new AgentTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.ExecuteToolTraceSpan value) => new AgentTraceSpan((global::Vectara.ExecuteToolTraceSpan?)value);
 
         /// <summary>
@@ -336,6 +409,11 @@ namespace Vectara
         {
             ExecuteTool = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentTraceSpan FromExecuteTool(global::Vectara.ExecuteToolTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
         /// 
@@ -358,6 +436,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentTraceSpan FromThinking(global::Vectara.ThinkingTraceSpan? value) => new AgentTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.OutputTraceSpan value) => new AgentTraceSpan((global::Vectara.OutputTraceSpan?)value);
 
         /// <summary>
@@ -372,6 +455,11 @@ namespace Vectara
         {
             Output = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentTraceSpan FromOutput(global::Vectara.OutputTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
         /// 
@@ -394,6 +482,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentTraceSpan FromGuardrail(global::Vectara.GuardrailTraceSpan? value) => new AgentTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.StepTransitionTraceSpan value) => new AgentTraceSpan((global::Vectara.StepTransitionTraceSpan?)value);
 
         /// <summary>
@@ -408,6 +501,11 @@ namespace Vectara
         {
             StepTransition = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentTraceSpan FromStepTransition(global::Vectara.StepTransitionTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
         /// 
@@ -430,6 +528,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentTraceSpan FromImageRead(global::Vectara.ImageReadTraceSpan? value) => new AgentTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.CompactionTraceSpan value) => new AgentTraceSpan((global::Vectara.CompactionTraceSpan?)value);
 
         /// <summary>
@@ -444,6 +547,11 @@ namespace Vectara
         {
             Compaction = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentTraceSpan FromCompaction(global::Vectara.CompactionTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
         /// 

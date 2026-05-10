@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineCorporaSearchToolConfigurationVariant2? InlineCorporaSearchToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineCorporaSearchToolConfigurationVariant2;
             return IsInlineCorporaSearchToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineCorporaSearchToolConfigurationVariant2 PickInlineCorporaSearchToolConfigurationVariant2() => IsInlineCorporaSearchToolConfigurationVariant2
+            ? InlineCorporaSearchToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineCorporaSearchToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineCorporaSearchToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineCorporaSearchToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineCorporaSearchToolConfiguration(global::Vectara.InlineCorporaSearchToolConfigurationVariant2 value) => new InlineCorporaSearchToolConfiguration((global::Vectara.InlineCorporaSearchToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineCorporaSearchToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineCorporaSearchToolConfiguration FromInlineCorporaSearchToolConfigurationVariant2(global::Vectara.InlineCorporaSearchToolConfigurationVariant2? value) => new InlineCorporaSearchToolConfiguration(value);
 
         /// <summary>
         /// 

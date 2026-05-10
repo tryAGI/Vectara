@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InputMessageEventVariant2? InputMessageEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InputMessageEventVariant2;
             return IsInputMessageEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InputMessageEventVariant2 PickInputMessageEventVariant2() => IsInputMessageEventVariant2
+            ? InputMessageEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InputMessageEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InputMessageEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new InputMessageEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InputMessageEvent(global::Vectara.InputMessageEventVariant2 value) => new InputMessageEvent((global::Vectara.InputMessageEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InputMessageEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InputMessageEvent FromInputMessageEventVariant2(global::Vectara.InputMessageEventVariant2? value) => new InputMessageEvent(value);
 
         /// <summary>
         /// 

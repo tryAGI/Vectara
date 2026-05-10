@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CompactionStartedEventVariant2? CompactionStartedEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = CompactionStartedEventVariant2;
             return IsCompactionStartedEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CompactionStartedEventVariant2 PickCompactionStartedEventVariant2() => IsCompactionStartedEventVariant2
+            ? CompactionStartedEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CompactionStartedEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CompactionStartedEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new CompactionStartedEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CompactionStartedEvent(global::Vectara.CompactionStartedEventVariant2 value) => new CompactionStartedEvent((global::Vectara.CompactionStartedEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             CompactionStartedEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CompactionStartedEvent FromCompactionStartedEventVariant2(global::Vectara.CompactionStartedEventVariant2? value) => new CompactionStartedEvent(value);
 
         /// <summary>
         /// 

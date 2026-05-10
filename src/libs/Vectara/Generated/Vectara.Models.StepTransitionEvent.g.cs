@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StepTransitionEventVariant2? StepTransitionEventVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = StepTransitionEventVariant2;
             return IsStepTransitionEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StepTransitionEventVariant2 PickStepTransitionEventVariant2() => IsStepTransitionEventVariant2
+            ? StepTransitionEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransitionEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static StepTransitionEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new StepTransitionEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator StepTransitionEvent(global::Vectara.StepTransitionEventVariant2 value) => new StepTransitionEvent((global::Vectara.StepTransitionEventVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             StepTransitionEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static StepTransitionEvent FromStepTransitionEventVariant2(global::Vectara.StepTransitionEventVariant2? value) => new StepTransitionEvent(value);
 
         /// <summary>
         /// 

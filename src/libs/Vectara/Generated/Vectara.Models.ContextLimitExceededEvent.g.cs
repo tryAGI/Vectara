@@ -43,6 +43,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ContextLimitExceededEventVariant2? ContextLimitExceededEventVariant2 { get; init; }
 #else
@@ -69,6 +76,13 @@ namespace Vectara
             value = ContextLimitExceededEventVariant2;
             return IsContextLimitExceededEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ContextLimitExceededEventVariant2 PickContextLimitExceededEventVariant2() => IsContextLimitExceededEventVariant2
+            ? ContextLimitExceededEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ContextLimitExceededEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -90,6 +104,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ContextLimitExceededEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ContextLimitExceededEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ContextLimitExceededEvent(global::Vectara.ContextLimitExceededEventVariant2 value) => new ContextLimitExceededEvent((global::Vectara.ContextLimitExceededEventVariant2?)value);
 
         /// <summary>
@@ -104,6 +123,11 @@ namespace Vectara
         {
             ContextLimitExceededEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ContextLimitExceededEvent FromContextLimitExceededEventVariant2(global::Vectara.ContextLimitExceededEventVariant2? value) => new ContextLimitExceededEvent(value);
 
         /// <summary>
         /// 

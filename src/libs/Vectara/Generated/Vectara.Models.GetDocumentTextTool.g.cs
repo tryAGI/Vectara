@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GetDocumentTextToolVariant2? GetDocumentTextToolVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = GetDocumentTextToolVariant2;
             return IsGetDocumentTextToolVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GetDocumentTextToolVariant2 PickGetDocumentTextToolVariant2() => IsGetDocumentTextToolVariant2
+            ? GetDocumentTextToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GetDocumentTextToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static GetDocumentTextTool FromBase(global::Vectara.ToolBase? value) => new GetDocumentTextTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator GetDocumentTextTool(global::Vectara.GetDocumentTextToolVariant2 value) => new GetDocumentTextTool((global::Vectara.GetDocumentTextToolVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             GetDocumentTextToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static GetDocumentTextTool FromGetDocumentTextToolVariant2(global::Vectara.GetDocumentTextToolVariant2? value) => new GetDocumentTextTool(value);
 
         /// <summary>
         /// 

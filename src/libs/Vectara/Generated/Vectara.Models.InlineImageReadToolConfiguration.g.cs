@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineImageReadToolConfigurationVariant2? InlineImageReadToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineImageReadToolConfigurationVariant2;
             return IsInlineImageReadToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineImageReadToolConfigurationVariant2 PickInlineImageReadToolConfigurationVariant2() => IsInlineImageReadToolConfigurationVariant2
+            ? InlineImageReadToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineImageReadToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineImageReadToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineImageReadToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineImageReadToolConfiguration(global::Vectara.InlineImageReadToolConfigurationVariant2 value) => new InlineImageReadToolConfiguration((global::Vectara.InlineImageReadToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineImageReadToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineImageReadToolConfiguration FromInlineImageReadToolConfigurationVariant2(global::Vectara.InlineImageReadToolConfigurationVariant2? value) => new InlineImageReadToolConfiguration(value);
 
         /// <summary>
         /// 

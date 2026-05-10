@@ -48,6 +48,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StructuredOutputEventVariant2? StructuredOutputEventVariant2 { get; init; }
 #else
@@ -74,6 +81,13 @@ namespace Vectara
             value = StructuredOutputEventVariant2;
             return IsStructuredOutputEventVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StructuredOutputEventVariant2 PickStructuredOutputEventVariant2() => IsStructuredOutputEventVariant2
+            ? StructuredOutputEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutputEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -95,6 +109,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static StructuredOutputEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new StructuredOutputEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator StructuredOutputEvent(global::Vectara.StructuredOutputEventVariant2 value) => new StructuredOutputEvent((global::Vectara.StructuredOutputEventVariant2?)value);
 
         /// <summary>
@@ -109,6 +128,11 @@ namespace Vectara
         {
             StructuredOutputEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static StructuredOutputEvent FromStructuredOutputEventVariant2(global::Vectara.StructuredOutputEventVariant2? value) => new StructuredOutputEvent(value);
 
         /// <summary>
         /// 

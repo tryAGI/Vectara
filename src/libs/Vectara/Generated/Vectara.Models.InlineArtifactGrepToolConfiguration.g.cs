@@ -42,6 +42,13 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineArtifactGrepToolConfigurationVariant2? InlineArtifactGrepToolConfigurationVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace Vectara
             value = InlineArtifactGrepToolConfigurationVariant2;
             return IsInlineArtifactGrepToolConfigurationVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactGrepToolConfigurationVariant2 PickInlineArtifactGrepToolConfigurationVariant2() => IsInlineArtifactGrepToolConfigurationVariant2
+            ? InlineArtifactGrepToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineArtifactGrepToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -89,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineArtifactGrepToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineArtifactGrepToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineArtifactGrepToolConfiguration(global::Vectara.InlineArtifactGrepToolConfigurationVariant2 value) => new InlineArtifactGrepToolConfiguration((global::Vectara.InlineArtifactGrepToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -103,6 +122,11 @@ namespace Vectara
         {
             InlineArtifactGrepToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineArtifactGrepToolConfiguration FromInlineArtifactGrepToolConfigurationVariant2(global::Vectara.InlineArtifactGrepToolConfigurationVariant2? value) => new InlineArtifactGrepToolConfiguration(value);
 
         /// <summary>
         /// 
