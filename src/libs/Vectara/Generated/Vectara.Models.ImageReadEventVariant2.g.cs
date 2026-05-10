@@ -77,5 +77,6 @@ namespace Vectara
         public ImageReadEventVariant2()
         {
         }
+
     }
 }

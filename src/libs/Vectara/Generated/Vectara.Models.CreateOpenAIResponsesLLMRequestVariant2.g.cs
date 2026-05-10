@@ -57,5 +57,6 @@ namespace Vectara
         public CreateOpenAIResponsesLLMRequestVariant2()
         {
         }
+
     }
 }

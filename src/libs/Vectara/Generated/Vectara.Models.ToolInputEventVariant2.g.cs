@@ -105,5 +105,6 @@ namespace Vectara
         public ToolInputEventVariant2()
         {
         }
+
     }
 }

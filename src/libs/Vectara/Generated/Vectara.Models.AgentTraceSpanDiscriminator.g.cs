@@ -40,5 +40,6 @@ namespace Vectara
         public AgentTraceSpanDiscriminator()
         {
         }
+
     }
 }

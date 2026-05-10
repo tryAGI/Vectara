@@ -59,5 +59,6 @@ namespace Vectara
         public TestToolRequest()
         {
         }
+
     }
 }

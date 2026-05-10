@@ -113,5 +113,6 @@ namespace Vectara
         public ContextConfiguration()
         {
         }
+
     }
 }

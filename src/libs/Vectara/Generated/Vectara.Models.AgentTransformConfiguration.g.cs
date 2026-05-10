@@ -78,5 +78,6 @@ namespace Vectara
         public AgentTransformConfiguration()
         {
         }
+
     }
 }

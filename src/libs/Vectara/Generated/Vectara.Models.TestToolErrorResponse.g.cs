@@ -89,5 +89,6 @@ namespace Vectara
         public TestToolErrorResponse()
         {
         }
+
     }
 }

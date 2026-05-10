@@ -216,5 +216,6 @@ namespace Vectara
         public GenerationParameters()
         {
         }
+
     }
 }

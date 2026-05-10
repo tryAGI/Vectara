@@ -212,5 +212,6 @@ namespace Vectara
         public UpdateAgentRequest()
         {
         }
+
     }
 }

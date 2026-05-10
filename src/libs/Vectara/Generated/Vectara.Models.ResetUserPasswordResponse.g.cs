@@ -52,5 +52,6 @@ namespace Vectara
         public ResetUserPasswordResponse()
         {
         }
+
     }
 }

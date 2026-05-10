@@ -48,5 +48,6 @@ namespace Vectara
         public GetDocumentTextToolVariant2()
         {
         }
+
     }
 }

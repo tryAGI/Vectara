@@ -124,5 +124,6 @@ namespace Vectara
         public UpdatePipelineRequest()
         {
         }
+
     }
 }

@@ -61,5 +61,6 @@ namespace Vectara
         public ImageReadToolParameters()
         {
         }
+
     }
 }

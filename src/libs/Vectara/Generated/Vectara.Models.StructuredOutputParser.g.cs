@@ -70,5 +70,6 @@ namespace Vectara
         public StructuredOutputParser()
         {
         }
+
     }
 }

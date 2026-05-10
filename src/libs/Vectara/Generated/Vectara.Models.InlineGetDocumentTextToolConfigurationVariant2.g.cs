@@ -67,5 +67,6 @@ namespace Vectara
         public InlineGetDocumentTextToolConfigurationVariant2()
         {
         }
+
     }
 }

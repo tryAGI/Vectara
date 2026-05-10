@@ -174,5 +174,6 @@ namespace Vectara
         public InvokeAgentSpanAttributes()
         {
         }
+
     }
 }

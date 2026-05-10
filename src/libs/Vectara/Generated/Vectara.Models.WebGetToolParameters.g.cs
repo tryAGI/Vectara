@@ -150,5 +150,6 @@ namespace Vectara
         public WebGetToolParameters()
         {
         }
+
     }
 }

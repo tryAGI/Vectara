@@ -62,5 +62,6 @@ namespace Vectara
         public NoneReranker()
         {
         }
+
     }
 }

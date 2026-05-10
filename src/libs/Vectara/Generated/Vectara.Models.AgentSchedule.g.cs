@@ -201,5 +201,6 @@ namespace Vectara
         public AgentSchedule()
         {
         }
+
     }
 }

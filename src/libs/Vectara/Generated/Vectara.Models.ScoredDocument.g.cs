@@ -69,5 +69,6 @@ namespace Vectara
         public ScoredDocument()
         {
         }
+
     }
 }

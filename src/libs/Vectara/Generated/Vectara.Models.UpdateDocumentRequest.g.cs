@@ -44,5 +44,6 @@ namespace Vectara
         public UpdateDocumentRequest()
         {
         }
+
     }
 }
