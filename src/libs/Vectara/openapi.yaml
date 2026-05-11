@@ -11186,6 +11186,12 @@ paths:
         schema:
           $ref: '#/components/schemas/DeadLetterOrigin'
       - in: query
+        name: filter
+        description: A regex filter on the source record ID. Supports partial matching.
+        required: false
+        schema:
+          type: string
+      - in: query
         name: limit
         description: The maximum number of dead letters to return.
         required: false
@@ -17686,6 +17692,19 @@ components:
 
         '
       type: string
+    OutputTransform:
+      description: "An optional jq expression applied to the tool's JSON output before\
+        \ it is returned to the LLM.\nUse this to project, filter, or summarize tool\
+        \ output to keep responses concise and on-topic.\n\nThe expression operates\
+        \ on the tool's response JSON and the result replaces the original output.\n\
+        If the expression fails to compile or evaluate at runtime, the tool call is\
+        \ reported to the LLM as\nan error so the agent can react.\n\nExamples:\n\
+        \  - `.results | map({title, url})` \u2014 keep only title/url for each result\n\
+        \  - `.items[0:5]` \u2014 first 5 items\n  - `del(.debug)` \u2014 drop a noisy\
+        \ field\n"
+      type: string
+      maxLength: 4096
+      example: .results | map({title, url})
     ToolBase:
       description: Base properties shared by all tool types.
       type: object
@@ -17740,6 +17759,44 @@ components:
             tool.
           type: object
           additionalProperties: true
+        output_schema:
+          description: 'The JSON schema that describes the structure of the tool''s
+            output. May be used by clients to
+
+            understand the shape of tool responses and to author `default_output_transform`
+            jq expressions.
+
+            '
+          type: object
+          additionalProperties: true
+        default_output_transform:
+          description: 'Default jq expression applied to this tool''s output when
+            a tool configuration does not
+
+            specify its own `output_transform`. Tool configurations may override this
+            value. See
+
+            `OutputTransform` for the expression semantics and error behavior.
+
+            '
+          $ref: '#/components/schemas/OutputTransform'
+        default_argument_override:
+          description: "Optional hardcoded arguments for tool calls. The key specifies\
+            \ the location in the tool arguments to overide, and the value specifies\
+            \ what to override with. The LLM will not be able to change the parameters,\
+            \ nor know those values exist within the tool.\n\nThe values can also\
+            \ be dynamic references to context values using $ref with dot notation\
+            \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
+            \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
+            \ at runtime from context:\n- session.metadata.* - Access session metadata\
+            \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
+            \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you want\
+            \ to have a real value `\"$ref\"` use `\"$$ref\"`, that is you can escape\
+            \ the first $ by using $$."
+          type: object
+          additionalProperties: true
+          example:
+            max_results: 10
         category:
           description: Functional category of the tool (e.g., retrieval, artifacts,
             indexing, utilities, orchestration).
@@ -18954,26 +19011,13 @@ components:
       minLength: 1
       maxLength: 50
       example: Customer Support Agent
-    OutputTransform:
-      description: "An optional jq expression applied to the tool's JSON output before\
-        \ it is returned to the LLM.\nUse this to project, filter, or summarize tool\
-        \ output to keep responses concise and on-topic.\n\nThe expression operates\
-        \ on the tool's response JSON and the result replaces the original output.\n\
-        If the expression fails to compile or evaluate at runtime, the tool call is\
-        \ reported to the LLM as\nan error so the agent can react.\n\nExamples:\n\
-        \  - `.results | map({title, url})` \u2014 keep only title/url for each result\n\
-        \  - `.items[0:5]` \u2014 first 5 items\n  - `del(.debug)` \u2014 drop a noisy\
-        \ field\n"
-      type: string
-      maxLength: 4096
-      example: .results | map({title, url})
     AgentToolConfigurationBase:
       description: Base properties shared by all inline tool configurations on an
         agent.
       type: object
       properties:
         description:
-          description: Optional override for the tool's description shown to the LLM.
+          description: Optional override for the tool's description shown to the agent.
             When set, replaces the description from the underlying tool definition.
           type: string
           example: Search the customer support knowledge base
@@ -19200,11 +19244,11 @@ components:
           argument_override:
             description: Optional hardcoded arguments for the corpus search call such
               as the query. When specified, these values will be used instead of allowing
-              the LLM to fill in those parameters.
+              the agent to fill in those parameters.
             $ref: '#/components/schemas/CorporaSearchToolParameters'
           query_configuration:
             description: User-configurable settings for the corpus search that are
-              not exposed to the LLM. Supports dynamic references for runtime resolution
+              not exposed to the agent. Supports dynamic references for runtime resolution
               from session context.
             $ref: '#/components/schemas/AgentCorporaSearchQueryConfiguration'
         required:
@@ -19273,7 +19317,7 @@ components:
           argument_override:
             description: Optional hardcoded arguments for the web search tool call
               such as limit etc. When specified, these values will be used instead
-              of allowing the LLM to fill in those parameters.
+              of allowing the agent to fill in those parameters.
             $ref: '#/components/schemas/WebSearchToolParameters'
         required:
         - type
@@ -19356,7 +19400,7 @@ components:
             default: web_get
           argument_override:
             description: Optional hardcoded arguments for the web get tool call. When
-              specified, these values will be used instead of allowing the LLM to
+              specified, these values will be used instead of allowing the agent to
               fill in those parameters.
             $ref: '#/components/schemas/WebGetToolParameters'
         required:
@@ -19381,7 +19425,7 @@ components:
           argument_override:
             description: Optional hardcoded arguments that will be passed to the lambda
               function. When specified, these values will be used instead of allowing
-              the LLM to fill in those parameters.
+              the agent to fill in those parameters.
             type: object
             additionalProperties: true
             example:
@@ -19788,7 +19832,7 @@ components:
 
         Skills are defined at the agent level and can be filtered per step via allowed_skills.
 
-        The skill key and description are shown to the LLM in the system message;
+        The skill key and description are shown to the agent in its instructions;
 
         the full content is sent as a user message when the skill is invoked via the
         invoke_skill tool.
@@ -20114,7 +20158,7 @@ components:
         When attached to a step, user input is run through the glossary''s lookup
         index and matching
 
-        terms are expanded before the message reaches the LLM.
+        terms are expanded before the message reaches the agent.
 
         '
       type: object
@@ -20163,8 +20207,8 @@ components:
             text\": \"...\" }\n}\n```\n\n- `$.agent.metadata.<key>` \u2014 agent metadata\
             \ fields\n- `$.session.metadata.<key>` \u2014 session metadata fields\n\
             - `$.tools.<tool_config_name>.outputs.latest.<field>` \u2014 latest tool\
-            \ output fields\n- `$.output.text` \u2014 LLM text output (when output_parser\
-            \ is `default`)\n- `$.output.<field>` \u2014 LLM structured output fields\
+            \ output fields\n- `$.output.text` \u2014 agent text output (when output_parser\
+            \ is `default`)\n- `$.output.<field>` \u2014 agent structured output fields\
             \ (when output_parser is `structured`)\n"
           type: string
           example: get('$.output.intent') == 'sales'
@@ -21428,6 +21472,19 @@ components:
             example:
             - type: text
               content: I need help with my widget installation
+          message_diffs:
+            description: 'Per-produced-agent-message opaque platform-specific diff
+              against the raw event payload, capturing the exact text sent to the
+              model at emission time.
+
+              When present, the array length MUST equal `messages.length`; the platform
+              throws on mismatch. When absent the platform reconstructs the rendering
+              on read.
+
+              '
+            type: array
+            items:
+              type: string
         required:
         - type
         - messages
@@ -21564,6 +21621,16 @@ components:
               filename: report.pdf
               mime_type: application/pdf
               size_bytes: 2048576
+          agent_upload_message:
+            description: 'Frozen text of the single user-role agent message rendered
+              for this artifact upload at emission time, capturing the artifact metadata
+              and instruction
+
+              block as one prompt. When absent the platform reconstructs the rendering
+              on read using current templates.
+
+              '
+            type: string
         required:
         - type
         - artifacts
@@ -21600,6 +21667,22 @@ components:
             additionalProperties: true
             example:
               query: weather in San Francisco
+          argument_override_paths:
+            description: 'Top-level field paths in `tool_input` whose values were
+              filled by the tool configuration''s argument overrides at emission time,
+              not produced by the
+
+              agent. On replay these paths are stripped from the rendered tool call
+              so the model sees only what it originally generated, regardless of how
+              the tool
+
+              configuration''s overrides have changed since. Paths support dot-notation
+              (e.g. `config.auth.token`).
+
+              '
+            type: array
+            items:
+              type: string
         required:
         - type
         - tool_call_id
@@ -21704,8 +21787,8 @@ components:
         This event is published instead of AgentOutputEvent when the agent''s output_parser
         is configured
 
-        with type "structured". It contains the LLM''s final response parsed as validated
-        JSON that
+        with type "structured". It contains the agent''s final response parsed as
+        validated JSON that
 
         conforms to the schema specified in the StructuredOutputParser configuration.
 
@@ -21747,7 +21830,7 @@ components:
     ContextLimitExceededEvent:
       title: ContextLimitExceededEvent
       description: 'A transient event indicating the current request exceeded the
-        LLM''s context limit.
+        agent''s context limit.
 
         This event is not persisted to the session history.
 
@@ -21885,7 +21968,7 @@ components:
             description: The name of the step being transitioned to.
             type: string
           content:
-            description: The handoff message content for the LLM.
+            description: The handoff message content for the agent.
             type: string
         required:
         - type
@@ -22145,7 +22228,13 @@ components:
           default: streaming_agent_output_end
           example: streaming_agent_output_end
         event_id:
-          description: The ID of the persisted AgentOutputEvent.
+          description: 'The ID of the persisted AgentOutputEvent for this streamed
+            output.
+
+            Use this as the `since` cursor on a subsequent reconnect to resume after
+            this output.
+
+            '
           type: string
           example: aev_user_001
         created_at:
@@ -23047,14 +23136,292 @@ components:
         - region
         - access_key_id
         - secret_access_key
+    BaseWebSource:
+      description: 'Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl).
+        Politeness, limits, auth.
+
+        Mode-specific fields (urls, sitemap_urls, BFS knobs, page count cap) live
+        on the concrete subtypes.
+
+        '
+      type: object
+      properties:
+        respect_robots_txt:
+          description: 'If true (default and strongly recommended), `robots.txt` rules
+            and `Crawl-delay` directives are honored.
+
+            Set to false only if you have explicit authorization to crawl the target
+            site without robots.txt
+
+            restrictions (e.g., your own domain).
+
+            '
+          type: boolean
+          default: true
+        requests_per_second:
+          description: Maximum sustained requests per second per host.
+          type: number
+          format: double
+          minimum: 0.1
+          maximum: 20
+          default: 2
+        max_concurrent:
+          description: Maximum concurrent in-flight requests per host.
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 8
+          default: 4
+        max_pages:
+          description: "Hard cap on the number of pages fetched per run. The default\
+            \ is a safety rail to prevent\nunbounded crawls \u2014 both in BFS mode\
+            \ (high-branching-factor sites like wikis where `max_depth`\nalone is\
+            \ not a meaningful bound) and in sitemap mode (a `<sitemap-index>` can\
+            \ chain\n50,000 child sitemaps \xD7 50,000 URLs each per the sitemaps.org\
+            \ limits).\n"
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 1000000
+          default: 10000
+        js_rendering:
+          description: 'If true, pages are rendered with a headless browser (slower,
+            but required for JavaScript-heavy SPAs).
+
+            Defaults to false; turn on if pages return empty content without rendering.
+
+            '
+          type: boolean
+          default: false
+        user_agent:
+          description: User-Agent header sent with every request. Must not contain
+            CR or LF.
+          type: string
+          maxLength: 256
+          pattern: "^[^\r\n]*$"
+          default: Vectara-Crawler/1.0 (+https://www.vectara.com/crawler)
+        max_page_bytes:
+          description: 'Maximum page body bytes to download. Larger pages are truncated.
+            The 64 KB floor
+
+            prevents accidentally capping every page below the size of a typical HTML
+            document;
+
+            the 100 MiB ceiling is far above any plausible single-page payload.
+
+            '
+          type: integer
+          format: int64
+          minimum: 65536
+          maximum: 104857600
+          default: 10485760
+        excluded_content_types:
+          description: 'MIME types to skip in addition to always-skipped media types
+            (image/*, video/*, audio/*).
+
+            Useful to skip e.g. application/zip if a site links to large archives.
+
+            '
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            maxLength: 255
+        auth:
+          description: Authentication for the website. Omit for public sites.
+          $ref: '#/components/schemas/RemoteAuth'
+    WebUrl:
+      description: "An http(s) URL accepted by the Web crawler. Other schemes (file://,\
+        \ gopher://, etc.) are rejected.\nThe scheme match is case-insensitive (RFC\
+        \ 3986 \xA73.1).\n"
+      type: string
+      format: uri
+      maxLength: 2048
+      pattern: ^[hH][tT][tT][pP][sS]?://
+    SitemapPagesSource:
+      description: 'Read pages enumerated by one or more sitemaps (`sitemap.xml`,
+        `sitemap-index.xml`, or gzipped
+
+        variants). Per-URL change detection uses the sitemap''s `<lastmod>`. No link-following.
+
+        '
+      x-vectaraParents:
+      - WebPagesSource
+      type: object
+      properties:
+        type:
+          type: string
+          default: sitemap
+          example: sitemap
+        sitemap_urls:
+          description: Sitemap URLs to read. At least one is required.
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/WebUrl'
+          example:
+          - https://docs.example.com/sitemap.xml
+      required:
+      - type
+      - sitemap_urls
+    BaseCrawlPagesSource:
+      description: 'Shared BFS knobs for crawl-mode page-source variants (CrawlPagesSource,
+        SitemapCrawlPagesSource).
+
+        Depth and URL filters; seed lists differ per variant and live on the leaf
+        types.
+
+        '
+      type: object
+      properties:
+        max_depth:
+          description: Maximum link-following depth from each seed URL.
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 10
+          default: 3
+        same_domain_only:
+          description: If true, the crawler does not follow links outside the seed
+            URL's registered domain.
+          type: boolean
+          default: true
+        pos_regex:
+          description: Regex patterns; URLs must match at least one to be crawled.
+            Empty list = no positive filter.
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 1024
+        neg_regex:
+          description: Regex patterns; URLs matching any are skipped.
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 1024
+    CrawlPagesSource:
+      description: 'Discover pages by breadth-first link-following starting from one
+        or more seed URLs.
+
+        Per-URL change detection uses conditional GET (added in a follow-up PR).
+
+        '
+      x-vectaraParents:
+      - WebPagesSource
+      allOf:
+      - $ref: '#/components/schemas/BaseCrawlPagesSource'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: crawl
+            example: crawl
+          urls:
+            description: Seed URLs for link-following crawl. BFS expands from these.
+            type: array
+            minItems: 1
+            maxItems: 1000
+            items:
+              $ref: '#/components/schemas/WebUrl'
+            example:
+            - https://docs.example.com/
+        required:
+        - type
+        - urls
+    SitemapCrawlPagesSource:
+      description: 'Read pages from sitemaps AND crawl outward via link-following.
+        Sitemap entries themselves
+
+        serve as crawl seeds; `urls` is optional and provides additional explicit
+        seeds.
+
+        '
+      x-vectaraParents:
+      - WebPagesSource
+      allOf:
+      - $ref: '#/components/schemas/BaseCrawlPagesSource'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: sitemap_crawl
+            example: sitemap_crawl
+          urls:
+            description: Optional additional seed URLs. Sitemap entries are also used
+              as crawl seeds.
+            type: array
+            minItems: 0
+            maxItems: 1000
+            items:
+              $ref: '#/components/schemas/WebUrl'
+          sitemap_urls:
+            description: Sitemap URLs to read; their entries become the initial crawl
+              seeds.
+            type: array
+            minItems: 1
+            maxItems: 100
+            items:
+              $ref: '#/components/schemas/WebUrl'
+            example:
+            - https://docs.example.com/sitemap.xml
+        required:
+        - type
+        - sitemap_urls
+    WebPagesSource:
+      description: 'How a `web` source discovers URLs. Discriminated by `type`:
+
+        `sitemap` reads sitemap.xml only; `crawl` does BFS link-following from seed
+        URLs;
+
+        `sitemap_crawl` reads a sitemap and crawls outward from its entries.
+
+        '
+      discriminator:
+        propertyName: type
+        mapping:
+          sitemap: '#/components/schemas/SitemapPagesSource'
+          crawl: '#/components/schemas/CrawlPagesSource'
+          sitemap_crawl: '#/components/schemas/SitemapCrawlPagesSource'
+      oneOf:
+      - $ref: '#/components/schemas/SitemapPagesSource'
+      - $ref: '#/components/schemas/CrawlPagesSource'
+      - $ref: '#/components/schemas/SitemapCrawlPagesSource'
+    WebSourceConfiguration:
+      description: 'Configuration for ingesting pages from a website. Politeness,
+        limits, and auth are configured
+
+        here; the `pages_source` field selects how URLs are discovered (sitemap, crawl,
+        or both).
+
+        '
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWebSource'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: web
+            example: web
+          pages_source:
+            $ref: '#/components/schemas/WebPagesSource'
+        required:
+        - type
+        - pages_source
     PipelineSource:
       description: The source system to ingest data from.
       discriminator:
         propertyName: type
         mapping:
           s3: '#/components/schemas/S3SourceConfiguration'
+          web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/S3SourceConfiguration'
+      - $ref: '#/components/schemas/WebSourceConfiguration'
     CronTriggerConfiguration:
       description: Run the pipeline on a cron schedule.
       type: object
@@ -23391,6 +23758,31 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseS3SourceConfiguration'
+    UpdateWebSourceConfiguration:
+      description: 'Partial update for a `web` source configuration. Top-level fields
+        are merged into the existing
+
+        record; if `pages_source` is provided, the entire `pages_source` object is
+        replaced (i.e.,
+
+        switching modes or changing per-mode fields requires a complete `pages_source`
+        object).
+
+        '
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWebSource'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: web
+            example: web
+          pages_source:
+            $ref: '#/components/schemas/WebPagesSource'
+        required:
+        - type
     UpdatePipelineSource:
       description: Source configuration for partial updates. Only provided fields
         are changed; credentials are optional.
@@ -23398,8 +23790,10 @@ components:
         propertyName: type
         mapping:
           s3: '#/components/schemas/UpdateS3SourceConfiguration'
+          web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/UpdateS3SourceConfiguration'
+      - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
     UpdatePipelineRequest:
       description: Request to partially update an existing pipeline. Omitted fields
         are preserved.
@@ -23545,6 +23939,8 @@ components:
 
             - SharePoint: the drive item ID
 
+            - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
+
             '
           type: string
         status:
@@ -23611,6 +24007,8 @@ components:
             - S3: the object key (e.g. `legal/contracts/doc.pdf`)
 
             - SharePoint: the drive item ID
+
+            - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
 
             '
           type: string

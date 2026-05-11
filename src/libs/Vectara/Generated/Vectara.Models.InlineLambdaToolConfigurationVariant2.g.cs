@@ -27,7 +27,7 @@ namespace Vectara
         public required string ToolId { get; set; }
 
         /// <summary>
-        /// Optional hardcoded arguments that will be passed to the lambda function. When specified, these values will be used instead of allowing the LLM to fill in those parameters.<br/>
+        /// Optional hardcoded arguments that will be passed to the lambda function. When specified, these values will be used instead of allowing the agent to fill in those parameters.<br/>
         /// Example: {"custom_param":"value"}
         /// </summary>
         /// <example>{"custom_param":"value"}</example>
@@ -52,7 +52,7 @@ namespace Vectara
         /// Example: tol_123e4567-e89b-12d3-a456-426614174000
         /// </param>
         /// <param name="argumentOverride">
-        /// Optional hardcoded arguments that will be passed to the lambda function. When specified, these values will be used instead of allowing the LLM to fill in those parameters.<br/>
+        /// Optional hardcoded arguments that will be passed to the lambda function. When specified, these values will be used instead of allowing the agent to fill in those parameters.<br/>
         /// Example: {"custom_param":"value"}
         /// </param>
 #if NET7_0_OR_GREATER

@@ -42,8 +42,8 @@ namespace Vectara
         /// - `$.agent.metadata.&lt;key&gt;` — agent metadata fields<br/>
         /// - `$.session.metadata.&lt;key&gt;` — session metadata fields<br/>
         /// - `$.tools.&lt;tool_config_name&gt;.outputs.latest.&lt;field&gt;` — latest tool output fields<br/>
-        /// - `$.output.text` — LLM text output (when output_parser is `default`)<br/>
-        /// - `$.output.&lt;field&gt;` — LLM structured output fields (when output_parser is `structured`)<br/>
+        /// - `$.output.text` — agent text output (when output_parser is `default`)<br/>
+        /// - `$.output.&lt;field&gt;` — agent structured output fields (when output_parser is `structured`)<br/>
         /// Example: get('$.output.intent') == 'sales'
         /// </summary>
         /// <example>get('$.output.intent') == 'sales'</example>
@@ -108,8 +108,8 @@ namespace Vectara
         /// - `$.agent.metadata.&lt;key&gt;` — agent metadata fields<br/>
         /// - `$.session.metadata.&lt;key&gt;` — session metadata fields<br/>
         /// - `$.tools.&lt;tool_config_name&gt;.outputs.latest.&lt;field&gt;` — latest tool output fields<br/>
-        /// - `$.output.text` — LLM text output (when output_parser is `default`)<br/>
-        /// - `$.output.&lt;field&gt;` — LLM structured output fields (when output_parser is `structured`)<br/>
+        /// - `$.output.text` — agent text output (when output_parser is `default`)<br/>
+        /// - `$.output.&lt;field&gt;` — agent structured output fields (when output_parser is `structured`)<br/>
         /// Example: get('$.output.intent') == 'sales'
         /// </param>
 #if NET7_0_OR_GREATER

@@ -49,6 +49,7 @@ namespace Vectara
             ref global::Vectara.DeadLetterStatus? status,
             ref string? lastRunId,
             ref global::Vectara.DeadLetterOrigin? origin,
+            ref string? filter,
             ref int? limit,
             ref string? pageKey);
         partial void PrepareListRequest(
@@ -60,6 +61,7 @@ namespace Vectara
             global::Vectara.DeadLetterStatus? status,
             string? lastRunId,
             global::Vectara.DeadLetterOrigin? origin,
+            string? filter,
             int? limit,
             string? pageKey);
         partial void ProcessListResponse(
@@ -91,6 +93,7 @@ namespace Vectara
         /// <param name="origin">
         /// How this dead letter was created.
         /// </param>
+        /// <param name="filter"></param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -105,6 +108,7 @@ namespace Vectara
             global::Vectara.DeadLetterStatus? status = default,
             string? lastRunId = default,
             global::Vectara.DeadLetterOrigin? origin = default,
+            string? filter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -117,6 +121,7 @@ namespace Vectara
                 status: status,
                 lastRunId: lastRunId,
                 origin: origin,
+                filter: filter,
                 limit: limit,
                 pageKey: pageKey,
                 requestOptions: requestOptions,
@@ -145,6 +150,7 @@ namespace Vectara
         /// <param name="origin">
         /// How this dead letter was created.
         /// </param>
+        /// <param name="filter"></param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -159,6 +165,7 @@ namespace Vectara
             global::Vectara.DeadLetterStatus? status = default,
             string? lastRunId = default,
             global::Vectara.DeadLetterOrigin? origin = default,
+            string? filter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -174,6 +181,7 @@ namespace Vectara
                 status: ref status,
                 lastRunId: ref lastRunId,
                 origin: ref origin,
+                filter: ref filter,
                 limit: ref limit,
                 pageKey: ref pageKey);
 
@@ -207,6 +215,7 @@ namespace Vectara
                                 .AddOptionalParameter("status", status?.ToValueString())
                                 .AddOptionalParameter("last_run_id", lastRunId)
                                 .AddOptionalParameter("origin", origin?.ToValueString())
+                                .AddOptionalParameter("filter", filter)
                                 .AddOptionalParameter("limit", limit?.ToString())
                                 .AddOptionalParameter("page_key", pageKey)
                                 ;
@@ -266,6 +275,7 @@ namespace Vectara
                     status: status,
                     lastRunId: lastRunId,
                     origin: origin,
+                    filter: filter,
                     limit: limit,
                     pageKey: pageKey);
 

@@ -32,6 +32,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("id")) __score0++;
             if (__jsonProps.Contains("session_key")) __score0++;
             var __score1 = 0;
+            if (__jsonProps.Contains("message_diffs")) __score1++;
             if (__jsonProps.Contains("messages")) __score1++;
             if (__jsonProps.Contains("type")) __score1++;
             var __bestScore = 0;

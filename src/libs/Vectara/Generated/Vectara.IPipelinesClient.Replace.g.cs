@@ -93,7 +93,7 @@ namespace Vectara
         global::System.Threading.Tasks.Task<global::Vectara.Pipeline> ReplaceAsync(
             string pipelineKey,
             string name,
-            global::Vectara.S3SourceConfiguration source,
+            global::Vectara.PipelineSource source,
             global::Vectara.PipelineTrigger trigger,
             global::Vectara.PipelineTransform transform,
             int? requestTimeout = default,

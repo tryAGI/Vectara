@@ -7,7 +7,7 @@ namespace Vectara
     /// <summary>
     /// An event representing a complete agent response with structured JSON content conforming to a schema.<br/>
     /// This event is published instead of AgentOutputEvent when the agent's output_parser is configured<br/>
-    /// with type "structured". It contains the LLM's final response parsed as validated JSON that<br/>
+    /// with type "structured". It contains the agent's final response parsed as validated JSON that<br/>
     /// conforms to the schema specified in the StructuredOutputParser configuration.<br/>
     /// When streaming is enabled, this event appears as a single complete event (not streamed in chunks)<br/>
     /// after any tool interactions are complete. The content field contains the parsed JSON,<br/>

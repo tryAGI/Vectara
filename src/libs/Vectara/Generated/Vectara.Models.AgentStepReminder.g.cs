@@ -54,7 +54,7 @@ namespace Vectara
         /// <summary>
         /// A reminder that expands terms, acronyms, and abbreviations in user messages using a glossary.<br/>
         /// When attached to a step, user input is run through the glossary's lookup index and matching<br/>
-        /// terms are expanded before the message reaches the LLM.
+        /// terms are expanded before the message reaches the agent.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GlossaryExpansionReminder? GlossaryExpansion { get; init; }
