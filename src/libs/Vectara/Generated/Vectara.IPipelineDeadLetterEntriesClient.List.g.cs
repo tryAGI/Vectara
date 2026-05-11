@@ -24,6 +24,7 @@ namespace Vectara
         /// <param name="origin">
         /// How this dead letter was created.
         /// </param>
+        /// <param name="filter"></param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -38,6 +39,7 @@ namespace Vectara
             global::Vectara.DeadLetterStatus? status = default,
             string? lastRunId = default,
             global::Vectara.DeadLetterOrigin? origin = default,
+            string? filter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -62,6 +64,7 @@ namespace Vectara
         /// <param name="origin">
         /// How this dead letter was created.
         /// </param>
+        /// <param name="filter"></param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -76,6 +79,7 @@ namespace Vectara
             global::Vectara.DeadLetterStatus? status = default,
             string? lastRunId = default,
             global::Vectara.DeadLetterOrigin? origin = default,
+            string? filter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

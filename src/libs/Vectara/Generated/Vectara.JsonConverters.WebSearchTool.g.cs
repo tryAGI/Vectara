@@ -30,6 +30,8 @@ namespace Vectara.JsonConverters
             var __score0 = 0;
             if (__jsonProps.Contains("category")) __score0++;
             if (__jsonProps.Contains("created_at")) __score0++;
+            if (__jsonProps.Contains("default_argument_override")) __score0++;
+            if (__jsonProps.Contains("default_output_transform")) __score0++;
             if (__jsonProps.Contains("description")) __score0++;
             if (__jsonProps.Contains("description_template")) __score0++;
             if (__jsonProps.Contains("documentation")) __score0++;
@@ -39,6 +41,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("input_schema")) __score0++;
             if (__jsonProps.Contains("lineage")) __score0++;
             if (__jsonProps.Contains("name")) __score0++;
+            if (__jsonProps.Contains("output_schema")) __score0++;
             if (__jsonProps.Contains("title")) __score0++;
             if (__jsonProps.Contains("tool_groups")) __score0++;
             if (__jsonProps.Contains("updated_at")) __score0++;

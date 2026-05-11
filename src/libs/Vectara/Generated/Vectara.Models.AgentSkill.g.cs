@@ -7,7 +7,7 @@ namespace Vectara
     /// A skill that provides progressively disclosed instructions to an agent; it allows the agent to access more instructions without<br/>
     /// always being within the system scope. Additionally, skills are explicitly loaded as an input event rather than normal text input event.<br/>
     /// Skills are defined at the agent level and can be filtered per step via allowed_skills.<br/>
-    /// The skill key and description are shown to the LLM in the system message;<br/>
+    /// The skill key and description are shown to the agent in its instructions;<br/>
     /// the full content is sent as a user message when the skill is invoked via the invoke_skill tool.
     /// </summary>
     public sealed partial class AgentSkill

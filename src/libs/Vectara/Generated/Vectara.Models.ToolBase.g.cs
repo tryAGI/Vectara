@@ -94,6 +94,46 @@ namespace Vectara
         public required object InputSchema { get; set; }
 
         /// <summary>
+        /// The JSON schema that describes the structure of the tool's output. May be used by clients to<br/>
+        /// understand the shape of tool responses and to author `default_output_transform` jq expressions.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("output_schema")]
+        public object? OutputSchema { get; set; }
+
+        /// <summary>
+        /// An optional jq expression applied to the tool's JSON output before it is returned to the LLM.<br/>
+        /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
+        /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the LLM as<br/>
+        /// an error so the agent can react.<br/>
+        /// Examples:<br/>
+        ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
+        ///   - `.items[0:5]` — first 5 items<br/>
+        ///   - `del(.debug)` — drop a noisy field<br/>
+        /// Example: .results | map({title, url})
+        /// </summary>
+        /// <example>.results | map({title, url})</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("default_output_transform")]
+        public string? DefaultOutputTransform { get; set; }
+
+        /// <summary>
+        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The LLM will not be able to change the parameters, nor know those values exist within the tool.<br/>
+        /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
+        /// - Static value: "fixed_value" or 123<br/>
+        /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
+        /// References are resolved at runtime from context:<br/>
+        /// - session.metadata.* - Access session metadata fields<br/>
+        /// - agent.metadata.* - Access agent metadata fields<br/>
+        /// Example:<br/>
+        ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
+        /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>
+        /// Example: {"max_results":10}
+        /// </summary>
+        /// <example>{"max_results":10}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("default_argument_override")]
+        public object? DefaultArgumentOverride { get; set; }
+
+        /// <summary>
         /// Functional category of the tool (e.g., retrieval, artifacts, indexing, utilities, orchestration).
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("category")]
@@ -178,6 +218,35 @@ namespace Vectara
         /// <param name="updatedAt">
         /// Timestamp when the tool was last updated.
         /// </param>
+        /// <param name="outputSchema">
+        /// The JSON schema that describes the structure of the tool's output. May be used by clients to<br/>
+        /// understand the shape of tool responses and to author `default_output_transform` jq expressions.
+        /// </param>
+        /// <param name="defaultOutputTransform">
+        /// An optional jq expression applied to the tool's JSON output before it is returned to the LLM.<br/>
+        /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
+        /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the LLM as<br/>
+        /// an error so the agent can react.<br/>
+        /// Examples:<br/>
+        ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
+        ///   - `.items[0:5]` — first 5 items<br/>
+        ///   - `del(.debug)` — drop a noisy field<br/>
+        /// Example: .results | map({title, url})
+        /// </param>
+        /// <param name="defaultArgumentOverride">
+        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The LLM will not be able to change the parameters, nor know those values exist within the tool.<br/>
+        /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
+        /// - Static value: "fixed_value" or 123<br/>
+        /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
+        /// References are resolved at runtime from context:<br/>
+        /// - session.metadata.* - Access session metadata fields<br/>
+        /// - agent.metadata.* - Access agent metadata fields<br/>
+        /// Example:<br/>
+        ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
+        /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>
+        /// Example: {"max_results":10}
+        /// </param>
         /// <param name="category">
         /// Functional category of the tool (e.g., retrieval, artifacts, indexing, utilities, orchestration).
         /// </param>
@@ -208,6 +277,9 @@ namespace Vectara
             bool? experimental,
             global::System.DateTime? createdAt,
             global::System.DateTime? updatedAt,
+            object? outputSchema,
+            string? defaultOutputTransform,
+            object? defaultArgumentOverride,
             string? category,
             string? lineage,
             string? version,
@@ -224,6 +296,9 @@ namespace Vectara
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
             this.InputSchema = inputSchema ?? throw new global::System.ArgumentNullException(nameof(inputSchema));
+            this.OutputSchema = outputSchema;
+            this.DefaultOutputTransform = defaultOutputTransform;
+            this.DefaultArgumentOverride = defaultArgumentOverride;
             this.Category = category;
             this.Lineage = lineage;
             this.Version = version;

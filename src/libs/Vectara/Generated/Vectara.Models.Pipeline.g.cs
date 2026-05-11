@@ -47,9 +47,9 @@ namespace Vectara
         /// The source system to ingest data from.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.S3SourceConfigurationJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.PipelineSourceJsonConverter))]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.S3SourceConfiguration Source { get; set; }
+        public required global::Vectara.PipelineSource Source { get; set; }
 
         /// <summary>
         /// Defines when the pipeline runs.
@@ -189,7 +189,7 @@ namespace Vectara
         public Pipeline(
             string key,
             string name,
-            global::Vectara.S3SourceConfiguration source,
+            global::Vectara.PipelineSource source,
             global::Vectara.PipelineTrigger trigger,
             global::Vectara.PipelineTransform transform,
             global::Vectara.PipelineSyncMode syncMode,

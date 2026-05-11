@@ -12,6 +12,10 @@ namespace Vectara
         /// 
         /// </summary>
         S3,
+        /// <summary>
+        /// 
+        /// </summary>
+        Web,
     }
 
     /// <summary>
@@ -27,6 +31,7 @@ namespace Vectara
             return value switch
             {
                 UpdatePipelineSourceDiscriminatorType.S3 => "s3",
+                UpdatePipelineSourceDiscriminatorType.Web => "web",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -38,6 +43,7 @@ namespace Vectara
             return value switch
             {
                 "s3" => UpdatePipelineSourceDiscriminatorType.S3,
+                "web" => UpdatePipelineSourceDiscriminatorType.Web,
                 _ => null,
             };
         }

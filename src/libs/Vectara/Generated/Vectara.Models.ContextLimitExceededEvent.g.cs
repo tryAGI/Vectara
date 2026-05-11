@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A transient event indicating the current request exceeded the LLM's context limit.<br/>
+    /// A transient event indicating the current request exceeded the agent's context limit.<br/>
     /// This event is not persisted to the session history.
     /// </summary>
     public readonly partial struct ContextLimitExceededEvent : global::System.IEquatable<ContextLimitExceededEvent>

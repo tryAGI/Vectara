@@ -654,7 +654,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? name = default,
             string? description = default,
-            global::Vectara.UpdateS3SourceConfiguration? source = default,
+            global::Vectara.UpdatePipelineSource? source = default,
             global::Vectara.PipelineTrigger? trigger = default,
             global::Vectara.PipelineTransform? transform = default,
             global::Vectara.PipelineSyncMode? syncMode = default,

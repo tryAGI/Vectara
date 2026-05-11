@@ -54,6 +54,14 @@ namespace Vectara
         public required object ToolInput { get; set; }
 
         /// <summary>
+        /// Top-level field paths in `tool_input` whose values were filled by the tool configuration's argument overrides at emission time, not produced by the<br/>
+        /// agent. On replay these paths are stripped from the rendered tool call so the model sees only what it originally generated, regardless of how the tool<br/>
+        /// configuration's overrides have changed since. Paths support dot-notation (e.g. `config.auth.token`).
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("argument_override_paths")]
+        public global::System.Collections.Generic.IList<string>? ArgumentOverridePaths { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -82,6 +90,11 @@ namespace Vectara
         /// Input data for the tool.<br/>
         /// Example: {"query":"weather in San Francisco"}
         /// </param>
+        /// <param name="argumentOverridePaths">
+        /// Top-level field paths in `tool_input` whose values were filled by the tool configuration's argument overrides at emission time, not produced by the<br/>
+        /// agent. On replay these paths are stripped from the rendered tool call so the model sees only what it originally generated, regardless of how the tool<br/>
+        /// configuration's overrides have changed since. Paths support dot-notation (e.g. `config.auth.token`).
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -90,13 +103,15 @@ namespace Vectara
             string toolCallId,
             string toolConfigurationName,
             string toolName,
-            object toolInput)
+            object toolInput,
+            global::System.Collections.Generic.IList<string>? argumentOverridePaths)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.ToolCallId = toolCallId ?? throw new global::System.ArgumentNullException(nameof(toolCallId));
             this.ToolConfigurationName = toolConfigurationName ?? throw new global::System.ArgumentNullException(nameof(toolConfigurationName));
             this.ToolName = toolName ?? throw new global::System.ArgumentNullException(nameof(toolName));
             this.ToolInput = toolInput ?? throw new global::System.ArgumentNullException(nameof(toolInput));
+            this.ArgumentOverridePaths = argumentOverridePaths;
         }
 
         /// <summary>

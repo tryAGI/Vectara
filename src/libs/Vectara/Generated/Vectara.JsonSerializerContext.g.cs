@@ -333,6 +333,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.WebPagesSourceDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebPagesSourceDiscriminatorTypeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeNullableJsonConverter),
@@ -615,6 +619,14 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.S3SourceConfigurationJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.CrawlPagesSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SitemapCrawlPagesSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebPagesSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebSourceConfigurationJsonConverter),
+
             typeof(global::Vectara.JsonConverters.PipelineSourceJsonConverter),
 
             typeof(global::Vectara.JsonConverters.PipelineTriggerJsonConverter),
@@ -622,6 +634,8 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.PipelineVerificationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.UpdateS3SourceConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateWebSourceConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter),
 
@@ -1504,6 +1518,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.WebPagesSourceDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebPagesSourceDiscriminatorTypeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeNullableJsonConverter),
@@ -1786,6 +1804,14 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.S3SourceConfigurationJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.CrawlPagesSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SitemapCrawlPagesSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebPagesSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebSourceConfigurationJsonConverter),
+
             typeof(global::Vectara.JsonConverters.PipelineSourceJsonConverter),
 
             typeof(global::Vectara.JsonConverters.PipelineTriggerJsonConverter),
@@ -1793,6 +1819,8 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.PipelineVerificationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.UpdateS3SourceConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.UpdateWebSourceConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter),
 
@@ -1946,6 +1974,18 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineStatus), TypeInfoPropertyName = "PipelineStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseS3SourceConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.S3SourceConfiguration), TypeInfoPropertyName = "S3SourceConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseWebSource))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SitemapPagesSource))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseCrawlPagesSource))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CrawlPagesSource), TypeInfoPropertyName = "CrawlPagesSource2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CrawlPagesSourceVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SitemapCrawlPagesSource), TypeInfoPropertyName = "SitemapCrawlPagesSource2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SitemapCrawlPagesSourceVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebPagesSource), TypeInfoPropertyName = "WebPagesSource2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebPagesSourceDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebPagesSourceDiscriminatorType), TypeInfoPropertyName = "WebPagesSourceDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSourceConfiguration), TypeInfoPropertyName = "WebSourceConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSourceConfigurationVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSource), TypeInfoPropertyName = "PipelineSource2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSourceDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineSourceDiscriminatorType), TypeInfoPropertyName = "PipelineSourceDiscriminatorType2")]
@@ -1971,6 +2011,8 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Pipeline>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreatePipelineRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateS3SourceConfiguration), TypeInfoPropertyName = "UpdateS3SourceConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateWebSourceConfiguration), TypeInfoPropertyName = "UpdateWebSourceConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateWebSourceConfigurationVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdatePipelineSource), TypeInfoPropertyName = "UpdatePipelineSource2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdatePipelineSourceDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdatePipelineSourceDiscriminatorType), TypeInfoPropertyName = "UpdatePipelineSourceDiscriminatorType2")]
@@ -2336,6 +2378,8 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineStatusJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebPagesSourceDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebPagesSourceDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineSourceDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineTriggerDiscriminatorTypeJsonConverter());
@@ -2477,10 +2521,15 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.S3SourceConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CrawlPagesSourceJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SitemapCrawlPagesSourceJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebPagesSourceJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebSourceConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineSourceJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineTriggerJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineVerificationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.UpdateS3SourceConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.UpdateWebSourceConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.InvokeAgentTraceSpanJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ChatTraceSpanJsonConverter());

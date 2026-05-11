@@ -279,7 +279,7 @@ namespace Vectara
         /// <summary>
         /// An event representing a complete agent response with structured JSON content conforming to a schema.<br/>
         /// This event is published instead of AgentOutputEvent when the agent's output_parser is configured<br/>
-        /// with type "structured". It contains the LLM's final response parsed as validated JSON that<br/>
+        /// with type "structured". It contains the agent's final response parsed as validated JSON that<br/>
         /// conforms to the schema specified in the StructuredOutputParser configuration.<br/>
         /// When streaming is enabled, this event appears as a single complete event (not streamed in chunks)<br/>
         /// after any tool interactions are complete. The content field contains the parsed JSON,<br/>
@@ -320,7 +320,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutput' but the value was {ToString()}.");
 
         /// <summary>
-        /// A transient event indicating the current request exceeded the LLM's context limit.<br/>
+        /// A transient event indicating the current request exceeded the agent's context limit.<br/>
         /// This event is not persisted to the session history.
         /// </summary>
 #if NET6_0_OR_GREATER
