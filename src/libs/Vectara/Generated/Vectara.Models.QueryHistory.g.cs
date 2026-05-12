@@ -14,7 +14,8 @@ namespace Vectara
         /// </summary>
         /// <example>qry_1234567890</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// Query one or more corpora.<br/>
@@ -108,7 +109,7 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public QueryHistory(
-            string? id,
+            string id,
             global::Vectara.QueryRequest? query,
             string? chatId,
             int? latencyMillis,
@@ -117,7 +118,7 @@ namespace Vectara
             string? sessionKey,
             global::System.Collections.Generic.IList<global::Vectara.QueryHistorySpan>? spans)
         {
-            this.Id = id;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Query = query;
             this.ChatId = chatId;
             this.LatencyMillis = latencyMillis;

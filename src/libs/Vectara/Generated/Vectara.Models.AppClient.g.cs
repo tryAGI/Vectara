@@ -12,13 +12,15 @@ namespace Vectara
         /// The Vectara App Client ID. This ID is not used during an OAuth flow.  However, the ID used within the Vectara API.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The human-readable name of the App Client.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
         /// Description of the App Client.
@@ -30,13 +32,15 @@ namespace Vectara
         /// The client ID used with the OAuth flow.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("client_id")]
-        public string? ClientId { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string ClientId { get; set; }
 
         /// <summary>
         /// The client secret used in API requests.  The secret should be kept secure.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("client_secret")]
-        public string? ClientSecret { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string ClientSecret { get; set; }
 
         /// <summary>
         /// The API roles attached to the App Client.
@@ -77,14 +81,14 @@ namespace Vectara
         /// <param name="name">
         /// The human-readable name of the App Client.
         /// </param>
-        /// <param name="description">
-        /// Description of the App Client.
-        /// </param>
         /// <param name="clientId">
         /// The client ID used with the OAuth flow.
         /// </param>
         /// <param name="clientSecret">
         /// The client secret used in API requests.  The secret should be kept secure.
+        /// </param>
+        /// <param name="description">
+        /// Description of the App Client.
         /// </param>
         /// <param name="apiRoles">
         /// The API roles attached to the App Client.
@@ -102,21 +106,21 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public AppClient(
-            string? id,
-            string? name,
+            string id,
+            string name,
+            string clientId,
+            string clientSecret,
             string? description,
-            string? clientId,
-            string? clientSecret,
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
             global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles,
             global::Vectara.ApiPolicy? apiPolicy)
         {
-            this.Id = id;
-            this.Name = name;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
-            this.ClientId = clientId;
-            this.ClientSecret = clientSecret;
+            this.ClientId = clientId ?? throw new global::System.ArgumentNullException(nameof(clientId));
+            this.ClientSecret = clientSecret ?? throw new global::System.ArgumentNullException(nameof(clientSecret));
             this.ApiRoles = apiRoles;
             this.CorpusRoles = corpusRoles;
             this.AgentRoles = agentRoles;

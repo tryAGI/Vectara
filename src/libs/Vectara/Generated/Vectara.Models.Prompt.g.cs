@@ -12,13 +12,15 @@ namespace Vectara
         /// The ID of the prompt.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// Name of the prompt. This is used as the `prompt_name` in a query.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
         /// The description of the prompt.
@@ -66,14 +68,14 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Prompt(
-            string? id,
-            string? name,
+            string id,
+            string name,
             string? description,
             bool? enabled,
             bool? @default)
         {
-            this.Id = id;
-            this.Name = name;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
             this.Enabled = enabled;
             this.Default = @default;

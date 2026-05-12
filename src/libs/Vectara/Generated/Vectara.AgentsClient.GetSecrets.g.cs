@@ -3,11 +3,11 @@
 
 namespace Vectara
 {
-    public partial class GenerationPresetsClient
+    public partial class AgentsClient
     {
 
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateSecurityRequirement0 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_GetSecretsSecurityRequirement0 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -22,7 +22,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateSecurityRequirement1 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_GetSecretsSecurityRequirement1 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -36,53 +36,53 @@ namespace Vectara
                     },
                 },
             };
-        private static readonly global::Vectara.EndPointSecurityRequirement[] s_CreateSecurityRequirements =
+        private static readonly global::Vectara.EndPointSecurityRequirement[] s_GetSecretsSecurityRequirements =
             new global::Vectara.EndPointSecurityRequirement[]
-            {                s_CreateSecurityRequirement0,
-                s_CreateSecurityRequirement1,
+            {                s_GetSecretsSecurityRequirement0,
+                s_GetSecretsSecurityRequirement1,
             };
-        partial void PrepareCreateArguments(
+        partial void PrepareGetSecretsArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            global::Vectara.CreateGenerationPresetRequest request);
-        partial void PrepareCreateRequest(
+            ref string agentKey);
+        partial void PrepareGetSecretsRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            global::Vectara.CreateGenerationPresetRequest request);
-        partial void ProcessCreateResponse(
+            string agentKey);
+        partial void ProcessGetSecretsResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessCreateResponseContent(
+        partial void ProcessGetSecretsResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// Create a generation preset<br/>
-        /// Create a custom generation preset for use in query and chat requests. A generation preset bundles a prompt template, an LLM, and model parameters into a reusable configuration.<br/>
-        /// The created preset can be referenced by name using the `generation_preset_name` field in query or chat requests.
+        /// Get agent secrets<br/>
+        /// Retrieve the agent's secrets. Values are always masked (`****`); plaintext is never exposed on read.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="request"></param>
+        /// <param name="agentKey">
+        /// A unique key that identifies an agent.<br/>
+        /// Example: customer_support
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.GenerationPreset> CreateAsync(
-
-            global::Vectara.CreateGenerationPresetRequest request,
+        public async global::System.Threading.Tasks.Task<global::Vectara.AgentSecrets> GetSecretsAsync(
+            string agentKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __response = await CreateAsResponseAsync(
-
-                request: request,
+            var __response = await GetSecretsAsResponseAsync(
+                agentKey: agentKey,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 requestOptions: requestOptions,
@@ -92,19 +92,20 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// Create a generation preset<br/>
-        /// Create a custom generation preset for use in query and chat requests. A generation preset bundles a prompt template, an LLM, and model parameters into a reusable configuration.<br/>
-        /// The created preset can be referenced by name using the `generation_preset_name` field in query or chat requests.
+        /// Get agent secrets<br/>
+        /// Retrieve the agent's secrets. Values are always masked (`****`); plaintext is never exposed on read.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="request"></param>
+        /// <param name="agentKey">
+        /// A unique key that identifies an agent.<br/>
+        /// Example: customer_support
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.GenerationPreset>> CreateAsResponseAsync(
-
-            global::Vectara.CreateGenerationPresetRequest request,
+        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentSecrets>> GetSecretsAsResponseAsync(
+            string agentKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -112,17 +113,17 @@ namespace Vectara
         {
             PrepareArguments(
                 client: HttpClient);
-            PrepareCreateArguments(
+            PrepareGetSecretsArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                request: request);
+                agentKey: ref agentKey);
 
 
             var __authorizations = global::Vectara.EndPointSecurityResolver.ResolveAuthorizations(
                 availableAuthorizations: Authorizations,
-                securityRequirements: s_CreateSecurityRequirements,
-                operationName: "CreateAsync");
+                securityRequirements: s_GetSecretsSecurityRequirements,
+                operationName: "GetSecretsAsync");
 
             using var __timeoutCancellationTokenSource = global::Vectara.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
@@ -142,7 +143,7 @@ namespace Vectara
             {
 
                             var __pathBuilder = new global::Vectara.PathBuilder(
-                                path: "/v2/generation_presets",
+                                path: $"/v2/agents/{agentKey}/secrets",
                                 baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::Vectara.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -150,7 +151,7 @@ namespace Vectara
                     clientParameters: Options.QueryParameters,
                     requestParameters: requestOptions?.QueryParameters);
                 var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                    method: global::System.Net.Http.HttpMethod.Post,
+                    method: global::System.Net.Http.HttpMethod.Get,
                     requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
                 __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -183,12 +184,6 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
-                            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
-                            var __httpRequestContent = new global::System.Net.Http.StringContent(
-                                content: __httpRequestContentBody,
-                                encoding: global::System.Text.Encoding.UTF8,
-                                mediaType: "application/json");
-                            __httpRequest.Content = __httpRequestContent;
                 global::Vectara.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,
                     clientHeaders: Options.Headers,
@@ -197,12 +192,12 @@ namespace Vectara
                 PrepareRequest(
                     client: HttpClient,
                     request: __httpRequest);
-                PrepareCreateRequest(
+                PrepareGetSecretsRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    request: request);
+                    agentKey: agentKey!);
 
                 return __httpRequest;
             }
@@ -219,10 +214,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnBeforeRequestAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/v2/generation_presets\"",
-                                httpMethod: "POST",
+                                operationId: "GetSecrets",
+                                methodName: "GetSecretsAsync",
+                                pathTemplate: "$\"/v2/agents/{agentKey}/secrets\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -256,10 +251,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/v2/generation_presets\"",
-                                httpMethod: "POST",
+                                operationId: "GetSecrets",
+                                methodName: "GetSecretsAsync",
+                                pathTemplate: "$\"/v2/agents/{agentKey}/secrets\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -297,10 +292,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/v2/generation_presets\"",
-                                httpMethod: "POST",
+                                operationId: "GetSecrets",
+                                methodName: "GetSecretsAsync",
+                                pathTemplate: "$\"/v2/agents/{agentKey}/secrets\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -337,7 +332,7 @@ namespace Vectara
                 ProcessResponse(
                     client: HttpClient,
                     response: __response);
-                ProcessCreateResponse(
+                ProcessGetSecretsResponse(
                     httpClient: HttpClient,
                     httpResponseMessage: __response);
                 if (__response.IsSuccessStatusCode)
@@ -345,10 +340,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterSuccessAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/v2/generation_presets\"",
-                                httpMethod: "POST",
+                                operationId: "GetSecrets",
+                                methodName: "GetSecretsAsync",
+                                pathTemplate: "$\"/v2/agents/{agentKey}/secrets\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -367,10 +362,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Create",
-                                methodName: "CreateAsync",
-                                pathTemplate: "\"/v2/generation_presets\"",
-                                httpMethod: "POST",
+                                operationId: "GetSecrets",
+                                methodName: "GetSecretsAsync",
+                                pathTemplate: "$\"/v2/agents/{agentKey}/secrets\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -384,45 +379,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Invalid request parameters.
-                            if ((int)__response.StatusCode == 400)
-                            {
-                                string? __content_400 = null;
-                                global::System.Exception? __exception_400 = null;
-                                global::Vectara.Error? __value_400 = null;
-                                try
-                                {
-                                    if (__effectiveReadResponseAsString)
-                                    {
-                                        __content_400 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
-                                        __value_400 = global::Vectara.Error.FromJson(__content_400, JsonSerializerContext);
-                                    }
-                                    else
-                                    {
-                                        __content_400 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
-
-                                        __value_400 = global::Vectara.Error.FromJson(__content_400, JsonSerializerContext);
-                                    }
-                                }
-                                catch (global::System.Exception __ex)
-                                {
-                                    __exception_400 = __ex;
-                                }
-
-                                throw new global::Vectara.ApiException<global::Vectara.Error>(
-                                    message: __content_400 ?? __response.ReasonPhrase ?? string.Empty,
-                                    innerException: __exception_400,
-                                    statusCode: __response.StatusCode)
-                                {
-                                    ResponseBody = __content_400,
-                                    ResponseObject = __value_400,
-                                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
-                                        __response.Headers,
-                                        h => h.Key,
-                                        h => h.Value),
-                                };
-                            }
-                            // Permissions do not allow creating generation presets.
+                            // Permissions do not allow accessing this agent.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -460,6 +417,44 @@ namespace Vectara
                                         h => h.Value),
                                 };
                             }
+                            // Agent not found.
+                            if ((int)__response.StatusCode == 404)
+                            {
+                                string? __content_404 = null;
+                                global::System.Exception? __exception_404 = null;
+                                global::Vectara.NotFoundError? __value_404 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_404 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_404 = global::Vectara.NotFoundError.FromJson(__content_404, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_404 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_404 = global::Vectara.NotFoundError.FromJson(__content_404, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_404 = __ex;
+                                }
+
+                                throw new global::Vectara.ApiException<global::Vectara.NotFoundError>(
+                                    message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_404,
+                                    statusCode: __response.StatusCode)
+                                {
+                                    ResponseBody = __content_404,
+                                    ResponseObject = __value_404,
+                                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value),
+                                };
+                            }
 
                             if (__effectiveReadResponseAsString)
                             {
@@ -473,7 +468,7 @@ namespace Vectara
                                     client: HttpClient,
                                     response: __response,
                                     content: ref __content);
-                                ProcessCreateResponseContent(
+                                ProcessGetSecretsResponseContent(
                                     httpClient: HttpClient,
                                     httpResponseMessage: __response,
                                     content: ref __content);
@@ -482,9 +477,9 @@ namespace Vectara
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::Vectara.GenerationPreset.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::Vectara.AgentSecrets.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.GenerationPreset>(
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentSecrets>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -516,9 +511,9 @@ namespace Vectara
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    var __value = await global::Vectara.GenerationPreset.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::Vectara.AgentSecrets.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.GenerationPreset>(
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentSecrets>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -559,114 +554,6 @@ namespace Vectara
             {
                 __httpRequest?.Dispose();
             }
-        }
-        /// <summary>
-        /// Create a generation preset<br/>
-        /// Create a custom generation preset for use in query and chat requests. A generation preset bundles a prompt template, an LLM, and model parameters into a reusable configuration.<br/>
-        /// The created preset can be referenced by name using the `generation_preset_name` field in query or chat requests.
-        /// </summary>
-        /// <param name="requestTimeout"></param>
-        /// <param name="requestTimeoutMillis"></param>
-        /// <param name="id">
-        /// The ID of the generation preset.<br/>
-        /// Example: gnp_123
-        /// </param>
-        /// <param name="name">
-        /// Name of the generation preset to be used with configuring generation.<br/>
-        /// Example: Mockingbird 2.0
-        /// </param>
-        /// <param name="description">
-        /// Description of the generation preset.<br/>
-        /// Example: Mockingbird LLM 2.0 prompt for summarizing query results as an answer. Designed for RAG.
-        /// </param>
-        /// <param name="llmName">
-        /// Name of the model that these presets are used with. The list of available names can be fetched by the `GET /v2/llms` endpoint.<br/>
-        /// Example: mockingbird-2.0
-        /// </param>
-        /// <param name="promptTemplate">
-        /// Preset template used to render the prompt sent to generation.
-        /// </param>
-        /// <param name="maxUsedSearchResults">
-        /// Preset maximum number of search results that will be available to the prompt.<br/>
-        /// Example: 50
-        /// </param>
-        /// <param name="maxTokens">
-        /// Preset maximum number of tokens to be returned by the generation.<br/>
-        /// Example: 500
-        /// </param>
-        /// <param name="temperature">
-        /// The sampling temperature to use. Higher values make the output more random, while lower values make it more focused and deterministic.<br/>
-        /// Example: 0.4
-        /// </param>
-        /// <param name="frequencyPenalty">
-        /// Higher values penalize new tokens based on their existing frequency in the generation so far, decreasing the model's likelihood to repeat the same line verbatim.<br/>
-        /// Example: 0.2
-        /// </param>
-        /// <param name="presencePenalty">
-        /// Higher values penalize new tokens based on whether they appear in the generation so far, increasing the model's likelihood to talk about new topics.<br/>
-        /// Example: 0.2
-        /// </param>
-        /// <param name="additionalModelParams">
-        /// Additional model parameters beyond the standard fields above.
-        /// </param>
-        /// <param name="enabled">
-        /// Indicates whether the prompt is enabled.
-        /// </param>
-        /// <param name="default">
-        /// Indicates if this prompt is the default prompt used with the LLM.
-        /// </param>
-        /// <param name="ownership">
-        /// Indicates whether the generation preset is provided by the platform or created by the customer. Platform presets are pre-configured and cannot be modified or deleted. Customer presets are created and managed by the customer.<br/>
-        /// Example: platform
-        /// </param>
-        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
-        /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.GenerationPreset> CreateAsync(
-            string name,
-            int? requestTimeout = default,
-            int? requestTimeoutMillis = default,
-            string? id = default,
-            string? description = default,
-            string? llmName = default,
-            string? promptTemplate = default,
-            int? maxUsedSearchResults = default,
-            int? maxTokens = default,
-            float? temperature = default,
-            float? frequencyPenalty = default,
-            float? presencePenalty = default,
-            object? additionalModelParams = default,
-            bool? enabled = default,
-            bool? @default = default,
-            global::Vectara.GenerationPresetOwnership? ownership = default,
-            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
-            global::System.Threading.CancellationToken cancellationToken = default)
-        {
-            var __request = new global::Vectara.CreateGenerationPresetRequest(
-                new global::Vectara.GenerationPreset
-                {
-                Id = id,
-                Name = name,
-                Description = description,
-                LlmName = llmName,
-                PromptTemplate = promptTemplate,
-                MaxUsedSearchResults = maxUsedSearchResults,
-                MaxTokens = maxTokens,
-                Temperature = temperature,
-                FrequencyPenalty = frequencyPenalty,
-                PresencePenalty = presencePenalty,
-                AdditionalModelParams = additionalModelParams,
-                Enabled = enabled,
-                Default = @default,
-                Ownership = ownership,
-                });
-
-            return await CreateAsync(
-                requestTimeout: requestTimeout,
-                requestTimeoutMillis: requestTimeoutMillis,
-                request: __request,
-                requestOptions: requestOptions,
-                cancellationToken: cancellationToken).ConfigureAwait(false);
         }
     }
 }

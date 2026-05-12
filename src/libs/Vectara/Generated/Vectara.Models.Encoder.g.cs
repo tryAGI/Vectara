@@ -14,7 +14,8 @@ namespace Vectara
         /// </summary>
         /// <example>enc_1</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The encoder name, `boomerang-2023-q3`.<br/>
@@ -22,7 +23,8 @@ namespace Vectara
         /// </summary>
         /// <example>openai-text-encoder</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
         /// The encoder type<br/>
@@ -104,16 +106,16 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Encoder(
-            string? id,
-            string? name,
+            string id,
+            string name,
             string? type,
             int? outputDimensions,
             string? description,
             bool? @default,
             bool? enabled)
         {
-            this.Id = id;
-            this.Name = name;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Type = type;
             this.OutputDimensions = outputDimensions;
             this.Description = description;
