@@ -14,7 +14,8 @@ namespace Vectara
         /// </summary>
         /// <example>job_1234</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The type of job.
@@ -98,7 +99,7 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Job(
-            string? id,
+            string id,
             global::Vectara.JobType? type,
             global::System.Collections.Generic.IList<string>? corpusKeys,
             global::Vectara.JobState? state,
@@ -107,7 +108,7 @@ namespace Vectara
             global::System.DateTime? completedAt,
             string? createdByUsername)
         {
-            this.Id = id;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Type = type;
             this.CorpusKeys = corpusKeys;
             this.State = state;

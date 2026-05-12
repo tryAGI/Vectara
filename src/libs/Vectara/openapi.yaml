@@ -63,6 +63,9 @@ tags:
     intervals.
 - name: Agent Identity
   description: View and manage the identity used by an agent to execute tools.
+- name: Agent Secrets
+  description: Manage agent-scoped secrets that can be referenced from tool argument
+    overrides via $ref.
 - name: Guardrails
   description: List predefined guardrails for validating tool calls, agent outputs,
     and agent actions.
@@ -10444,6 +10447,179 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: updateIdentity
+  /v2/agents/{agent_key}/secrets:
+    get:
+      tags:
+      - Agent Secrets
+      summary: Get agent secrets
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Retrieve the agent''s secrets. Values are always masked (`****`);
+        plaintext is never exposed on read.
+
+        '
+      operationId: getAgentSecrets
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      responses:
+        '200':
+          description: The agent's secrets, with values masked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSecrets'
+        '403':
+          description: Permissions do not allow accessing this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: getSecrets
+    put:
+      tags:
+      - Agent Secrets
+      summary: Replace agent secrets
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Replace the agent''s secrets. The submitted map fully replaces
+        the previous set (names not in the request are removed).
+
+        Stored encrypted at rest.
+
+        '
+      operationId: replaceAgentSecrets
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAgentSecretsRequest'
+      responses:
+        '200':
+          description: The agent's secrets after the replace, with values masked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSecrets'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow modifying this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: replaceSecrets
+    patch:
+      tags:
+      - Agent Secrets
+      summary: Update agent secrets
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Patch the agent''s secrets. Names present in the map are added
+        or replaced; names absent from the map are left unchanged.
+
+        A name mapped to `null` is removed.
+
+        '
+      operationId: updateAgentSecrets
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentSecretsRequest'
+      responses:
+        '200':
+          description: The agent's secrets after the patch, with values masked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSecrets'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow modifying this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: updateSecrets
   /v2/agents/{agent_key}/connectors:
     post:
       tags:
@@ -12644,6 +12820,10 @@ components:
           description: Indicates when the corpus was created.
           type: string
           format: date-time
+      required:
+      - id
+      - key
+      - name
     ListMetadata:
       type: object
       description: The standard metadata in the response of a list operation.
@@ -13328,6 +13508,8 @@ components:
           $ref: '#/components/schemas/ExtractionUsage'
           example:
             table_extraction_used: 2
+      required:
+      - id
       example:
         id: manufacturing_invoice-2331
         metadata:
@@ -15209,6 +15391,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QueryHistorySpan'
+      required:
+      - id
     QueryHistorySummary:
       description: A summary of a previously executed query, including metadata but
         not full results.
@@ -15256,6 +15440,8 @@ components:
         session_key:
           description: The session key if this query was made through an agent session.
           type: string
+      required:
+      - id
     ListQueryHistoriesResponse:
       description: An array of query histories.
       type: object
@@ -15299,6 +15485,8 @@ components:
           description: Specifies when this chat was created.
           type: string
           format: date-time
+      required:
+      - id
     ListChatsResponse:
       description: Response containing a list of chat conversations.
       type: object
@@ -15494,6 +15682,8 @@ components:
           description: Specifies when the turn was created.
           type: string
           format: date-time
+      required:
+      - id
     ListChatTurnsResponse:
       description: Response containing a list of turns (message exchanges) within
         a chat conversation.
@@ -15570,6 +15760,9 @@ components:
           description: Indicates if this prompt is the default prompt used with the
             LLM.
           type: boolean
+      required:
+      - id
+      - name
     LLM:
       description: A LLM can be used to enhance query results with a response, and
         be used as the responder during a chat.
@@ -15607,6 +15800,9 @@ components:
           items:
             $ref: '#/components/schemas/Prompt'
           deprecated: true
+      required:
+      - id
+      - name
     ListLLMsResponse:
       description: Response containing a list of Large Language Models available for
         generative AI capabilities.
@@ -16630,6 +16826,8 @@ components:
           description: Indicates whether the preset is provided by the platform (`platform`)
             or created by the customer (`customer`).
           $ref: '#/components/schemas/GenerationPresetOwnership'
+      required:
+      - name
     ListGenerationPresetsResponse:
       description: Response containing a list of generation presets for configuring
         RAG behavior.
@@ -16731,6 +16929,9 @@ components:
           description: Indicates whether the encoder is enabled.
           type: boolean
           example: true
+      required:
+      - id
+      - name
     ListEncodersResponse:
       description: Response containing a list of available encoders for converting
         text to vector embeddings.
@@ -16814,6 +17015,9 @@ components:
         enabled:
           description: Whether the reranker is enabled.
           type: boolean
+      required:
+      - id
+      - name
     ListRerankersResponse:
       description: Response containing a list of available rerankers for improving
         search result ordering.
@@ -16884,6 +17088,9 @@ components:
             available for use in hallucination correction workflows.
           type: boolean
           example: true
+      required:
+      - id
+      - name
     ListHallucinationCorrectorsResponse:
       description: Response containing a list of hallucination correctors.
       type: object
@@ -17029,6 +17236,8 @@ components:
           description: The username of the user who created the job. This property
             may be missing, e.g., if the job was created by the system, not a user.
           type: string
+      required:
+      - id
     ListJobsResponse:
       description: Response containing a list of background jobs and their current
         states.
@@ -17195,6 +17404,9 @@ components:
             $ref: '#/components/schemas/AgentRole'
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      required:
+      - id
+      - email
     ListUsersResponse:
       description: Response containing a list of user accounts.
       type: object
@@ -17317,6 +17529,10 @@ components:
             $ref: '#/components/schemas/AgentRole'
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      required:
+      - id
+      - name
+      - secret_key
     ListApiKeysResponse:
       description: Response containing a list of API keys for the authenticated customer.
       type: object
@@ -17410,6 +17626,11 @@ components:
             $ref: '#/components/schemas/AgentRole'
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      required:
+      - id
+      - name
+      - client_id
+      - client_secret
     ListAppClientsResponse:
       description: Response containing a list of OAuth application clients.
       type: object
@@ -22874,6 +23095,63 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AgentRole'
+    AgentSecrets:
+      description: "Agent-scoped secrets for the agent. On read, values are masked\
+        \ (`****`) \u2014 plaintext is never returned.\nReference values from a tool's\
+        \ `argument_override` via `{\"$ref\": \"agent.secrets.<name>\"}`.\n"
+      type: object
+      properties:
+        secrets:
+          description: Map of secret name to masked value.
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            jira_api_token: '****'
+            slack_webhook: '****'
+      required:
+      - secrets
+    ReplaceAgentSecretsRequest:
+      description: "Replace the agent's secrets set. The submitted map fully replaces\
+        \ what was previously stored \u2014 names not in the request are removed.\n\
+        Stored encrypted at rest using the agent's encryption key.\n"
+      type: object
+      properties:
+        secrets:
+          description: Map of secret name to plaintext value.
+          type: object
+          additionalProperties:
+            type: string
+            maxLength: 4096
+          example:
+            jira_api_token: ATATT3xFf...
+      required:
+      - secrets
+    UpdateAgentSecretsRequest:
+      description: 'Patch the agent''s secrets. Names present in the map are added
+        or replaced; names absent from the map are left unchanged.
+
+        A name mapped to `null` is removed. Stored encrypted at rest using the agent''s
+        encryption key.
+
+        '
+      type: object
+      properties:
+        secrets:
+          description: 'Map of secret name to plaintext value (or `null` to remove).
+            Names not in the map are not touched.
+
+            '
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+            maxLength: 4096
+          example:
+            jira_api_token: ATATT3xFf...
+            old_token_to_remove: null
+      required:
+      - secrets
     SlackConnectorConfiguration:
       description: Configuration for Slack connectors.
       type: object
@@ -23198,7 +23476,7 @@ components:
             CR or LF.
           type: string
           maxLength: 256
-          pattern: "^[^\r\n]*$"
+          pattern: ^[^\r\n]*$
           default: Vectara-Crawler/1.0 (+https://www.vectara.com/crawler)
         max_page_bytes:
           description: 'Maximum page body bytes to download. Larger pages are truncated.
@@ -24794,6 +25072,7 @@ x-tagGroups:
   - Tools
   - Tool Servers
   - Agent Connectors
+  - Agent Secrets
 - name: Pipelines
   x-beta: true
   tags:

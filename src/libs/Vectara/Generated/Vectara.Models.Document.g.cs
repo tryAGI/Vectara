@@ -15,7 +15,8 @@ namespace Vectara
         /// </summary>
         /// <example>Invoice-403</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The document metadata.<br/>
@@ -91,7 +92,7 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Document(
-            string? id,
+            string id,
             object? metadata,
             global::System.Collections.Generic.IList<global::Vectara.Table>? tables,
             global::System.Collections.Generic.IList<global::Vectara.ImageMetadata>? images,
@@ -99,7 +100,7 @@ namespace Vectara
             global::Vectara.DocumentStorageUsage? storageUsage,
             global::Vectara.ExtractionUsage? extractionUsage)
         {
-            this.Id = id;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Metadata = metadata;
             this.Tables = tables;
             this.Images = images;

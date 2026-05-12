@@ -14,7 +14,8 @@ namespace Vectara
         /// </summary>
         /// <example>hcm_520721853</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The hallucination corrector name, typically including the base name and variant.<br/>
@@ -22,7 +23,8 @@ namespace Vectara
         /// </summary>
         /// <example>vhc-small-1.0</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
         /// The hallucination corrector type. Defaults to `vectara`.<br/>
@@ -80,14 +82,14 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public HallucinationCorrector(
-            string? id,
-            string? name,
+            string id,
+            string name,
             string? type,
             string? description,
             bool? enabled)
         {
-            this.Id = id;
-            this.Name = name;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Type = type;
             this.Description = description;
             this.Enabled = enabled;

@@ -12,13 +12,15 @@ namespace Vectara
         /// The Vectara ID for the user.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The email address for the user.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("email")]
-        public string? Email { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Email { get; set; }
 
         /// <summary>
         /// The username for the user.
@@ -120,8 +122,8 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public User(
-            string? id,
-            string? email,
+            string id,
+            string email,
             string? username,
             bool? enabled,
             string? description,
@@ -132,8 +134,8 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles,
             global::Vectara.ApiPolicy? apiPolicy)
         {
-            this.Id = id;
-            this.Email = email;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Email = email ?? throw new global::System.ArgumentNullException(nameof(email));
             this.Username = username;
             this.Enabled = enabled;
             this.Description = description;
