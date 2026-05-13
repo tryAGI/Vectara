@@ -377,6 +377,26 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.DeadLetterOriginNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.PipelineRunEventTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunEventTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SortOrderJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SortOrderNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RunCompletedEventStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RunCompletedEventStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RecordProcessingEventStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RecordProcessingEventStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.AgentTraceStatusJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AgentTraceStatusNullableJsonConverter),
@@ -638,6 +658,16 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.UpdateWebSourceConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RunStartedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RunCompletedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RecordProcessingEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WatermarkAdvancedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunEventJsonConverter),
 
             typeof(global::Vectara.JsonConverters.InvokeAgentTraceSpanJsonConverter),
 
@@ -1562,6 +1592,26 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.DeadLetterOriginNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.PipelineRunEventTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunEventTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SortOrderJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SortOrderNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RunCompletedEventStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RunCompletedEventStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RecordProcessingEventStatusJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RecordProcessingEventStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.AgentTraceStatusJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AgentTraceStatusNullableJsonConverter),
@@ -1824,6 +1874,16 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.RunStartedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RunCompletedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.RecordProcessingEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WatermarkAdvancedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PipelineRunEventJsonConverter),
+
             typeof(global::Vectara.JsonConverters.InvokeAgentTraceSpanJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ChatTraceSpanJsonConverter),
@@ -2033,6 +2093,24 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ProcessPipelineDeadLetterEntriesRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelineRunsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PipelineRun>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventType), TypeInfoPropertyName = "PipelineRunEventType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SortOrder), TypeInfoPropertyName = "SortOrder2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventBase))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunStartedEvent), TypeInfoPropertyName = "RunStartedEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunStartedEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunCompletedEventStatus), TypeInfoPropertyName = "RunCompletedEventStatus2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunCompletedEvent), TypeInfoPropertyName = "RunCompletedEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunCompletedEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventStatus), TypeInfoPropertyName = "RecordProcessingEventStatus2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEvent), TypeInfoPropertyName = "RecordProcessingEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEvent), TypeInfoPropertyName = "WatermarkAdvancedEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEvent), TypeInfoPropertyName = "PipelineRunEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventDiscriminatorType), TypeInfoPropertyName = "PipelineRunEventDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelineRunEventsResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PipelineRunEvent>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTrace))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTraceStatus), TypeInfoPropertyName = "AgentTraceStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListAgentTracesResponse))]
@@ -2097,6 +2175,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListSessionArtifactsOrderBy), TypeInfoPropertyName = "ListSessionArtifactsOrderBy2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListAgentConnectorsType), TypeInfoPropertyName = "ListAgentConnectorsType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelinesSourceType), TypeInfoPropertyName = "ListPipelinesSourceType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PipelineRunEventType>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListTracesStatus), TypeInfoPropertyName = "ListTracesStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListTracesErrorType), TypeInfoPropertyName = "ListTracesErrorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListTracesOperation), TypeInfoPropertyName = "ListTracesOperation2")]
@@ -2174,12 +2253,14 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Pipeline>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineDeadLetterEntry>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRun>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRunEvent>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentTrace>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentTraceInputFile>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentTraceSpan>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Glossary>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.GlossaryEntry>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.JobState>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRunEventType>))]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -2404,6 +2485,16 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.DeadLetterStatusNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.DeadLetterOriginJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.DeadLetterOriginNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunEventTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunEventTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SortOrderJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SortOrderNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RunCompletedEventStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RunCompletedEventStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RecordProcessingEventStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RecordProcessingEventStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceStatusJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceStatusNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceSpanStatusJsonConverter());
@@ -2535,6 +2626,11 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.UpdateS3SourceConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.UpdateWebSourceConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RunStartedEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RunCompletedEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.RecordProcessingEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WatermarkAdvancedEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.InvokeAgentTraceSpanJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ChatTraceSpanJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ExecuteToolTraceSpanJsonConverter());
