@@ -11818,6 +11818,105 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: pipeline_runs
       x-fern-sdk-method-name: cancel
+  /v2/pipelines/{pipeline_key}/runs/{run_id}/events:
+    get:
+      tags:
+      - Pipeline Runs
+      summary: List pipeline run events
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - pipeline_viewer
+        - pipeline_administrator
+        - viewer
+        - administrator
+        - owner
+      description: List the timeline of events for a pipeline run. Events surface
+        what the run did from a customer-observability perspective (records discovered,
+        records processed, agent sessions created, dead letters, watermark advances,
+        lifecycle transitions) rather than every internal Temporal step. A pipeline
+        run may span multiple underlying Temporal executions; this endpoint stitches
+        them into a single timeline keyed by `run_id`.
+      operationId: listPipelineRunEvents
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: pipeline_key
+        description: The unique key of the pipeline.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PipelineKey'
+      - in: path
+        name: run_id
+        description: The unique identifier of the run.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PipelineRunId'
+      - in: query
+        name: type
+        description: Filter to one or more event types. Repeat the parameter to pass
+          multiple values.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineRunEventType'
+      - in: query
+        name: source_record_id
+        description: Filter to events for a specific source record.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Order events by timestamp. Defaults to newest-first.
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortOrder'
+      - in: query
+        name: limit
+        description: The maximum number of events to return.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 200
+          default: 50
+      - in: query
+        name: page_key
+        description: Used to retrieve the next page of events after the limit has
+          been reached.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of pipeline run events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPipelineRunEventsResponse'
+        '403':
+          description: Permissions do not allow accessing this run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Pipeline or run not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: pipeline_runs
+      x-fern-sdk-method-name: list_events
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.events
   /v2/agent_analytics/traces:
     get:
       tags:
@@ -24330,6 +24429,223 @@ components:
           $ref: '#/components/schemas/ListMetadata'
       required:
       - runs
+      - metadata
+    PipelineRunEventType:
+      description: 'The type of a pipeline run event. Used as the discriminator on
+
+        `PipelineRunEvent`. New types may be added over time; clients should
+
+        treat unknown types as informational and ignore them.
+
+        '
+      type: string
+      enum:
+      - run_started
+      - run_completed
+      - record_processing
+      - watermark_advanced
+    SortOrder:
+      description: Sort direction for paginated list endpoints.
+      type: string
+      enum:
+      - asc
+      - desc
+    PipelineRunEventBase:
+      description: Common fields shared by all pipeline run events.
+      type: object
+      properties:
+        id:
+          description: Monotonic, unique-per-run identifier for this event.
+          type: string
+          example: evt_42
+        timestamp:
+          description: When the event occurred.
+          type: string
+          format: date-time
+      required:
+      - id
+      - timestamp
+    RunStartedEvent:
+      description: The pipeline run started executing.
+      allOf:
+      - $ref: '#/components/schemas/PipelineRunEventBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: run_started
+          agent_key:
+            $ref: '#/components/schemas/AgentKey'
+          trigger_type:
+            $ref: '#/components/schemas/PipelineRunTriggerType'
+          sync_mode:
+            $ref: '#/components/schemas/PipelineSyncMode'
+          start_watermark:
+            description: Source watermark this run starts from. Null on full refresh
+              or first run.
+            type: string
+            nullable: true
+          end_watermark:
+            description: Upper bound watermark this run will not cross.
+            type: string
+            nullable: true
+        required:
+        - type
+        - trigger_type
+    RunCompletedEventStatus:
+      description: Terminal status of a pipeline run.
+      type: string
+      enum:
+      - completed
+      - failed
+      - cancelled
+      - timed_out
+    RunCompletedEvent:
+      description: 'The pipeline run reached a terminal state. `status` distinguishes
+        a successful completion
+
+        from a failure, cancellation, or timeout.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/PipelineRunEventBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: run_completed
+          status:
+            $ref: '#/components/schemas/RunCompletedEventStatus'
+          records_fetched:
+            description: Total records fetched across the run. Present when the run
+              reported counters; absent for cancellation or timeout.
+            type: integer
+            format: int32
+            nullable: true
+          records_processed:
+            type: integer
+            format: int32
+            nullable: true
+          records_failed:
+            type: integer
+            format: int32
+            nullable: true
+          error:
+            description: Failure message. Present when `status` is not `completed`.
+            type: string
+            nullable: true
+        required:
+        - type
+        - status
+    RecordProcessingEventStatus:
+      description: Lifecycle status of a single source record within a run.
+      type: string
+      enum:
+      - started
+      - completed
+      - failed
+    RecordProcessingEvent:
+      description: 'A single source record progressed through a processing lifecycle
+        stage. `status` is `started`
+
+        when processing begins, `completed` when the record was successfully processed
+        (or skipped),
+
+        and `failed` when processing failed. In a normal run, a `failed` record is
+        also written to the
+
+        dead letter queue; in a retry run, the existing dead letter is marked still-failing.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/PipelineRunEventBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: record_processing
+          status:
+            $ref: '#/components/schemas/RecordProcessingEventStatus'
+          source_record_id:
+            description: The identifier of the source record.
+            type: string
+          session_key:
+            description: 'The agent session created to process this record. Always
+              present on `completed`;
+
+              may be present on `failed` if a session was created before the failure;
+              null on `started`.
+
+              '
+            type: string
+            nullable: true
+          skipped:
+            description: True if a `completed` record was skipped because a prior
+              successful session already exists at the same watermark. Only meaningful
+              when `status` is `completed`.
+            type: boolean
+            nullable: true
+          error:
+            description: Failure message. Present when `status` is `failed`.
+            type: string
+            nullable: true
+          dead_lettered:
+            description: Whether a `failed` record resulted in a dead-letter write
+              or update. Only meaningful when `status` is `failed`.
+            type: boolean
+            nullable: true
+        required:
+        - type
+        - status
+        - source_record_id
+    WatermarkAdvancedEvent:
+      description: The pipeline's persisted watermark moved forward at the end of
+        the run.
+      allOf:
+      - $ref: '#/components/schemas/PipelineRunEventBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: watermark_advanced
+          watermark:
+            type: string
+        required:
+        - type
+        - watermark
+    PipelineRunEvent:
+      description: 'A single event in a pipeline run''s timeline. The shape of the
+        event is
+
+        determined by `type`.
+
+        '
+      type: object
+      x-vectara-base-schema: '#/PipelineRunEventBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          run_started: '#/components/schemas/RunStartedEvent'
+          run_completed: '#/components/schemas/RunCompletedEvent'
+          record_processing: '#/components/schemas/RecordProcessingEvent'
+          watermark_advanced: '#/components/schemas/WatermarkAdvancedEvent'
+      oneOf:
+      - $ref: '#/components/schemas/RunStartedEvent'
+      - $ref: '#/components/schemas/RunCompletedEvent'
+      - $ref: '#/components/schemas/RecordProcessingEvent'
+      - $ref: '#/components/schemas/WatermarkAdvancedEvent'
+    ListPipelineRunEventsResponse:
+      description: Response containing a list of pipeline run events.
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineRunEvent'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+      required:
+      - events
       - metadata
     AgentTrace:
       description: A summary of an agent trace representing one complete agent invocation.
