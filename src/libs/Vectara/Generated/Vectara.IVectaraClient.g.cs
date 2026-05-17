@@ -112,6 +112,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public CustomerMetricsClient CustomerMetrics { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DocumentsClient Documents { get; }
 
         /// <summary>

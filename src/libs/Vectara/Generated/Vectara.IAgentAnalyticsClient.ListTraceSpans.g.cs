@@ -15,6 +15,10 @@ namespace Vectara
         /// Default Value: false
         /// </param>
         /// <param name="operation"></param>
+        /// <param name="parentSpanId"></param>
+        /// <param name="excludeSubagents">
+        /// Default Value: false
+        /// </param>
         /// <param name="limit">
         /// Default Value: 100
         /// </param>
@@ -28,6 +32,8 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             bool? includeContent = default,
             global::Vectara.ListTraceSpansOperation? operation = default,
+            string? parentSpanId = default,
+            bool? excludeSubagents = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -43,6 +49,10 @@ namespace Vectara
         /// Default Value: false
         /// </param>
         /// <param name="operation"></param>
+        /// <param name="parentSpanId"></param>
+        /// <param name="excludeSubagents">
+        /// Default Value: false
+        /// </param>
         /// <param name="limit">
         /// Default Value: 100
         /// </param>
@@ -56,6 +66,8 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             bool? includeContent = default,
             global::Vectara.ListTraceSpansOperation? operation = default,
+            string? parentSpanId = default,
+            bool? excludeSubagents = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

@@ -40,6 +40,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("output_transform")) __score0++;
             var __score1 = 0;
             if (__jsonProps.Contains("argument_override")) __score1++;
+            if (__jsonProps.Contains("argument_override.auth")) __score1++;
             if (__jsonProps.Contains("argument_override.body")) __score1++;
             if (__jsonProps.Contains("argument_override.follow_redirects")) __score1++;
             if (__jsonProps.Contains("argument_override.head_lines")) __score1++;

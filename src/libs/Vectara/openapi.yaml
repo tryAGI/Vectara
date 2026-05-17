@@ -89,6 +89,9 @@ tags:
 - name: Agent Analytics
   description: Inspect traces emitted by agent executions and retrieve evaluation
     data.
+- name: CustomerMetrics
+  description: Query pre-aggregated time-series and distribution metrics scoped to
+    the authenticated customer.
 - name: Pipeline Dead Letters
   description: View and manage dead letters (failed records) for a pipeline. Dead
     letters are pipeline-scoped and can be retried individually or in bulk.
@@ -1635,6 +1638,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: A document with the same document ID already exists in the
+            corpus with different content. Delete the existing document first or use
+            a unique document ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '415':
           description: The media type of the uploaded file is not supported.
           content:
@@ -2382,9 +2393,9 @@ paths:
                     temperature: 0.7
                   stream_response: false
               Finance:
-                summary: "Request to summarize a Q1 2025 financial report, using Vectara\u2019\
-                  s Omni LLM to highlight key financial metrics for a banking sector\
-                  \ corpus"
+                summary: Request to summarize a Q1 2025 financial report, using Vectara's
+                  Omni LLM to highlight key financial metrics for a banking sector
+                  corpus
                 value:
                   llm_name: vectara-summary-ext-24-05-med-omni
                   prompt_template: Provide a concise summary of the financial report
@@ -2428,9 +2439,9 @@ paths:
                       in Delaware, focusing on arbitration, confidentiality, and termination
                       terms.
                 Finance:
-                  summary: "Summarized a Q1 2025 financial report, highlighting revenue,\
-                    \ EBITDA margin, and net income using Vectara\u2019s Omni LLM\
-                    \ for a banking sector corpus"
+                  summary: Summarized a Q1 2025 financial report, highlighting revenue,
+                    EBITDA margin, and net income using Vectara's Omni LLM for a banking
+                    sector corpus
                   value:
                     summary: The Q1 2025 financial report for the banking sector shows
                       revenue of $150.2M, an EBITDA margin of 15.2%, and net income
@@ -11917,6 +11928,111 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.events
+  /v2/metrics:
+    get:
+      tags:
+      - CustomerMetrics
+      summary: List available metrics
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - viewer
+        - administrator
+        - owner
+      description: Returns the catalog of registered metrics that can be queried via
+        `/v2/metrics/{metric_name}`. Use this to discover metric names, kinds, and
+        supported labels.
+      operationId: listMetrics
+      x-fern-sdk-group-name: customer_metrics
+      x-fern-sdk-method-name: list
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      responses:
+        '200':
+          description: Catalog of registered metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMetricsResponse'
+  /v2/metrics/{metric_name}:
+    get:
+      tags:
+      - CustomerMetrics
+      summary: Query a metric time series
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - viewer
+        - administrator
+        - owner
+      description: Returns a time series of aggregated metric values for the named
+        metric within the requested time range.
+      operationId: getMetric
+      x-fern-sdk-group-name: customer_metrics
+      x-fern-sdk-method-name: get
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - name: metric_name
+        in: path
+        required: true
+        description: Name of the metric to query (see `/v2/metrics` for the catalog).
+        schema:
+          type: string
+      - name: labels
+        in: query
+        required: false
+        description: Label filters keyed by label name. The set of valid label names
+          for each metric is published in its descriptor at `/v2/metrics`.
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          additionalProperties:
+            type: array
+            minItems: 1
+            items:
+              type: string
+              minLength: 1
+      - name: start
+        in: query
+        required: true
+        description: Inclusive start of the query window (ISO 8601). Must be no more
+          than 30 days before now.
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        required: true
+        description: Exclusive end of the query window (ISO 8601). Must be after `start`.
+        schema:
+          type: string
+          format: date-time
+      - name: max_buckets
+        in: query
+        required: false
+        description: Upper bound on the number of points in the response. The response
+          may contain fewer points than requested but never more. The actual bucket
+          size is reported in the response as `bucket_size_seconds`. Defaults to 60.
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 1000
+          default: 60
+      responses:
+        '200':
+          description: The requested metric series.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricSeries'
+        '400':
+          description: Invalid request parameters.
+        '404':
+          description: The named metric is not registered.
   /v2/agent_analytics/traces:
     get:
       tags:
@@ -12185,6 +12301,21 @@ paths:
           - step_transition
           - image_read
           - compaction
+      - name: parent_span_id
+        in: query
+        description: Filter spans to only direct children of this span ID.
+        required: false
+        schema:
+          type: string
+      - name: exclude_subagents
+        in: query
+        description: When true, exclude nested sub-agent invocations and their descendants.
+          Restricts results to the entry-point invoke_agent span and any spans that
+          belong to the entry agent's session.
+        required: false
+        schema:
+          type: boolean
+          default: false
       - name: limit
         in: query
         description: The maximum number of spans to return.
@@ -19643,6 +19774,179 @@ components:
         - type
       x-vectaraParents:
       - AgentToolConfiguration
+    WebGetHeaderValue:
+      description: 'The value for a single HTTP header in the web_get tool. Either
+        a literal string or an
+
+        EagerReference ({"$ref": "agent.secrets.foo"}) that resolves at session start
+        so the
+
+        secret value never appears in the tool configuration.
+
+        '
+      oneOf:
+      - type: string
+      - $ref: '#/components/schemas/EagerReference'
+    WebGetHeadersMap:
+      description: 'A map of HTTP header names to their values for the web_get tool.
+        Each value may be a
+
+        literal string or an EagerReference for per-header secret resolution.
+
+        '
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/WebGetHeaderValue'
+    WebGetNoAuth:
+      description: 'Explicitly disables authentication. Useful in argument_override
+        to force a tool config to
+
+        clear any auth the LLM would otherwise supply, since merge semantics ignore
+        null patches.'
+      type: object
+      properties:
+        type:
+          type: string
+          default: none
+          example: none
+      required:
+      - type
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetBearerAuth:
+      description: 'Static bearer token authentication. Adds `Authorization: Bearer
+        <token>`.'
+      type: object
+      properties:
+        type:
+          type: string
+          default: bearer
+          example: bearer
+        token:
+          description: The bearer token. May be an EagerReference to an agent secret.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+      required:
+      - type
+      - token
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetHeaderAuth:
+      description: Static custom-header authentication, suitable for API keys.
+      type: object
+      properties:
+        type:
+          type: string
+          default: header
+          example: header
+        header:
+          description: The header name to set (e.g. `X-API-Key`).
+          type: string
+        value:
+          description: The header value. May be an EagerReference to an agent secret.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+      required:
+      - type
+      - header
+      - value
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetOAuthClientCredentialsAuth:
+      description: 'OAuth 2.0 client-credentials grant. The platform fetches an access
+        token from the token
+
+        endpoint and caches it until it expires.'
+      type: object
+      properties:
+        type:
+          type: string
+          default: oauth_client_credentials
+          example: oauth_client_credentials
+        client_id:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        client_secret:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        token_endpoint:
+          type: string
+          format: uri
+          example: https://auth.example.com/oauth2/token
+        scopes:
+          type: array
+          items:
+            type: string
+          example:
+          - read:items
+      required:
+      - type
+      - client_id
+      - client_secret
+      - token_endpoint
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetOAuthRefreshTokenAuth:
+      description: 'OAuth 2.0 refresh-token grant. The platform exchanges a long-lived
+        refresh token for an
+
+        access token and caches the result until it expires. Supports refresh-token
+        rotation: if
+
+        the IdP returns a new refresh_token, subsequent refreshes use it automatically.'
+      type: object
+      properties:
+        type:
+          type: string
+          default: oauth_refresh_token
+          example: oauth_refresh_token
+        client_id:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        client_secret:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        refresh_token:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        token_endpoint:
+          type: string
+          format: uri
+          example: https://auth.example.com/oauth2/token
+      required:
+      - type
+      - client_id
+      - client_secret
+      - refresh_token
+      - token_endpoint
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetAuth:
+      description: Authentication configuration for the outgoing HTTP request.
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          none: '#/components/schemas/WebGetNoAuth'
+          bearer: '#/components/schemas/WebGetBearerAuth'
+          header: '#/components/schemas/WebGetHeaderAuth'
+          oauth_client_credentials: '#/components/schemas/WebGetOAuthClientCredentialsAuth'
+          oauth_refresh_token: '#/components/schemas/WebGetOAuthRefreshTokenAuth'
+      oneOf:
+      - $ref: '#/components/schemas/WebGetNoAuth'
+      - $ref: '#/components/schemas/WebGetBearerAuth'
+      - $ref: '#/components/schemas/WebGetHeaderAuth'
+      - $ref: '#/components/schemas/WebGetOAuthClientCredentialsAuth'
+      - $ref: '#/components/schemas/WebGetOAuthRefreshTokenAuth'
+      required:
+      - type
     WebGetToolParameters:
       description: Configurable parameters for the web get tool. If not provided,
         will be filled in by the agent.
@@ -19663,11 +19967,22 @@ components:
           - DELETE
           - HEAD
         headers:
-          description: HTTP headers to include in the request.
+          description: 'HTTP headers to include in the request. Either a literal `{name:
+            value}` map (where
+
+            each value may itself be a string OR an EagerReference for per-header
+            secret lookup),
+
+            or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session
+            start to a
+
+            `Map<String, String>` (handy for sourcing the whole header set from agent
+            secrets).
+
+            '
+          x-vectara-default-subtype: WebGetHeadersMap
           oneOf:
-          - type: object
-            additionalProperties:
-              type: string
+          - $ref: '#/components/schemas/WebGetHeadersMap'
           - $ref: '#/components/schemas/EagerReference'
         body:
           description: Request body for POST/PUT requests.
@@ -19704,6 +20019,21 @@ components:
           oneOf:
           - type: integer
           - $ref: '#/components/schemas/EagerReference'
+        auth:
+          description: 'Optional authentication to apply to the request. The resulting
+            credential header is
+
+            merged with `headers`; on conflict on exact header name (case-sensitive,
+            as given), `headers` wins. OAuth
+
+            access tokens are cached in-process per credential set. Any credential
+            field can be an
+
+            EagerReference ({"$ref": "agent.secrets.foo"}) so secrets never appear
+            in the
+
+            configuration plaintext.'
+          $ref: '#/components/schemas/WebGetAuth'
       additionalProperties: false
     InlineWebGetToolConfiguration:
       title: InlineWebGetToolConfiguration
@@ -24647,6 +24977,254 @@ components:
       required:
       - events
       - metadata
+    MetricKind:
+      description: 'The kind of metric. Determines combine semantics when filtering
+        across multiple label values and the shape of points in the response:
+
+
+        - `counter`: monotonic count or sum (trace count, error count, token totals).
+        Combined by summing. Returns `ScalarMetricPoint`s.
+
+        - `gauge`: point-in-time value (mean, max, distinct-count). Combined per the
+        underlying aggregate state (weighted mean for averages, max for maxima, distinct-count
+        for uniq metrics). Returns `ScalarMetricPoint`s.
+
+        - `percentiles`: distribution percentiles over a t-digest aggregate. Combined
+        by merging t-digest states. Returns `PercentilesMetricPoint`s.
+
+        - `distribution`: histogram of value-bucketed counts. Combined by summing
+        per-bin counts. Returns `DistributionMetricPoint`s.
+
+        '
+      type: string
+      enum:
+      - counter
+      - gauge
+      - percentiles
+      - distribution
+    MetricDescriptor:
+      description: Metadata about a registered metric available for querying.
+      type: object
+      properties:
+        name:
+          description: The unique name of the metric, used as the path parameter to
+            query it.
+          type: string
+          example: agent.trace.duration_ms
+        description:
+          description: Human-readable description of what the metric measures.
+          type: string
+        unit:
+          description: Unit of measure for the metric values, when applicable.
+          type: string
+          example: ms
+        kind:
+          $ref: '#/components/schemas/MetricKind'
+        labels:
+          description: Names of labels that can be used to filter this metric.
+          type: array
+          items:
+            type: string
+          example:
+          - agent_keys
+      required:
+      - name
+      - description
+      - kind
+      - labels
+    ListMetricsResponse:
+      description: List of registered metrics available for querying.
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricDescriptor'
+      required:
+      - metrics
+    MetricSeriesBase:
+      description: Common properties shared by all metric series kinds.
+      type: object
+      properties:
+        metric_name:
+          description: The name of the metric this series describes.
+          type: string
+        labels:
+          description: The labels matched for this series. Echoes the filter values
+            supplied in the request.
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        bucket_size_seconds:
+          description: Width of each bucket in the returned series, in seconds. The
+            server chooses this based on the requested time range and `max_buckets`.
+          type: integer
+          format: int32
+      required:
+      - metric_name
+      - labels
+      - bucket_size_seconds
+    ScalarMetricPoint:
+      description: "A point in a counter or gauge metric series \u2014 a single scalar\
+        \ value at a time bucket."
+      type: object
+      properties:
+        bucket_start:
+          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+          type: string
+          format: date-time
+        value:
+          description: The aggregated value for this bucket.
+          type: number
+          format: double
+      required:
+      - bucket_start
+      - value
+    CounterMetricSeries:
+      description: A series of counter values (monotonic count or sum).
+      allOf:
+      - $ref: '#/components/schemas/MetricSeriesBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            default: counter
+            example: counter
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/ScalarMetricPoint'
+        required:
+        - kind
+        - points
+    GaugeMetricSeries:
+      description: A series of gauge values (point-in-time aggregates such as mean,
+        max, distinct count).
+      allOf:
+      - $ref: '#/components/schemas/MetricSeriesBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            default: gauge
+            example: gauge
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/ScalarMetricPoint'
+        required:
+        - kind
+        - points
+    PercentilesMetricPoint:
+      description: A point in a percentiles metric series.
+      type: object
+      properties:
+        bucket_start:
+          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+          type: string
+          format: date-time
+        percentiles:
+          description: Map of percentile label to value. Keys follow the `p<N>` convention
+            (e.g. `p50`, `p99`, `p99_9` for the 99.9th percentile).
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+      required:
+      - bucket_start
+      - percentiles
+    PercentilesMetricSeries:
+      description: A series of percentile aggregates over a t-digest state.
+      allOf:
+      - $ref: '#/components/schemas/MetricSeriesBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            default: percentiles
+            example: percentiles
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/PercentilesMetricPoint'
+        required:
+        - kind
+        - points
+    HistogramBin:
+      description: "A single bin in a distribution histogram. `upper_ms` is null for\
+        \ the overflow bin (everything \u2265 the lower bound)."
+      type: object
+      properties:
+        lower_ms:
+          description: Inclusive lower bound of the bin in milliseconds.
+          type: number
+          format: double
+        upper_ms:
+          description: Exclusive upper bound of the bin in milliseconds. Null for
+            the overflow bin.
+          type: number
+          format: double
+          nullable: true
+        count:
+          description: Number of observations whose duration fell in `[lower_ms, upper_ms)`.
+          type: integer
+          format: int64
+      required:
+      - lower_ms
+      - count
+    DistributionMetricPoint:
+      description: "A point in a distribution metric series \u2014 a histogram of\
+        \ value-bucketed counts at a time bucket. Only bins with non-zero counts appear."
+      type: object
+      properties:
+        bucket_start:
+          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+          type: string
+          format: date-time
+        bins:
+          description: Histogram bins, sorted by `lower_ms` ascending.
+          type: array
+          items:
+            $ref: '#/components/schemas/HistogramBin'
+      required:
+      - bucket_start
+      - bins
+    DistributionMetricSeries:
+      description: A series of histogram aggregates over a value-axis distribution
+        table.
+      allOf:
+      - $ref: '#/components/schemas/MetricSeriesBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            default: distribution
+            example: distribution
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/DistributionMetricPoint'
+        required:
+        - kind
+        - points
+    MetricSeries:
+      description: A time series of metric points. The shape of points varies by metric
+        kind.
+      x-vectara-base-schema: '#/MetricSeriesBase'
+      discriminator:
+        propertyName: kind
+        mapping:
+          counter: '#/components/schemas/CounterMetricSeries'
+          gauge: '#/components/schemas/GaugeMetricSeries'
+          percentiles: '#/components/schemas/PercentilesMetricSeries'
+          distribution: '#/components/schemas/DistributionMetricSeries'
+      oneOf:
+      - $ref: '#/components/schemas/CounterMetricSeries'
+      - $ref: '#/components/schemas/GaugeMetricSeries'
+      - $ref: '#/components/schemas/PercentilesMetricSeries'
+      - $ref: '#/components/schemas/DistributionMetricSeries'
     AgentTrace:
       description: A summary of an agent trace representing one complete agent invocation.
       type: object
@@ -24737,11 +25315,15 @@ components:
           description: The name of the agent step active when this span was created.
           type: string
           nullable: true
+        has_children:
+          description: Whether this span has child spans.
+          type: boolean
       required:
       - span_id
       - trace_id
       - started_at
       - status
+      - has_children
     AgentTraceInputFile:
       description: Metadata for a file uploaded alongside an agent input message.
       type: object
@@ -24809,6 +25391,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AgentTraceInputFile'
+        parent_agent_id:
+          description: For sub-agent invocations, the agent_id of the agent that invoked
+            this one. Null for entry-point agents.
+          type: string
+          nullable: true
+        parent_session_id:
+          description: For sub-agent invocations, the session_key of the parent agent
+            session. Null for entry-point agents.
+          type: string
+          nullable: true
+        depth:
+          description: Nesting depth of this agent invocation. 0 for entry-point agents,
+            1 for first-level sub-agents, and so on.
+          type: integer
+          format: int32
     InvokeAgentSpanContent:
       description: Decrypted content of an invoke_agent span.
       type: object
@@ -25416,6 +26013,7 @@ x-tagGroups:
   - Agent Analytics
   - Query History
   - Jobs
+  - CustomerMetrics
 - name: Platform
   tags:
   - Large Language Models
