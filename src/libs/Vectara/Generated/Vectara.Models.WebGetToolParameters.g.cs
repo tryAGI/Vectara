@@ -23,11 +23,14 @@ namespace Vectara
         public global::Vectara.WebGetToolParametersMethod? Method { get; set; }
 
         /// <summary>
-        /// HTTP headers to include in the request.
+        /// HTTP headers to include in the request. Either a literal `{name: value}` map (where<br/>
+        /// each value may itself be a string OR an EagerReference for per-header secret lookup),<br/>
+        /// or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a<br/>
+        /// `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("headers")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::System.Collections.Generic.Dictionary<string, string>, global::Vectara.EagerReference>))]
-        public global::Vectara.OneOf<global::System.Collections.Generic.Dictionary<string, string>, global::Vectara.EagerReference>? Headers { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>))]
+        public global::Vectara.OneOf<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>? Headers { get; set; }
 
         /// <summary>
         /// Request body for POST/PUT requests.
@@ -79,6 +82,13 @@ namespace Vectara
         public global::Vectara.OneOf<long?, global::Vectara.EagerReference>? MaxContentBytes { get; set; }
 
         /// <summary>
+        /// Authentication configuration for the outgoing HTTP request.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.WebGetAuthJsonConverter))]
+        public global::Vectara.WebGetAuth? Auth { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -94,7 +104,10 @@ namespace Vectara
         /// HTTP method to use.
         /// </param>
         /// <param name="headers">
-        /// HTTP headers to include in the request.
+        /// HTTP headers to include in the request. Either a literal `{name: value}` map (where<br/>
+        /// each value may itself be a string OR an EagerReference for per-header secret lookup),<br/>
+        /// or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a<br/>
+        /// `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
         /// </param>
         /// <param name="body">
         /// Request body for POST/PUT requests.
@@ -117,20 +130,24 @@ namespace Vectara
         /// <param name="maxContentBytes">
         /// Maximum response size in bytes before truncation.
         /// </param>
+        /// <param name="auth">
+        /// Authentication configuration for the outgoing HTTP request.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public WebGetToolParameters(
             global::Vectara.OneOf<string, global::Vectara.EagerReference>? url,
             global::Vectara.WebGetToolParametersMethod? method,
-            global::Vectara.OneOf<global::System.Collections.Generic.Dictionary<string, string>, global::Vectara.EagerReference>? headers,
+            global::Vectara.OneOf<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>? headers,
             global::Vectara.OneOf<string, global::Vectara.EagerReference>? body,
             global::Vectara.OneOf<bool?, global::Vectara.EagerReference>? followRedirects,
             global::Vectara.OneOf<int?, global::Vectara.EagerReference>? timeoutSeconds,
             global::Vectara.OneOf<int?, global::Vectara.EagerReference>? headLines,
             global::Vectara.OneOf<int?, global::Vectara.EagerReference>? tailLines,
             global::Vectara.OneOf<bool?, global::Vectara.EagerReference>? sslVerify,
-            global::Vectara.OneOf<long?, global::Vectara.EagerReference>? maxContentBytes)
+            global::Vectara.OneOf<long?, global::Vectara.EagerReference>? maxContentBytes,
+            global::Vectara.WebGetAuth? auth)
         {
             this.Url = url;
             this.Method = method;
@@ -142,6 +159,7 @@ namespace Vectara
             this.TailLines = tailLines;
             this.SslVerify = sslVerify;
             this.MaxContentBytes = maxContentBytes;
+            this.Auth = auth;
         }
 
         /// <summary>

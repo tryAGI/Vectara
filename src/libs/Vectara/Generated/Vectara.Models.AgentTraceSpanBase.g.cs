@@ -64,6 +64,13 @@ namespace Vectara
         public string? StepName { get; set; }
 
         /// <summary>
+        /// Whether this span has child spans.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("has_children")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required bool HasChildren { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -85,6 +92,9 @@ namespace Vectara
         /// <param name="status">
         /// The status of an agent trace span.
         /// </param>
+        /// <param name="hasChildren">
+        /// Whether this span has child spans.
+        /// </param>
         /// <param name="parentSpanId">
         /// The identifier of the parent span, if any.
         /// </param>
@@ -105,6 +115,7 @@ namespace Vectara
             string traceId,
             global::System.DateTime startedAt,
             global::Vectara.AgentTraceSpanStatus status,
+            bool hasChildren,
             string? parentSpanId,
             long? durationMs,
             string? errorMessage,
@@ -118,6 +129,7 @@ namespace Vectara
             this.Status = status;
             this.ErrorMessage = errorMessage;
             this.StepName = stepName;
+            this.HasChildren = hasChildren;
         }
 
         /// <summary>
