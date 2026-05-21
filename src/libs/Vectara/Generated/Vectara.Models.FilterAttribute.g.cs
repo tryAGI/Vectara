@@ -104,5 +104,6 @@ namespace Vectara
         public FilterAttribute()
         {
         }
+
     }
 }

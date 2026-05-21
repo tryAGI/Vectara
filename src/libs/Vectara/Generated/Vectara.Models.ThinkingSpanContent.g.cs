@@ -41,5 +41,6 @@ namespace Vectara
         public ThinkingSpanContent()
         {
         }
+
     }
 }

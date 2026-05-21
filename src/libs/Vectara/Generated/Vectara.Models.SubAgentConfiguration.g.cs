@@ -84,5 +84,6 @@ namespace Vectara
         public SubAgentConfiguration()
         {
         }
+
     }
 }

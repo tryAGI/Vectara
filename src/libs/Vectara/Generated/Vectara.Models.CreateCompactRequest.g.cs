@@ -30,6 +30,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickInputBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateInputRequestBase? value)
+        {
+            value = InputBase;
+            return IsInputBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateInputRequestBase PickInputBase() => IsInputBase
+            ? InputBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InputBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateCompactRequestVariant2? CreateCompactRequestVariant2 { get; init; }
 #else
@@ -43,6 +63,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateCompactRequestVariant2))]
 #endif
         public bool IsCreateCompactRequestVariant2 => CreateCompactRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCreateCompactRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateCompactRequestVariant2? value)
+        {
+            value = CreateCompactRequestVariant2;
+            return IsCreateCompactRequestVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateCompactRequestVariant2 PickCreateCompactRequestVariant2() => IsCreateCompactRequestVariant2
+            ? CreateCompactRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateCompactRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -64,6 +104,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateCompactRequest FromInputBase(global::Vectara.CreateInputRequestBase? value) => new CreateCompactRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateCompactRequest(global::Vectara.CreateCompactRequestVariant2 value) => new CreateCompactRequest((global::Vectara.CreateCompactRequestVariant2?)value);
 
         /// <summary>
@@ -78,6 +123,11 @@ namespace Vectara
         {
             CreateCompactRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateCompactRequest FromCreateCompactRequestVariant2(global::Vectara.CreateCompactRequestVariant2? value) => new CreateCompactRequest(value);
 
         /// <summary>
         /// 
@@ -119,8 +169,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CreateInputRequestBase?, TResult>? inputBase = null,
-            global::System.Func<global::Vectara.CreateCompactRequestVariant2?, TResult>? createCompactRequestVariant2 = null,
+            global::System.Func<global::Vectara.CreateInputRequestBase, TResult>? inputBase = null,
+            global::System.Func<global::Vectara.CreateCompactRequestVariant2, TResult>? createCompactRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -144,8 +194,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CreateInputRequestBase?>? inputBase = null,
-            global::System.Action<global::Vectara.CreateCompactRequestVariant2?>? createCompactRequestVariant2 = null,
+            global::System.Action<global::Vectara.CreateInputRequestBase>? inputBase = null,
+
+            global::System.Action<global::Vectara.CreateCompactRequestVariant2>? createCompactRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsInputBase)
+            {
+                inputBase?.Invoke(InputBase!);
+            }
+            else if (IsCreateCompactRequestVariant2)
+            {
+                createCompactRequestVariant2?.Invoke(CreateCompactRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CreateInputRequestBase>? inputBase = null,
+            global::System.Action<global::Vectara.CreateCompactRequestVariant2>? createCompactRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

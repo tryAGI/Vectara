@@ -14,7 +14,8 @@ namespace Vectara
         /// </summary>
         /// <example>qry_1234567890</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The actual query made.
@@ -132,7 +133,7 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public QueryHistorySummary(
-            string? id,
+            string id,
             string? query,
             string? corpusKey,
             global::System.DateTime? startedAt,
@@ -143,7 +144,7 @@ namespace Vectara
             string? agentKey,
             string? sessionKey)
         {
-            this.Id = id;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Query = query;
             this.CorpusKey = corpusKey;
             this.StartedAt = startedAt;
@@ -161,5 +162,6 @@ namespace Vectara
         public QueryHistorySummary()
         {
         }
+
     }
 }

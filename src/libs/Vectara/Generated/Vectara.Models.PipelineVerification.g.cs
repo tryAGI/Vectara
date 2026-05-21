@@ -36,6 +36,26 @@ namespace Vectara
         public bool IsCondition => Condition != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCondition(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ConditionVerification? value)
+        {
+            value = Condition;
+            return IsCondition;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ConditionVerification PickCondition() => IsCondition
+            ? Condition!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Condition' but the value was {ToString()}.");
+
+        /// <summary>
         /// Verify the worker agent's output using a separate judge agent. The judge agent receives<br/>
         /// a summary of the worker agent's session and must produce a structured output with<br/>
         /// `{ "success": boolean, "reason": string }`. The judge agent must be configured with a<br/>
@@ -54,6 +74,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Agent))]
 #endif
         public bool IsAgent => Agent != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickAgent(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentVerification? value)
+        {
+            value = Agent;
+            return IsAgent;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentVerification PickAgent() => IsAgent
+            ? Agent!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Agent' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -75,6 +115,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static PipelineVerification FromCondition(global::Vectara.ConditionVerification? value) => new PipelineVerification(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PipelineVerification(global::Vectara.AgentVerification value) => new PipelineVerification((global::Vectara.AgentVerification?)value);
 
         /// <summary>
@@ -89,6 +134,11 @@ namespace Vectara
         {
             Agent = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineVerification FromAgent(global::Vectara.AgentVerification? value) => new PipelineVerification(value);
 
         /// <summary>
         /// 
@@ -133,8 +183,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ConditionVerification?, TResult>? condition = null,
-            global::System.Func<global::Vectara.AgentVerification?, TResult>? agent = null,
+            global::System.Func<global::Vectara.ConditionVerification, TResult>? condition = null,
+            global::System.Func<global::Vectara.AgentVerification, TResult>? agent = null,
             bool validate = true)
         {
             if (validate)
@@ -158,8 +208,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ConditionVerification?>? condition = null,
-            global::System.Action<global::Vectara.AgentVerification?>? agent = null,
+            global::System.Action<global::Vectara.ConditionVerification>? condition = null,
+
+            global::System.Action<global::Vectara.AgentVerification>? agent = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsCondition)
+            {
+                condition?.Invoke(Condition!);
+            }
+            else if (IsAgent)
+            {
+                agent?.Invoke(Agent!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ConditionVerification>? condition = null,
+            global::System.Action<global::Vectara.AgentVerification>? agent = null,
             bool validate = true)
         {
             if (validate)

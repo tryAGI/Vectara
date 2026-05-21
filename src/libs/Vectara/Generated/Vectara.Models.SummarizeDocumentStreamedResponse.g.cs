@@ -32,6 +32,26 @@ namespace Vectara
         public bool IsGenerationChunk => GenerationChunk != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGenerationChunk(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamGenerationChunk? value)
+        {
+            value = GenerationChunk;
+            return IsGenerationChunk;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamGenerationChunk PickGenerationChunk() => IsGenerationChunk
+            ? GenerationChunk!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationChunk' but the value was {ToString()}.");
+
+        /// <summary>
         /// Event containing information on how the generation was accomplished.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +67,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationInfo))]
 #endif
         public bool IsGenerationInfo => GenerationInfo != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGenerationInfo(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GenerationInfo? value)
+        {
+            value = GenerationInfo;
+            return IsGenerationInfo;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GenerationInfo PickGenerationInfo() => IsGenerationInfo
+            ? GenerationInfo!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationInfo' but the value was {ToString()}.");
 
         /// <summary>
         /// The end of generation. There may still be more information such as the factual consistency score, but generation has stopped.
@@ -66,6 +106,26 @@ namespace Vectara
         public bool IsGenerationEnd => GenerationEnd != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGenerationEnd(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamGenerationEnd? value)
+        {
+            value = GenerationEnd;
+            return IsGenerationEnd;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamGenerationEnd PickGenerationEnd() => IsGenerationEnd
+            ? GenerationEnd!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationEnd' but the value was {ToString()}.");
+
+        /// <summary>
         /// The end of a query response stream.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -83,6 +143,26 @@ namespace Vectara
         public bool IsEnd => End != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickEnd(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamResponseEnd? value)
+        {
+            value = End;
+            return IsEnd;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamResponseEnd PickEnd() => IsEnd
+            ? End!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'End' but the value was {ToString()}.");
+
+        /// <summary>
         /// Event signaling there was an error with the request.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -98,6 +178,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
 #endif
         public bool IsError => Error != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickError(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamError? value)
+        {
+            value = Error;
+            return IsError;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamError PickError() => IsError
+            ? Error!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -115,6 +215,11 @@ namespace Vectara
         {
             GenerationChunk = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SummarizeDocumentStreamedResponse FromGenerationChunk(global::Vectara.StreamGenerationChunk? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -137,6 +242,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SummarizeDocumentStreamedResponse FromGenerationInfo(global::Vectara.GenerationInfo? value) => new SummarizeDocumentStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationEnd value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamGenerationEnd?)value);
 
         /// <summary>
@@ -151,6 +261,11 @@ namespace Vectara
         {
             GenerationEnd = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SummarizeDocumentStreamedResponse FromGenerationEnd(global::Vectara.StreamGenerationEnd? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -173,6 +288,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SummarizeDocumentStreamedResponse FromEnd(global::Vectara.StreamResponseEnd? value) => new SummarizeDocumentStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamError value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamError?)value);
 
         /// <summary>
@@ -187,6 +307,11 @@ namespace Vectara
         {
             Error = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SummarizeDocumentStreamedResponse FromError(global::Vectara.StreamError? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -243,11 +368,11 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.StreamGenerationChunk?, TResult>? generationChunk = null,
-            global::System.Func<global::Vectara.GenerationInfo?, TResult>? generationInfo = null,
-            global::System.Func<global::Vectara.StreamGenerationEnd?, TResult>? generationEnd = null,
-            global::System.Func<global::Vectara.StreamResponseEnd?, TResult>? end = null,
-            global::System.Func<global::Vectara.StreamError?, TResult>? error = null,
+            global::System.Func<global::Vectara.StreamGenerationChunk, TResult>? generationChunk = null,
+            global::System.Func<global::Vectara.GenerationInfo, TResult>? generationInfo = null,
+            global::System.Func<global::Vectara.StreamGenerationEnd, TResult>? generationEnd = null,
+            global::System.Func<global::Vectara.StreamResponseEnd, TResult>? end = null,
+            global::System.Func<global::Vectara.StreamError, TResult>? error = null,
             bool validate = true)
         {
             if (validate)
@@ -283,11 +408,53 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.StreamGenerationChunk?>? generationChunk = null,
-            global::System.Action<global::Vectara.GenerationInfo?>? generationInfo = null,
-            global::System.Action<global::Vectara.StreamGenerationEnd?>? generationEnd = null,
-            global::System.Action<global::Vectara.StreamResponseEnd?>? end = null,
-            global::System.Action<global::Vectara.StreamError?>? error = null,
+            global::System.Action<global::Vectara.StreamGenerationChunk>? generationChunk = null,
+
+            global::System.Action<global::Vectara.GenerationInfo>? generationInfo = null,
+
+            global::System.Action<global::Vectara.StreamGenerationEnd>? generationEnd = null,
+
+            global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
+
+            global::System.Action<global::Vectara.StreamError>? error = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsGenerationChunk)
+            {
+                generationChunk?.Invoke(GenerationChunk!);
+            }
+            else if (IsGenerationInfo)
+            {
+                generationInfo?.Invoke(GenerationInfo!);
+            }
+            else if (IsGenerationEnd)
+            {
+                generationEnd?.Invoke(GenerationEnd!);
+            }
+            else if (IsEnd)
+            {
+                end?.Invoke(End!);
+            }
+            else if (IsError)
+            {
+                error?.Invoke(Error!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.StreamGenerationChunk>? generationChunk = null,
+            global::System.Action<global::Vectara.GenerationInfo>? generationInfo = null,
+            global::System.Action<global::Vectara.StreamGenerationEnd>? generationEnd = null,
+            global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
+            global::System.Action<global::Vectara.StreamError>? error = null,
             bool validate = true)
         {
             if (validate)

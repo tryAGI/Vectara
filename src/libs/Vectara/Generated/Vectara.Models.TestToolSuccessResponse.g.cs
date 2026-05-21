@@ -103,5 +103,6 @@ namespace Vectara
         public TestToolSuccessResponse()
         {
         }
+
     }
 }

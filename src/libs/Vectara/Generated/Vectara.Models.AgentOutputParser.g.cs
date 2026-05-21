@@ -33,6 +33,26 @@ namespace Vectara
         public bool IsDefault => Default != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDefault(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.DefaultOutputParser? value)
+        {
+            value = Default;
+            return IsDefault;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DefaultOutputParser PickDefault() => IsDefault
+            ? Default!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Default' but the value was {ToString()}.");
+
+        /// <summary>
         /// Parses agent output as structured JSON conforming to a specified schema.<br/>
         /// Uses the model's native structured outputs capability to guarantee valid JSON<br/>
         /// that adheres to the provided schema. This is useful when you need the agent's<br/>
@@ -58,6 +78,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Structured))]
 #endif
         public bool IsStructured => Structured != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStructured(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StructuredOutputParser? value)
+        {
+            value = Structured;
+            return IsStructured;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StructuredOutputParser PickStructured() => IsStructured
+            ? Structured!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Structured' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -79,6 +119,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentOutputParser FromDefault(global::Vectara.DefaultOutputParser? value) => new AgentOutputParser(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentOutputParser(global::Vectara.StructuredOutputParser value) => new AgentOutputParser((global::Vectara.StructuredOutputParser?)value);
 
         /// <summary>
@@ -93,6 +138,11 @@ namespace Vectara
         {
             Structured = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentOutputParser FromStructured(global::Vectara.StructuredOutputParser? value) => new AgentOutputParser(value);
 
         /// <summary>
         /// 
@@ -137,8 +187,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.DefaultOutputParser?, TResult>? @default = null,
-            global::System.Func<global::Vectara.StructuredOutputParser?, TResult>? structured = null,
+            global::System.Func<global::Vectara.DefaultOutputParser, TResult>? @default = null,
+            global::System.Func<global::Vectara.StructuredOutputParser, TResult>? structured = null,
             bool validate = true)
         {
             if (validate)
@@ -162,8 +212,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.DefaultOutputParser?>? @default = null,
-            global::System.Action<global::Vectara.StructuredOutputParser?>? structured = null,
+            global::System.Action<global::Vectara.DefaultOutputParser>? @default = null,
+
+            global::System.Action<global::Vectara.StructuredOutputParser>? structured = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsDefault)
+            {
+                @default?.Invoke(Default!);
+            }
+            else if (IsStructured)
+            {
+                structured?.Invoke(Structured!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.DefaultOutputParser>? @default = null,
+            global::System.Action<global::Vectara.StructuredOutputParser>? structured = null,
             bool validate = true)
         {
             if (validate)

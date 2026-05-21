@@ -32,6 +32,26 @@ namespace Vectara
         public bool IsSearchResults => SearchResults != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSearchResults(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamSearchResponse? value)
+        {
+            value = SearchResults;
+            return IsSearchResults;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamSearchResponse PickSearchResults() => IsSearchResults
+            ? SearchResults!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SearchResults' but the value was {ToString()}.");
+
+        /// <summary>
         /// Information about the chat.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +67,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ChatInfo))]
 #endif
         public bool IsChatInfo => ChatInfo != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickChatInfo(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ChatInfoResponse? value)
+        {
+            value = ChatInfo;
+            return IsChatInfo;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ChatInfoResponse PickChatInfo() => IsChatInfo
+            ? ChatInfo!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ChatInfo' but the value was {ToString()}.");
 
         /// <summary>
         /// The chunk response from the generation, which may be a partial generation.
@@ -66,6 +106,26 @@ namespace Vectara
         public bool IsGenerationChunk => GenerationChunk != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGenerationChunk(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamGenerationChunk? value)
+        {
+            value = GenerationChunk;
+            return IsGenerationChunk;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamGenerationChunk PickGenerationChunk() => IsGenerationChunk
+            ? GenerationChunk!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationChunk' but the value was {ToString()}.");
+
+        /// <summary>
         /// The end of generation. There may still be more information such as the factual consistency score, but generation has stopped.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -81,6 +141,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationEnd))]
 #endif
         public bool IsGenerationEnd => GenerationEnd != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGenerationEnd(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamGenerationEnd? value)
+        {
+            value = GenerationEnd;
+            return IsGenerationEnd;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamGenerationEnd PickGenerationEnd() => IsGenerationEnd
+            ? GenerationEnd!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationEnd' but the value was {ToString()}.");
 
         /// <summary>
         /// Event containing information on how the generation was accomplished.
@@ -100,6 +180,26 @@ namespace Vectara
         public bool IsGenerationInfo => GenerationInfo != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGenerationInfo(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GenerationInfo? value)
+        {
+            value = GenerationInfo;
+            return IsGenerationInfo;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GenerationInfo PickGenerationInfo() => IsGenerationInfo
+            ? GenerationInfo!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationInfo' but the value was {ToString()}.");
+
+        /// <summary>
         /// Event containing the factual consistency score.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -115,6 +215,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(FactualConsistencyScore))]
 #endif
         public bool IsFactualConsistencyScore => FactualConsistencyScore != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickFactualConsistencyScore(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.FactualConsistencyScore? value)
+        {
+            value = FactualConsistencyScore;
+            return IsFactualConsistencyScore;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.FactualConsistencyScore PickFactualConsistencyScore() => IsFactualConsistencyScore
+            ? FactualConsistencyScore!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'FactualConsistencyScore' but the value was {ToString()}.");
 
         /// <summary>
         /// The end of a query response stream.
@@ -134,6 +254,26 @@ namespace Vectara
         public bool IsEnd => End != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickEnd(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamResponseEnd? value)
+        {
+            value = End;
+            return IsEnd;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamResponseEnd PickEnd() => IsEnd
+            ? End!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'End' but the value was {ToString()}.");
+
+        /// <summary>
         /// Event signaling there was an error with the request.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -149,6 +289,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
 #endif
         public bool IsError => Error != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickError(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StreamError? value)
+        {
+            value = Error;
+            return IsError;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StreamError PickError() => IsError
+            ? Error!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -166,6 +326,11 @@ namespace Vectara
         {
             SearchResults = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatStreamedResponse FromSearchResults(global::Vectara.StreamSearchResponse? value) => new ChatStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -188,6 +353,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatStreamedResponse FromChatInfo(global::Vectara.ChatInfoResponse? value) => new ChatStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatStreamedResponse(global::Vectara.StreamGenerationChunk value) => new ChatStreamedResponse((global::Vectara.StreamGenerationChunk?)value);
 
         /// <summary>
@@ -202,6 +372,11 @@ namespace Vectara
         {
             GenerationChunk = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatStreamedResponse FromGenerationChunk(global::Vectara.StreamGenerationChunk? value) => new ChatStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -224,6 +399,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatStreamedResponse FromGenerationEnd(global::Vectara.StreamGenerationEnd? value) => new ChatStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatStreamedResponse(global::Vectara.GenerationInfo value) => new ChatStreamedResponse((global::Vectara.GenerationInfo?)value);
 
         /// <summary>
@@ -238,6 +418,11 @@ namespace Vectara
         {
             GenerationInfo = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatStreamedResponse FromGenerationInfo(global::Vectara.GenerationInfo? value) => new ChatStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -260,6 +445,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatStreamedResponse FromFactualConsistencyScore(global::Vectara.FactualConsistencyScore? value) => new ChatStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatStreamedResponse(global::Vectara.StreamResponseEnd value) => new ChatStreamedResponse((global::Vectara.StreamResponseEnd?)value);
 
         /// <summary>
@@ -278,6 +468,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ChatStreamedResponse FromEnd(global::Vectara.StreamResponseEnd? value) => new ChatStreamedResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ChatStreamedResponse(global::Vectara.StreamError value) => new ChatStreamedResponse((global::Vectara.StreamError?)value);
 
         /// <summary>
@@ -292,6 +487,11 @@ namespace Vectara
         {
             Error = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ChatStreamedResponse FromError(global::Vectara.StreamError? value) => new ChatStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -360,14 +560,14 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.StreamSearchResponse?, TResult>? searchResults = null,
-            global::System.Func<global::Vectara.ChatInfoResponse?, TResult>? chatInfo = null,
-            global::System.Func<global::Vectara.StreamGenerationChunk?, TResult>? generationChunk = null,
-            global::System.Func<global::Vectara.StreamGenerationEnd?, TResult>? generationEnd = null,
-            global::System.Func<global::Vectara.GenerationInfo?, TResult>? generationInfo = null,
-            global::System.Func<global::Vectara.FactualConsistencyScore?, TResult>? factualConsistencyScore = null,
-            global::System.Func<global::Vectara.StreamResponseEnd?, TResult>? end = null,
-            global::System.Func<global::Vectara.StreamError?, TResult>? error = null,
+            global::System.Func<global::Vectara.StreamSearchResponse, TResult>? searchResults = null,
+            global::System.Func<global::Vectara.ChatInfoResponse, TResult>? chatInfo = null,
+            global::System.Func<global::Vectara.StreamGenerationChunk, TResult>? generationChunk = null,
+            global::System.Func<global::Vectara.StreamGenerationEnd, TResult>? generationEnd = null,
+            global::System.Func<global::Vectara.GenerationInfo, TResult>? generationInfo = null,
+            global::System.Func<global::Vectara.FactualConsistencyScore, TResult>? factualConsistencyScore = null,
+            global::System.Func<global::Vectara.StreamResponseEnd, TResult>? end = null,
+            global::System.Func<global::Vectara.StreamError, TResult>? error = null,
             bool validate = true)
         {
             if (validate)
@@ -415,14 +615,74 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.StreamSearchResponse?>? searchResults = null,
-            global::System.Action<global::Vectara.ChatInfoResponse?>? chatInfo = null,
-            global::System.Action<global::Vectara.StreamGenerationChunk?>? generationChunk = null,
-            global::System.Action<global::Vectara.StreamGenerationEnd?>? generationEnd = null,
-            global::System.Action<global::Vectara.GenerationInfo?>? generationInfo = null,
-            global::System.Action<global::Vectara.FactualConsistencyScore?>? factualConsistencyScore = null,
-            global::System.Action<global::Vectara.StreamResponseEnd?>? end = null,
-            global::System.Action<global::Vectara.StreamError?>? error = null,
+            global::System.Action<global::Vectara.StreamSearchResponse>? searchResults = null,
+
+            global::System.Action<global::Vectara.ChatInfoResponse>? chatInfo = null,
+
+            global::System.Action<global::Vectara.StreamGenerationChunk>? generationChunk = null,
+
+            global::System.Action<global::Vectara.StreamGenerationEnd>? generationEnd = null,
+
+            global::System.Action<global::Vectara.GenerationInfo>? generationInfo = null,
+
+            global::System.Action<global::Vectara.FactualConsistencyScore>? factualConsistencyScore = null,
+
+            global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
+
+            global::System.Action<global::Vectara.StreamError>? error = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSearchResults)
+            {
+                searchResults?.Invoke(SearchResults!);
+            }
+            else if (IsChatInfo)
+            {
+                chatInfo?.Invoke(ChatInfo!);
+            }
+            else if (IsGenerationChunk)
+            {
+                generationChunk?.Invoke(GenerationChunk!);
+            }
+            else if (IsGenerationEnd)
+            {
+                generationEnd?.Invoke(GenerationEnd!);
+            }
+            else if (IsGenerationInfo)
+            {
+                generationInfo?.Invoke(GenerationInfo!);
+            }
+            else if (IsFactualConsistencyScore)
+            {
+                factualConsistencyScore?.Invoke(FactualConsistencyScore!);
+            }
+            else if (IsEnd)
+            {
+                end?.Invoke(End!);
+            }
+            else if (IsError)
+            {
+                error?.Invoke(Error!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.StreamSearchResponse>? searchResults = null,
+            global::System.Action<global::Vectara.ChatInfoResponse>? chatInfo = null,
+            global::System.Action<global::Vectara.StreamGenerationChunk>? generationChunk = null,
+            global::System.Action<global::Vectara.StreamGenerationEnd>? generationEnd = null,
+            global::System.Action<global::Vectara.GenerationInfo>? generationInfo = null,
+            global::System.Action<global::Vectara.FactualConsistencyScore>? factualConsistencyScore = null,
+            global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
+            global::System.Action<global::Vectara.StreamError>? error = null,
             bool validate = true)
         {
             if (validate)

@@ -74,5 +74,6 @@ namespace Vectara
         public RephraseSpan()
         {
         }
+
     }
 }

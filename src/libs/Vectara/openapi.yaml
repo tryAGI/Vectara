@@ -63,6 +63,9 @@ tags:
     intervals.
 - name: Agent Identity
   description: View and manage the identity used by an agent to execute tools.
+- name: Agent Secrets
+  description: Manage agent-scoped secrets that can be referenced from tool argument
+    overrides via $ref.
 - name: Guardrails
   description: List predefined guardrails for validating tool calls, agent outputs,
     and agent actions.
@@ -86,6 +89,9 @@ tags:
 - name: Agent Analytics
   description: Inspect traces emitted by agent executions and retrieve evaluation
     data.
+- name: CustomerMetrics
+  description: Query pre-aggregated time-series and distribution metrics scoped to
+    the authenticated customer.
 - name: Pipeline Dead Letters
   description: View and manage dead letters (failed records) for a pipeline. Dead
     letters are pipeline-scoped and can be retried individually or in bulk.
@@ -1632,6 +1638,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: A document with the same document ID already exists in the
+            corpus with different content. Delete the existing document first or use
+            a unique document ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '415':
           description: The media type of the uploaded file is not supported.
           content:
@@ -2379,9 +2393,9 @@ paths:
                     temperature: 0.7
                   stream_response: false
               Finance:
-                summary: "Request to summarize a Q1 2025 financial report, using Vectara\u2019\
-                  s Omni LLM to highlight key financial metrics for a banking sector\
-                  \ corpus"
+                summary: Request to summarize a Q1 2025 financial report, using Vectara's
+                  Omni LLM to highlight key financial metrics for a banking sector
+                  corpus
                 value:
                   llm_name: vectara-summary-ext-24-05-med-omni
                   prompt_template: Provide a concise summary of the financial report
@@ -2425,9 +2439,9 @@ paths:
                       in Delaware, focusing on arbitration, confidentiality, and termination
                       terms.
                 Finance:
-                  summary: "Summarized a Q1 2025 financial report, highlighting revenue,\
-                    \ EBITDA margin, and net income using Vectara\u2019s Omni LLM\
-                    \ for a banking sector corpus"
+                  summary: Summarized a Q1 2025 financial report, highlighting revenue,
+                    EBITDA margin, and net income using Vectara's Omni LLM for a banking
+                    sector corpus
                   value:
                     summary: The Q1 2025 financial report for the banking sector shows
                       revenue of $150.2M, an EBITDA margin of 15.2%, and net income
@@ -10444,6 +10458,179 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: updateIdentity
+  /v2/agents/{agent_key}/secrets:
+    get:
+      tags:
+      - Agent Secrets
+      summary: Get agent secrets
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Retrieve the agent''s secrets. Values are always masked (`****`);
+        plaintext is never exposed on read.
+
+        '
+      operationId: getAgentSecrets
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      responses:
+        '200':
+          description: The agent's secrets, with values masked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSecrets'
+        '403':
+          description: Permissions do not allow accessing this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: getSecrets
+    put:
+      tags:
+      - Agent Secrets
+      summary: Replace agent secrets
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Replace the agent''s secrets. The submitted map fully replaces
+        the previous set (names not in the request are removed).
+
+        Stored encrypted at rest.
+
+        '
+      operationId: replaceAgentSecrets
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAgentSecretsRequest'
+      responses:
+        '200':
+          description: The agent's secrets after the replace, with values masked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSecrets'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow modifying this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: replaceSecrets
+    patch:
+      tags:
+      - Agent Secrets
+      summary: Update agent secrets
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Patch the agent''s secrets. Names present in the map are added
+        or replaced; names absent from the map are left unchanged.
+
+        A name mapped to `null` is removed.
+
+        '
+      operationId: updateAgentSecrets
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentSecretsRequest'
+      responses:
+        '200':
+          description: The agent's secrets after the patch, with values masked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSecrets'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow modifying this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: updateSecrets
   /v2/agents/{agent_key}/connectors:
     post:
       tags:
@@ -11186,6 +11373,12 @@ paths:
         schema:
           $ref: '#/components/schemas/DeadLetterOrigin'
       - in: query
+        name: filter
+        description: A regex filter on the source record ID. Supports partial matching.
+        required: false
+        schema:
+          type: string
+      - in: query
         name: limit
         description: The maximum number of dead letters to return.
         required: false
@@ -11636,6 +11829,210 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: pipeline_runs
       x-fern-sdk-method-name: cancel
+  /v2/pipelines/{pipeline_key}/runs/{run_id}/events:
+    get:
+      tags:
+      - Pipeline Runs
+      summary: List pipeline run events
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - pipeline_viewer
+        - pipeline_administrator
+        - viewer
+        - administrator
+        - owner
+      description: List the timeline of events for a pipeline run. Events surface
+        what the run did from a customer-observability perspective (records discovered,
+        records processed, agent sessions created, dead letters, watermark advances,
+        lifecycle transitions) rather than every internal Temporal step. A pipeline
+        run may span multiple underlying Temporal executions; this endpoint stitches
+        them into a single timeline keyed by `run_id`.
+      operationId: listPipelineRunEvents
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: pipeline_key
+        description: The unique key of the pipeline.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PipelineKey'
+      - in: path
+        name: run_id
+        description: The unique identifier of the run.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PipelineRunId'
+      - in: query
+        name: type
+        description: Filter to one or more event types. Repeat the parameter to pass
+          multiple values.
+        required: false
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineRunEventType'
+      - in: query
+        name: source_record_id
+        description: Filter to events for a specific source record.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Order events by timestamp. Defaults to newest-first.
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortOrder'
+      - in: query
+        name: limit
+        description: The maximum number of events to return.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 200
+          default: 50
+      - in: query
+        name: page_key
+        description: Used to retrieve the next page of events after the limit has
+          been reached.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of pipeline run events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPipelineRunEventsResponse'
+        '403':
+          description: Permissions do not allow accessing this run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Pipeline or run not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: pipeline_runs
+      x-fern-sdk-method-name: list_events
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.events
+  /v2/metrics:
+    get:
+      tags:
+      - CustomerMetrics
+      summary: List available metrics
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - viewer
+        - administrator
+        - owner
+      description: Returns the catalog of registered metrics that can be queried via
+        `/v2/metrics/{metric_name}`. Use this to discover metric names, kinds, and
+        supported labels.
+      operationId: listMetrics
+      x-fern-sdk-group-name: customer_metrics
+      x-fern-sdk-method-name: list
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      responses:
+        '200':
+          description: Catalog of registered metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMetricsResponse'
+  /v2/metrics/{metric_name}:
+    get:
+      tags:
+      - CustomerMetrics
+      summary: Query a metric time series
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - viewer
+        - administrator
+        - owner
+      description: Returns a time series of aggregated metric values for the named
+        metric within the requested time range.
+      operationId: getMetric
+      x-fern-sdk-group-name: customer_metrics
+      x-fern-sdk-method-name: get
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - name: metric_name
+        in: path
+        required: true
+        description: Name of the metric to query (see `/v2/metrics` for the catalog).
+        schema:
+          type: string
+      - name: labels
+        in: query
+        required: false
+        description: Label filters keyed by label name. The set of valid label names
+          for each metric is published in its descriptor at `/v2/metrics`.
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          additionalProperties:
+            type: array
+            minItems: 1
+            items:
+              type: string
+              minLength: 1
+      - name: start
+        in: query
+        required: true
+        description: Inclusive start of the query window (ISO 8601). Must be no more
+          than 30 days before now.
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        required: true
+        description: Exclusive end of the query window (ISO 8601). Must be after `start`.
+        schema:
+          type: string
+          format: date-time
+      - name: max_buckets
+        in: query
+        required: false
+        description: Upper bound on the number of points in the response. The response
+          may contain fewer points than requested but never more. The actual bucket
+          size is reported in the response as `bucket_size_seconds`. Defaults to 60.
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 1000
+          default: 60
+      responses:
+        '200':
+          description: The requested metric series.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricSeries'
+        '400':
+          description: Invalid request parameters.
+        '404':
+          description: The named metric is not registered.
   /v2/agent_analytics/traces:
     get:
       tags:
@@ -11904,6 +12301,21 @@ paths:
           - step_transition
           - image_read
           - compaction
+      - name: parent_span_id
+        in: query
+        description: Filter spans to only direct children of this span ID.
+        required: false
+        schema:
+          type: string
+      - name: exclude_subagents
+        in: query
+        description: When true, exclude nested sub-agent invocations and their descendants.
+          Restricts results to the entry-point invoke_agent span and any spans that
+          belong to the entry agent's session.
+        required: false
+        schema:
+          type: boolean
+          default: false
       - name: limit
         in: query
         description: The maximum number of spans to return.
@@ -12638,6 +13050,10 @@ components:
           description: Indicates when the corpus was created.
           type: string
           format: date-time
+      required:
+      - id
+      - key
+      - name
     ListMetadata:
       type: object
       description: The standard metadata in the response of a list operation.
@@ -13322,6 +13738,8 @@ components:
           $ref: '#/components/schemas/ExtractionUsage'
           example:
             table_extraction_used: 2
+      required:
+      - id
       example:
         id: manufacturing_invoice-2331
         metadata:
@@ -15203,6 +15621,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QueryHistorySpan'
+      required:
+      - id
     QueryHistorySummary:
       description: A summary of a previously executed query, including metadata but
         not full results.
@@ -15250,6 +15670,8 @@ components:
         session_key:
           description: The session key if this query was made through an agent session.
           type: string
+      required:
+      - id
     ListQueryHistoriesResponse:
       description: An array of query histories.
       type: object
@@ -15293,6 +15715,8 @@ components:
           description: Specifies when this chat was created.
           type: string
           format: date-time
+      required:
+      - id
     ListChatsResponse:
       description: Response containing a list of chat conversations.
       type: object
@@ -15488,6 +15912,8 @@ components:
           description: Specifies when the turn was created.
           type: string
           format: date-time
+      required:
+      - id
     ListChatTurnsResponse:
       description: Response containing a list of turns (message exchanges) within
         a chat conversation.
@@ -15564,6 +15990,9 @@ components:
           description: Indicates if this prompt is the default prompt used with the
             LLM.
           type: boolean
+      required:
+      - id
+      - name
     LLM:
       description: A LLM can be used to enhance query results with a response, and
         be used as the responder during a chat.
@@ -15601,6 +16030,9 @@ components:
           items:
             $ref: '#/components/schemas/Prompt'
           deprecated: true
+      required:
+      - id
+      - name
     ListLLMsResponse:
       description: Response containing a list of Large Language Models available for
         generative AI capabilities.
@@ -16624,6 +17056,8 @@ components:
           description: Indicates whether the preset is provided by the platform (`platform`)
             or created by the customer (`customer`).
           $ref: '#/components/schemas/GenerationPresetOwnership'
+      required:
+      - name
     ListGenerationPresetsResponse:
       description: Response containing a list of generation presets for configuring
         RAG behavior.
@@ -16725,6 +17159,9 @@ components:
           description: Indicates whether the encoder is enabled.
           type: boolean
           example: true
+      required:
+      - id
+      - name
     ListEncodersResponse:
       description: Response containing a list of available encoders for converting
         text to vector embeddings.
@@ -16808,6 +17245,9 @@ components:
         enabled:
           description: Whether the reranker is enabled.
           type: boolean
+      required:
+      - id
+      - name
     ListRerankersResponse:
       description: Response containing a list of available rerankers for improving
         search result ordering.
@@ -16878,6 +17318,9 @@ components:
             available for use in hallucination correction workflows.
           type: boolean
           example: true
+      required:
+      - id
+      - name
     ListHallucinationCorrectorsResponse:
       description: Response containing a list of hallucination correctors.
       type: object
@@ -17023,6 +17466,8 @@ components:
           description: The username of the user who created the job. This property
             may be missing, e.g., if the job was created by the system, not a user.
           type: string
+      required:
+      - id
     ListJobsResponse:
       description: Response containing a list of background jobs and their current
         states.
@@ -17189,6 +17634,9 @@ components:
             $ref: '#/components/schemas/AgentRole'
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      required:
+      - id
+      - email
     ListUsersResponse:
       description: Response containing a list of user accounts.
       type: object
@@ -17311,6 +17759,10 @@ components:
             $ref: '#/components/schemas/AgentRole'
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      required:
+      - id
+      - name
+      - secret_key
     ListApiKeysResponse:
       description: Response containing a list of API keys for the authenticated customer.
       type: object
@@ -17404,6 +17856,11 @@ components:
             $ref: '#/components/schemas/AgentRole'
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+      required:
+      - id
+      - name
+      - client_id
+      - client_secret
     ListAppClientsResponse:
       description: Response containing a list of OAuth application clients.
       type: object
@@ -17686,6 +18143,19 @@ components:
 
         '
       type: string
+    OutputTransform:
+      description: "An optional jq expression applied to the tool's JSON output before\
+        \ it is returned to the LLM.\nUse this to project, filter, or summarize tool\
+        \ output to keep responses concise and on-topic.\n\nThe expression operates\
+        \ on the tool's response JSON and the result replaces the original output.\n\
+        If the expression fails to compile or evaluate at runtime, the tool call is\
+        \ reported to the LLM as\nan error so the agent can react.\n\nExamples:\n\
+        \  - `.results | map({title, url})` \u2014 keep only title/url for each result\n\
+        \  - `.items[0:5]` \u2014 first 5 items\n  - `del(.debug)` \u2014 drop a noisy\
+        \ field\n"
+      type: string
+      maxLength: 4096
+      example: .results | map({title, url})
     ToolBase:
       description: Base properties shared by all tool types.
       type: object
@@ -17740,6 +18210,44 @@ components:
             tool.
           type: object
           additionalProperties: true
+        output_schema:
+          description: 'The JSON schema that describes the structure of the tool''s
+            output. May be used by clients to
+
+            understand the shape of tool responses and to author `default_output_transform`
+            jq expressions.
+
+            '
+          type: object
+          additionalProperties: true
+        default_output_transform:
+          description: 'Default jq expression applied to this tool''s output when
+            a tool configuration does not
+
+            specify its own `output_transform`. Tool configurations may override this
+            value. See
+
+            `OutputTransform` for the expression semantics and error behavior.
+
+            '
+          $ref: '#/components/schemas/OutputTransform'
+        default_argument_override:
+          description: "Optional hardcoded arguments for tool calls. The key specifies\
+            \ the location in the tool arguments to overide, and the value specifies\
+            \ what to override with. The LLM will not be able to change the parameters,\
+            \ nor know those values exist within the tool.\n\nThe values can also\
+            \ be dynamic references to context values using $ref with dot notation\
+            \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
+            \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
+            \ at runtime from context:\n- session.metadata.* - Access session metadata\
+            \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
+            \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you want\
+            \ to have a real value `\"$ref\"` use `\"$$ref\"`, that is you can escape\
+            \ the first $ by using $$."
+          type: object
+          additionalProperties: true
+          example:
+            max_results: 10
         category:
           description: Functional category of the tool (e.g., retrieval, artifacts,
             indexing, utilities, orchestration).
@@ -18954,26 +19462,13 @@ components:
       minLength: 1
       maxLength: 50
       example: Customer Support Agent
-    OutputTransform:
-      description: "An optional jq expression applied to the tool's JSON output before\
-        \ it is returned to the LLM.\nUse this to project, filter, or summarize tool\
-        \ output to keep responses concise and on-topic.\n\nThe expression operates\
-        \ on the tool's response JSON and the result replaces the original output.\n\
-        If the expression fails to compile or evaluate at runtime, the tool call is\
-        \ reported to the LLM as\nan error so the agent can react.\n\nExamples:\n\
-        \  - `.results | map({title, url})` \u2014 keep only title/url for each result\n\
-        \  - `.items[0:5]` \u2014 first 5 items\n  - `del(.debug)` \u2014 drop a noisy\
-        \ field\n"
-      type: string
-      maxLength: 4096
-      example: .results | map({title, url})
     AgentToolConfigurationBase:
       description: Base properties shared by all inline tool configurations on an
         agent.
       type: object
       properties:
         description:
-          description: Optional override for the tool's description shown to the LLM.
+          description: Optional override for the tool's description shown to the agent.
             When set, replaces the description from the underlying tool definition.
           type: string
           example: Search the customer support knowledge base
@@ -19200,11 +19695,11 @@ components:
           argument_override:
             description: Optional hardcoded arguments for the corpus search call such
               as the query. When specified, these values will be used instead of allowing
-              the LLM to fill in those parameters.
+              the agent to fill in those parameters.
             $ref: '#/components/schemas/CorporaSearchToolParameters'
           query_configuration:
             description: User-configurable settings for the corpus search that are
-              not exposed to the LLM. Supports dynamic references for runtime resolution
+              not exposed to the agent. Supports dynamic references for runtime resolution
               from session context.
             $ref: '#/components/schemas/AgentCorporaSearchQueryConfiguration'
         required:
@@ -19273,12 +19768,185 @@ components:
           argument_override:
             description: Optional hardcoded arguments for the web search tool call
               such as limit etc. When specified, these values will be used instead
-              of allowing the LLM to fill in those parameters.
+              of allowing the agent to fill in those parameters.
             $ref: '#/components/schemas/WebSearchToolParameters'
         required:
         - type
       x-vectaraParents:
       - AgentToolConfiguration
+    WebGetHeaderValue:
+      description: 'The value for a single HTTP header in the web_get tool. Either
+        a literal string or an
+
+        EagerReference ({"$ref": "agent.secrets.foo"}) that resolves at session start
+        so the
+
+        secret value never appears in the tool configuration.
+
+        '
+      oneOf:
+      - type: string
+      - $ref: '#/components/schemas/EagerReference'
+    WebGetHeadersMap:
+      description: 'A map of HTTP header names to their values for the web_get tool.
+        Each value may be a
+
+        literal string or an EagerReference for per-header secret resolution.
+
+        '
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/WebGetHeaderValue'
+    WebGetNoAuth:
+      description: 'Explicitly disables authentication. Useful in argument_override
+        to force a tool config to
+
+        clear any auth the LLM would otherwise supply, since merge semantics ignore
+        null patches.'
+      type: object
+      properties:
+        type:
+          type: string
+          default: none
+          example: none
+      required:
+      - type
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetBearerAuth:
+      description: 'Static bearer token authentication. Adds `Authorization: Bearer
+        <token>`.'
+      type: object
+      properties:
+        type:
+          type: string
+          default: bearer
+          example: bearer
+        token:
+          description: The bearer token. May be an EagerReference to an agent secret.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+      required:
+      - type
+      - token
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetHeaderAuth:
+      description: Static custom-header authentication, suitable for API keys.
+      type: object
+      properties:
+        type:
+          type: string
+          default: header
+          example: header
+        header:
+          description: The header name to set (e.g. `X-API-Key`).
+          type: string
+        value:
+          description: The header value. May be an EagerReference to an agent secret.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+      required:
+      - type
+      - header
+      - value
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetOAuthClientCredentialsAuth:
+      description: 'OAuth 2.0 client-credentials grant. The platform fetches an access
+        token from the token
+
+        endpoint and caches it until it expires.'
+      type: object
+      properties:
+        type:
+          type: string
+          default: oauth_client_credentials
+          example: oauth_client_credentials
+        client_id:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        client_secret:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        token_endpoint:
+          type: string
+          format: uri
+          example: https://auth.example.com/oauth2/token
+        scopes:
+          type: array
+          items:
+            type: string
+          example:
+          - read:items
+      required:
+      - type
+      - client_id
+      - client_secret
+      - token_endpoint
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetOAuthRefreshTokenAuth:
+      description: 'OAuth 2.0 refresh-token grant. The platform exchanges a long-lived
+        refresh token for an
+
+        access token and caches the result until it expires. Supports refresh-token
+        rotation: if
+
+        the IdP returns a new refresh_token, subsequent refreshes use it automatically.'
+      type: object
+      properties:
+        type:
+          type: string
+          default: oauth_refresh_token
+          example: oauth_refresh_token
+        client_id:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        client_secret:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        refresh_token:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        token_endpoint:
+          type: string
+          format: uri
+          example: https://auth.example.com/oauth2/token
+      required:
+      - type
+      - client_id
+      - client_secret
+      - refresh_token
+      - token_endpoint
+      x-vectaraParents:
+      - WebGetAuth
+    WebGetAuth:
+      description: Authentication configuration for the outgoing HTTP request.
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          none: '#/components/schemas/WebGetNoAuth'
+          bearer: '#/components/schemas/WebGetBearerAuth'
+          header: '#/components/schemas/WebGetHeaderAuth'
+          oauth_client_credentials: '#/components/schemas/WebGetOAuthClientCredentialsAuth'
+          oauth_refresh_token: '#/components/schemas/WebGetOAuthRefreshTokenAuth'
+      oneOf:
+      - $ref: '#/components/schemas/WebGetNoAuth'
+      - $ref: '#/components/schemas/WebGetBearerAuth'
+      - $ref: '#/components/schemas/WebGetHeaderAuth'
+      - $ref: '#/components/schemas/WebGetOAuthClientCredentialsAuth'
+      - $ref: '#/components/schemas/WebGetOAuthRefreshTokenAuth'
+      required:
+      - type
     WebGetToolParameters:
       description: Configurable parameters for the web get tool. If not provided,
         will be filled in by the agent.
@@ -19299,11 +19967,22 @@ components:
           - DELETE
           - HEAD
         headers:
-          description: HTTP headers to include in the request.
+          description: 'HTTP headers to include in the request. Either a literal `{name:
+            value}` map (where
+
+            each value may itself be a string OR an EagerReference for per-header
+            secret lookup),
+
+            or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session
+            start to a
+
+            `Map<String, String>` (handy for sourcing the whole header set from agent
+            secrets).
+
+            '
+          x-vectara-default-subtype: WebGetHeadersMap
           oneOf:
-          - type: object
-            additionalProperties:
-              type: string
+          - $ref: '#/components/schemas/WebGetHeadersMap'
           - $ref: '#/components/schemas/EagerReference'
         body:
           description: Request body for POST/PUT requests.
@@ -19340,6 +20019,21 @@ components:
           oneOf:
           - type: integer
           - $ref: '#/components/schemas/EagerReference'
+        auth:
+          description: 'Optional authentication to apply to the request. The resulting
+            credential header is
+
+            merged with `headers`; on conflict on exact header name (case-sensitive,
+            as given), `headers` wins. OAuth
+
+            access tokens are cached in-process per credential set. Any credential
+            field can be an
+
+            EagerReference ({"$ref": "agent.secrets.foo"}) so secrets never appear
+            in the
+
+            configuration plaintext.'
+          $ref: '#/components/schemas/WebGetAuth'
       additionalProperties: false
     InlineWebGetToolConfiguration:
       title: InlineWebGetToolConfiguration
@@ -19356,7 +20050,7 @@ components:
             default: web_get
           argument_override:
             description: Optional hardcoded arguments for the web get tool call. When
-              specified, these values will be used instead of allowing the LLM to
+              specified, these values will be used instead of allowing the agent to
               fill in those parameters.
             $ref: '#/components/schemas/WebGetToolParameters'
         required:
@@ -19381,7 +20075,7 @@ components:
           argument_override:
             description: Optional hardcoded arguments that will be passed to the lambda
               function. When specified, these values will be used instead of allowing
-              the LLM to fill in those parameters.
+              the agent to fill in those parameters.
             type: object
             additionalProperties: true
             example:
@@ -19788,7 +20482,7 @@ components:
 
         Skills are defined at the agent level and can be filtered per step via allowed_skills.
 
-        The skill key and description are shown to the LLM in the system message;
+        The skill key and description are shown to the agent in its instructions;
 
         the full content is sent as a user message when the skill is invoked via the
         invoke_skill tool.
@@ -20114,7 +20808,7 @@ components:
         When attached to a step, user input is run through the glossary''s lookup
         index and matching
 
-        terms are expanded before the message reaches the LLM.
+        terms are expanded before the message reaches the agent.
 
         '
       type: object
@@ -20163,8 +20857,8 @@ components:
             text\": \"...\" }\n}\n```\n\n- `$.agent.metadata.<key>` \u2014 agent metadata\
             \ fields\n- `$.session.metadata.<key>` \u2014 session metadata fields\n\
             - `$.tools.<tool_config_name>.outputs.latest.<field>` \u2014 latest tool\
-            \ output fields\n- `$.output.text` \u2014 LLM text output (when output_parser\
-            \ is `default`)\n- `$.output.<field>` \u2014 LLM structured output fields\
+            \ output fields\n- `$.output.text` \u2014 agent text output (when output_parser\
+            \ is `default`)\n- `$.output.<field>` \u2014 agent structured output fields\
             \ (when output_parser is `structured`)\n"
           type: string
           example: get('$.output.intent') == 'sales'
@@ -21428,6 +22122,19 @@ components:
             example:
             - type: text
               content: I need help with my widget installation
+          message_diffs:
+            description: 'Per-produced-agent-message opaque platform-specific diff
+              against the raw event payload, capturing the exact text sent to the
+              model at emission time.
+
+              When present, the array length MUST equal `messages.length`; the platform
+              throws on mismatch. When absent the platform reconstructs the rendering
+              on read.
+
+              '
+            type: array
+            items:
+              type: string
         required:
         - type
         - messages
@@ -21564,6 +22271,16 @@ components:
               filename: report.pdf
               mime_type: application/pdf
               size_bytes: 2048576
+          agent_upload_message:
+            description: 'Frozen text of the single user-role agent message rendered
+              for this artifact upload at emission time, capturing the artifact metadata
+              and instruction
+
+              block as one prompt. When absent the platform reconstructs the rendering
+              on read using current templates.
+
+              '
+            type: string
         required:
         - type
         - artifacts
@@ -21600,6 +22317,22 @@ components:
             additionalProperties: true
             example:
               query: weather in San Francisco
+          argument_override_paths:
+            description: 'Top-level field paths in `tool_input` whose values were
+              filled by the tool configuration''s argument overrides at emission time,
+              not produced by the
+
+              agent. On replay these paths are stripped from the rendered tool call
+              so the model sees only what it originally generated, regardless of how
+              the tool
+
+              configuration''s overrides have changed since. Paths support dot-notation
+              (e.g. `config.auth.token`).
+
+              '
+            type: array
+            items:
+              type: string
         required:
         - type
         - tool_call_id
@@ -21704,8 +22437,8 @@ components:
         This event is published instead of AgentOutputEvent when the agent''s output_parser
         is configured
 
-        with type "structured". It contains the LLM''s final response parsed as validated
-        JSON that
+        with type "structured". It contains the agent''s final response parsed as
+        validated JSON that
 
         conforms to the schema specified in the StructuredOutputParser configuration.
 
@@ -21747,7 +22480,7 @@ components:
     ContextLimitExceededEvent:
       title: ContextLimitExceededEvent
       description: 'A transient event indicating the current request exceeded the
-        LLM''s context limit.
+        agent''s context limit.
 
         This event is not persisted to the session history.
 
@@ -21885,7 +22618,7 @@ components:
             description: The name of the step being transitioned to.
             type: string
           content:
-            description: The handoff message content for the LLM.
+            description: The handoff message content for the agent.
             type: string
         required:
         - type
@@ -22145,7 +22878,13 @@ components:
           default: streaming_agent_output_end
           example: streaming_agent_output_end
         event_id:
-          description: The ID of the persisted AgentOutputEvent.
+          description: 'The ID of the persisted AgentOutputEvent for this streamed
+            output.
+
+            Use this as the `since` cursor on a subsequent reconnect to resume after
+            this output.
+
+            '
           type: string
           example: aev_user_001
         created_at:
@@ -22785,6 +23524,63 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AgentRole'
+    AgentSecrets:
+      description: "Agent-scoped secrets for the agent. On read, values are masked\
+        \ (`****`) \u2014 plaintext is never returned.\nReference values from a tool's\
+        \ `argument_override` via `{\"$ref\": \"agent.secrets.<name>\"}`.\n"
+      type: object
+      properties:
+        secrets:
+          description: Map of secret name to masked value.
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            jira_api_token: '****'
+            slack_webhook: '****'
+      required:
+      - secrets
+    ReplaceAgentSecretsRequest:
+      description: "Replace the agent's secrets set. The submitted map fully replaces\
+        \ what was previously stored \u2014 names not in the request are removed.\n\
+        Stored encrypted at rest using the agent's encryption key.\n"
+      type: object
+      properties:
+        secrets:
+          description: Map of secret name to plaintext value.
+          type: object
+          additionalProperties:
+            type: string
+            maxLength: 4096
+          example:
+            jira_api_token: ATATT3xFf...
+      required:
+      - secrets
+    UpdateAgentSecretsRequest:
+      description: 'Patch the agent''s secrets. Names present in the map are added
+        or replaced; names absent from the map are left unchanged.
+
+        A name mapped to `null` is removed. Stored encrypted at rest using the agent''s
+        encryption key.
+
+        '
+      type: object
+      properties:
+        secrets:
+          description: 'Map of secret name to plaintext value (or `null` to remove).
+            Names not in the map are not touched.
+
+            '
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+            maxLength: 4096
+          example:
+            jira_api_token: ATATT3xFf...
+            old_token_to_remove: null
+      required:
+      - secrets
     SlackConnectorConfiguration:
       description: Configuration for Slack connectors.
       type: object
@@ -23047,14 +23843,292 @@ components:
         - region
         - access_key_id
         - secret_access_key
+    BaseWebSource:
+      description: 'Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl).
+        Politeness, limits, auth.
+
+        Mode-specific fields (urls, sitemap_urls, BFS knobs, page count cap) live
+        on the concrete subtypes.
+
+        '
+      type: object
+      properties:
+        respect_robots_txt:
+          description: 'If true (default and strongly recommended), `robots.txt` rules
+            and `Crawl-delay` directives are honored.
+
+            Set to false only if you have explicit authorization to crawl the target
+            site without robots.txt
+
+            restrictions (e.g., your own domain).
+
+            '
+          type: boolean
+          default: true
+        requests_per_second:
+          description: Maximum sustained requests per second per host.
+          type: number
+          format: double
+          minimum: 0.1
+          maximum: 20
+          default: 2
+        max_concurrent:
+          description: Maximum concurrent in-flight requests per host.
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 8
+          default: 4
+        max_pages:
+          description: "Hard cap on the number of pages fetched per run. The default\
+            \ is a safety rail to prevent\nunbounded crawls \u2014 both in BFS mode\
+            \ (high-branching-factor sites like wikis where `max_depth`\nalone is\
+            \ not a meaningful bound) and in sitemap mode (a `<sitemap-index>` can\
+            \ chain\n50,000 child sitemaps \xD7 50,000 URLs each per the sitemaps.org\
+            \ limits).\n"
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 1000000
+          default: 10000
+        js_rendering:
+          description: 'If true, pages are rendered with a headless browser (slower,
+            but required for JavaScript-heavy SPAs).
+
+            Defaults to false; turn on if pages return empty content without rendering.
+
+            '
+          type: boolean
+          default: false
+        user_agent:
+          description: User-Agent header sent with every request. Must not contain
+            CR or LF.
+          type: string
+          maxLength: 256
+          pattern: ^[^\r\n]*$
+          default: Vectara-Crawler/1.0 (+https://www.vectara.com/crawler)
+        max_page_bytes:
+          description: 'Maximum page body bytes to download. Larger pages are truncated.
+            The 64 KB floor
+
+            prevents accidentally capping every page below the size of a typical HTML
+            document;
+
+            the 100 MiB ceiling is far above any plausible single-page payload.
+
+            '
+          type: integer
+          format: int64
+          minimum: 65536
+          maximum: 104857600
+          default: 10485760
+        excluded_content_types:
+          description: 'MIME types to skip in addition to always-skipped media types
+            (image/*, video/*, audio/*).
+
+            Useful to skip e.g. application/zip if a site links to large archives.
+
+            '
+          type: array
+          maxItems: 50
+          items:
+            type: string
+            maxLength: 255
+        auth:
+          description: Authentication for the website. Omit for public sites.
+          $ref: '#/components/schemas/RemoteAuth'
+    WebUrl:
+      description: "An http(s) URL accepted by the Web crawler. Other schemes (file://,\
+        \ gopher://, etc.) are rejected.\nThe scheme match is case-insensitive (RFC\
+        \ 3986 \xA73.1).\n"
+      type: string
+      format: uri
+      maxLength: 2048
+      pattern: ^[hH][tT][tT][pP][sS]?://
+    SitemapPagesSource:
+      description: 'Read pages enumerated by one or more sitemaps (`sitemap.xml`,
+        `sitemap-index.xml`, or gzipped
+
+        variants). Per-URL change detection uses the sitemap''s `<lastmod>`. No link-following.
+
+        '
+      x-vectaraParents:
+      - WebPagesSource
+      type: object
+      properties:
+        type:
+          type: string
+          default: sitemap
+          example: sitemap
+        sitemap_urls:
+          description: Sitemap URLs to read. At least one is required.
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/WebUrl'
+          example:
+          - https://docs.example.com/sitemap.xml
+      required:
+      - type
+      - sitemap_urls
+    BaseCrawlPagesSource:
+      description: 'Shared BFS knobs for crawl-mode page-source variants (CrawlPagesSource,
+        SitemapCrawlPagesSource).
+
+        Depth and URL filters; seed lists differ per variant and live on the leaf
+        types.
+
+        '
+      type: object
+      properties:
+        max_depth:
+          description: Maximum link-following depth from each seed URL.
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 10
+          default: 3
+        same_domain_only:
+          description: If true, the crawler does not follow links outside the seed
+            URL's registered domain.
+          type: boolean
+          default: true
+        pos_regex:
+          description: Regex patterns; URLs must match at least one to be crawled.
+            Empty list = no positive filter.
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 1024
+        neg_regex:
+          description: Regex patterns; URLs matching any are skipped.
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 1024
+    CrawlPagesSource:
+      description: 'Discover pages by breadth-first link-following starting from one
+        or more seed URLs.
+
+        Per-URL change detection uses conditional GET (added in a follow-up PR).
+
+        '
+      x-vectaraParents:
+      - WebPagesSource
+      allOf:
+      - $ref: '#/components/schemas/BaseCrawlPagesSource'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: crawl
+            example: crawl
+          urls:
+            description: Seed URLs for link-following crawl. BFS expands from these.
+            type: array
+            minItems: 1
+            maxItems: 1000
+            items:
+              $ref: '#/components/schemas/WebUrl'
+            example:
+            - https://docs.example.com/
+        required:
+        - type
+        - urls
+    SitemapCrawlPagesSource:
+      description: 'Read pages from sitemaps AND crawl outward via link-following.
+        Sitemap entries themselves
+
+        serve as crawl seeds; `urls` is optional and provides additional explicit
+        seeds.
+
+        '
+      x-vectaraParents:
+      - WebPagesSource
+      allOf:
+      - $ref: '#/components/schemas/BaseCrawlPagesSource'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: sitemap_crawl
+            example: sitemap_crawl
+          urls:
+            description: Optional additional seed URLs. Sitemap entries are also used
+              as crawl seeds.
+            type: array
+            minItems: 0
+            maxItems: 1000
+            items:
+              $ref: '#/components/schemas/WebUrl'
+          sitemap_urls:
+            description: Sitemap URLs to read; their entries become the initial crawl
+              seeds.
+            type: array
+            minItems: 1
+            maxItems: 100
+            items:
+              $ref: '#/components/schemas/WebUrl'
+            example:
+            - https://docs.example.com/sitemap.xml
+        required:
+        - type
+        - sitemap_urls
+    WebPagesSource:
+      description: 'How a `web` source discovers URLs. Discriminated by `type`:
+
+        `sitemap` reads sitemap.xml only; `crawl` does BFS link-following from seed
+        URLs;
+
+        `sitemap_crawl` reads a sitemap and crawls outward from its entries.
+
+        '
+      discriminator:
+        propertyName: type
+        mapping:
+          sitemap: '#/components/schemas/SitemapPagesSource'
+          crawl: '#/components/schemas/CrawlPagesSource'
+          sitemap_crawl: '#/components/schemas/SitemapCrawlPagesSource'
+      oneOf:
+      - $ref: '#/components/schemas/SitemapPagesSource'
+      - $ref: '#/components/schemas/CrawlPagesSource'
+      - $ref: '#/components/schemas/SitemapCrawlPagesSource'
+    WebSourceConfiguration:
+      description: 'Configuration for ingesting pages from a website. Politeness,
+        limits, and auth are configured
+
+        here; the `pages_source` field selects how URLs are discovered (sitemap, crawl,
+        or both).
+
+        '
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWebSource'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: web
+            example: web
+          pages_source:
+            $ref: '#/components/schemas/WebPagesSource'
+        required:
+        - type
+        - pages_source
     PipelineSource:
       description: The source system to ingest data from.
       discriminator:
         propertyName: type
         mapping:
           s3: '#/components/schemas/S3SourceConfiguration'
+          web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/S3SourceConfiguration'
+      - $ref: '#/components/schemas/WebSourceConfiguration'
     CronTriggerConfiguration:
       description: Run the pipeline on a cron schedule.
       type: object
@@ -23391,6 +24465,31 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseS3SourceConfiguration'
+    UpdateWebSourceConfiguration:
+      description: 'Partial update for a `web` source configuration. Top-level fields
+        are merged into the existing
+
+        record; if `pages_source` is provided, the entire `pages_source` object is
+        replaced (i.e.,
+
+        switching modes or changing per-mode fields requires a complete `pages_source`
+        object).
+
+        '
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWebSource'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: web
+            example: web
+          pages_source:
+            $ref: '#/components/schemas/WebPagesSource'
+        required:
+        - type
     UpdatePipelineSource:
       description: Source configuration for partial updates. Only provided fields
         are changed; credentials are optional.
@@ -23398,8 +24497,10 @@ components:
         propertyName: type
         mapping:
           s3: '#/components/schemas/UpdateS3SourceConfiguration'
+          web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/UpdateS3SourceConfiguration'
+      - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
     UpdatePipelineRequest:
       description: Request to partially update an existing pipeline. Omitted fields
         are preserved.
@@ -23545,6 +24646,8 @@ components:
 
             - SharePoint: the drive item ID
 
+            - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
+
             '
           type: string
         status:
@@ -23612,6 +24715,8 @@ components:
 
             - SharePoint: the drive item ID
 
+            - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
+
             '
           type: string
         error_message:
@@ -23655,6 +24760,471 @@ components:
       required:
       - runs
       - metadata
+    PipelineRunEventType:
+      description: 'The type of a pipeline run event. Used as the discriminator on
+
+        `PipelineRunEvent`. New types may be added over time; clients should
+
+        treat unknown types as informational and ignore them.
+
+        '
+      type: string
+      enum:
+      - run_started
+      - run_completed
+      - record_processing
+      - watermark_advanced
+    SortOrder:
+      description: Sort direction for paginated list endpoints.
+      type: string
+      enum:
+      - asc
+      - desc
+    PipelineRunEventBase:
+      description: Common fields shared by all pipeline run events.
+      type: object
+      properties:
+        id:
+          description: Monotonic, unique-per-run identifier for this event.
+          type: string
+          example: evt_42
+        timestamp:
+          description: When the event occurred.
+          type: string
+          format: date-time
+      required:
+      - id
+      - timestamp
+    RunStartedEvent:
+      description: The pipeline run started executing.
+      allOf:
+      - $ref: '#/components/schemas/PipelineRunEventBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: run_started
+          agent_key:
+            $ref: '#/components/schemas/AgentKey'
+          trigger_type:
+            $ref: '#/components/schemas/PipelineRunTriggerType'
+          sync_mode:
+            $ref: '#/components/schemas/PipelineSyncMode'
+          start_watermark:
+            description: Source watermark this run starts from. Null on full refresh
+              or first run.
+            type: string
+            nullable: true
+          end_watermark:
+            description: Upper bound watermark this run will not cross.
+            type: string
+            nullable: true
+        required:
+        - type
+        - trigger_type
+    RunCompletedEventStatus:
+      description: Terminal status of a pipeline run.
+      type: string
+      enum:
+      - completed
+      - failed
+      - cancelled
+      - timed_out
+    RunCompletedEvent:
+      description: 'The pipeline run reached a terminal state. `status` distinguishes
+        a successful completion
+
+        from a failure, cancellation, or timeout.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/PipelineRunEventBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: run_completed
+          status:
+            $ref: '#/components/schemas/RunCompletedEventStatus'
+          records_fetched:
+            description: Total records fetched across the run. Present when the run
+              reported counters; absent for cancellation or timeout.
+            type: integer
+            format: int32
+            nullable: true
+          records_processed:
+            type: integer
+            format: int32
+            nullable: true
+          records_failed:
+            type: integer
+            format: int32
+            nullable: true
+          error:
+            description: Failure message. Present when `status` is not `completed`.
+            type: string
+            nullable: true
+        required:
+        - type
+        - status
+    RecordProcessingEventStatus:
+      description: Lifecycle status of a single source record within a run.
+      type: string
+      enum:
+      - started
+      - completed
+      - failed
+    RecordProcessingEvent:
+      description: 'A single source record progressed through a processing lifecycle
+        stage. `status` is `started`
+
+        when processing begins, `completed` when the record was successfully processed
+        (or skipped),
+
+        and `failed` when processing failed. In a normal run, a `failed` record is
+        also written to the
+
+        dead letter queue; in a retry run, the existing dead letter is marked still-failing.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/PipelineRunEventBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: record_processing
+          status:
+            $ref: '#/components/schemas/RecordProcessingEventStatus'
+          source_record_id:
+            description: The identifier of the source record.
+            type: string
+          session_key:
+            description: 'The agent session created to process this record. Always
+              present on `completed`;
+
+              may be present on `failed` if a session was created before the failure;
+              null on `started`.
+
+              '
+            type: string
+            nullable: true
+          skipped:
+            description: True if a `completed` record was skipped because a prior
+              successful session already exists at the same watermark. Only meaningful
+              when `status` is `completed`.
+            type: boolean
+            nullable: true
+          error:
+            description: Failure message. Present when `status` is `failed`.
+            type: string
+            nullable: true
+          dead_lettered:
+            description: Whether a `failed` record resulted in a dead-letter write
+              or update. Only meaningful when `status` is `failed`.
+            type: boolean
+            nullable: true
+        required:
+        - type
+        - status
+        - source_record_id
+    WatermarkAdvancedEvent:
+      description: The pipeline's persisted watermark moved forward at the end of
+        the run.
+      allOf:
+      - $ref: '#/components/schemas/PipelineRunEventBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: watermark_advanced
+          watermark:
+            type: string
+        required:
+        - type
+        - watermark
+    PipelineRunEvent:
+      description: 'A single event in a pipeline run''s timeline. The shape of the
+        event is
+
+        determined by `type`.
+
+        '
+      type: object
+      x-vectara-base-schema: '#/PipelineRunEventBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          run_started: '#/components/schemas/RunStartedEvent'
+          run_completed: '#/components/schemas/RunCompletedEvent'
+          record_processing: '#/components/schemas/RecordProcessingEvent'
+          watermark_advanced: '#/components/schemas/WatermarkAdvancedEvent'
+      oneOf:
+      - $ref: '#/components/schemas/RunStartedEvent'
+      - $ref: '#/components/schemas/RunCompletedEvent'
+      - $ref: '#/components/schemas/RecordProcessingEvent'
+      - $ref: '#/components/schemas/WatermarkAdvancedEvent'
+    ListPipelineRunEventsResponse:
+      description: Response containing a list of pipeline run events.
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineRunEvent'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+      required:
+      - events
+      - metadata
+    MetricKind:
+      description: 'The kind of metric. Determines combine semantics when filtering
+        across multiple label values and the shape of points in the response:
+
+
+        - `counter`: monotonic count or sum (trace count, error count, token totals).
+        Combined by summing. Returns `ScalarMetricPoint`s.
+
+        - `gauge`: point-in-time value (mean, max, distinct-count). Combined per the
+        underlying aggregate state (weighted mean for averages, max for maxima, distinct-count
+        for uniq metrics). Returns `ScalarMetricPoint`s.
+
+        - `percentiles`: distribution percentiles over a t-digest aggregate. Combined
+        by merging t-digest states. Returns `PercentilesMetricPoint`s.
+
+        - `distribution`: histogram of value-bucketed counts. Combined by summing
+        per-bin counts. Returns `DistributionMetricPoint`s.
+
+        '
+      type: string
+      enum:
+      - counter
+      - gauge
+      - percentiles
+      - distribution
+    MetricDescriptor:
+      description: Metadata about a registered metric available for querying.
+      type: object
+      properties:
+        name:
+          description: The unique name of the metric, used as the path parameter to
+            query it.
+          type: string
+          example: agent.trace.duration_ms
+        description:
+          description: Human-readable description of what the metric measures.
+          type: string
+        unit:
+          description: Unit of measure for the metric values, when applicable.
+          type: string
+          example: ms
+        kind:
+          $ref: '#/components/schemas/MetricKind'
+        labels:
+          description: Names of labels that can be used to filter this metric.
+          type: array
+          items:
+            type: string
+          example:
+          - agent_keys
+      required:
+      - name
+      - description
+      - kind
+      - labels
+    ListMetricsResponse:
+      description: List of registered metrics available for querying.
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricDescriptor'
+      required:
+      - metrics
+    MetricSeriesBase:
+      description: Common properties shared by all metric series kinds.
+      type: object
+      properties:
+        metric_name:
+          description: The name of the metric this series describes.
+          type: string
+        labels:
+          description: The labels matched for this series. Echoes the filter values
+            supplied in the request.
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        bucket_size_seconds:
+          description: Width of each bucket in the returned series, in seconds. The
+            server chooses this based on the requested time range and `max_buckets`.
+          type: integer
+          format: int32
+      required:
+      - metric_name
+      - labels
+      - bucket_size_seconds
+    ScalarMetricPoint:
+      description: "A point in a counter or gauge metric series \u2014 a single scalar\
+        \ value at a time bucket."
+      type: object
+      properties:
+        bucket_start:
+          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+          type: string
+          format: date-time
+        value:
+          description: The aggregated value for this bucket.
+          type: number
+          format: double
+      required:
+      - bucket_start
+      - value
+    CounterMetricSeries:
+      description: A series of counter values (monotonic count or sum).
+      allOf:
+      - $ref: '#/components/schemas/MetricSeriesBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            default: counter
+            example: counter
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/ScalarMetricPoint'
+        required:
+        - kind
+        - points
+    GaugeMetricSeries:
+      description: A series of gauge values (point-in-time aggregates such as mean,
+        max, distinct count).
+      allOf:
+      - $ref: '#/components/schemas/MetricSeriesBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            default: gauge
+            example: gauge
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/ScalarMetricPoint'
+        required:
+        - kind
+        - points
+    PercentilesMetricPoint:
+      description: A point in a percentiles metric series.
+      type: object
+      properties:
+        bucket_start:
+          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+          type: string
+          format: date-time
+        percentiles:
+          description: Map of percentile label to value. Keys follow the `p<N>` convention
+            (e.g. `p50`, `p99`, `p99_9` for the 99.9th percentile).
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+      required:
+      - bucket_start
+      - percentiles
+    PercentilesMetricSeries:
+      description: A series of percentile aggregates over a t-digest state.
+      allOf:
+      - $ref: '#/components/schemas/MetricSeriesBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            default: percentiles
+            example: percentiles
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/PercentilesMetricPoint'
+        required:
+        - kind
+        - points
+    HistogramBin:
+      description: "A single bin in a distribution histogram. `upper_ms` is null for\
+        \ the overflow bin (everything \u2265 the lower bound)."
+      type: object
+      properties:
+        lower_ms:
+          description: Inclusive lower bound of the bin in milliseconds.
+          type: number
+          format: double
+        upper_ms:
+          description: Exclusive upper bound of the bin in milliseconds. Null for
+            the overflow bin.
+          type: number
+          format: double
+          nullable: true
+        count:
+          description: Number of observations whose duration fell in `[lower_ms, upper_ms)`.
+          type: integer
+          format: int64
+      required:
+      - lower_ms
+      - count
+    DistributionMetricPoint:
+      description: "A point in a distribution metric series \u2014 a histogram of\
+        \ value-bucketed counts at a time bucket. Only bins with non-zero counts appear."
+      type: object
+      properties:
+        bucket_start:
+          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+          type: string
+          format: date-time
+        bins:
+          description: Histogram bins, sorted by `lower_ms` ascending.
+          type: array
+          items:
+            $ref: '#/components/schemas/HistogramBin'
+      required:
+      - bucket_start
+      - bins
+    DistributionMetricSeries:
+      description: A series of histogram aggregates over a value-axis distribution
+        table.
+      allOf:
+      - $ref: '#/components/schemas/MetricSeriesBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            default: distribution
+            example: distribution
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/DistributionMetricPoint'
+        required:
+        - kind
+        - points
+    MetricSeries:
+      description: A time series of metric points. The shape of points varies by metric
+        kind.
+      x-vectara-base-schema: '#/MetricSeriesBase'
+      discriminator:
+        propertyName: kind
+        mapping:
+          counter: '#/components/schemas/CounterMetricSeries'
+          gauge: '#/components/schemas/GaugeMetricSeries'
+          percentiles: '#/components/schemas/PercentilesMetricSeries'
+          distribution: '#/components/schemas/DistributionMetricSeries'
+      oneOf:
+      - $ref: '#/components/schemas/CounterMetricSeries'
+      - $ref: '#/components/schemas/GaugeMetricSeries'
+      - $ref: '#/components/schemas/PercentilesMetricSeries'
+      - $ref: '#/components/schemas/DistributionMetricSeries'
     AgentTrace:
       description: A summary of an agent trace representing one complete agent invocation.
       type: object
@@ -23745,11 +25315,15 @@ components:
           description: The name of the agent step active when this span was created.
           type: string
           nullable: true
+        has_children:
+          description: Whether this span has child spans.
+          type: boolean
       required:
       - span_id
       - trace_id
       - started_at
       - status
+      - has_children
     AgentTraceInputFile:
       description: Metadata for a file uploaded alongside an agent input message.
       type: object
@@ -23817,6 +25391,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AgentTraceInputFile'
+        parent_agent_id:
+          description: For sub-agent invocations, the agent_id of the agent that invoked
+            this one. Null for entry-point agents.
+          type: string
+          nullable: true
+        parent_session_id:
+          description: For sub-agent invocations, the session_key of the parent agent
+            session. Null for entry-point agents.
+          type: string
+          nullable: true
+        depth:
+          description: Nesting depth of this agent invocation. 0 for entry-point agents,
+            1 for first-level sub-agents, and so on.
+          type: integer
+          format: int32
     InvokeAgentSpanContent:
       description: Decrypted content of an invoke_agent span.
       type: object
@@ -24396,6 +25985,7 @@ x-tagGroups:
   - Tools
   - Tool Servers
   - Agent Connectors
+  - Agent Secrets
 - name: Pipelines
   x-beta: true
   tags:
@@ -24423,6 +26013,7 @@ x-tagGroups:
   - Agent Analytics
   - Query History
   - Jobs
+  - CustomerMetrics
 - name: Platform
   tags:
   - Large Language Models

@@ -14,7 +14,8 @@ namespace Vectara
         /// </summary>
         /// <example>trn_987654321</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The ID of the chat the turn resides in.<br/>
@@ -90,14 +91,14 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Turn(
-            string? id,
+            string id,
             string? chatId,
             string? query,
             string? answer,
             bool? enabled,
             global::System.DateTime? createdAt)
         {
-            this.Id = id;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.ChatId = chatId;
             this.Query = query;
             this.Answer = answer;
@@ -111,5 +112,6 @@ namespace Vectara
         public Turn()
         {
         }
+
     }
 }

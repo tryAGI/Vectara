@@ -78,7 +78,7 @@ namespace Vectara
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.Pipeline> CreateAsync(
             string name,
-            global::Vectara.S3SourceConfiguration source,
+            global::Vectara.PipelineSource source,
             global::Vectara.PipelineTrigger trigger,
             global::Vectara.PipelineTransform transform,
             int? requestTimeout = default,

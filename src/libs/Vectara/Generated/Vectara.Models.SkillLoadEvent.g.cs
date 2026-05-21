@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentEventBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SkillLoadEventVariant2? SkillLoadEventVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SkillLoadEventVariant2))]
 #endif
         public bool IsSkillLoadEventVariant2 => SkillLoadEventVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSkillLoadEventVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SkillLoadEventVariant2? value)
+        {
+            value = SkillLoadEventVariant2;
+            return IsSkillLoadEventVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SkillLoadEventVariant2 PickSkillLoadEventVariant2() => IsSkillLoadEventVariant2
+            ? SkillLoadEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SkillLoadEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SkillLoadEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new SkillLoadEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SkillLoadEvent(global::Vectara.SkillLoadEventVariant2 value) => new SkillLoadEvent((global::Vectara.SkillLoadEventVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             SkillLoadEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SkillLoadEvent FromSkillLoadEventVariant2(global::Vectara.SkillLoadEventVariant2? value) => new SkillLoadEvent(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentEventBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.SkillLoadEventVariant2?, TResult>? skillLoadEventVariant2 = null,
+            global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.SkillLoadEventVariant2, TResult>? skillLoadEventVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentEventBase?>? agentBase = null,
-            global::System.Action<global::Vectara.SkillLoadEventVariant2?>? skillLoadEventVariant2 = null,
+            global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.SkillLoadEventVariant2>? skillLoadEventVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsSkillLoadEventVariant2)
+            {
+                skillLoadEventVariant2?.Invoke(SkillLoadEventVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
+            global::System.Action<global::Vectara.SkillLoadEventVariant2>? skillLoadEventVariant2 = null,
             bool validate = true)
         {
             if (validate)

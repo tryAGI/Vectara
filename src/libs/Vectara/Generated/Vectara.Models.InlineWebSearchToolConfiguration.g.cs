@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentToolConfigurationBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineWebSearchToolConfigurationVariant2? InlineWebSearchToolConfigurationVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineWebSearchToolConfigurationVariant2))]
 #endif
         public bool IsInlineWebSearchToolConfigurationVariant2 => InlineWebSearchToolConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInlineWebSearchToolConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineWebSearchToolConfigurationVariant2? value)
+        {
+            value = InlineWebSearchToolConfigurationVariant2;
+            return IsInlineWebSearchToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineWebSearchToolConfigurationVariant2 PickInlineWebSearchToolConfigurationVariant2() => IsInlineWebSearchToolConfigurationVariant2
+            ? InlineWebSearchToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineWebSearchToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineWebSearchToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineWebSearchToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineWebSearchToolConfiguration(global::Vectara.InlineWebSearchToolConfigurationVariant2 value) => new InlineWebSearchToolConfiguration((global::Vectara.InlineWebSearchToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             InlineWebSearchToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineWebSearchToolConfiguration FromInlineWebSearchToolConfigurationVariant2(global::Vectara.InlineWebSearchToolConfigurationVariant2? value) => new InlineWebSearchToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.InlineWebSearchToolConfigurationVariant2?, TResult>? inlineWebSearchToolConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.AgentToolConfigurationBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineWebSearchToolConfigurationVariant2, TResult>? inlineWebSearchToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
-            global::System.Action<global::Vectara.InlineWebSearchToolConfigurationVariant2?>? inlineWebSearchToolConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.InlineWebSearchToolConfigurationVariant2>? inlineWebSearchToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineWebSearchToolConfigurationVariant2)
+            {
+                inlineWebSearchToolConfigurationVariant2?.Invoke(InlineWebSearchToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+            global::System.Action<global::Vectara.InlineWebSearchToolConfigurationVariant2>? inlineWebSearchToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)

@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CorporaSearchToolVariant2? CorporaSearchToolVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CorporaSearchToolVariant2))]
 #endif
         public bool IsCorporaSearchToolVariant2 => CorporaSearchToolVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCorporaSearchToolVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CorporaSearchToolVariant2? value)
+        {
+            value = CorporaSearchToolVariant2;
+            return IsCorporaSearchToolVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CorporaSearchToolVariant2 PickCorporaSearchToolVariant2() => IsCorporaSearchToolVariant2
+            ? CorporaSearchToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CorporaSearchToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CorporaSearchTool FromBase(global::Vectara.ToolBase? value) => new CorporaSearchTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CorporaSearchTool(global::Vectara.CorporaSearchToolVariant2 value) => new CorporaSearchTool((global::Vectara.CorporaSearchToolVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             CorporaSearchToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CorporaSearchTool FromCorporaSearchToolVariant2(global::Vectara.CorporaSearchToolVariant2? value) => new CorporaSearchTool(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.CorporaSearchToolVariant2?, TResult>? corporaSearchToolVariant2 = null,
+            global::System.Func<global::Vectara.ToolBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.CorporaSearchToolVariant2, TResult>? corporaSearchToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? @base = null,
-            global::System.Action<global::Vectara.CorporaSearchToolVariant2?>? corporaSearchToolVariant2 = null,
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+
+            global::System.Action<global::Vectara.CorporaSearchToolVariant2>? corporaSearchToolVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsCorporaSearchToolVariant2)
+            {
+                corporaSearchToolVariant2?.Invoke(CorporaSearchToolVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+            global::System.Action<global::Vectara.CorporaSearchToolVariant2>? corporaSearchToolVariant2 = null,
             bool validate = true)
         {
             if (validate)

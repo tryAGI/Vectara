@@ -87,5 +87,6 @@ namespace Vectara
         public ArtifactReadToolParameters()
         {
         }
+
     }
 }

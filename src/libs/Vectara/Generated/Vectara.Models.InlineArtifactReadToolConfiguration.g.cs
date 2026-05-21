@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentToolConfigurationBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineArtifactReadToolConfigurationVariant2? InlineArtifactReadToolConfigurationVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineArtifactReadToolConfigurationVariant2))]
 #endif
         public bool IsInlineArtifactReadToolConfigurationVariant2 => InlineArtifactReadToolConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInlineArtifactReadToolConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineArtifactReadToolConfigurationVariant2? value)
+        {
+            value = InlineArtifactReadToolConfigurationVariant2;
+            return IsInlineArtifactReadToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactReadToolConfigurationVariant2 PickInlineArtifactReadToolConfigurationVariant2() => IsInlineArtifactReadToolConfigurationVariant2
+            ? InlineArtifactReadToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineArtifactReadToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineArtifactReadToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineArtifactReadToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineArtifactReadToolConfiguration(global::Vectara.InlineArtifactReadToolConfigurationVariant2 value) => new InlineArtifactReadToolConfiguration((global::Vectara.InlineArtifactReadToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             InlineArtifactReadToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineArtifactReadToolConfiguration FromInlineArtifactReadToolConfigurationVariant2(global::Vectara.InlineArtifactReadToolConfigurationVariant2? value) => new InlineArtifactReadToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.InlineArtifactReadToolConfigurationVariant2?, TResult>? inlineArtifactReadToolConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.AgentToolConfigurationBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineArtifactReadToolConfigurationVariant2, TResult>? inlineArtifactReadToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
-            global::System.Action<global::Vectara.InlineArtifactReadToolConfigurationVariant2?>? inlineArtifactReadToolConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.InlineArtifactReadToolConfigurationVariant2>? inlineArtifactReadToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineArtifactReadToolConfigurationVariant2)
+            {
+                inlineArtifactReadToolConfigurationVariant2?.Invoke(InlineArtifactReadToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+            global::System.Action<global::Vectara.InlineArtifactReadToolConfigurationVariant2>? inlineArtifactReadToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)

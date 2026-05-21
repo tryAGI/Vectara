@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebSearchToolVariant2? WebSearchToolVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WebSearchToolVariant2))]
 #endif
         public bool IsWebSearchToolVariant2 => WebSearchToolVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickWebSearchToolVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WebSearchToolVariant2? value)
+        {
+            value = WebSearchToolVariant2;
+            return IsWebSearchToolVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.WebSearchToolVariant2 PickWebSearchToolVariant2() => IsWebSearchToolVariant2
+            ? WebSearchToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WebSearchToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static WebSearchTool FromBase(global::Vectara.ToolBase? value) => new WebSearchTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator WebSearchTool(global::Vectara.WebSearchToolVariant2 value) => new WebSearchTool((global::Vectara.WebSearchToolVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             WebSearchToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static WebSearchTool FromWebSearchToolVariant2(global::Vectara.WebSearchToolVariant2? value) => new WebSearchTool(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.WebSearchToolVariant2?, TResult>? webSearchToolVariant2 = null,
+            global::System.Func<global::Vectara.ToolBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.WebSearchToolVariant2, TResult>? webSearchToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? @base = null,
-            global::System.Action<global::Vectara.WebSearchToolVariant2?>? webSearchToolVariant2 = null,
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+
+            global::System.Action<global::Vectara.WebSearchToolVariant2>? webSearchToolVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsWebSearchToolVariant2)
+            {
+                webSearchToolVariant2?.Invoke(WebSearchToolVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+            global::System.Action<global::Vectara.WebSearchToolVariant2>? webSearchToolVariant2 = null,
             bool validate = true)
         {
             if (validate)

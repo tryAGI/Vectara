@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ImageReadToolVariant2? ImageReadToolVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ImageReadToolVariant2))]
 #endif
         public bool IsImageReadToolVariant2 => ImageReadToolVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickImageReadToolVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ImageReadToolVariant2? value)
+        {
+            value = ImageReadToolVariant2;
+            return IsImageReadToolVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ImageReadToolVariant2 PickImageReadToolVariant2() => IsImageReadToolVariant2
+            ? ImageReadToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ImageReadToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ImageReadTool FromBase(global::Vectara.ToolBase? value) => new ImageReadTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ImageReadTool(global::Vectara.ImageReadToolVariant2 value) => new ImageReadTool((global::Vectara.ImageReadToolVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             ImageReadToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ImageReadTool FromImageReadToolVariant2(global::Vectara.ImageReadToolVariant2? value) => new ImageReadTool(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.ImageReadToolVariant2?, TResult>? imageReadToolVariant2 = null,
+            global::System.Func<global::Vectara.ToolBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.ImageReadToolVariant2, TResult>? imageReadToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? @base = null,
-            global::System.Action<global::Vectara.ImageReadToolVariant2?>? imageReadToolVariant2 = null,
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+
+            global::System.Action<global::Vectara.ImageReadToolVariant2>? imageReadToolVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsImageReadToolVariant2)
+            {
+                imageReadToolVariant2?.Invoke(ImageReadToolVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+            global::System.Action<global::Vectara.ImageReadToolVariant2>? imageReadToolVariant2 = null,
             bool validate = true)
         {
             if (validate)

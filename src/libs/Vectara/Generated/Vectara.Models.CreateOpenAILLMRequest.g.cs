@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.OpenAILLMRequestBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.OpenAILLMRequestBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateOpenAILLMRequestVariant2? CreateOpenAILLMRequestVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateOpenAILLMRequestVariant2))]
 #endif
         public bool IsCreateOpenAILLMRequestVariant2 => CreateOpenAILLMRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCreateOpenAILLMRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateOpenAILLMRequestVariant2? value)
+        {
+            value = CreateOpenAILLMRequestVariant2;
+            return IsCreateOpenAILLMRequestVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateOpenAILLMRequestVariant2 PickCreateOpenAILLMRequestVariant2() => IsCreateOpenAILLMRequestVariant2
+            ? CreateOpenAILLMRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateOpenAILLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateOpenAILLMRequest FromBase(global::Vectara.OpenAILLMRequestBase? value) => new CreateOpenAILLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateOpenAILLMRequest(global::Vectara.CreateOpenAILLMRequestVariant2 value) => new CreateOpenAILLMRequest((global::Vectara.CreateOpenAILLMRequestVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             CreateOpenAILLMRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateOpenAILLMRequest FromCreateOpenAILLMRequestVariant2(global::Vectara.CreateOpenAILLMRequestVariant2? value) => new CreateOpenAILLMRequest(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.OpenAILLMRequestBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.CreateOpenAILLMRequestVariant2?, TResult>? createOpenAILLMRequestVariant2 = null,
+            global::System.Func<global::Vectara.OpenAILLMRequestBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.CreateOpenAILLMRequestVariant2, TResult>? createOpenAILLMRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.OpenAILLMRequestBase?>? @base = null,
-            global::System.Action<global::Vectara.CreateOpenAILLMRequestVariant2?>? createOpenAILLMRequestVariant2 = null,
+            global::System.Action<global::Vectara.OpenAILLMRequestBase>? @base = null,
+
+            global::System.Action<global::Vectara.CreateOpenAILLMRequestVariant2>? createOpenAILLMRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsCreateOpenAILLMRequestVariant2)
+            {
+                createOpenAILLMRequestVariant2?.Invoke(CreateOpenAILLMRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.OpenAILLMRequestBase>? @base = null,
+            global::System.Action<global::Vectara.CreateOpenAILLMRequestVariant2>? createOpenAILLMRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

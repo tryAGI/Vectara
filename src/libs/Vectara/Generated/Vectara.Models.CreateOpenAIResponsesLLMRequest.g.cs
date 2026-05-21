@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.OpenAILLMRequestBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.OpenAILLMRequestBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateOpenAIResponsesLLMRequestVariant2? CreateOpenAIResponsesLLMRequestVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateOpenAIResponsesLLMRequestVariant2))]
 #endif
         public bool IsCreateOpenAIResponsesLLMRequestVariant2 => CreateOpenAIResponsesLLMRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCreateOpenAIResponsesLLMRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateOpenAIResponsesLLMRequestVariant2? value)
+        {
+            value = CreateOpenAIResponsesLLMRequestVariant2;
+            return IsCreateOpenAIResponsesLLMRequestVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateOpenAIResponsesLLMRequestVariant2 PickCreateOpenAIResponsesLLMRequestVariant2() => IsCreateOpenAIResponsesLLMRequestVariant2
+            ? CreateOpenAIResponsesLLMRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateOpenAIResponsesLLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateOpenAIResponsesLLMRequest FromBase(global::Vectara.OpenAILLMRequestBase? value) => new CreateOpenAIResponsesLLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateOpenAIResponsesLLMRequest(global::Vectara.CreateOpenAIResponsesLLMRequestVariant2 value) => new CreateOpenAIResponsesLLMRequest((global::Vectara.CreateOpenAIResponsesLLMRequestVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             CreateOpenAIResponsesLLMRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateOpenAIResponsesLLMRequest FromCreateOpenAIResponsesLLMRequestVariant2(global::Vectara.CreateOpenAIResponsesLLMRequestVariant2? value) => new CreateOpenAIResponsesLLMRequest(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.OpenAILLMRequestBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.CreateOpenAIResponsesLLMRequestVariant2?, TResult>? createOpenAIResponsesLLMRequestVariant2 = null,
+            global::System.Func<global::Vectara.OpenAILLMRequestBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.CreateOpenAIResponsesLLMRequestVariant2, TResult>? createOpenAIResponsesLLMRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.OpenAILLMRequestBase?>? @base = null,
-            global::System.Action<global::Vectara.CreateOpenAIResponsesLLMRequestVariant2?>? createOpenAIResponsesLLMRequestVariant2 = null,
+            global::System.Action<global::Vectara.OpenAILLMRequestBase>? @base = null,
+
+            global::System.Action<global::Vectara.CreateOpenAIResponsesLLMRequestVariant2>? createOpenAIResponsesLLMRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsCreateOpenAIResponsesLLMRequestVariant2)
+            {
+                createOpenAIResponsesLLMRequestVariant2?.Invoke(CreateOpenAIResponsesLLMRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.OpenAILLMRequestBase>? @base = null,
+            global::System.Action<global::Vectara.CreateOpenAIResponsesLLMRequestVariant2>? createOpenAIResponsesLLMRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

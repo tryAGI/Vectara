@@ -16,7 +16,8 @@ namespace Vectara
         /// </summary>
         /// <example>llm_1021844</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// Name of the LLM.<br/>
@@ -24,7 +25,8 @@ namespace Vectara
         /// </summary>
         /// <example>Claude 3.7 Sonnet</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
         /// The description of the LLM.<br/>
@@ -106,16 +108,16 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Llm(
-            string? id,
-            string? name,
+            string id,
+            string name,
             string? description,
             bool? enabled,
             bool? @default,
             global::Vectara.LLMCapabilities? capabilities,
             global::Vectara.LLMOwnership? ownership)
         {
-            this.Id = id;
-            this.Name = name;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
             this.Enabled = enabled;
             this.Default = @default;
@@ -129,5 +131,6 @@ namespace Vectara
         public Llm()
         {
         }
+
     }
 }

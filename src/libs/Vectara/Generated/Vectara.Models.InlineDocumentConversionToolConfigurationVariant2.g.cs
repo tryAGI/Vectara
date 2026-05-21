@@ -56,5 +56,6 @@ namespace Vectara
         public InlineDocumentConversionToolConfigurationVariant2()
         {
         }
+
     }
 }

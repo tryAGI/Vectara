@@ -22,7 +22,8 @@ namespace Vectara
         /// </summary>
         /// <example>Mockingbird 2.0</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
         /// Description of the generation preset.<br/>
@@ -122,13 +123,13 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="GenerationPreset" /> class.
         /// </summary>
-        /// <param name="id">
-        /// The ID of the generation preset.<br/>
-        /// Example: gnp_123
-        /// </param>
         /// <param name="name">
         /// Name of the generation preset to be used with configuring generation.<br/>
         /// Example: Mockingbird 2.0
+        /// </param>
+        /// <param name="id">
+        /// The ID of the generation preset.<br/>
+        /// Example: gnp_123
         /// </param>
         /// <param name="description">
         /// Description of the generation preset.<br/>
@@ -178,8 +179,8 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public GenerationPreset(
+            string name,
             string? id,
-            string? name,
             string? description,
             string? llmName,
             string? promptTemplate,
@@ -194,7 +195,7 @@ namespace Vectara
             global::Vectara.GenerationPresetOwnership? ownership)
         {
             this.Id = id;
-            this.Name = name;
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
             this.LlmName = llmName;
             this.PromptTemplate = promptTemplate;
@@ -215,5 +216,6 @@ namespace Vectara
         public GenerationPreset()
         {
         }
+
     }
 }

@@ -37,6 +37,7 @@ namespace Vectara.JsonConverters
             var __score0 = 0;
             if (__jsonProps.Contains("duration_ms")) __score0++;
             if (__jsonProps.Contains("error_message")) __score0++;
+            if (__jsonProps.Contains("has_children")) __score0++;
             if (__jsonProps.Contains("parent_span_id")) __score0++;
             if (__jsonProps.Contains("span_id")) __score0++;
             if (__jsonProps.Contains("started_at")) __score0++;
@@ -94,6 +95,7 @@ namespace Vectara.JsonConverters
             {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.AgentTraceSpanBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.AgentTraceSpanBase> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.AgentTraceSpanBase).Name}");
                     agentBase = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
@@ -104,9 +106,13 @@ namespace Vectara.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (agentBase == null && guardrailTraceSpanVariant2 == null)
+            {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GuardrailTraceSpanVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GuardrailTraceSpanVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GuardrailTraceSpanVariant2).Name}");
                     guardrailTraceSpanVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);

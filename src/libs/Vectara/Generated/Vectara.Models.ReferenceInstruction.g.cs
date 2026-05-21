@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickInstructionReference(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InstructionReference? value)
+        {
+            value = InstructionReference;
+            return IsInstructionReference;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InstructionReference PickInstructionReference() => IsInstructionReference
+            ? InstructionReference!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InstructionReference' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ReferenceInstructionVariant2? ReferenceInstructionVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ReferenceInstructionVariant2))]
 #endif
         public bool IsReferenceInstructionVariant2 => ReferenceInstructionVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickReferenceInstructionVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ReferenceInstructionVariant2? value)
+        {
+            value = ReferenceInstructionVariant2;
+            return IsReferenceInstructionVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ReferenceInstructionVariant2 PickReferenceInstructionVariant2() => IsReferenceInstructionVariant2
+            ? ReferenceInstructionVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ReferenceInstructionVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ReferenceInstruction FromInstructionReference(global::Vectara.InstructionReference? value) => new ReferenceInstruction(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ReferenceInstruction(global::Vectara.ReferenceInstructionVariant2 value) => new ReferenceInstruction((global::Vectara.ReferenceInstructionVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             ReferenceInstructionVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ReferenceInstruction FromReferenceInstructionVariant2(global::Vectara.ReferenceInstructionVariant2? value) => new ReferenceInstruction(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.InstructionReference?, TResult>? instructionReference = null,
-            global::System.Func<global::Vectara.ReferenceInstructionVariant2?, TResult>? referenceInstructionVariant2 = null,
+            global::System.Func<global::Vectara.InstructionReference, TResult>? instructionReference = null,
+            global::System.Func<global::Vectara.ReferenceInstructionVariant2, TResult>? referenceInstructionVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.InstructionReference?>? instructionReference = null,
-            global::System.Action<global::Vectara.ReferenceInstructionVariant2?>? referenceInstructionVariant2 = null,
+            global::System.Action<global::Vectara.InstructionReference>? instructionReference = null,
+
+            global::System.Action<global::Vectara.ReferenceInstructionVariant2>? referenceInstructionVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsInstructionReference)
+            {
+                instructionReference?.Invoke(InstructionReference!);
+            }
+            else if (IsReferenceInstructionVariant2)
+            {
+                referenceInstructionVariant2?.Invoke(ReferenceInstructionVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.InstructionReference>? instructionReference = null,
+            global::System.Action<global::Vectara.ReferenceInstructionVariant2>? referenceInstructionVariant2 = null,
             bool validate = true)
         {
             if (validate)

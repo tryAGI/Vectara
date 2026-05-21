@@ -157,5 +157,6 @@ namespace Vectara
         public TemplatedReminder()
         {
         }
+
     }
 }

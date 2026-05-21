@@ -34,6 +34,26 @@ namespace Vectara
         public bool IsCore => Core != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCore(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CoreDocument? value)
+        {
+            value = Core;
+            return IsCore;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CoreDocument PickCore() => IsCore
+            ? Core!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Core' but the value was {ToString()}.");
+
+        /// <summary>
         /// A document with layout features.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -49,6 +69,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Structured))]
 #endif
         public bool IsStructured => Structured != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStructured(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StructuredDocument? value)
+        {
+            value = Structured;
+            return IsStructured;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StructuredDocument PickStructured() => IsStructured
+            ? Structured!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Structured' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -70,6 +110,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateDocumentRequest FromCore(global::Vectara.CoreDocument? value) => new CreateDocumentRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateDocumentRequest(global::Vectara.StructuredDocument value) => new CreateDocumentRequest((global::Vectara.StructuredDocument?)value);
 
         /// <summary>
@@ -84,6 +129,11 @@ namespace Vectara
         {
             Structured = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateDocumentRequest FromStructured(global::Vectara.StructuredDocument? value) => new CreateDocumentRequest(value);
 
         /// <summary>
         /// 
@@ -128,8 +178,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CoreDocument?, TResult>? core = null,
-            global::System.Func<global::Vectara.StructuredDocument?, TResult>? structured = null,
+            global::System.Func<global::Vectara.CoreDocument, TResult>? core = null,
+            global::System.Func<global::Vectara.StructuredDocument, TResult>? structured = null,
             bool validate = true)
         {
             if (validate)
@@ -153,8 +203,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CoreDocument?>? core = null,
-            global::System.Action<global::Vectara.StructuredDocument?>? structured = null,
+            global::System.Action<global::Vectara.CoreDocument>? core = null,
+
+            global::System.Action<global::Vectara.StructuredDocument>? structured = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsCore)
+            {
+                core?.Invoke(Core!);
+            }
+            else if (IsStructured)
+            {
+                structured?.Invoke(Structured!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CoreDocument>? core = null,
+            global::System.Action<global::Vectara.StructuredDocument>? structured = null,
             bool validate = true)
         {
             if (validate)

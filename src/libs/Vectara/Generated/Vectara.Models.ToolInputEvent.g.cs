@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentEventBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ToolInputEventVariant2? ToolInputEventVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolInputEventVariant2))]
 #endif
         public bool IsToolInputEventVariant2 => ToolInputEventVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickToolInputEventVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolInputEventVariant2? value)
+        {
+            value = ToolInputEventVariant2;
+            return IsToolInputEventVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolInputEventVariant2 PickToolInputEventVariant2() => IsToolInputEventVariant2
+            ? ToolInputEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ToolInputEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ToolInputEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ToolInputEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ToolInputEvent(global::Vectara.ToolInputEventVariant2 value) => new ToolInputEvent((global::Vectara.ToolInputEventVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             ToolInputEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ToolInputEvent FromToolInputEventVariant2(global::Vectara.ToolInputEventVariant2? value) => new ToolInputEvent(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentEventBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.ToolInputEventVariant2?, TResult>? toolInputEventVariant2 = null,
+            global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.ToolInputEventVariant2, TResult>? toolInputEventVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentEventBase?>? agentBase = null,
-            global::System.Action<global::Vectara.ToolInputEventVariant2?>? toolInputEventVariant2 = null,
+            global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.ToolInputEventVariant2>? toolInputEventVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsToolInputEventVariant2)
+            {
+                toolInputEventVariant2?.Invoke(ToolInputEventVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
+            global::System.Action<global::Vectara.ToolInputEventVariant2>? toolInputEventVariant2 = null,
             bool validate = true)
         {
             if (validate)

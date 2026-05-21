@@ -71,5 +71,6 @@ namespace Vectara
         public ImageReadTraceSpanVariant2()
         {
         }
+
     }
 }

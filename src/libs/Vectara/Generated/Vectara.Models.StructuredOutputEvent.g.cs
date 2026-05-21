@@ -7,7 +7,7 @@ namespace Vectara
     /// <summary>
     /// An event representing a complete agent response with structured JSON content conforming to a schema.<br/>
     /// This event is published instead of AgentOutputEvent when the agent's output_parser is configured<br/>
-    /// with type "structured". It contains the LLM's final response parsed as validated JSON that<br/>
+    /// with type "structured". It contains the agent's final response parsed as validated JSON that<br/>
     /// conforms to the schema specified in the StructuredOutputParser configuration.<br/>
     /// When streaming is enabled, this event appears as a single complete event (not streamed in chunks)<br/>
     /// after any tool interactions are complete. The content field contains the parsed JSON,<br/>
@@ -35,6 +35,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentEventBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StructuredOutputEventVariant2? StructuredOutputEventVariant2 { get; init; }
 #else
@@ -48,6 +68,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StructuredOutputEventVariant2))]
 #endif
         public bool IsStructuredOutputEventVariant2 => StructuredOutputEventVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStructuredOutputEventVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StructuredOutputEventVariant2? value)
+        {
+            value = StructuredOutputEventVariant2;
+            return IsStructuredOutputEventVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StructuredOutputEventVariant2 PickStructuredOutputEventVariant2() => IsStructuredOutputEventVariant2
+            ? StructuredOutputEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutputEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -69,6 +109,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static StructuredOutputEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new StructuredOutputEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator StructuredOutputEvent(global::Vectara.StructuredOutputEventVariant2 value) => new StructuredOutputEvent((global::Vectara.StructuredOutputEventVariant2?)value);
 
         /// <summary>
@@ -83,6 +128,11 @@ namespace Vectara
         {
             StructuredOutputEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static StructuredOutputEvent FromStructuredOutputEventVariant2(global::Vectara.StructuredOutputEventVariant2? value) => new StructuredOutputEvent(value);
 
         /// <summary>
         /// 
@@ -124,8 +174,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentEventBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.StructuredOutputEventVariant2?, TResult>? structuredOutputEventVariant2 = null,
+            global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.StructuredOutputEventVariant2, TResult>? structuredOutputEventVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -149,8 +199,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentEventBase?>? agentBase = null,
-            global::System.Action<global::Vectara.StructuredOutputEventVariant2?>? structuredOutputEventVariant2 = null,
+            global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.StructuredOutputEventVariant2>? structuredOutputEventVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsStructuredOutputEventVariant2)
+            {
+                structuredOutputEventVariant2?.Invoke(StructuredOutputEventVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
+            global::System.Action<global::Vectara.StructuredOutputEventVariant2>? structuredOutputEventVariant2 = null,
             bool validate = true)
         {
             if (validate)

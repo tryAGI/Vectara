@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentEventBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentEventBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.AgentOutputEventVariant2? AgentOutputEventVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentOutputEventVariant2))]
 #endif
         public bool IsAgentOutputEventVariant2 => AgentOutputEventVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickAgentOutputEventVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentOutputEventVariant2? value)
+        {
+            value = AgentOutputEventVariant2;
+            return IsAgentOutputEventVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentOutputEventVariant2 PickAgentOutputEventVariant2() => IsAgentOutputEventVariant2
+            ? AgentOutputEventVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentOutputEventVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentOutputEvent FromBase(global::Vectara.AgentEventBase? value) => new AgentOutputEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentOutputEvent(global::Vectara.AgentOutputEventVariant2 value) => new AgentOutputEvent((global::Vectara.AgentOutputEventVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             AgentOutputEventVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentOutputEvent FromAgentOutputEventVariant2(global::Vectara.AgentOutputEventVariant2? value) => new AgentOutputEvent(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentEventBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.AgentOutputEventVariant2?, TResult>? agentOutputEventVariant2 = null,
+            global::System.Func<global::Vectara.AgentEventBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.AgentOutputEventVariant2, TResult>? agentOutputEventVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentEventBase?>? @base = null,
-            global::System.Action<global::Vectara.AgentOutputEventVariant2?>? agentOutputEventVariant2 = null,
+            global::System.Action<global::Vectara.AgentEventBase>? @base = null,
+
+            global::System.Action<global::Vectara.AgentOutputEventVariant2>? agentOutputEventVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsAgentOutputEventVariant2)
+            {
+                agentOutputEventVariant2?.Invoke(AgentOutputEventVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentEventBase>? @base = null,
+            global::System.Action<global::Vectara.AgentOutputEventVariant2>? agentOutputEventVariant2 = null,
             bool validate = true)
         {
             if (validate)

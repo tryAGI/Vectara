@@ -128,5 +128,6 @@ namespace Vectara
         public BaseS3SourceConfiguration()
         {
         }
+
     }
 }

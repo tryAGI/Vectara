@@ -16,7 +16,8 @@ namespace Vectara
         /// </summary>
         /// <example>crp_1</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// A user-provided key for a corpus.<br/>
@@ -24,7 +25,8 @@ namespace Vectara
         /// </summary>
         /// <example>my-corpus</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("key")]
-        public string? Key { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Key { get; set; }
 
         /// <summary>
         /// Name for the corpus. This value defaults to the key.<br/>
@@ -32,7 +34,8 @@ namespace Vectara
         /// </summary>
         /// <example>Vectara Content</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
         /// Corpus description.<br/>
@@ -173,9 +176,9 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Corpus(
-            string? id,
-            string? key,
-            string? name,
+            string id,
+            string key,
+            string name,
             string? description,
             bool? enabled,
             bool? chatHistoryCorpus,
@@ -188,9 +191,9 @@ namespace Vectara
             global::Vectara.CorpusLimits? limits,
             global::System.DateTime? createdAt)
         {
-            this.Id = id;
-            this.Key = key;
-            this.Name = name;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Key = key ?? throw new global::System.ArgumentNullException(nameof(key));
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
             this.Enabled = enabled;
             this.ChatHistoryCorpus = chatHistoryCorpus;
@@ -210,5 +213,6 @@ namespace Vectara
         public Corpus()
         {
         }
+
     }
 }

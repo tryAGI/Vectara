@@ -25,6 +25,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
 #endif
         public bool IsBase => Base != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.BaseS3SourceConfiguration? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BaseS3SourceConfiguration PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -42,6 +62,11 @@ namespace Vectara
         {
             Base = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateS3SourceConfiguration FromBase(global::Vectara.BaseS3SourceConfiguration? value) => new UpdateS3SourceConfiguration(value);
 
         /// <summary>
         /// 
@@ -69,7 +94,7 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.BaseS3SourceConfiguration?, TResult>? @base = null,
+            global::System.Func<global::Vectara.BaseS3SourceConfiguration, TResult>? @base = null,
             bool validate = true)
         {
             if (validate)
@@ -89,7 +114,25 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.BaseS3SourceConfiguration?>? @base = null,
+            global::System.Action<global::Vectara.BaseS3SourceConfiguration>? @base = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.BaseS3SourceConfiguration>? @base = null,
             bool validate = true)
         {
             if (validate)

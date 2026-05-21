@@ -30,6 +30,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Initial))]
 #endif
         public bool IsInitial => Initial != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInitial(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateInitialInstructionRequest? value)
+        {
+            value = Initial;
+            return IsInitial;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateInitialInstructionRequest PickInitial() => IsInitial
+            ? Initial!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Initial' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -47,6 +67,11 @@ namespace Vectara
         {
             Initial = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateInstructionRequest FromInitial(global::Vectara.CreateInitialInstructionRequest? value) => new CreateInstructionRequest(value);
 
         /// <summary>
         /// 
@@ -107,6 +132,24 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<global::Vectara.CreateInitialInstructionRequest?>? initial = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsInitial)
+            {
+                initial?.Invoke(Initial!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
             global::System.Action<global::Vectara.CreateInitialInstructionRequest?>? initial = null,
             bool validate = true)
         {

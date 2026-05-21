@@ -131,5 +131,6 @@ namespace Vectara
         public ChatSpanAttributes()
         {
         }
+
     }
 }

@@ -20,7 +20,8 @@ namespace Vectara
         public required string Type { get; set; } = "streaming_agent_output_end";
 
         /// <summary>
-        /// The ID of the persisted AgentOutputEvent.<br/>
+        /// The ID of the persisted AgentOutputEvent for this streamed output.<br/>
+        /// Use this as the `since` cursor on a subsequent reconnect to resume after this output.<br/>
         /// Example: aev_user_001
         /// </summary>
         /// <example>aev_user_001</example>
@@ -55,7 +56,8 @@ namespace Vectara
         /// Example: 2024-01-15T10:35:00Z
         /// </param>
         /// <param name="eventId">
-        /// The ID of the persisted AgentOutputEvent.<br/>
+        /// The ID of the persisted AgentOutputEvent for this streamed output.<br/>
+        /// Use this as the `since` cursor on a subsequent reconnect to resume after this output.<br/>
         /// Example: aev_user_001
         /// </param>
 #if NET7_0_OR_GREATER
@@ -77,5 +79,6 @@ namespace Vectara
         public StreamingAgentOutputEnd()
         {
         }
+
     }
 }

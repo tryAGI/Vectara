@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.OpenAILLMUpdateBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.OpenAILLMUpdateBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2? UpdateOpenAIResponsesLLMRequestVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(UpdateOpenAIResponsesLLMRequestVariant2))]
 #endif
         public bool IsUpdateOpenAIResponsesLLMRequestVariant2 => UpdateOpenAIResponsesLLMRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickUpdateOpenAIResponsesLLMRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2? value)
+        {
+            value = UpdateOpenAIResponsesLLMRequestVariant2;
+            return IsUpdateOpenAIResponsesLLMRequestVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2 PickUpdateOpenAIResponsesLLMRequestVariant2() => IsUpdateOpenAIResponsesLLMRequestVariant2
+            ? UpdateOpenAIResponsesLLMRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'UpdateOpenAIResponsesLLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static UpdateOpenAIResponsesLLMRequest FromBase(global::Vectara.OpenAILLMUpdateBase? value) => new UpdateOpenAIResponsesLLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdateOpenAIResponsesLLMRequest(global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2 value) => new UpdateOpenAIResponsesLLMRequest((global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             UpdateOpenAIResponsesLLMRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateOpenAIResponsesLLMRequest FromUpdateOpenAIResponsesLLMRequestVariant2(global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2? value) => new UpdateOpenAIResponsesLLMRequest(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.OpenAILLMUpdateBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2?, TResult>? updateOpenAIResponsesLLMRequestVariant2 = null,
+            global::System.Func<global::Vectara.OpenAILLMUpdateBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2, TResult>? updateOpenAIResponsesLLMRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.OpenAILLMUpdateBase?>? @base = null,
-            global::System.Action<global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2?>? updateOpenAIResponsesLLMRequestVariant2 = null,
+            global::System.Action<global::Vectara.OpenAILLMUpdateBase>? @base = null,
+
+            global::System.Action<global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2>? updateOpenAIResponsesLLMRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsUpdateOpenAIResponsesLLMRequestVariant2)
+            {
+                updateOpenAIResponsesLLMRequestVariant2?.Invoke(UpdateOpenAIResponsesLLMRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.OpenAILLMUpdateBase>? @base = null,
+            global::System.Action<global::Vectara.UpdateOpenAIResponsesLLMRequestVariant2>? updateOpenAIResponsesLLMRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.BaseS3SourceConfiguration? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BaseS3SourceConfiguration PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public object? S3SourceConfigurationVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(S3SourceConfigurationVariant2))]
 #endif
         public bool IsS3SourceConfigurationVariant2 => S3SourceConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickS3SourceConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out object? value)
+        {
+            value = S3SourceConfigurationVariant2;
+            return IsS3SourceConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object PickS3SourceConfigurationVariant2() => IsS3SourceConfigurationVariant2
+            ? S3SourceConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'S3SourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -59,6 +99,11 @@ namespace Vectara
         {
             Base = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static S3SourceConfiguration FromBase(global::Vectara.BaseS3SourceConfiguration? value) => new S3SourceConfiguration(value);
 
         /// <summary>
         /// 
@@ -100,8 +145,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.BaseS3SourceConfiguration?, TResult>? @base = null,
-            global::System.Func<object?, TResult>? s3SourceConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.BaseS3SourceConfiguration, TResult>? @base = null,
+            global::System.Func<object, TResult>? s3SourceConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -125,8 +170,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.BaseS3SourceConfiguration?>? @base = null,
-            global::System.Action<object?>? s3SourceConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.BaseS3SourceConfiguration>? @base = null,
+
+            global::System.Action<object>? s3SourceConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsS3SourceConfigurationVariant2)
+            {
+                s3SourceConfigurationVariant2?.Invoke(S3SourceConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.BaseS3SourceConfiguration>? @base = null,
+            global::System.Action<object>? s3SourceConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)

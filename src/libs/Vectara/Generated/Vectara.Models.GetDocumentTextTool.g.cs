@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GetDocumentTextToolVariant2? GetDocumentTextToolVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GetDocumentTextToolVariant2))]
 #endif
         public bool IsGetDocumentTextToolVariant2 => GetDocumentTextToolVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGetDocumentTextToolVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GetDocumentTextToolVariant2? value)
+        {
+            value = GetDocumentTextToolVariant2;
+            return IsGetDocumentTextToolVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GetDocumentTextToolVariant2 PickGetDocumentTextToolVariant2() => IsGetDocumentTextToolVariant2
+            ? GetDocumentTextToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GetDocumentTextToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static GetDocumentTextTool FromBase(global::Vectara.ToolBase? value) => new GetDocumentTextTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator GetDocumentTextTool(global::Vectara.GetDocumentTextToolVariant2 value) => new GetDocumentTextTool((global::Vectara.GetDocumentTextToolVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             GetDocumentTextToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static GetDocumentTextTool FromGetDocumentTextToolVariant2(global::Vectara.GetDocumentTextToolVariant2? value) => new GetDocumentTextTool(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.GetDocumentTextToolVariant2?, TResult>? getDocumentTextToolVariant2 = null,
+            global::System.Func<global::Vectara.ToolBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.GetDocumentTextToolVariant2, TResult>? getDocumentTextToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? @base = null,
-            global::System.Action<global::Vectara.GetDocumentTextToolVariant2?>? getDocumentTextToolVariant2 = null,
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+
+            global::System.Action<global::Vectara.GetDocumentTextToolVariant2>? getDocumentTextToolVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsGetDocumentTextToolVariant2)
+            {
+                getDocumentTextToolVariant2?.Invoke(GetDocumentTextToolVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+            global::System.Action<global::Vectara.GetDocumentTextToolVariant2>? getDocumentTextToolVariant2 = null,
             bool validate = true)
         {
             if (validate)

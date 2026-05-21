@@ -163,5 +163,6 @@ namespace Vectara
         public CreateCorpusRequest()
         {
         }
+
     }
 }

@@ -110,5 +110,6 @@ namespace Vectara
         public RetryConfiguration()
         {
         }
+
     }
 }

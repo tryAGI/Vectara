@@ -30,6 +30,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SubAgentToolVariant2? SubAgentToolVariant2 { get; init; }
 #else
@@ -43,6 +63,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SubAgentToolVariant2))]
 #endif
         public bool IsSubAgentToolVariant2 => SubAgentToolVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSubAgentToolVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SubAgentToolVariant2? value)
+        {
+            value = SubAgentToolVariant2;
+            return IsSubAgentToolVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SubAgentToolVariant2 PickSubAgentToolVariant2() => IsSubAgentToolVariant2
+            ? SubAgentToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgentToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -64,6 +104,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static SubAgentTool FromBase(global::Vectara.ToolBase? value) => new SubAgentTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SubAgentTool(global::Vectara.SubAgentToolVariant2 value) => new SubAgentTool((global::Vectara.SubAgentToolVariant2?)value);
 
         /// <summary>
@@ -78,6 +123,11 @@ namespace Vectara
         {
             SubAgentToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SubAgentTool FromSubAgentToolVariant2(global::Vectara.SubAgentToolVariant2? value) => new SubAgentTool(value);
 
         /// <summary>
         /// 
@@ -119,8 +169,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.SubAgentToolVariant2?, TResult>? subAgentToolVariant2 = null,
+            global::System.Func<global::Vectara.ToolBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.SubAgentToolVariant2, TResult>? subAgentToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -144,8 +194,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? @base = null,
-            global::System.Action<global::Vectara.SubAgentToolVariant2?>? subAgentToolVariant2 = null,
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+
+            global::System.Action<global::Vectara.SubAgentToolVariant2>? subAgentToolVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsSubAgentToolVariant2)
+            {
+                subAgentToolVariant2?.Invoke(SubAgentToolVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+            global::System.Action<global::Vectara.SubAgentToolVariant2>? subAgentToolVariant2 = null,
             bool validate = true)
         {
             if (validate)

@@ -109,10 +109,10 @@ namespace Vectara
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.GenerationPreset> ReplaceAsync(
             string generationPresetId,
+            string name,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? id = default,
-            string? name = default,
             string? description = default,
             string? llmName = default,
             string? promptTemplate = default,

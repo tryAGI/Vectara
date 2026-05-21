@@ -14,7 +14,8 @@ namespace Vectara
         /// </summary>
         /// <example>cht_123456789</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The first query of the chat.<br/>
@@ -78,13 +79,13 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Chat(
-            string? id,
+            string id,
             string? firstQuery,
             string? firstAnswer,
             bool? enabled,
             global::System.DateTime? createdAt)
         {
-            this.Id = id;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.FirstQuery = firstQuery;
             this.FirstAnswer = firstAnswer;
             this.Enabled = enabled;
@@ -97,5 +98,6 @@ namespace Vectara
         public Chat()
         {
         }
+
     }
 }

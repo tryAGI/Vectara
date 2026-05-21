@@ -12,19 +12,22 @@ namespace Vectara
         /// The ID of the API key.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        public string? Id { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Id { get; set; }
 
         /// <summary>
         /// The human-readable name of the API key.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string? Name { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Name { get; set; }
 
         /// <summary>
         /// The key used in API requests. The key should be kept secure.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("secret_key")]
-        public string? SecretKey { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string SecretKey { get; set; }
 
         /// <summary>
         /// If this API key is enabled.
@@ -105,9 +108,9 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ApiKey(
-            string? id,
-            string? name,
-            string? secretKey,
+            string id,
+            string name,
+            string secretKey,
             bool? enabled,
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
             global::Vectara.ApiKeyRole? apiKeyRole,
@@ -115,9 +118,9 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles,
             global::Vectara.ApiPolicy? apiPolicy)
         {
-            this.Id = id;
-            this.Name = name;
-            this.SecretKey = secretKey;
+            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
+            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
+            this.SecretKey = secretKey ?? throw new global::System.ArgumentNullException(nameof(secretKey));
             this.Enabled = enabled;
             this.ApiRoles = apiRoles;
             this.ApiKeyRole = apiKeyRole;
@@ -132,5 +135,6 @@ namespace Vectara
         public ApiKey()
         {
         }
+
     }
 }

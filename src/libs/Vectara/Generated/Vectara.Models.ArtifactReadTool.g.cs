@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ArtifactReadToolVariant2? ArtifactReadToolVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactReadToolVariant2))]
 #endif
         public bool IsArtifactReadToolVariant2 => ArtifactReadToolVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactReadToolVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactReadToolVariant2? value)
+        {
+            value = ArtifactReadToolVariant2;
+            return IsArtifactReadToolVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ArtifactReadToolVariant2 PickArtifactReadToolVariant2() => IsArtifactReadToolVariant2
+            ? ArtifactReadToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactReadToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static ArtifactReadTool FromBase(global::Vectara.ToolBase? value) => new ArtifactReadTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator ArtifactReadTool(global::Vectara.ArtifactReadToolVariant2 value) => new ArtifactReadTool((global::Vectara.ArtifactReadToolVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             ArtifactReadToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ArtifactReadTool FromArtifactReadToolVariant2(global::Vectara.ArtifactReadToolVariant2? value) => new ArtifactReadTool(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.ArtifactReadToolVariant2?, TResult>? artifactReadToolVariant2 = null,
+            global::System.Func<global::Vectara.ToolBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.ArtifactReadToolVariant2, TResult>? artifactReadToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? @base = null,
-            global::System.Action<global::Vectara.ArtifactReadToolVariant2?>? artifactReadToolVariant2 = null,
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+
+            global::System.Action<global::Vectara.ArtifactReadToolVariant2>? artifactReadToolVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsArtifactReadToolVariant2)
+            {
+                artifactReadToolVariant2?.Invoke(ArtifactReadToolVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+            global::System.Action<global::Vectara.ArtifactReadToolVariant2>? artifactReadToolVariant2 = null,
             bool validate = true)
         {
             if (validate)

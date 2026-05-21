@@ -32,6 +32,26 @@ namespace Vectara
         public bool IsOpenaiCompatible => OpenaiCompatible != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickOpenaiCompatible(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateOpenAILLMRequest? value)
+        {
+            value = OpenaiCompatible;
+            return IsOpenaiCompatible;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateOpenAILLMRequest PickOpenaiCompatible() => IsOpenaiCompatible
+            ? OpenaiCompatible!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OpenaiCompatible' but the value was {ToString()}.");
+
+        /// <summary>
         /// Request to update an OpenAI Responses API Large Language Model connection. All fields are optional.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +67,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiResponses))]
 #endif
         public bool IsOpenaiResponses => OpenaiResponses != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickOpenaiResponses(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateOpenAIResponsesLLMRequest? value)
+        {
+            value = OpenaiResponses;
+            return IsOpenaiResponses;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateOpenAIResponsesLLMRequest PickOpenaiResponses() => IsOpenaiResponses
+            ? OpenaiResponses!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OpenaiResponses' but the value was {ToString()}.");
 
         /// <summary>
         /// Request to update a Vertex AI Large Language Model connection. All fields are optional.
@@ -66,6 +106,26 @@ namespace Vectara
         public bool IsVertexAi => VertexAi != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickVertexAi(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateVertexAILLMRequest? value)
+        {
+            value = VertexAi;
+            return IsVertexAi;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateVertexAILLMRequest PickVertexAi() => IsVertexAi
+            ? VertexAi!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'VertexAi' but the value was {ToString()}.");
+
+        /// <summary>
         /// Request to update an Anthropic Large Language Model connection. All fields are optional.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -81,6 +141,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Anthropic))]
 #endif
         public bool IsAnthropic => Anthropic != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickAnthropic(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateAnthropicLLMRequest? value)
+        {
+            value = Anthropic;
+            return IsAnthropic;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateAnthropicLLMRequest PickAnthropic() => IsAnthropic
+            ? Anthropic!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Anthropic' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -98,6 +178,11 @@ namespace Vectara
         {
             OpenaiCompatible = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateLLMRequest FromOpenaiCompatible(global::Vectara.UpdateOpenAILLMRequest? value) => new UpdateLLMRequest(value);
 
         /// <summary>
         /// 
@@ -120,6 +205,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static UpdateLLMRequest FromOpenaiResponses(global::Vectara.UpdateOpenAIResponsesLLMRequest? value) => new UpdateLLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdateLLMRequest(global::Vectara.UpdateVertexAILLMRequest value) => new UpdateLLMRequest((global::Vectara.UpdateVertexAILLMRequest?)value);
 
         /// <summary>
@@ -138,6 +228,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static UpdateLLMRequest FromVertexAi(global::Vectara.UpdateVertexAILLMRequest? value) => new UpdateLLMRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdateLLMRequest(global::Vectara.UpdateAnthropicLLMRequest value) => new UpdateLLMRequest((global::Vectara.UpdateAnthropicLLMRequest?)value);
 
         /// <summary>
@@ -152,6 +247,11 @@ namespace Vectara
         {
             Anthropic = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateLLMRequest FromAnthropic(global::Vectara.UpdateAnthropicLLMRequest? value) => new UpdateLLMRequest(value);
 
         /// <summary>
         /// 
@@ -206,8 +306,8 @@ namespace Vectara
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.UpdateOpenAILLMRequest?, TResult>? openaiCompatible = null,
             global::System.Func<global::Vectara.UpdateOpenAIResponsesLLMRequest?, TResult>? openaiResponses = null,
-            global::System.Func<global::Vectara.UpdateVertexAILLMRequest?, TResult>? vertexAi = null,
-            global::System.Func<global::Vectara.UpdateAnthropicLLMRequest?, TResult>? anthropic = null,
+            global::System.Func<global::Vectara.UpdateVertexAILLMRequest, TResult>? vertexAi = null,
+            global::System.Func<global::Vectara.UpdateAnthropicLLMRequest, TResult>? anthropic = null,
             bool validate = true)
         {
             if (validate)
@@ -240,9 +340,45 @@ namespace Vectara
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.UpdateOpenAILLMRequest?>? openaiCompatible = null,
+
             global::System.Action<global::Vectara.UpdateOpenAIResponsesLLMRequest?>? openaiResponses = null,
-            global::System.Action<global::Vectara.UpdateVertexAILLMRequest?>? vertexAi = null,
-            global::System.Action<global::Vectara.UpdateAnthropicLLMRequest?>? anthropic = null,
+
+            global::System.Action<global::Vectara.UpdateVertexAILLMRequest>? vertexAi = null,
+
+            global::System.Action<global::Vectara.UpdateAnthropicLLMRequest>? anthropic = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsOpenaiCompatible)
+            {
+                openaiCompatible?.Invoke(OpenaiCompatible!);
+            }
+            else if (IsOpenaiResponses)
+            {
+                openaiResponses?.Invoke(OpenaiResponses!);
+            }
+            else if (IsVertexAi)
+            {
+                vertexAi?.Invoke(VertexAi!);
+            }
+            else if (IsAnthropic)
+            {
+                anthropic?.Invoke(Anthropic!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.UpdateOpenAILLMRequest?>? openaiCompatible = null,
+            global::System.Action<global::Vectara.UpdateOpenAIResponsesLLMRequest?>? openaiResponses = null,
+            global::System.Action<global::Vectara.UpdateVertexAILLMRequest>? vertexAi = null,
+            global::System.Action<global::Vectara.UpdateAnthropicLLMRequest>? anthropic = null,
             bool validate = true)
         {
             if (validate)

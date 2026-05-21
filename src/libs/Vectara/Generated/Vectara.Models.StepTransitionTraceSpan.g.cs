@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentTraceSpanBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StepTransitionTraceSpanVariant2? StepTransitionTraceSpanVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StepTransitionTraceSpanVariant2))]
 #endif
         public bool IsStepTransitionTraceSpanVariant2 => StepTransitionTraceSpanVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStepTransitionTraceSpanVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StepTransitionTraceSpanVariant2? value)
+        {
+            value = StepTransitionTraceSpanVariant2;
+            return IsStepTransitionTraceSpanVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StepTransitionTraceSpanVariant2 PickStepTransitionTraceSpanVariant2() => IsStepTransitionTraceSpanVariant2
+            ? StepTransitionTraceSpanVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransitionTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static StepTransitionTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new StepTransitionTraceSpan(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator StepTransitionTraceSpan(global::Vectara.StepTransitionTraceSpanVariant2 value) => new StepTransitionTraceSpan((global::Vectara.StepTransitionTraceSpanVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             StepTransitionTraceSpanVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static StepTransitionTraceSpan FromStepTransitionTraceSpanVariant2(global::Vectara.StepTransitionTraceSpanVariant2? value) => new StepTransitionTraceSpan(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentTraceSpanBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.StepTransitionTraceSpanVariant2?, TResult>? stepTransitionTraceSpanVariant2 = null,
+            global::System.Func<global::Vectara.AgentTraceSpanBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.StepTransitionTraceSpanVariant2, TResult>? stepTransitionTraceSpanVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentTraceSpanBase?>? agentBase = null,
-            global::System.Action<global::Vectara.StepTransitionTraceSpanVariant2?>? stepTransitionTraceSpanVariant2 = null,
+            global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.StepTransitionTraceSpanVariant2>? stepTransitionTraceSpanVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsStepTransitionTraceSpanVariant2)
+            {
+                stepTransitionTraceSpanVariant2?.Invoke(StepTransitionTraceSpanVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
+            global::System.Action<global::Vectara.StepTransitionTraceSpanVariant2>? stepTransitionTraceSpanVariant2 = null,
             bool validate = true)
         {
             if (validate)

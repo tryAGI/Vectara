@@ -72,5 +72,6 @@ namespace Vectara
         public TestLambdaToolResponseExecutionValidationResults()
         {
         }
+
     }
 }

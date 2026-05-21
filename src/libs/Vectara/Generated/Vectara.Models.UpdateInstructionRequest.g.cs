@@ -30,6 +30,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Initial))]
 #endif
         public bool IsInitial => Initial != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInitial(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateInitialInstructionRequest? value)
+        {
+            value = Initial;
+            return IsInitial;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateInitialInstructionRequest PickInitial() => IsInitial
+            ? Initial!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Initial' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -47,6 +67,11 @@ namespace Vectara
         {
             Initial = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateInstructionRequest FromInitial(global::Vectara.UpdateInitialInstructionRequest? value) => new UpdateInstructionRequest(value);
 
         /// <summary>
         /// 
@@ -87,7 +112,7 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.UpdateInitialInstructionRequest?, TResult>? initial = null,
+            global::System.Func<global::Vectara.UpdateInitialInstructionRequest, TResult>? initial = null,
             bool validate = true)
         {
             if (validate)
@@ -107,7 +132,25 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.UpdateInitialInstructionRequest?>? initial = null,
+            global::System.Action<global::Vectara.UpdateInitialInstructionRequest>? initial = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsInitial)
+            {
+                initial?.Invoke(Initial!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.UpdateInitialInstructionRequest>? initial = null,
             bool validate = true)
         {
             if (validate)

@@ -32,6 +32,26 @@ namespace Vectara
         public bool IsInputMessage => InputMessage != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInputMessage(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InputMessageEvent? value)
+        {
+            value = InputMessage;
+            return IsInputMessage;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InputMessageEvent PickInputMessage() => IsInputMessage
+            ? InputMessage!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InputMessage' but the value was {ToString()}.");
+
+        /// <summary>
         /// An event representing the loading of a skill's content into the conversation.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +67,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SkillLoad))]
 #endif
         public bool IsSkillLoad => SkillLoad != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSkillLoad(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SkillLoadEvent? value)
+        {
+            value = SkillLoad;
+            return IsSkillLoad;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SkillLoadEvent PickSkillLoad() => IsSkillLoad
+            ? SkillLoad!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SkillLoad' but the value was {ToString()}.");
 
         /// <summary>
         /// Event representing files uploaded to the agent workspace as artifacts.<br/>
@@ -69,6 +109,26 @@ namespace Vectara
         public bool IsArtifactUpload => ArtifactUpload != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactUpload(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactUploadEvent? value)
+        {
+            value = ArtifactUpload;
+            return IsArtifactUpload;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ArtifactUploadEvent PickArtifactUpload() => IsArtifactUpload
+            ? ArtifactUpload!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactUpload' but the value was {ToString()}.");
+
+        /// <summary>
         /// An event representing input to a tool call.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -84,6 +144,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolInput))]
 #endif
         public bool IsToolInput => ToolInput != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickToolInput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolInputEvent? value)
+        {
+            value = ToolInput;
+            return IsToolInput;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolInputEvent PickToolInput() => IsToolInput
+            ? ToolInput!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ToolInput' but the value was {ToString()}.");
 
         /// <summary>
         /// An event representing output from a tool call.
@@ -103,6 +183,26 @@ namespace Vectara
         public bool IsToolOutput => ToolOutput != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickToolOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolOutputEvent? value)
+        {
+            value = ToolOutput;
+            return IsToolOutput;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolOutputEvent PickToolOutput() => IsToolOutput
+            ? ToolOutput!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ToolOutput' but the value was {ToString()}.");
+
+        /// <summary>
         /// An event representing chain-of-thought thinking by the agent.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -118,6 +218,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Thinking))]
 #endif
         public bool IsThinking => Thinking != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickThinking(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ThinkingEvent? value)
+        {
+            value = Thinking;
+            return IsThinking;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ThinkingEvent PickThinking() => IsThinking
+            ? Thinking!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Thinking' but the value was {ToString()}.");
 
         /// <summary>
         /// An event representing a complete agent response.
@@ -137,9 +257,29 @@ namespace Vectara
         public bool IsAgentOutput => AgentOutput != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickAgentOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentOutputEvent? value)
+        {
+            value = AgentOutput;
+            return IsAgentOutput;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentOutputEvent PickAgentOutput() => IsAgentOutput
+            ? AgentOutput!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentOutput' but the value was {ToString()}.");
+
+        /// <summary>
         /// An event representing a complete agent response with structured JSON content conforming to a schema.<br/>
         /// This event is published instead of AgentOutputEvent when the agent's output_parser is configured<br/>
-        /// with type "structured". It contains the LLM's final response parsed as validated JSON that<br/>
+        /// with type "structured". It contains the agent's final response parsed as validated JSON that<br/>
         /// conforms to the schema specified in the StructuredOutputParser configuration.<br/>
         /// When streaming is enabled, this event appears as a single complete event (not streamed in chunks)<br/>
         /// after any tool interactions are complete. The content field contains the parsed JSON,<br/>
@@ -160,7 +300,27 @@ namespace Vectara
         public bool IsStructuredOutput => StructuredOutput != null;
 
         /// <summary>
-        /// A transient event indicating the current request exceeded the LLM's context limit.<br/>
+        /// 
+        /// </summary>
+        public bool TryPickStructuredOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StructuredOutputEvent? value)
+        {
+            value = StructuredOutput;
+            return IsStructuredOutput;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StructuredOutputEvent PickStructuredOutput() => IsStructuredOutput
+            ? StructuredOutput!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutput' but the value was {ToString()}.");
+
+        /// <summary>
+        /// A transient event indicating the current request exceeded the agent's context limit.<br/>
         /// This event is not persisted to the session history.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -176,6 +336,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ContextLimitExceeded))]
 #endif
         public bool IsContextLimitExceeded => ContextLimitExceeded != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickContextLimitExceeded(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ContextLimitExceededEvent? value)
+        {
+            value = ContextLimitExceeded;
+            return IsContextLimitExceeded;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ContextLimitExceededEvent PickContextLimitExceeded() => IsContextLimitExceeded
+            ? ContextLimitExceeded!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ContextLimitExceeded' but the value was {ToString()}.");
 
         /// <summary>
         /// A transient event indicating the agent exceeded the maximum number of step transitions,<br/>
@@ -197,6 +377,26 @@ namespace Vectara
         public bool IsStepTransitionLimitExceeded => StepTransitionLimitExceeded != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStepTransitionLimitExceeded(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StepTransitionLimitExceededEvent? value)
+        {
+            value = StepTransitionLimitExceeded;
+            return IsStepTransitionLimitExceeded;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StepTransitionLimitExceededEvent PickStepTransitionLimitExceeded() => IsStepTransitionLimitExceeded
+            ? StepTransitionLimitExceeded!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransitionLimitExceeded' but the value was {ToString()}.");
+
+        /// <summary>
         /// A transient event indicating the agent session was interrupted by a user request.<br/>
         /// This event is not persisted to the session history.
         /// </summary>
@@ -213,6 +413,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SessionInterrupted))]
 #endif
         public bool IsSessionInterrupted => SessionInterrupted != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSessionInterrupted(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SessionInterruptedEvent? value)
+        {
+            value = SessionInterrupted;
+            return IsSessionInterrupted;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SessionInterruptedEvent PickSessionInterrupted() => IsSessionInterrupted
+            ? SessionInterrupted!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SessionInterrupted' but the value was {ToString()}.");
 
         /// <summary>
         /// An event representing an image being loaded into the conversation context for viewing and analysis.
@@ -232,6 +452,26 @@ namespace Vectara
         public bool IsImageRead => ImageRead != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickImageRead(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ImageReadEvent? value)
+        {
+            value = ImageRead;
+            return IsImageRead;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ImageReadEvent PickImageRead() => IsImageRead
+            ? ImageRead!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ImageRead' but the value was {ToString()}.");
+
+        /// <summary>
         /// An event representing a transition between agent steps.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -249,6 +489,26 @@ namespace Vectara
         public bool IsStepTransition => StepTransition != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickStepTransition(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.StepTransitionEvent? value)
+        {
+            value = StepTransition;
+            return IsStepTransition;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.StepTransitionEvent PickStepTransition() => IsStepTransition
+            ? StepTransition!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransition' but the value was {ToString()}.");
+
+        /// <summary>
         /// An event indicating that context compaction has completed.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -264,6 +524,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Compaction))]
 #endif
         public bool IsCompaction => Compaction != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCompaction(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CompactionEvent? value)
+        {
+            value = Compaction;
+            return IsCompaction;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CompactionEvent PickCompaction() => IsCompaction
+            ? Compaction!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Compaction' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -281,6 +561,11 @@ namespace Vectara
         {
             InputMessage = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentEvent FromInputMessage(global::Vectara.InputMessageEvent? value) => new AgentEvent(value);
 
         /// <summary>
         /// 
@@ -303,6 +588,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentEvent FromSkillLoad(global::Vectara.SkillLoadEvent? value) => new AgentEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ArtifactUploadEvent value) => new AgentEvent((global::Vectara.ArtifactUploadEvent?)value);
 
         /// <summary>
@@ -317,6 +607,11 @@ namespace Vectara
         {
             ArtifactUpload = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentEvent FromArtifactUpload(global::Vectara.ArtifactUploadEvent? value) => new AgentEvent(value);
 
         /// <summary>
         /// 
@@ -339,6 +634,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentEvent FromToolInput(global::Vectara.ToolInputEvent? value) => new AgentEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ToolOutputEvent value) => new AgentEvent((global::Vectara.ToolOutputEvent?)value);
 
         /// <summary>
@@ -353,6 +653,11 @@ namespace Vectara
         {
             ToolOutput = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentEvent FromToolOutput(global::Vectara.ToolOutputEvent? value) => new AgentEvent(value);
 
         /// <summary>
         /// 
@@ -375,6 +680,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentEvent FromThinking(global::Vectara.ThinkingEvent? value) => new AgentEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentEvent(global::Vectara.AgentOutputEvent value) => new AgentEvent((global::Vectara.AgentOutputEvent?)value);
 
         /// <summary>
@@ -389,6 +699,11 @@ namespace Vectara
         {
             AgentOutput = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentEvent FromAgentOutput(global::Vectara.AgentOutputEvent? value) => new AgentEvent(value);
 
         /// <summary>
         /// 
@@ -411,6 +726,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentEvent FromStructuredOutput(global::Vectara.StructuredOutputEvent? value) => new AgentEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ContextLimitExceededEvent value) => new AgentEvent((global::Vectara.ContextLimitExceededEvent?)value);
 
         /// <summary>
@@ -425,6 +745,11 @@ namespace Vectara
         {
             ContextLimitExceeded = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentEvent FromContextLimitExceeded(global::Vectara.ContextLimitExceededEvent? value) => new AgentEvent(value);
 
         /// <summary>
         /// 
@@ -447,6 +772,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentEvent FromStepTransitionLimitExceeded(global::Vectara.StepTransitionLimitExceededEvent? value) => new AgentEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentEvent(global::Vectara.SessionInterruptedEvent value) => new AgentEvent((global::Vectara.SessionInterruptedEvent?)value);
 
         /// <summary>
@@ -461,6 +791,11 @@ namespace Vectara
         {
             SessionInterrupted = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentEvent FromSessionInterrupted(global::Vectara.SessionInterruptedEvent? value) => new AgentEvent(value);
 
         /// <summary>
         /// 
@@ -483,6 +818,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentEvent FromImageRead(global::Vectara.ImageReadEvent? value) => new AgentEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentEvent(global::Vectara.StepTransitionEvent value) => new AgentEvent((global::Vectara.StepTransitionEvent?)value);
 
         /// <summary>
@@ -501,6 +841,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentEvent FromStepTransition(global::Vectara.StepTransitionEvent? value) => new AgentEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentEvent(global::Vectara.CompactionEvent value) => new AgentEvent((global::Vectara.CompactionEvent?)value);
 
         /// <summary>
@@ -515,6 +860,11 @@ namespace Vectara
         {
             Compaction = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentEvent FromCompaction(global::Vectara.CompactionEvent? value) => new AgentEvent(value);
 
         /// <summary>
         /// 
@@ -692,6 +1042,102 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<global::Vectara.InputMessageEvent?>? inputMessage = null,
+
+            global::System.Action<global::Vectara.SkillLoadEvent?>? skillLoad = null,
+
+            global::System.Action<global::Vectara.ArtifactUploadEvent?>? artifactUpload = null,
+
+            global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
+
+            global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
+
+            global::System.Action<global::Vectara.ThinkingEvent?>? thinking = null,
+
+            global::System.Action<global::Vectara.AgentOutputEvent?>? agentOutput = null,
+
+            global::System.Action<global::Vectara.StructuredOutputEvent?>? structuredOutput = null,
+
+            global::System.Action<global::Vectara.ContextLimitExceededEvent?>? contextLimitExceeded = null,
+
+            global::System.Action<global::Vectara.StepTransitionLimitExceededEvent?>? stepTransitionLimitExceeded = null,
+
+            global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
+
+            global::System.Action<global::Vectara.ImageReadEvent?>? imageRead = null,
+
+            global::System.Action<global::Vectara.StepTransitionEvent?>? stepTransition = null,
+
+            global::System.Action<global::Vectara.CompactionEvent?>? compaction = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsInputMessage)
+            {
+                inputMessage?.Invoke(InputMessage!);
+            }
+            else if (IsSkillLoad)
+            {
+                skillLoad?.Invoke(SkillLoad!);
+            }
+            else if (IsArtifactUpload)
+            {
+                artifactUpload?.Invoke(ArtifactUpload!);
+            }
+            else if (IsToolInput)
+            {
+                toolInput?.Invoke(ToolInput!);
+            }
+            else if (IsToolOutput)
+            {
+                toolOutput?.Invoke(ToolOutput!);
+            }
+            else if (IsThinking)
+            {
+                thinking?.Invoke(Thinking!);
+            }
+            else if (IsAgentOutput)
+            {
+                agentOutput?.Invoke(AgentOutput!);
+            }
+            else if (IsStructuredOutput)
+            {
+                structuredOutput?.Invoke(StructuredOutput!);
+            }
+            else if (IsContextLimitExceeded)
+            {
+                contextLimitExceeded?.Invoke(ContextLimitExceeded!);
+            }
+            else if (IsStepTransitionLimitExceeded)
+            {
+                stepTransitionLimitExceeded?.Invoke(StepTransitionLimitExceeded!);
+            }
+            else if (IsSessionInterrupted)
+            {
+                sessionInterrupted?.Invoke(SessionInterrupted!);
+            }
+            else if (IsImageRead)
+            {
+                imageRead?.Invoke(ImageRead!);
+            }
+            else if (IsStepTransition)
+            {
+                stepTransition?.Invoke(StepTransition!);
+            }
+            else if (IsCompaction)
+            {
+                compaction?.Invoke(Compaction!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
             global::System.Action<global::Vectara.InputMessageEvent?>? inputMessage = null,
             global::System.Action<global::Vectara.SkillLoadEvent?>? skillLoad = null,
             global::System.Action<global::Vectara.ArtifactUploadEvent?>? artifactUpload = null,

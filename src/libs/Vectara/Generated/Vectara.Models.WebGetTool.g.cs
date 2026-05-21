@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ToolBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ToolBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetToolVariant2? WebGetToolVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WebGetToolVariant2))]
 #endif
         public bool IsWebGetToolVariant2 => WebGetToolVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickWebGetToolVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WebGetToolVariant2? value)
+        {
+            value = WebGetToolVariant2;
+            return IsWebGetToolVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.WebGetToolVariant2 PickWebGetToolVariant2() => IsWebGetToolVariant2
+            ? WebGetToolVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WebGetToolVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static WebGetTool FromBase(global::Vectara.ToolBase? value) => new WebGetTool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator WebGetTool(global::Vectara.WebGetToolVariant2 value) => new WebGetTool((global::Vectara.WebGetToolVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             WebGetToolVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static WebGetTool FromWebGetToolVariant2(global::Vectara.WebGetToolVariant2? value) => new WebGetTool(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.ToolBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.WebGetToolVariant2?, TResult>? webGetToolVariant2 = null,
+            global::System.Func<global::Vectara.ToolBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.WebGetToolVariant2, TResult>? webGetToolVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.ToolBase?>? @base = null,
-            global::System.Action<global::Vectara.WebGetToolVariant2?>? webGetToolVariant2 = null,
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+
+            global::System.Action<global::Vectara.WebGetToolVariant2>? webGetToolVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsWebGetToolVariant2)
+            {
+                webGetToolVariant2?.Invoke(WebGetToolVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ToolBase>? @base = null,
+            global::System.Action<global::Vectara.WebGetToolVariant2>? webGetToolVariant2 = null,
             bool validate = true)
         {
             if (validate)

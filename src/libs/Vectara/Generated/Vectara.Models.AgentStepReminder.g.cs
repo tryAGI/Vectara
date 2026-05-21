@@ -32,9 +32,29 @@ namespace Vectara
         public bool IsTemplated => Templated != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickTemplated(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.TemplatedReminder? value)
+        {
+            value = Templated;
+            return IsTemplated;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.TemplatedReminder PickTemplated() => IsTemplated
+            ? Templated!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Templated' but the value was {ToString()}.");
+
+        /// <summary>
         /// A reminder that expands terms, acronyms, and abbreviations in user messages using a glossary.<br/>
         /// When attached to a step, user input is run through the glossary's lookup index and matching<br/>
-        /// terms are expanded before the message reaches the LLM.
+        /// terms are expanded before the message reaches the agent.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GlossaryExpansionReminder? GlossaryExpansion { get; init; }
@@ -49,6 +69,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GlossaryExpansion))]
 #endif
         public bool IsGlossaryExpansion => GlossaryExpansion != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGlossaryExpansion(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GlossaryExpansionReminder? value)
+        {
+            value = GlossaryExpansion;
+            return IsGlossaryExpansion;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GlossaryExpansionReminder PickGlossaryExpansion() => IsGlossaryExpansion
+            ? GlossaryExpansion!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GlossaryExpansion' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -70,6 +110,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentStepReminder FromTemplated(global::Vectara.TemplatedReminder? value) => new AgentStepReminder(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentStepReminder(global::Vectara.GlossaryExpansionReminder value) => new AgentStepReminder((global::Vectara.GlossaryExpansionReminder?)value);
 
         /// <summary>
@@ -84,6 +129,11 @@ namespace Vectara
         {
             GlossaryExpansion = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentStepReminder FromGlossaryExpansion(global::Vectara.GlossaryExpansionReminder? value) => new AgentStepReminder(value);
 
         /// <summary>
         /// 
@@ -128,8 +178,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.TemplatedReminder?, TResult>? templated = null,
-            global::System.Func<global::Vectara.GlossaryExpansionReminder?, TResult>? glossaryExpansion = null,
+            global::System.Func<global::Vectara.TemplatedReminder, TResult>? templated = null,
+            global::System.Func<global::Vectara.GlossaryExpansionReminder, TResult>? glossaryExpansion = null,
             bool validate = true)
         {
             if (validate)
@@ -153,8 +203,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.TemplatedReminder?>? templated = null,
-            global::System.Action<global::Vectara.GlossaryExpansionReminder?>? glossaryExpansion = null,
+            global::System.Action<global::Vectara.TemplatedReminder>? templated = null,
+
+            global::System.Action<global::Vectara.GlossaryExpansionReminder>? glossaryExpansion = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsTemplated)
+            {
+                templated?.Invoke(Templated!);
+            }
+            else if (IsGlossaryExpansion)
+            {
+                glossaryExpansion?.Invoke(GlossaryExpansion!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.TemplatedReminder>? templated = null,
+            global::System.Action<global::Vectara.GlossaryExpansionReminder>? glossaryExpansion = null,
             bool validate = true)
         {
             if (validate)

@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InstructionRequestBase? value)
+        {
+            value = Base;
+            return IsBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InstructionRequestBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateInitialInstructionRequestVariant2? CreateInitialInstructionRequestVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateInitialInstructionRequestVariant2))]
 #endif
         public bool IsCreateInitialInstructionRequestVariant2 => CreateInitialInstructionRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCreateInitialInstructionRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateInitialInstructionRequestVariant2? value)
+        {
+            value = CreateInitialInstructionRequestVariant2;
+            return IsCreateInitialInstructionRequestVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateInitialInstructionRequestVariant2 PickCreateInitialInstructionRequestVariant2() => IsCreateInitialInstructionRequestVariant2
+            ? CreateInitialInstructionRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateInitialInstructionRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static CreateInitialInstructionRequest FromBase(global::Vectara.InstructionRequestBase? value) => new CreateInitialInstructionRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator CreateInitialInstructionRequest(global::Vectara.CreateInitialInstructionRequestVariant2 value) => new CreateInitialInstructionRequest((global::Vectara.CreateInitialInstructionRequestVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             CreateInitialInstructionRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateInitialInstructionRequest FromCreateInitialInstructionRequestVariant2(global::Vectara.CreateInitialInstructionRequestVariant2? value) => new CreateInitialInstructionRequest(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.InstructionRequestBase?, TResult>? @base = null,
-            global::System.Func<global::Vectara.CreateInitialInstructionRequestVariant2?, TResult>? createInitialInstructionRequestVariant2 = null,
+            global::System.Func<global::Vectara.InstructionRequestBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.CreateInitialInstructionRequestVariant2, TResult>? createInitialInstructionRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.InstructionRequestBase?>? @base = null,
-            global::System.Action<global::Vectara.CreateInitialInstructionRequestVariant2?>? createInitialInstructionRequestVariant2 = null,
+            global::System.Action<global::Vectara.InstructionRequestBase>? @base = null,
+
+            global::System.Action<global::Vectara.CreateInitialInstructionRequestVariant2>? createInitialInstructionRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsCreateInitialInstructionRequestVariant2)
+            {
+                createInitialInstructionRequestVariant2?.Invoke(CreateInitialInstructionRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.InstructionRequestBase>? @base = null,
+            global::System.Action<global::Vectara.CreateInitialInstructionRequestVariant2>? createInitialInstructionRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

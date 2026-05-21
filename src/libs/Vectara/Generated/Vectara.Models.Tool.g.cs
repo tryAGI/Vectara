@@ -32,6 +32,26 @@ namespace Vectara
         public bool IsDynamicVectara => DynamicVectara != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDynamicVectara(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.DynamicVectaraTool? value)
+        {
+            value = DynamicVectara;
+            return IsDynamicVectara;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DynamicVectaraTool PickDynamicVectara() => IsDynamicVectara
+            ? DynamicVectara!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'DynamicVectara' but the value was {ToString()}.");
+
+        /// <summary>
         /// An MCP (Model Context Protocol) tool that connects to external MCP servers for extended functionality.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +67,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Mcp))]
 #endif
         public bool IsMcp => Mcp != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickMcp(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.McpTool? value)
+        {
+            value = Mcp;
+            return IsMcp;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.McpTool PickMcp() => IsMcp
+            ? Mcp!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Mcp' but the value was {ToString()}.");
 
         /// <summary>
         /// A corpora search tool that searches through Vectara corpora to find relevant information.
@@ -66,6 +106,26 @@ namespace Vectara
         public bool IsCorporaSearch => CorporaSearch != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCorporaSearch(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CorporaSearchTool? value)
+        {
+            value = CorporaSearch;
+            return IsCorporaSearch;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CorporaSearchTool PickCorporaSearch() => IsCorporaSearch
+            ? CorporaSearch!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CorporaSearch' but the value was {ToString()}.");
+
+        /// <summary>
         /// A web search tool that searches the internet for relevant information.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -83,6 +143,26 @@ namespace Vectara
         public bool IsWebSearch => WebSearch != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickWebSearch(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WebSearchTool? value)
+        {
+            value = WebSearch;
+            return IsWebSearch;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.WebSearchTool PickWebSearch() => IsWebSearch
+            ? WebSearch!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WebSearch' but the value was {ToString()}.");
+
+        /// <summary>
         /// A web get tool that fetches content from URLs using HTTP requests.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -98,6 +178,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WebGet))]
 #endif
         public bool IsWebGet => WebGet != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickWebGet(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WebGetTool? value)
+        {
+            value = WebGet;
+            return IsWebGet;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.WebGetTool PickWebGet() => IsWebGet
+            ? WebGet!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WebGet' but the value was {ToString()}.");
 
         /// <summary>
         /// A user-defined function that can be executed as a tool by agents.<br/>
@@ -119,6 +219,26 @@ namespace Vectara
         public bool IsLambda => Lambda != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickLambda(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.LambdaTool? value)
+        {
+            value = Lambda;
+            return IsLambda;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.LambdaTool PickLambda() => IsLambda
+            ? Lambda!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Lambda' but the value was {ToString()}.");
+
+        /// <summary>
         /// A tool that spawns a specialized sub-agent to handle complex, multi-step tasks autonomously.<br/>
         /// Sub-agents maintain separate context from the main agent and can be specialized for specific types of tasks like code review, general research, or output styling.
         /// </summary>
@@ -135,6 +255,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SubAgent))]
 #endif
         public bool IsSubAgent => SubAgent != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSubAgent(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SubAgentTool? value)
+        {
+            value = SubAgent;
+            return IsSubAgent;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SubAgentTool PickSubAgent() => IsSubAgent
+            ? SubAgent!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgent' but the value was {ToString()}.");
 
         /// <summary>
         /// A tool that creates artifacts from text or structured data content that can be stored and referenced later.
@@ -154,6 +294,26 @@ namespace Vectara
         public bool IsArtifactCreate => ArtifactCreate != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactCreate(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactCreateTool? value)
+        {
+            value = ArtifactCreate;
+            return IsArtifactCreate;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ArtifactCreateTool PickArtifactCreate() => IsArtifactCreate
+            ? ArtifactCreate!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactCreate' but the value was {ToString()}.");
+
+        /// <summary>
         /// A tool that reads artifact content from the agent session workspace with flexible size and range options.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -169,6 +329,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactRead))]
 #endif
         public bool IsArtifactRead => ArtifactRead != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactRead(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactReadTool? value)
+        {
+            value = ArtifactRead;
+            return IsArtifactRead;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ArtifactReadTool PickArtifactRead() => IsArtifactRead
+            ? ArtifactRead!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactRead' but the value was {ToString()}.");
 
         /// <summary>
         /// A tool that searches through an artifact's content using grep with support for all standard grep options.
@@ -188,6 +368,26 @@ namespace Vectara
         public bool IsArtifactGrep => ArtifactGrep != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArtifactGrep(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ArtifactGrepTool? value)
+        {
+            value = ArtifactGrep;
+            return IsArtifactGrep;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ArtifactGrepTool PickArtifactGrep() => IsArtifactGrep
+            ? ArtifactGrep!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactGrep' but the value was {ToString()}.");
+
+        /// <summary>
         /// A tool that loads image artifacts into the conversation context for viewing and analysis.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -203,6 +403,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ImageRead))]
 #endif
         public bool IsImageRead => ImageRead != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickImageRead(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ImageReadTool? value)
+        {
+            value = ImageRead;
+            return IsImageRead;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ImageReadTool PickImageRead() => IsImageRead
+            ? ImageRead!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ImageRead' but the value was {ToString()}.");
 
         /// <summary>
         /// A tool that converts document artifacts (PDF, Word, PowerPoint, etc.) to various formats.
@@ -222,6 +442,26 @@ namespace Vectara
         public bool IsDocumentConversion => DocumentConversion != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickDocumentConversion(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.DocumentConversionTool? value)
+        {
+            value = DocumentConversion;
+            return IsDocumentConversion;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.DocumentConversionTool PickDocumentConversion() => IsDocumentConversion
+            ? DocumentConversion!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'DocumentConversion' but the value was {ToString()}.");
+
+        /// <summary>
         /// A tool that fetches the full text content of a document from a corpus and stores it as an artifact.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -237,6 +477,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GetDocumentText))]
 #endif
         public bool IsGetDocumentText => GetDocumentText != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGetDocumentText(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GetDocumentTextTool? value)
+        {
+            value = GetDocumentText;
+            return IsGetDocumentText;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GetDocumentTextTool PickGetDocumentText() => IsGetDocumentText
+            ? GetDocumentText!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GetDocumentText' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -254,6 +514,11 @@ namespace Vectara
         {
             DynamicVectara = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Tool FromDynamicVectara(global::Vectara.DynamicVectaraTool? value) => new Tool(value);
 
         /// <summary>
         /// 
@@ -276,6 +541,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static Tool FromMcp(global::Vectara.McpTool? value) => new Tool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator Tool(global::Vectara.CorporaSearchTool value) => new Tool((global::Vectara.CorporaSearchTool?)value);
 
         /// <summary>
@@ -290,6 +560,11 @@ namespace Vectara
         {
             CorporaSearch = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Tool FromCorporaSearch(global::Vectara.CorporaSearchTool? value) => new Tool(value);
 
         /// <summary>
         /// 
@@ -312,6 +587,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static Tool FromWebSearch(global::Vectara.WebSearchTool? value) => new Tool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator Tool(global::Vectara.WebGetTool value) => new Tool((global::Vectara.WebGetTool?)value);
 
         /// <summary>
@@ -326,6 +606,11 @@ namespace Vectara
         {
             WebGet = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Tool FromWebGet(global::Vectara.WebGetTool? value) => new Tool(value);
 
         /// <summary>
         /// 
@@ -348,6 +633,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static Tool FromLambda(global::Vectara.LambdaTool? value) => new Tool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator Tool(global::Vectara.SubAgentTool value) => new Tool((global::Vectara.SubAgentTool?)value);
 
         /// <summary>
@@ -362,6 +652,11 @@ namespace Vectara
         {
             SubAgent = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Tool FromSubAgent(global::Vectara.SubAgentTool? value) => new Tool(value);
 
         /// <summary>
         /// 
@@ -384,6 +679,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static Tool FromArtifactCreate(global::Vectara.ArtifactCreateTool? value) => new Tool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator Tool(global::Vectara.ArtifactReadTool value) => new Tool((global::Vectara.ArtifactReadTool?)value);
 
         /// <summary>
@@ -398,6 +698,11 @@ namespace Vectara
         {
             ArtifactRead = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Tool FromArtifactRead(global::Vectara.ArtifactReadTool? value) => new Tool(value);
 
         /// <summary>
         /// 
@@ -420,6 +725,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static Tool FromArtifactGrep(global::Vectara.ArtifactGrepTool? value) => new Tool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator Tool(global::Vectara.ImageReadTool value) => new Tool((global::Vectara.ImageReadTool?)value);
 
         /// <summary>
@@ -434,6 +744,11 @@ namespace Vectara
         {
             ImageRead = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Tool FromImageRead(global::Vectara.ImageReadTool? value) => new Tool(value);
 
         /// <summary>
         /// 
@@ -456,6 +771,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static Tool FromDocumentConversion(global::Vectara.DocumentConversionTool? value) => new Tool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator Tool(global::Vectara.GetDocumentTextTool value) => new Tool((global::Vectara.GetDocumentTextTool?)value);
 
         /// <summary>
@@ -470,6 +790,11 @@ namespace Vectara
         {
             GetDocumentText = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Tool FromGetDocumentText(global::Vectara.GetDocumentTextTool? value) => new Tool(value);
 
         /// <summary>
         /// 
@@ -638,6 +963,96 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<global::Vectara.DynamicVectaraTool?>? dynamicVectara = null,
+
+            global::System.Action<global::Vectara.McpTool?>? mcp = null,
+
+            global::System.Action<global::Vectara.CorporaSearchTool?>? corporaSearch = null,
+
+            global::System.Action<global::Vectara.WebSearchTool?>? webSearch = null,
+
+            global::System.Action<global::Vectara.WebGetTool?>? webGet = null,
+
+            global::System.Action<global::Vectara.LambdaTool?>? lambda = null,
+
+            global::System.Action<global::Vectara.SubAgentTool?>? subAgent = null,
+
+            global::System.Action<global::Vectara.ArtifactCreateTool?>? artifactCreate = null,
+
+            global::System.Action<global::Vectara.ArtifactReadTool?>? artifactRead = null,
+
+            global::System.Action<global::Vectara.ArtifactGrepTool?>? artifactGrep = null,
+
+            global::System.Action<global::Vectara.ImageReadTool?>? imageRead = null,
+
+            global::System.Action<global::Vectara.DocumentConversionTool?>? documentConversion = null,
+
+            global::System.Action<global::Vectara.GetDocumentTextTool?>? getDocumentText = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsDynamicVectara)
+            {
+                dynamicVectara?.Invoke(DynamicVectara!);
+            }
+            else if (IsMcp)
+            {
+                mcp?.Invoke(Mcp!);
+            }
+            else if (IsCorporaSearch)
+            {
+                corporaSearch?.Invoke(CorporaSearch!);
+            }
+            else if (IsWebSearch)
+            {
+                webSearch?.Invoke(WebSearch!);
+            }
+            else if (IsWebGet)
+            {
+                webGet?.Invoke(WebGet!);
+            }
+            else if (IsLambda)
+            {
+                lambda?.Invoke(Lambda!);
+            }
+            else if (IsSubAgent)
+            {
+                subAgent?.Invoke(SubAgent!);
+            }
+            else if (IsArtifactCreate)
+            {
+                artifactCreate?.Invoke(ArtifactCreate!);
+            }
+            else if (IsArtifactRead)
+            {
+                artifactRead?.Invoke(ArtifactRead!);
+            }
+            else if (IsArtifactGrep)
+            {
+                artifactGrep?.Invoke(ArtifactGrep!);
+            }
+            else if (IsImageRead)
+            {
+                imageRead?.Invoke(ImageRead!);
+            }
+            else if (IsDocumentConversion)
+            {
+                documentConversion?.Invoke(DocumentConversion!);
+            }
+            else if (IsGetDocumentText)
+            {
+                getDocumentText?.Invoke(GetDocumentText!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
             global::System.Action<global::Vectara.DynamicVectaraTool?>? dynamicVectara = null,
             global::System.Action<global::Vectara.McpTool?>? mcp = null,
             global::System.Action<global::Vectara.CorporaSearchTool?>? corporaSearch = null,

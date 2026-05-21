@@ -43,5 +43,6 @@ namespace Vectara
         public UpdateOpenAILLMRequestVariant2()
         {
         }
+
     }
 }

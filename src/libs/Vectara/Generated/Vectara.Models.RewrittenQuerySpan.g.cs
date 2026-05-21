@@ -96,5 +96,6 @@ namespace Vectara
         public RewrittenQuerySpan()
         {
         }
+
     }
 }

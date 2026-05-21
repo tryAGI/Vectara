@@ -37,6 +37,7 @@ namespace Vectara.JsonConverters
             var __score0 = 0;
             if (__jsonProps.Contains("duration_ms")) __score0++;
             if (__jsonProps.Contains("error_message")) __score0++;
+            if (__jsonProps.Contains("has_children")) __score0++;
             if (__jsonProps.Contains("parent_span_id")) __score0++;
             if (__jsonProps.Contains("span_id")) __score0++;
             if (__jsonProps.Contains("started_at")) __score0++;
@@ -48,6 +49,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("attributes.agent_description")) __score1++;
             if (__jsonProps.Contains("attributes.agent_name")) __score1++;
             if (__jsonProps.Contains("attributes.cache_read_input_tokens")) __score1++;
+            if (__jsonProps.Contains("attributes.depth")) __score1++;
             if (__jsonProps.Contains("attributes.input_event_id")) __score1++;
             if (__jsonProps.Contains("attributes.input_files")) __score1++;
             if (__jsonProps.Contains("attributes.input_tokens")) __score1++;
@@ -56,6 +58,8 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("attributes.output_event_id")) __score1++;
             if (__jsonProps.Contains("attributes.output_tokens")) __score1++;
             if (__jsonProps.Contains("attributes.output_type")) __score1++;
+            if (__jsonProps.Contains("attributes.parent_agent_id")) __score1++;
+            if (__jsonProps.Contains("attributes.parent_session_id")) __score1++;
             if (__jsonProps.Contains("attributes.provider_name")) __score1++;
             if (__jsonProps.Contains("attributes.temperature")) __score1++;
             if (__jsonProps.Contains("content")) __score1++;
@@ -105,6 +109,7 @@ namespace Vectara.JsonConverters
             {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.AgentTraceSpanBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.AgentTraceSpanBase> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.AgentTraceSpanBase).Name}");
                     @base = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
@@ -115,9 +120,13 @@ namespace Vectara.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (@base == null && invokeAgentTraceSpanVariant2 == null)
+            {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InvokeAgentTraceSpanVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InvokeAgentTraceSpanVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InvokeAgentTraceSpanVariant2).Name}");
                     invokeAgentTraceSpanVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);

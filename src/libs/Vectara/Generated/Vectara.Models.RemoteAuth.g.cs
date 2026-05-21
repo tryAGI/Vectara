@@ -32,6 +32,26 @@ namespace Vectara
         public bool IsBearer => Bearer != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickBearer(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.BearerAuth? value)
+        {
+            value = Bearer;
+            return IsBearer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BearerAuth PickBearer() => IsBearer
+            ? Bearer!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Bearer' but the value was {ToString()}.");
+
+        /// <summary>
         /// Custom header-based authentication
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -49,6 +69,26 @@ namespace Vectara
         public bool IsHeader => Header != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickHeader(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.HeaderAuth? value)
+        {
+            value = Header;
+            return IsHeader;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.HeaderAuth PickHeader() => IsHeader
+            ? Header!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Header' but the value was {ToString()}.");
+
+        /// <summary>
         /// OAuth 2.0 client credentials authentication. The platform acquires an access token from the token endpoint before connecting to the remote service.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -64,6 +104,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OauthClientCredentials))]
 #endif
         public bool IsOauthClientCredentials => OauthClientCredentials != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickOauthClientCredentials(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.OAuthClientCredentialsAuth? value)
+        {
+            value = OauthClientCredentials;
+            return IsOauthClientCredentials;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.OAuthClientCredentialsAuth PickOauthClientCredentials() => IsOauthClientCredentials
+            ? OauthClientCredentials!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OauthClientCredentials' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -81,6 +141,11 @@ namespace Vectara
         {
             Bearer = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static RemoteAuth FromBearer(global::Vectara.BearerAuth? value) => new RemoteAuth(value);
 
         /// <summary>
         /// 
@@ -103,6 +168,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static RemoteAuth FromHeader(global::Vectara.HeaderAuth? value) => new RemoteAuth(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator RemoteAuth(global::Vectara.OAuthClientCredentialsAuth value) => new RemoteAuth((global::Vectara.OAuthClientCredentialsAuth?)value);
 
         /// <summary>
@@ -117,6 +187,11 @@ namespace Vectara
         {
             OauthClientCredentials = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static RemoteAuth FromOauthClientCredentials(global::Vectara.OAuthClientCredentialsAuth? value) => new RemoteAuth(value);
 
         /// <summary>
         /// 
@@ -165,9 +240,9 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.BearerAuth?, TResult>? bearer = null,
-            global::System.Func<global::Vectara.HeaderAuth?, TResult>? header = null,
-            global::System.Func<global::Vectara.OAuthClientCredentialsAuth?, TResult>? oauthClientCredentials = null,
+            global::System.Func<global::Vectara.BearerAuth, TResult>? bearer = null,
+            global::System.Func<global::Vectara.HeaderAuth, TResult>? header = null,
+            global::System.Func<global::Vectara.OAuthClientCredentialsAuth, TResult>? oauthClientCredentials = null,
             bool validate = true)
         {
             if (validate)
@@ -195,9 +270,39 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.BearerAuth?>? bearer = null,
-            global::System.Action<global::Vectara.HeaderAuth?>? header = null,
-            global::System.Action<global::Vectara.OAuthClientCredentialsAuth?>? oauthClientCredentials = null,
+            global::System.Action<global::Vectara.BearerAuth>? bearer = null,
+
+            global::System.Action<global::Vectara.HeaderAuth>? header = null,
+
+            global::System.Action<global::Vectara.OAuthClientCredentialsAuth>? oauthClientCredentials = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBearer)
+            {
+                bearer?.Invoke(Bearer!);
+            }
+            else if (IsHeader)
+            {
+                header?.Invoke(Header!);
+            }
+            else if (IsOauthClientCredentials)
+            {
+                oauthClientCredentials?.Invoke(OauthClientCredentials!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.BearerAuth>? bearer = null,
+            global::System.Action<global::Vectara.HeaderAuth>? header = null,
+            global::System.Action<global::Vectara.OAuthClientCredentialsAuth>? oauthClientCredentials = null,
             bool validate = true)
         {
             if (validate)

@@ -33,6 +33,26 @@ namespace Vectara
         public bool IsReference => Reference != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickReference(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ReferenceInstruction? value)
+        {
+            value = Reference;
+            return IsReference;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ReferenceInstruction PickReference() => IsReference
+            ? Reference!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Reference' but the value was {ToString()}.");
+
+        /// <summary>
         /// An instruction defined inline in the request.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -48,6 +68,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Inline))]
 #endif
         public bool IsInline => Inline != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInline(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineInstruction? value)
+        {
+            value = Inline;
+            return IsInline;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineInstruction PickInline() => IsInline
+            ? Inline!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Inline' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -69,6 +109,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static AgentStepInstruction FromReference(global::Vectara.ReferenceInstruction? value) => new AgentStepInstruction(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentStepInstruction(global::Vectara.InlineInstruction value) => new AgentStepInstruction((global::Vectara.InlineInstruction?)value);
 
         /// <summary>
@@ -83,6 +128,11 @@ namespace Vectara
         {
             Inline = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentStepInstruction FromInline(global::Vectara.InlineInstruction? value) => new AgentStepInstruction(value);
 
         /// <summary>
         /// 
@@ -152,6 +202,30 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<global::Vectara.ReferenceInstruction?>? reference = null,
+
+            global::System.Action<global::Vectara.InlineInstruction?>? inline = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsReference)
+            {
+                reference?.Invoke(Reference!);
+            }
+            else if (IsInline)
+            {
+                inline?.Invoke(Inline!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
             global::System.Action<global::Vectara.ReferenceInstruction?>? reference = null,
             global::System.Action<global::Vectara.InlineInstruction?>? inline = null,
             bool validate = true)

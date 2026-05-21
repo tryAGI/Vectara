@@ -26,8 +26,8 @@ namespace Vectara
         /// Source configuration for partial updates. Only provided fields are changed; credentials are optional.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.UpdateS3SourceConfigurationJsonConverter))]
-        public global::Vectara.UpdateS3SourceConfiguration? Source { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter))]
+        public global::Vectara.UpdatePipelineSource? Source { get; set; }
 
         /// <summary>
         /// Defines when the pipeline runs.
@@ -101,7 +101,7 @@ namespace Vectara
         public UpdatePipelineRequest(
             string? name,
             string? description,
-            global::Vectara.UpdateS3SourceConfiguration? source,
+            global::Vectara.UpdatePipelineSource? source,
             global::Vectara.PipelineTrigger? trigger,
             global::Vectara.PipelineTransform? transform,
             global::Vectara.PipelineSyncMode? syncMode,
@@ -124,5 +124,6 @@ namespace Vectara
         public UpdatePipelineRequest()
         {
         }
+
     }
 }

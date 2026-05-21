@@ -50,5 +50,6 @@ namespace Vectara
         public ListQueryHistoriesResponse()
         {
         }
+
     }
 }

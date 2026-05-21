@@ -25,6 +25,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationPreset))]
 #endif
         public bool IsGenerationPreset => GenerationPreset != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGenerationPreset(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GenerationPreset? value)
+        {
+            value = GenerationPreset;
+            return IsGenerationPreset;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GenerationPreset PickGenerationPreset() => IsGenerationPreset
+            ? GenerationPreset!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationPreset' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -42,6 +62,11 @@ namespace Vectara
         {
             GenerationPreset = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateGenerationPresetRequest FromGenerationPreset(global::Vectara.GenerationPreset? value) => new CreateGenerationPresetRequest(value);
 
         /// <summary>
         /// 
@@ -69,7 +94,7 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.GenerationPreset?, TResult>? generationPreset = null,
+            global::System.Func<global::Vectara.GenerationPreset, TResult>? generationPreset = null,
             bool validate = true)
         {
             if (validate)
@@ -89,7 +114,25 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.GenerationPreset?>? generationPreset = null,
+            global::System.Action<global::Vectara.GenerationPreset>? generationPreset = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsGenerationPreset)
+            {
+                generationPreset?.Invoke(GenerationPreset!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.GenerationPreset>? generationPreset = null,
             bool validate = true)
         {
             if (validate)

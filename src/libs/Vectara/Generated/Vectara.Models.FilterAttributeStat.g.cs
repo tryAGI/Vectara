@@ -98,5 +98,6 @@ namespace Vectara
         public FilterAttributeStat()
         {
         }
+
     }
 }

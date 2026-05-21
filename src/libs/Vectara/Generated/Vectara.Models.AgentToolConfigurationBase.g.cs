@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class AgentToolConfigurationBase
     {
         /// <summary>
-        /// Optional override for the tool's description shown to the LLM. When set, replaces the description from the underlying tool definition.<br/>
+        /// Optional override for the tool's description shown to the agent. When set, replaces the description from the underlying tool definition.<br/>
         /// Example: Search the customer support knowledge base
         /// </summary>
         /// <example>Search the customer support knowledge base</example>
@@ -55,7 +55,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AgentToolConfigurationBase" /> class.
         /// </summary>
         /// <param name="description">
-        /// Optional override for the tool's description shown to the LLM. When set, replaces the description from the underlying tool definition.<br/>
+        /// Optional override for the tool's description shown to the agent. When set, replaces the description from the underlying tool definition.<br/>
         /// Example: Search the customer support knowledge base
         /// </param>
         /// <param name="descriptionTemplate">
@@ -99,5 +99,6 @@ namespace Vectara
         public AgentToolConfigurationBase()
         {
         }
+
     }
 }

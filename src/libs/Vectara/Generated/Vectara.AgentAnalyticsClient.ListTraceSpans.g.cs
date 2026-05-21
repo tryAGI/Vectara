@@ -48,6 +48,8 @@ namespace Vectara
             ref string traceId,
             ref bool? includeContent,
             ref global::Vectara.ListTraceSpansOperation? operation,
+            ref string? parentSpanId,
+            ref bool? excludeSubagents,
             ref int? limit,
             ref string? pageKey);
         partial void PrepareListTraceSpansRequest(
@@ -58,6 +60,8 @@ namespace Vectara
             string traceId,
             bool? includeContent,
             global::Vectara.ListTraceSpansOperation? operation,
+            string? parentSpanId,
+            bool? excludeSubagents,
             int? limit,
             string? pageKey);
         partial void ProcessListTraceSpansResponse(
@@ -80,6 +84,10 @@ namespace Vectara
         /// Default Value: false
         /// </param>
         /// <param name="operation"></param>
+        /// <param name="parentSpanId"></param>
+        /// <param name="excludeSubagents">
+        /// Default Value: false
+        /// </param>
         /// <param name="limit">
         /// Default Value: 100
         /// </param>
@@ -93,6 +101,8 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             bool? includeContent = default,
             global::Vectara.ListTraceSpansOperation? operation = default,
+            string? parentSpanId = default,
+            bool? excludeSubagents = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -104,6 +114,8 @@ namespace Vectara
                 requestTimeoutMillis: requestTimeoutMillis,
                 includeContent: includeContent,
                 operation: operation,
+                parentSpanId: parentSpanId,
+                excludeSubagents: excludeSubagents,
                 limit: limit,
                 pageKey: pageKey,
                 requestOptions: requestOptions,
@@ -123,6 +135,10 @@ namespace Vectara
         /// Default Value: false
         /// </param>
         /// <param name="operation"></param>
+        /// <param name="parentSpanId"></param>
+        /// <param name="excludeSubagents">
+        /// Default Value: false
+        /// </param>
         /// <param name="limit">
         /// Default Value: 100
         /// </param>
@@ -136,6 +152,8 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             bool? includeContent = default,
             global::Vectara.ListTraceSpansOperation? operation = default,
+            string? parentSpanId = default,
+            bool? excludeSubagents = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -150,6 +168,8 @@ namespace Vectara
                 traceId: ref traceId,
                 includeContent: ref includeContent,
                 operation: ref operation,
+                parentSpanId: ref parentSpanId,
+                excludeSubagents: ref excludeSubagents,
                 limit: ref limit,
                 pageKey: ref pageKey);
 
@@ -182,6 +202,8 @@ namespace Vectara
                             __pathBuilder
                                 .AddOptionalParameter("include_content", includeContent?.ToString().ToLowerInvariant())
                                 .AddOptionalParameter("operation", operation?.ToValueString())
+                                .AddOptionalParameter("parent_span_id", parentSpanId)
+                                .AddOptionalParameter("exclude_subagents", excludeSubagents?.ToString().ToLowerInvariant())
                                 .AddOptionalParameter("limit", limit?.ToString())
                                 .AddOptionalParameter("page_key", pageKey)
                                 ;
@@ -240,6 +262,8 @@ namespace Vectara
                     traceId: traceId!,
                     includeContent: includeContent,
                     operation: operation,
+                    parentSpanId: parentSpanId,
+                    excludeSubagents: excludeSubagents,
                     limit: limit,
                     pageKey: pageKey);
 

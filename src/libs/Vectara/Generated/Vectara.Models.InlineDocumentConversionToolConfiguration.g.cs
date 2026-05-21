@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentToolConfigurationBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineDocumentConversionToolConfigurationVariant2? InlineDocumentConversionToolConfigurationVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineDocumentConversionToolConfigurationVariant2))]
 #endif
         public bool IsInlineDocumentConversionToolConfigurationVariant2 => InlineDocumentConversionToolConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInlineDocumentConversionToolConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineDocumentConversionToolConfigurationVariant2? value)
+        {
+            value = InlineDocumentConversionToolConfigurationVariant2;
+            return IsInlineDocumentConversionToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineDocumentConversionToolConfigurationVariant2 PickInlineDocumentConversionToolConfigurationVariant2() => IsInlineDocumentConversionToolConfigurationVariant2
+            ? InlineDocumentConversionToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineDocumentConversionToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineDocumentConversionToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineDocumentConversionToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineDocumentConversionToolConfiguration(global::Vectara.InlineDocumentConversionToolConfigurationVariant2 value) => new InlineDocumentConversionToolConfiguration((global::Vectara.InlineDocumentConversionToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             InlineDocumentConversionToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineDocumentConversionToolConfiguration FromInlineDocumentConversionToolConfigurationVariant2(global::Vectara.InlineDocumentConversionToolConfigurationVariant2? value) => new InlineDocumentConversionToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.InlineDocumentConversionToolConfigurationVariant2?, TResult>? inlineDocumentConversionToolConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.AgentToolConfigurationBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineDocumentConversionToolConfigurationVariant2, TResult>? inlineDocumentConversionToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
-            global::System.Action<global::Vectara.InlineDocumentConversionToolConfigurationVariant2?>? inlineDocumentConversionToolConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.InlineDocumentConversionToolConfigurationVariant2>? inlineDocumentConversionToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineDocumentConversionToolConfigurationVariant2)
+            {
+                inlineDocumentConversionToolConfigurationVariant2?.Invoke(InlineDocumentConversionToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+            global::System.Action<global::Vectara.InlineDocumentConversionToolConfigurationVariant2>? inlineDocumentConversionToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)

@@ -27,6 +27,13 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.ArtifactReference> Artifacts { get; set; }
 
         /// <summary>
+        /// Frozen text of the single user-role agent message rendered for this artifact upload at emission time, capturing the artifact metadata and instruction<br/>
+        /// block as one prompt. When absent the platform reconstructs the rendering on read using current templates.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("agent_upload_message")]
+        public string? AgentUploadMessage { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -43,15 +50,21 @@ namespace Vectara
         /// References to uploaded artifacts<br/>
         /// Example: [{"artifact_id":"art_report_pdf_a3f2","filename":"report.pdf","mime_type":"application/pdf","size_bytes":2048576}]
         /// </param>
+        /// <param name="agentUploadMessage">
+        /// Frozen text of the single user-role agent message rendered for this artifact upload at emission time, capturing the artifact metadata and instruction<br/>
+        /// block as one prompt. When absent the platform reconstructs the rendering on read using current templates.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ArtifactUploadEventVariant2(
             string type,
-            global::System.Collections.Generic.IList<global::Vectara.ArtifactReference> artifacts)
+            global::System.Collections.Generic.IList<global::Vectara.ArtifactReference> artifacts,
+            string? agentUploadMessage)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Artifacts = artifacts ?? throw new global::System.ArgumentNullException(nameof(artifacts));
+            this.AgentUploadMessage = agentUploadMessage;
         }
 
         /// <summary>
@@ -60,5 +73,6 @@ namespace Vectara
         public ArtifactUploadEventVariant2()
         {
         }
+
     }
 }

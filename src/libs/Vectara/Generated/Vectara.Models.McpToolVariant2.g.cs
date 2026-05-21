@@ -73,5 +73,6 @@ namespace Vectara
         public McpToolVariant2()
         {
         }
+
     }
 }

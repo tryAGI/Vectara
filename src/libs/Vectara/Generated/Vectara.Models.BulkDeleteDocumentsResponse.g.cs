@@ -47,6 +47,26 @@ namespace Vectara
         public bool IsAsync => Async != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickAsync(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.BulkDeleteAsyncResponse? value)
+        {
+            value = Async;
+            return IsAsync;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BulkDeleteAsyncResponse PickAsync() => IsAsync
+            ? Async!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Async' but the value was {ToString()}.");
+
+        /// <summary>
         /// Response when async=false and operation completes successfully (HTTP 200).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -62,6 +82,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Success))]
 #endif
         public bool IsSuccess => Success != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSuccess(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.BulkDeleteSyncSuccessResponse? value)
+        {
+            value = Success;
+            return IsSuccess;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.BulkDeleteSyncSuccessResponse PickSuccess() => IsSuccess
+            ? Success!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Success' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -83,6 +123,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static BulkDeleteDocumentsResponse FromAsync(global::Vectara.BulkDeleteAsyncResponse? value) => new BulkDeleteDocumentsResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteSyncSuccessResponse value) => new BulkDeleteDocumentsResponse((global::Vectara.BulkDeleteSyncSuccessResponse?)value);
 
         /// <summary>
@@ -97,6 +142,11 @@ namespace Vectara
         {
             Success = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static BulkDeleteDocumentsResponse FromSuccess(global::Vectara.BulkDeleteSyncSuccessResponse? value) => new BulkDeleteDocumentsResponse(value);
 
         /// <summary>
         /// 
@@ -141,8 +191,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.BulkDeleteAsyncResponse?, TResult>? async = null,
-            global::System.Func<global::Vectara.BulkDeleteSyncSuccessResponse?, TResult>? success = null,
+            global::System.Func<global::Vectara.BulkDeleteAsyncResponse, TResult>? async = null,
+            global::System.Func<global::Vectara.BulkDeleteSyncSuccessResponse, TResult>? success = null,
             bool validate = true)
         {
             if (validate)
@@ -166,8 +216,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.BulkDeleteAsyncResponse?>? async = null,
-            global::System.Action<global::Vectara.BulkDeleteSyncSuccessResponse?>? success = null,
+            global::System.Action<global::Vectara.BulkDeleteAsyncResponse>? async = null,
+
+            global::System.Action<global::Vectara.BulkDeleteSyncSuccessResponse>? success = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAsync)
+            {
+                async?.Invoke(Async!);
+            }
+            else if (IsSuccess)
+            {
+                success?.Invoke(Success!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.BulkDeleteAsyncResponse>? async = null,
+            global::System.Action<global::Vectara.BulkDeleteSyncSuccessResponse>? success = null,
             bool validate = true)
         {
             if (validate)

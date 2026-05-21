@@ -53,5 +53,6 @@ namespace Vectara
         public ListCorporaResponse()
         {
         }
+
     }
 }

@@ -88,6 +88,24 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.AgentTraceInputFile>? InputFiles { get; set; }
 
         /// <summary>
+        /// For sub-agent invocations, the agent_id of the agent that invoked this one. Null for entry-point agents.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("parent_agent_id")]
+        public string? ParentAgentId { get; set; }
+
+        /// <summary>
+        /// For sub-agent invocations, the session_key of the parent agent session. Null for entry-point agents.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("parent_session_id")]
+        public string? ParentSessionId { get; set; }
+
+        /// <summary>
+        /// Nesting depth of this agent invocation. 0 for entry-point agents, 1 for first-level sub-agents, and so on.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("depth")]
+        public int? Depth { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -135,6 +153,15 @@ namespace Vectara
         /// <param name="inputFiles">
         /// Metadata for files uploaded with the input, if any.
         /// </param>
+        /// <param name="parentAgentId">
+        /// For sub-agent invocations, the agent_id of the agent that invoked this one. Null for entry-point agents.
+        /// </param>
+        /// <param name="parentSessionId">
+        /// For sub-agent invocations, the session_key of the parent agent session. Null for entry-point agents.
+        /// </param>
+        /// <param name="depth">
+        /// Nesting depth of this agent invocation. 0 for entry-point agents, 1 for first-level sub-agents, and so on.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -151,7 +178,10 @@ namespace Vectara
             global::Vectara.InvokeAgentSpanAttributesOutputType? outputType,
             string? inputEventId,
             string? outputEventId,
-            global::System.Collections.Generic.IList<global::Vectara.AgentTraceInputFile>? inputFiles)
+            global::System.Collections.Generic.IList<global::Vectara.AgentTraceInputFile>? inputFiles,
+            string? parentAgentId,
+            string? parentSessionId,
+            int? depth)
         {
             this.Model = model;
             this.InputTokens = inputTokens;
@@ -166,6 +196,9 @@ namespace Vectara
             this.InputEventId = inputEventId;
             this.OutputEventId = outputEventId;
             this.InputFiles = inputFiles;
+            this.ParentAgentId = parentAgentId;
+            this.ParentSessionId = parentSessionId;
+            this.Depth = depth;
         }
 
         /// <summary>
@@ -174,5 +207,6 @@ namespace Vectara
         public InvokeAgentSpanAttributes()
         {
         }
+
     }
 }

@@ -32,7 +32,7 @@ namespace Vectara
         public required string ToStep { get; set; }
 
         /// <summary>
-        /// The handoff message content for the LLM.
+        /// The handoff message content for the agent.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("content")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -58,7 +58,7 @@ namespace Vectara
         /// The name of the step being transitioned to.
         /// </param>
         /// <param name="content">
-        /// The handoff message content for the LLM.
+        /// The handoff message content for the agent.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -81,5 +81,6 @@ namespace Vectara
         public StepTransitionEventVariant2()
         {
         }
+
     }
 }

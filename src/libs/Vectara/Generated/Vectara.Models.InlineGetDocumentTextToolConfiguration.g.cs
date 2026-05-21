@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentToolConfigurationBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? InlineGetDocumentTextToolConfigurationVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineGetDocumentTextToolConfigurationVariant2))]
 #endif
         public bool IsInlineGetDocumentTextToolConfigurationVariant2 => InlineGetDocumentTextToolConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInlineGetDocumentTextToolConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? value)
+        {
+            value = InlineGetDocumentTextToolConfigurationVariant2;
+            return IsInlineGetDocumentTextToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineGetDocumentTextToolConfigurationVariant2 PickInlineGetDocumentTextToolConfigurationVariant2() => IsInlineGetDocumentTextToolConfigurationVariant2
+            ? InlineGetDocumentTextToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineGetDocumentTextToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineGetDocumentTextToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineGetDocumentTextToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineGetDocumentTextToolConfiguration(global::Vectara.InlineGetDocumentTextToolConfigurationVariant2 value) => new InlineGetDocumentTextToolConfiguration((global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             InlineGetDocumentTextToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineGetDocumentTextToolConfiguration FromInlineGetDocumentTextToolConfigurationVariant2(global::Vectara.InlineGetDocumentTextToolConfigurationVariant2? value) => new InlineGetDocumentTextToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?, TResult>? inlineGetDocumentTextToolConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.AgentToolConfigurationBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineGetDocumentTextToolConfigurationVariant2, TResult>? inlineGetDocumentTextToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
-            global::System.Action<global::Vectara.InlineGetDocumentTextToolConfigurationVariant2?>? inlineGetDocumentTextToolConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.InlineGetDocumentTextToolConfigurationVariant2>? inlineGetDocumentTextToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineGetDocumentTextToolConfigurationVariant2)
+            {
+                inlineGetDocumentTextToolConfigurationVariant2?.Invoke(InlineGetDocumentTextToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+            global::System.Action<global::Vectara.InlineGetDocumentTextToolConfigurationVariant2>? inlineGetDocumentTextToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)

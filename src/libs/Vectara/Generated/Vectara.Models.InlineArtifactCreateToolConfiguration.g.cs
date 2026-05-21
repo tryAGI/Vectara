@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentToolConfigurationBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineArtifactCreateToolConfigurationVariant2? InlineArtifactCreateToolConfigurationVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineArtifactCreateToolConfigurationVariant2))]
 #endif
         public bool IsInlineArtifactCreateToolConfigurationVariant2 => InlineArtifactCreateToolConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInlineArtifactCreateToolConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineArtifactCreateToolConfigurationVariant2? value)
+        {
+            value = InlineArtifactCreateToolConfigurationVariant2;
+            return IsInlineArtifactCreateToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactCreateToolConfigurationVariant2 PickInlineArtifactCreateToolConfigurationVariant2() => IsInlineArtifactCreateToolConfigurationVariant2
+            ? InlineArtifactCreateToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineArtifactCreateToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineArtifactCreateToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineArtifactCreateToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineArtifactCreateToolConfiguration(global::Vectara.InlineArtifactCreateToolConfigurationVariant2 value) => new InlineArtifactCreateToolConfiguration((global::Vectara.InlineArtifactCreateToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             InlineArtifactCreateToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineArtifactCreateToolConfiguration FromInlineArtifactCreateToolConfigurationVariant2(global::Vectara.InlineArtifactCreateToolConfigurationVariant2? value) => new InlineArtifactCreateToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.InlineArtifactCreateToolConfigurationVariant2?, TResult>? inlineArtifactCreateToolConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.AgentToolConfigurationBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineArtifactCreateToolConfigurationVariant2, TResult>? inlineArtifactCreateToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
-            global::System.Action<global::Vectara.InlineArtifactCreateToolConfigurationVariant2?>? inlineArtifactCreateToolConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.InlineArtifactCreateToolConfigurationVariant2>? inlineArtifactCreateToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineArtifactCreateToolConfigurationVariant2)
+            {
+                inlineArtifactCreateToolConfigurationVariant2?.Invoke(InlineArtifactCreateToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+            global::System.Action<global::Vectara.InlineArtifactCreateToolConfigurationVariant2>? inlineArtifactCreateToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)

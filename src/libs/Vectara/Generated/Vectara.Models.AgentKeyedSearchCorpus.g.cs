@@ -102,5 +102,6 @@ namespace Vectara
         public AgentKeyedSearchCorpus()
         {
         }
+
     }
 }

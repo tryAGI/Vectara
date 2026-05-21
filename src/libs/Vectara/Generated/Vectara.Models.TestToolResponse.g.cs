@@ -32,6 +32,26 @@ namespace Vectara
         public bool IsSuccess => Success != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSuccess(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.TestToolSuccessResponse? value)
+        {
+            value = Success;
+            return IsSuccess;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.TestToolSuccessResponse PickSuccess() => IsSuccess
+            ? Success!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Success' but the value was {ToString()}.");
+
+        /// <summary>
         /// Error response from testing a Lambda tool.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -47,6 +67,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
 #endif
         public bool IsError => Error != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickError(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.TestToolErrorResponse? value)
+        {
+            value = Error;
+            return IsError;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.TestToolErrorResponse PickError() => IsError
+            ? Error!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -68,6 +108,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static TestToolResponse FromSuccess(global::Vectara.TestToolSuccessResponse? value) => new TestToolResponse(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator TestToolResponse(global::Vectara.TestToolErrorResponse value) => new TestToolResponse((global::Vectara.TestToolErrorResponse?)value);
 
         /// <summary>
@@ -82,6 +127,11 @@ namespace Vectara
         {
             Error = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static TestToolResponse FromError(global::Vectara.TestToolErrorResponse? value) => new TestToolResponse(value);
 
         /// <summary>
         /// 
@@ -126,8 +176,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.TestToolSuccessResponse?, TResult>? success = null,
-            global::System.Func<global::Vectara.TestToolErrorResponse?, TResult>? error = null,
+            global::System.Func<global::Vectara.TestToolSuccessResponse, TResult>? success = null,
+            global::System.Func<global::Vectara.TestToolErrorResponse, TResult>? error = null,
             bool validate = true)
         {
             if (validate)
@@ -151,8 +201,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.TestToolSuccessResponse?>? success = null,
-            global::System.Action<global::Vectara.TestToolErrorResponse?>? error = null,
+            global::System.Action<global::Vectara.TestToolSuccessResponse>? success = null,
+
+            global::System.Action<global::Vectara.TestToolErrorResponse>? error = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSuccess)
+            {
+                success?.Invoke(Success!);
+            }
+            else if (IsError)
+            {
+                error?.Invoke(Error!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.TestToolSuccessResponse>? success = null,
+            global::System.Action<global::Vectara.TestToolErrorResponse>? error = null,
             bool validate = true)
         {
             if (validate)

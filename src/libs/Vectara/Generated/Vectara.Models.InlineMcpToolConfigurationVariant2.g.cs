@@ -92,5 +92,6 @@ namespace Vectara
         public InlineMcpToolConfigurationVariant2()
         {
         }
+
     }
 }

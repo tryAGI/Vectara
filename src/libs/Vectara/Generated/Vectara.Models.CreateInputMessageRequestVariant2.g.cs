@@ -90,5 +90,6 @@ namespace Vectara
         public CreateInputMessageRequestVariant2()
         {
         }
+
     }
 }

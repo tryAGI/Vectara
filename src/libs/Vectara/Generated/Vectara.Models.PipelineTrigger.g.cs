@@ -32,6 +32,26 @@ namespace Vectara
         public bool IsCron => Cron != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCron(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CronTriggerConfiguration? value)
+        {
+            value = Cron;
+            return IsCron;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CronTriggerConfiguration PickCron() => IsCron
+            ? Cron!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Cron' but the value was {ToString()}.");
+
+        /// <summary>
         /// Run the pipeline at a fixed interval.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -49,6 +69,26 @@ namespace Vectara
         public bool IsInterval => Interval != null;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInterval(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.IntervalTriggerConfiguration? value)
+        {
+            value = Interval;
+            return IsInterval;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.IntervalTriggerConfiguration PickInterval() => IsInterval
+            ? Interval!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Interval' but the value was {ToString()}.");
+
+        /// <summary>
         /// Pipeline is only triggered manually via the trigger endpoint. No automatic scheduling.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -64,6 +104,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Manual))]
 #endif
         public bool IsManual => Manual != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickManual(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ManualTriggerConfiguration? value)
+        {
+            value = Manual;
+            return IsManual;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ManualTriggerConfiguration PickManual() => IsManual
+            ? Manual!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Manual' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -81,6 +141,11 @@ namespace Vectara
         {
             Cron = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineTrigger FromCron(global::Vectara.CronTriggerConfiguration? value) => new PipelineTrigger(value);
 
         /// <summary>
         /// 
@@ -103,6 +168,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static PipelineTrigger FromInterval(global::Vectara.IntervalTriggerConfiguration? value) => new PipelineTrigger(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PipelineTrigger(global::Vectara.ManualTriggerConfiguration value) => new PipelineTrigger((global::Vectara.ManualTriggerConfiguration?)value);
 
         /// <summary>
@@ -117,6 +187,11 @@ namespace Vectara
         {
             Manual = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineTrigger FromManual(global::Vectara.ManualTriggerConfiguration? value) => new PipelineTrigger(value);
 
         /// <summary>
         /// 
@@ -165,9 +240,9 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.CronTriggerConfiguration?, TResult>? cron = null,
-            global::System.Func<global::Vectara.IntervalTriggerConfiguration?, TResult>? interval = null,
-            global::System.Func<global::Vectara.ManualTriggerConfiguration?, TResult>? manual = null,
+            global::System.Func<global::Vectara.CronTriggerConfiguration, TResult>? cron = null,
+            global::System.Func<global::Vectara.IntervalTriggerConfiguration, TResult>? interval = null,
+            global::System.Func<global::Vectara.ManualTriggerConfiguration, TResult>? manual = null,
             bool validate = true)
         {
             if (validate)
@@ -195,9 +270,39 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.CronTriggerConfiguration?>? cron = null,
-            global::System.Action<global::Vectara.IntervalTriggerConfiguration?>? interval = null,
-            global::System.Action<global::Vectara.ManualTriggerConfiguration?>? manual = null,
+            global::System.Action<global::Vectara.CronTriggerConfiguration>? cron = null,
+
+            global::System.Action<global::Vectara.IntervalTriggerConfiguration>? interval = null,
+
+            global::System.Action<global::Vectara.ManualTriggerConfiguration>? manual = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsCron)
+            {
+                cron?.Invoke(Cron!);
+            }
+            else if (IsInterval)
+            {
+                interval?.Invoke(Interval!);
+            }
+            else if (IsManual)
+            {
+                manual?.Invoke(Manual!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CronTriggerConfiguration>? cron = null,
+            global::System.Action<global::Vectara.IntervalTriggerConfiguration>? interval = null,
+            global::System.Action<global::Vectara.ManualTriggerConfiguration>? manual = null,
             bool validate = true)
         {
             if (validate)

@@ -101,5 +101,6 @@ namespace Vectara
         public CreateClientCredentialsRequest()
         {
         }
+
     }
 }

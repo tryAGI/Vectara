@@ -13,7 +13,8 @@ namespace Vectara
         /// <summary>
         /// The identifier for the source record to add. Format depends on connector type:<br/>
         /// - S3: the object key (e.g. `legal/contracts/doc.pdf`)<br/>
-        /// - SharePoint: the drive item ID
+        /// - SharePoint: the drive item ID<br/>
+        /// - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source_record_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -37,7 +38,8 @@ namespace Vectara
         /// <param name="sourceRecordId">
         /// The identifier for the source record to add. Format depends on connector type:<br/>
         /// - S3: the object key (e.g. `legal/contracts/doc.pdf`)<br/>
-        /// - SharePoint: the drive item ID
+        /// - SharePoint: the drive item ID<br/>
+        /// - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
         /// </param>
         /// <param name="errorMessage">
         /// Optional reason for manually adding this record.
@@ -59,5 +61,6 @@ namespace Vectara
         public CreatePipelineDeadLetterEntryRequest()
         {
         }
+
     }
 }

@@ -29,6 +29,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickAgentBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.AgentToolConfigurationBase? value)
+        {
+            value = AgentBase;
+            return IsAgentBase;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.AgentToolConfigurationBase PickAgentBase() => IsAgentBase
+            ? AgentBase!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineArtifactGrepToolConfigurationVariant2? InlineArtifactGrepToolConfigurationVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineArtifactGrepToolConfigurationVariant2))]
 #endif
         public bool IsInlineArtifactGrepToolConfigurationVariant2 => InlineArtifactGrepToolConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickInlineArtifactGrepToolConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.InlineArtifactGrepToolConfigurationVariant2? value)
+        {
+            value = InlineArtifactGrepToolConfigurationVariant2;
+            return IsInlineArtifactGrepToolConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.InlineArtifactGrepToolConfigurationVariant2 PickInlineArtifactGrepToolConfigurationVariant2() => IsInlineArtifactGrepToolConfigurationVariant2
+            ? InlineArtifactGrepToolConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'InlineArtifactGrepToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static InlineArtifactGrepToolConfiguration FromAgentBase(global::Vectara.AgentToolConfigurationBase? value) => new InlineArtifactGrepToolConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator InlineArtifactGrepToolConfiguration(global::Vectara.InlineArtifactGrepToolConfigurationVariant2 value) => new InlineArtifactGrepToolConfiguration((global::Vectara.InlineArtifactGrepToolConfigurationVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace Vectara
         {
             InlineArtifactGrepToolConfigurationVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static InlineArtifactGrepToolConfiguration FromInlineArtifactGrepToolConfigurationVariant2(global::Vectara.InlineArtifactGrepToolConfigurationVariant2? value) => new InlineArtifactGrepToolConfiguration(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.AgentToolConfigurationBase?, TResult>? agentBase = null,
-            global::System.Func<global::Vectara.InlineArtifactGrepToolConfigurationVariant2?, TResult>? inlineArtifactGrepToolConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.AgentToolConfigurationBase, TResult>? agentBase = null,
+            global::System.Func<global::Vectara.InlineArtifactGrepToolConfigurationVariant2, TResult>? inlineArtifactGrepToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.AgentToolConfigurationBase?>? agentBase = null,
-            global::System.Action<global::Vectara.InlineArtifactGrepToolConfigurationVariant2?>? inlineArtifactGrepToolConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+
+            global::System.Action<global::Vectara.InlineArtifactGrepToolConfigurationVariant2>? inlineArtifactGrepToolConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsAgentBase)
+            {
+                agentBase?.Invoke(AgentBase!);
+            }
+            else if (IsInlineArtifactGrepToolConfigurationVariant2)
+            {
+                inlineArtifactGrepToolConfigurationVariant2?.Invoke(InlineArtifactGrepToolConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.AgentToolConfigurationBase>? agentBase = null,
+            global::System.Action<global::Vectara.InlineArtifactGrepToolConfigurationVariant2>? inlineArtifactGrepToolConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)

@@ -189,5 +189,6 @@ namespace Vectara
         public AgentSession()
         {
         }
+
     }
 }

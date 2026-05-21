@@ -123,5 +123,6 @@ namespace Vectara
         public LambdaToolVariant2()
         {
         }
+
     }
 }

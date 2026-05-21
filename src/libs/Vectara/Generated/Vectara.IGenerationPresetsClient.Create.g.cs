@@ -103,10 +103,10 @@ namespace Vectara
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.GenerationPreset> CreateAsync(
+            string name,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? id = default,
-            string? name = default,
             string? description = default,
             string? llmName = default,
             string? promptTemplate = default,
