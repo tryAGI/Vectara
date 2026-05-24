@@ -450,18 +450,17 @@ namespace Vectara
                                     __exception_400 = __ex;
                                 }
 
-                                throw new global::Vectara.ApiException<global::Vectara.BadRequestError>(
+
+                                throw global::Vectara.ApiException<global::Vectara.BadRequestError>.Create(
+                                    statusCode: __response.StatusCode,
                                     message: __content_400 ?? __response.ReasonPhrase ?? string.Empty,
                                     innerException: __exception_400,
-                                    statusCode: __response.StatusCode)
-                                {
-                                    ResponseBody = __content_400,
-                                    ResponseObject = __value_400,
-                                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                    responseBody: __content_400,
+                                    responseObject: __value_400,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,
-                                        h => h.Value),
-                                };
+                                        h => h.Value));
                             }
                             // Permissions do not allow bulk deleting documents.
                             if ((int)__response.StatusCode == 403)
@@ -488,18 +487,17 @@ namespace Vectara
                                     __exception_403 = __ex;
                                 }
 
-                                throw new global::Vectara.ApiException<global::Vectara.Error>(
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
                                     message: __content_403 ?? __response.ReasonPhrase ?? string.Empty,
                                     innerException: __exception_403,
-                                    statusCode: __response.StatusCode)
-                                {
-                                    ResponseBody = __content_403,
-                                    ResponseObject = __value_403,
-                                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                    responseBody: __content_403,
+                                    responseObject: __value_403,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,
-                                        h => h.Value),
-                                };
+                                        h => h.Value));
                             }
                             // Corpus not found.
                             if ((int)__response.StatusCode == 404)
@@ -526,18 +524,17 @@ namespace Vectara
                                     __exception_404 = __ex;
                                 }
 
-                                throw new global::Vectara.ApiException<global::Vectara.NotFoundError>(
+
+                                throw global::Vectara.ApiException<global::Vectara.NotFoundError>.Create(
+                                    statusCode: __response.StatusCode,
                                     message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
                                     innerException: __exception_404,
-                                    statusCode: __response.StatusCode)
-                                {
-                                    ResponseBody = __content_404,
-                                    ResponseObject = __value_404,
-                                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                    responseBody: __content_404,
+                                    responseObject: __value_404,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,
-                                        h => h.Value),
-                                };
+                                        h => h.Value));
                             }
                             // Synchronous operation timed out. The error message contains the job_id to track status via Jobs API. Workflow continues running in background.
                             if ((int)__response.StatusCode == 504)
@@ -564,18 +561,17 @@ namespace Vectara
                                     __exception_504 = __ex;
                                 }
 
-                                throw new global::Vectara.ApiException<global::Vectara.Error>(
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
                                     message: __content_504 ?? __response.ReasonPhrase ?? string.Empty,
                                     innerException: __exception_504,
-                                    statusCode: __response.StatusCode)
-                                {
-                                    ResponseBody = __content_504,
-                                    ResponseObject = __value_504,
-                                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                    responseBody: __content_504,
+                                    responseObject: __value_504,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,
-                                        h => h.Value),
-                                };
+                                        h => h.Value));
                             }
 
                             if (__effectiveReadResponseAsString)
@@ -609,17 +605,15 @@ namespace Vectara
                                 }
                                 catch (global::System.Exception __ex)
                                 {
-                                    throw new global::Vectara.ApiException(
+                                    throw global::Vectara.ApiException.Create(
+                                        statusCode: __response.StatusCode,
                                         message: __content ?? __response.ReasonPhrase ?? string.Empty,
                                         innerException: __ex,
-                                        statusCode: __response.StatusCode)
-                                    {
-                                        ResponseBody = __content,
-                                        ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                        responseBody: __content,
+                                        responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                             __response.Headers,
                                             h => h.Key,
-                                            h => h.Value),
-                                    };
+                                            h => h.Value));
                                 }
                             }
                             else
@@ -656,17 +650,15 @@ namespace Vectara
                                     {
                                     }
 
-                                    throw new global::Vectara.ApiException(
+                                    throw global::Vectara.ApiException.Create(
+                                        statusCode: __response.StatusCode,
                                         message: __content ?? __response.ReasonPhrase ?? string.Empty,
                                         innerException: __ex,
-                                        statusCode: __response.StatusCode)
-                                    {
-                                        ResponseBody = __content,
-                                        ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                        responseBody: __content,
+                                        responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                             __response.Headers,
                                             h => h.Key,
-                                            h => h.Value),
-                                    };
+                                            h => h.Value));
                                 }
                             }
 

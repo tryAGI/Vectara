@@ -297,6 +297,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.CreateInputRequestDiscriminatorTypeNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.ToolActivityEventDiscriminatorActivityTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolActivityEventDiscriminatorActivityTypeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeNullableJsonConverter),
@@ -646,6 +650,12 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.CreateInputRequestJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CompactionStartedEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.GenericToolActivityEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SubAgentToolActivityEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolActivityEventJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter),
 
@@ -1552,6 +1562,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.CreateInputRequestDiscriminatorTypeNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.ToolActivityEventDiscriminatorActivityTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolActivityEventDiscriminatorActivityTypeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeNullableJsonConverter),
@@ -1902,6 +1916,12 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.CompactionStartedEventJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.GenericToolActivityEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.SubAgentToolActivityEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ToolActivityEventJsonConverter),
+
             typeof(global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter),
@@ -2086,6 +2106,14 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ContextConsumedEvent))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CompactionStartedEvent), TypeInfoPropertyName = "CompactionStartedEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CompactionStartedEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolActivityEventBase))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GenericToolActivityEvent), TypeInfoPropertyName = "GenericToolActivityEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GenericToolActivityEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentToolActivityEvent), TypeInfoPropertyName = "SubAgentToolActivityEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SubAgentToolActivityEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolActivityEvent), TypeInfoPropertyName = "ToolActivityEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolActivityEventDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolActivityEventDiscriminatorActivityType), TypeInfoPropertyName = "ToolActivityEventDiscriminatorActivityType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStreamedResponse), TypeInfoPropertyName = "AgentStreamedResponse2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStreamedResponseDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStreamedResponseDiscriminatorType), TypeInfoPropertyName = "AgentStreamedResponseDiscriminatorType2")]
@@ -2564,6 +2592,8 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.InputBehaviorNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateInputRequestDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateInputRequestDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolActivityEventDiscriminatorActivityTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolActivityEventDiscriminatorActivityTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.IntervalScheduleConfigurationTypeJsonConverter());
@@ -2739,6 +2769,9 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.CreateCompactRequestJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateInputRequestJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CompactionStartedEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.GenericToolActivityEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.SubAgentToolActivityEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ToolActivityEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter());
