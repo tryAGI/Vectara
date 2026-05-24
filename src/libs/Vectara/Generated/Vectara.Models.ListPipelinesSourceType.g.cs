@@ -16,6 +16,10 @@ namespace Vectara
         /// 
         /// </summary>
         Sharepoint,
+        /// <summary>
+        /// 
+        /// </summary>
+        Web,
     }
 
     /// <summary>
@@ -32,6 +36,7 @@ namespace Vectara
             {
                 ListPipelinesSourceType.S3 => "s3",
                 ListPipelinesSourceType.Sharepoint => "sharepoint",
+                ListPipelinesSourceType.Web => "web",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -44,6 +49,7 @@ namespace Vectara
             {
                 "s3" => ListPipelinesSourceType.S3,
                 "sharepoint" => ListPipelinesSourceType.Sharepoint,
+                "web" => ListPipelinesSourceType.Web,
                 _ => null,
             };
         }

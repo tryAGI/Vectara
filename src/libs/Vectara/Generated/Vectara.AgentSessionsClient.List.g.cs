@@ -47,6 +47,7 @@ namespace Vectara
             ref int? requestTimeoutMillis,
             ref string agentKey,
             ref string? filter,
+            ref string? metadataFilter,
             ref int? limit,
             ref string? pageKey);
         partial void PrepareListRequest(
@@ -56,6 +57,7 @@ namespace Vectara
             int? requestTimeoutMillis,
             string agentKey,
             string? filter,
+            string? metadataFilter,
             int? limit,
             string? pageKey);
         partial void ProcessListResponse(
@@ -80,6 +82,9 @@ namespace Vectara
         /// <param name="filter">
         /// Example: support.*
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: user_role = 'premium' AND tier &gt;= 2
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -92,6 +97,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? filter = default,
+            string? metadataFilter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -102,6 +108,7 @@ namespace Vectara
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 filter: filter,
+                metadataFilter: metadataFilter,
                 limit: limit,
                 pageKey: pageKey,
                 requestOptions: requestOptions,
@@ -123,6 +130,9 @@ namespace Vectara
         /// <param name="filter">
         /// Example: support.*
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: user_role = 'premium' AND tier &gt;= 2
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -135,6 +145,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? filter = default,
+            string? metadataFilter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -148,6 +159,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 agentKey: ref agentKey,
                 filter: ref filter,
+                metadataFilter: ref metadataFilter,
                 limit: ref limit,
                 pageKey: ref pageKey);
 
@@ -179,6 +191,7 @@ namespace Vectara
                                 baseUri: HttpClient.BaseAddress);
                             __pathBuilder
                                 .AddOptionalParameter("filter", filter)
+                                .AddOptionalParameter("metadata_filter", metadataFilter)
                                 .AddOptionalParameter("limit", limit?.ToString())
                                 .AddOptionalParameter("page_key", pageKey)
                                 ;
@@ -236,6 +249,7 @@ namespace Vectara
                     requestTimeoutMillis: requestTimeoutMillis,
                     agentKey: agentKey!,
                     filter: filter,
+                    metadataFilter: metadataFilter,
                     limit: limit,
                     pageKey: pageKey);
 
@@ -444,18 +458,17 @@ namespace Vectara
                                     __exception_403 = __ex;
                                 }
 
-                                throw new global::Vectara.ApiException<global::Vectara.Error>(
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
                                     message: __content_403 ?? __response.ReasonPhrase ?? string.Empty,
                                     innerException: __exception_403,
-                                    statusCode: __response.StatusCode)
-                                {
-                                    ResponseBody = __content_403,
-                                    ResponseObject = __value_403,
-                                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                    responseBody: __content_403,
+                                    responseObject: __value_403,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,
-                                        h => h.Value),
-                                };
+                                        h => h.Value));
                             }
                             // Agent not found.
                             if ((int)__response.StatusCode == 404)
@@ -482,18 +495,17 @@ namespace Vectara
                                     __exception_404 = __ex;
                                 }
 
-                                throw new global::Vectara.ApiException<global::Vectara.NotFoundError>(
+
+                                throw global::Vectara.ApiException<global::Vectara.NotFoundError>.Create(
+                                    statusCode: __response.StatusCode,
                                     message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
                                     innerException: __exception_404,
-                                    statusCode: __response.StatusCode)
-                                {
-                                    ResponseBody = __content_404,
-                                    ResponseObject = __value_404,
-                                    ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                    responseBody: __content_404,
+                                    responseObject: __value_404,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,
-                                        h => h.Value),
-                                };
+                                        h => h.Value));
                             }
 
                             if (__effectiveReadResponseAsString)
@@ -527,17 +539,15 @@ namespace Vectara
                                 }
                                 catch (global::System.Exception __ex)
                                 {
-                                    throw new global::Vectara.ApiException(
+                                    throw global::Vectara.ApiException.Create(
+                                        statusCode: __response.StatusCode,
                                         message: __content ?? __response.ReasonPhrase ?? string.Empty,
                                         innerException: __ex,
-                                        statusCode: __response.StatusCode)
-                                    {
-                                        ResponseBody = __content,
-                                        ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                        responseBody: __content,
+                                        responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                             __response.Headers,
                                             h => h.Key,
-                                            h => h.Value),
-                                    };
+                                            h => h.Value));
                                 }
                             }
                             else
@@ -574,17 +584,15 @@ namespace Vectara
                                     {
                                     }
 
-                                    throw new global::Vectara.ApiException(
+                                    throw global::Vectara.ApiException.Create(
+                                        statusCode: __response.StatusCode,
                                         message: __content ?? __response.ReasonPhrase ?? string.Empty,
                                         innerException: __ex,
-                                        statusCode: __response.StatusCode)
-                                    {
-                                        ResponseBody = __content,
-                                        ResponseHeaders = global::System.Linq.Enumerable.ToDictionary(
+                                        responseBody: __content,
+                                        responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                             __response.Headers,
                                             h => h.Key,
-                                            h => h.Value),
-                                    };
+                                            h => h.Value));
                                 }
                             }
 

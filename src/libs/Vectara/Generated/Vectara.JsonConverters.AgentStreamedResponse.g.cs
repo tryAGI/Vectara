@@ -91,6 +91,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ToolOutputEvent)}");
                 toolOutput = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.ToolActivityEvent? toolActivity = default;
+            if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.ToolActivity)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolActivityEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolActivityEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ToolActivityEvent)}");
+                toolActivity = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.StructuredOutputEvent? structuredOutput = default;
             if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.StructuredOutput)
             {
@@ -191,6 +198,8 @@ namespace Vectara.JsonConverters
 
                 toolOutput,
 
+                toolActivity,
+
                 structuredOutput,
 
                 contextLimitExceeded,
@@ -285,6 +294,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolOutputEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolOutputEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ToolOutputEvent).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.ToolOutput!.Value, typeInfo);
+            }
+            else if (value.IsToolActivity)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolActivityEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolActivityEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ToolActivityEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ToolActivity!.Value, typeInfo);
             }
             else if (value.IsStructuredOutput)
             {

@@ -87,6 +87,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        ToolActivity,
+        /// <summary>
+        /// 
+        /// </summary>
         ToolInput,
         /// <summary>
         /// 
@@ -125,6 +129,7 @@ namespace Vectara
                 AgentStreamedResponseDiscriminatorType.StreamingThinkingEnd => "streaming_thinking_end",
                 AgentStreamedResponseDiscriminatorType.StructuredOutput => "structured_output",
                 AgentStreamedResponseDiscriminatorType.Thinking => "thinking",
+                AgentStreamedResponseDiscriminatorType.ToolActivity => "tool_activity",
                 AgentStreamedResponseDiscriminatorType.ToolInput => "tool_input",
                 AgentStreamedResponseDiscriminatorType.ToolOutput => "tool_output",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
@@ -156,6 +161,7 @@ namespace Vectara
                 "streaming_thinking_end" => AgentStreamedResponseDiscriminatorType.StreamingThinkingEnd,
                 "structured_output" => AgentStreamedResponseDiscriminatorType.StructuredOutput,
                 "thinking" => AgentStreamedResponseDiscriminatorType.Thinking,
+                "tool_activity" => AgentStreamedResponseDiscriminatorType.ToolActivity,
                 "tool_input" => AgentStreamedResponseDiscriminatorType.ToolInput,
                 "tool_output" => AgentStreamedResponseDiscriminatorType.ToolOutput,
                 _ => null,

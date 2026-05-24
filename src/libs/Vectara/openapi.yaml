@@ -9038,6 +9038,37 @@ paths:
           type: string
           example: support.*
       - in: query
+        name: metadata_filter
+        description: 'A filter expression to narrow the list to sessions whose metadata
+          matches. Field names refer to keys on the session''s `metadata` object.
+          Syntax is similar to a SQL WHERE clause, the same as the `metadata_filter`
+          used in query requests. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview)
+          for more information.
+
+
+          Examples:
+
+          - `user_role = ''premium''`
+
+          - `tier >= 2 AND region = ''us''`
+
+          - `user LIKE ''%@example.com''`
+
+          - `tier IN (''premium'', ''enterprise'')`
+
+          - `tier IS NULL`
+
+          - `"profile.country" = ''US''` (nested fields use a quoted dotted path)
+
+          - `1 IN user_ids` (value present in an array)
+
+          '
+        required: false
+        schema:
+          type: string
+          maxLength: 8000
+          example: user_role = 'premium' AND tier >= 2
+      - in: query
         name: limit
         description: The maximum number of sessions to return in the list.
         required: false
@@ -9438,6 +9469,7 @@ paths:
               skill_load: '#/components/schemas/SkillLoadEvent'
               thinking: '#/components/schemas/ThinkingEvent'
               artifact_upload: '#/components/schemas/ArtifactUploadEvent'
+              tool_activity: '#/components/schemas/ToolActivityEvent'
               error: '#/components/schemas/StreamError'
               end: '#/components/schemas/StreamResponseEnd'
           oneOf:
@@ -9451,6 +9483,7 @@ paths:
           - $ref: '#/components/schemas/StreamingThinkingEnd'
           - $ref: '#/components/schemas/ToolInputEvent'
           - $ref: '#/components/schemas/ToolOutputEvent'
+          - $ref: '#/components/schemas/ToolActivityEvent'
           - $ref: '#/components/schemas/StructuredOutputEvent'
           - $ref: '#/components/schemas/ContextLimitExceededEvent'
           - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
@@ -11028,6 +11061,7 @@ paths:
           enum:
           - sharepoint
           - s3
+          - web
       - in: query
         name: status
         description: Filter pipelines by status.
@@ -15947,6 +15981,7 @@ components:
           description: Maximum context window size in tokens.
           type: integer
           format: int32
+          minimum: 4096
         tool_calling:
           description: Whether the model supports tool/function calling.
           type: boolean
@@ -16339,6 +16374,12 @@ components:
           example: https://us-central1-aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
         auth:
           $ref: '#/components/schemas/VertexAiAuth'
+        headers:
+          description: Additional HTTP headers to include with requests to the Gemini
+            API.
+          type: object
+          additionalProperties:
+            type: string
         idle_timeout_seconds:
           $ref: '#/components/schemas/IdleTimeoutSeconds'
         test_model_parameters:
@@ -16658,6 +16699,12 @@ components:
           nullable: false
         auth:
           $ref: '#/components/schemas/VertexAiAuth'
+        headers:
+          description: Additional HTTP headers to include with requests to the Gemini
+            API.
+          type: object
+          additionalProperties:
+            type: string
         idle_timeout_seconds:
           $ref: '#/components/schemas/IdleTimeoutSeconds'
         enabled:
@@ -22982,6 +23029,98 @@ components:
         - type
       x-vectaraParents:
       - AgentStreamedResponse
+    ToolActivityEventBase:
+      description: Base properties shared by all tool activity event types.
+      type: object
+      properties:
+        type:
+          description: The type of streaming event.
+          type: string
+          default: tool_activity
+          example: tool_activity
+        tool_call_id:
+          description: The tool_call_id of the tool invocation this activity belongs
+            to. Matches tool_input/tool_output.
+          type: string
+          example: call_tool_search_001
+        tool_configuration_name:
+          description: The name of the tool configuration emitting the activity.
+          type: string
+        tool_name:
+          description: Name of the tool emitting the activity.
+          type: string
+        created_at:
+          description: Timestamp when the event was created.
+          type: string
+          format: date-time
+          example: '2024-01-15T10:35:00Z'
+      required:
+      - type
+      - tool_call_id
+      - created_at
+    GenericToolActivityEvent:
+      title: GenericToolActivityEvent
+      description: A free-form progress update from a tool. The only payload is a
+        human-readable message.
+      allOf:
+      - $ref: '#/components/schemas/ToolActivityEventBase'
+      - type: object
+        properties:
+          activity_type:
+            description: Discriminator for ToolActivityEvent subtypes.
+            type: string
+            default: generic
+            example: generic
+          message:
+            description: Human-readable progress update. Safe to render directly to
+              the user.
+            type: string
+            example: Sub-agent finished step 2 of 5
+        required:
+        - activity_type
+        - message
+      x-vectaraParents:
+      - ToolActivityEvent
+    SubAgentToolActivityEvent:
+      title: SubAgentToolActivityEvent
+      description: A relayed event from a sub-agent's inner execution stream, emitted
+        by the sub_agent tool while it runs.
+      allOf:
+      - $ref: '#/components/schemas/ToolActivityEventBase'
+      - type: object
+        properties:
+          activity_type:
+            description: Discriminator for ToolActivityEvent subtypes.
+            type: string
+            default: sub_agent
+            example: sub_agent
+          agent_event:
+            description: The inner agent event being relayed (tool_input, tool_output,
+              agent_output, etc.).
+            $ref: '#/components/schemas/AgentEvent'
+        required:
+        - activity_type
+        - agent_event
+      x-vectaraParents:
+      - ToolActivityEvent
+    ToolActivityEvent:
+      description: "A sideband event emitted by a tool during its execution (streaming\
+        \ only, not stored). Always falls between the tool's tool_input and tool_output\
+        \ events for the same tool_call_id. Polymorphic on `activity_type` \u2014\
+        \ see GenericToolActivityEvent (free-form text) and SubAgentToolActivityEvent\
+        \ (relayed inner AgentEvent)."
+      type: object
+      x-vectara-base-schema: '#/ToolActivityEventBase'
+      discriminator:
+        propertyName: activity_type
+        mapping:
+          generic: '#/components/schemas/GenericToolActivityEvent'
+          sub_agent: '#/components/schemas/SubAgentToolActivityEvent'
+      oneOf:
+      - $ref: '#/components/schemas/GenericToolActivityEvent'
+      - $ref: '#/components/schemas/SubAgentToolActivityEvent'
+      x-vectaraParents:
+      - AgentStreamedResponse
     AgentStreamedResponse:
       description: An individual event sent with Server-sent Events (SSE) when the
         agent response is streamed.
@@ -23008,6 +23147,7 @@ components:
           skill_load: '#/components/schemas/SkillLoadEvent'
           thinking: '#/components/schemas/ThinkingEvent'
           artifact_upload: '#/components/schemas/ArtifactUploadEvent'
+          tool_activity: '#/components/schemas/ToolActivityEvent'
           error: '#/components/schemas/StreamError'
           end: '#/components/schemas/StreamResponseEnd'
       oneOf:
@@ -23021,6 +23161,7 @@ components:
       - $ref: '#/components/schemas/StreamingThinkingEnd'
       - $ref: '#/components/schemas/ToolInputEvent'
       - $ref: '#/components/schemas/ToolOutputEvent'
+      - $ref: '#/components/schemas/ToolActivityEvent'
       - $ref: '#/components/schemas/StructuredOutputEvent'
       - $ref: '#/components/schemas/ContextLimitExceededEvent'
       - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'

@@ -17,6 +17,9 @@ namespace Vectara
         /// <param name="filter">
         /// Example: support.*
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: user_role = 'premium' AND tier &gt;= 2
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -29,6 +32,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? filter = default,
+            string? metadataFilter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -46,6 +50,9 @@ namespace Vectara
         /// <param name="filter">
         /// Example: support.*
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: user_role = 'premium' AND tier &gt;= 2
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -58,6 +65,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? filter = default,
+            string? metadataFilter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
