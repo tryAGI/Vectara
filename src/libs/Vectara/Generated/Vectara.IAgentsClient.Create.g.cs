@@ -6,30 +6,20 @@ namespace Vectara
     {
         /// <summary>
         /// Create agent<br/>
-        /// Create a new agent. An agent is compromised as 3 main things of functionality:<br/>
-        ///   1. The **instructions** an agent follows. Known as a system in prompt in other platforms.<br/>
-        ///   2. The **steps** an agent follows when receiving an input.<br/>
-        ///   3. The **tools** an agent can use to resolve those steps and instructions.<br/>
-        /// Instructions are tied to each step, and should be precisely crafted so that the agent can perform the desired actions when given an input. <br/>
-        /// :::tip Creating more precise instructions<br/>
-        /// Be specific to exactly what you want the agent to do. For emphasis, use CAPS if you want the agent to follow a specific format. Negative prompts also help with precision such as saying **DO NOT DO THIS**.<br/>
-        /// :::<br/>
-        /// To use an agent, create a new session (called thread or chat in other platforms), and send new inputs to the agent to get responses.<br/>
-        /// :::note<br/>
-        /// Only a single step is supported with no follow up steps. So the `first_step` will be only the only step. We will add multiple steps and step types to execute complex workflows, but many agents can work well with a single step.<br/>
-        /// :::<br/>
+        /// Creates an agent. An agent is defined by three things: the **instructions** it follows, the **steps** it executes when it receives an input, and the **tools** it can call. Instructions are attached to each step and determine the agent's behavior on that step.<br/>
+        /// Only a single step is currently supported. Set `first_step` to that step; additional step types will be added later.<br/>
+        /// To invoke an agent, create a session and send events to it. Each event produces a response from the agent.<br/>
         /// ## LLM configuration<br/>
-        /// Agents use LLMs for reasoning and response generation. You can configure the following:<br/>
-        /// - **Model**: Choose from available models like GPT-4o.<br/>
-        /// - **Parameters**: Adjust temperature, max tokens, and other model-specific settings.<br/>
-        /// - **Cost optimization**: Balance performance with token usage.<br/>
-        /// - **Retry configuration**: Configure automatic retry behavior for transient failures.<br/>
-        /// ## Using retries to improve user experience<br/>
-        /// When agents interact with LLMs, transient failures like network interruptions can disrupt communication between the agent and the LLM. You can configure your agent to resume disrupted communication to ensure a smooth user experience.<br/>
-        /// - `max_retries`: After an error, the agent will retry its request to the LLM this many times.<br/>
-        /// - `initial_backoff_ms`: This is how many milliseconds the agent will wait before retrying, to give the cause of the error time to resolve.<br/>
-        /// - `backoff_factor`: Every time the agent retries, it can multiply the last retry delay by this number, increasing the wait between retries. This is like giving a toddler a longer and longer timeout if it continues to misbehave.<br/>
-        /// - `max_backoff_ms`: The maximum time you want the agent to wait between retries, so the backoff_factor does not create an unreasonably long delay for your users.
+        /// Each agent is bound to one LLM, configured under `llm`:<br/>
+        /// - `llm_name`: the LLM resource to use (see `GET /v2/llms`).<br/>
+        /// - model parameters such as temperature and max tokens.<br/>
+        /// - retry configuration applied to LLM calls.<br/>
+        /// ## Retry configuration<br/>
+        /// The agent retries failed LLM calls using exponential backoff:<br/>
+        /// - `max_retries`: maximum number of retries after the initial call.<br/>
+        /// - `initial_backoff_ms`: delay in milliseconds before the first retry.<br/>
+        /// - `backoff_factor`: multiplier applied to the delay after each retry.<br/>
+        /// - `max_backoff_ms`: upper bound on the delay between retries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -46,30 +36,20 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent<br/>
-        /// Create a new agent. An agent is compromised as 3 main things of functionality:<br/>
-        ///   1. The **instructions** an agent follows. Known as a system in prompt in other platforms.<br/>
-        ///   2. The **steps** an agent follows when receiving an input.<br/>
-        ///   3. The **tools** an agent can use to resolve those steps and instructions.<br/>
-        /// Instructions are tied to each step, and should be precisely crafted so that the agent can perform the desired actions when given an input. <br/>
-        /// :::tip Creating more precise instructions<br/>
-        /// Be specific to exactly what you want the agent to do. For emphasis, use CAPS if you want the agent to follow a specific format. Negative prompts also help with precision such as saying **DO NOT DO THIS**.<br/>
-        /// :::<br/>
-        /// To use an agent, create a new session (called thread or chat in other platforms), and send new inputs to the agent to get responses.<br/>
-        /// :::note<br/>
-        /// Only a single step is supported with no follow up steps. So the `first_step` will be only the only step. We will add multiple steps and step types to execute complex workflows, but many agents can work well with a single step.<br/>
-        /// :::<br/>
+        /// Creates an agent. An agent is defined by three things: the **instructions** it follows, the **steps** it executes when it receives an input, and the **tools** it can call. Instructions are attached to each step and determine the agent's behavior on that step.<br/>
+        /// Only a single step is currently supported. Set `first_step` to that step; additional step types will be added later.<br/>
+        /// To invoke an agent, create a session and send events to it. Each event produces a response from the agent.<br/>
         /// ## LLM configuration<br/>
-        /// Agents use LLMs for reasoning and response generation. You can configure the following:<br/>
-        /// - **Model**: Choose from available models like GPT-4o.<br/>
-        /// - **Parameters**: Adjust temperature, max tokens, and other model-specific settings.<br/>
-        /// - **Cost optimization**: Balance performance with token usage.<br/>
-        /// - **Retry configuration**: Configure automatic retry behavior for transient failures.<br/>
-        /// ## Using retries to improve user experience<br/>
-        /// When agents interact with LLMs, transient failures like network interruptions can disrupt communication between the agent and the LLM. You can configure your agent to resume disrupted communication to ensure a smooth user experience.<br/>
-        /// - `max_retries`: After an error, the agent will retry its request to the LLM this many times.<br/>
-        /// - `initial_backoff_ms`: This is how many milliseconds the agent will wait before retrying, to give the cause of the error time to resolve.<br/>
-        /// - `backoff_factor`: Every time the agent retries, it can multiply the last retry delay by this number, increasing the wait between retries. This is like giving a toddler a longer and longer timeout if it continues to misbehave.<br/>
-        /// - `max_backoff_ms`: The maximum time you want the agent to wait between retries, so the backoff_factor does not create an unreasonably long delay for your users.
+        /// Each agent is bound to one LLM, configured under `llm`:<br/>
+        /// - `llm_name`: the LLM resource to use (see `GET /v2/llms`).<br/>
+        /// - model parameters such as temperature and max tokens.<br/>
+        /// - retry configuration applied to LLM calls.<br/>
+        /// ## Retry configuration<br/>
+        /// The agent retries failed LLM calls using exponential backoff:<br/>
+        /// - `max_retries`: maximum number of retries after the initial call.<br/>
+        /// - `initial_backoff_ms`: delay in milliseconds before the first retry.<br/>
+        /// - `backoff_factor`: multiplier applied to the delay after each retry.<br/>
+        /// - `max_backoff_ms`: upper bound on the delay between retries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -86,30 +66,20 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent<br/>
-        /// Create a new agent. An agent is compromised as 3 main things of functionality:<br/>
-        ///   1. The **instructions** an agent follows. Known as a system in prompt in other platforms.<br/>
-        ///   2. The **steps** an agent follows when receiving an input.<br/>
-        ///   3. The **tools** an agent can use to resolve those steps and instructions.<br/>
-        /// Instructions are tied to each step, and should be precisely crafted so that the agent can perform the desired actions when given an input. <br/>
-        /// :::tip Creating more precise instructions<br/>
-        /// Be specific to exactly what you want the agent to do. For emphasis, use CAPS if you want the agent to follow a specific format. Negative prompts also help with precision such as saying **DO NOT DO THIS**.<br/>
-        /// :::<br/>
-        /// To use an agent, create a new session (called thread or chat in other platforms), and send new inputs to the agent to get responses.<br/>
-        /// :::note<br/>
-        /// Only a single step is supported with no follow up steps. So the `first_step` will be only the only step. We will add multiple steps and step types to execute complex workflows, but many agents can work well with a single step.<br/>
-        /// :::<br/>
+        /// Creates an agent. An agent is defined by three things: the **instructions** it follows, the **steps** it executes when it receives an input, and the **tools** it can call. Instructions are attached to each step and determine the agent's behavior on that step.<br/>
+        /// Only a single step is currently supported. Set `first_step` to that step; additional step types will be added later.<br/>
+        /// To invoke an agent, create a session and send events to it. Each event produces a response from the agent.<br/>
         /// ## LLM configuration<br/>
-        /// Agents use LLMs for reasoning and response generation. You can configure the following:<br/>
-        /// - **Model**: Choose from available models like GPT-4o.<br/>
-        /// - **Parameters**: Adjust temperature, max tokens, and other model-specific settings.<br/>
-        /// - **Cost optimization**: Balance performance with token usage.<br/>
-        /// - **Retry configuration**: Configure automatic retry behavior for transient failures.<br/>
-        /// ## Using retries to improve user experience<br/>
-        /// When agents interact with LLMs, transient failures like network interruptions can disrupt communication between the agent and the LLM. You can configure your agent to resume disrupted communication to ensure a smooth user experience.<br/>
-        /// - `max_retries`: After an error, the agent will retry its request to the LLM this many times.<br/>
-        /// - `initial_backoff_ms`: This is how many milliseconds the agent will wait before retrying, to give the cause of the error time to resolve.<br/>
-        /// - `backoff_factor`: Every time the agent retries, it can multiply the last retry delay by this number, increasing the wait between retries. This is like giving a toddler a longer and longer timeout if it continues to misbehave.<br/>
-        /// - `max_backoff_ms`: The maximum time you want the agent to wait between retries, so the backoff_factor does not create an unreasonably long delay for your users.
+        /// Each agent is bound to one LLM, configured under `llm`:<br/>
+        /// - `llm_name`: the LLM resource to use (see `GET /v2/llms`).<br/>
+        /// - model parameters such as temperature and max tokens.<br/>
+        /// - retry configuration applied to LLM calls.<br/>
+        /// ## Retry configuration<br/>
+        /// The agent retries failed LLM calls using exponential backoff:<br/>
+        /// - `max_retries`: maximum number of retries after the initial call.<br/>
+        /// - `initial_backoff_ms`: delay in milliseconds before the first retry.<br/>
+        /// - `backoff_factor`: multiplier applied to the delay after each retry.<br/>
+        /// - `max_backoff_ms`: upper bound on the delay between retries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

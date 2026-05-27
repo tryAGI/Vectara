@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configurable parameters for the document conversion tool. If not overridden, they will be required by the LLM to fill in.
+    /// Configurable parameters for the document conversion tool. If not overridden, they will be required by the agent to fill in.
     /// </summary>
     public sealed partial class DocumentConversionToolParameters
     {

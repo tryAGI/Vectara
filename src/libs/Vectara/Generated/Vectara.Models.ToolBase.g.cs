@@ -31,7 +31,7 @@ namespace Vectara
         public string? Title { get; set; }
 
         /// <summary>
-        /// The description provided to the agent (LLM) to guide tool selection during conversations.<br/>
+        /// The description provided to the agent to guide tool selection.<br/>
         /// This is what the agent sees when deciding which tool to use.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
@@ -101,11 +101,11 @@ namespace Vectara
         public object? OutputSchema { get; set; }
 
         /// <summary>
-        /// An optional jq expression applied to the tool's JSON output before it is returned to the LLM.<br/>
+        /// An optional jq expression applied to the tool's JSON output before it is returned to the agent.<br/>
         /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
         /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
-        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the LLM as<br/>
-        /// an error so the agent can react.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent<br/>
+        /// as an error so the agent can react.<br/>
         /// Examples:<br/>
         ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
         ///   - `.items[0:5]` — first 5 items<br/>
@@ -117,7 +117,28 @@ namespace Vectara
         public string? DefaultOutputTransform { get; set; }
 
         /// <summary>
-        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The LLM will not be able to change the parameters, nor know those values exist within the tool.<br/>
+        /// An optional jq expression applied to the tool's input after argument overrides have been merged<br/>
+        /// with the agent's arguments and before the tool is invoked. Use this to inject server-side<br/>
+        /// context (session metadata, agent secrets) into the tool input, or to reshape the agent's<br/>
+        /// arguments.<br/>
+        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`,<br/>
+        /// and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`),<br/>
+        /// plus an `args` field containing the merged tool input. The output of the expression replaces<br/>
+        /// `args` as the tool input. The pre-transform `args` is what appears in audit events (with<br/>
+        /// secrets masked); the post-transform value goes only to the tool. If the expression fails to<br/>
+        /// compile or evaluate, the tool call is reported to the agent as an error.<br/>
+        /// Examples:<br/>
+        ///   - `.args + { auth: ("Bearer " + .agent.secrets.token) }` — inject a bearer header<br/>
+        ///   - `.args | .corpus_key = .session.metadata.corpus_key` — pull a corpus key from session metadata<br/>
+        ///   - `.args | .query = (.args.query + " " + .session.metadata.query_suffix)` — augment the agent's query<br/>
+        /// Example: .args + { auth: ("Bearer " + .agent.secrets.token) }
+        /// </summary>
+        /// <example>.args + { auth: ("Bearer " + .agent.secrets.token) }</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("default_input_transform")]
+        public string? DefaultInputTransform { get; set; }
+
+        /// <summary>
+        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The agent will not be able to change the parameters, nor know those values exist within the tool.<br/>
         /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
         /// - Static value: "fixed_value" or 123<br/>
         /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
@@ -180,7 +201,7 @@ namespace Vectara
         /// Unique identifier for the tool.
         /// </param>
         /// <param name="description">
-        /// The description provided to the agent (LLM) to guide tool selection during conversations.<br/>
+        /// The description provided to the agent to guide tool selection.<br/>
         /// This is what the agent sees when deciding which tool to use.
         /// </param>
         /// <param name="enabled">
@@ -223,19 +244,36 @@ namespace Vectara
         /// understand the shape of tool responses and to author `default_output_transform` jq expressions.
         /// </param>
         /// <param name="defaultOutputTransform">
-        /// An optional jq expression applied to the tool's JSON output before it is returned to the LLM.<br/>
+        /// An optional jq expression applied to the tool's JSON output before it is returned to the agent.<br/>
         /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
         /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
-        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the LLM as<br/>
-        /// an error so the agent can react.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent<br/>
+        /// as an error so the agent can react.<br/>
         /// Examples:<br/>
         ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
         ///   - `.items[0:5]` — first 5 items<br/>
         ///   - `del(.debug)` — drop a noisy field<br/>
         /// Example: .results | map({title, url})
         /// </param>
+        /// <param name="defaultInputTransform">
+        /// An optional jq expression applied to the tool's input after argument overrides have been merged<br/>
+        /// with the agent's arguments and before the tool is invoked. Use this to inject server-side<br/>
+        /// context (session metadata, agent secrets) into the tool input, or to reshape the agent's<br/>
+        /// arguments.<br/>
+        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`,<br/>
+        /// and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`),<br/>
+        /// plus an `args` field containing the merged tool input. The output of the expression replaces<br/>
+        /// `args` as the tool input. The pre-transform `args` is what appears in audit events (with<br/>
+        /// secrets masked); the post-transform value goes only to the tool. If the expression fails to<br/>
+        /// compile or evaluate, the tool call is reported to the agent as an error.<br/>
+        /// Examples:<br/>
+        ///   - `.args + { auth: ("Bearer " + .agent.secrets.token) }` — inject a bearer header<br/>
+        ///   - `.args | .corpus_key = .session.metadata.corpus_key` — pull a corpus key from session metadata<br/>
+        ///   - `.args | .query = (.args.query + " " + .session.metadata.query_suffix)` — augment the agent's query<br/>
+        /// Example: .args + { auth: ("Bearer " + .agent.secrets.token) }
+        /// </param>
         /// <param name="defaultArgumentOverride">
-        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The LLM will not be able to change the parameters, nor know those values exist within the tool.<br/>
+        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The agent will not be able to change the parameters, nor know those values exist within the tool.<br/>
         /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
         /// - Static value: "fixed_value" or 123<br/>
         /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
@@ -279,6 +317,7 @@ namespace Vectara
             global::System.DateTime? updatedAt,
             object? outputSchema,
             string? defaultOutputTransform,
+            string? defaultInputTransform,
             object? defaultArgumentOverride,
             string? category,
             string? lineage,
@@ -298,6 +337,7 @@ namespace Vectara
             this.InputSchema = inputSchema ?? throw new global::System.ArgumentNullException(nameof(inputSchema));
             this.OutputSchema = outputSchema;
             this.DefaultOutputTransform = defaultOutputTransform;
+            this.DefaultInputTransform = defaultInputTransform;
             this.DefaultArgumentOverride = defaultArgumentOverride;
             this.Category = category;
             this.Lineage = lineage;

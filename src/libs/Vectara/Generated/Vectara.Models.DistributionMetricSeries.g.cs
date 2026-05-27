@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A series of histogram aggregates over a value-axis distribution table.
+    /// A series of distribution histograms.
     /// </summary>
     public readonly partial struct DistributionMetricSeries : global::System.IEquatable<DistributionMetricSeries>
     {

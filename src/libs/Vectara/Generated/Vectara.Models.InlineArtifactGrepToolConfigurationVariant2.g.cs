@@ -18,7 +18,7 @@ namespace Vectara
         public required string Type { get; set; } = "artifact_grep";
 
         /// <summary>
-        /// Configurable parameters for the artifact grep tool. If not overridden, they will be required by the LLM to fill in.
+        /// Configurable parameters for the artifact grep tool. If not overridden, they will be required by the agent to fill in.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
         public global::Vectara.ArtifactGrepToolParameters? ArgumentOverride { get; set; }
@@ -37,7 +37,7 @@ namespace Vectara
         /// Default Value: artifact_grep
         /// </param>
         /// <param name="argumentOverride">
-        /// Configurable parameters for the artifact grep tool. If not overridden, they will be required by the LLM to fill in.
+        /// Configurable parameters for the artifact grep tool. If not overridden, they will be required by the agent to fill in.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

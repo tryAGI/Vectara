@@ -4,23 +4,23 @@
 namespace Vectara
 {
     /// <summary>
-    /// A point in a percentiles metric series.
+    /// A point in a percentiles metric series. Entries correspond by `label` to the descriptor's `percentiles` array, in the same canonical order.
     /// </summary>
     public sealed partial class PercentilesMetricPoint
     {
         /// <summary>
-        /// Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("bucket_start")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("bin_start")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::System.DateTime BucketStart { get; set; }
+        public required global::System.DateTime BinStart { get; set; }
 
         /// <summary>
-        /// Map of percentile label to value. Keys follow the `p&lt;N&gt;` convention (e.g. `p50`, `p99`, `p99_9` for the 99.9th percentile).
+        /// Per-percentile aggregated values for this time bin. Each entry's `value` is the metric's aggregated value at the percentile identified by `label`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("percentiles")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::System.Collections.Generic.Dictionary<string, double> Percentiles { get; set; }
+        public required global::System.Collections.Generic.IList<global::Vectara.PercentileEntry> Percentiles { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -31,20 +31,20 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="PercentilesMetricPoint" /> class.
         /// </summary>
-        /// <param name="bucketStart">
-        /// Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        /// <param name="binStart">
+        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </param>
         /// <param name="percentiles">
-        /// Map of percentile label to value. Keys follow the `p&lt;N&gt;` convention (e.g. `p50`, `p99`, `p99_9` for the 99.9th percentile).
+        /// Per-percentile aggregated values for this time bin. Each entry's `value` is the metric's aggregated value at the percentile identified by `label`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public PercentilesMetricPoint(
-            global::System.DateTime bucketStart,
-            global::System.Collections.Generic.Dictionary<string, double> percentiles)
+            global::System.DateTime binStart,
+            global::System.Collections.Generic.IList<global::Vectara.PercentileEntry> percentiles)
         {
-            this.BucketStart = bucketStart;
+            this.BinStart = binStart;
             this.Percentiles = percentiles ?? throw new global::System.ArgumentNullException(nameof(percentiles));
         }
 

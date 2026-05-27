@@ -7,7 +7,7 @@ namespace Vectara
     /// The Vectara Platform to context engineer Enterprise Agents. The REST API gives you server-side control with enterprise-grade RBAC, multi-tenancy, and full observability. Build agents that combine Vectara's multimodal retrieval with tool use, structured instructions, and managed sessions — all through simple REST endpoints.<br/>
     /// All endpoints live at `https://api.vectara.io/v2/&lt;resource&gt;` using lowercase, hyphenated paths (e.g. `/corpora/:corpus_key/documents`).<br/>
     /// ## API conventions<br/>
-    /// We follow standard REST conventions: `GET` to read, `POST` to create, `PATCH` to update, `PUT` to replace, and `DELETE` to remove. Actions that don't map to CRUD verbs use a separate `POST /&lt;resource&gt;/&lt;action&gt;` path (e.g. `POST /corpora/:corpus_key/reset`).<br/>
+    /// We follow standard REST conventions: `GET` to read, `POST` to create, `PUT` to replace, and `DELETE` to remove. A small number of endpoints use `PATCH` for partial update; most updates use `PUT`. Actions that don't map to CRUD verbs use a separate `POST /&lt;resource&gt;/&lt;action&gt;` path (e.g. `POST /corpora/:corpus_key/reset`).<br/>
     /// **Backward compatibility** — New fields may be added to any response at any time. Fields are never removed, only deprecated. Clients should ignore unknown fields. We aim for strong backward compatibility, though the agentic AI space is evolving rapidly and agent-related APIs may see more frequent additions.<br/>
     /// ## Authentication methods<br/>
     /// Every API request must be authenticated using one of these methods:<br/>

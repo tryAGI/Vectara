@@ -19,7 +19,7 @@ namespace Vectara
 
         /// <summary>
         /// Controls session behavior for sub-agent invocations:<br/>
-        /// - llm_controlled: LLM decides whether to create new or resume existing session<br/>
+        /// - llm_controlled: the agent decides whether to create a new session or resume an existing one<br/>
         /// - persistent: Always reuse the same session (created on first invocation)<br/>
         /// - ephemeral: Always create a new session on each invocation<br/>
         /// Default Value: ephemeral<br/>
@@ -54,7 +54,7 @@ namespace Vectara
         /// </param>
         /// <param name="sessionMode">
         /// Controls session behavior for sub-agent invocations:<br/>
-        /// - llm_controlled: LLM decides whether to create new or resume existing session<br/>
+        /// - llm_controlled: the agent decides whether to create a new session or resume an existing one<br/>
         /// - persistent: Always reuse the same session (created on first invocation)<br/>
         /// - ephemeral: Always create a new session on each invocation<br/>
         /// Default Value: ephemeral<br/>

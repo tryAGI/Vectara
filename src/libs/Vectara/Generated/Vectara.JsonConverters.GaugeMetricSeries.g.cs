@@ -28,7 +28,7 @@ namespace Vectara.JsonConverters
             }
 
             var __score0 = 0;
-            if (__jsonProps.Contains("bucket_size_seconds")) __score0++;
+            if (__jsonProps.Contains("bin_size_seconds")) __score0++;
             if (__jsonProps.Contains("labels")) __score0++;
             if (__jsonProps.Contains("metric_name")) __score0++;
             var __score1 = 0;

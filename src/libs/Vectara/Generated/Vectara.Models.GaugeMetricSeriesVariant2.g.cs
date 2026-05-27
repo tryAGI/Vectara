@@ -9,14 +9,12 @@ namespace Vectara
     public sealed partial class GaugeMetricSeriesVariant2
     {
         /// <summary>
-        /// Default Value: gauge<br/>
         /// Example: gauge
         /// </summary>
-        /// <default>"gauge"</default>
         /// <example>gauge</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Kind { get; set; } = "gauge";
+        public required string Kind { get; set; }
 
         /// <summary>
         /// 
@@ -35,7 +33,6 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="GaugeMetricSeriesVariant2" /> class.
         /// </summary>
         /// <param name="kind">
-        /// Default Value: gauge<br/>
         /// Example: gauge
         /// </param>
         /// <param name="points"></param>

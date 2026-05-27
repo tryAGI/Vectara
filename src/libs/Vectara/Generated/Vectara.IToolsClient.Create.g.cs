@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Create tool<br/>
-        /// Create a new tool that agents can use during conversation. Tools give agents capabilities to interact with external systems, process data, query corpora, or run custom logic. Agents select and invoke tools dynamically based on their instructions and the conversational context.<br/>
+        /// Create a new tool that agents can call. Tools give agents capabilities to interact with external systems, process data, query corpora, or run custom logic. Agents select and invoke tools dynamically based on their instructions and the current session.<br/>
         /// Vectara provides several built-in tools, but you can also create your own. This endpoint currently supports creating **Lambda tools**, which run user-defined Python functions in a secure sandbox.<br/>
         /// Each tool is defined by:<br/>
         /// - A unique tool ID<br/>
@@ -34,7 +34,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create tool<br/>
-        /// Create a new tool that agents can use during conversation. Tools give agents capabilities to interact with external systems, process data, query corpora, or run custom logic. Agents select and invoke tools dynamically based on their instructions and the conversational context.<br/>
+        /// Create a new tool that agents can call. Tools give agents capabilities to interact with external systems, process data, query corpora, or run custom logic. Agents select and invoke tools dynamically based on their instructions and the current session.<br/>
         /// Vectara provides several built-in tools, but you can also create your own. This endpoint currently supports creating **Lambda tools**, which run user-defined Python functions in a secure sandbox.<br/>
         /// Each tool is defined by:<br/>
         /// - A unique tool ID<br/>

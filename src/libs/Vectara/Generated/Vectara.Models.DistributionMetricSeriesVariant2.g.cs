@@ -9,14 +9,12 @@ namespace Vectara
     public sealed partial class DistributionMetricSeriesVariant2
     {
         /// <summary>
-        /// Default Value: distribution<br/>
         /// Example: distribution
         /// </summary>
-        /// <default>"distribution"</default>
         /// <example>distribution</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Kind { get; set; } = "distribution";
+        public required string Kind { get; set; }
 
         /// <summary>
         /// 
@@ -35,7 +33,6 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="DistributionMetricSeriesVariant2" /> class.
         /// </summary>
         /// <param name="kind">
-        /// Default Value: distribution<br/>
         /// Example: distribution
         /// </param>
         /// <param name="points"></param>

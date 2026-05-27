@@ -16,7 +16,7 @@ namespace Vectara
 
         /// <summary>
         /// Explicitly disables authentication. Useful in argument_override to force a tool config to<br/>
-        /// clear any auth the LLM would otherwise supply, since merge semantics ignore null patches.
+        /// clear any auth the agent would otherwise supply, since merge semantics ignore null patches.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetNoAuth? None { get; init; }

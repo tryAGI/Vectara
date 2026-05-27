@@ -126,7 +126,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Percentiles' but the value was {ToString()}.");
 
         /// <summary>
-        /// A series of histogram aggregates over a value-axis distribution table.
+        /// A series of distribution histograms.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.DistributionMetricSeries? Distribution { get; init; }

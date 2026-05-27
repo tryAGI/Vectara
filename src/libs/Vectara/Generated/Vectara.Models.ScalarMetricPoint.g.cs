@@ -4,19 +4,19 @@
 namespace Vectara
 {
     /// <summary>
-    /// A point in a counter or gauge metric series — a single scalar value at a time bucket.
+    /// A point in a counter or gauge metric series. A single scalar value at a time bin.
     /// </summary>
     public sealed partial class ScalarMetricPoint
     {
         /// <summary>
-        /// Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("bucket_start")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("bin_start")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::System.DateTime BucketStart { get; set; }
+        public required global::System.DateTime BinStart { get; set; }
 
         /// <summary>
-        /// The aggregated value for this bucket.
+        /// The aggregated value for this time bin.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("value")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -31,20 +31,20 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="ScalarMetricPoint" /> class.
         /// </summary>
-        /// <param name="bucketStart">
-        /// Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        /// <param name="binStart">
+        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </param>
         /// <param name="value">
-        /// The aggregated value for this bucket.
+        /// The aggregated value for this time bin.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ScalarMetricPoint(
-            global::System.DateTime bucketStart,
+            global::System.DateTime binStart,
             double value)
         {
-            this.BucketStart = bucketStart;
+            this.BinStart = binStart;
             this.Value = value;
         }
 

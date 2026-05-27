@@ -4,19 +4,19 @@
 namespace Vectara
 {
     /// <summary>
-    /// A point in a distribution metric series — a histogram of value-bucketed counts at a time bucket. Only bins with non-zero counts appear.
+    /// A point in a distribution metric series. Bin labels match those declared on the metric's descriptor. Only bins with non-zero counts appear.
     /// </summary>
     public sealed partial class DistributionMetricPoint
     {
         /// <summary>
-        /// Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("bucket_start")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("bin_start")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::System.DateTime BucketStart { get; set; }
+        public required global::System.DateTime BinStart { get; set; }
 
         /// <summary>
-        /// Histogram bins, sorted by `lower_ms` ascending.
+        /// Per-bin counts for this time bin, sorted by the descriptor's canonical bin order.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bins")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -31,20 +31,20 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="DistributionMetricPoint" /> class.
         /// </summary>
-        /// <param name="bucketStart">
-        /// Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        /// <param name="binStart">
+        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </param>
         /// <param name="bins">
-        /// Histogram bins, sorted by `lower_ms` ascending.
+        /// Per-bin counts for this time bin, sorted by the descriptor's canonical bin order.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public DistributionMetricPoint(
-            global::System.DateTime bucketStart,
+            global::System.DateTime binStart,
             global::System.Collections.Generic.IList<global::Vectara.HistogramBin> bins)
         {
-            this.BucketStart = bucketStart;
+            this.BinStart = binStart;
             this.Bins = bins ?? throw new global::System.ArgumentNullException(nameof(bins));
         }
 

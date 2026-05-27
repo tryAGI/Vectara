@@ -40,7 +40,7 @@ namespace Vectara
         public global::Vectara.AgentOutputParser? OutputParser { get; set; }
 
         /// <summary>
-        /// Reminders injected into conversation messages. Set to null to clear all reminders.
+        /// Reminders injected into the session as the agent runs. Set to null to clear all reminders.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("reminders")]
         public global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>? Reminders { get; set; }
@@ -90,7 +90,7 @@ namespace Vectara
         /// The output parser determines how the agent's responses are processed before being returned to the user.
         /// </param>
         /// <param name="reminders">
-        /// Reminders injected into conversation messages. Set to null to clear all reminders.
+        /// Reminders injected into the session as the agent runs. Set to null to clear all reminders.
         /// </param>
         /// <param name="nextSteps">
         /// Conditional transitions to other steps. Set to null to clear.

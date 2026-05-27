@@ -4,29 +4,23 @@
 namespace Vectara
 {
     /// <summary>
-    /// A single bin in a distribution histogram. `upper_ms` is null for the overflow bin (everything ≥ the lower bound).
+    /// A single bin's count within a distribution response point. The bin's numeric range is declared on the metric's descriptor under `bins[].range_min` / `bins[].range_max`, keyed by `label`. Only bins with non-zero counts are included; descriptor bins absent from a response point have a count of zero.
     /// </summary>
     public sealed partial class HistogramBin
     {
         /// <summary>
-        /// Inclusive lower bound of the bin in milliseconds.
+        /// Bin label matching one of the labels declared on the metric's descriptor.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("lower_ms")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("label")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required double LowerMs { get; set; }
+        public required string Label { get; set; }
 
         /// <summary>
-        /// Exclusive upper bound of the bin in milliseconds. Null for the overflow bin.
+        /// Count of observations whose value fell in this bin for this time window.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("upper_ms")]
-        public double? UpperMs { get; set; }
-
-        /// <summary>
-        /// Number of observations whose duration fell in `[lower_ms, upper_ms)`.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("count")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("value")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required long Count { get; set; }
+        public required long Value { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -37,26 +31,21 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="HistogramBin" /> class.
         /// </summary>
-        /// <param name="lowerMs">
-        /// Inclusive lower bound of the bin in milliseconds.
+        /// <param name="label">
+        /// Bin label matching one of the labels declared on the metric's descriptor.
         /// </param>
-        /// <param name="count">
-        /// Number of observations whose duration fell in `[lower_ms, upper_ms)`.
-        /// </param>
-        /// <param name="upperMs">
-        /// Exclusive upper bound of the bin in milliseconds. Null for the overflow bin.
+        /// <param name="value">
+        /// Count of observations whose value fell in this bin for this time window.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public HistogramBin(
-            double lowerMs,
-            long count,
-            double? upperMs)
+            string label,
+            long value)
         {
-            this.LowerMs = lowerMs;
-            this.UpperMs = upperMs;
-            this.Count = count;
+            this.Label = label ?? throw new global::System.ArgumentNullException(nameof(label));
+            this.Value = value;
         }
 
         /// <summary>

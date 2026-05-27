@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The LLM will not be able to change the parameters, nor know those values exist within the tool.<br/>
+    /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The agent will not be able to change the parameters, nor know those values exist within the tool.<br/>
     /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
     /// - Static value: "fixed_value" or 123<br/>
     /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>

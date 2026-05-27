@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// LLM-exposed parameters for the corpora search tool that can be filled in during execution.
+    /// Agent-exposed parameters for the corpora search tool that can be filled in during execution.
     /// </summary>
     public sealed partial class CorporaSearchToolParameters
     {

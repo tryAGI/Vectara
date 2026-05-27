@@ -8,20 +8,20 @@ info:
     \ simple REST endpoints.\n\nAll endpoints live at `https://api.vectara.io/v2/<resource>`\
     \ using lowercase, hyphenated paths (e.g. `/corpora/:corpus_key/documents`).\n\
     \n## API conventions\n\nWe follow standard REST conventions: `GET` to read, `POST`\
-    \ to create, `PATCH` to update, `PUT` to replace, and `DELETE` to remove. Actions\
-    \ that don't map to CRUD verbs use a separate `POST /<resource>/<action>` path\
-    \ (e.g. `POST /corpora/:corpus_key/reset`).\n\n**Backward compatibility** \u2014\
-    \ New fields may be added to any response at any time. Fields are never removed,\
-    \ only deprecated. Clients should ignore unknown fields. We aim for strong backward\
-    \ compatibility, though the agentic AI space is evolving rapidly and agent-related\
-    \ APIs may see more frequent additions.\n\n## Authentication methods\n\nEvery\
-    \ API request must be authenticated using one of these methods:\n\n**API Key**\
-    \ \u2014 Pass your key in the `x-api-key` header. Create API keys with precise\
-    \ roles for least-privilege access, or use personal API keys that inherit the\
-    \ same roles as your user account.\n\n**OAuth 2.0** \u2014 Use the client credentials\
-    \ flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`, then\
-    \ pass it in the `Authorization: Bearer <token>` header. Tokens expire after 30\
-    \ minutes.\n\n## Role-based access control\n\nEach endpoint requires specific\
+    \ to create, `PUT` to replace, and `DELETE` to remove. A small number of endpoints\
+    \ use `PATCH` for partial update; most updates use `PUT`. Actions that don't map\
+    \ to CRUD verbs use a separate `POST /<resource>/<action>` path (e.g. `POST /corpora/:corpus_key/reset`).\n\
+    \n**Backward compatibility** \u2014 New fields may be added to any response at\
+    \ any time. Fields are never removed, only deprecated. Clients should ignore unknown\
+    \ fields. We aim for strong backward compatibility, though the agentic AI space\
+    \ is evolving rapidly and agent-related APIs may see more frequent additions.\n\
+    \n## Authentication methods\n\nEvery API request must be authenticated using one\
+    \ of these methods:\n\n**API Key** \u2014 Pass your key in the `x-api-key` header.\
+    \ Create API keys with precise roles for least-privilege access, or use personal\
+    \ API keys that inherit the same roles as your user account.\n\n**OAuth 2.0**\
+    \ \u2014 Use the client credentials flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`,\
+    \ then pass it in the `Authorization: Bearer <token>` header. Tokens expire after\
+    \ 30 minutes.\n\n## Role-based access control\n\nEach endpoint requires specific\
     \ roles. The role badges on each endpoint page show which roles grant access.\
     \ Vectara uses three role types:\n\n**API Roles** (account-wide, assigned to users):\
     \ Roles like `owner`, `administrator`, `corpus_administrator`, `corpus_developer`,\
@@ -7535,21 +7535,20 @@ paths:
         - agent_administrator
         - administrator
         - owner
-      description: "Create a new tool that agents can use during conversation. Tools\
-        \ give agents capabilities to interact with external systems, process data,\
-        \ query corpora, or run custom logic. Agents select and invoke tools dynamically\
-        \ based on their instructions and the conversational context.\n\nVectara provides\
-        \ several built-in tools, but you can also create your own. This endpoint\
-        \ currently supports creating **Lambda tools**, which run user-defined Python\
-        \ functions in a secure sandbox.\n\nEach tool is defined by:\n- A unique tool\
-        \ ID\n- A description of its purpose\n- An input schema describing accepted\
-        \ parameters\n- Optional metadata\n- Enabled/disabled runtime availability\n\
-        \n ## Artifact-based tools\nSome built-in tools work with artifacts stored\
-        \ in a session:\n- **Document conversion tool**: Converts file artifacts (PDF,\
-        \ Word, PowerPoint, images with OCR support) to markdown and produces new\
-        \ artifacts containing the extracted content.\n\nThese built-in tools operate\
-        \ on artifact references rather than file content, supporting multi-step workflows\
-        \ where agents process or index user-uploaded documents.\n"
+      description: "Create a new tool that agents can call. Tools give agents capabilities\
+        \ to interact with external systems, process data, query corpora, or run custom\
+        \ logic. Agents select and invoke tools dynamically based on their instructions\
+        \ and the current session.\n\nVectara provides several built-in tools, but\
+        \ you can also create your own. This endpoint currently supports creating\
+        \ **Lambda tools**, which run user-defined Python functions in a secure sandbox.\n\
+        \nEach tool is defined by:\n- A unique tool ID\n- A description of its purpose\n\
+        - An input schema describing accepted parameters\n- Optional metadata\n- Enabled/disabled\
+        \ runtime availability\n\n ## Artifact-based tools\nSome built-in tools work\
+        \ with artifacts stored in a session:\n- **Document conversion tool**: Converts\
+        \ file artifacts (PDF, Word, PowerPoint, images with OCR support) to markdown\
+        \ and produces new artifacts containing the extracted content.\n\nThese built-in\
+        \ tools operate on artifact references rather than file content, supporting\
+        \ multi-step workflows where agents process or index user-uploaded documents.\n"
       operationId: createTool
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -8530,39 +8529,46 @@ paths:
         - agent_administrator
         - administrator
         - owner
-      description: "Create a new agent. An agent is compromised as 3 main things of\
-        \ functionality:\n  1. The **instructions** an agent follows. Known as a system\
-        \ in prompt in other platforms.\n  2. The **steps** an agent follows when\
-        \ receiving an input.\n  3. The **tools** an agent can use to resolve those\
-        \ steps and instructions.\n\nInstructions are tied to each step, and should\
-        \ be precisely crafted so that the agent can perform the desired actions when\
-        \ given an input. \n\n:::tip Creating more precise instructions\nBe specific\
-        \ to exactly what you want the agent to do. For emphasis, use CAPS if you\
-        \ want the agent to follow a specific format. Negative prompts also help with\
-        \ precision such as saying **DO NOT DO THIS**.\n:::\n\nTo use an agent, create\
-        \ a new session (called thread or chat in other platforms), and send new inputs\
-        \ to the agent to get responses.\n\n:::note\nOnly a single step is supported\
-        \ with no follow up steps. So the `first_step` will be only the only step.\
-        \ We will add multiple steps and step types to execute complex workflows,\
-        \ but many agents can work well with a single step.\n:::\n\n## LLM configuration\n\
-        \nAgents use LLMs for reasoning and response generation. You can configure\
-        \ the following:\n- **Model**: Choose from available models like GPT-4o.\n\
-        - **Parameters**: Adjust temperature, max tokens, and other model-specific\
-        \ settings.\n- **Cost optimization**: Balance performance with token usage.\n\
-        - **Retry configuration**: Configure automatic retry behavior for transient\
-        \ failures.\n\n## Using retries to improve user experience\n\nWhen agents\
-        \ interact with LLMs, transient failures like network interruptions can disrupt\
-        \ communication between the agent and the LLM. You can configure your agent\
-        \ to resume disrupted communication to ensure a smooth user experience.\n\
-        - `max_retries`: After an error, the agent will retry its request to the LLM\
-        \ this many times.\n- `initial_backoff_ms`: This is how many milliseconds\
-        \ the agent will wait before retrying, to give the cause of the error time\
-        \ to resolve.\n- `backoff_factor`: Every time the agent retries, it can multiply\
-        \ the last retry delay by this number, increasing the wait between retries.\
-        \ This is like giving a toddler a longer and longer timeout if it continues\
-        \ to misbehave.\n- `max_backoff_ms`: The maximum time you want the agent to\
-        \ wait between retries, so the backoff_factor does not create an unreasonably\
-        \ long delay for your users.\n"
+      description: 'Creates an agent. An agent is defined by three things: the **instructions**
+        it follows, the **steps** it executes when it receives an input, and the **tools**
+        it can call. Instructions are attached to each step and determine the agent''s
+        behavior on that step.
+
+
+        Only a single step is currently supported. Set `first_step` to that step;
+        additional step types will be added later.
+
+
+        To invoke an agent, create a session and send events to it. Each event produces
+        a response from the agent.
+
+
+        ## LLM configuration
+
+
+        Each agent is bound to one LLM, configured under `llm`:
+
+        - `llm_name`: the LLM resource to use (see `GET /v2/llms`).
+
+        - model parameters such as temperature and max tokens.
+
+        - retry configuration applied to LLM calls.
+
+
+        ## Retry configuration
+
+
+        The agent retries failed LLM calls using exponential backoff:
+
+        - `max_retries`: maximum number of retries after the initial call.
+
+        - `initial_backoff_ms`: delay in milliseconds before the first retry.
+
+        - `backoff_factor`: multiplier applied to the delay after each retry.
+
+        - `max_backoff_ms`: upper bound on the delay between retries.
+
+        '
       operationId: createAgent
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -8938,14 +8944,14 @@ paths:
         - administrator
         - owner
       description: "Create a new session for interacting with an agent. A session\
-        \ is the conversation container that maintains state across all messages,\
-        \ events, tool use, and agent responses.\n\nThis endpoint initializes the\
-        \ session and enables you to configure its initial properties, including optional\
-        \ metadata. Metadata can influence agent behavior, personalize responses,\
-        \ or apply access controls. Instructions and tools can also reference metadata\
-        \ using `${\\session.metadata.field}` or `$\\ref` syntax.\n\nA session also\
-        \ serves as the workspace for artifacts, enabling file uploads and multi-step\
-        \ workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).\n\
+        \ maintains state across all events, tool use, and agent responses produced\
+        \ during the interaction.\n\nThis endpoint initializes the session and enables\
+        \ you to configure its initial properties, including optional metadata. Metadata\
+        \ can influence agent behavior, personalize responses, or apply access controls.\
+        \ Instructions and tools can also reference metadata using `${\\session.metadata.field}`\
+        \ or `$\\ref` syntax.\n\nA session also serves as the workspace for artifacts,\
+        \ enabling file uploads and multi-step workflows. For more information, see\
+        \ [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).\n\
         \n## Example request\n\n```json\n\\$ curl -X POST https://api.vectara.io/v2/agents/support-agent/sessions\
         \ \\\n-H \"Authorization: Bearer YOUR_API_KEY\" \\\n-H \"Content-Type: application/json\"\
         \ \\\n-d '{\n  \"key\": \"user_12345_session\",\n  \"name\": \"Customer Support\
@@ -11982,6 +11988,17 @@ paths:
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - name: category
+        in: query
+        required: false
+        description: Restrict the returned catalog to metrics in these categories.
+          When omitted, all categories are returned.
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
       responses:
         '200':
           description: Catalog of registered metrics.
@@ -12044,12 +12061,12 @@ paths:
         schema:
           type: string
           format: date-time
-      - name: max_buckets
+      - name: max_bins
         in: query
         required: false
         description: Upper bound on the number of points in the response. The response
-          may contain fewer points than requested but never more. The actual bucket
-          size is reported in the response as `bucket_size_seconds`. Defaults to 60.
+          may contain fewer points than requested but never more. The actual time-bin
+          size is reported in the response as `bin_size_seconds`. Defaults to 60.
         schema:
           type: integer
           format: int32
@@ -18192,17 +18209,37 @@ components:
       type: string
     OutputTransform:
       description: "An optional jq expression applied to the tool's JSON output before\
-        \ it is returned to the LLM.\nUse this to project, filter, or summarize tool\
-        \ output to keep responses concise and on-topic.\n\nThe expression operates\
+        \ it is returned to the agent.\nUse this to project, filter, or summarize\
+        \ tool output to keep responses concise and on-topic.\n\nThe expression operates\
         \ on the tool's response JSON and the result replaces the original output.\n\
         If the expression fails to compile or evaluate at runtime, the tool call is\
-        \ reported to the LLM as\nan error so the agent can react.\n\nExamples:\n\
+        \ reported to the agent\nas an error so the agent can react.\n\nExamples:\n\
         \  - `.results | map({title, url})` \u2014 keep only title/url for each result\n\
         \  - `.items[0:5]` \u2014 first 5 items\n  - `del(.debug)` \u2014 drop a noisy\
         \ field\n"
       type: string
       maxLength: 4096
       example: .results | map({title, url})
+    InputTransform:
+      description: "An optional jq expression applied to the tool's input after argument\
+        \ overrides have been merged\nwith the agent's arguments and before the tool\
+        \ is invoked. Use this to inject server-side\ncontext (session metadata, agent\
+        \ secrets) into the tool input, or to reshape the agent's\narguments.\n\n\
+        The expression receives the standard runtime context \u2014 the same `agent`,\
+        \ `session`, `tools`,\nand `currentDate` values exposed to `argument_override`\
+        \ `$ref`s (see `ArgumentOverrideDescription`),\nplus an `args` field containing\
+        \ the merged tool input. The output of the expression replaces\n`args` as\
+        \ the tool input. The pre-transform `args` is what appears in audit events\
+        \ (with\nsecrets masked); the post-transform value goes only to the tool.\
+        \ If the expression fails to\ncompile or evaluate, the tool call is reported\
+        \ to the agent as an error.\n\nExamples:\n  - `.args + { auth: (\"Bearer \"\
+        \ + .agent.secrets.token) }` \u2014 inject a bearer header\n  - `.args | .corpus_key\
+        \ = .session.metadata.corpus_key` \u2014 pull a corpus key from session metadata\n\
+        \  - `.args | .query = (.args.query + \" \" + .session.metadata.query_suffix)`\
+        \ \u2014 augment the agent's query\n"
+      type: string
+      maxLength: 4096
+      example: '.args + { auth: ("Bearer " + .agent.secrets.token) }'
     ToolBase:
       description: Base properties shared by all tool types.
       type: object
@@ -18216,8 +18253,7 @@ components:
           description: Human-readable title of the tool.
           type: string
         description:
-          description: 'The description provided to the agent (LLM) to guide tool
-            selection during conversations.
+          description: 'The description provided to the agent to guide tool selection.
 
             This is what the agent sees when deciding which tool to use.
 
@@ -18278,10 +18314,21 @@ components:
 
             '
           $ref: '#/components/schemas/OutputTransform'
+        default_input_transform:
+          description: 'Default jq expression applied to this tool''s input when a
+            tool configuration does not
+
+            specify its own `input_transform`. Tool configurations may override this
+            value. See
+
+            `InputTransform` for the expression semantics and error behavior.
+
+            '
+          $ref: '#/components/schemas/InputTransform'
         default_argument_override:
           description: "Optional hardcoded arguments for tool calls. The key specifies\
             \ the location in the tool arguments to overide, and the value specifies\
-            \ what to override with. The LLM will not be able to change the parameters,\
+            \ what to override with. The agent will not be able to change the parameters,\
             \ nor know those values exist within the tool.\n\nThe values can also\
             \ be dynamic references to context values using $ref with dot notation\
             \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
@@ -19523,6 +19570,8 @@ components:
           $ref: '#/components/schemas/ToolDescriptionTemplate'
         output_transform:
           $ref: '#/components/schemas/OutputTransform'
+        input_transform:
+          $ref: '#/components/schemas/InputTransform'
     InlineDynamicVectaraToolConfiguration:
       title: InlineDynamicVectaraToolConfiguration
       description: 'An inline configuration for built-in Vectara tools that have implementations
@@ -19545,7 +19594,7 @@ components:
           argument_override:
             description: "Optional hardcoded arguments for tool calls. The key specifies\
               \ the location in the tool arguments to overide, and the value specifies\
-              \ what to override with. The LLM will not be able to change the parameters,\
+              \ what to override with. The agent will not be able to change the parameters,\
               \ nor know those values exist within the tool.\n\nThe values can also\
               \ be dynamic references to context values using $ref with dot notation\
               \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
@@ -19582,7 +19631,7 @@ components:
           argument_override:
             description: "Optional hardcoded arguments for tool calls. The key specifies\
               \ the location in the tool arguments to overide, and the value specifies\
-              \ what to override with. The LLM will not be able to change the parameters,\
+              \ what to override with. The agent will not be able to change the parameters,\
               \ nor know those values exist within the tool.\n\nThe values can also\
               \ be dynamic references to context values using $ref with dot notation\
               \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
@@ -19603,7 +19652,7 @@ components:
       x-vectaraParents:
       - AgentToolConfiguration
     CorporaSearchToolParameters:
-      description: LLM-exposed parameters for the corpora search tool that can be
+      description: Agent-exposed parameters for the corpora search tool that can be
         filled in during execution.
       type: object
       properties:
@@ -19848,7 +19897,7 @@ components:
       description: 'Explicitly disables authentication. Useful in argument_override
         to force a tool config to
 
-        clear any auth the LLM would otherwise supply, since merge semantics ignore
+        clear any auth the agent would otherwise supply, since merge semantics ignore
         null patches.'
       type: object
       properties:
@@ -20134,7 +20183,7 @@ components:
       - AgentToolConfiguration
     SubAgentToolParameters:
       description: Configurable parameters for the sub-agent tool. If not overridden,
-        they will be required by the LLM to fill in.
+        they will be required by the agent to fill in.
       type: object
       properties:
         message:
@@ -20152,7 +20201,8 @@ components:
     SubAgentSessionMode:
       description: 'Controls session behavior for sub-agent invocations:
 
-        - llm_controlled: LLM decides whether to create new or resume existing session
+        - llm_controlled: the agent decides whether to create a new session or resume
+        an existing one
 
         - persistent: Always reuse the same session (created on first invocation)
 
@@ -20227,7 +20277,7 @@ components:
       - AgentToolConfiguration
     ArtifactReadToolParameters:
       description: Configurable parameters for the artifact read tool. If not overridden,
-        they will be required by the LLM to fill in.
+        they will be required by the agent to fill in.
       type: object
       properties:
         artifact_id:
@@ -20295,7 +20345,7 @@ components:
       - AgentToolConfiguration
     ArtifactGrepToolParameters:
       description: Configurable parameters for the artifact grep tool. If not overridden,
-        they will be required by the LLM to fill in.
+        they will be required by the agent to fill in.
       type: object
       properties:
         artifact_id:
@@ -20336,7 +20386,7 @@ components:
       - AgentToolConfiguration
     ImageReadToolParameters:
       description: Configurable parameters for the image read tool. If not overridden,
-        they will be required by the LLM to fill in.
+        they will be required by the agent to fill in.
       type: object
       properties:
         artifact_id:
@@ -20375,7 +20425,7 @@ components:
       - AgentToolConfiguration
     DocumentConversionToolParameters:
       description: Configurable parameters for the document conversion tool. If not
-        overridden, they will be required by the LLM to fill in.
+        overridden, they will be required by the agent to fill in.
       type: object
       properties:
         artifact_id:
@@ -20415,7 +20465,7 @@ components:
       - AgentToolConfiguration
     GetDocumentTextParameters:
       description: Configurable parameters for the get document text tool. If not
-        overridden, they will be required by the LLM to fill in.
+        overridden, they will be required by the agent to fill in.
       type: object
       properties:
         document_id:
@@ -21624,8 +21674,8 @@ components:
         output_parser:
           $ref: '#/components/schemas/AgentOutputParser'
         reminders:
-          description: Reminders injected into conversation messages. Set to null
-            to clear all reminders.
+          description: Reminders injected into the session as the agent runs. Set
+            to null to clear all reminders.
           type: array
           nullable: true
           items:
@@ -21683,8 +21733,8 @@ components:
         output_parser:
           $ref: '#/components/schemas/AgentOutputParser'
         reminders:
-          description: Reminders injected into conversation messages. Set to null
-            to clear all reminders.
+          description: Reminders injected into the session as the agent runs. Set
+            to null to clear all reminders.
           type: array
           nullable: true
           items:
@@ -25118,33 +25168,9 @@ components:
       required:
       - events
       - metadata
-    MetricKind:
-      description: 'The kind of metric. Determines combine semantics when filtering
-        across multiple label values and the shape of points in the response:
-
-
-        - `counter`: monotonic count or sum (trace count, error count, token totals).
-        Combined by summing. Returns `ScalarMetricPoint`s.
-
-        - `gauge`: point-in-time value (mean, max, distinct-count). Combined per the
-        underlying aggregate state (weighted mean for averages, max for maxima, distinct-count
-        for uniq metrics). Returns `ScalarMetricPoint`s.
-
-        - `percentiles`: distribution percentiles over a t-digest aggregate. Combined
-        by merging t-digest states. Returns `PercentilesMetricPoint`s.
-
-        - `distribution`: histogram of value-bucketed counts. Combined by summing
-        per-bin counts. Returns `DistributionMetricPoint`s.
-
-        '
-      type: string
-      enum:
-      - counter
-      - gauge
-      - percentiles
-      - distribution
-    MetricDescriptor:
-      description: Metadata about a registered metric available for querying.
+    MetricDescriptorBase:
+      description: Common metadata fields shared by every metric descriptor regardless
+        of kind.
       type: object
       properties:
         name:
@@ -25152,6 +25178,10 @@ components:
             query it.
           type: string
           example: agent.trace.duration_ms
+        category:
+          description: Top-level grouping for this metric.
+          type: string
+          example: agent
         description:
           description: Human-readable description of what the metric measures.
           type: string
@@ -25159,8 +25189,15 @@ components:
           description: Unit of measure for the metric values, when applicable.
           type: string
           example: ms
-        kind:
-          $ref: '#/components/schemas/MetricKind'
+        display_name:
+          description: 'Short human-readable name for this metric, suitable as a chart
+            title or list
+
+            label.
+
+            '
+          type: string
+          example: Trace duration percentiles
         labels:
           description: Names of labels that can be used to filter this metric.
           type: array
@@ -25170,9 +25207,145 @@ components:
           - agent_keys
       required:
       - name
+      - category
       - description
-      - kind
+      - display_name
       - labels
+    CounterMetricDescriptor:
+      description: Descriptor for a counter metric.
+      allOf:
+      - $ref: '#/components/schemas/MetricDescriptorBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            example: counter
+        required:
+        - kind
+    GaugeMetricDescriptor:
+      description: Descriptor for a gauge metric.
+      allOf:
+      - $ref: '#/components/schemas/MetricDescriptorBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            example: gauge
+        required:
+        - kind
+    PercentileEntry:
+      description: 'A single entry in a percentiles array. On a metric descriptor,
+        `value` is the percentile rank (a fraction in [0, 1], e.g. `0.95` for p95).
+        On a response point, `value` is the aggregated metric value at that percentile
+        (e.g. duration in ms). The `label` is the stable key matching descriptor and
+        point entries.
+
+        '
+      type: object
+      properties:
+        label:
+          description: Stable identifier for this percentile (e.g. `p50`, `p99`).
+          type: string
+        value:
+          description: "Numeric value \u2014 the percentile rank on the descriptor,\
+            \ the aggregated value on a response point."
+          type: number
+          format: double
+      required:
+      - label
+      - value
+    PercentilesMetricDescriptor:
+      description: Descriptor for a percentiles metric. Carries the ordered list of
+        percentile labels this metric emits.
+      allOf:
+      - $ref: '#/components/schemas/MetricDescriptorBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            example: percentiles
+          percentiles:
+            description: Percentile entries returned by this metric, in canonical
+              order. Each entry's `label` matches a corresponding entry in every response
+              point's `percentiles` array; `value` is the percentile rank (e.g. `0.5`
+              for p50).
+            type: array
+            items:
+              $ref: '#/components/schemas/PercentileEntry'
+            example:
+            - label: p50
+              value: 0.5
+            - label: p90
+              value: 0.9
+            - label: p95
+              value: 0.95
+            - label: p99
+              value: 0.99
+        required:
+        - kind
+        - percentiles
+    DistributionBinDescriptor:
+      description: 'A single bin of a distribution metric. The numeric range `[range_min,
+        range_max)` is in the units declared by the metric''s `unit` field. The overflow
+        bin (the one covering everything from the largest declared bound upward) omits
+        `range_max`.
+
+        '
+      type: object
+      properties:
+        label:
+          description: Stable identifier for this bin. Referenced from response points
+            by `HistogramBin.label`.
+          type: string
+        range_min:
+          description: Inclusive lower bound of this bin's numeric range, in the metric's
+            `unit`.
+          type: number
+          format: double
+        range_max:
+          description: Exclusive upper bound of this bin's numeric range, in the metric's
+            `unit`. Omitted for the overflow bin.
+          type: number
+          format: double
+      required:
+      - label
+      - range_min
+    DistributionMetricDescriptor:
+      description: Descriptor for a distribution metric. Carries the canonical bin
+        list with numeric bounds.
+      allOf:
+      - $ref: '#/components/schemas/MetricDescriptorBase'
+      - type: object
+        properties:
+          kind:
+            type: string
+            example: distribution
+          bins:
+            description: Bins that this distribution may emit, in canonical order.
+              Each bin has a stable label, an inclusive lower bound, and an exclusive
+              upper bound (omitted for the overflow bin).
+            type: array
+            items:
+              $ref: '#/components/schemas/DistributionBinDescriptor'
+        required:
+        - kind
+        - bins
+    MetricDescriptor:
+      description: Metadata about a registered metric. The concrete variant is selected
+        by `kind`.
+      x-vectara-base-schema: '#/MetricDescriptorBase'
+      discriminator:
+        propertyName: kind
+        mapping:
+          counter: '#/components/schemas/CounterMetricDescriptor'
+          gauge: '#/components/schemas/GaugeMetricDescriptor'
+          percentiles: '#/components/schemas/PercentilesMetricDescriptor'
+          distribution: '#/components/schemas/DistributionMetricDescriptor'
+      oneOf:
+      - $ref: '#/components/schemas/CounterMetricDescriptor'
+      - $ref: '#/components/schemas/GaugeMetricDescriptor'
+      - $ref: '#/components/schemas/PercentilesMetricDescriptor'
+      - $ref: '#/components/schemas/DistributionMetricDescriptor'
     ListMetricsResponse:
       description: List of registered metrics available for querying.
       type: object
@@ -25198,30 +25371,30 @@ components:
             type: array
             items:
               type: string
-        bucket_size_seconds:
-          description: Width of each bucket in the returned series, in seconds. The
-            server chooses this based on the requested time range and `max_buckets`.
+        bin_size_seconds:
+          description: Width of each time bin in the returned series, in seconds.
+            The server chooses this based on the requested time range and `max_bins`.
           type: integer
           format: int32
       required:
       - metric_name
       - labels
-      - bucket_size_seconds
+      - bin_size_seconds
     ScalarMetricPoint:
-      description: "A point in a counter or gauge metric series \u2014 a single scalar\
-        \ value at a time bucket."
+      description: A point in a counter or gauge metric series. A single scalar value
+        at a time bin.
       type: object
       properties:
-        bucket_start:
-          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        bin_start:
+          description: Start of the time bin in ISO 8601 (UTC). End-time aligned.
           type: string
           format: date-time
         value:
-          description: The aggregated value for this bucket.
+          description: The aggregated value for this time bin.
           type: number
           format: double
       required:
-      - bucket_start
+      - bin_start
       - value
     CounterMetricSeries:
       description: A series of counter values (monotonic count or sum).
@@ -25231,7 +25404,6 @@ components:
         properties:
           kind:
             type: string
-            default: counter
             example: counter
           points:
             type: array
@@ -25249,7 +25421,6 @@ components:
         properties:
           kind:
             type: string
-            default: gauge
             example: gauge
           points:
             type: array
@@ -25259,22 +25430,23 @@ components:
         - kind
         - points
     PercentilesMetricPoint:
-      description: A point in a percentiles metric series.
+      description: A point in a percentiles metric series. Entries correspond by `label`
+        to the descriptor's `percentiles` array, in the same canonical order.
       type: object
       properties:
-        bucket_start:
-          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        bin_start:
+          description: Start of the time bin in ISO 8601 (UTC). End-time aligned.
           type: string
           format: date-time
         percentiles:
-          description: Map of percentile label to value. Keys follow the `p<N>` convention
-            (e.g. `p50`, `p99`, `p99_9` for the 99.9th percentile).
-          type: object
-          additionalProperties:
-            type: number
-            format: double
+          description: Per-percentile aggregated values for this time bin. Each entry's
+            `value` is the metric's aggregated value at the percentile identified
+            by `label`.
+          type: array
+          items:
+            $ref: '#/components/schemas/PercentileEntry'
       required:
-      - bucket_start
+      - bin_start
       - percentiles
     PercentilesMetricSeries:
       description: A series of percentile aggregates over a t-digest state.
@@ -25284,7 +25456,6 @@ components:
         properties:
           kind:
             type: string
-            default: percentiles
             example: percentiles
           points:
             type: array
@@ -25294,54 +25465,52 @@ components:
         - kind
         - points
     HistogramBin:
-      description: "A single bin in a distribution histogram. `upper_ms` is null for\
-        \ the overflow bin (everything \u2265 the lower bound)."
+      description: 'A single bin''s count within a distribution response point. The
+        bin''s numeric range is declared on the metric''s descriptor under `bins[].range_min`
+        / `bins[].range_max`, keyed by `label`. Only bins with non-zero counts are
+        included; descriptor bins absent from a response point have a count of zero.
+
+        '
       type: object
       properties:
-        lower_ms:
-          description: Inclusive lower bound of the bin in milliseconds.
-          type: number
-          format: double
-        upper_ms:
-          description: Exclusive upper bound of the bin in milliseconds. Null for
-            the overflow bin.
-          type: number
-          format: double
-          nullable: true
-        count:
-          description: Number of observations whose duration fell in `[lower_ms, upper_ms)`.
+        label:
+          description: Bin label matching one of the labels declared on the metric's
+            descriptor.
+          type: string
+        value:
+          description: Count of observations whose value fell in this bin for this
+            time window.
           type: integer
           format: int64
       required:
-      - lower_ms
-      - count
+      - label
+      - value
     DistributionMetricPoint:
-      description: "A point in a distribution metric series \u2014 a histogram of\
-        \ value-bucketed counts at a time bucket. Only bins with non-zero counts appear."
+      description: A point in a distribution metric series. Bin labels match those
+        declared on the metric's descriptor. Only bins with non-zero counts appear.
       type: object
       properties:
-        bucket_start:
-          description: Start of the bucket window in ISO 8601 (UTC). End-time aligned.
+        bin_start:
+          description: Start of the time bin in ISO 8601 (UTC). End-time aligned.
           type: string
           format: date-time
         bins:
-          description: Histogram bins, sorted by `lower_ms` ascending.
+          description: Per-bin counts for this time bin, sorted by the descriptor's
+            canonical bin order.
           type: array
           items:
             $ref: '#/components/schemas/HistogramBin'
       required:
-      - bucket_start
+      - bin_start
       - bins
     DistributionMetricSeries:
-      description: A series of histogram aggregates over a value-axis distribution
-        table.
+      description: A series of distribution histograms.
       allOf:
       - $ref: '#/components/schemas/MetricSeriesBase'
       - type: object
         properties:
           kind:
             type: string
-            default: distribution
             example: distribution
           points:
             type: array
