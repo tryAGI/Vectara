@@ -18,7 +18,7 @@ namespace Vectara
         public required string Type { get; set; } = "corpora_search";
 
         /// <summary>
-        /// LLM-exposed parameters for the corpora search tool that can be filled in during execution.
+        /// Agent-exposed parameters for the corpora search tool that can be filled in during execution.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
         public global::Vectara.CorporaSearchToolParameters? ArgumentOverride { get; set; }
@@ -47,7 +47,7 @@ namespace Vectara
         /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when turn-start resolution is needed.
         /// </param>
         /// <param name="argumentOverride">
-        /// LLM-exposed parameters for the corpora search tool that can be filled in during execution.
+        /// Agent-exposed parameters for the corpora search tool that can be filled in during execution.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

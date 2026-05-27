@@ -405,9 +405,9 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.MetricKindJsonConverter),
+            typeof(global::Vectara.JsonConverters.MetricDescriptorDiscriminatorKindJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.MetricKindNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.MetricDescriptorDiscriminatorKindNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.MetricSeriesDiscriminatorKindJsonConverter),
 
@@ -694,6 +694,16 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.WatermarkAdvancedEventJsonConverter),
 
             typeof(global::Vectara.JsonConverters.PipelineRunEventJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CounterMetricDescriptorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.GaugeMetricDescriptorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PercentilesMetricDescriptorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DistributionMetricDescriptorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.MetricDescriptorJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CounterMetricSeriesJsonConverter),
 
@@ -1670,9 +1680,9 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.MetricKindJsonConverter),
+            typeof(global::Vectara.JsonConverters.MetricDescriptorDiscriminatorKindJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.MetricKindNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.MetricDescriptorDiscriminatorKindNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.MetricSeriesDiscriminatorKindJsonConverter),
 
@@ -1960,6 +1970,16 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.PipelineRunEventJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.CounterMetricDescriptorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.GaugeMetricDescriptorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.PercentilesMetricDescriptorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.DistributionMetricDescriptorJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.MetricDescriptorJsonConverter),
+
             typeof(global::Vectara.JsonConverters.CounterMetricSeriesJsonConverter),
 
             typeof(global::Vectara.JsonConverters.GaugeMetricSeriesJsonConverter),
@@ -2229,8 +2249,22 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventDiscriminatorType), TypeInfoPropertyName = "PipelineRunEventDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelineRunEventsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PipelineRunEvent>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricKind), TypeInfoPropertyName = "MetricKind2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricDescriptor))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricDescriptorBase))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CounterMetricDescriptor), TypeInfoPropertyName = "CounterMetricDescriptor2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CounterMetricDescriptorVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GaugeMetricDescriptor), TypeInfoPropertyName = "GaugeMetricDescriptor2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GaugeMetricDescriptorVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PercentileEntry))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PercentilesMetricDescriptor), TypeInfoPropertyName = "PercentilesMetricDescriptor2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PercentilesMetricDescriptorVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PercentileEntry>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DistributionBinDescriptor))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DistributionMetricDescriptor), TypeInfoPropertyName = "DistributionMetricDescriptor2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DistributionMetricDescriptorVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.DistributionBinDescriptor>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricDescriptor), TypeInfoPropertyName = "MetricDescriptor2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricDescriptorDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricDescriptorDiscriminatorKind), TypeInfoPropertyName = "MetricDescriptorDiscriminatorKind2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListMetricsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.MetricDescriptor>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricSeriesBase))]
@@ -2396,6 +2430,8 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineDeadLetterEntry>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRun>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRunEvent>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PercentileEntry>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.DistributionBinDescriptor>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.MetricDescriptor>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ScalarMetricPoint>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PercentilesMetricPoint>))]
@@ -2646,8 +2682,8 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.RecordProcessingEventStatusNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeNullableJsonConverter());
-            options.Converters.Add(new global::Vectara.JsonConverters.MetricKindJsonConverter());
-            options.Converters.Add(new global::Vectara.JsonConverters.MetricKindNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.MetricDescriptorDiscriminatorKindJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.MetricDescriptorDiscriminatorKindNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.MetricSeriesDiscriminatorKindJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.MetricSeriesDiscriminatorKindNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceStatusJsonConverter());
@@ -2791,6 +2827,11 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.RecordProcessingEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.WatermarkAdvancedEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineRunEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CounterMetricDescriptorJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.GaugeMetricDescriptorJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.PercentilesMetricDescriptorJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.DistributionMetricDescriptorJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.MetricDescriptorJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CounterMetricSeriesJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.GaugeMetricSeriesJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PercentilesMetricSeriesJsonConverter());

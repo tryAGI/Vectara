@@ -18,7 +18,7 @@ namespace Vectara
         public required string Type { get; set; } = "get_document_text";
 
         /// <summary>
-        /// Configurable parameters for the get document text tool. If not overridden, they will be required by the LLM to fill in.
+        /// Configurable parameters for the get document text tool. If not overridden, they will be required by the agent to fill in.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
         public global::Vectara.GetDocumentTextParameters? ArgumentOverride { get; set; }
@@ -43,7 +43,7 @@ namespace Vectara
         /// Default Value: get_document_text
         /// </param>
         /// <param name="argumentOverride">
-        /// Configurable parameters for the get document text tool. If not overridden, they will be required by the LLM to fill in.
+        /// Configurable parameters for the get document text tool. If not overridden, they will be required by the agent to fill in.
         /// </param>
         /// <param name="toolConfiguration">
         /// User-configurable settings for the get document text tool. These parameters are never exposed to the agent.

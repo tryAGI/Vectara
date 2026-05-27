@@ -18,7 +18,7 @@ namespace Vectara
         public required string Type { get; set; } = "image_read";
 
         /// <summary>
-        /// Configurable parameters for the image read tool. If not overridden, they will be required by the LLM to fill in.
+        /// Configurable parameters for the image read tool. If not overridden, they will be required by the agent to fill in.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
         public global::Vectara.ImageReadToolParameters? ArgumentOverride { get; set; }
@@ -37,7 +37,7 @@ namespace Vectara
         /// Default Value: image_read
         /// </param>
         /// <param name="argumentOverride">
-        /// Configurable parameters for the image read tool. If not overridden, they will be required by the LLM to fill in.
+        /// Configurable parameters for the image read tool. If not overridden, they will be required by the agent to fill in.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

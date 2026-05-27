@@ -3,10 +3,10 @@
 namespace Vectara.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class MetricKindJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.MetricKind>
+    public sealed class MetricDescriptorDiscriminatorKindNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.MetricDescriptorDiscriminatorKind?>
     {
         /// <inheritdoc />
-        public override global::Vectara.MetricKind Read(
+        public override global::Vectara.MetricDescriptorDiscriminatorKind? Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace Vectara.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Vectara.MetricKindExtensions.ToEnum(stringValue) ?? default;
+                        return global::Vectara.MetricDescriptorDiscriminatorKindExtensions.ToEnum(stringValue);
                     }
                     
                     break;
@@ -26,11 +26,11 @@ namespace Vectara.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Vectara.MetricKind)numValue;
+                    return (global::Vectara.MetricDescriptorDiscriminatorKind)numValue;
                 }
                 case global::System.Text.Json.JsonTokenType.Null:
                 {
-                    return default(global::Vectara.MetricKind);
+                    return default(global::Vectara.MetricDescriptorDiscriminatorKind?);
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -42,12 +42,19 @@ namespace Vectara.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Vectara.MetricKind value,
+            global::Vectara.MetricDescriptorDiscriminatorKind? value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
 
-            writer.WriteStringValue(global::Vectara.MetricKindExtensions.ToValueString(value));
+            if (value == null)
+            {
+                writer.WriteNullValue();
+            }
+            else
+            {
+                writer.WriteStringValue(global::Vectara.MetricDescriptorDiscriminatorKindExtensions.ToValueString(value.Value));
+            }
         }
     }
 }

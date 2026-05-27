@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Create agent session<br/>
-        /// Create a new session for interacting with an agent. A session is the conversation container that maintains state across all messages, events, tool use, and agent responses.<br/>
+        /// Create a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
         /// This endpoint initializes the session and enables you to configure its initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
         /// A session also serves as the workspace for artifacts, enabling file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
         /// ## Example request<br/>
@@ -45,7 +45,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent session<br/>
-        /// Create a new session for interacting with an agent. A session is the conversation container that maintains state across all messages, events, tool use, and agent responses.<br/>
+        /// Create a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
         /// This endpoint initializes the session and enables you to configure its initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
         /// A session also serves as the workspace for artifacts, enabling file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
         /// ## Example request<br/>
@@ -84,7 +84,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent session<br/>
-        /// Create a new session for interacting with an agent. A session is the conversation container that maintains state across all messages, events, tool use, and agent responses.<br/>
+        /// Create a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
         /// This endpoint initializes the session and enables you to configure its initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
         /// A session also serves as the workspace for artifacts, enabling file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
         /// ## Example request<br/>

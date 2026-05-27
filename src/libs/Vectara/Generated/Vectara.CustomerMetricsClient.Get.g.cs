@@ -49,7 +49,7 @@ namespace Vectara
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels,
             ref global::System.DateTime start,
             ref global::System.DateTime end,
-            ref int? maxBuckets);
+            ref int? maxBins);
         partial void PrepareGetRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
@@ -59,7 +59,7 @@ namespace Vectara
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels,
             global::System.DateTime start,
             global::System.DateTime end,
-            int? maxBuckets);
+            int? maxBins);
         partial void ProcessGetResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
@@ -79,7 +79,7 @@ namespace Vectara
         /// <param name="labels"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <param name="maxBuckets">
+        /// <param name="maxBins">
         /// Default Value: 60
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -92,7 +92,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels = default,
-            int? maxBuckets = default,
+            int? maxBins = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -103,7 +103,7 @@ namespace Vectara
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 labels: labels,
-                maxBuckets: maxBuckets,
+                maxBins: maxBins,
                 requestOptions: requestOptions,
                 cancellationToken: cancellationToken
             ).ConfigureAwait(false);
@@ -120,7 +120,7 @@ namespace Vectara
         /// <param name="labels"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <param name="maxBuckets">
+        /// <param name="maxBins">
         /// Default Value: 60
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -133,7 +133,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels = default,
-            int? maxBuckets = default,
+            int? maxBins = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -147,7 +147,7 @@ namespace Vectara
                 labels: labels,
                 start: ref start,
                 end: ref end,
-                maxBuckets: ref maxBuckets);
+                maxBins: ref maxBins);
 
 
             var __authorizations = global::Vectara.EndPointSecurityResolver.ResolveAuthorizations(
@@ -179,7 +179,7 @@ namespace Vectara
                                 .AddOptionalParameter("labels", labels?.ToString())
                                 .AddRequiredParameter("start", start.ToString("yyyy-MM-ddTHH:mm:ssZ"))
                                 .AddRequiredParameter("end", end.ToString("yyyy-MM-ddTHH:mm:ssZ"))
-                                .AddOptionalParameter("max_buckets", maxBuckets?.ToString())
+                                .AddOptionalParameter("max_bins", maxBins?.ToString())
                                 ;
                             var __path = __pathBuilder.ToString();
                 __path = global::Vectara.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -237,7 +237,7 @@ namespace Vectara
                     labels: labels,
                     start: start!,
                     end: end!,
-                    maxBuckets: maxBuckets);
+                    maxBins: maxBins);
 
                 return __httpRequest;
             }

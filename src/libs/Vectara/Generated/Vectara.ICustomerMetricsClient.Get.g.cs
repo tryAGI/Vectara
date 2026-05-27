@@ -14,7 +14,7 @@ namespace Vectara
         /// <param name="labels"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <param name="maxBuckets">
+        /// <param name="maxBins">
         /// Default Value: 60
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -27,7 +27,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels = default,
-            int? maxBuckets = default,
+            int? maxBins = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
@@ -40,7 +40,7 @@ namespace Vectara
         /// <param name="labels"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <param name="maxBuckets">
+        /// <param name="maxBins">
         /// Default Value: 60
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -53,7 +53,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels = default,
-            int? maxBuckets = default,
+            int? maxBins = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

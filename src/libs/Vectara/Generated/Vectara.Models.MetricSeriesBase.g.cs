@@ -23,11 +23,11 @@ namespace Vectara
         public required global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>> Labels { get; set; }
 
         /// <summary>
-        /// Width of each bucket in the returned series, in seconds. The server chooses this based on the requested time range and `max_buckets`.
+        /// Width of each time bin in the returned series, in seconds. The server chooses this based on the requested time range and `max_bins`.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("bucket_size_seconds")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("bin_size_seconds")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required int BucketSizeSeconds { get; set; }
+        public required int BinSizeSeconds { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -44,8 +44,8 @@ namespace Vectara
         /// <param name="labels">
         /// The labels matched for this series. Echoes the filter values supplied in the request.
         /// </param>
-        /// <param name="bucketSizeSeconds">
-        /// Width of each bucket in the returned series, in seconds. The server chooses this based on the requested time range and `max_buckets`.
+        /// <param name="binSizeSeconds">
+        /// Width of each time bin in the returned series, in seconds. The server chooses this based on the requested time range and `max_bins`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -53,11 +53,11 @@ namespace Vectara
         public MetricSeriesBase(
             string metricName,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>> labels,
-            int bucketSizeSeconds)
+            int binSizeSeconds)
         {
             this.MetricName = metricName ?? throw new global::System.ArgumentNullException(nameof(metricName));
             this.Labels = labels ?? throw new global::System.ArgumentNullException(nameof(labels));
-            this.BucketSizeSeconds = bucketSizeSeconds;
+            this.BinSizeSeconds = binSizeSeconds;
         }
 
         /// <summary>

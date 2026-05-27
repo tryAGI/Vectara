@@ -9,14 +9,12 @@ namespace Vectara
     public sealed partial class CounterMetricSeriesVariant2
     {
         /// <summary>
-        /// Default Value: counter<br/>
         /// Example: counter
         /// </summary>
-        /// <default>"counter"</default>
         /// <example>counter</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Kind { get; set; } = "counter";
+        public required string Kind { get; set; }
 
         /// <summary>
         /// 
@@ -35,7 +33,6 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CounterMetricSeriesVariant2" /> class.
         /// </summary>
         /// <param name="kind">
-        /// Default Value: counter<br/>
         /// Example: counter
         /// </param>
         /// <param name="points"></param>

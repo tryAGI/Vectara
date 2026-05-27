@@ -9,14 +9,12 @@ namespace Vectara
     public sealed partial class PercentilesMetricSeriesVariant2
     {
         /// <summary>
-        /// Default Value: percentiles<br/>
         /// Example: percentiles
         /// </summary>
-        /// <default>"percentiles"</default>
         /// <example>percentiles</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Kind { get; set; } = "percentiles";
+        public required string Kind { get; set; }
 
         /// <summary>
         /// 
@@ -35,7 +33,6 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="PercentilesMetricSeriesVariant2" /> class.
         /// </summary>
         /// <param name="kind">
-        /// Default Value: percentiles<br/>
         /// Example: percentiles
         /// </param>
         /// <param name="points"></param>
