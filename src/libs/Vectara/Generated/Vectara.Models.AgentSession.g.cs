@@ -101,6 +101,24 @@ namespace Vectara
         public global::Vectara.CompactionConfig? EffectiveCompaction { get; set; }
 
         /// <summary>
+        /// If this session was created through an alias (`POST /v2/agent_aliases/{alias_key}/sessions`), the alias key the caller used. The `agent_key` field above is the resolved agent the alias's policy picked. Null when the session was created directly under an agent (`POST /v2/agents/{agent_key}/sessions`).<br/>
+        /// Example: support
+        /// </summary>
+        /// <example>support</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("alias_key")]
+        public string? AliasKey { get; set; }
+
+        /// <summary>
+        /// Session-scoped secrets, with values masked as `"****"`. Plaintext is never returned on read;<br/>
+        /// tools resolve the real value via `argument_override` with `{"$ref": "session.secrets.&lt;name&gt;"}`.<br/>
+        /// Set or rotate via the session create or update request.<br/>
+        /// Example: {"slack_user_token":"****"}
+        /// </summary>
+        /// <example>{"slack_user_token":"****"}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("secrets")]
+        public global::System.Collections.Generic.Dictionary<string, string>? Secrets { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -154,6 +172,16 @@ namespace Vectara
         /// <param name="effectiveCompaction">
         /// Configuration for automatic context compaction.
         /// </param>
+        /// <param name="aliasKey">
+        /// If this session was created through an alias (`POST /v2/agent_aliases/{alias_key}/sessions`), the alias key the caller used. The `agent_key` field above is the resolved agent the alias's policy picked. Null when the session was created directly under an agent (`POST /v2/agents/{agent_key}/sessions`).<br/>
+        /// Example: support
+        /// </param>
+        /// <param name="secrets">
+        /// Session-scoped secrets, with values masked as `"****"`. Plaintext is never returned on read;<br/>
+        /// tools resolve the real value via `argument_override` with `{"$ref": "session.secrets.&lt;name&gt;"}`.<br/>
+        /// Set or rotate via the session create or update request.<br/>
+        /// Example: {"slack_user_token":"****"}
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -168,7 +196,9 @@ namespace Vectara
             string? currentStepName,
             long? ttiMinutes,
             global::Vectara.SessionContextUsage? sessionContextUsage,
-            global::Vectara.CompactionConfig? effectiveCompaction)
+            global::Vectara.CompactionConfig? effectiveCompaction,
+            string? aliasKey,
+            global::System.Collections.Generic.Dictionary<string, string>? secrets)
         {
             this.Key = key ?? throw new global::System.ArgumentNullException(nameof(key));
             this.AgentKey = agentKey ?? throw new global::System.ArgumentNullException(nameof(agentKey));
@@ -181,6 +211,8 @@ namespace Vectara
             this.CreatedAt = createdAt;
             this.SessionContextUsage = sessionContextUsage;
             this.EffectiveCompaction = effectiveCompaction;
+            this.AliasKey = aliasKey;
+            this.Secrets = secrets;
         }
 
         /// <summary>

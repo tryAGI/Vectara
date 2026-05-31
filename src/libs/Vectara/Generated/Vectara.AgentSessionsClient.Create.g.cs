@@ -694,6 +694,12 @@ namespace Vectara
         /// Default Value: 0<br/>
         /// Example: 60
         /// </param>
+        /// <param name="secrets">
+        /// Session-scoped secrets to store on the new session. Map of secret name to plaintext value.<br/>
+        /// Encrypted at rest with the owning agent's encryption key. Referenced from tool `argument_override` via<br/>
+        /// `{"$ref": "session.secrets.&lt;name&gt;"}`. Returned masked (`****`) on reads.<br/>
+        /// Example: {"slack_user_token":"xoxp-your-token-here"}
+        /// </param>
         /// <param name="fromSession">
         /// Create a new session by forking an existing one. By default, copies all visible events<br/>
         /// and artifacts from the source session without compaction. Optionally specify exactly one of<br/>
@@ -713,6 +719,7 @@ namespace Vectara
             object? metadata = default,
             bool? enabled = default,
             long? ttiMinutes = default,
+            global::System.Collections.Generic.Dictionary<string, string>? secrets = default,
             global::Vectara.CreateAgentSessionRequestFromSession? fromSession = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -725,6 +732,7 @@ namespace Vectara
                 Metadata = metadata,
                 Enabled = enabled,
                 TtiMinutes = ttiMinutes,
+                Secrets = secrets,
                 FromSession = fromSession,
             };
 

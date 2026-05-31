@@ -34,6 +34,12 @@ namespace Vectara
         /// References are resolved at runtime from context:<br/>
         /// - session.metadata.* - Access session metadata fields<br/>
         /// - agent.metadata.* - Access agent metadata fields<br/>
+        /// - agent.secrets.* - Access agent secrets (masked in audit events)<br/>
+        /// - tools.* - Access prior tool outputs (resolved after the dependent tool runs)<br/>
+        /// - currentDate - The current date/time in ISO 8601 format<br/>
+        /// A bracket index may reference another context value, whose resolved value is used as the lookup key. The inner path may optionally carry a leading $ root marker:<br/>
+        /// - Indirect reference: `{"$ref": "agent.secrets[session.metadata.user_id]"}` looks up the per-user secret named by `session.metadata.user_id`<br/>
+        /// - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`<br/>
         /// Example:<br/>
         ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
         /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>
@@ -68,6 +74,12 @@ namespace Vectara
         /// References are resolved at runtime from context:<br/>
         /// - session.metadata.* - Access session metadata fields<br/>
         /// - agent.metadata.* - Access agent metadata fields<br/>
+        /// - agent.secrets.* - Access agent secrets (masked in audit events)<br/>
+        /// - tools.* - Access prior tool outputs (resolved after the dependent tool runs)<br/>
+        /// - currentDate - The current date/time in ISO 8601 format<br/>
+        /// A bracket index may reference another context value, whose resolved value is used as the lookup key. The inner path may optionally carry a leading $ root marker:<br/>
+        /// - Indirect reference: `{"$ref": "agent.secrets[session.metadata.user_id]"}` looks up the per-user secret named by `session.metadata.user_id`<br/>
+        /// - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`<br/>
         /// Example:<br/>
         ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
         /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>

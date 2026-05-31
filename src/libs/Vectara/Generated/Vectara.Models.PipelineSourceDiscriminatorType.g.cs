@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        GoogleDrive,
+        /// <summary>
+        /// 
+        /// </summary>
         S3,
         /// <summary>
         /// 
@@ -30,6 +34,7 @@ namespace Vectara
         {
             return value switch
             {
+                PipelineSourceDiscriminatorType.GoogleDrive => "google_drive",
                 PipelineSourceDiscriminatorType.S3 => "s3",
                 PipelineSourceDiscriminatorType.Web => "web",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
@@ -42,6 +47,7 @@ namespace Vectara
         {
             return value switch
             {
+                "google_drive" => PipelineSourceDiscriminatorType.GoogleDrive,
                 "s3" => PipelineSourceDiscriminatorType.S3,
                 "web" => PipelineSourceDiscriminatorType.Web,
                 _ => null,

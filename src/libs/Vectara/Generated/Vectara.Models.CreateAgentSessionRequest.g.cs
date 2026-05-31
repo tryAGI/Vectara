@@ -60,6 +60,16 @@ namespace Vectara
         public long? TtiMinutes { get; set; }
 
         /// <summary>
+        /// Session-scoped secrets to store on the new session. Map of secret name to plaintext value.<br/>
+        /// Encrypted at rest with the owning agent's encryption key. Referenced from tool `argument_override` via<br/>
+        /// `{"$ref": "session.secrets.&lt;name&gt;"}`. Returned masked (`****`) on reads.<br/>
+        /// Example: {"slack_user_token":"xoxp-your-token-here"}
+        /// </summary>
+        /// <example>{"slack_user_token":"xoxp-your-token-here"}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("secrets")]
+        public global::System.Collections.Generic.Dictionary<string, string>? Secrets { get; set; }
+
+        /// <summary>
         /// Create a new session by forking an existing one. By default, copies all visible events<br/>
         /// and artifacts from the source session without compaction. Optionally specify exactly one of<br/>
         /// include_up_to_event_id or compact_up_to_event_id to control which events are included<br/>
@@ -104,6 +114,12 @@ namespace Vectara
         /// Default Value: 0<br/>
         /// Example: 60
         /// </param>
+        /// <param name="secrets">
+        /// Session-scoped secrets to store on the new session. Map of secret name to plaintext value.<br/>
+        /// Encrypted at rest with the owning agent's encryption key. Referenced from tool `argument_override` via<br/>
+        /// `{"$ref": "session.secrets.&lt;name&gt;"}`. Returned masked (`****`) on reads.<br/>
+        /// Example: {"slack_user_token":"xoxp-your-token-here"}
+        /// </param>
         /// <param name="fromSession">
         /// Create a new session by forking an existing one. By default, copies all visible events<br/>
         /// and artifacts from the source session without compaction. Optionally specify exactly one of<br/>
@@ -120,6 +136,7 @@ namespace Vectara
             object? metadata,
             bool? enabled,
             long? ttiMinutes,
+            global::System.Collections.Generic.Dictionary<string, string>? secrets,
             global::Vectara.CreateAgentSessionRequestFromSession? fromSession)
         {
             this.Key = key;
@@ -128,6 +145,7 @@ namespace Vectara
             this.Metadata = metadata;
             this.Enabled = enabled;
             this.TtiMinutes = ttiMinutes;
+            this.Secrets = secrets;
             this.FromSession = fromSession;
         }
 
