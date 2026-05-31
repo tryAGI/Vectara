@@ -52,6 +52,43 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'S3' but the value was {ToString()}.");
 
         /// <summary>
+        /// Partial update for Google Drive source configuration. Only provided fields are merged.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.UpdateGoogleDriveSourceConfiguration? GoogleDrive { get; init; }
+#else
+        public global::Vectara.UpdateGoogleDriveSourceConfiguration? GoogleDrive { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GoogleDrive))]
+#endif
+        public bool IsGoogleDrive => GoogleDrive != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGoogleDrive(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateGoogleDriveSourceConfiguration? value)
+        {
+            value = GoogleDrive;
+            return IsGoogleDrive;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateGoogleDriveSourceConfiguration PickGoogleDrive() => IsGoogleDrive
+            ? GoogleDrive!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GoogleDrive' but the value was {ToString()}.");
+
+        /// <summary>
         /// Partial update for a `web` source configuration. Top-level fields are merged into the existing<br/>
         /// record; if `pages_source` is provided, the entire `pages_source` object is replaced (i.e.,<br/>
         /// switching modes or changing per-mode fields requires a complete `pages_source` object).
@@ -115,6 +152,29 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator UpdatePipelineSource(global::Vectara.UpdateGoogleDriveSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateGoogleDriveSourceConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.UpdateGoogleDriveSourceConfiguration?(UpdatePipelineSource @this) => @this.GoogleDrive;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UpdatePipelineSource(global::Vectara.UpdateGoogleDriveSourceConfiguration? value)
+        {
+            GoogleDrive = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdatePipelineSource FromGoogleDrive(global::Vectara.UpdateGoogleDriveSourceConfiguration? value) => new UpdatePipelineSource(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdatePipelineSource(global::Vectara.UpdateWebSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateWebSourceConfiguration?)value);
 
         /// <summary>
@@ -141,12 +201,14 @@ namespace Vectara
         public UpdatePipelineSource(
             global::Vectara.UpdatePipelineSourceDiscriminatorType? type,
             global::Vectara.UpdateS3SourceConfiguration? s3,
+            global::Vectara.UpdateGoogleDriveSourceConfiguration? googleDrive,
             global::Vectara.UpdateWebSourceConfiguration? web
             )
         {
             Type = type;
 
             S3 = s3;
+            GoogleDrive = googleDrive;
             Web = web;
         }
 
@@ -155,6 +217,7 @@ namespace Vectara
         /// </summary>
         public object? Object =>
             Web as object ??
+            GoogleDrive as object ??
             S3 as object 
             ;
 
@@ -163,6 +226,7 @@ namespace Vectara
         /// </summary>
         public override string? ToString() =>
             S3?.ToString() ??
+            GoogleDrive?.ToString() ??
             Web?.ToString() 
             ;
 
@@ -171,7 +235,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsS3 && !IsWeb || !IsS3 && IsWeb;
+            return IsS3 && !IsGoogleDrive && !IsWeb || !IsS3 && IsGoogleDrive && !IsWeb || !IsS3 && !IsGoogleDrive && IsWeb;
         }
 
         /// <summary>
@@ -179,6 +243,7 @@ namespace Vectara
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.UpdateS3SourceConfiguration?, TResult>? s3 = null,
+            global::System.Func<global::Vectara.UpdateGoogleDriveSourceConfiguration?, TResult>? googleDrive = null,
             global::System.Func<global::Vectara.UpdateWebSourceConfiguration?, TResult>? web = null,
             bool validate = true)
         {
@@ -190,6 +255,10 @@ namespace Vectara
             if (IsS3 && s3 != null)
             {
                 return s3(S3!);
+            }
+            else if (IsGoogleDrive && googleDrive != null)
+            {
+                return googleDrive(GoogleDrive!);
             }
             else if (IsWeb && web != null)
             {
@@ -205,6 +274,8 @@ namespace Vectara
         public void Match(
             global::System.Action<global::Vectara.UpdateS3SourceConfiguration?>? s3 = null,
 
+            global::System.Action<global::Vectara.UpdateGoogleDriveSourceConfiguration?>? googleDrive = null,
+
             global::System.Action<global::Vectara.UpdateWebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -216,6 +287,10 @@ namespace Vectara
             if (IsS3)
             {
                 s3?.Invoke(S3!);
+            }
+            else if (IsGoogleDrive)
+            {
+                googleDrive?.Invoke(GoogleDrive!);
             }
             else if (IsWeb)
             {
@@ -228,6 +303,7 @@ namespace Vectara
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.UpdateS3SourceConfiguration?>? s3 = null,
+            global::System.Action<global::Vectara.UpdateGoogleDriveSourceConfiguration?>? googleDrive = null,
             global::System.Action<global::Vectara.UpdateWebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -239,6 +315,10 @@ namespace Vectara
             if (IsS3)
             {
                 s3?.Invoke(S3!);
+            }
+            else if (IsGoogleDrive)
+            {
+                googleDrive?.Invoke(GoogleDrive!);
             }
             else if (IsWeb)
             {
@@ -255,6 +335,8 @@ namespace Vectara
             {
                 S3,
                 typeof(global::Vectara.UpdateS3SourceConfiguration),
+                GoogleDrive,
+                typeof(global::Vectara.UpdateGoogleDriveSourceConfiguration),
                 Web,
                 typeof(global::Vectara.UpdateWebSourceConfiguration),
             };
@@ -274,6 +356,7 @@ namespace Vectara
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateS3SourceConfiguration?>.Default.Equals(S3, other.S3) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateGoogleDriveSourceConfiguration?>.Default.Equals(GoogleDrive, other.GoogleDrive) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWebSourceConfiguration?>.Default.Equals(Web, other.Web) 
                 ;
         }

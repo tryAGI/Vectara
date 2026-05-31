@@ -24,6 +24,7 @@ namespace Vectara
         /// The identifier for the source record. Format depends on connector type:<br/>
         /// - S3: the object key (e.g. `legal/contracts/doc.pdf`)<br/>
         /// - SharePoint: the drive item ID<br/>
+        /// - Google Drive: the file ID<br/>
         /// - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source_record_id")]
@@ -91,6 +92,7 @@ namespace Vectara
         /// The identifier for the source record. Format depends on connector type:<br/>
         /// - S3: the object key (e.g. `legal/contracts/doc.pdf`)<br/>
         /// - SharePoint: the drive item ID<br/>
+        /// - Google Drive: the file ID<br/>
         /// - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
         /// </param>
         /// <param name="status">

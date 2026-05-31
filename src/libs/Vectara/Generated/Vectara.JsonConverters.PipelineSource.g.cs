@@ -28,6 +28,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.S3SourceConfiguration)}");
                 s3 = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.GoogleDriveSourceConfiguration? googleDrive = default;
+            if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.GoogleDrive)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GoogleDriveSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GoogleDriveSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.GoogleDriveSourceConfiguration)}");
+                googleDrive = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.WebSourceConfiguration? web = default;
             if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Web)
             {
@@ -39,6 +46,8 @@ namespace Vectara.JsonConverters
             var __value = new global::Vectara.PipelineSource(
                 discriminator?.Type,
                 s3,
+
+                googleDrive,
 
                 web
                 );
@@ -60,6 +69,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.S3SourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.S3SourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.S3SourceConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.S3!.Value, typeInfo);
+            }
+            else if (value.IsGoogleDrive)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GoogleDriveSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GoogleDriveSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GoogleDriveSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GoogleDrive!.Value, typeInfo);
             }
             else if (value.IsWeb)
             {
