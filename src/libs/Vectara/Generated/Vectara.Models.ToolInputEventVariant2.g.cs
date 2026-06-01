@@ -54,9 +54,11 @@ namespace Vectara
         public required object ToolInput { get; set; }
 
         /// <summary>
-        /// Top-level field paths in `tool_input` whose values were filled by the tool configuration's argument overrides at emission time, not produced by the<br/>
-        /// agent. On replay these paths are stripped from the rendered tool call so the model sees only what it originally generated, regardless of how the tool<br/>
-        /// configuration's overrides have changed since. Paths support dot-notation (e.g. `config.auth.token`).
+        /// Dot-notation leaf paths supplied by the tool configuration's argument overrides rather than by the agent — for example `api_key`,<br/>
+        /// `config.auth.token`, or `items[0]`. These paths are frozen on the input event so that the agent's view of its own past tool calls stays<br/>
+        /// stable when the tool configuration changes: overrides are excluded from replayed calls regardless of how the override has evolved since.<br/>
+        /// Only the paths are frozen here; the resolved values at those paths are not — they are recomputed against the live session at each launch<br/>
+        /// and recorded on the corresponding `ToolOutputEvent.resolved_argument_overrides`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override_paths")]
         public global::System.Collections.Generic.IList<string>? ArgumentOverridePaths { get; set; }
@@ -91,9 +93,11 @@ namespace Vectara
         /// Example: {"query":"weather in San Francisco"}
         /// </param>
         /// <param name="argumentOverridePaths">
-        /// Top-level field paths in `tool_input` whose values were filled by the tool configuration's argument overrides at emission time, not produced by the<br/>
-        /// agent. On replay these paths are stripped from the rendered tool call so the model sees only what it originally generated, regardless of how the tool<br/>
-        /// configuration's overrides have changed since. Paths support dot-notation (e.g. `config.auth.token`).
+        /// Dot-notation leaf paths supplied by the tool configuration's argument overrides rather than by the agent — for example `api_key`,<br/>
+        /// `config.auth.token`, or `items[0]`. These paths are frozen on the input event so that the agent's view of its own past tool calls stays<br/>
+        /// stable when the tool configuration changes: overrides are excluded from replayed calls regardless of how the override has evolved since.<br/>
+        /// Only the paths are frozen here; the resolved values at those paths are not — they are recomputed against the live session at each launch<br/>
+        /// and recorded on the corresponding `ToolOutputEvent.resolved_argument_overrides`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

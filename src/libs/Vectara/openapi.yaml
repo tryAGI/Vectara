@@ -7635,6 +7635,7 @@ paths:
           enum:
           - mcp
           - lambda
+          - client
           example: mcp
       - in: query
         name: enabled
@@ -9346,6 +9347,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateInputRequest'
           multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MultipartInputEvent'
             encoding:
               message:
                 contentType: text/plain
@@ -9437,6 +9440,7 @@ paths:
               context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
               step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
               session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+              client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
               image_read: '#/components/schemas/ImageReadEvent'
               step_transition: '#/components/schemas/StepTransitionEvent'
               compaction: '#/components/schemas/CompactionEvent'
@@ -9452,6 +9456,7 @@ paths:
           - $ref: '#/components/schemas/ContextLimitExceededEvent'
           - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
           - $ref: '#/components/schemas/SessionInterruptedEvent'
+          - $ref: '#/components/schemas/ClientToolPendingEvent'
           - $ref: '#/components/schemas/ImageReadEvent'
           - $ref: '#/components/schemas/StepTransitionEvent'
           - $ref: '#/components/schemas/CompactionEvent'
@@ -9473,6 +9478,7 @@ paths:
               context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
               step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
               session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+              client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
               image_read: '#/components/schemas/ImageReadEvent'
               step_transition: '#/components/schemas/StepTransitionEvent'
               context_consumed: '#/components/schemas/ContextConsumedEvent'
@@ -9500,6 +9506,7 @@ paths:
           - $ref: '#/components/schemas/ContextLimitExceededEvent'
           - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
           - $ref: '#/components/schemas/SessionInterruptedEvent'
+          - $ref: '#/components/schemas/ClientToolPendingEvent'
           - $ref: '#/components/schemas/ImageReadEvent'
           - $ref: '#/components/schemas/StepTransitionEvent'
           - $ref: '#/components/schemas/ContextConsumedEvent'
@@ -9592,6 +9599,75 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.events
+  /v2/agents/{agent_key}/sessions/{session_key}/outstanding_client_tool_calls:
+    get:
+      tags:
+      - Agent Sessions
+      summary: List outstanding client tool calls for an agent session
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'List the client tool calls the session is currently waiting on
+        the caller to fulfill. Each entry carries the originating `tool_input` event
+        ID, the tool name, and the fully materialized arguments to invoke the tool
+        with. Secret-derived values are returned unmasked because the caller needs
+        them to execute the tool, so this endpoint is restricted to the same roles
+        permitted to submit input to the session.
+
+
+        Returns an empty list when the session is not parked on a client tool. The
+        corresponding `client_tool_pending` event is delivered only on the live event
+        stream and is not returned by `listAgentEvents`; this endpoint is the durable
+        way to recover the pending calls after a reconnect. Submit one `tool_output`
+        per returned `event_id` (via the create-input endpoint) to resume the session.'
+      operationId: listOutstandingClientToolCalls
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique identifier of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: session_key
+        description: The unique key of the session.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      responses:
+        '200':
+          description: The client tool calls the session is waiting on, one entry
+            per outstanding call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutstandingClientToolCallsResponse'
+        '403':
+          description: Permissions do not allow reading this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_events
+      x-fern-sdk-method-name: list_outstanding_client_tool_calls
   /v2/agents/{agent_key}/sessions/{session_key}/events/{event_id}:
     get:
       tags:
@@ -11740,6 +11816,62 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.events
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}/outstanding_client_tool_calls:
+    get:
+      tags:
+      - Agent Aliases
+      summary: List outstanding client tool calls on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: List the client tool calls a session originally created via this
+        alias is currently waiting on the caller to fulfill. Each entry carries the
+        fully materialized arguments to invoke the tool with; secret-derived values
+        are returned unmasked because the caller needs them to execute the tool, so
+        this endpoint is restricted to the same roles permitted to submit input to
+        the session. Empty when the session is not parked on a client tool. See the
+        agent-scoped endpoint for the full contract.
+      operationId: listAliasRoutedOutstandingClientToolCalls
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      responses:
+        '200':
+          description: The client tool calls the session is waiting on, one entry
+            per outstanding call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutstandingClientToolCallsResponse'
+        '403':
+          description: Permissions do not allow reading this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: list_outstanding_client_tool_calls
   /v2/agent_aliases/{alias_key}/sessions/{session_key}/events/{event_id}:
     get:
       tags:
@@ -18001,11 +18133,10 @@ components:
           description: The name of the author of this message, used to connect messages
             in a conversation.
     JsonSchemaDefinition:
-      description: A JSON Schema definition for specifying data structure. Supports
-        recursive schemas for nested objects.
+      description: A JSON Schema definition for describing data structure. Defines
+        the minimum subset generally supported across LLM providers. Unknown keywords
+        are passed through for forward compatibility.
       type: object
-      required:
-      - type
       properties:
         type:
           description: The JSON type for this schema element.
@@ -18017,9 +18148,25 @@ components:
           - number
           - integer
           - boolean
+          - 'null'
+        title:
+          description: Short human-readable label for this schema element.
+          type: string
+        description:
+          description: Human-readable description of this schema element.
+          type: string
+        default:
+          description: Default value when none is provided.
+        enum:
+          description: Allowed values for this schema element.
+          type: array
+        format:
+          description: Semantic format hint (e.g. date-time, date, email, uri, uuid).
+            Provider support varies.
+          type: string
         properties:
           description: Property definitions when type is 'object'. Each key maps to
-            a nested JsonSchemaDefinition.
+            a nested schema.
           type: object
           additionalProperties:
             $ref: '#/components/schemas/JsonSchemaDefinition'
@@ -18033,14 +18180,14 @@ components:
           type: boolean
           default: false
         items:
-          description: Schema for array items when type is 'array'.
+          description: Schema for array elements when type is 'array'.
           $ref: '#/components/schemas/JsonSchemaDefinition'
-        enum:
-          description: Allowed values for this schema element.
+        anyOf:
+          description: Value must match at least one of the listed schemas.
           type: array
-        description:
-          description: Human-readable description of this schema element.
-          type: string
+          items:
+            $ref: '#/components/schemas/JsonSchemaDefinition'
+      additionalProperties: true
     JsonSchemaSpec:
       description: Specification wrapper for a named JSON schema.
       type: object
@@ -19798,11 +19945,6 @@ components:
             - python
             default: python
             example: python
-          output_schema:
-            description: The schema that defines the expected output structure from
-              the function.
-            type: object
-            additionalProperties: true
           function_definition:
             $ref: '#/components/schemas/FunctionDefinition'
         required:
@@ -19929,6 +20071,25 @@ components:
         - type
       x-vectaraParents:
       - Tool
+    ClientTool:
+      description: 'A tool whose execution is performed by the calling client. When
+        invoked, the platform emits a `tool_input` event with the tool call arguments.
+        The client submits the result as a `tool_output` input via `createAgentInput`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `client`.
+            type: string
+            default: client
+            example: client
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
     Tool:
       description: A tool that can be used by agents to perform specific actions or
         operations.
@@ -19949,6 +20110,7 @@ components:
           image_read: '#/components/schemas/ImageReadTool'
           document_conversion: '#/components/schemas/DocumentConversionTool'
           get_document_text: '#/components/schemas/GetDocumentTextTool'
+          client: '#/components/schemas/ClientTool'
       oneOf:
       - $ref: '#/components/schemas/DynamicVectaraTool'
       - $ref: '#/components/schemas/McpTool'
@@ -19963,6 +20125,7 @@ components:
       - $ref: '#/components/schemas/ImageReadTool'
       - $ref: '#/components/schemas/DocumentConversionTool'
       - $ref: '#/components/schemas/GetDocumentTextTool'
+      - $ref: '#/components/schemas/ClientTool'
     ListToolsResponse:
       description: Response containing a list of tools.
       type: object
@@ -20089,20 +20252,92 @@ components:
       required:
       - type
       - name
-      - title
       - description
       - code
       x-vectaraParents:
       - CreateToolRequest
+    CreateClientToolRequest:
+      description: 'Request to create a new client tool. When invoked, the platform
+        emits a `tool_input` event; the client performs the work and submits a `tool_output`
+        input via `createAgentInput`.
+
+        '
+      type: object
+      properties:
+        type:
+          description: This should always be `client`.
+          type: string
+          default: client
+          example: client
+        name:
+          description: The unique name of the tool.
+          type: string
+          minLength: 1
+          maxLength: 50
+          pattern: ^[a-zA-Z0-9_-]+$
+          example: collect_signature
+        title:
+          description: Human-readable title of the tool displayed in the UI.
+          type: string
+          minLength: 1
+          maxLength: 128
+          example: Collect Customer Signature
+        description:
+          description: A detailed description of what the tool does, when the agent
+            should invoke it, and what the expected output represents.
+          type: string
+          minLength: 1
+          maxLength: 5000
+          example: Prompts the user to e-sign a document. Returns the signed document
+            URL once the user completes signing.
+        input_schema:
+          description: 'JSON Schema describing the arguments the LLM should produce
+            when invoking this tool. These arguments are forwarded verbatim to the
+            client in the `tool_input` event.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+          example:
+            type: object
+            properties:
+              document_url:
+                type: string
+                description: URL of the document to be signed.
+            required:
+            - document_url
+        output_schema:
+          description: 'Optional JSON Schema describing the structure the client must
+            submit as the tool output. When set, submitted outputs are validated against
+            this schema before being returned to the agent.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+          example:
+            type: object
+            properties:
+              signed_document_url:
+                type: string
+            required:
+            - signed_document_url
+      required:
+      - type
+      - name
+      - description
+      x-vectaraParents:
+      - CreateToolRequest
     CreateToolRequest:
-      description: Request to create a tool. Currently supports lambda tools for user-defined
-        functions.
+      description: Request to create a tool. Supports lambda tools for user-defined
+        functions and client tools whose execution is performed by the calling client.
       discriminator:
         propertyName: type
         mapping:
           lambda: '#/components/schemas/CreateLambdaToolRequest'
+          client: '#/components/schemas/CreateClientToolRequest'
       oneOf:
       - $ref: '#/components/schemas/CreateLambdaToolRequest'
+      - $ref: '#/components/schemas/CreateClientToolRequest'
     TestLambdaToolRequest:
       description: 'Request to test a Lambda tool before creating it. This allows
         users to validate their code, schemas, and execution before committing to
@@ -20344,17 +20579,60 @@ components:
       - type
       x-vectaraParents:
       - UpdateToolRequest
+    UpdateClientToolRequest:
+      description: Request to update an existing client tool.
+      type: object
+      properties:
+        type:
+          description: This should always be `client`.
+          type: string
+          default: client
+          example: client
+        enabled:
+          description: Whether the tool should be enabled or disabled.
+          type: boolean
+          example: true
+        title:
+          description: Updated human-readable title of the tool.
+          type: string
+          minLength: 1
+          maxLength: 128
+          example: Collect Customer Signature
+        description:
+          description: Updated description of what the tool does.
+          type: string
+          minLength: 1
+          maxLength: 5000
+        input_schema:
+          description: Updated JSON Schema for the arguments the LLM produces when
+            invoking this tool.
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+        output_schema:
+          description: 'Updated JSON Schema for the structure the client must submit
+            as the tool output. Pass an empty object to clear the schema and accept
+            any output.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+      required:
+      - type
+      x-vectaraParents:
+      - UpdateToolRequest
     UpdateToolRequest:
-      description: Request to update a tool. Supports updating MCP and Python lambda
-        tools.
+      description: Request to update a tool. Supports updating MCP, Python lambda,
+        and client tools.
       discriminator:
         propertyName: type
         mapping:
           mcp: '#/components/schemas/UpdateMcpToolRequest'
           lambda: '#/components/schemas/UpdateLambdaToolRequest'
+          client: '#/components/schemas/UpdateClientToolRequest'
       oneOf:
       - $ref: '#/components/schemas/UpdateMcpToolRequest'
       - $ref: '#/components/schemas/UpdateLambdaToolRequest'
+      - $ref: '#/components/schemas/UpdateClientToolRequest'
     TestToolRequest:
       description: Request to test a Lambda tool with sample input.
       type: object
@@ -21389,6 +21667,36 @@ components:
         - type
       x-vectaraParents:
       - AgentToolConfiguration
+    InlineClientToolConfiguration:
+      title: InlineClientToolConfiguration
+      description: 'A client tool configuration defined inline in the agent. When
+        invoked, the agent emits a `tool_input` event and waits for the calling client
+        to submit a matching tool output via `createAgentInput`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'client'
+              for inline client tool configurations.
+            default: client
+          tool_id:
+            $ref: '#/components/schemas/ToolId'
+          argument_override:
+            description: Optional hardcoded arguments that will be merged into the
+              LLM-generated arguments before dispatch to the client.
+            type: object
+            additionalProperties: true
+            example:
+              channel: support
+        required:
+        - tool_id
+        - type
+      x-vectaraParents:
+      - AgentToolConfiguration
     SubAgentToolParameters:
       description: Configurable parameters for the sub-agent tool. If not overridden,
         they will be required by the agent to fill in.
@@ -21747,6 +22055,7 @@ components:
           web_search: '#/components/schemas/InlineWebSearchToolConfiguration'
           web_get: '#/components/schemas/InlineWebGetToolConfiguration'
           lambda: '#/components/schemas/InlineLambdaToolConfiguration'
+          client: '#/components/schemas/InlineClientToolConfiguration'
           sub_agent: '#/components/schemas/InlineSubAgentToolConfiguration'
           artifact_create: '#/components/schemas/InlineArtifactCreateToolConfiguration'
           artifact_read: '#/components/schemas/InlineArtifactReadToolConfiguration'
@@ -21761,6 +22070,7 @@ components:
       - $ref: '#/components/schemas/InlineWebSearchToolConfiguration'
       - $ref: '#/components/schemas/InlineWebGetToolConfiguration'
       - $ref: '#/components/schemas/InlineLambdaToolConfiguration'
+      - $ref: '#/components/schemas/InlineClientToolConfiguration'
       - $ref: '#/components/schemas/InlineSubAgentToolConfiguration'
       - $ref: '#/components/schemas/InlineArtifactCreateToolConfiguration'
       - $ref: '#/components/schemas/InlineArtifactReadToolConfiguration'
@@ -23685,18 +23995,15 @@ components:
             example:
               query: weather in San Francisco
           argument_override_paths:
-            description: 'Top-level field paths in `tool_input` whose values were
-              filled by the tool configuration''s argument overrides at emission time,
-              not produced by the
-
-              agent. On replay these paths are stripped from the rendered tool call
-              so the model sees only what it originally generated, regardless of how
-              the tool
-
-              configuration''s overrides have changed since. Paths support dot-notation
-              (e.g. `config.auth.token`).
-
-              '
+            description: "Dot-notation leaf paths supplied by the tool configuration's\
+              \ argument overrides rather than by the agent \u2014 for example `api_key`,\n\
+              `config.auth.token`, or `items[0]`. These paths are frozen on the input\
+              \ event so that the agent's view of its own past tool calls stays\n\
+              stable when the tool configuration changes: overrides are excluded from\
+              \ replayed calls regardless of how the override has evolved since.\n\
+              Only the paths are frozen here; the resolved values at those paths are\
+              \ not \u2014 they are recomputed against the live session at each launch\n\
+              and recorded on the corresponding `ToolOutputEvent.resolved_argument_overrides`.\n"
             type: array
             items:
               type: string
@@ -23734,6 +24041,20 @@ components:
             description: Name of the tool that was called.
             type: string
             example: web_search
+          resolved_argument_overrides:
+            description: "The values the tool configuration's argument overrides contributed\
+              \ to this call, keyed by the paths in\n`ToolInputEvent.argument_override_paths`.\
+              \ `$ref` overrides are resolved against the session \u2014 agent secrets,\n\
+              session metadata, and prior tool outputs \u2014 with secret values masked\
+              \ as `****`. Literal overrides appear as-is.\n\nOverlay these onto `ToolInputEvent.tool_input`\
+              \ at the matching paths to see exactly what the tool received.\n\nAbsent\
+              \ when the tool short-circuits before running (for example, malformed\
+              \ arguments from the agent or an\nunresolved dependency).\n"
+            type: object
+            additionalProperties: true
+            example:
+              api_key: '****'
+              base_url: https://api.example.com
           tool_output:
             description: Output data from the tool.
             type: object
@@ -23934,6 +24255,81 @@ components:
       x-vectaraParents:
       - AgentEvent
       - AgentStreamedResponse
+    ClientToolPendingCall:
+      title: ClientToolPendingCall
+      description: A single client tool call awaiting output, with its fully materialized
+        arguments.
+      type: object
+      properties:
+        event_id:
+          description: The `tool_input` event this call corresponds to. Submit the
+            matching `tool_output` with this `event_id`.
+          type: string
+          example: aev_3Kx9QpVn2mZr8YbLc5TdWe
+        tool_configuration_name:
+          description: The name of the tool configuration being invoked, as defined
+            in the agent's tool_configurations map.
+          type: string
+          example: notify_slack
+        tool_name:
+          description: Name of the tool being called.
+          type: string
+          example: notify_slack
+        arguments:
+          description: 'The fully materialized arguments for this call: the agent-supplied
+            arguments merged with the tool
+
+            configuration''s argument overrides and literals, with `$ref`s resolved
+            against the session. Secret-derived
+
+            values are delivered unmasked because the client needs them to execute
+            the tool. This is exactly what the
+
+            client should execute the tool with.
+
+            '
+          type: object
+          additionalProperties: true
+          example:
+            channel: support
+            message: Ticket escalated
+      required:
+      - event_id
+      - tool_configuration_name
+      - tool_name
+      - arguments
+    ClientToolPendingEvent:
+      title: ClientToolPendingEvent
+      description: "Signals that the agent is waiting for the client to deliver outputs\
+        \ for the listed client tool\ncalls before it continues. Not persisted to\
+        \ session history. Resume by submitting a `tool_output`\ninput containing\
+        \ one entry per `event_id` in `pending_calls`.\n\nOnly client tools awaiting\
+        \ output are listed. Each call carries its fully materialized arguments \u2014\
+        \nthe agent-supplied arguments already merged with the tool configuration's\
+        \ argument overrides and\nliterals, with `$ref`s resolved against the session\
+        \ \u2014 so the client can dispatch the call without\ncross-referencing the\
+        \ corresponding `tool_input` event. Secret-derived values are delivered unmasked\n\
+        because the client needs them to execute the tool.\n"
+      allOf:
+      - $ref: '#/components/schemas/AgentEventBase'
+      - type: object
+        properties:
+          type:
+            description: The type of event.
+            type: string
+            default: client_tool_pending
+          pending_calls:
+            description: The client tool calls awaiting output, one entry per outstanding
+              call.
+            type: array
+            items:
+              $ref: '#/components/schemas/ClientToolPendingCall'
+        required:
+        - type
+        - pending_calls
+      x-vectaraParents:
+      - AgentEvent
+      - AgentStreamedResponse
     ImageReadEvent:
       title: ImageReadEvent
       description: An event representing an image being loaded into the conversation
@@ -24048,6 +24444,7 @@ components:
           context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
           step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
           session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+          client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
           image_read: '#/components/schemas/ImageReadEvent'
           step_transition: '#/components/schemas/StepTransitionEvent'
           compaction: '#/components/schemas/CompactionEvent'
@@ -24063,6 +24460,7 @@ components:
       - $ref: '#/components/schemas/ContextLimitExceededEvent'
       - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
       - $ref: '#/components/schemas/SessionInterruptedEvent'
+      - $ref: '#/components/schemas/ClientToolPendingEvent'
       - $ref: '#/components/schemas/ImageReadEvent'
       - $ref: '#/components/schemas/StepTransitionEvent'
       - $ref: '#/components/schemas/CompactionEvent'
@@ -24176,6 +24574,94 @@ components:
         - type
       x-vectaraParents:
       - CreateInputRequest
+    CreateToolOutputBase:
+      description: Base properties shared by client tool output submissions.
+      type: object
+      properties:
+        event_id:
+          description: The `tool_input` event this output responds to.
+          type: string
+          example: aev_3Kx9QpVn2mZr8YbLc5TdWe
+      required:
+      - event_id
+    CreateToolOutputSuccess:
+      description: A successful client tool output to be returned to the agent.
+      allOf:
+      - $ref: '#/components/schemas/CreateToolOutputBase'
+      - type: object
+        properties:
+          type:
+            description: Always `success`. Indicates the client tool call succeeded.
+            type: string
+            default: success
+          output:
+            description: The tool's result. Validated against the tool's `output_schema`
+              if one is defined.
+            type: object
+            additionalProperties: true
+        required:
+        - type
+        - output
+      x-vectaraParents:
+      - CreateToolOutputRequest
+    CreateToolOutputError:
+      description: An error reported by the client for a tool call. Surfaced to the
+        agent as a tool execution error.
+      allOf:
+      - $ref: '#/components/schemas/CreateToolOutputBase'
+      - type: object
+        properties:
+          type:
+            description: Always `error`. Indicates the client tool call failed.
+            type: string
+            default: error
+          error:
+            description: Error returned to the agent. May be a string message or a
+              structured object.
+        required:
+        - type
+        - error
+      x-vectaraParents:
+      - CreateToolOutputRequest
+    CreateToolOutputRequest:
+      description: Delivers the result of a client tool call identified by its `tool_input`
+        event ID.
+      x-vectara-base-schema: '#/CreateToolOutputBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          success: '#/components/schemas/CreateToolOutputSuccess'
+          error: '#/components/schemas/CreateToolOutputError'
+      oneOf:
+      - $ref: '#/components/schemas/CreateToolOutputSuccess'
+      - $ref: '#/components/schemas/CreateToolOutputError'
+    ClientToolOutputRequest:
+      description: 'Delivers outputs for `tool_input` events emitted by a prior client
+        tool invocation. Submit one
+
+        entry per pending event ID listed in the `client_tool_pending` event.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/CreateInputRequestBase'
+      - type: object
+        properties:
+          type:
+            description: Always `tool_output`. Identifies this input as a client tool
+              output submission.
+            type: string
+            default: tool_output
+          tool_outputs:
+            description: The tool outputs to deliver, one per pending client tool
+              call.
+            type: array
+            items:
+              $ref: '#/components/schemas/CreateToolOutputRequest'
+        required:
+        - type
+        - tool_outputs
+      x-vectaraParents:
+      - CreateInputRequest
     CreateInputRequest:
       description: A request to create input for an agent session.
       x-vectara-base-schema: '#/CreateInputRequestBase'
@@ -24189,10 +24675,74 @@ components:
           input_message: '#/components/schemas/CreateInputMessageRequest'
           interrupt: '#/components/schemas/CreateInterruptRequest'
           compact: '#/components/schemas/CreateCompactRequest'
+          tool_output: '#/components/schemas/ClientToolOutputRequest'
       oneOf:
       - $ref: '#/components/schemas/CreateInputMessageRequest'
       - $ref: '#/components/schemas/CreateInterruptRequest'
       - $ref: '#/components/schemas/CreateCompactRequest'
+      - $ref: '#/components/schemas/ClientToolOutputRequest'
+    MultipartInputEvent:
+      description: Input event with file uploads and optional message parts. Sent
+        as multipart form data.
+      type: object
+      properties:
+        message:
+          description: 'Deprecated: use messages instead.
+
+            Plain text input message to accompany the file upload.
+
+            If both message and messages are provided, messages takes precedence and
+            message is ignored.
+
+            '
+          deprecated: true
+          type: string
+          example: I need help with my widget installation
+        messages:
+          description: 'List of inputs that make up this event. Each entry is an AgentInput
+            selected by "type: text" for plain text content (default), or "skill"
+            to invoke a skill by name. Sent as a JSON-encoded string in the multipart
+            form. If omitted, falls back to the deprecated "message" field as a single
+            text input.
+
+            '
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentInput'
+          example:
+          - type: text
+            content: Review this file
+          - type: skill
+            skill_name: code_review
+        files:
+          description: 'Files to upload to the agent session. Any file type is accepted.
+
+            What the agent can do with the file depends on the tools available to
+            it.
+
+            '
+          type: array
+          items:
+            type: string
+            format: binary
+        stream_response:
+          description: Indicates whether the response should be streamed or not.
+          type: boolean
+          default: false
+        since:
+          description: 'Event ID to return all events created after queueing the new
+            input. When provided and the session is currently running, the response
+            will include all events created after this event ID, and the new input
+            will be processed according to the behavior field. Use the special value
+            "start" to receive all events from the beginning of the session, including
+            the input message itself.
+
+            '
+          type: string
+          pattern: ^(start|aev_[0-9a-zA-Z_-]+)$
+          example: start
+        behavior:
+          $ref: '#/components/schemas/InputBehavior'
     AgentResponse:
       description: Response containing the complete list of events generated by an
         agent.
@@ -24459,6 +25009,7 @@ components:
           context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
           step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
           session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+          client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
           image_read: '#/components/schemas/ImageReadEvent'
           step_transition: '#/components/schemas/StepTransitionEvent'
           context_consumed: '#/components/schemas/ContextConsumedEvent'
@@ -24486,6 +25037,7 @@ components:
       - $ref: '#/components/schemas/ContextLimitExceededEvent'
       - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
       - $ref: '#/components/schemas/SessionInterruptedEvent'
+      - $ref: '#/components/schemas/ClientToolPendingEvent'
       - $ref: '#/components/schemas/ImageReadEvent'
       - $ref: '#/components/schemas/StepTransitionEvent'
       - $ref: '#/components/schemas/ContextConsumedEvent'
@@ -24493,6 +25045,20 @@ components:
       - $ref: '#/components/schemas/CompactionEvent'
       - $ref: '#/components/schemas/StreamError'
       - $ref: '#/components/schemas/StreamResponseEnd'
+    OutstandingClientToolCallsResponse:
+      description: The client tool calls a session is currently waiting on the caller
+        to fulfill, re-materialized from persisted history. Empty when the session
+        is not parked on a client tool.
+      type: object
+      properties:
+        client_tool_calls:
+          description: The outstanding client tool calls, one entry per `tool_input`
+            event still awaiting a `tool_output`.
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientToolPendingCall'
+      required:
+      - client_tool_calls
     SessionArtifact:
       title: SessionArtifact
       description: 'Complete artifact information including metadata and optional

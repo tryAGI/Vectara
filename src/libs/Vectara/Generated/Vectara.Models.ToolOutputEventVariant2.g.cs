@@ -45,6 +45,19 @@ namespace Vectara
         public required string ToolName { get; set; }
 
         /// <summary>
+        /// The values the tool configuration's argument overrides contributed to this call, keyed by the paths in<br/>
+        /// `ToolInputEvent.argument_override_paths`. `$ref` overrides are resolved against the session — agent secrets,<br/>
+        /// session metadata, and prior tool outputs — with secret values masked as `****`. Literal overrides appear as-is.<br/>
+        /// Overlay these onto `ToolInputEvent.tool_input` at the matching paths to see exactly what the tool received.<br/>
+        /// Absent when the tool short-circuits before running (for example, malformed arguments from the agent or an<br/>
+        /// unresolved dependency).<br/>
+        /// Example: {"api_key":"****","base_url":"https://api.example.com"}
+        /// </summary>
+        /// <example>{"api_key":"****","base_url":"https://api.example.com"}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("resolved_argument_overrides")]
+        public object? ResolvedArgumentOverrides { get; set; }
+
+        /// <summary>
         /// Output data from the tool.<br/>
         /// Example: {"result":"Current weather is 70\u00B0F and sunny"}
         /// </summary>
@@ -94,6 +107,15 @@ namespace Vectara
         /// Whether the tool call resulted in an error.<br/>
         /// Default Value: false
         /// </param>
+        /// <param name="resolvedArgumentOverrides">
+        /// The values the tool configuration's argument overrides contributed to this call, keyed by the paths in<br/>
+        /// `ToolInputEvent.argument_override_paths`. `$ref` overrides are resolved against the session — agent secrets,<br/>
+        /// session metadata, and prior tool outputs — with secret values masked as `****`. Literal overrides appear as-is.<br/>
+        /// Overlay these onto `ToolInputEvent.tool_input` at the matching paths to see exactly what the tool received.<br/>
+        /// Absent when the tool short-circuits before running (for example, malformed arguments from the agent or an<br/>
+        /// unresolved dependency).<br/>
+        /// Example: {"api_key":"****","base_url":"https://api.example.com"}
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -103,12 +125,14 @@ namespace Vectara
             string toolConfigurationName,
             string toolName,
             object toolOutput,
-            bool error)
+            bool error,
+            object? resolvedArgumentOverrides)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.ToolCallId = toolCallId ?? throw new global::System.ArgumentNullException(nameof(toolCallId));
             this.ToolConfigurationName = toolConfigurationName ?? throw new global::System.ArgumentNullException(nameof(toolConfigurationName));
             this.ToolName = toolName ?? throw new global::System.ArgumentNullException(nameof(toolName));
+            this.ResolvedArgumentOverrides = resolvedArgumentOverrides;
             this.ToolOutput = toolOutput ?? throw new global::System.ArgumentNullException(nameof(toolOutput));
             this.Error = error;
         }

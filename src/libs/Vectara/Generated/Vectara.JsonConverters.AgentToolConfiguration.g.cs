@@ -63,6 +63,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.InlineLambdaToolConfiguration)}");
                 lambda = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.InlineClientToolConfiguration? client = default;
+            if (discriminator?.Type == global::Vectara.AgentToolConfigurationDiscriminatorType.Client)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineClientToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineClientToolConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.InlineClientToolConfiguration)}");
+                client = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.InlineSubAgentToolConfiguration? subAgent = default;
             if (discriminator?.Type == global::Vectara.AgentToolConfigurationDiscriminatorType.SubAgent)
             {
@@ -127,6 +134,8 @@ namespace Vectara.JsonConverters
 
                 lambda,
 
+                client,
+
                 subAgent,
 
                 artifactCreate,
@@ -189,6 +198,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineLambdaToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineLambdaToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InlineLambdaToolConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Lambda!.Value, typeInfo);
+            }
+            else if (value.IsClient)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InlineClientToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InlineClientToolConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InlineClientToolConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Client!.Value, typeInfo);
             }
             else if (value.IsSubAgent)
             {

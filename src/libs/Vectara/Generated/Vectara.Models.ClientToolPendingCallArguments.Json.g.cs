@@ -2,7 +2,7 @@
 
 namespace Vectara
 {
-    public sealed partial class LambdaToolVariant2OutputSchema
+    public sealed partial class ClientToolPendingCallArguments
     {
         /// <summary>
         /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
@@ -34,14 +34,14 @@ namespace Vectara
         /// <summary>
         /// Deserializes a JSON string using the provided JsonSerializerContext.
         /// </summary>
-        public static global::Vectara.LambdaToolVariant2OutputSchema? FromJson(
+        public static global::Vectara.ClientToolPendingCallArguments? FromJson(
             string json,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return global::System.Text.Json.JsonSerializer.Deserialize(
                 json,
-                typeof(global::Vectara.LambdaToolVariant2OutputSchema),
-                jsonSerializerContext) as global::Vectara.LambdaToolVariant2OutputSchema;
+                typeof(global::Vectara.ClientToolPendingCallArguments),
+                jsonSerializerContext) as global::Vectara.ClientToolPendingCallArguments;
         }
 
         /// <summary>
@@ -51,11 +51,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::Vectara.LambdaToolVariant2OutputSchema? FromJson(
+        public static global::Vectara.ClientToolPendingCallArguments? FromJson(
             string json,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.LambdaToolVariant2OutputSchema>(
+            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.ClientToolPendingCallArguments>(
                 json,
                 jsonSerializerOptions);
         }
@@ -63,14 +63,14 @@ namespace Vectara
         /// <summary>
         /// Deserializes a JSON stream using the provided JsonSerializerContext.
         /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.LambdaToolVariant2OutputSchema?> FromJsonStreamAsync(
+        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.ClientToolPendingCallArguments?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
                 jsonStream,
-                typeof(global::Vectara.LambdaToolVariant2OutputSchema),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.LambdaToolVariant2OutputSchema;
+                typeof(global::Vectara.ClientToolPendingCallArguments),
+                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.ClientToolPendingCallArguments;
         }
 
         /// <summary>
@@ -80,11 +80,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.LambdaToolVariant2OutputSchema?> FromJsonStreamAsync(
+        public static global::System.Threading.Tasks.ValueTask<global::Vectara.ClientToolPendingCallArguments?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.LambdaToolVariant2OutputSchema?>(
+            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.ClientToolPendingCallArguments?>(
                 jsonStream,
                 jsonSerializerOptions);
         }

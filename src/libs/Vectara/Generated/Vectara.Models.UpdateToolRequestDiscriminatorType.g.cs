@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Client,
+        /// <summary>
+        /// 
+        /// </summary>
         Lambda,
         /// <summary>
         /// 
@@ -30,6 +34,7 @@ namespace Vectara
         {
             return value switch
             {
+                UpdateToolRequestDiscriminatorType.Client => "client",
                 UpdateToolRequestDiscriminatorType.Lambda => "lambda",
                 UpdateToolRequestDiscriminatorType.Mcp => "mcp",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
@@ -42,6 +47,7 @@ namespace Vectara
         {
             return value switch
             {
+                "client" => UpdateToolRequestDiscriminatorType.Client,
                 "lambda" => UpdateToolRequestDiscriminatorType.Lambda,
                 "mcp" => UpdateToolRequestDiscriminatorType.Mcp,
                 _ => null,

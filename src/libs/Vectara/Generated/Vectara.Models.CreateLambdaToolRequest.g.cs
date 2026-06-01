@@ -35,8 +35,7 @@ namespace Vectara
         /// </summary>
         /// <example>Customer Score Calculator</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("title")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Title { get; set; }
+        public string? Title { get; set; }
 
         /// <summary>
         /// A detailed description of what the function does, when to use it, and what it returns.<br/>
@@ -185,10 +184,6 @@ namespace Vectara
         /// The unique name of the tool (used as the function identifier).<br/>
         /// Example: calculate_customer_score
         /// </param>
-        /// <param name="title">
-        /// Human-readable title of the tool displayed in the UI.<br/>
-        /// Example: Customer Score Calculator
-        /// </param>
         /// <param name="description">
         /// A detailed description of what the function does, when to use it, and what it returns.<br/>
         /// Example: Calculate a customer score based on order history and revenue. Returns a score between 0-100.
@@ -288,6 +283,10 @@ namespace Vectara
         ///     score = (order_count * 10 + total_revenue * 0.1) / days_active<br/>
         ///     return {'score': round(score, 2)}
         /// </param>
+        /// <param name="title">
+        /// Human-readable title of the tool displayed in the UI.<br/>
+        /// Example: Customer Score Calculator
+        /// </param>
         /// <param name="language">
         /// The programming language. Currently only 'python' (Python 3.12) is supported.<br/>
         /// Default Value: python<br/>
@@ -302,15 +301,15 @@ namespace Vectara
         public CreateLambdaToolRequest(
             string type,
             string name,
-            string title,
             string description,
             string code,
+            string? title,
             global::Vectara.CreateLambdaToolRequestLanguage? language,
             global::Vectara.ExecutionConfiguration? executionConfiguration)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
-            this.Title = title ?? throw new global::System.ArgumentNullException(nameof(title));
+            this.Title = title;
             this.Description = description ?? throw new global::System.ArgumentNullException(nameof(description));
             this.Language = language;
             this.Code = code ?? throw new global::System.ArgumentNullException(nameof(code));

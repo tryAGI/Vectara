@@ -435,6 +435,50 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'SessionInterrupted' but the value was {ToString()}.");
 
         /// <summary>
+        /// Signals that the agent is waiting for the client to deliver outputs for the listed client tool<br/>
+        /// calls before it continues. Not persisted to session history. Resume by submitting a `tool_output`<br/>
+        /// input containing one entry per `event_id` in `pending_calls`.<br/>
+        /// Only client tools awaiting output are listed. Each call carries its fully materialized arguments —<br/>
+        /// the agent-supplied arguments already merged with the tool configuration's argument overrides and<br/>
+        /// literals, with `$ref`s resolved against the session — so the client can dispatch the call without<br/>
+        /// cross-referencing the corresponding `tool_input` event. Secret-derived values are delivered unmasked<br/>
+        /// because the client needs them to execute the tool.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.ClientToolPendingEvent? ClientToolPending { get; init; }
+#else
+        public global::Vectara.ClientToolPendingEvent? ClientToolPending { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientToolPending))]
+#endif
+        public bool IsClientToolPending => ClientToolPending != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickClientToolPending(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ClientToolPendingEvent? value)
+        {
+            value = ClientToolPending;
+            return IsClientToolPending;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ClientToolPendingEvent PickClientToolPending() => IsClientToolPending
+            ? ClientToolPending!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ClientToolPending' but the value was {ToString()}.");
+
+        /// <summary>
         /// An event representing an image being loaded into the conversation context for viewing and analysis.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -800,6 +844,29 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator AgentEvent(global::Vectara.ClientToolPendingEvent value) => new AgentEvent((global::Vectara.ClientToolPendingEvent?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.ClientToolPendingEvent?(AgentEvent @this) => @this.ClientToolPending;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentEvent(global::Vectara.ClientToolPendingEvent? value)
+        {
+            ClientToolPending = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static AgentEvent FromClientToolPending(global::Vectara.ClientToolPendingEvent? value) => new AgentEvent(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ImageReadEvent value) => new AgentEvent((global::Vectara.ImageReadEvent?)value);
 
         /// <summary>
@@ -882,6 +949,7 @@ namespace Vectara
             global::Vectara.ContextLimitExceededEvent? contextLimitExceeded,
             global::Vectara.StepTransitionLimitExceededEvent? stepTransitionLimitExceeded,
             global::Vectara.SessionInterruptedEvent? sessionInterrupted,
+            global::Vectara.ClientToolPendingEvent? clientToolPending,
             global::Vectara.ImageReadEvent? imageRead,
             global::Vectara.StepTransitionEvent? stepTransition,
             global::Vectara.CompactionEvent? compaction
@@ -900,6 +968,7 @@ namespace Vectara
             ContextLimitExceeded = contextLimitExceeded;
             StepTransitionLimitExceeded = stepTransitionLimitExceeded;
             SessionInterrupted = sessionInterrupted;
+            ClientToolPending = clientToolPending;
             ImageRead = imageRead;
             StepTransition = stepTransition;
             Compaction = compaction;
@@ -912,6 +981,7 @@ namespace Vectara
             Compaction as object ??
             StepTransition as object ??
             ImageRead as object ??
+            ClientToolPending as object ??
             SessionInterrupted as object ??
             StepTransitionLimitExceeded as object ??
             ContextLimitExceeded as object ??
@@ -940,6 +1010,7 @@ namespace Vectara
             ContextLimitExceeded?.ToString() ??
             StepTransitionLimitExceeded?.ToString() ??
             SessionInterrupted?.ToString() ??
+            ClientToolPending?.ToString() ??
             ImageRead?.ToString() ??
             StepTransition?.ToString() ??
             Compaction?.ToString() 
@@ -950,7 +1021,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && IsSessionInterrupted && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsImageRead && !IsStepTransition && IsCompaction;
+            return IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && IsClientToolPending && !IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && IsImageRead && !IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && IsStepTransition && !IsCompaction || !IsInputMessage && !IsSkillLoad && !IsArtifactUpload && !IsToolInput && !IsToolOutput && !IsThinking && !IsAgentOutput && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && IsCompaction;
         }
 
         /// <summary>
@@ -968,6 +1039,7 @@ namespace Vectara
             global::System.Func<global::Vectara.ContextLimitExceededEvent?, TResult>? contextLimitExceeded = null,
             global::System.Func<global::Vectara.StepTransitionLimitExceededEvent?, TResult>? stepTransitionLimitExceeded = null,
             global::System.Func<global::Vectara.SessionInterruptedEvent?, TResult>? sessionInterrupted = null,
+            global::System.Func<global::Vectara.ClientToolPendingEvent?, TResult>? clientToolPending = null,
             global::System.Func<global::Vectara.ImageReadEvent?, TResult>? imageRead = null,
             global::System.Func<global::Vectara.StepTransitionEvent?, TResult>? stepTransition = null,
             global::System.Func<global::Vectara.CompactionEvent?, TResult>? compaction = null,
@@ -1022,6 +1094,10 @@ namespace Vectara
             {
                 return sessionInterrupted(SessionInterrupted!);
             }
+            else if (IsClientToolPending && clientToolPending != null)
+            {
+                return clientToolPending(ClientToolPending!);
+            }
             else if (IsImageRead && imageRead != null)
             {
                 return imageRead(ImageRead!);
@@ -1064,6 +1140,8 @@ namespace Vectara
 
             global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
 
+            global::System.Action<global::Vectara.ClientToolPendingEvent?>? clientToolPending = null,
+
             global::System.Action<global::Vectara.ImageReadEvent?>? imageRead = null,
 
             global::System.Action<global::Vectara.StepTransitionEvent?>? stepTransition = null,
@@ -1119,6 +1197,10 @@ namespace Vectara
             else if (IsSessionInterrupted)
             {
                 sessionInterrupted?.Invoke(SessionInterrupted!);
+            }
+            else if (IsClientToolPending)
+            {
+                clientToolPending?.Invoke(ClientToolPending!);
             }
             else if (IsImageRead)
             {
@@ -1149,6 +1231,7 @@ namespace Vectara
             global::System.Action<global::Vectara.ContextLimitExceededEvent?>? contextLimitExceeded = null,
             global::System.Action<global::Vectara.StepTransitionLimitExceededEvent?>? stepTransitionLimitExceeded = null,
             global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
+            global::System.Action<global::Vectara.ClientToolPendingEvent?>? clientToolPending = null,
             global::System.Action<global::Vectara.ImageReadEvent?>? imageRead = null,
             global::System.Action<global::Vectara.StepTransitionEvent?>? stepTransition = null,
             global::System.Action<global::Vectara.CompactionEvent?>? compaction = null,
@@ -1202,6 +1285,10 @@ namespace Vectara
             else if (IsSessionInterrupted)
             {
                 sessionInterrupted?.Invoke(SessionInterrupted!);
+            }
+            else if (IsClientToolPending)
+            {
+                clientToolPending?.Invoke(ClientToolPending!);
             }
             else if (IsImageRead)
             {
@@ -1246,6 +1333,8 @@ namespace Vectara
                 typeof(global::Vectara.StepTransitionLimitExceededEvent),
                 SessionInterrupted,
                 typeof(global::Vectara.SessionInterruptedEvent),
+                ClientToolPending,
+                typeof(global::Vectara.ClientToolPendingEvent),
                 ImageRead,
                 typeof(global::Vectara.ImageReadEvent),
                 StepTransition,
@@ -1279,6 +1368,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ContextLimitExceededEvent?>.Default.Equals(ContextLimitExceeded, other.ContextLimitExceeded) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StepTransitionLimitExceededEvent?>.Default.Equals(StepTransitionLimitExceeded, other.StepTransitionLimitExceeded) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.SessionInterruptedEvent?>.Default.Equals(SessionInterrupted, other.SessionInterrupted) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolPendingEvent?>.Default.Equals(ClientToolPending, other.ClientToolPending) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageReadEvent?>.Default.Equals(ImageRead, other.ImageRead) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StepTransitionEvent?>.Default.Equals(StepTransition, other.StepTransition) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionEvent?>.Default.Equals(Compaction, other.Compaction) 

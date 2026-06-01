@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// The schema that defines the expected output structure from the function.
+    /// Error returned to the agent. May be a string message or a structured object.
     /// </summary>
-    public sealed partial class LambdaToolVariant2OutputSchema
+    public sealed partial class CreateToolOutputErrorVariant2Error
     {
 
         /// <summary>

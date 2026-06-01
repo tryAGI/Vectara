@@ -28,10 +28,19 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateLambdaToolRequest)}");
                 lambda = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.CreateClientToolRequest? client = default;
+            if (discriminator?.Type == global::Vectara.CreateToolRequestDiscriminatorType.Client)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateClientToolRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateClientToolRequest> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateClientToolRequest)}");
+                client = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.CreateToolRequest(
                 discriminator?.Type,
-                lambda
+                lambda,
+
+                client
                 );
 
             return __value;
@@ -51,6 +60,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateLambdaToolRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateLambdaToolRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateLambdaToolRequest).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Lambda!, typeInfo);
+            }
+            else if (value.IsClient)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateClientToolRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateClientToolRequest?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateClientToolRequest).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Client!, typeInfo);
             }
         }
     }

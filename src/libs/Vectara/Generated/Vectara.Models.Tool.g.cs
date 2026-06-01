@@ -497,6 +497,43 @@ namespace Vectara
         public global::Vectara.GetDocumentTextTool PickGetDocumentText() => IsGetDocumentText
             ? GetDocumentText!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GetDocumentText' but the value was {ToString()}.");
+
+        /// <summary>
+        /// A tool whose execution is performed by the calling client. When invoked, the platform emits a `tool_input` event with the tool call arguments. The client submits the result as a `tool_output` input via `createAgentInput`.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.ClientTool? Client { get; init; }
+#else
+        public global::Vectara.ClientTool? Client { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Client))]
+#endif
+        public bool IsClient => Client != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickClient(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ClientTool? value)
+        {
+            value = Client;
+            return IsClient;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ClientTool PickClient() => IsClient
+            ? Client!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Client' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -799,6 +836,29 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator Tool(global::Vectara.ClientTool value) => new Tool((global::Vectara.ClientTool?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.ClientTool?(Tool @this) => @this.Client;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Tool(global::Vectara.ClientTool? value)
+        {
+            Client = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Tool FromClient(global::Vectara.ClientTool? value) => new Tool(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Tool(
             global::Vectara.ToolDiscriminatorType? type,
             global::Vectara.DynamicVectaraTool? dynamicVectara,
@@ -813,7 +873,8 @@ namespace Vectara
             global::Vectara.ArtifactGrepTool? artifactGrep,
             global::Vectara.ImageReadTool? imageRead,
             global::Vectara.DocumentConversionTool? documentConversion,
-            global::Vectara.GetDocumentTextTool? getDocumentText
+            global::Vectara.GetDocumentTextTool? getDocumentText,
+            global::Vectara.ClientTool? client
             )
         {
             Type = type;
@@ -831,12 +892,14 @@ namespace Vectara
             ImageRead = imageRead;
             DocumentConversion = documentConversion;
             GetDocumentText = getDocumentText;
+            Client = client;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            Client as object ??
             GetDocumentText as object ??
             DocumentConversion as object ??
             ImageRead as object ??
@@ -868,7 +931,8 @@ namespace Vectara
             ArtifactGrep?.ToString() ??
             ImageRead?.ToString() ??
             DocumentConversion?.ToString() ??
-            GetDocumentText?.ToString() 
+            GetDocumentText?.ToString() ??
+            Client?.ToString() 
             ;
 
         /// <summary>
@@ -876,7 +940,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && IsImageRead && !IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && IsDocumentConversion && !IsGetDocumentText || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && IsGetDocumentText;
+            return IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && IsImageRead && !IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && IsDocumentConversion && !IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && IsGetDocumentText && !IsClient || !IsDynamicVectara && !IsMcp && !IsCorporaSearch && !IsWebSearch && !IsWebGet && !IsLambda && !IsSubAgent && !IsArtifactCreate && !IsArtifactRead && !IsArtifactGrep && !IsImageRead && !IsDocumentConversion && !IsGetDocumentText && IsClient;
         }
 
         /// <summary>
@@ -896,6 +960,7 @@ namespace Vectara
             global::System.Func<global::Vectara.ImageReadTool?, TResult>? imageRead = null,
             global::System.Func<global::Vectara.DocumentConversionTool?, TResult>? documentConversion = null,
             global::System.Func<global::Vectara.GetDocumentTextTool?, TResult>? getDocumentText = null,
+            global::System.Func<global::Vectara.ClientTool?, TResult>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -955,6 +1020,10 @@ namespace Vectara
             {
                 return getDocumentText(GetDocumentText!);
             }
+            else if (IsClient && client != null)
+            {
+                return client(Client!);
+            }
 
             return default(TResult);
         }
@@ -988,6 +1057,8 @@ namespace Vectara
             global::System.Action<global::Vectara.DocumentConversionTool?>? documentConversion = null,
 
             global::System.Action<global::Vectara.GetDocumentTextTool?>? getDocumentText = null,
+
+            global::System.Action<global::Vectara.ClientTool?>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -1046,6 +1117,10 @@ namespace Vectara
             else if (IsGetDocumentText)
             {
                 getDocumentText?.Invoke(GetDocumentText!);
+            }
+            else if (IsClient)
+            {
+                client?.Invoke(Client!);
             }
         }
 
@@ -1066,6 +1141,7 @@ namespace Vectara
             global::System.Action<global::Vectara.ImageReadTool?>? imageRead = null,
             global::System.Action<global::Vectara.DocumentConversionTool?>? documentConversion = null,
             global::System.Action<global::Vectara.GetDocumentTextTool?>? getDocumentText = null,
+            global::System.Action<global::Vectara.ClientTool?>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -1124,6 +1200,10 @@ namespace Vectara
             else if (IsGetDocumentText)
             {
                 getDocumentText?.Invoke(GetDocumentText!);
+            }
+            else if (IsClient)
+            {
+                client?.Invoke(Client!);
             }
         }
 
@@ -1160,6 +1240,8 @@ namespace Vectara
                 typeof(global::Vectara.DocumentConversionTool),
                 GetDocumentText,
                 typeof(global::Vectara.GetDocumentTextTool),
+                Client,
+                typeof(global::Vectara.ClientTool),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -1188,7 +1270,8 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactGrepTool?>.Default.Equals(ArtifactGrep, other.ArtifactGrep) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageReadTool?>.Default.Equals(ImageRead, other.ImageRead) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.DocumentConversionTool?>.Default.Equals(DocumentConversion, other.DocumentConversion) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GetDocumentTextTool?>.Default.Equals(GetDocumentText, other.GetDocumentText) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GetDocumentTextTool?>.Default.Equals(GetDocumentText, other.GetDocumentText) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientTool?>.Default.Equals(Client, other.Client) 
                 ;
         }
 
