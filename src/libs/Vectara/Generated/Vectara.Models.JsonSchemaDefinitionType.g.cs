@@ -23,6 +23,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Null,
+        /// <summary>
+        /// 
+        /// </summary>
         Number,
         /// <summary>
         /// 
@@ -49,6 +53,7 @@ namespace Vectara
                 JsonSchemaDefinitionType.Array => "array",
                 JsonSchemaDefinitionType.Boolean => "boolean",
                 JsonSchemaDefinitionType.Integer => "integer",
+                JsonSchemaDefinitionType.Null => "null",
                 JsonSchemaDefinitionType.Number => "number",
                 JsonSchemaDefinitionType.Object => "object",
                 JsonSchemaDefinitionType.String => "string",
@@ -65,6 +70,7 @@ namespace Vectara
                 "array" => JsonSchemaDefinitionType.Array,
                 "boolean" => JsonSchemaDefinitionType.Boolean,
                 "integer" => JsonSchemaDefinitionType.Integer,
+                "null" => JsonSchemaDefinitionType.Null,
                 "number" => JsonSchemaDefinitionType.Number,
                 "object" => JsonSchemaDefinitionType.Object,
                 "string" => JsonSchemaDefinitionType.String,

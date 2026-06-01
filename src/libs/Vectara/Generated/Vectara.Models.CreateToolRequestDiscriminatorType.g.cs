@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Client,
+        /// <summary>
+        /// 
+        /// </summary>
         Lambda,
     }
 
@@ -26,6 +30,7 @@ namespace Vectara
         {
             return value switch
             {
+                CreateToolRequestDiscriminatorType.Client => "client",
                 CreateToolRequestDiscriminatorType.Lambda => "lambda",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -37,6 +42,7 @@ namespace Vectara
         {
             return value switch
             {
+                "client" => CreateToolRequestDiscriminatorType.Client,
                 "lambda" => CreateToolRequestDiscriminatorType.Lambda,
                 _ => null,
             };

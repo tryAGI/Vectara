@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to create a tool. Currently supports lambda tools for user-defined functions.
+    /// Request to create a tool. Supports lambda tools for user-defined functions and client tools whose execution is performed by the calling client.
     /// </summary>
     public readonly partial struct CreateToolRequest : global::System.IEquatable<CreateToolRequest>
     {
@@ -51,6 +51,43 @@ namespace Vectara
         public global::Vectara.CreateLambdaToolRequest PickLambda() => IsLambda
             ? Lambda!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Lambda' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Request to create a new client tool. When invoked, the platform emits a `tool_input` event; the client performs the work and submits a `tool_output` input via `createAgentInput`.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateClientToolRequest? Client { get; init; }
+#else
+        public global::Vectara.CreateClientToolRequest? Client { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Client))]
+#endif
+        public bool IsClient => Client != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickClient(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateClientToolRequest? value)
+        {
+            value = Client;
+            return IsClient;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateClientToolRequest PickClient() => IsClient
+            ? Client!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Client' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -77,20 +114,46 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator CreateToolRequest(global::Vectara.CreateClientToolRequest value) => new CreateToolRequest((global::Vectara.CreateClientToolRequest?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.CreateClientToolRequest?(CreateToolRequest @this) => @this.Client;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateToolRequest(global::Vectara.CreateClientToolRequest? value)
+        {
+            Client = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateToolRequest FromClient(global::Vectara.CreateClientToolRequest? value) => new CreateToolRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public CreateToolRequest(
             global::Vectara.CreateToolRequestDiscriminatorType? type,
-            global::Vectara.CreateLambdaToolRequest? lambda
+            global::Vectara.CreateLambdaToolRequest? lambda,
+            global::Vectara.CreateClientToolRequest? client
             )
         {
             Type = type;
 
             Lambda = lambda;
+            Client = client;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            Client as object ??
             Lambda as object 
             ;
 
@@ -98,7 +161,8 @@ namespace Vectara
         /// 
         /// </summary>
         public override string? ToString() =>
-            Lambda?.ToString() 
+            Lambda?.ToString() ??
+            Client?.ToString() 
             ;
 
         /// <summary>
@@ -106,7 +170,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsLambda;
+            return IsLambda && !IsClient || !IsLambda && IsClient;
         }
 
         /// <summary>
@@ -114,6 +178,7 @@ namespace Vectara
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateLambdaToolRequest, TResult>? lambda = null,
+            global::System.Func<global::Vectara.CreateClientToolRequest, TResult>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -125,6 +190,10 @@ namespace Vectara
             {
                 return lambda(Lambda!);
             }
+            else if (IsClient && client != null)
+            {
+                return client(Client!);
+            }
 
             return default(TResult);
         }
@@ -134,6 +203,8 @@ namespace Vectara
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateLambdaToolRequest>? lambda = null,
+
+            global::System.Action<global::Vectara.CreateClientToolRequest>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -144,6 +215,10 @@ namespace Vectara
             if (IsLambda)
             {
                 lambda?.Invoke(Lambda!);
+            }
+            else if (IsClient)
+            {
+                client?.Invoke(Client!);
             }
         }
 
@@ -152,6 +227,7 @@ namespace Vectara
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateLambdaToolRequest>? lambda = null,
+            global::System.Action<global::Vectara.CreateClientToolRequest>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -162,6 +238,10 @@ namespace Vectara
             if (IsLambda)
             {
                 lambda?.Invoke(Lambda!);
+            }
+            else if (IsClient)
+            {
+                client?.Invoke(Client!);
             }
         }
 
@@ -174,6 +254,8 @@ namespace Vectara
             {
                 Lambda,
                 typeof(global::Vectara.CreateLambdaToolRequest),
+                Client,
+                typeof(global::Vectara.CreateClientToolRequest),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -190,7 +272,8 @@ namespace Vectara
         public bool Equals(CreateToolRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateLambdaToolRequest?>.Default.Equals(Lambda, other.Lambda) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateLambdaToolRequest?>.Default.Equals(Lambda, other.Lambda) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateClientToolRequest?>.Default.Equals(Client, other.Client) 
                 ;
         }
 

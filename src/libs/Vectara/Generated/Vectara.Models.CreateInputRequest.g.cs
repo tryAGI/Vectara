@@ -125,6 +125,44 @@ namespace Vectara
         public global::Vectara.CreateCompactRequest PickCompact() => IsCompact
             ? Compact!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Compact' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Delivers outputs for `tool_input` events emitted by a prior client tool invocation. Submit one<br/>
+        /// entry per pending event ID listed in the `client_tool_pending` event.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.ClientToolOutputRequest? ToolOutput { get; init; }
+#else
+        public global::Vectara.ClientToolOutputRequest? ToolOutput { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolOutput))]
+#endif
+        public bool IsToolOutput => ToolOutput != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickToolOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ClientToolOutputRequest? value)
+        {
+            value = ToolOutput;
+            return IsToolOutput;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ClientToolOutputRequest PickToolOutput() => IsToolOutput
+            ? ToolOutput!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ToolOutput' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -197,11 +235,35 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator CreateInputRequest(global::Vectara.ClientToolOutputRequest value) => new CreateInputRequest((global::Vectara.ClientToolOutputRequest?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.ClientToolOutputRequest?(CreateInputRequest @this) => @this.ToolOutput;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateInputRequest(global::Vectara.ClientToolOutputRequest? value)
+        {
+            ToolOutput = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateInputRequest FromToolOutput(global::Vectara.ClientToolOutputRequest? value) => new CreateInputRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public CreateInputRequest(
             global::Vectara.CreateInputRequestDiscriminatorType? type,
             global::Vectara.CreateInputMessageRequest? inputMessage,
             global::Vectara.CreateInterruptRequest? interrupt,
-            global::Vectara.CreateCompactRequest? compact
+            global::Vectara.CreateCompactRequest? compact,
+            global::Vectara.ClientToolOutputRequest? toolOutput
             )
         {
             Type = type;
@@ -209,12 +271,14 @@ namespace Vectara
             InputMessage = inputMessage;
             Interrupt = interrupt;
             Compact = compact;
+            ToolOutput = toolOutput;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            ToolOutput as object ??
             Compact as object ??
             Interrupt as object ??
             InputMessage as object 
@@ -226,7 +290,8 @@ namespace Vectara
         public override string? ToString() =>
             InputMessage?.ToString() ??
             Interrupt?.ToString() ??
-            Compact?.ToString() 
+            Compact?.ToString() ??
+            ToolOutput?.ToString() 
             ;
 
         /// <summary>
@@ -234,7 +299,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsInputMessage && !IsInterrupt && !IsCompact || !IsInputMessage && IsInterrupt && !IsCompact || !IsInputMessage && !IsInterrupt && IsCompact;
+            return IsInputMessage && !IsInterrupt && !IsCompact && !IsToolOutput || !IsInputMessage && IsInterrupt && !IsCompact && !IsToolOutput || !IsInputMessage && !IsInterrupt && IsCompact && !IsToolOutput || !IsInputMessage && !IsInterrupt && !IsCompact && IsToolOutput;
         }
 
         /// <summary>
@@ -244,6 +309,7 @@ namespace Vectara
             global::System.Func<global::Vectara.CreateInputMessageRequest?, TResult>? inputMessage = null,
             global::System.Func<global::Vectara.CreateInterruptRequest?, TResult>? interrupt = null,
             global::System.Func<global::Vectara.CreateCompactRequest?, TResult>? compact = null,
+            global::System.Func<global::Vectara.ClientToolOutputRequest?, TResult>? toolOutput = null,
             bool validate = true)
         {
             if (validate)
@@ -263,6 +329,10 @@ namespace Vectara
             {
                 return compact(Compact!);
             }
+            else if (IsToolOutput && toolOutput != null)
+            {
+                return toolOutput(ToolOutput!);
+            }
 
             return default(TResult);
         }
@@ -276,6 +346,8 @@ namespace Vectara
             global::System.Action<global::Vectara.CreateInterruptRequest?>? interrupt = null,
 
             global::System.Action<global::Vectara.CreateCompactRequest?>? compact = null,
+
+            global::System.Action<global::Vectara.ClientToolOutputRequest?>? toolOutput = null,
             bool validate = true)
         {
             if (validate)
@@ -294,6 +366,10 @@ namespace Vectara
             else if (IsCompact)
             {
                 compact?.Invoke(Compact!);
+            }
+            else if (IsToolOutput)
+            {
+                toolOutput?.Invoke(ToolOutput!);
             }
         }
 
@@ -304,6 +380,7 @@ namespace Vectara
             global::System.Action<global::Vectara.CreateInputMessageRequest?>? inputMessage = null,
             global::System.Action<global::Vectara.CreateInterruptRequest?>? interrupt = null,
             global::System.Action<global::Vectara.CreateCompactRequest?>? compact = null,
+            global::System.Action<global::Vectara.ClientToolOutputRequest?>? toolOutput = null,
             bool validate = true)
         {
             if (validate)
@@ -322,6 +399,10 @@ namespace Vectara
             else if (IsCompact)
             {
                 compact?.Invoke(Compact!);
+            }
+            else if (IsToolOutput)
+            {
+                toolOutput?.Invoke(ToolOutput!);
             }
         }
 
@@ -338,6 +419,8 @@ namespace Vectara
                 typeof(global::Vectara.CreateInterruptRequest),
                 Compact,
                 typeof(global::Vectara.CreateCompactRequest),
+                ToolOutput,
+                typeof(global::Vectara.ClientToolOutputRequest),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -356,7 +439,8 @@ namespace Vectara
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInputMessageRequest?>.Default.Equals(InputMessage, other.InputMessage) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInterruptRequest?>.Default.Equals(Interrupt, other.Interrupt) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateCompactRequest?>.Default.Equals(Compact, other.Compact) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateCompactRequest?>.Default.Equals(Compact, other.Compact) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolOutputRequest?>.Default.Equals(ToolOutput, other.ToolOutput) 
                 ;
         }
 

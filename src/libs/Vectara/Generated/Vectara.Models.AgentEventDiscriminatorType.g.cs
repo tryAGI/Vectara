@@ -19,6 +19,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        ClientToolPending,
+        /// <summary>
+        /// 
+        /// </summary>
         Compaction,
         /// <summary>
         /// 
@@ -80,6 +84,7 @@ namespace Vectara
             {
                 AgentEventDiscriminatorType.AgentOutput => "agent_output",
                 AgentEventDiscriminatorType.ArtifactUpload => "artifact_upload",
+                AgentEventDiscriminatorType.ClientToolPending => "client_tool_pending",
                 AgentEventDiscriminatorType.Compaction => "compaction",
                 AgentEventDiscriminatorType.ContextLimitExceeded => "context_limit_exceeded",
                 AgentEventDiscriminatorType.ImageRead => "image_read",
@@ -104,6 +109,7 @@ namespace Vectara
             {
                 "agent_output" => AgentEventDiscriminatorType.AgentOutput,
                 "artifact_upload" => AgentEventDiscriminatorType.ArtifactUpload,
+                "client_tool_pending" => AgentEventDiscriminatorType.ClientToolPending,
                 "compaction" => AgentEventDiscriminatorType.Compaction,
                 "context_limit_exceeded" => AgentEventDiscriminatorType.ContextLimitExceeded,
                 "image_read" => AgentEventDiscriminatorType.ImageRead,

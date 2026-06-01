@@ -62,7 +62,6 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("function_definition.validation_errors")) __score1++;
             if (__jsonProps.Contains("function_definition.validation_status")) __score1++;
             if (__jsonProps.Contains("language")) __score1++;
-            if (__jsonProps.Contains("output_schema")) __score1++;
             if (__jsonProps.Contains("type")) __score1++;
             var __bestScore = 0;
             var __bestIndex = -1;
