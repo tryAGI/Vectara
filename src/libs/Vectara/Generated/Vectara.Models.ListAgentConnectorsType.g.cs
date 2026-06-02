@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Gchat,
+        /// <summary>
+        /// 
+        /// </summary>
         Slack,
     }
 
@@ -26,6 +30,7 @@ namespace Vectara
         {
             return value switch
             {
+                ListAgentConnectorsType.Gchat => "gchat",
                 ListAgentConnectorsType.Slack => "slack",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -37,6 +42,7 @@ namespace Vectara
         {
             return value switch
             {
+                "gchat" => ListAgentConnectorsType.Gchat,
                 "slack" => ListAgentConnectorsType.Slack,
                 _ => null,
             };

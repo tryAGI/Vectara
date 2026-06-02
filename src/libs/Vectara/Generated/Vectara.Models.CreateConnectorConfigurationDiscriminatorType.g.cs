@@ -4,11 +4,14 @@
 namespace Vectara
 {
     /// <summary>
-    /// The type of connector.<br/>
-    /// Example: slack
+    /// 
     /// </summary>
-    public enum CreateAgentConnectorRequestType
+    public enum CreateConnectorConfigurationDiscriminatorType
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        Gchat,
         /// <summary>
         /// 
         /// </summary>
@@ -18,27 +21,29 @@ namespace Vectara
     /// <summary>
     /// Enum extensions to do fast conversions without the reflection.
     /// </summary>
-    public static class CreateAgentConnectorRequestTypeExtensions
+    public static class CreateConnectorConfigurationDiscriminatorTypeExtensions
     {
         /// <summary>
         /// Converts an enum to a string.
         /// </summary>
-        public static string ToValueString(this CreateAgentConnectorRequestType value)
+        public static string ToValueString(this CreateConnectorConfigurationDiscriminatorType value)
         {
             return value switch
             {
-                CreateAgentConnectorRequestType.Slack => "slack",
+                CreateConnectorConfigurationDiscriminatorType.Gchat => "gchat",
+                CreateConnectorConfigurationDiscriminatorType.Slack => "slack",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
         /// <summary>
         /// Converts an string to a enum.
         /// </summary>
-        public static CreateAgentConnectorRequestType? ToEnum(string value)
+        public static CreateConnectorConfigurationDiscriminatorType? ToEnum(string value)
         {
             return value switch
             {
-                "slack" => CreateAgentConnectorRequestType.Slack,
+                "gchat" => CreateConnectorConfigurationDiscriminatorType.Gchat,
+                "slack" => CreateConnectorConfigurationDiscriminatorType.Slack,
                 _ => null,
             };
         }

@@ -3,10 +3,10 @@
 namespace Vectara.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class CreateAgentConnectorRequestTypeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.CreateAgentConnectorRequestType>
+    public sealed class AgentConnectorLastWebhookStatusJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.AgentConnectorLastWebhookStatus>
     {
         /// <inheritdoc />
-        public override global::Vectara.CreateAgentConnectorRequestType Read(
+        public override global::Vectara.AgentConnectorLastWebhookStatus Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace Vectara.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Vectara.CreateAgentConnectorRequestTypeExtensions.ToEnum(stringValue) ?? default;
+                        return global::Vectara.AgentConnectorLastWebhookStatusExtensions.ToEnum(stringValue) ?? default;
                     }
                     
                     break;
@@ -26,11 +26,11 @@ namespace Vectara.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Vectara.CreateAgentConnectorRequestType)numValue;
+                    return (global::Vectara.AgentConnectorLastWebhookStatus)numValue;
                 }
                 case global::System.Text.Json.JsonTokenType.Null:
                 {
-                    return default(global::Vectara.CreateAgentConnectorRequestType);
+                    return default(global::Vectara.AgentConnectorLastWebhookStatus);
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -42,12 +42,12 @@ namespace Vectara.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Vectara.CreateAgentConnectorRequestType value,
+            global::Vectara.AgentConnectorLastWebhookStatus value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
 
-            writer.WriteStringValue(global::Vectara.CreateAgentConnectorRequestTypeExtensions.ToValueString(value));
+            writer.WriteStringValue(global::Vectara.AgentConnectorLastWebhookStatusExtensions.ToValueString(value));
         }
     }
 }

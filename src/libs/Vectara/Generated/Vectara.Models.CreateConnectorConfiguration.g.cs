@@ -5,25 +5,26 @@
 namespace Vectara
 {
     /// <summary>
-    /// Read view of a connector's configuration as returned by GET and list<br/>
-    /// endpoints. Contains the secrets supplied at create time alongside<br/>
-    /// server-derived display fields: Slack exposes `webhook_path`, and gchat<br/>
-    /// exposes `audience_url` and `client_email`.
+    /// Write view of a connector's configuration. Used when creating a connector<br/>
+    /// and reused when updating one. Carries the secrets and inputs the customer<br/>
+    /// must supply. Server-derived display fields are not accepted here and instead<br/>
+    /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
+    /// `audience_url` and `client_email`.
     /// </summary>
-    public readonly partial struct ConnectorConfiguration : global::System.IEquatable<ConnectorConfiguration>
+    public readonly partial struct CreateConnectorConfiguration : global::System.IEquatable<CreateConnectorConfiguration>
     {
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.ConnectorConfigurationDiscriminatorType? Type { get; }
+        public global::Vectara.CreateConnectorConfigurationDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Read view of a Slack connector's configuration.
+        /// Write view of a Slack connector's configuration, supplied on create or update.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.SlackConnectorConfiguration? Slack { get; init; }
+        public global::Vectara.CreateSlackConnectorConfiguration? Slack { get; init; }
 #else
-        public global::Vectara.SlackConnectorConfiguration? Slack { get; }
+        public global::Vectara.CreateSlackConnectorConfiguration? Slack { get; }
 #endif
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Vectara
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
-            out global::Vectara.SlackConnectorConfiguration? value)
+            out global::Vectara.CreateSlackConnectorConfiguration? value)
         {
             value = Slack;
             return IsSlack;
@@ -50,19 +51,20 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.SlackConnectorConfiguration PickSlack() => IsSlack
+        public global::Vectara.CreateSlackConnectorConfiguration PickSlack() => IsSlack
             ? Slack!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Slack' but the value was {ToString()}.");
 
         /// <summary>
-        /// Read view of a Google Chat connector's configuration. Includes the display<br/>
-        /// field `client_email` parsed out of the service account key and the audience<br/>
-        /// URL used to verify inbound events. The service account key is never returned.
+        /// Write view of a Google Chat connector's configuration. Supply the service<br/>
+        /// account JSON key for the Chat app you have configured in the Google Cloud<br/>
+        /// console. The Chat app's HTTP endpoint URL and Authentication audience must<br/>
+        /// be set to the connector's audience_url (returned in the read view).
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.GchatConnectorConfiguration? Gchat { get; init; }
+        public global::Vectara.CreateGchatConnectorConfiguration? Gchat { get; init; }
 #else
-        public global::Vectara.GchatConnectorConfiguration? Gchat { get; }
+        public global::Vectara.CreateGchatConnectorConfiguration? Gchat { get; }
 #endif
 
         /// <summary>
@@ -80,7 +82,7 @@ namespace Vectara
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
-            out global::Vectara.GchatConnectorConfiguration? value)
+            out global::Vectara.CreateGchatConnectorConfiguration? value)
         {
             value = Gchat;
             return IsGchat;
@@ -89,23 +91,23 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.GchatConnectorConfiguration PickGchat() => IsGchat
+        public global::Vectara.CreateGchatConnectorConfiguration PickGchat() => IsGchat
             ? Gchat!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Gchat' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ConnectorConfiguration(global::Vectara.SlackConnectorConfiguration value) => new ConnectorConfiguration((global::Vectara.SlackConnectorConfiguration?)value);
+        public static implicit operator CreateConnectorConfiguration(global::Vectara.CreateSlackConnectorConfiguration value) => new CreateConnectorConfiguration((global::Vectara.CreateSlackConnectorConfiguration?)value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.SlackConnectorConfiguration?(ConnectorConfiguration @this) => @this.Slack;
+        public static implicit operator global::Vectara.CreateSlackConnectorConfiguration?(CreateConnectorConfiguration @this) => @this.Slack;
 
         /// <summary>
         /// 
         /// </summary>
-        public ConnectorConfiguration(global::Vectara.SlackConnectorConfiguration? value)
+        public CreateConnectorConfiguration(global::Vectara.CreateSlackConnectorConfiguration? value)
         {
             Slack = value;
         }
@@ -113,22 +115,22 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static ConnectorConfiguration FromSlack(global::Vectara.SlackConnectorConfiguration? value) => new ConnectorConfiguration(value);
+        public static CreateConnectorConfiguration FromSlack(global::Vectara.CreateSlackConnectorConfiguration? value) => new CreateConnectorConfiguration(value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator ConnectorConfiguration(global::Vectara.GchatConnectorConfiguration value) => new ConnectorConfiguration((global::Vectara.GchatConnectorConfiguration?)value);
+        public static implicit operator CreateConnectorConfiguration(global::Vectara.CreateGchatConnectorConfiguration value) => new CreateConnectorConfiguration((global::Vectara.CreateGchatConnectorConfiguration?)value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.GchatConnectorConfiguration?(ConnectorConfiguration @this) => @this.Gchat;
+        public static implicit operator global::Vectara.CreateGchatConnectorConfiguration?(CreateConnectorConfiguration @this) => @this.Gchat;
 
         /// <summary>
         /// 
         /// </summary>
-        public ConnectorConfiguration(global::Vectara.GchatConnectorConfiguration? value)
+        public CreateConnectorConfiguration(global::Vectara.CreateGchatConnectorConfiguration? value)
         {
             Gchat = value;
         }
@@ -136,15 +138,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static ConnectorConfiguration FromGchat(global::Vectara.GchatConnectorConfiguration? value) => new ConnectorConfiguration(value);
+        public static CreateConnectorConfiguration FromGchat(global::Vectara.CreateGchatConnectorConfiguration? value) => new CreateConnectorConfiguration(value);
 
         /// <summary>
         /// 
         /// </summary>
-        public ConnectorConfiguration(
-            global::Vectara.ConnectorConfigurationDiscriminatorType? type,
-            global::Vectara.SlackConnectorConfiguration? slack,
-            global::Vectara.GchatConnectorConfiguration? gchat
+        public CreateConnectorConfiguration(
+            global::Vectara.CreateConnectorConfigurationDiscriminatorType? type,
+            global::Vectara.CreateSlackConnectorConfiguration? slack,
+            global::Vectara.CreateGchatConnectorConfiguration? gchat
             )
         {
             Type = type;
@@ -181,8 +183,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.SlackConnectorConfiguration, TResult>? slack = null,
-            global::System.Func<global::Vectara.GchatConnectorConfiguration, TResult>? gchat = null,
+            global::System.Func<global::Vectara.CreateSlackConnectorConfiguration, TResult>? slack = null,
+            global::System.Func<global::Vectara.CreateGchatConnectorConfiguration, TResult>? gchat = null,
             bool validate = true)
         {
             if (validate)
@@ -206,9 +208,9 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.SlackConnectorConfiguration>? slack = null,
+            global::System.Action<global::Vectara.CreateSlackConnectorConfiguration>? slack = null,
 
-            global::System.Action<global::Vectara.GchatConnectorConfiguration>? gchat = null,
+            global::System.Action<global::Vectara.CreateGchatConnectorConfiguration>? gchat = null,
             bool validate = true)
         {
             if (validate)
@@ -230,8 +232,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Switch(
-            global::System.Action<global::Vectara.SlackConnectorConfiguration>? slack = null,
-            global::System.Action<global::Vectara.GchatConnectorConfiguration>? gchat = null,
+            global::System.Action<global::Vectara.CreateSlackConnectorConfiguration>? slack = null,
+            global::System.Action<global::Vectara.CreateGchatConnectorConfiguration>? gchat = null,
             bool validate = true)
         {
             if (validate)
@@ -257,9 +259,9 @@ namespace Vectara
             var fields = new object?[]
             {
                 Slack,
-                typeof(global::Vectara.SlackConnectorConfiguration),
+                typeof(global::Vectara.CreateSlackConnectorConfiguration),
                 Gchat,
-                typeof(global::Vectara.GchatConnectorConfiguration),
+                typeof(global::Vectara.CreateGchatConnectorConfiguration),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -273,26 +275,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public bool Equals(ConnectorConfiguration other)
+        public bool Equals(CreateConnectorConfiguration other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SlackConnectorConfiguration?>.Default.Equals(Slack, other.Slack) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GchatConnectorConfiguration?>.Default.Equals(Gchat, other.Gchat) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateSlackConnectorConfiguration?>.Default.Equals(Slack, other.Slack) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateGchatConnectorConfiguration?>.Default.Equals(Gchat, other.Gchat) 
                 ;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator ==(ConnectorConfiguration obj1, ConnectorConfiguration obj2)
+        public static bool operator ==(CreateConnectorConfiguration obj1, CreateConnectorConfiguration obj2)
         {
-            return global::System.Collections.Generic.EqualityComparer<ConnectorConfiguration>.Default.Equals(obj1, obj2);
+            return global::System.Collections.Generic.EqualityComparer<CreateConnectorConfiguration>.Default.Equals(obj1, obj2);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator !=(ConnectorConfiguration obj1, ConnectorConfiguration obj2)
+        public static bool operator !=(CreateConnectorConfiguration obj1, CreateConnectorConfiguration obj2)
         {
             return !(obj1 == obj2);
         }
@@ -302,7 +304,7 @@ namespace Vectara
         /// </summary>
         public override bool Equals(object? obj)
         {
-            return obj is ConnectorConfiguration o && Equals(o);
+            return obj is CreateConnectorConfiguration o && Equals(o);
         }
     }
 }

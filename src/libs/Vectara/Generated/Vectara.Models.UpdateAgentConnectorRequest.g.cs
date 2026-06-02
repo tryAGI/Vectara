@@ -4,7 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request object for updating an existing agent connector.
+    /// Request object for updating an existing agent connector. If `configuration`<br/>
+    /// is supplied, it fully replaces the existing configuration including any<br/>
+    /// secrets. If omitted, the existing configuration is left untouched.
     /// </summary>
     public sealed partial class UpdateAgentConnectorRequest
     {
@@ -41,10 +43,15 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Configuration for different types of connectors.
+        /// Write view of a connector's configuration. Used when creating a connector<br/>
+        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
+        /// must supply. Server-derived display fields are not accepted here and instead<br/>
+        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
+        /// `audience_url` and `client_email`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
-        public global::Vectara.SlackConnectorConfiguration? Configuration { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter))]
+        public global::Vectara.CreateConnectorConfiguration? Configuration { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -72,7 +79,11 @@ namespace Vectara
         /// Example: false
         /// </param>
         /// <param name="configuration">
-        /// Configuration for different types of connectors.
+        /// Write view of a connector's configuration. Used when creating a connector<br/>
+        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
+        /// must supply. Server-derived display fields are not accepted here and instead<br/>
+        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
+        /// `audience_url` and `client_email`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -82,7 +93,7 @@ namespace Vectara
             string? description,
             object? metadata,
             bool? enabled,
-            global::Vectara.SlackConnectorConfiguration? configuration)
+            global::Vectara.CreateConnectorConfiguration? configuration)
         {
             this.Name = name;
             this.Description = description;
