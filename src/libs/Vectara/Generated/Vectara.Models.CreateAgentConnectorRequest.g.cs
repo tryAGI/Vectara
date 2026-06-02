@@ -26,15 +26,6 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// The type of connector.<br/>
-        /// Example: slack
-        /// </summary>
-        /// <example>slack</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeJsonConverter))]
-        public global::Vectara.CreateAgentConnectorRequestType Type { get; set; }
-
-        /// <summary>
         /// Arbitrary metadata associated with the connector.<br/>
         /// Default Value: {}<br/>
         /// Example: {"priority":"high","department":"customer_service"}
@@ -53,11 +44,16 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Configuration for different types of connectors.
+        /// Write view of a connector's configuration. Used when creating a connector<br/>
+        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
+        /// must supply. Server-derived display fields are not accepted here and instead<br/>
+        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
+        /// `audience_url` and `client_email`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter))]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.SlackConnectorConfiguration Configuration { get; set; }
+        public required global::Vectara.CreateConnectorConfiguration Configuration { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -73,15 +69,15 @@ namespace Vectara
         /// Example: Customer Support Slack Channel
         /// </param>
         /// <param name="configuration">
-        /// Configuration for different types of connectors.
+        /// Write view of a connector's configuration. Used when creating a connector<br/>
+        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
+        /// must supply. Server-derived display fields are not accepted here and instead<br/>
+        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
+        /// `audience_url` and `client_email`.
         /// </param>
         /// <param name="description">
         /// A detailed description of what this connector does.<br/>
         /// Example: Receives customer support messages from the
-        /// </param>
-        /// <param name="type">
-        /// The type of connector.<br/>
-        /// Example: slack
         /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the connector.<br/>
@@ -98,18 +94,16 @@ namespace Vectara
 #endif
         public CreateAgentConnectorRequest(
             string name,
-            global::Vectara.SlackConnectorConfiguration configuration,
+            global::Vectara.CreateConnectorConfiguration configuration,
             string? description,
-            global::Vectara.CreateAgentConnectorRequestType type,
             object? metadata,
             bool? enabled)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
-            this.Type = type;
             this.Metadata = metadata;
             this.Enabled = enabled;
-            this.Configuration = configuration ?? throw new global::System.ArgumentNullException(nameof(configuration));
+            this.Configuration = configuration;
         }
 
         /// <summary>

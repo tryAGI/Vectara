@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Read view of a Slack connector's configuration.
+    /// Write view of a Slack connector's configuration, supplied on create or update.
     /// </summary>
-    public sealed partial class SlackConnectorConfiguration
+    public sealed partial class CreateSlackConnectorConfiguration
     {
         /// <summary>
         /// The type of connector configuration.<br/>
@@ -47,22 +47,13 @@ namespace Vectara
         public required string ApiAppId { get; set; }
 
         /// <summary>
-        /// The webhook path for this Slack connector to receive events.<br/>
-        /// Example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
-        /// </summary>
-        /// <example>/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("webhook_path")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string WebhookPath { get; set; }
-
-        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SlackConnectorConfiguration" /> class.
+        /// Initializes a new instance of the <see cref="CreateSlackConnectorConfiguration" /> class.
         /// </summary>
         /// <param name="type">
         /// The type of connector configuration.<br/>
@@ -81,31 +72,25 @@ namespace Vectara
         /// Slack App ID for customer lookup in webhooks.<br/>
         /// Example: A1234567890
         /// </param>
-        /// <param name="webhookPath">
-        /// The webhook path for this Slack connector to receive events.<br/>
-        /// Example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
-        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
-        public SlackConnectorConfiguration(
+        public CreateSlackConnectorConfiguration(
             string type,
             string botToken,
             string signingSecret,
-            string apiAppId,
-            string webhookPath)
+            string apiAppId)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.BotToken = botToken ?? throw new global::System.ArgumentNullException(nameof(botToken));
             this.SigningSecret = signingSecret ?? throw new global::System.ArgumentNullException(nameof(signingSecret));
             this.ApiAppId = apiAppId ?? throw new global::System.ArgumentNullException(nameof(apiAppId));
-            this.WebhookPath = webhookPath ?? throw new global::System.ArgumentNullException(nameof(webhookPath));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SlackConnectorConfiguration" /> class.
+        /// Initializes a new instance of the <see cref="CreateSlackConnectorConfiguration" /> class.
         /// </summary>
-        public SlackConnectorConfiguration()
+        public CreateSlackConnectorConfiguration()
         {
         }
 

@@ -345,9 +345,13 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.AgentConnectorStatusNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeJsonConverter),
+            typeof(global::Vectara.JsonConverters.AgentConnectorLastWebhookStatusJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.AgentConnectorLastWebhookStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationDiscriminatorTypeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.RuleTargetsDiscriminatorTypeJsonConverter),
 
@@ -710,6 +714,8 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.RuleTargetsJsonConverter),
 
@@ -1678,9 +1684,13 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.AgentConnectorStatusNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeJsonConverter),
+            typeof(global::Vectara.JsonConverters.AgentConnectorLastWebhookStatusJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.AgentConnectorLastWebhookStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationDiscriminatorTypeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.RuleTargetsDiscriminatorTypeJsonConverter),
 
@@ -2044,6 +2054,8 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter),
+
             typeof(global::Vectara.JsonConverters.RuleTargetsJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AliasPolicyJsonConverter),
@@ -2307,16 +2319,22 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ReplaceAgentSecretsRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateAgentSecretsRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SlackConnectorConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GchatConnectorConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConnectorConfiguration), TypeInfoPropertyName = "ConnectorConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConnectorConfigurationDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConnectorConfigurationDiscriminatorType), TypeInfoPropertyName = "ConnectorConfigurationDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentConnector))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentConnectorType), TypeInfoPropertyName = "AgentConnectorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentConnectorStatus), TypeInfoPropertyName = "AgentConnectorStatus2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentConnectorLastWebhookStatus), TypeInfoPropertyName = "AgentConnectorLastWebhookStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListAgentConnectorsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentConnector>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateSlackConnectorConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateGchatConnectorConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateConnectorConfiguration), TypeInfoPropertyName = "CreateConnectorConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateConnectorConfigurationDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateConnectorConfigurationDiscriminatorType), TypeInfoPropertyName = "CreateConnectorConfigurationDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateAgentConnectorRequest))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateAgentConnectorRequestType), TypeInfoPropertyName = "CreateAgentConnectorRequestType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateAgentConnectorRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SingleRuleTargets))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WeightedTarget))]
@@ -2835,8 +2853,10 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorStatusJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorStatusNullableJsonConverter());
-            options.Converters.Add(new global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeJsonConverter());
-            options.Converters.Add(new global::Vectara.JsonConverters.CreateAgentConnectorRequestTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorLastWebhookStatusJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentConnectorLastWebhookStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateConnectorConfigurationDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateConnectorConfigurationDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.RuleTargetsDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.RuleTargetsDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AliasPolicyDiscriminatorTypeJsonConverter());
@@ -3018,6 +3038,7 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.AgentStreamedResponseJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.RuleTargetsJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AliasPolicyJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.S3SourceConfigurationJsonConverter());
