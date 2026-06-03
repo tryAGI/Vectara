@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Evaluates ordered rules against the session context. The first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` shape determines what runs: `single` routes directly to one agent, `weighted` picks one of several agents by hashing the rule's `partition_by` expression. A rule with no `match` always matches (catch-all) and is conventionally placed last.<br/>
+    /// Evaluates ordered rules against the session context. The first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` shape determines what runs: `single` routes directly to one agent, `weighted` picks one of several agents by hashing the rule's `partition_by` expression. A rule with no `match` always matches (catch-all). It must be the last rule; any rule placed after it is rejected as unreachable.<br/>
     /// This single shape covers direct routing (one rule, single target), weighted/canary rollouts (one rule, weighted targets), conditional routing (multiple rules with matches), and conditional+canary combinations (multiple rules, each independently single or weighted).
     /// </summary>
     public sealed partial class RoutedAliasPolicy
