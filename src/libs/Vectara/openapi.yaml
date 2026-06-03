@@ -25609,40 +25609,73 @@ components:
             old_token_to_remove: null
       required:
       - secrets
+    AgentOutputType:
+      description: A category of intermediate agent output a connector can hide from
+        its channel via `hidden_output_types`. `tool_calls` is the agent's tool-call
+        activity, `thinking` is the model's reasoning output, and `structured_output`
+        is structured (JSON) payloads emitted by the agent. The final response is
+        never one of these and is always posted.
+      type: string
+      enum:
+      - tool_calls
+      - thinking
+      - structured_output
+      example: tool_calls
+    ConnectorConfigurationBase:
+      description: Properties shared by every connector configuration read view.
+      type: object
+      properties:
+        hidden_output_types:
+          description: Agent output types omitted from the connector's channel; the
+            final response is always posted.
+          type: array
+          default: []
+          items:
+            $ref: '#/components/schemas/AgentOutputType'
+          example:
+          - tool_calls
     SlackConnectorConfiguration:
       description: Read view of a Slack connector's configuration.
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/ConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: slack
+            example: slack
+          bot_token:
+            description: Slack bot token (xoxb-) for API access. Encrypted at rest.
+            type: string
+            example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
+          signing_secret:
+            description: Slack signing secret for webhook verification. Encrypted
+              at rest.
+            type: string
+            example: abcdef1234567890abcdef1234567890abcdef12
+          api_app_id:
+            description: Slack App ID for customer lookup in webhooks.
+            type: string
+            example: A1234567890
+          webhook_path:
+            description: The webhook path for this Slack connector to receive events.
+            type: string
+            example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
+          respond_to_thread_replies:
+            description: When true, the agent responds to follow-up replies in any
+              thread it has already replied in or started, without requiring a new
+              @-mention. Starting a new thread still requires an @-mention.
+            type: boolean
+            default: false
+        required:
+        - type
+        - bot_token
+        - signing_secret
+        - api_app_id
+        - webhook_path
       x-vectaraParents:
       - ConnectorConfiguration
-      properties:
-        type:
-          description: The type of connector configuration.
-          type: string
-          default: slack
-          example: slack
-        bot_token:
-          description: Slack bot token (xoxb-) for API access. Encrypted at rest.
-          type: string
-          example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
-        signing_secret:
-          description: Slack signing secret for webhook verification. Encrypted at
-            rest.
-          type: string
-          example: abcdef1234567890abcdef1234567890abcdef12
-        api_app_id:
-          description: Slack App ID for customer lookup in webhooks.
-          type: string
-          example: A1234567890
-        webhook_path:
-          description: The webhook path for this Slack connector to receive events.
-          type: string
-          example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
-      required:
-      - type
-      - bot_token
-      - signing_secret
-      - api_app_id
-      - webhook_path
     GchatConnectorConfiguration:
       description: 'Read view of a Google Chat connector''s configuration. Includes
         the display
@@ -25652,38 +25685,40 @@ components:
         URL used to verify inbound events. The service account key is never returned.
 
         '
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/ConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: gchat
+            example: gchat
+          audience_url:
+            description: 'The webhook URL for this connector. Set the Chat app''s
+              HTTP endpoint URL
+
+              and Authentication audience fields to this value in the Google Cloud
+
+              console. Inbound Google Chat ID tokens are accepted only if aud equals
+
+              this URL. This value contains a secret and is encrypted at rest.
+
+              '
+            type: string
+            example: https://api.example.com/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/gchat
+          client_email:
+            description: 'Service account email derived from the service account key.
+
+              '
+            type: string
+            example: chat-bot@my-gchat-app.iam.gserviceaccount.com
+        required:
+        - type
+        - audience_url
+        - client_email
       x-vectaraParents:
       - ConnectorConfiguration
-      properties:
-        type:
-          description: The type of connector configuration.
-          type: string
-          default: gchat
-          example: gchat
-        audience_url:
-          description: 'The webhook URL for this connector. Set the Chat app''s HTTP
-            endpoint URL
-
-            and Authentication audience fields to this value in the Google Cloud
-
-            console. Inbound Google Chat ID tokens are accepted only if aud equals
-
-            this URL. This value contains a secret and is encrypted at rest.
-
-            '
-          type: string
-          example: https://api.example.com/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/gchat
-        client_email:
-          description: 'Service account email derived from the service account key.
-
-            '
-          type: string
-          example: chat-bot@my-gchat-app.iam.gserviceaccount.com
-      required:
-      - type
-      - audience_url
-      - client_email
     ConnectorConfiguration:
       description: 'Read view of a connector''s configuration as returned by GET and
         list
@@ -25695,6 +25730,7 @@ components:
         exposes `audience_url` and `client_email`.
 
         '
+      x-vectara-base-schema: '#/ConnectorConfigurationBase'
       discriminator:
         propertyName: type
         mapping:
@@ -25832,36 +25868,57 @@ components:
       required:
       - connectors
       - metadata
+    CreateConnectorConfigurationBase:
+      description: Properties shared by every connector configuration write view.
+      type: object
+      properties:
+        hidden_output_types:
+          description: Agent output types omitted from the connector's channel; the
+            final response is always posted.
+          type: array
+          default: []
+          items:
+            $ref: '#/components/schemas/AgentOutputType'
+          example:
+          - tool_calls
     CreateSlackConnectorConfiguration:
       description: Write view of a Slack connector's configuration, supplied on create
         or update.
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/CreateConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: slack
+            example: slack
+          bot_token:
+            description: Slack bot token (xoxb-) for API access. Encrypted at rest.
+            type: string
+            example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
+          signing_secret:
+            description: Slack signing secret for webhook verification. Encrypted
+              at rest.
+            type: string
+            example: abcdef1234567890abcdef1234567890abcdef12
+          api_app_id:
+            description: Slack App ID for customer lookup in webhooks.
+            type: string
+            example: A1234567890
+          respond_to_thread_replies:
+            description: When true, the agent responds to follow-up replies in any
+              thread it has already replied in or started, without requiring a new
+              @-mention. Starting a new thread still requires an @-mention.
+            type: boolean
+            default: false
+        required:
+        - type
+        - bot_token
+        - signing_secret
+        - api_app_id
       x-vectaraParents:
       - CreateConnectorConfiguration
-      properties:
-        type:
-          description: The type of connector configuration.
-          type: string
-          default: slack
-          example: slack
-        bot_token:
-          description: Slack bot token (xoxb-) for API access. Encrypted at rest.
-          type: string
-          example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
-        signing_secret:
-          description: Slack signing secret for webhook verification. Encrypted at
-            rest.
-          type: string
-          example: abcdef1234567890abcdef1234567890abcdef12
-        api_app_id:
-          description: Slack App ID for customer lookup in webhooks.
-          type: string
-          example: A1234567890
-      required:
-      - type
-      - bot_token
-      - signing_secret
-      - api_app_id
     CreateGchatConnectorConfiguration:
       description: 'Write view of a Google Chat connector''s configuration. Supply
         the service
@@ -25873,31 +25930,34 @@ components:
         be set to the connector''s audience_url (returned in the read view).
 
         '
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/CreateConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: gchat
+            example: gchat
+          service_account_key:
+            description: 'Service account JSON key used to authenticate outbound calls
+              to the
+
+              Google Chat API. Encrypted at rest. `client_email` is parsed out of
+              this
+
+              key for display in the read view.
+
+              '
+            type: string
+            example: '{"type":"service_account","project_id":"my-gchat-app", ...}
+
+              '
+        required:
+        - type
+        - service_account_key
       x-vectaraParents:
       - CreateConnectorConfiguration
-      properties:
-        type:
-          description: The type of connector configuration.
-          type: string
-          default: gchat
-          example: gchat
-        service_account_key:
-          description: 'Service account JSON key used to authenticate outbound calls
-            to the
-
-            Google Chat API. Encrypted at rest. `client_email` is parsed out of this
-
-            key for display in the read view.
-
-            '
-          type: string
-          example: '{"type":"service_account","project_id":"my-gchat-app", ...}
-
-            '
-      required:
-      - type
-      - service_account_key
     CreateConnectorConfiguration:
       description: 'Write view of a connector''s configuration. Used when creating
         a connector
@@ -25911,6 +25971,7 @@ components:
         `audience_url` and `client_email`.
 
         '
+      x-vectara-base-schema: '#/CreateConnectorConfigurationBase'
       discriminator:
         propertyName: type
         mapping:

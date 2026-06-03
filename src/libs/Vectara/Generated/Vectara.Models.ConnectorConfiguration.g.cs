@@ -51,7 +51,7 @@ namespace Vectara
         /// 
         /// </summary>
         public global::Vectara.SlackConnectorConfiguration PickSlack() => IsSlack
-            ? Slack!
+            ? Slack!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Slack' but the value was {ToString()}.");
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Vectara
         /// 
         /// </summary>
         public global::Vectara.GchatConnectorConfiguration PickGchat() => IsGchat
-            ? Gchat!
+            ? Gchat!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Gchat' but the value was {ToString()}.");
         /// <summary>
         /// 
@@ -181,8 +181,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.SlackConnectorConfiguration, TResult>? slack = null,
-            global::System.Func<global::Vectara.GchatConnectorConfiguration, TResult>? gchat = null,
+            global::System.Func<global::Vectara.SlackConnectorConfiguration?, TResult>? slack = null,
+            global::System.Func<global::Vectara.GchatConnectorConfiguration?, TResult>? gchat = null,
             bool validate = true)
         {
             if (validate)
@@ -206,9 +206,9 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.SlackConnectorConfiguration>? slack = null,
+            global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
 
-            global::System.Action<global::Vectara.GchatConnectorConfiguration>? gchat = null,
+            global::System.Action<global::Vectara.GchatConnectorConfiguration?>? gchat = null,
             bool validate = true)
         {
             if (validate)
@@ -230,8 +230,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Switch(
-            global::System.Action<global::Vectara.SlackConnectorConfiguration>? slack = null,
-            global::System.Action<global::Vectara.GchatConnectorConfiguration>? gchat = null,
+            global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
+            global::System.Action<global::Vectara.GchatConnectorConfiguration?>? gchat = null,
             bool validate = true)
         {
             if (validate)
