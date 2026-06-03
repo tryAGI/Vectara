@@ -95,6 +95,11 @@ namespace Vectara
         /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If set to 0, the session will not expire.<br/>
         /// Example: 60
         /// </param>
+        /// <param name="secrets">
+        /// Patch the session's secrets. Names present in the map are added or replaced; names absent from the map are left unchanged.<br/>
+        /// A name mapped to `null` is removed. Values are encrypted at rest with the owning agent's encryption key and returned masked on reads.<br/>
+        /// Example: {"slack_user_token":"xoxp-rotated-token","old_token_to_remove":"openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464"}
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -108,6 +113,7 @@ namespace Vectara
             object? metadata = default,
             bool? enabled = default,
             long? ttiMinutes = default,
+            global::System.Collections.Generic.Dictionary<string, string?>? secrets = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

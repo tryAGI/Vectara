@@ -31,12 +31,6 @@ namespace Vectara
         public global::Vectara.LambdaToolVariant2Language Language { get; set; } = global::Vectara.LambdaToolVariant2Language.Python;
 
         /// <summary>
-        /// The schema that defines the expected output structure from the function.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("output_schema")]
-        public object? OutputSchema { get; set; }
-
-        /// <summary>
         /// Definition of a function to be executed as a tool in a sandboxed environment.<br/>
         /// **Python Environment:**<br/>
         /// - Python version: 3.12<br/>
@@ -94,9 +88,6 @@ namespace Vectara
         /// - Parameter descriptions are extracted and included in the input schema<br/>
         /// - This gives agents better context about how to use each parameter
         /// </param>
-        /// <param name="outputSchema">
-        /// The schema that defines the expected output structure from the function.
-        /// </param>
         /// <param name="language">
         /// The programming language of the lambda function. Currently only Python 3.12 is supported.<br/>
         /// Default Value: python<br/>
@@ -108,12 +99,10 @@ namespace Vectara
         public LambdaToolVariant2(
             string type,
             global::Vectara.FunctionDefinition functionDefinition,
-            object? outputSchema,
             global::Vectara.LambdaToolVariant2Language language = global::Vectara.LambdaToolVariant2Language.Python)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Language = language;
-            this.OutputSchema = outputSchema;
             this.FunctionDefinition = functionDefinition ?? throw new global::System.ArgumentNullException(nameof(functionDefinition));
         }
 

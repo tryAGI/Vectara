@@ -66,6 +66,12 @@ tags:
 - name: Agent Secrets
   description: Manage agent-scoped secrets that can be referenced from tool argument
     overrides via $ref.
+- name: Agent Aliases
+  description: 'Manage routing aliases that map a public name to one or more agents
+    under a configurable policy. Create a session through an alias (`POST /v2/agent_aliases/{alias_key}/sessions`)
+    and the alias''s policy picks the underlying agent that runs.
+
+    '
 - name: Guardrails
   description: List predefined guardrails for validating tool calls, agent outputs,
     and agent actions.
@@ -7629,6 +7635,7 @@ paths:
           enum:
           - mcp
           - lambda
+          - client
           example: mcp
       - in: query
         name: enabled
@@ -9340,6 +9347,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateInputRequest'
           multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MultipartInputEvent'
             encoding:
               message:
                 contentType: text/plain
@@ -9431,6 +9440,7 @@ paths:
               context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
               step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
               session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+              client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
               image_read: '#/components/schemas/ImageReadEvent'
               step_transition: '#/components/schemas/StepTransitionEvent'
               compaction: '#/components/schemas/CompactionEvent'
@@ -9446,6 +9456,7 @@ paths:
           - $ref: '#/components/schemas/ContextLimitExceededEvent'
           - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
           - $ref: '#/components/schemas/SessionInterruptedEvent'
+          - $ref: '#/components/schemas/ClientToolPendingEvent'
           - $ref: '#/components/schemas/ImageReadEvent'
           - $ref: '#/components/schemas/StepTransitionEvent'
           - $ref: '#/components/schemas/CompactionEvent'
@@ -9467,6 +9478,7 @@ paths:
               context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
               step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
               session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+              client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
               image_read: '#/components/schemas/ImageReadEvent'
               step_transition: '#/components/schemas/StepTransitionEvent'
               context_consumed: '#/components/schemas/ContextConsumedEvent'
@@ -9494,6 +9506,7 @@ paths:
           - $ref: '#/components/schemas/ContextLimitExceededEvent'
           - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
           - $ref: '#/components/schemas/SessionInterruptedEvent'
+          - $ref: '#/components/schemas/ClientToolPendingEvent'
           - $ref: '#/components/schemas/ImageReadEvent'
           - $ref: '#/components/schemas/StepTransitionEvent'
           - $ref: '#/components/schemas/ContextConsumedEvent'
@@ -9586,6 +9599,75 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.events
+  /v2/agents/{agent_key}/sessions/{session_key}/outstanding_client_tool_calls:
+    get:
+      tags:
+      - Agent Sessions
+      summary: List outstanding client tool calls for an agent session
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'List the client tool calls the session is currently waiting on
+        the caller to fulfill. Each entry carries the originating `tool_input` event
+        ID, the tool name, and the fully materialized arguments to invoke the tool
+        with. Secret-derived values are returned unmasked because the caller needs
+        them to execute the tool, so this endpoint is restricted to the same roles
+        permitted to submit input to the session.
+
+
+        Returns an empty list when the session is not parked on a client tool. The
+        corresponding `client_tool_pending` event is delivered only on the live event
+        stream and is not returned by `listAgentEvents`; this endpoint is the durable
+        way to recover the pending calls after a reconnect. Submit one `tool_output`
+        per returned `event_id` (via the create-input endpoint) to resume the session.'
+      operationId: listOutstandingClientToolCalls
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique identifier of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: session_key
+        description: The unique key of the session.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      responses:
+        '200':
+          description: The client tool calls the session is waiting on, one entry
+            per outstanding call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutstandingClientToolCallsResponse'
+        '403':
+          description: Permissions do not allow reading this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_events
+      x-fern-sdk-method-name: list_outstanding_client_tool_calls
   /v2/agents/{agent_key}/sessions/{session_key}/events/{event_id}:
     get:
       tags:
@@ -10684,8 +10766,8 @@ paths:
         - agent_administrator
         - administrator
         - owner
-      description: Create a new connector for an agent to receive events from external
-        platforms like Slack.
+      description: Create a new connector for an agent to receive events from an external
+        platform like Slack or Google Chat.
       operationId: createAgentConnector
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -10763,6 +10845,7 @@ paths:
           type: string
           enum:
           - slack
+          - gchat
           example: slack
       - in: query
         name: enabled
@@ -10985,6 +11068,1171 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: deleteConnector
+  /v2/agent_aliases:
+    post:
+      tags:
+      - Agent Aliases
+      summary: Create an alias
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: "Create a new alias. Aliases are routing primitives that map a\
+        \ public name to one or more underlying agents under a configurable policy.\
+        \ When a session is created through an alias (via `POST /v2/agent_aliases/{alias_key}/sessions`),\
+        \ the alias's policy decides which underlying agent runs that session.\n\n\
+        Common patterns:\n- **Direct alias** \u2014 a `routed` policy with one rule\
+        \ and one target. Identical in behavior to invoking the agent directly.\n\
+        - **Canary rollout** \u2014 a `routed` policy with one rule and multiple weighted\
+        \ targets (e.g. 90% v1, 10% v2).\n- **Tenant routing** \u2014 a `routed` policy\
+        \ with multiple rules, each matching on session metadata (e.g. `session.metadata.tenant`).\n"
+      operationId: createAgentAlias
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgentAliasRequest'
+      responses:
+        '201':
+          description: The newly created alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentAlias'
+        '400':
+          description: Request was malformed or the policy is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow creating aliases.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: An alias with this key already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agent_aliases
+      x-fern-sdk-method-name: create
+    get:
+      tags:
+      - Agent Aliases
+      summary: List aliases
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: 'List all aliases owned by the current customer.
+
+        '
+      operationId: listAgentAliases
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: query
+        name: limit
+        description: Max number of aliases to return.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 10
+      - in: query
+        name: page_key
+        description: Pagination cursor.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: filter
+        description: A regular expression matched against alias names and descriptions
+          to filter results.
+        required: false
+        schema:
+          type: string
+          example: support.*
+      - in: query
+        name: enabled
+        description: Filter aliases by enabled status.
+        required: false
+        schema:
+          type: boolean
+          example: true
+      responses:
+        '200':
+          description: List of aliases.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentAliasesResponse'
+        '403':
+          description: Permissions do not allow listing aliases.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agent_aliases
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.aliases
+  /v2/agent_aliases/{alias_key}:
+    get:
+      tags:
+      - Agent Aliases
+      summary: Get an alias
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Retrieve a specific alias including its policy.
+      operationId: getAgentAlias
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        description: The unique key of the alias.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      responses:
+        '200':
+          description: The alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentAlias'
+        '403':
+          description: Permissions do not allow viewing this alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: The alias was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases
+      x-fern-sdk-method-name: get
+    patch:
+      tags:
+      - Agent Aliases
+      summary: Update an alias's metadata
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: "Update an alias's metadata fields (name, description, enabled,\
+        \ metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`\
+        \ \u2014 policies are atomic and not partially updatable.\n"
+      operationId: updateAgentAlias
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentAliasRequest'
+      responses:
+        '200':
+          description: The updated alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentAlias'
+        '403':
+          description: Permissions do not allow modifying this alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: The alias was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases
+      x-fern-sdk-method-name: update
+    delete:
+      tags:
+      - Agent Aliases
+      summary: Delete an alias
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: Delete an alias. The underlying agents the alias points at are
+        not affected. Returns 409 if any live resources still reference this alias.
+      operationId: deleteAgentAlias
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      responses:
+        '204':
+          description: The alias was deleted.
+        '403':
+          description: Permissions do not allow deleting this alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: The alias was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: The alias has live references (e.g. connectors) that prevent
+            deletion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agent_aliases
+      x-fern-sdk-method-name: delete
+  /v2/agent_aliases/{alias_key}/policy:
+    put:
+      tags:
+      - Agent Aliases
+      summary: Replace an alias's routing policy
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Atomically replace the alias''s routing policy and stickiness
+        configuration. Replacement is whole-object; partial merging is not supported.
+
+
+        Use this endpoint to flip canary weights, change tenant routing, etc. The
+        change is atomic: in-flight sessions resolved before the change keep their
+        resolved agent (resolution is once-at-creation).
+
+        '
+      operationId: replaceAgentAliasPolicy
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceAliasPolicyRequest'
+      responses:
+        '200':
+          description: The alias with its updated policy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentAlias'
+        '400':
+          description: The new policy is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow modifying this alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: The alias was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases
+      x-fern-sdk-method-name: replace_policy
+  /v2/agent_aliases/{alias_key}/sessions:
+    post:
+      tags:
+      - Agent Aliases
+      summary: Create session via alias
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Create a new session by routing through an alias. The alias''s
+        policy is evaluated to pick the underlying agent that will own the session.
+        Subsequent operations on the session can be addressed via this alias or directly
+        via `/v2/agents/{resolved_agent_key}/sessions/{session_key}`.
+
+        '
+      operationId: createAliasRoutedSession
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        description: The alias whose routing policy decides which agent owns the session.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgentSessionRequest'
+      responses:
+        '201':
+          description: The newly created session, owned by the agent the alias's policy
+            resolved to.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSession'
+        '400':
+          description: Session creation request was malformed, or the alias's policy
+            could not resolve against the session context.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow creating sessions via this alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias not found or not currently active.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: create
+    get:
+      tags:
+      - Agent Aliases
+      summary: List sessions routed via this alias
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: List sessions that were originally created via this alias (sessions
+        whose `alias_key` matches). Sessions are also reachable under their resolved
+        agent's URL; this endpoint is the alias-scoped view.
+      operationId: listAliasRoutedSessions
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 10
+      - in: query
+        name: page_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Sessions created via this alias.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentSessionsResponse'
+        '403':
+          description: Permissions do not allow listing alias-routed sessions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.sessions
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}:
+    get:
+      tags:
+      - Agent Aliases
+      summary: Get alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Retrieve a session originally created via this alias.
+      operationId: getAliasRoutedSession
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      responses:
+        '200':
+          description: The requested alias-routed session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSession'
+        '403':
+          description: Permissions do not allow accessing this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: get
+    patch:
+      tags:
+      - Agent Aliases
+      summary: Update alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: Update a session originally created via this alias.
+      operationId: updateAliasRoutedSession
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentSessionRequest'
+      responses:
+        '200':
+          description: The session was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSession'
+        '400':
+          description: Update request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow updating this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: update
+    delete:
+      tags:
+      - Agent Aliases
+      summary: Delete alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: Delete a session originally created via this alias.
+      operationId: deleteAliasRoutedSession
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      responses:
+        '204':
+          description: The session was deleted.
+        '403':
+          description: Permissions do not allow deleting this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: delete
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}/events:
+    post:
+      tags:
+      - Agent Aliases
+      summary: Submit input to alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: Submit an input event to a session originally created via this
+        alias. The session's resolved agent runs the loop.
+      operationId: createAliasRoutedInput
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInputRequest'
+      x-stream-based-on-body: streamResponse()
+      responses:
+        '201':
+          description: Events produced during this turn.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/AgentStreamedResponse'
+        '400':
+          description: Input request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow submitting input to this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: create_input
+    get:
+      tags:
+      - Agent Aliases
+      summary: List events on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: List events of a session originally created via this alias.
+      operationId: listAliasRoutedEvents
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 10
+      - in: query
+        name: page_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Events on this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentEventsResponse'
+        '403':
+          description: Permissions do not allow listing events on this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: list_events
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.events
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}/outstanding_client_tool_calls:
+    get:
+      tags:
+      - Agent Aliases
+      summary: List outstanding client tool calls on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: List the client tool calls a session originally created via this
+        alias is currently waiting on the caller to fulfill. Each entry carries the
+        fully materialized arguments to invoke the tool with; secret-derived values
+        are returned unmasked because the caller needs them to execute the tool, so
+        this endpoint is restricted to the same roles permitted to submit input to
+        the session. Empty when the session is not parked on a client tool. See the
+        agent-scoped endpoint for the full contract.
+      operationId: listAliasRoutedOutstandingClientToolCalls
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      responses:
+        '200':
+          description: The client tool calls the session is waiting on, one entry
+            per outstanding call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutstandingClientToolCallsResponse'
+        '403':
+          description: Permissions do not allow reading this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: list_outstanding_client_tool_calls
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}/events/{event_id}:
+    get:
+      tags:
+      - Agent Aliases
+      summary: Get event on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Get a single event of a session originally created via this alias.
+      operationId: getAliasRoutedEvent
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      - in: path
+        name: event_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The requested event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentEvent'
+        '403':
+          description: Permissions do not allow accessing this event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias, session, or event not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: get_event
+    delete:
+      tags:
+      - Agent Aliases
+      summary: Delete event on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: Delete a single event of a session originally created via this
+        alias.
+      operationId: deleteAliasRoutedEvent
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      - in: path
+        name: event_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: The event was deleted.
+        '403':
+          description: Permissions do not allow deleting this event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias, session, or event not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_sessions
+      x-fern-sdk-method-name: delete_event
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}/events/{event_id}/hide:
+    post:
+      tags:
+      - Agent Aliases
+      summary: Hide event on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: Manually hide an event on a session originally created via this
+        alias. Sets hide_reason to 'manual'.
+      operationId: hideAliasRoutedEvent
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      - in: path
+        name: event_id
+        required: true
+        schema:
+          type: string
+          pattern: aev_[0-9a-zA-Z_-]+$
+      responses:
+        '200':
+          description: Event hidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentEvent'
+        '403':
+          description: Permissions do not allow hiding events on this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias, session, or event not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_events
+      x-fern-sdk-method-name: hide
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}/events/{event_id}/unhide:
+    post:
+      tags:
+      - Agent Aliases
+      summary: Unhide event on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: Unhide a hidden event on a session originally created via this
+        alias. Clears the hide_reason.
+      operationId: unhideAliasRoutedEvent
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      - in: path
+        name: event_id
+        required: true
+        schema:
+          type: string
+          pattern: aev_[0-9a-zA-Z_-]+$
+      responses:
+        '200':
+          description: Event unhidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentEvent'
+        '403':
+          description: Permissions do not allow unhiding events on this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias, session, or event not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_events
+      x-fern-sdk-method-name: unhide
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}/artifacts:
+    get:
+      tags:
+      - Agent Aliases
+      summary: List artifacts on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: List artifacts stored in a session originally created via this
+        alias. Artifacts are files either uploaded by the user, or generated within
+        the session.
+      operationId: listAliasRoutedSessionArtifacts
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 10
+      - name: page_key
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - created_at
+          - updated_at
+          default: created_at
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      responses:
+        '200':
+          description: List of artifacts in the session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSessionArtifactsResponse'
+        '403':
+          description: Permissions do not allow listing artifacts on this session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_artifacts
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.artifacts
+  /v2/agent_aliases/{alias_key}/sessions/{session_key}/artifacts/{artifact_id}:
+    get:
+      tags:
+      - Agent Aliases
+      summary: Get artifact on alias-routed session
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Retrieve an artifact stored in a session originally created via
+        this alias, including metadata and base64-encoded file content.
+      operationId: getAliasRoutedSessionArtifact
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      - in: path
+        name: artifact_id
+        required: true
+        schema:
+          type: string
+          pattern: art_[a-z0-9_-]+$
+          example: art_report_pdf_a3f2
+      responses:
+        '200':
+          description: The requested artifact with metadata and base64-encoded content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionArtifact'
+        '403':
+          description: Permissions do not allow accessing this artifact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias, session, or artifact not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases_artifacts
+      x-fern-sdk-method-name: get
   /v2/pipelines:
     post:
       tags:
@@ -14198,9 +15446,9 @@ components:
           title: Social Responsibility
           text: EuroBank expanded its community outreach programs, supporting over
             500 local initiatives and increasing employee volunteer hours by 30%.
-          metadata: null
-          section_type: social
-          priority: medium
+          metadata:
+            section_type: social
+            priority: medium
     BulkDeleteAsyncResponse:
       description: Response when async=true. Operation queued, returns immediately
         (HTTP 202).
@@ -16018,85 +17266,21 @@ components:
       - platform
       - customer
       example: platform
-    Prompt:
-      description: A prompt that can be used with a LLM. A prompt is the template
-        that is used to render the text sent to the LLM. It also contains various
-        default model settings such as temperature.
-      type: object
-      properties:
-        id:
-          description: The ID of the prompt.
-          type: string
-          pattern: pmt_.*
-        name:
-          description: Name of the prompt. This is used as the `prompt_name` in a
-            query.
-          type: string
-        description:
-          description: The description of the prompt.
-          type: string
-        enabled:
-          description: Indicates whether the prompt is enabled.
-          type: boolean
-        default:
-          description: Indicates if this prompt is the default prompt used with the
-            LLM.
-          type: boolean
-      required:
-      - id
-      - name
-    LLM:
-      description: A LLM can be used to enhance query results with a response, and
-        be used as the responder during a chat.
-      type: object
-      properties:
-        id:
-          description: The ID of the LLM.
-          type: string
-          pattern: llm_.*
-          example: llm_1021844
-        name:
-          description: Name of the LLM.
-          type: string
-          example: Claude 3.7 Sonnet
-        description:
-          description: The description of the LLM.
-          type: string
-          example: The Anthropic Claude 3.7 Sonnet model.
-        enabled:
-          description: Indicates whether the LLM is enabled.
-          type: boolean
-        default:
-          description: If this is the default LLM, it is used in queries when the
-            generator is not specified.
-          type: boolean
-        capabilities:
-          $ref: '#/components/schemas/LLMCapabilities'
-        ownership:
-          description: Indicates whether the LLM is provided by the platform (`platform`)
-            or created by the customer (`customer`).
-          $ref: '#/components/schemas/LLMOwnership'
-        prompts:
-          description: List of prompts that the model can use. This is deprecated;
-            see `/v2/generation_presets` instead.
-          items:
-            $ref: '#/components/schemas/Prompt'
-          deprecated: true
-      required:
-      - id
-      - name
-    ListLLMsResponse:
-      description: Response containing a list of Large Language Models available for
-        generative AI capabilities.
-      type: object
-      properties:
-        llms:
-          description: List of LLMs.
-          type: array
-          items:
-            $ref: '#/components/schemas/LLM'
-        metadata:
-          $ref: '#/components/schemas/ListMetadata'
+    IdleTimeoutSeconds:
+      description: "Maximum time in seconds the platform will wait for the model to\
+        \ send data before considering the connection stale and terminating it. For\
+        \ example, this is used as the SSE idle timeout during streaming \u2014 if\
+        \ no new server-sent events arrive within this window the stream is closed\
+        \ with an error. If unset, the platform falls back to its default read timeout\
+        \ for that provider (typically 60 seconds for OpenAI / Anthropic; provider\
+        \ SDK default for Vertex). On update, omit the field to leave the configured\
+        \ value unchanged or send an explicit null to clear it."
+      type: integer
+      format: int32
+      nullable: true
+      minimum: 1
+      maximum: 3600
+      example: 300
     BearerAuth:
       type: object
       description: Bearer token authentication
@@ -16178,242 +17362,6 @@ components:
       - token_endpoint
       x-vectaraParents:
       - RemoteAuth
-    RemoteAuth:
-      type: object
-      description: Authentication configuration for connecting to a remote service.
-      discriminator:
-        propertyName: type
-        mapping:
-          bearer: '#/components/schemas/BearerAuth'
-          header: '#/components/schemas/HeaderAuth'
-          oauth_client_credentials: '#/components/schemas/OAuthClientCredentialsAuth'
-      oneOf:
-      - $ref: '#/components/schemas/BearerAuth'
-      - $ref: '#/components/schemas/HeaderAuth'
-      - $ref: '#/components/schemas/OAuthClientCredentialsAuth'
-      required:
-      - type
-    IdleTimeoutSeconds:
-      description: "Maximum time in seconds the platform will wait for the model to\
-        \ send data before considering the connection stale and terminating it. For\
-        \ example, this is used as the SSE idle timeout during streaming \u2014 if\
-        \ no new server-sent events arrive within this window the stream is closed\
-        \ with an error. If unset, the platform falls back to its default read timeout\
-        \ for that provider (typically 60 seconds for OpenAI / Anthropic; provider\
-        \ SDK default for Vertex). On update, omit the field to leave the configured\
-        \ value unchanged or send an explicit null to clear it."
-      type: integer
-      format: int32
-      nullable: true
-      minimum: 1
-      maximum: 3600
-      example: 300
-    OpenAILLMRequestBase:
-      description: Common fields for OpenAI-compatible and Responses API LLM requests.
-      type: object
-      properties:
-        name:
-          description: Name to reference the LLM. This will be used in other endpoints
-            (like query) when using this LLM. If this name conflicts with a global
-            LLM (a LLM that is preconfigured with the Vectara platform), then it will
-            override that LLM for all usages.
-          type: string
-          example: Claude 3.7 Sonnet
-          minLength: 1
-          maxLength: 255
-        description:
-          description: Description of the LLM.
-          type: string
-          default: ''
-          maxLength: 1000
-          nullable: false
-          example: The Anthropic Claude 3.7 Sonnet model
-        model:
-          description: The model name to use with the API (e.g. gpt-4, claude-2, etc).
-            This is used in the API request to the remote LLM provider.
-          type: string
-          example: claude-3-7-sonnet-20250219
-        uri:
-          description: The URI endpoint for the API (can be OpenAI or any compatible
-            API endpoint)
-          type: string
-          format: uri
-          example: https://api.anthropic.com/v1/chat/completions
-        auth:
-          $ref: '#/components/schemas/RemoteAuth'
-        headers:
-          description: Additional HTTP headers to include with requests to the LLM
-            API.
-          type: object
-          additionalProperties:
-            type: string
-        idle_timeout_seconds:
-          $ref: '#/components/schemas/IdleTimeoutSeconds'
-        test_model_parameters:
-          description: Any additional parameters that are required for the LLM during
-            the test call.
-          type: object
-          additionalProperties: true
-          example:
-            max_tokens: 512
-        capabilities:
-          $ref: '#/components/schemas/LLMCapabilities'
-      required:
-      - name
-      - uri
-    CreateOpenAILLMRequest:
-      description: Request to create an OpenAI-compatible Large Language Model connection.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/OpenAILLMRequestBase'
-      - type: object
-        properties:
-          type:
-            description: Must be "openai-compatible" for OpenAI and OpenAI-compatible
-              APIs (like Anthropic Claude, Azure OpenAI, etc)
-            type: string
-            default: openai-compatible
-          model:
-            description: The model name to use with the API (e.g. gpt-4, claude-2,
-              etc). This is used in the API request to the remote LLM provider.
-            type: string
-            minLength: 1
-        required:
-        - type
-        - model
-      x-vectaraParents:
-      - CreateLLMRequest
-    CreateOpenAIResponsesLLMRequest:
-      description: Request to create an OpenAI Responses API Large Language Model
-        connection for reasoning models like o1, o3.
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/OpenAILLMRequestBase'
-      - type: object
-        properties:
-          type:
-            description: Must be "openai-responses" for OpenAI Responses API (reasoning
-              models like o1, o3)
-            type: string
-            default: openai-responses
-          model:
-            description: The model name to use with the Responses API (e.g. o1-preview,
-              o1-mini). This is used in the API request to the remote LLM provider.
-            type: string
-            minLength: 1
-        required:
-        - type
-        - model
-      x-vectaraParents:
-      - CreateLLMRequest
-    VertexAiApiKeyAuth:
-      description: API key authentication for Vertex AI
-      type: object
-      properties:
-        type:
-          description: Must be "api_key" for API key authentication
-          type: string
-          default: api_key
-        api_key:
-          description: The Google Cloud API key for authentication
-          type: string
-      required:
-      - type
-      - api_key
-      x-vectaraParents:
-      - VertexAiAuth
-    VertexAiServiceAccountAuth:
-      description: Service account authentication for Vertex AI
-      type: object
-      properties:
-        type:
-          description: Must be "service_account" for service account authentication
-          type: string
-          default: service_account
-        key_json:
-          description: The service account JSON key file contents as a string
-          type: string
-      required:
-      - type
-      - key_json
-      x-vectaraParents:
-      - VertexAiAuth
-    VertexAiAuth:
-      description: Authentication configuration for Vertex AI
-      type: object
-      discriminator:
-        propertyName: type
-        mapping:
-          api_key: '#/components/schemas/VertexAiApiKeyAuth'
-          service_account: '#/components/schemas/VertexAiServiceAccountAuth'
-      oneOf:
-      - $ref: '#/components/schemas/VertexAiApiKeyAuth'
-      - $ref: '#/components/schemas/VertexAiServiceAccountAuth'
-      required:
-      - type
-    CreateVertexAILLMRequest:
-      description: Request to create a Vertex AI Large Language Model connection for
-        Gemini models.
-      type: object
-      properties:
-        type:
-          description: Must be "vertex-ai" for Google Cloud Vertex AI Gemini models
-          type: string
-          default: vertex-ai
-        name:
-          description: Name to reference the LLM. This will be used in other endpoints
-            (like query) when using this LLM. If this name conflicts with a global
-            LLM (a LLM that is preconfigured with the Vectara platform), then it will
-            override that LLM for all usages.
-          type: string
-        description:
-          description: Description of the LLM.
-          type: string
-          default: ''
-          nullable: false
-        model:
-          description: The model name to use (e.g. gemini-2.5-flash, gemini-2.5-pro,
-            gemini-2.0-experimental-1219, etc).
-          type: string
-        uri:
-          description: "The base URI for the Gemini API. You can provide URIs in various\
-            \ formats \u2014 the system will normalize them automatically, stripping\
-            \ any model path, method suffix, or query parameters.\n\n**Vertex AI**\
-            \ (for service account auth): Provide the project/location base URI. Example:\
-            \ `https://us-central1-aiplatform.googleapis.com/v1/projects/YOUR-PROJECT/locations/us-central1`\n\
-            \n**Google AI Studio** (for API key auth): Provide the Generative Language\
-            \ API base URI. Example: `https://generativelanguage.googleapis.com/v1beta`\n\
-            \nFull URIs copied from Google docs also work \u2014 the model path and\
-            \ `:generateContent` suffix will be stripped and rebuilt automatically\
-            \ from the `model` field.\n"
-          type: string
-          format: uri
-          example: https://us-central1-aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
-        auth:
-          $ref: '#/components/schemas/VertexAiAuth'
-        headers:
-          description: Additional HTTP headers to include with requests to the Gemini
-            API.
-          type: object
-          additionalProperties:
-            type: string
-        idle_timeout_seconds:
-          $ref: '#/components/schemas/IdleTimeoutSeconds'
-        test_model_parameters:
-          description: Any additional parameters that are required for the LLM during
-            the test call.
-          type: object
-          additionalProperties: true
-        capabilities:
-          $ref: '#/components/schemas/LLMCapabilities'
-      required:
-      - type
-      - name
-      - model
-      - uri
-      - auth
-      x-vectaraParents:
-      - CreateLLMRequest
     BedrockStaticIAMAuth:
       type: object
       description: AWS Bedrock authentication with explicit IAM credentials
@@ -16521,6 +17469,375 @@ components:
       - region
       x-vectaraParents:
       - AnthropicAuth
+    VertexAiApiKeyAuth:
+      description: API key authentication for Vertex AI
+      type: object
+      properties:
+        type:
+          description: Must be "api_key" for API key authentication
+          type: string
+          default: api_key
+        api_key:
+          description: The Google Cloud API key for authentication
+          type: string
+      required:
+      - type
+      - api_key
+      x-vectaraParents:
+      - VertexAiAuth
+    VertexAiServiceAccountAuth:
+      description: Service account authentication for Vertex AI
+      type: object
+      properties:
+        type:
+          description: Must be "service_account" for service account authentication
+          type: string
+          default: service_account
+        key_json:
+          description: The service account JSON key file contents as a string
+          type: string
+      required:
+      - type
+      - key_json
+      x-vectaraParents:
+      - VertexAiAuth
+    LLMAuth:
+      description: Authentication configuration for an LLM. Union over every variant
+        any LLM provider accepts. When returned on `GET`, secret fields contain the
+        literal string `****`.
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          bearer: '#/components/schemas/BearerAuth'
+          header: '#/components/schemas/HeaderAuth'
+          oauth_client_credentials: '#/components/schemas/OAuthClientCredentialsAuth'
+          bedrock_static_iam: '#/components/schemas/BedrockStaticIAMAuth'
+          bedrock_api_key: '#/components/schemas/BedrockApiKeyAuth'
+          vertex_service_account: '#/components/schemas/VertexServiceAccountAuth'
+          vertex_access_token: '#/components/schemas/VertexAccessTokenAuth'
+          api_key: '#/components/schemas/VertexAiApiKeyAuth'
+          service_account: '#/components/schemas/VertexAiServiceAccountAuth'
+      oneOf:
+      - $ref: '#/components/schemas/BearerAuth'
+      - $ref: '#/components/schemas/HeaderAuth'
+      - $ref: '#/components/schemas/OAuthClientCredentialsAuth'
+      - $ref: '#/components/schemas/BedrockStaticIAMAuth'
+      - $ref: '#/components/schemas/BedrockApiKeyAuth'
+      - $ref: '#/components/schemas/VertexServiceAccountAuth'
+      - $ref: '#/components/schemas/VertexAccessTokenAuth'
+      - $ref: '#/components/schemas/VertexAiApiKeyAuth'
+      - $ref: '#/components/schemas/VertexAiServiceAccountAuth'
+      required:
+      - type
+    Prompt:
+      description: A prompt that can be used with a LLM. A prompt is the template
+        that is used to render the text sent to the LLM. It also contains various
+        default model settings such as temperature.
+      type: object
+      properties:
+        id:
+          description: The ID of the prompt.
+          type: string
+          pattern: pmt_.*
+        name:
+          description: Name of the prompt. This is used as the `prompt_name` in a
+            query.
+          type: string
+        description:
+          description: The description of the prompt.
+          type: string
+        enabled:
+          description: Indicates whether the prompt is enabled.
+          type: boolean
+        default:
+          description: Indicates if this prompt is the default prompt used with the
+            LLM.
+          type: boolean
+      required:
+      - id
+      - name
+    LLM:
+      description: A LLM can be used to enhance query results with a response, and
+        be used as the responder during a chat.
+      type: object
+      properties:
+        id:
+          description: The ID of the LLM.
+          type: string
+          pattern: llm_.*
+          example: llm_1021844
+        name:
+          description: Name of the LLM.
+          type: string
+          example: Claude 3.7 Sonnet
+        description:
+          description: The description of the LLM.
+          type: string
+          example: The Anthropic Claude 3.7 Sonnet model.
+        enabled:
+          description: Indicates whether the LLM is enabled.
+          type: boolean
+        default:
+          description: If this is the default LLM, it is used in queries when the
+            generator is not specified.
+          type: boolean
+        capabilities:
+          $ref: '#/components/schemas/LLMCapabilities'
+        ownership:
+          description: Indicates whether the LLM is provided by the platform (`platform`)
+            or created by the customer (`customer`).
+          $ref: '#/components/schemas/LLMOwnership'
+        type:
+          description: Provider type identifying which authentication and configuration
+            apply. Required on responses; the server fails closed (HTTP 500) for any
+            stored LLM whose connection spec it cannot map to one of these values.
+          type: string
+          enum:
+          - openai-compatible
+          - openai-responses
+          - vertex-ai
+          - anthropic
+        model:
+          description: Provider-specific model identifier (e.g. `gpt-4o`, `claude-3-5-sonnet-20241022`,
+            `gemini-2.5-flash`).
+          type: string
+        uri:
+          description: API endpoint URI configured for this LLM.
+          type: string
+          format: uri
+        headers:
+          description: Additional HTTP headers configured for requests to the LLM
+            API. Not applicable to `vertex-ai`.
+          type: object
+          additionalProperties:
+            type: string
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
+        auth:
+          description: 'The configured authentication. Returned with secret values
+            replaced by the literal string `****`; non-secret identifiers (header
+            names, regions,
+
+            AWS access key IDs, GCP project / region) are preserved so the configured
+            credential can be recognized without exposing it. To rotate credentials,
+
+            submit a new `auth` object via PATCH; omit `auth` to keep the existing
+            credentials.
+
+            '
+          $ref: '#/components/schemas/LLMAuth'
+        prompts:
+          description: List of prompts that the model can use. This is deprecated;
+            see `/v2/generation_presets` instead.
+          items:
+            $ref: '#/components/schemas/Prompt'
+          deprecated: true
+      required:
+      - id
+      - name
+      - type
+    ListLLMsResponse:
+      description: Response containing a list of Large Language Models available for
+        generative AI capabilities.
+      type: object
+      properties:
+        llms:
+          description: List of LLMs.
+          type: array
+          items:
+            $ref: '#/components/schemas/LLM'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+    RemoteAuth:
+      type: object
+      description: Authentication configuration for connecting to a remote service.
+      discriminator:
+        propertyName: type
+        mapping:
+          bearer: '#/components/schemas/BearerAuth'
+          header: '#/components/schemas/HeaderAuth'
+          oauth_client_credentials: '#/components/schemas/OAuthClientCredentialsAuth'
+      oneOf:
+      - $ref: '#/components/schemas/BearerAuth'
+      - $ref: '#/components/schemas/HeaderAuth'
+      - $ref: '#/components/schemas/OAuthClientCredentialsAuth'
+      required:
+      - type
+    OpenAILLMRequestBase:
+      description: Common fields for OpenAI-compatible and Responses API LLM requests.
+      type: object
+      properties:
+        name:
+          description: Name to reference the LLM. This will be used in other endpoints
+            (like query) when using this LLM. If this name conflicts with a global
+            LLM (a LLM that is preconfigured with the Vectara platform), then it will
+            override that LLM for all usages.
+          type: string
+          example: Claude 3.7 Sonnet
+          minLength: 1
+          maxLength: 255
+        description:
+          description: Description of the LLM.
+          type: string
+          default: ''
+          maxLength: 1000
+          nullable: false
+          example: The Anthropic Claude 3.7 Sonnet model
+        model:
+          description: The model name to use with the API (e.g. gpt-4, claude-2, etc).
+            This is used in the API request to the remote LLM provider.
+          type: string
+          example: claude-3-7-sonnet-20250219
+        uri:
+          description: The URI endpoint for the API (can be OpenAI or any compatible
+            API endpoint)
+          type: string
+          format: uri
+          example: https://api.anthropic.com/v1/chat/completions
+        auth:
+          $ref: '#/components/schemas/RemoteAuth'
+        headers:
+          description: Additional HTTP headers to include with requests to the LLM
+            API.
+          type: object
+          additionalProperties:
+            type: string
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
+        test_model_parameters:
+          description: Any additional parameters that are required for the LLM during
+            the test call.
+          type: object
+          additionalProperties: true
+          example:
+            max_tokens: 512
+        capabilities:
+          $ref: '#/components/schemas/LLMCapabilities'
+      required:
+      - name
+      - uri
+    CreateOpenAILLMRequest:
+      description: Request to create an OpenAI-compatible Large Language Model connection.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/OpenAILLMRequestBase'
+      - type: object
+        properties:
+          type:
+            description: Must be "openai-compatible" for OpenAI and OpenAI-compatible
+              APIs (like Anthropic Claude, Azure OpenAI, etc)
+            type: string
+            default: openai-compatible
+          model:
+            description: The model name to use with the API (e.g. gpt-4, claude-2,
+              etc). This is used in the API request to the remote LLM provider.
+            type: string
+            minLength: 1
+        required:
+        - type
+        - model
+      x-vectaraParents:
+      - CreateLLMRequest
+    CreateOpenAIResponsesLLMRequest:
+      description: Request to create an OpenAI Responses API Large Language Model
+        connection for reasoning models like o1, o3.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/OpenAILLMRequestBase'
+      - type: object
+        properties:
+          type:
+            description: Must be "openai-responses" for OpenAI Responses API (reasoning
+              models like o1, o3)
+            type: string
+            default: openai-responses
+          model:
+            description: The model name to use with the Responses API (e.g. o1-preview,
+              o1-mini). This is used in the API request to the remote LLM provider.
+            type: string
+            minLength: 1
+        required:
+        - type
+        - model
+      x-vectaraParents:
+      - CreateLLMRequest
+    VertexAiAuth:
+      description: Authentication configuration for Vertex AI
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          api_key: '#/components/schemas/VertexAiApiKeyAuth'
+          service_account: '#/components/schemas/VertexAiServiceAccountAuth'
+      oneOf:
+      - $ref: '#/components/schemas/VertexAiApiKeyAuth'
+      - $ref: '#/components/schemas/VertexAiServiceAccountAuth'
+      required:
+      - type
+    CreateVertexAILLMRequest:
+      description: Request to create a Vertex AI Large Language Model connection for
+        Gemini models.
+      type: object
+      properties:
+        type:
+          description: Must be "vertex-ai" for Google Cloud Vertex AI Gemini models
+          type: string
+          default: vertex-ai
+        name:
+          description: Name to reference the LLM. This will be used in other endpoints
+            (like query) when using this LLM. If this name conflicts with a global
+            LLM (a LLM that is preconfigured with the Vectara platform), then it will
+            override that LLM for all usages.
+          type: string
+        description:
+          description: Description of the LLM.
+          type: string
+          default: ''
+          nullable: false
+        model:
+          description: The model name to use (e.g. gemini-2.5-flash, gemini-2.5-pro,
+            gemini-2.0-experimental-1219, etc).
+          type: string
+        uri:
+          description: "The base URI for the Gemini API. You can provide URIs in various\
+            \ formats \u2014 the system will normalize them automatically, stripping\
+            \ any model path, method suffix, or query parameters.\n\n**Vertex AI**\
+            \ (for service account auth): Provide the project/location base URI. Example:\
+            \ `https://us-central1-aiplatform.googleapis.com/v1/projects/YOUR-PROJECT/locations/us-central1`\n\
+            \n**Google AI Studio** (for API key auth): Provide the Generative Language\
+            \ API base URI. Example: `https://generativelanguage.googleapis.com/v1beta`\n\
+            \nFull URIs copied from Google docs also work \u2014 the model path and\
+            \ `:generateContent` suffix will be stripped and rebuilt automatically\
+            \ from the `model` field.\n"
+          type: string
+          format: uri
+          example: https://us-central1-aiplatform.googleapis.com/v1/projects/my-project/locations/us-central1
+        auth:
+          $ref: '#/components/schemas/VertexAiAuth'
+        headers:
+          description: Additional HTTP headers to include with requests to the Gemini
+            API.
+          type: object
+          additionalProperties:
+            type: string
+        idle_timeout_seconds:
+          $ref: '#/components/schemas/IdleTimeoutSeconds'
+        test_model_parameters:
+          description: Any additional parameters that are required for the LLM during
+            the test call.
+          type: object
+          additionalProperties: true
+        capabilities:
+          $ref: '#/components/schemas/LLMCapabilities'
+      required:
+      - type
+      - name
+      - model
+      - uri
+      - auth
+      x-vectaraParents:
+      - CreateLLMRequest
     AnthropicAuth:
       type: object
       description: Authentication configuration for Anthropic LLM via direct Anthropic
@@ -16817,11 +18134,10 @@ components:
           description: The name of the author of this message, used to connect messages
             in a conversation.
     JsonSchemaDefinition:
-      description: A JSON Schema definition for specifying data structure. Supports
-        recursive schemas for nested objects.
+      description: A JSON Schema definition for describing data structure. Defines
+        the minimum subset generally supported across LLM providers. Unknown keywords
+        are passed through for forward compatibility.
       type: object
-      required:
-      - type
       properties:
         type:
           description: The JSON type for this schema element.
@@ -16833,9 +18149,25 @@ components:
           - number
           - integer
           - boolean
+          - 'null'
+        title:
+          description: Short human-readable label for this schema element.
+          type: string
+        description:
+          description: Human-readable description of this schema element.
+          type: string
+        default:
+          description: Default value when none is provided.
+        enum:
+          description: Allowed values for this schema element.
+          type: array
+        format:
+          description: Semantic format hint (e.g. date-time, date, email, uri, uuid).
+            Provider support varies.
+          type: string
         properties:
           description: Property definitions when type is 'object'. Each key maps to
-            a nested JsonSchemaDefinition.
+            a nested schema.
           type: object
           additionalProperties:
             $ref: '#/components/schemas/JsonSchemaDefinition'
@@ -16849,14 +18181,14 @@ components:
           type: boolean
           default: false
         items:
-          description: Schema for array items when type is 'array'.
+          description: Schema for array elements when type is 'array'.
           $ref: '#/components/schemas/JsonSchemaDefinition'
-        enum:
-          description: Allowed values for this schema element.
+        anyOf:
+          description: Value must match at least one of the listed schemas.
           type: array
-        description:
-          description: Human-readable description of this schema element.
-          type: string
+          items:
+            $ref: '#/components/schemas/JsonSchemaDefinition'
+      additionalProperties: true
     JsonSchemaSpec:
       description: Specification wrapper for a named JSON schema.
       type: object
@@ -18334,10 +19666,18 @@ components:
             \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
             \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
             \ at runtime from context:\n- session.metadata.* - Access session metadata\
-            \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
-            \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you want\
-            \ to have a real value `\"$ref\"` use `\"$$ref\"`, that is you can escape\
-            \ the first $ by using $$."
+            \ fields\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
+            \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
+            \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
+            \ - The current date/time in ISO 8601 format\n\nA bracket index may reference\
+            \ another context value, whose resolved value is used as the lookup key.\
+            \ The inner path may optionally carry a leading $ root marker:\n- Indirect\
+            \ reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"}`\
+            \ looks up the per-user secret named by `session.metadata.user_id`\n-\
+            \ Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+            \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+            \nIf you want to have a real value `\"$ref\"` use `\"$$ref\"`, that is\
+            \ you can escape the first $ by using $$."
           type: object
           additionalProperties: true
           example:
@@ -18606,11 +19946,6 @@ components:
             - python
             default: python
             example: python
-          output_schema:
-            description: The schema that defines the expected output structure from
-              the function.
-            type: object
-            additionalProperties: true
           function_definition:
             $ref: '#/components/schemas/FunctionDefinition'
         required:
@@ -18737,6 +20072,25 @@ components:
         - type
       x-vectaraParents:
       - Tool
+    ClientTool:
+      description: 'A tool whose execution is performed by the calling client. When
+        invoked, the platform emits a `tool_input` event with the tool call arguments.
+        The client submits the result as a `tool_output` input via `createAgentInput`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `client`.
+            type: string
+            default: client
+            example: client
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
     Tool:
       description: A tool that can be used by agents to perform specific actions or
         operations.
@@ -18757,6 +20111,7 @@ components:
           image_read: '#/components/schemas/ImageReadTool'
           document_conversion: '#/components/schemas/DocumentConversionTool'
           get_document_text: '#/components/schemas/GetDocumentTextTool'
+          client: '#/components/schemas/ClientTool'
       oneOf:
       - $ref: '#/components/schemas/DynamicVectaraTool'
       - $ref: '#/components/schemas/McpTool'
@@ -18771,6 +20126,7 @@ components:
       - $ref: '#/components/schemas/ImageReadTool'
       - $ref: '#/components/schemas/DocumentConversionTool'
       - $ref: '#/components/schemas/GetDocumentTextTool'
+      - $ref: '#/components/schemas/ClientTool'
     ListToolsResponse:
       description: Response containing a list of tools.
       type: object
@@ -18897,20 +20253,92 @@ components:
       required:
       - type
       - name
-      - title
       - description
       - code
       x-vectaraParents:
       - CreateToolRequest
+    CreateClientToolRequest:
+      description: 'Request to create a new client tool. When invoked, the platform
+        emits a `tool_input` event; the client performs the work and submits a `tool_output`
+        input via `createAgentInput`.
+
+        '
+      type: object
+      properties:
+        type:
+          description: This should always be `client`.
+          type: string
+          default: client
+          example: client
+        name:
+          description: The unique name of the tool.
+          type: string
+          minLength: 1
+          maxLength: 50
+          pattern: ^[a-zA-Z0-9_-]+$
+          example: collect_signature
+        title:
+          description: Human-readable title of the tool displayed in the UI.
+          type: string
+          minLength: 1
+          maxLength: 128
+          example: Collect Customer Signature
+        description:
+          description: A detailed description of what the tool does, when the agent
+            should invoke it, and what the expected output represents.
+          type: string
+          minLength: 1
+          maxLength: 5000
+          example: Prompts the user to e-sign a document. Returns the signed document
+            URL once the user completes signing.
+        input_schema:
+          description: 'JSON Schema describing the arguments the LLM should produce
+            when invoking this tool. These arguments are forwarded verbatim to the
+            client in the `tool_input` event.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+          example:
+            type: object
+            properties:
+              document_url:
+                type: string
+                description: URL of the document to be signed.
+            required:
+            - document_url
+        output_schema:
+          description: 'Optional JSON Schema describing the structure the client must
+            submit as the tool output. When set, submitted outputs are validated against
+            this schema before being returned to the agent.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+          example:
+            type: object
+            properties:
+              signed_document_url:
+                type: string
+            required:
+            - signed_document_url
+      required:
+      - type
+      - name
+      - description
+      x-vectaraParents:
+      - CreateToolRequest
     CreateToolRequest:
-      description: Request to create a tool. Currently supports lambda tools for user-defined
-        functions.
+      description: Request to create a tool. Supports lambda tools for user-defined
+        functions and client tools whose execution is performed by the calling client.
       discriminator:
         propertyName: type
         mapping:
           lambda: '#/components/schemas/CreateLambdaToolRequest'
+          client: '#/components/schemas/CreateClientToolRequest'
       oneOf:
       - $ref: '#/components/schemas/CreateLambdaToolRequest'
+      - $ref: '#/components/schemas/CreateClientToolRequest'
     TestLambdaToolRequest:
       description: 'Request to test a Lambda tool before creating it. This allows
         users to validate their code, schemas, and execution before committing to
@@ -19152,17 +20580,60 @@ components:
       - type
       x-vectaraParents:
       - UpdateToolRequest
+    UpdateClientToolRequest:
+      description: Request to update an existing client tool.
+      type: object
+      properties:
+        type:
+          description: This should always be `client`.
+          type: string
+          default: client
+          example: client
+        enabled:
+          description: Whether the tool should be enabled or disabled.
+          type: boolean
+          example: true
+        title:
+          description: Updated human-readable title of the tool.
+          type: string
+          minLength: 1
+          maxLength: 128
+          example: Collect Customer Signature
+        description:
+          description: Updated description of what the tool does.
+          type: string
+          minLength: 1
+          maxLength: 5000
+        input_schema:
+          description: Updated JSON Schema for the arguments the LLM produces when
+            invoking this tool.
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+        output_schema:
+          description: 'Updated JSON Schema for the structure the client must submit
+            as the tool output. Pass an empty object to clear the schema and accept
+            any output.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+      required:
+      - type
+      x-vectaraParents:
+      - UpdateToolRequest
     UpdateToolRequest:
-      description: Request to update a tool. Supports updating MCP and Python lambda
-        tools.
+      description: Request to update a tool. Supports updating MCP, Python lambda,
+        and client tools.
       discriminator:
         propertyName: type
         mapping:
           mcp: '#/components/schemas/UpdateMcpToolRequest'
           lambda: '#/components/schemas/UpdateLambdaToolRequest'
+          client: '#/components/schemas/UpdateClientToolRequest'
       oneOf:
       - $ref: '#/components/schemas/UpdateMcpToolRequest'
       - $ref: '#/components/schemas/UpdateLambdaToolRequest'
+      - $ref: '#/components/schemas/UpdateClientToolRequest'
     TestToolRequest:
       description: Request to test a Lambda tool with sample input.
       type: object
@@ -19600,10 +21071,18 @@ components:
               \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
               \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
               \ at runtime from context:\n- session.metadata.* - Access session metadata\
-              \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
-              \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you\
-              \ want to have a real value `\"$ref\"` use `\"$$ref\"`, that is you\
-              \ can escape the first $ by using $$."
+              \ fields\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
+              \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
+              \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
+              \ - The current date/time in ISO 8601 format\n\nA bracket index may\
+              \ reference another context value, whose resolved value is used as the\
+              \ lookup key. The inner path may optionally carry a leading $ root marker:\n\
+              - Indirect reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
+              }` looks up the per-user secret named by `session.metadata.user_id`\n\
+              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+              \nIf you want to have a real value `\"$ref\"` use `\"$$ref\"`, that\
+              \ is you can escape the first $ by using $$."
             type: object
             additionalProperties: true
             example:
@@ -19637,10 +21116,18 @@ components:
               \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
               \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
               \ at runtime from context:\n- session.metadata.* - Access session metadata\
-              \ fields\n- agent.metadata.* - Access agent metadata fields\n\nExample:\n\
-              \  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\nIf you\
-              \ want to have a real value `\"$ref\"` use `\"$$ref\"`, that is you\
-              \ can escape the first $ by using $$."
+              \ fields\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
+              \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
+              \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
+              \ - The current date/time in ISO 8601 format\n\nA bracket index may\
+              \ reference another context value, whose resolved value is used as the\
+              \ lookup key. The inner path may optionally carry a leading $ root marker:\n\
+              - Indirect reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
+              }` looks up the per-user secret named by `session.metadata.user_id`\n\
+              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+              \nIf you want to have a real value `\"$ref\"` use `\"$$ref\"`, that\
+              \ is you can escape the first $ by using $$."
             type: object
             additionalProperties: true
             example:
@@ -20181,6 +21668,36 @@ components:
         - type
       x-vectaraParents:
       - AgentToolConfiguration
+    InlineClientToolConfiguration:
+      title: InlineClientToolConfiguration
+      description: 'A client tool configuration defined inline in the agent. When
+        invoked, the agent emits a `tool_input` event and waits for the calling client
+        to submit a matching tool output via `createAgentInput`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of tool configuration, which is always 'client'
+              for inline client tool configurations.
+            default: client
+          tool_id:
+            $ref: '#/components/schemas/ToolId'
+          argument_override:
+            description: Optional hardcoded arguments that will be merged into the
+              LLM-generated arguments before dispatch to the client.
+            type: object
+            additionalProperties: true
+            example:
+              channel: support
+        required:
+        - tool_id
+        - type
+      x-vectaraParents:
+      - AgentToolConfiguration
     SubAgentToolParameters:
       description: Configurable parameters for the sub-agent tool. If not overridden,
         they will be required by the agent to fill in.
@@ -20539,6 +22056,7 @@ components:
           web_search: '#/components/schemas/InlineWebSearchToolConfiguration'
           web_get: '#/components/schemas/InlineWebGetToolConfiguration'
           lambda: '#/components/schemas/InlineLambdaToolConfiguration'
+          client: '#/components/schemas/InlineClientToolConfiguration'
           sub_agent: '#/components/schemas/InlineSubAgentToolConfiguration'
           artifact_create: '#/components/schemas/InlineArtifactCreateToolConfiguration'
           artifact_read: '#/components/schemas/InlineArtifactReadToolConfiguration'
@@ -20553,6 +22071,7 @@ components:
       - $ref: '#/components/schemas/InlineWebSearchToolConfiguration'
       - $ref: '#/components/schemas/InlineWebGetToolConfiguration'
       - $ref: '#/components/schemas/InlineLambdaToolConfiguration'
+      - $ref: '#/components/schemas/InlineClientToolConfiguration'
       - $ref: '#/components/schemas/InlineSubAgentToolConfiguration'
       - $ref: '#/components/schemas/InlineArtifactCreateToolConfiguration'
       - $ref: '#/components/schemas/InlineArtifactReadToolConfiguration'
@@ -21996,6 +23515,30 @@ components:
           description: The compaction configuration snapshotted when the session was
             created.
           $ref: '#/components/schemas/CompactionConfig'
+        alias_key:
+          description: 'If this session was created through an alias (`POST /v2/agent_aliases/{alias_key}/sessions`),
+            the alias key the caller used. The `agent_key` field above is the resolved
+            agent the alias''s policy picked. Null when the session was created directly
+            under an agent (`POST /v2/agents/{agent_key}/sessions`).
+
+            '
+          type: string
+          nullable: true
+          example: support
+        secrets:
+          description: 'Session-scoped secrets, with values masked as `"****"`. Plaintext
+            is never returned on read;
+
+            tools resolve the real value via `argument_override` with `{"$ref": "session.secrets.<name>"}`.
+
+            Set or rotate via the session create or update request.
+
+            '
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            slack_user_token: '****'
       required:
       - key
       - name
@@ -22055,6 +23598,25 @@ components:
           minimum: 0
           default: 0
           example: 60
+        secrets:
+          description: 'Session-scoped secrets to store on the new session. Map of
+            secret name to plaintext value.
+
+            Encrypted at rest with the owning agent''s encryption key. Referenced
+            from tool `argument_override` via
+
+            `{"$ref": "session.secrets.<name>"}`. Returned masked (`****`) on reads.
+
+            '
+          type: object
+          propertyNames:
+            pattern: ^[A-Za-z0-9_-]+$
+          additionalProperties:
+            type: string
+            minLength: 1
+            maxLength: 4096
+          example:
+            slack_user_token: xoxp-your-token-here
         from_session:
           description: 'Create a new session by forking an existing one. By default,
             copies all visible events
@@ -22133,6 +23695,25 @@ components:
           format: int64
           minimum: 0
           example: 60
+        secrets:
+          description: 'Patch the session''s secrets. Names present in the map are
+            added or replaced; names absent from the map are left unchanged.
+
+            A name mapped to `null` is removed. Values are encrypted at rest with
+            the owning agent''s encryption key and returned masked on reads.
+
+            '
+          type: object
+          propertyNames:
+            pattern: ^[A-Za-z0-9_-]+$
+          additionalProperties:
+            type: string
+            nullable: true
+            minLength: 1
+            maxLength: 4096
+          example:
+            slack_user_token: xoxp-rotated-token
+            old_token_to_remove: null
     AgentEventBase:
       description: Base properties shared by all agent event types.
       type: object
@@ -22415,18 +23996,15 @@ components:
             example:
               query: weather in San Francisco
           argument_override_paths:
-            description: 'Top-level field paths in `tool_input` whose values were
-              filled by the tool configuration''s argument overrides at emission time,
-              not produced by the
-
-              agent. On replay these paths are stripped from the rendered tool call
-              so the model sees only what it originally generated, regardless of how
-              the tool
-
-              configuration''s overrides have changed since. Paths support dot-notation
-              (e.g. `config.auth.token`).
-
-              '
+            description: "Dot-notation leaf paths supplied by the tool configuration's\
+              \ argument overrides rather than by the agent \u2014 for example `api_key`,\n\
+              `config.auth.token`, or `items[0]`. These paths are frozen on the input\
+              \ event so that the agent's view of its own past tool calls stays\n\
+              stable when the tool configuration changes: overrides are excluded from\
+              \ replayed calls regardless of how the override has evolved since.\n\
+              Only the paths are frozen here; the resolved values at those paths are\
+              \ not \u2014 they are recomputed against the live session at each launch\n\
+              and recorded on the corresponding `ToolOutputEvent.resolved_argument_overrides`.\n"
             type: array
             items:
               type: string
@@ -22464,6 +24042,20 @@ components:
             description: Name of the tool that was called.
             type: string
             example: web_search
+          resolved_argument_overrides:
+            description: "The values the tool configuration's argument overrides contributed\
+              \ to this call, keyed by the paths in\n`ToolInputEvent.argument_override_paths`.\
+              \ `$ref` overrides are resolved against the session \u2014 agent secrets,\n\
+              session metadata, and prior tool outputs \u2014 with secret values masked\
+              \ as `****`. Literal overrides appear as-is.\n\nOverlay these onto `ToolInputEvent.tool_input`\
+              \ at the matching paths to see exactly what the tool received.\n\nAbsent\
+              \ when the tool short-circuits before running (for example, malformed\
+              \ arguments from the agent or an\nunresolved dependency).\n"
+            type: object
+            additionalProperties: true
+            example:
+              api_key: '****'
+              base_url: https://api.example.com
           tool_output:
             description: Output data from the tool.
             type: object
@@ -22664,6 +24256,81 @@ components:
       x-vectaraParents:
       - AgentEvent
       - AgentStreamedResponse
+    ClientToolPendingCall:
+      title: ClientToolPendingCall
+      description: A single client tool call awaiting output, with its fully materialized
+        arguments.
+      type: object
+      properties:
+        event_id:
+          description: The `tool_input` event this call corresponds to. Submit the
+            matching `tool_output` with this `event_id`.
+          type: string
+          example: aev_3Kx9QpVn2mZr8YbLc5TdWe
+        tool_configuration_name:
+          description: The name of the tool configuration being invoked, as defined
+            in the agent's tool_configurations map.
+          type: string
+          example: notify_slack
+        tool_name:
+          description: Name of the tool being called.
+          type: string
+          example: notify_slack
+        arguments:
+          description: 'The fully materialized arguments for this call: the agent-supplied
+            arguments merged with the tool
+
+            configuration''s argument overrides and literals, with `$ref`s resolved
+            against the session. Secret-derived
+
+            values are delivered unmasked because the client needs them to execute
+            the tool. This is exactly what the
+
+            client should execute the tool with.
+
+            '
+          type: object
+          additionalProperties: true
+          example:
+            channel: support
+            message: Ticket escalated
+      required:
+      - event_id
+      - tool_configuration_name
+      - tool_name
+      - arguments
+    ClientToolPendingEvent:
+      title: ClientToolPendingEvent
+      description: "Signals that the agent is waiting for the client to deliver outputs\
+        \ for the listed client tool\ncalls before it continues. Not persisted to\
+        \ session history. Resume by submitting a `tool_output`\ninput containing\
+        \ one entry per `event_id` in `pending_calls`.\n\nOnly client tools awaiting\
+        \ output are listed. Each call carries its fully materialized arguments \u2014\
+        \nthe agent-supplied arguments already merged with the tool configuration's\
+        \ argument overrides and\nliterals, with `$ref`s resolved against the session\
+        \ \u2014 so the client can dispatch the call without\ncross-referencing the\
+        \ corresponding `tool_input` event. Secret-derived values are delivered unmasked\n\
+        because the client needs them to execute the tool.\n"
+      allOf:
+      - $ref: '#/components/schemas/AgentEventBase'
+      - type: object
+        properties:
+          type:
+            description: The type of event.
+            type: string
+            default: client_tool_pending
+          pending_calls:
+            description: The client tool calls awaiting output, one entry per outstanding
+              call.
+            type: array
+            items:
+              $ref: '#/components/schemas/ClientToolPendingCall'
+        required:
+        - type
+        - pending_calls
+      x-vectaraParents:
+      - AgentEvent
+      - AgentStreamedResponse
     ImageReadEvent:
       title: ImageReadEvent
       description: An event representing an image being loaded into the conversation
@@ -22778,6 +24445,7 @@ components:
           context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
           step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
           session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+          client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
           image_read: '#/components/schemas/ImageReadEvent'
           step_transition: '#/components/schemas/StepTransitionEvent'
           compaction: '#/components/schemas/CompactionEvent'
@@ -22793,6 +24461,7 @@ components:
       - $ref: '#/components/schemas/ContextLimitExceededEvent'
       - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
       - $ref: '#/components/schemas/SessionInterruptedEvent'
+      - $ref: '#/components/schemas/ClientToolPendingEvent'
       - $ref: '#/components/schemas/ImageReadEvent'
       - $ref: '#/components/schemas/StepTransitionEvent'
       - $ref: '#/components/schemas/CompactionEvent'
@@ -22906,6 +24575,94 @@ components:
         - type
       x-vectaraParents:
       - CreateInputRequest
+    CreateToolOutputBase:
+      description: Base properties shared by client tool output submissions.
+      type: object
+      properties:
+        event_id:
+          description: The `tool_input` event this output responds to.
+          type: string
+          example: aev_3Kx9QpVn2mZr8YbLc5TdWe
+      required:
+      - event_id
+    CreateToolOutputSuccess:
+      description: A successful client tool output to be returned to the agent.
+      allOf:
+      - $ref: '#/components/schemas/CreateToolOutputBase'
+      - type: object
+        properties:
+          type:
+            description: Always `success`. Indicates the client tool call succeeded.
+            type: string
+            default: success
+          output:
+            description: The tool's result. Validated against the tool's `output_schema`
+              if one is defined.
+            type: object
+            additionalProperties: true
+        required:
+        - type
+        - output
+      x-vectaraParents:
+      - CreateToolOutputRequest
+    CreateToolOutputError:
+      description: An error reported by the client for a tool call. Surfaced to the
+        agent as a tool execution error.
+      allOf:
+      - $ref: '#/components/schemas/CreateToolOutputBase'
+      - type: object
+        properties:
+          type:
+            description: Always `error`. Indicates the client tool call failed.
+            type: string
+            default: error
+          error:
+            description: Error returned to the agent. May be a string message or a
+              structured object.
+        required:
+        - type
+        - error
+      x-vectaraParents:
+      - CreateToolOutputRequest
+    CreateToolOutputRequest:
+      description: Delivers the result of a client tool call identified by its `tool_input`
+        event ID.
+      x-vectara-base-schema: '#/CreateToolOutputBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          success: '#/components/schemas/CreateToolOutputSuccess'
+          error: '#/components/schemas/CreateToolOutputError'
+      oneOf:
+      - $ref: '#/components/schemas/CreateToolOutputSuccess'
+      - $ref: '#/components/schemas/CreateToolOutputError'
+    ClientToolOutputRequest:
+      description: 'Delivers outputs for `tool_input` events emitted by a prior client
+        tool invocation. Submit one
+
+        entry per pending event ID listed in the `client_tool_pending` event.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/CreateInputRequestBase'
+      - type: object
+        properties:
+          type:
+            description: Always `tool_output`. Identifies this input as a client tool
+              output submission.
+            type: string
+            default: tool_output
+          tool_outputs:
+            description: The tool outputs to deliver, one per pending client tool
+              call.
+            type: array
+            items:
+              $ref: '#/components/schemas/CreateToolOutputRequest'
+        required:
+        - type
+        - tool_outputs
+      x-vectaraParents:
+      - CreateInputRequest
     CreateInputRequest:
       description: A request to create input for an agent session.
       x-vectara-base-schema: '#/CreateInputRequestBase'
@@ -22919,10 +24676,74 @@ components:
           input_message: '#/components/schemas/CreateInputMessageRequest'
           interrupt: '#/components/schemas/CreateInterruptRequest'
           compact: '#/components/schemas/CreateCompactRequest'
+          tool_output: '#/components/schemas/ClientToolOutputRequest'
       oneOf:
       - $ref: '#/components/schemas/CreateInputMessageRequest'
       - $ref: '#/components/schemas/CreateInterruptRequest'
       - $ref: '#/components/schemas/CreateCompactRequest'
+      - $ref: '#/components/schemas/ClientToolOutputRequest'
+    MultipartInputEvent:
+      description: Input event with file uploads and optional message parts. Sent
+        as multipart form data.
+      type: object
+      properties:
+        message:
+          description: 'Deprecated: use messages instead.
+
+            Plain text input message to accompany the file upload.
+
+            If both message and messages are provided, messages takes precedence and
+            message is ignored.
+
+            '
+          deprecated: true
+          type: string
+          example: I need help with my widget installation
+        messages:
+          description: 'List of inputs that make up this event. Each entry is an AgentInput
+            selected by "type: text" for plain text content (default), or "skill"
+            to invoke a skill by name. Sent as a JSON-encoded string in the multipart
+            form. If omitted, falls back to the deprecated "message" field as a single
+            text input.
+
+            '
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentInput'
+          example:
+          - type: text
+            content: Review this file
+          - type: skill
+            skill_name: code_review
+        files:
+          description: 'Files to upload to the agent session. Any file type is accepted.
+
+            What the agent can do with the file depends on the tools available to
+            it.
+
+            '
+          type: array
+          items:
+            type: string
+            format: binary
+        stream_response:
+          description: Indicates whether the response should be streamed or not.
+          type: boolean
+          default: false
+        since:
+          description: 'Event ID to return all events created after queueing the new
+            input. When provided and the session is currently running, the response
+            will include all events created after this event ID, and the new input
+            will be processed according to the behavior field. Use the special value
+            "start" to receive all events from the beginning of the session, including
+            the input message itself.
+
+            '
+          type: string
+          pattern: ^(start|aev_[0-9a-zA-Z_-]+)$
+          example: start
+        behavior:
+          $ref: '#/components/schemas/InputBehavior'
     AgentResponse:
       description: Response containing the complete list of events generated by an
         agent.
@@ -23189,6 +25010,7 @@ components:
           context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
           step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
           session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+          client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
           image_read: '#/components/schemas/ImageReadEvent'
           step_transition: '#/components/schemas/StepTransitionEvent'
           context_consumed: '#/components/schemas/ContextConsumedEvent'
@@ -23216,6 +25038,7 @@ components:
       - $ref: '#/components/schemas/ContextLimitExceededEvent'
       - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
       - $ref: '#/components/schemas/SessionInterruptedEvent'
+      - $ref: '#/components/schemas/ClientToolPendingEvent'
       - $ref: '#/components/schemas/ImageReadEvent'
       - $ref: '#/components/schemas/StepTransitionEvent'
       - $ref: '#/components/schemas/ContextConsumedEvent'
@@ -23223,6 +25046,20 @@ components:
       - $ref: '#/components/schemas/CompactionEvent'
       - $ref: '#/components/schemas/StreamError'
       - $ref: '#/components/schemas/StreamResponseEnd'
+    OutstandingClientToolCallsResponse:
+      description: The client tool calls a session is currently waiting on the caller
+        to fulfill, re-materialized from persisted history. Empty when the session
+        is not parked on a client tool.
+      type: object
+      properties:
+        client_tool_calls:
+          description: The outstanding client tool calls, one entry per `tool_input`
+            event still awaiting a `tool_output`.
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientToolPendingCall'
+      required:
+      - client_tool_calls
     SessionArtifact:
       title: SessionArtifact
       description: 'Complete artifact information including metadata and optional
@@ -23773,7 +25610,7 @@ components:
       required:
       - secrets
     SlackConnectorConfiguration:
-      description: Configuration for Slack connectors.
+      description: Read view of a Slack connector's configuration.
       type: object
       x-vectaraParents:
       - ConnectorConfiguration
@@ -23784,13 +25621,12 @@ components:
           default: slack
           example: slack
         bot_token:
-          description: Slack bot token (xoxb-) for API access. Will be encrypted when
-            stored.
+          description: Slack bot token (xoxb-) for API access. Encrypted at rest.
           type: string
           example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
         signing_secret:
-          description: Slack signing secret for webhook verification. Will be encrypted
-            when stored.
+          description: Slack signing secret for webhook verification. Encrypted at
+            rest.
           type: string
           example: abcdef1234567890abcdef1234567890abcdef12
         api_app_id:
@@ -23800,30 +25636,83 @@ components:
         webhook_path:
           description: The webhook path for this Slack connector to receive events.
           type: string
-          example: /v2/agents/customer_support/connectors/con_slack_support/input
+          example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
       required:
       - type
       - bot_token
       - signing_secret
       - api_app_id
+      - webhook_path
+    GchatConnectorConfiguration:
+      description: 'Read view of a Google Chat connector''s configuration. Includes
+        the display
+
+        field `client_email` parsed out of the service account key and the audience
+
+        URL used to verify inbound events. The service account key is never returned.
+
+        '
+      type: object
+      x-vectaraParents:
+      - ConnectorConfiguration
+      properties:
+        type:
+          description: The type of connector configuration.
+          type: string
+          default: gchat
+          example: gchat
+        audience_url:
+          description: 'The webhook URL for this connector. Set the Chat app''s HTTP
+            endpoint URL
+
+            and Authentication audience fields to this value in the Google Cloud
+
+            console. Inbound Google Chat ID tokens are accepted only if aud equals
+
+            this URL. This value contains a secret and is encrypted at rest.
+
+            '
+          type: string
+          example: https://api.example.com/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/gchat
+        client_email:
+          description: 'Service account email derived from the service account key.
+
+            '
+          type: string
+          example: chat-bot@my-gchat-app.iam.gserviceaccount.com
+      required:
+      - type
+      - audience_url
+      - client_email
     ConnectorConfiguration:
-      description: Configuration for different types of connectors.
+      description: 'Read view of a connector''s configuration as returned by GET and
+        list
+
+        endpoints. Contains the secrets supplied at create time alongside
+
+        server-derived display fields: Slack exposes `webhook_path`, and gchat
+
+        exposes `audience_url` and `client_email`.
+
+        '
       discriminator:
         propertyName: type
         mapping:
           slack: '#/components/schemas/SlackConnectorConfiguration'
+          gchat: '#/components/schemas/GchatConnectorConfiguration'
       oneOf:
       - $ref: '#/components/schemas/SlackConnectorConfiguration'
+      - $ref: '#/components/schemas/GchatConnectorConfiguration'
     AgentConnector:
       description: A connector that allows an agent to receive events from external
-        platforms like Slack.
+        platforms like Slack or Google Chat.
       type: object
       properties:
         id:
           description: The unique identifier for the connector.
           type: string
           pattern: con_[0-9a-zA-Z_-]+$
-          example: con_slack_support
+          example: con_3Kx9QpVn2mZr8YbLc5TdWe
         agent_key:
           $ref: '#/components/schemas/AgentKey'
         name:
@@ -23839,6 +25728,7 @@ components:
           type: string
           enum:
           - slack
+          - gchat
           example: slack
         status:
           description: The current status of the connector.
@@ -23879,6 +25769,46 @@ components:
           type: string
           format: date-time
           example: '2024-01-16T14:45:00Z'
+        last_webhook_at:
+          description: 'Timestamp of the most recently received inbound webhook for
+            this
+
+            connector, regardless of outcome. Absent until the first webhook
+
+            arrives.
+
+            '
+          type: string
+          format: date-time
+          example: '2024-01-16T14:45:00Z'
+        last_webhook_status:
+          description: 'Outcome of the most recently received inbound webhook. Absent
+            until the
+
+            first webhook arrives. Values: success when the webhook verified and the
+
+            event was accepted, jwt_verification_failed when the bearer token was
+
+            missing or could not be verified, audience_mismatch when the token was
+
+            valid but its aud did not equal the connector''s audience_url,
+
+            event_parse_failed when the event body could not be parsed,
+
+            internal_error when an unexpected error occurred after the connector was
+
+            resolved, and unknown when the outcome could not be classified.
+
+            '
+          type: string
+          enum:
+          - success
+          - jwt_verification_failed
+          - audience_mismatch
+          - event_parse_failed
+          - internal_error
+          - unknown
+          example: success
       required:
       - id
       - agent_key
@@ -23902,6 +25832,93 @@ components:
       required:
       - connectors
       - metadata
+    CreateSlackConnectorConfiguration:
+      description: Write view of a Slack connector's configuration, supplied on create
+        or update.
+      type: object
+      x-vectaraParents:
+      - CreateConnectorConfiguration
+      properties:
+        type:
+          description: The type of connector configuration.
+          type: string
+          default: slack
+          example: slack
+        bot_token:
+          description: Slack bot token (xoxb-) for API access. Encrypted at rest.
+          type: string
+          example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
+        signing_secret:
+          description: Slack signing secret for webhook verification. Encrypted at
+            rest.
+          type: string
+          example: abcdef1234567890abcdef1234567890abcdef12
+        api_app_id:
+          description: Slack App ID for customer lookup in webhooks.
+          type: string
+          example: A1234567890
+      required:
+      - type
+      - bot_token
+      - signing_secret
+      - api_app_id
+    CreateGchatConnectorConfiguration:
+      description: 'Write view of a Google Chat connector''s configuration. Supply
+        the service
+
+        account JSON key for the Chat app you have configured in the Google Cloud
+
+        console. The Chat app''s HTTP endpoint URL and Authentication audience must
+
+        be set to the connector''s audience_url (returned in the read view).
+
+        '
+      type: object
+      x-vectaraParents:
+      - CreateConnectorConfiguration
+      properties:
+        type:
+          description: The type of connector configuration.
+          type: string
+          default: gchat
+          example: gchat
+        service_account_key:
+          description: 'Service account JSON key used to authenticate outbound calls
+            to the
+
+            Google Chat API. Encrypted at rest. `client_email` is parsed out of this
+
+            key for display in the read view.
+
+            '
+          type: string
+          example: '{"type":"service_account","project_id":"my-gchat-app", ...}
+
+            '
+      required:
+      - type
+      - service_account_key
+    CreateConnectorConfiguration:
+      description: 'Write view of a connector''s configuration. Used when creating
+        a connector
+
+        and reused when updating one. Carries the secrets and inputs the customer
+
+        must supply. Server-derived display fields are not accepted here and instead
+
+        appear in the read view: Slack returns `webhook_path`, and gchat returns
+
+        `audience_url` and `client_email`.
+
+        '
+      discriminator:
+        propertyName: type
+        mapping:
+          slack: '#/components/schemas/CreateSlackConnectorConfiguration'
+          gchat: '#/components/schemas/CreateGchatConnectorConfiguration'
+      oneOf:
+      - $ref: '#/components/schemas/CreateSlackConnectorConfiguration'
+      - $ref: '#/components/schemas/CreateGchatConnectorConfiguration'
     CreateAgentConnectorRequest:
       description: Request object for creating a new agent connector.
       type: object
@@ -23914,12 +25931,6 @@ components:
           description: A detailed description of what this connector does.
           type: string
           example: Receives customer support messages from the
-        type:
-          description: The type of connector.
-          type: string
-          enum:
-          - slack
-          example: slack
         metadata:
           description: Arbitrary metadata associated with the connector.
           type: object
@@ -23934,13 +25945,18 @@ components:
           default: true
           example: true
         configuration:
-          $ref: '#/components/schemas/ConnectorConfiguration'
+          $ref: '#/components/schemas/CreateConnectorConfiguration'
       required:
       - name
-      - type
       - configuration
     UpdateAgentConnectorRequest:
-      description: Request object for updating an existing agent connector.
+      description: 'Request object for updating an existing agent connector. If `configuration`
+
+        is supplied, it fully replaces the existing configuration including any
+
+        secrets. If omitted, the existing configuration is left untouched.
+
+        '
       type: object
       properties:
         name:
@@ -23964,7 +25980,306 @@ components:
           type: boolean
           example: false
         configuration:
-          $ref: '#/components/schemas/ConnectorConfiguration'
+          $ref: '#/components/schemas/CreateConnectorConfiguration'
+    AgentAliasKey:
+      description: "The unique key identifying an alias. Alias keys are independent\
+        \ of agent keys \u2014 the same string may exist as both an alias and an agent\
+        \ in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and\
+        \ calls to `/v2/agents/{key}/...` target the agent.\n"
+      type: string
+      pattern: ^[0-9a-zA-Z_-]+$
+      minLength: 1
+      maxLength: 50
+      example: support
+    SingleRuleTargets:
+      description: 'Direct route to a single agent. The `agent_key` must reference
+        an existing agent owned by the same customer.
+
+        '
+      type: object
+      required:
+      - type
+      - agent_key
+      properties:
+        type:
+          type: string
+          default: single
+        agent_key:
+          description: The key of the underlying agent this rule routes to.
+          type: string
+    WeightedTarget:
+      description: 'A single option inside a weighted rule. Weight is required and
+        must be a non-negative integer; the resolver normalizes weights across the
+        rule''s options at evaluation time.
+
+        '
+      type: object
+      required:
+      - agent_key
+      - weight
+      properties:
+        agent_key:
+          description: The key of the underlying agent this option routes to.
+          type: string
+        weight:
+          description: 'Weight used when selecting among the weighted options. Absolute
+            non-negative integer, normalized at evaluation time.
+
+            '
+          type: integer
+          minimum: 0
+    WeightedRuleTargets:
+      description: 'Weighted selection among several agents. The `partition_by` userfn
+        expression is evaluated and hashed; the result picks which `options` entry
+        serves this session. Different rules in the same policy can declare different
+        `partition_by` expressions (US rules canary by user_id, EU rules by tenant_id,
+        etc.).
+
+        '
+      type: object
+      required:
+      - type
+      - partition_by
+      - options
+      properties:
+        type:
+          type: string
+          default: weighted
+        partition_by:
+          description: 'UserFn expression whose result is stringified and hashed to
+            pick among `options`. Required: no implicit default.
+
+            Uses the `get()` function with JSONPath to access the context.
+
+            See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker
+            for the UserFn language reference.
+
+
+            Use `get(''$.session.key'')` for per-session canary, `get(''$.session.metadata.user_id'',
+            '''')` for per-user canary. If the expression evaluates to `null` at resolution
+            time, the request is rejected with a 400; wrap optional fields with a
+            default via `get(''$.path'', '''')`.
+
+            '
+          type: string
+          example: get('$.session.metadata.user_id', '')
+        options:
+          description: 'Weighted target options. One is selected by hashing the result
+            of `partition_by`; weights are normalized at evaluation time.
+
+            '
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/WeightedTarget'
+    RuleTargets:
+      description: "The shape of a rule's targets. The `type` discriminator selects\
+        \ which fields apply:\n\n* `single` \u2014 a direct route to one agent. No\
+        \ weight, no partition function.\n* `weighted` \u2014 a weighted selection\
+        \ among several agents. Requires a `partition_by` userfn expression naming\
+        \ what to hash on; different rules can use different partition functions.\n"
+      oneOf:
+      - $ref: '#/components/schemas/SingleRuleTargets'
+      - $ref: '#/components/schemas/WeightedRuleTargets'
+      discriminator:
+        propertyName: type
+        mapping:
+          single: '#/components/schemas/SingleRuleTargets'
+          weighted: '#/components/schemas/WeightedRuleTargets'
+    AliasRule:
+      description: 'A single routing rule consisting of an optional `match` expression
+        and a `targets` shape. A rule with `match` omitted is a catch-all that always
+        applies.
+
+        '
+      type: object
+      required:
+      - targets
+      properties:
+        match:
+          description: "UserFn expression evaluating to boolean.\nUses the `get()`\
+            \ function with JSONPath to access the context.\nSee https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker\
+            \ for the UserFn language reference.\nOmit for a catch-all rule.\n\nMissing\
+            \ paths return `null`; comparing against `null` is falsy, so the rule\
+            \ falls through to the next one in the policy. Use `get('$.path', default)`\
+            \ for an explicit fallback.\n\nContext shape \u2014 note that at resolution\
+            \ time the underlying agent has NOT been picked yet, so the `agent.*`\
+            \ fields reflect the *alias's* metadata (name, description, metadata),\
+            \ with the alias's URL key in `agent.key`. Use these for alias-level context\
+            \ (e.g. `$.agent.metadata.region`); use `session.*` for per-call routing\
+            \ inputs (tenant, user_id, etc.) which is what most rules dispatch on.\n\
+            \n```\n{\n  \"agent\":   { \"name\", \"key\", \"description\", \"metadata\"\
+            : { ... } },   // alias's metadata at resolution time\n  \"session\":\
+            \ { \"key\", \"name\", \"description\", \"metadata\": { ... } },   //\
+            \ the session being created\n  \"currentDate\": \"2026-01-15T10:35:00Z\"\
+            \n}\n```\n\nExamples:\n\n* `get('$.session.metadata.tenant') == 'us'`\n\
+            * `(get('$.session.metadata.tenant') == 'us') and (get('$.session.metadata.tier')\
+            \ == 'gold')`\n* `(get('$.session.metadata.region') == 'us-west') or (get('$.session.metadata.region')\
+            \ == 'us-east')`\n* `get('$.session.metadata.tier', 'free') != 'free'`\n"
+          type: string
+          example: (get('$.session.metadata.tenant') == 'us') and (get('$.session.metadata.tier')
+            == 'gold')
+        targets:
+          $ref: '#/components/schemas/RuleTargets'
+    RoutedAliasPolicy:
+      description: 'Evaluates ordered rules against the session context. The first
+        rule whose `match` expression evaluates to true is selected. The selected
+        rule''s `targets` shape determines what runs: `single` routes directly to
+        one agent, `weighted` picks one of several agents by hashing the rule''s `partition_by`
+        expression. A rule with no `match` always matches (catch-all) and is conventionally
+        placed last.
+
+
+        This single shape covers direct routing (one rule, single target), weighted/canary
+        rollouts (one rule, weighted targets), conditional routing (multiple rules
+        with matches), and conditional+canary combinations (multiple rules, each independently
+        single or weighted).
+
+        '
+      type: object
+      required:
+      - type
+      - rules
+      properties:
+        type:
+          type: string
+          default: routed
+        rules:
+          description: 'Ordered routing rules. Evaluated top-to-bottom; the first
+            rule whose match expression evaluates to true is selected. At least one
+            rule with no `match` (a catch-all) is recommended to guarantee a fallback
+            target.
+
+            '
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/AliasRule'
+    AliasPolicy:
+      description: "A routing policy. The `type` discriminator determines which fields\
+        \ apply:\n\n* `routed` \u2014 evaluate ordered rules; the first rule whose\
+        \ `match` expression evaluates to true is selected. The selected rule's `targets`\
+        \ are then used (one agent for `single`, hashed by `partition_by` for `weighted`).\
+        \ Rules with omitted `match` are catch-all rules (typically last).\n\nMost\
+        \ use cases (direct, weighted/canary, conditional, conditional+canary) collapse\
+        \ into `routed`.\n"
+      oneOf:
+      - $ref: '#/components/schemas/RoutedAliasPolicy'
+      discriminator:
+        propertyName: type
+        mapping:
+          routed: '#/components/schemas/RoutedAliasPolicy'
+    AgentAlias:
+      description: "A routing primitive that maps a public name to one or more agents\
+        \ under a configurable policy. When a session is created through an alias\
+        \ (via `POST /v2/agent_aliases/{alias_key}/sessions`), the alias's policy\
+        \ decides which underlying agent runs that session.\n\nUse aliases for canary\
+        \ rollouts (weighted between two agents), tenant routing (different agents\
+        \ for different customers in your tenant metadata), or as a stable handle\
+        \ in front of agents whose configuration evolves.\n\nRouting rules use userfn\
+        \ expressions \u2014 see the `AliasRule.match` field for the context shape\
+        \ and example expressions.\n"
+      type: object
+      required:
+      - key
+      - name
+      - policy
+      - enabled
+      - created_at
+      properties:
+        key:
+          $ref: '#/components/schemas/AgentAliasKey'
+        name:
+          description: A human-readable name for the alias.
+          type: string
+          maxLength: 100
+          example: Customer Support
+        description:
+          description: A longer description of what this alias represents.
+          type: string
+          nullable: true
+        policy:
+          $ref: '#/components/schemas/AliasPolicy'
+        enabled:
+          description: Whether this alias is currently invocable.
+          type: boolean
+        metadata:
+          description: Arbitrary metadata associated with the alias.
+          type: object
+          additionalProperties: true
+          nullable: true
+        created_at:
+          description: Timestamp when the alias was created.
+          type: string
+          format: date-time
+        updated_at:
+          description: Timestamp when the alias was last updated.
+          type: string
+          format: date-time
+          nullable: true
+    ListAgentAliasesResponse:
+      description: Paginated response containing a list of aliases.
+      type: object
+      required:
+      - aliases
+      - metadata
+      properties:
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentAlias'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+    CreateAgentAliasRequest:
+      description: Request body for creating a new alias.
+      type: object
+      required:
+      - key
+      - name
+      - policy
+      properties:
+        key:
+          $ref: '#/components/schemas/AgentAliasKey'
+        name:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+        policy:
+          $ref: '#/components/schemas/AliasPolicy'
+        enabled:
+          type: boolean
+          default: true
+        metadata:
+          type: object
+          additionalProperties: true
+    UpdateAgentAliasRequest:
+      description: "Request body for updating an alias's metadata fields. Use `PUT\
+        \ /v2/agent_aliases/{alias_key}/policy` to replace the routing policy itself\
+        \ \u2014 policies are atomic and not partially updateable.\n"
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+        enabled:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties: true
+    ReplaceAliasPolicyRequest:
+      description: 'Request body for atomically replacing an alias''s routing policy.
+        The policy is replaced as a unit; partial updates aren''t supported.
+
+        '
+      type: object
+      required:
+      - policy
+      properties:
+        policy:
+          $ref: '#/components/schemas/AliasPolicy'
     PipelineStatus:
       description: The current operational status of the pipeline.
       type: string
@@ -24034,6 +26349,155 @@ components:
         - region
         - access_key_id
         - secret_access_key
+    SharedGoogleDriveScope:
+      description: "Ingest from a Google Workspace shared drive. The service account\
+        \ (`client_email`) must\nbe added as a member of the shared drive \u2014 or\
+        \ of the linked folder \u2014 with at least Viewer\naccess. No domain-wide\
+        \ delegation is required.\n"
+      x-vectaraParents:
+      - GoogleDriveScope
+      type: object
+      properties:
+        type:
+          type: string
+          default: shared
+          example: shared
+        url:
+          description: 'URL of the folder to ingest. Use a shared drive''s root URL
+
+            (`https://drive.google.com/drive/folders/<drive_id>`) to enumerate the
+            entire drive,
+
+            or any subfolder URL (`https://drive.google.com/drive/folders/<folder_id>`)
+            to scope
+
+            ingestion to that subtree. The connector walks every descendant subfolder
+            beneath the
+
+            linked target.
+
+            '
+          type: string
+          minLength: 1
+          example: https://drive.google.com/drive/folders/0AHk_z9_Bcg-aUk9PVA
+      required:
+      - type
+      - url
+    MyGoogleDriveScope:
+      description: 'Ingest from a single user''s My Drive via Google Workspace domain-wide
+        delegation. Requires
+
+        the Workspace admin to authorize the service account''s client ID with the
+        `drive.readonly`
+
+        OAuth scope.
+
+        '
+      x-vectaraParents:
+      - GoogleDriveScope
+      type: object
+      properties:
+        type:
+          type: string
+          default: my_drive
+          example: my_drive
+        subject_email:
+          description: User email address whose My Drive the service account impersonates.
+          type: string
+          minLength: 1
+          example: user@example.com
+        url:
+          description: 'Optional URL of a folder within the user''s My Drive
+
+            (`https://drive.google.com/drive/folders/<folder_id>`) to narrow ingestion
+            to that
+
+            subtree. The connector walks all descendant subfolders and indexes every
+            file within.
+
+            If omitted, every accessible file in the user''s My Drive is enumerated.
+
+            '
+          type: string
+          example: https://drive.google.com/drive/folders/1A2B3C4D5E6F7G8H9I0J
+      required:
+      - type
+      - subject_email
+    GoogleDriveScope:
+      description: 'Which Drive content to ingest. Discriminated by `type`: `shared`
+        ingests from a Google
+
+        Workspace shared drive the service account has been added to; `my_drive` ingests
+        from a
+
+        single user''s My Drive via domain-wide delegation.
+
+        '
+      discriminator:
+        propertyName: type
+        mapping:
+          shared: '#/components/schemas/SharedGoogleDriveScope'
+          my_drive: '#/components/schemas/MyGoogleDriveScope'
+      oneOf:
+      - $ref: '#/components/schemas/SharedGoogleDriveScope'
+      - $ref: '#/components/schemas/MyGoogleDriveScope'
+    BaseGoogleDriveSourceConfiguration:
+      description: "Base Google Drive source configuration. The `scopes` list enumerates\
+        \ one or more starting\npoints \u2014 each entry is either a shared drive\
+        \ (`shared`) or a single user's My Drive accessed\nvia domain-wide delegation\
+        \ (`my_drive`). The service account configured here must have read\naccess\
+        \ to every listed drive and be authorized for each impersonated user.\n"
+      type: object
+      properties:
+        type:
+          type: string
+          default: google_drive
+          example: google_drive
+        scopes:
+          description: Drive starting points to ingest under this pipeline.
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/GoogleDriveScope'
+        client_email:
+          description: 'The Google Cloud service account''s email address (the `client_email`
+            field of
+
+            the service account JSON key). For `shared` scopes, grant this email read
+            access
+
+            to each drive or folder you want to ingest.
+
+            '
+          type: string
+          example: drive-ingest@my-project.iam.gserviceaccount.com
+        private_key:
+          description: 'The service account''s PEM-formatted RSA private key (the
+            `private_key` field
+
+            of the service account JSON key, including the `-----BEGIN PRIVATE KEY-----`
+
+            and `-----END PRIVATE KEY-----` markers and embedded newlines). Encrypted
+            at
+
+            rest and not returned in responses.
+
+            '
+          type: string
+          writeOnly: true
+      required:
+      - type
+    GoogleDriveSourceConfiguration:
+      description: Configuration for ingesting files from Google Drive using a service
+        account.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseGoogleDriveSourceConfiguration'
+      - required:
+        - scopes
+        - client_email
+        - private_key
     BaseWebSource:
       description: 'Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl).
         Politeness, limits, auth.
@@ -24316,9 +26780,11 @@ components:
         propertyName: type
         mapping:
           s3: '#/components/schemas/S3SourceConfiguration'
+          google_drive: '#/components/schemas/GoogleDriveSourceConfiguration'
           web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/S3SourceConfiguration'
+      - $ref: '#/components/schemas/GoogleDriveSourceConfiguration'
       - $ref: '#/components/schemas/WebSourceConfiguration'
     CronTriggerConfiguration:
       description: Run the pipeline on a cron schedule.
@@ -24656,6 +27122,13 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseS3SourceConfiguration'
+    UpdateGoogleDriveSourceConfiguration:
+      description: Partial update for Google Drive source configuration. Only provided
+        fields are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseGoogleDriveSourceConfiguration'
     UpdateWebSourceConfiguration:
       description: 'Partial update for a `web` source configuration. Top-level fields
         are merged into the existing
@@ -24688,9 +27161,11 @@ components:
         propertyName: type
         mapping:
           s3: '#/components/schemas/UpdateS3SourceConfiguration'
+          google_drive: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
           web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/UpdateS3SourceConfiguration'
+      - $ref: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
     UpdatePipelineRequest:
       description: Request to partially update an existing pipeline. Omitted fields
@@ -24837,6 +27312,8 @@ components:
 
             - SharePoint: the drive item ID
 
+            - Google Drive: the file ID
+
             - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
 
             '
@@ -24905,6 +27382,8 @@ components:
             - S3: the object key (e.g. `legal/contracts/doc.pdf`)
 
             - SharePoint: the drive item ID
+
+            - Google Drive: the file ID
 
             - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
 
@@ -26289,6 +28768,7 @@ x-tagGroups:
   - Agent Sessions
   - Agent Schedules
   - Agent Identity
+  - Agent Aliases
   - Glossaries
   - Guardrails
   - Instructions

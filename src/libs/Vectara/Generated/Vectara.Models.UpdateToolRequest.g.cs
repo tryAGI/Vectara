@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to update a tool. Supports updating MCP and Python lambda tools.
+    /// Request to update a tool. Supports updating MCP, Python lambda, and client tools.
     /// </summary>
     public readonly partial struct UpdateToolRequest : global::System.IEquatable<UpdateToolRequest>
     {
@@ -88,6 +88,43 @@ namespace Vectara
         public global::Vectara.UpdateLambdaToolRequest PickLambda() => IsLambda
             ? Lambda!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Lambda' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Request to update an existing client tool.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.UpdateClientToolRequest? Client { get; init; }
+#else
+        public global::Vectara.UpdateClientToolRequest? Client { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Client))]
+#endif
+        public bool IsClient => Client != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickClient(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateClientToolRequest? value)
+        {
+            value = Client;
+            return IsClient;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateClientToolRequest PickClient() => IsClient
+            ? Client!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Client' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -137,22 +174,48 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator UpdateToolRequest(global::Vectara.UpdateClientToolRequest value) => new UpdateToolRequest((global::Vectara.UpdateClientToolRequest?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.UpdateClientToolRequest?(UpdateToolRequest @this) => @this.Client;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UpdateToolRequest(global::Vectara.UpdateClientToolRequest? value)
+        {
+            Client = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdateToolRequest FromClient(global::Vectara.UpdateClientToolRequest? value) => new UpdateToolRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public UpdateToolRequest(
             global::Vectara.UpdateToolRequestDiscriminatorType? type,
             global::Vectara.UpdateMcpToolRequest? mcp,
-            global::Vectara.UpdateLambdaToolRequest? lambda
+            global::Vectara.UpdateLambdaToolRequest? lambda,
+            global::Vectara.UpdateClientToolRequest? client
             )
         {
             Type = type;
 
             Mcp = mcp;
             Lambda = lambda;
+            Client = client;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            Client as object ??
             Lambda as object ??
             Mcp as object 
             ;
@@ -162,7 +225,8 @@ namespace Vectara
         /// </summary>
         public override string? ToString() =>
             Mcp?.ToString() ??
-            Lambda?.ToString() 
+            Lambda?.ToString() ??
+            Client?.ToString() 
             ;
 
         /// <summary>
@@ -170,7 +234,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsMcp && !IsLambda || !IsMcp && IsLambda;
+            return IsMcp && !IsLambda && !IsClient || !IsMcp && IsLambda && !IsClient || !IsMcp && !IsLambda && IsClient;
         }
 
         /// <summary>
@@ -179,6 +243,7 @@ namespace Vectara
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.UpdateMcpToolRequest, TResult>? mcp = null,
             global::System.Func<global::Vectara.UpdateLambdaToolRequest, TResult>? lambda = null,
+            global::System.Func<global::Vectara.UpdateClientToolRequest, TResult>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -194,6 +259,10 @@ namespace Vectara
             {
                 return lambda(Lambda!);
             }
+            else if (IsClient && client != null)
+            {
+                return client(Client!);
+            }
 
             return default(TResult);
         }
@@ -205,6 +274,8 @@ namespace Vectara
             global::System.Action<global::Vectara.UpdateMcpToolRequest>? mcp = null,
 
             global::System.Action<global::Vectara.UpdateLambdaToolRequest>? lambda = null,
+
+            global::System.Action<global::Vectara.UpdateClientToolRequest>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -219,6 +290,10 @@ namespace Vectara
             else if (IsLambda)
             {
                 lambda?.Invoke(Lambda!);
+            }
+            else if (IsClient)
+            {
+                client?.Invoke(Client!);
             }
         }
 
@@ -228,6 +303,7 @@ namespace Vectara
         public void Switch(
             global::System.Action<global::Vectara.UpdateMcpToolRequest>? mcp = null,
             global::System.Action<global::Vectara.UpdateLambdaToolRequest>? lambda = null,
+            global::System.Action<global::Vectara.UpdateClientToolRequest>? client = null,
             bool validate = true)
         {
             if (validate)
@@ -242,6 +318,10 @@ namespace Vectara
             else if (IsLambda)
             {
                 lambda?.Invoke(Lambda!);
+            }
+            else if (IsClient)
+            {
+                client?.Invoke(Client!);
             }
         }
 
@@ -256,6 +336,8 @@ namespace Vectara
                 typeof(global::Vectara.UpdateMcpToolRequest),
                 Lambda,
                 typeof(global::Vectara.UpdateLambdaToolRequest),
+                Client,
+                typeof(global::Vectara.UpdateClientToolRequest),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -273,7 +355,8 @@ namespace Vectara
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateMcpToolRequest?>.Default.Equals(Mcp, other.Mcp) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateLambdaToolRequest?>.Default.Equals(Lambda, other.Lambda) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateLambdaToolRequest?>.Default.Equals(Lambda, other.Lambda) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateClientToolRequest?>.Default.Equals(Client, other.Client) 
                 ;
         }
 

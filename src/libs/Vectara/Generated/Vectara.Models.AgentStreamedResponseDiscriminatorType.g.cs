@@ -15,6 +15,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        ClientToolPending,
+        /// <summary>
+        /// 
+        /// </summary>
         Compaction,
         /// <summary>
         /// 
@@ -111,6 +115,7 @@ namespace Vectara
             return value switch
             {
                 AgentStreamedResponseDiscriminatorType.ArtifactUpload => "artifact_upload",
+                AgentStreamedResponseDiscriminatorType.ClientToolPending => "client_tool_pending",
                 AgentStreamedResponseDiscriminatorType.Compaction => "compaction",
                 AgentStreamedResponseDiscriminatorType.CompactionStarted => "compaction_started",
                 AgentStreamedResponseDiscriminatorType.ContextConsumed => "context_consumed",
@@ -143,6 +148,7 @@ namespace Vectara
             return value switch
             {
                 "artifact_upload" => AgentStreamedResponseDiscriminatorType.ArtifactUpload,
+                "client_tool_pending" => AgentStreamedResponseDiscriminatorType.ClientToolPending,
                 "compaction" => AgentStreamedResponseDiscriminatorType.Compaction,
                 "compaction_started" => AgentStreamedResponseDiscriminatorType.CompactionStarted,
                 "context_consumed" => AgentStreamedResponseDiscriminatorType.ContextConsumed,

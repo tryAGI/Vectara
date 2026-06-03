@@ -28,10 +28,19 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.SlackConnectorConfiguration)}");
                 slack = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.GchatConnectorConfiguration? gchat = default;
+            if (discriminator?.Type == global::Vectara.ConnectorConfigurationDiscriminatorType.Gchat)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GchatConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GchatConnectorConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.GchatConnectorConfiguration)}");
+                gchat = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.ConnectorConfiguration(
                 discriminator?.Type,
-                slack
+                slack,
+
+                gchat
                 );
 
             return __value;
@@ -51,6 +60,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SlackConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SlackConnectorConfiguration?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SlackConnectorConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Slack!, typeInfo);
+            }
+            else if (value.IsGchat)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GchatConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GchatConnectorConfiguration?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GchatConnectorConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Gchat!, typeInfo);
             }
         }
     }

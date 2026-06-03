@@ -34,7 +34,7 @@ namespace Vectara
         public bool? Strict { get; set; }
 
         /// <summary>
-        /// A JSON Schema definition for specifying data structure. Supports recursive schemas for nested objects.
+        /// A JSON Schema definition for describing data structure. Defines the minimum subset generally supported across LLM providers. Unknown keywords are passed through for forward compatibility.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("schema")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -53,7 +53,7 @@ namespace Vectara
         /// A unique name identifier for this schema.
         /// </param>
         /// <param name="schema">
-        /// A JSON Schema definition for specifying data structure. Supports recursive schemas for nested objects.
+        /// A JSON Schema definition for describing data structure. Defines the minimum subset generally supported across LLM providers. Unknown keywords are passed through for forward compatibility.
         /// </param>
         /// <param name="description">
         /// A description of what the response format is for, used by the model to determine how to respond in the format.

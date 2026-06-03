@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Create agent connector<br/>
-        /// Create a new connector for an agent to receive events from external platforms like Slack.
+        /// Create a new connector for an agent to receive events from an external platform like Slack or Google Chat.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -100,7 +100,7 @@ namespace Vectara
         }
         /// <summary>
         /// Create agent connector<br/>
-        /// Create a new connector for an agent to receive events from external platforms like Slack.
+        /// Create a new connector for an agent to receive events from an external platform like Slack or Google Chat.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -608,7 +608,7 @@ namespace Vectara
         }
         /// <summary>
         /// Create agent connector<br/>
-        /// Create a new connector for an agent to receive events from external platforms like Slack.
+        /// Create a new connector for an agent to receive events from an external platform like Slack or Google Chat.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -624,10 +624,6 @@ namespace Vectara
         /// A detailed description of what this connector does.<br/>
         /// Example: Receives customer support messages from the
         /// </param>
-        /// <param name="type">
-        /// The type of connector.<br/>
-        /// Example: slack
-        /// </param>
         /// <param name="metadata">
         /// Arbitrary metadata associated with the connector.<br/>
         /// Default Value: {}<br/>
@@ -639,7 +635,11 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="configuration">
-        /// Configuration for different types of connectors.
+        /// Write view of a connector's configuration. Used when creating a connector<br/>
+        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
+        /// must supply. Server-derived display fields are not accepted here and instead<br/>
+        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
+        /// `audience_url` and `client_email`.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -647,11 +647,10 @@ namespace Vectara
         public async global::System.Threading.Tasks.Task<global::Vectara.AgentConnector> CreateConnectorAsync(
             string agentKey,
             string name,
-            global::Vectara.SlackConnectorConfiguration configuration,
+            global::Vectara.CreateConnectorConfiguration configuration,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? description = default,
-            global::Vectara.CreateAgentConnectorRequestType type = default,
             object? metadata = default,
             bool? enabled = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -661,7 +660,6 @@ namespace Vectara
             {
                 Name = name,
                 Description = description,
-                Type = type,
                 Metadata = metadata,
                 Enabled = enabled,
                 Configuration = configuration,

@@ -23,6 +23,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Client,
+        /// <summary>
+        /// 
+        /// </summary>
         CorporaSearch,
         /// <summary>
         /// 
@@ -77,6 +81,7 @@ namespace Vectara
                 AgentToolConfigurationDiscriminatorType.ArtifactCreate => "artifact_create",
                 AgentToolConfigurationDiscriminatorType.ArtifactGrep => "artifact_grep",
                 AgentToolConfigurationDiscriminatorType.ArtifactRead => "artifact_read",
+                AgentToolConfigurationDiscriminatorType.Client => "client",
                 AgentToolConfigurationDiscriminatorType.CorporaSearch => "corpora_search",
                 AgentToolConfigurationDiscriminatorType.DocumentConversion => "document_conversion",
                 AgentToolConfigurationDiscriminatorType.DynamicVectara => "dynamic_vectara",
@@ -100,6 +105,7 @@ namespace Vectara
                 "artifact_create" => AgentToolConfigurationDiscriminatorType.ArtifactCreate,
                 "artifact_grep" => AgentToolConfigurationDiscriminatorType.ArtifactGrep,
                 "artifact_read" => AgentToolConfigurationDiscriminatorType.ArtifactRead,
+                "client" => AgentToolConfigurationDiscriminatorType.Client,
                 "corpora_search" => AgentToolConfigurationDiscriminatorType.CorporaSearch,
                 "document_conversion" => AgentToolConfigurationDiscriminatorType.DocumentConversion,
                 "dynamic_vectara" => AgentToolConfigurationDiscriminatorType.DynamicVectara,

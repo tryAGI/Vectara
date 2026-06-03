@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configuration for Slack connectors.
+    /// Read view of a Slack connector's configuration.
     /// </summary>
     public sealed partial class SlackConnectorConfiguration
     {
@@ -20,7 +20,7 @@ namespace Vectara
         public required string Type { get; set; } = "slack";
 
         /// <summary>
-        /// Slack bot token (xoxb-) for API access. Will be encrypted when stored.<br/>
+        /// Slack bot token (xoxb-) for API access. Encrypted at rest.<br/>
         /// Example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
         /// </summary>
         /// <example>xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx</example>
@@ -29,7 +29,7 @@ namespace Vectara
         public required string BotToken { get; set; }
 
         /// <summary>
-        /// Slack signing secret for webhook verification. Will be encrypted when stored.<br/>
+        /// Slack signing secret for webhook verification. Encrypted at rest.<br/>
         /// Example: abcdef1234567890abcdef1234567890abcdef12
         /// </summary>
         /// <example>abcdef1234567890abcdef1234567890abcdef12</example>
@@ -48,11 +48,12 @@ namespace Vectara
 
         /// <summary>
         /// The webhook path for this Slack connector to receive events.<br/>
-        /// Example: /v2/agents/customer_support/connectors/con_slack_support/input
+        /// Example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
         /// </summary>
-        /// <example>/v2/agents/customer_support/connectors/con_slack_support/input</example>
+        /// <example>/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("webhook_path")]
-        public string? WebhookPath { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string WebhookPath { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -69,11 +70,11 @@ namespace Vectara
         /// Example: slack
         /// </param>
         /// <param name="botToken">
-        /// Slack bot token (xoxb-) for API access. Will be encrypted when stored.<br/>
+        /// Slack bot token (xoxb-) for API access. Encrypted at rest.<br/>
         /// Example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
         /// </param>
         /// <param name="signingSecret">
-        /// Slack signing secret for webhook verification. Will be encrypted when stored.<br/>
+        /// Slack signing secret for webhook verification. Encrypted at rest.<br/>
         /// Example: abcdef1234567890abcdef1234567890abcdef12
         /// </param>
         /// <param name="apiAppId">
@@ -82,7 +83,7 @@ namespace Vectara
         /// </param>
         /// <param name="webhookPath">
         /// The webhook path for this Slack connector to receive events.<br/>
-        /// Example: /v2/agents/customer_support/connectors/con_slack_support/input
+        /// Example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -92,13 +93,13 @@ namespace Vectara
             string botToken,
             string signingSecret,
             string apiAppId,
-            string? webhookPath)
+            string webhookPath)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.BotToken = botToken ?? throw new global::System.ArgumentNullException(nameof(botToken));
             this.SigningSecret = signingSecret ?? throw new global::System.ArgumentNullException(nameof(signingSecret));
             this.ApiAppId = apiAppId ?? throw new global::System.ArgumentNullException(nameof(apiAppId));
-            this.WebhookPath = webhookPath;
+            this.WebhookPath = webhookPath ?? throw new global::System.ArgumentNullException(nameof(webhookPath));
         }
 
         /// <summary>

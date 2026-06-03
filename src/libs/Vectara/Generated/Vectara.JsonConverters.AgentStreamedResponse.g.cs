@@ -126,6 +126,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.SessionInterruptedEvent)}");
                 sessionInterrupted = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.ClientToolPendingEvent? clientToolPending = default;
+            if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.ClientToolPending)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ClientToolPendingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ClientToolPendingEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ClientToolPendingEvent)}");
+                clientToolPending = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.ImageReadEvent? imageRead = default;
             if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.ImageRead)
             {
@@ -207,6 +214,8 @@ namespace Vectara.JsonConverters
                 stepTransitionLimitExceeded,
 
                 sessionInterrupted,
+
+                clientToolPending,
 
                 imageRead,
 
@@ -324,6 +333,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SessionInterruptedEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SessionInterruptedEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SessionInterruptedEvent).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.SessionInterrupted!.Value, typeInfo);
+            }
+            else if (value.IsClientToolPending)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ClientToolPendingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ClientToolPendingEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ClientToolPendingEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ClientToolPending!.Value, typeInfo);
             }
             else if (value.IsImageRead)
             {

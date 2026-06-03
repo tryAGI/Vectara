@@ -649,7 +649,11 @@ namespace Vectara
         /// Example: false
         /// </param>
         /// <param name="configuration">
-        /// Configuration for different types of connectors.
+        /// Write view of a connector's configuration. Used when creating a connector<br/>
+        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
+        /// must supply. Server-derived display fields are not accepted here and instead<br/>
+        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
+        /// `audience_url` and `client_email`.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -663,7 +667,7 @@ namespace Vectara
             string? description = default,
             object? metadata = default,
             bool? enabled = default,
-            global::Vectara.SlackConnectorConfiguration? configuration = default,
+            global::Vectara.CreateConnectorConfiguration? configuration = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {

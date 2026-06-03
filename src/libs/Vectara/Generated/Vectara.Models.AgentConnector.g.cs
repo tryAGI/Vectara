@@ -4,15 +4,15 @@
 namespace Vectara
 {
     /// <summary>
-    /// A connector that allows an agent to receive events from external platforms like Slack.
+    /// A connector that allows an agent to receive events from external platforms like Slack or Google Chat.
     /// </summary>
     public sealed partial class AgentConnector
     {
         /// <summary>
         /// The unique identifier for the connector.<br/>
-        /// Example: con_slack_support
+        /// Example: con_3Kx9QpVn2mZr8YbLc5TdWe
         /// </summary>
-        /// <example>con_slack_support</example>
+        /// <example>con_3Kx9QpVn2mZr8YbLc5TdWe</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Id { get; set; }
@@ -50,7 +50,8 @@ namespace Vectara
         /// <example>slack</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentConnectorTypeJsonConverter))]
-        public global::Vectara.AgentConnectorType Type { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::Vectara.AgentConnectorType Type { get; set; }
 
         /// <summary>
         /// The current status of the connector.<br/>
@@ -91,11 +92,15 @@ namespace Vectara
         public required bool Enabled { get; set; }
 
         /// <summary>
-        /// Configuration for different types of connectors.
+        /// Read view of a connector's configuration as returned by GET and list<br/>
+        /// endpoints. Contains the secrets supplied at create time alongside<br/>
+        /// server-derived display fields: Slack exposes `webhook_path`, and gchat<br/>
+        /// exposes `audience_url` and `client_email`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter))]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.SlackConnectorConfiguration Configuration { get; set; }
+        public required global::Vectara.ConnectorConfiguration Configuration { get; set; }
 
         /// <summary>
         /// Timestamp when the connector was created.<br/>
@@ -115,6 +120,32 @@ namespace Vectara
         public global::System.DateTime? UpdatedAt { get; set; }
 
         /// <summary>
+        /// Timestamp of the most recently received inbound webhook for this<br/>
+        /// connector, regardless of outcome. Absent until the first webhook<br/>
+        /// arrives.<br/>
+        /// Example: 2024-01-16T14:45:00Z
+        /// </summary>
+        /// <example>2024-01-16T14:45:00Z</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("last_webhook_at")]
+        public global::System.DateTime? LastWebhookAt { get; set; }
+
+        /// <summary>
+        /// Outcome of the most recently received inbound webhook. Absent until the<br/>
+        /// first webhook arrives. Values: success when the webhook verified and the<br/>
+        /// event was accepted, jwt_verification_failed when the bearer token was<br/>
+        /// missing or could not be verified, audience_mismatch when the token was<br/>
+        /// valid but its aud did not equal the connector's audience_url,<br/>
+        /// event_parse_failed when the event body could not be parsed,<br/>
+        /// internal_error when an unexpected error occurred after the connector was<br/>
+        /// resolved, and unknown when the outcome could not be classified.<br/>
+        /// Example: success
+        /// </summary>
+        /// <example>success</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("last_webhook_status")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentConnectorLastWebhookStatusJsonConverter))]
+        public global::Vectara.AgentConnectorLastWebhookStatus? LastWebhookStatus { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -125,7 +156,7 @@ namespace Vectara
         /// </summary>
         /// <param name="id">
         /// The unique identifier for the connector.<br/>
-        /// Example: con_slack_support
+        /// Example: con_3Kx9QpVn2mZr8YbLc5TdWe
         /// </param>
         /// <param name="agentKey">
         /// A unique key that identifies an agent.<br/>
@@ -134,6 +165,10 @@ namespace Vectara
         /// <param name="name">
         /// The human-readable name of the connector.<br/>
         /// Example: Customer Support Slack Channel
+        /// </param>
+        /// <param name="type">
+        /// The type of connector.<br/>
+        /// Example: slack
         /// </param>
         /// <param name="status">
         /// The current status of the connector.<br/>
@@ -146,7 +181,10 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="configuration">
-        /// Configuration for different types of connectors.
+        /// Read view of a connector's configuration as returned by GET and list<br/>
+        /// endpoints. Contains the secrets supplied at create time alongside<br/>
+        /// server-derived display fields: Slack exposes `webhook_path`, and gchat<br/>
+        /// exposes `audience_url` and `client_email`.
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the connector was created.<br/>
@@ -155,10 +193,6 @@ namespace Vectara
         /// <param name="description">
         /// A detailed description of what this connector does.<br/>
         /// Example: Receives customer support messages from the
-        /// </param>
-        /// <param name="type">
-        /// The type of connector.<br/>
-        /// Example: slack
         /// </param>
         /// <param name="statusMessage">
         /// Detailed status message (e.g., error description or success confirmation).<br/>
@@ -172,6 +206,23 @@ namespace Vectara
         /// Timestamp when the connector was last updated.<br/>
         /// Example: 2024-01-16T14:45:00Z
         /// </param>
+        /// <param name="lastWebhookAt">
+        /// Timestamp of the most recently received inbound webhook for this<br/>
+        /// connector, regardless of outcome. Absent until the first webhook<br/>
+        /// arrives.<br/>
+        /// Example: 2024-01-16T14:45:00Z
+        /// </param>
+        /// <param name="lastWebhookStatus">
+        /// Outcome of the most recently received inbound webhook. Absent until the<br/>
+        /// first webhook arrives. Values: success when the webhook verified and the<br/>
+        /// event was accepted, jwt_verification_failed when the bearer token was<br/>
+        /// missing or could not be verified, audience_mismatch when the token was<br/>
+        /// valid but its aud did not equal the connector's audience_url,<br/>
+        /// event_parse_failed when the event body could not be parsed,<br/>
+        /// internal_error when an unexpected error occurred after the connector was<br/>
+        /// resolved, and unknown when the outcome could not be classified.<br/>
+        /// Example: success
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -179,15 +230,17 @@ namespace Vectara
             string id,
             string agentKey,
             string name,
+            global::Vectara.AgentConnectorType type,
             global::Vectara.AgentConnectorStatus status,
             bool enabled,
-            global::Vectara.SlackConnectorConfiguration configuration,
+            global::Vectara.ConnectorConfiguration configuration,
             global::System.DateTime createdAt,
             string? description,
-            global::Vectara.AgentConnectorType type,
             string? statusMessage,
             object? metadata,
-            global::System.DateTime? updatedAt)
+            global::System.DateTime? updatedAt,
+            global::System.DateTime? lastWebhookAt,
+            global::Vectara.AgentConnectorLastWebhookStatus? lastWebhookStatus)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.AgentKey = agentKey ?? throw new global::System.ArgumentNullException(nameof(agentKey));
@@ -198,9 +251,11 @@ namespace Vectara
             this.StatusMessage = statusMessage;
             this.Metadata = metadata;
             this.Enabled = enabled;
-            this.Configuration = configuration ?? throw new global::System.ArgumentNullException(nameof(configuration));
+            this.Configuration = configuration;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
+            this.LastWebhookAt = lastWebhookAt;
+            this.LastWebhookStatus = lastWebhookStatus;
         }
 
         /// <summary>

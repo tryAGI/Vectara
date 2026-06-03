@@ -60,6 +60,46 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public AgentAliasesClient AgentAliases => new AgentAliasesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentAliasesArtifactsClient AgentAliasesArtifacts => new AgentAliasesArtifactsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentAliasesEventsClient AgentAliasesEvents => new AgentAliasesEventsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentAliasesSessionsClient AgentAliasesSessions => new AgentAliasesSessionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContext = JsonSerializerContext,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AgentAnalyticsClient AgentAnalytics => new AgentAnalyticsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,

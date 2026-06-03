@@ -62,6 +62,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public AgentAliasesClient AgentAliases { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentAliasesArtifactsClient AgentAliasesArtifacts { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentAliasesEventsClient AgentAliasesEvents { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AgentAliasesSessionsClient AgentAliasesSessions { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AgentAnalyticsClient AgentAnalytics { get; }
 
         /// <summary>
