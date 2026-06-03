@@ -57,15 +57,15 @@ namespace Vectara.JsonConverters
 
             if (value.IsSlack)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateSlackConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateSlackConnectorConfiguration?> ??
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateSlackConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateSlackConnectorConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateSlackConnectorConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Slack!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Slack!.Value, typeInfo);
             }
             else if (value.IsGchat)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateGchatConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateGchatConnectorConfiguration?> ??
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateGchatConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateGchatConnectorConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateGchatConnectorConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Gchat!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Gchat!.Value, typeInfo);
             }
         }
     }
