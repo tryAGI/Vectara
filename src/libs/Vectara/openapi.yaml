@@ -26187,8 +26187,8 @@ components:
         rule whose `match` expression evaluates to true is selected. The selected
         rule''s `targets` shape determines what runs: `single` routes directly to
         one agent, `weighted` picks one of several agents by hashing the rule''s `partition_by`
-        expression. A rule with no `match` always matches (catch-all) and is conventionally
-        placed last.
+        expression. A rule with no `match` always matches (catch-all). It must be
+        the last rule; any rule placed after it is rejected as unreachable.
 
 
         This single shape covers direct routing (one rule, single target), weighted/canary
@@ -26221,9 +26221,10 @@ components:
         \ apply:\n\n* `routed` \u2014 evaluate ordered rules; the first rule whose\
         \ `match` expression evaluates to true is selected. The selected rule's `targets`\
         \ are then used (one agent for `single`, hashed by `partition_by` for `weighted`).\
-        \ Rules with omitted `match` are catch-all rules (typically last).\n\nMost\
-        \ use cases (direct, weighted/canary, conditional, conditional+canary) collapse\
-        \ into `routed`.\n"
+        \ A rule with omitted `match` is a catch-all that always matches; it must\
+        \ be the last rule, and any rule placed after it is rejected as unreachable.\n\
+        \nMost use cases (direct, weighted/canary, conditional, conditional+canary)\
+        \ collapse into `routed`.\n"
       oneOf:
       - $ref: '#/components/schemas/RoutedAliasPolicy'
       discriminator:
