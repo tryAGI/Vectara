@@ -4,10 +4,10 @@
 namespace Vectara
 {
     /// <summary>
-    /// The metadata for the document that contains the document part.<br/>
-    /// Example: {"industry":"banking","year":2023,"doc_type":"annual_report"}
+    /// The metadata for the document part as attached at indexing time. Filterable using `part.&lt;key&gt;` in metadata filter expressions.<br/>
+    /// Example: {"section":"executive_summary"}
     /// </summary>
-    public sealed partial class IndividualSearchResultDocumentMetadata
+    public sealed partial class SearchResultBasePartMetadata
     {
 
         /// <summary>

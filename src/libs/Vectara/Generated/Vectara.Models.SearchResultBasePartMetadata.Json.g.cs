@@ -2,7 +2,7 @@
 
 namespace Vectara
 {
-    public sealed partial class IndividualSearchResultPartMetadata
+    public sealed partial class SearchResultBasePartMetadata
     {
         /// <summary>
         /// Serializes the current instance to a JSON string using the provided JsonSerializerContext.
@@ -34,14 +34,14 @@ namespace Vectara
         /// <summary>
         /// Deserializes a JSON string using the provided JsonSerializerContext.
         /// </summary>
-        public static global::Vectara.IndividualSearchResultPartMetadata? FromJson(
+        public static global::Vectara.SearchResultBasePartMetadata? FromJson(
             string json,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return global::System.Text.Json.JsonSerializer.Deserialize(
                 json,
-                typeof(global::Vectara.IndividualSearchResultPartMetadata),
-                jsonSerializerContext) as global::Vectara.IndividualSearchResultPartMetadata;
+                typeof(global::Vectara.SearchResultBasePartMetadata),
+                jsonSerializerContext) as global::Vectara.SearchResultBasePartMetadata;
         }
 
         /// <summary>
@@ -51,11 +51,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::Vectara.IndividualSearchResultPartMetadata? FromJson(
+        public static global::Vectara.SearchResultBasePartMetadata? FromJson(
             string json,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.IndividualSearchResultPartMetadata>(
+            return global::System.Text.Json.JsonSerializer.Deserialize<global::Vectara.SearchResultBasePartMetadata>(
                 json,
                 jsonSerializerOptions);
         }
@@ -63,14 +63,14 @@ namespace Vectara
         /// <summary>
         /// Deserializes a JSON stream using the provided JsonSerializerContext.
         /// </summary>
-        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.IndividualSearchResultPartMetadata?> FromJsonStreamAsync(
+        public static async global::System.Threading.Tasks.ValueTask<global::Vectara.SearchResultBasePartMetadata?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.Serialization.JsonSerializerContext jsonSerializerContext)
         {
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync(
                 jsonStream,
-                typeof(global::Vectara.IndividualSearchResultPartMetadata),
-                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.IndividualSearchResultPartMetadata;
+                typeof(global::Vectara.SearchResultBasePartMetadata),
+                jsonSerializerContext).ConfigureAwait(false)) as global::Vectara.SearchResultBasePartMetadata;
         }
 
         /// <summary>
@@ -80,11 +80,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.")]
         [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode("JSON serialization and deserialization might require types that cannot be statically analyzed and might need runtime code generation. Use System.Text.Json source generation for native AOT applications.")]
 #endif
-        public static global::System.Threading.Tasks.ValueTask<global::Vectara.IndividualSearchResultPartMetadata?> FromJsonStreamAsync(
+        public static global::System.Threading.Tasks.ValueTask<global::Vectara.SearchResultBasePartMetadata?> FromJsonStreamAsync(
             global::System.IO.Stream jsonStream,
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
-            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.IndividualSearchResultPartMetadata?>(
+            return global::System.Text.Json.JsonSerializer.DeserializeAsync<global::Vectara.SearchResultBasePartMetadata?>(
                 jsonStream,
                 jsonSerializerOptions);
         }

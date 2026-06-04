@@ -41,7 +41,7 @@ namespace Vectara
         public required global::Vectara.ImageData ImageData { get; set; }
 
         /// <summary>
-        /// A longer, detailed description of the image for accessibility or additional context.<br/>
+        /// A longer, detailed description of the image. On image-capable corpora this field is indexed as the image's text body for keyword search.<br/>
         /// Example: A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%
         /// </summary>
         /// <example>A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%</example>
@@ -73,7 +73,7 @@ namespace Vectara
         /// Example: Sales growth trends for Q1 to Q4 of 2024
         /// </param>
         /// <param name="description">
-        /// A longer, detailed description of the image for accessibility or additional context.<br/>
+        /// A longer, detailed description of the image. On image-capable corpora this field is indexed as the image's text body for keyword search.<br/>
         /// Example: A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%
         /// </param>
 #if NET7_0_OR_GREATER

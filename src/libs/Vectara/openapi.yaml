@@ -14908,8 +14908,8 @@ components:
           type: string
           example: Sales growth trends for Q1 to Q4 of 2024
         description:
-          description: A longer, detailed description of the image for accessibility
-            or additional context.
+          description: A longer, detailed description of the image. On image-capable
+            corpora this field is indexed as the image's text body for keyword search.
           type: string
           example: A bar chart showing quarterly sales growth, with Q4 outperforming
             all previous quarters by 15%
@@ -14920,7 +14920,6 @@ components:
           example: image/jpeg
       required:
       - id
-      - image_data
       - mime_type
     CustomDimensions:
       description: The custom dimensions as additional weights.
@@ -15135,8 +15134,8 @@ components:
           description: The actual image content and its format metadata.
           $ref: '#/components/schemas/ImageData'
         description:
-          description: A longer, detailed description of the image for accessibility
-            or additional context.
+          description: A longer, detailed description of the image. On image-capable
+            corpora this field is indexed as the image's text body for keyword search.
           type: string
           example: A bar chart showing quarterly sales growth, with Q4 outperforming
             all previous quarters by 15%
@@ -15167,6 +15166,14 @@ components:
           description: The ID of the image that this document part is summarizing.
           type: string
           example: image_1
+        is_image_part:
+          description: Marks this part as representing the image referenced by `image_id`.
+            When `true`, the part is matched by visual similarity against image queries,
+            and its `text` (if set) also makes the image findable through keyword
+            search. When omitted, defaults to `true` if `text` is empty or matches
+            the image's description, otherwise `false`.
+          type: boolean
+          example: true
         context:
           description: The context text for the document part.
           type: string
@@ -15868,27 +15875,15 @@ components:
       - msa
       - ron
       default: auto
-    IndividualSearchResult:
-      description: An individual ranked search result from a query.
+    SearchResultBase:
+      description: Common fields for all search result types.
       type: object
       properties:
-        text:
-          description: The document part altered by the context configuration that
-            matches the query.
-          type: string
-          example: EU banks reported a 20% increase in carbon reduction initiatives
-            in 2023, driven by regulatory pressure.
         score:
           description: The score of the individual result.
           type: number
           format: double
           example: 0.92
-        part_metadata:
-          description: The metadata for the document part.
-          type: object
-          additionalProperties: true
-          example:
-            section: executive_summary
         document_metadata:
           description: The metadata for the document that contains the document part.
           type: object
@@ -15901,12 +15896,6 @@ components:
           description: The ID of the document that contains the document part.
           type: string
           example: financial-report-2023
-        table:
-          description: The table that the document part is from.
-          $ref: '#/components/schemas/Table'
-        image:
-          description: The image that the document part is from.
-          $ref: '#/components/schemas/ImageMetadata'
         request_corpora_index:
           description: A query request can search over multiple corpora at a time.
             This property is set to the index in the list of corpora in the original
@@ -15922,6 +15911,70 @@ components:
             came from.
           type: string
           example: fin_docs
+        part_metadata:
+          description: The metadata for the document part as attached at indexing
+            time. Filterable using `part.<key>` in metadata filter expressions.
+          type: object
+          additionalProperties: true
+          example:
+            section: executive_summary
+        text:
+          description: The matched document part's text, expanded to the surrounding
+            context window configured by `context_configuration`. For image parts,
+            this is the text indexed alongside the image.
+          type: string
+          example: EU banks reported a 20% increase in carbon reduction initiatives
+            in 2023, driven by regulatory pressure.
+    TextSearchResult:
+      description: A text document part that matched a query.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SearchResultBase'
+      - type: object
+        properties:
+          result_type:
+            description: The type of search result.
+            type: string
+            default: text
+          table:
+            description: The table that the document part is from.
+            $ref: '#/components/schemas/Table'
+          image:
+            description: The image that the document part is from.
+            $ref: '#/components/schemas/ImageMetadata'
+        required:
+        - result_type
+      x-vectaraParents:
+      - IndividualSearchResult
+    ImageSearchResult:
+      description: An image embedding that matched a query.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SearchResultBase'
+      - type: object
+        properties:
+          result_type:
+            description: The type of search result.
+            type: string
+            default: image
+          image:
+            description: The metadata for the matched image.
+            $ref: '#/components/schemas/ImageMetadata'
+        required:
+        - result_type
+      x-vectaraParents:
+      - IndividualSearchResult
+    IndividualSearchResult:
+      description: A ranked search result from a query. Discriminated by result_type.
+      type: object
+      discriminator:
+        propertyName: result_type
+        mapping:
+          text: '#/components/schemas/TextSearchResult'
+          image: '#/components/schemas/ImageSearchResult'
+      oneOf:
+      - $ref: '#/components/schemas/TextSearchResult'
+      - $ref: '#/components/schemas/ImageSearchResult'
     QueryWarning:
       type: string
       description: "Non-fatal warnings that occurred during query processing.\n *\
@@ -18555,6 +18608,10 @@ components:
           description: Indicates whether the encoder is enabled.
           type: boolean
           example: true
+        image_encoding:
+          description: Whether this encoder can produce embeddings for images.
+          type: boolean
+          example: false
       required:
       - id
       - name
@@ -18570,22 +18627,23 @@ components:
         metadata:
           $ref: '#/components/schemas/ListMetadata'
     CreateOpenAIEncoderRequest:
-      description: Configuration for an OpenAI-compatible encoder
+      description: Configuration for a text-only encoder served by an endpoint that
+        implements OpenAI's `/v1/embeddings` request shape.
       type: object
       properties:
         type:
           description: Must be "openai-compatible" for OpenAI and OpenAI-compatible
-            APIs
+            text-embedding APIs.
           type: string
           default: openai-compatible
         name:
-          description: A unique name for the encoder
+          description: A unique name for the encoder.
           type: string
           example: openai-text-encoder
         description:
-          description: A description of what this encoder does
+          description: A description of what this encoder does.
           type: string
-          example: description
+          example: Text encoder for product catalog search
         output_dimensions:
           description: The number of dimensions in the output embedding vector. If
             provided and the model supports truncation, the response will be truncated
@@ -18612,15 +18670,68 @@ components:
       - model
       x-vectaraParents:
       - CreateEncoderRequest
+    CreateVLlmEncoderRequest:
+      description: Configuration for a vLLM-served embedding encoder. The endpoint
+        must accept text-embedding requests and, when `image_encoding` is true, image-embedding
+        requests.
+      type: object
+      properties:
+        type:
+          description: Must be "vllm-compatible" for vLLM-served embedding endpoints.
+          type: string
+          default: vllm-compatible
+        name:
+          description: A unique name for the encoder.
+          type: string
+          example: vllm-multimodal-encoder
+        description:
+          description: A description of what this encoder does.
+          type: string
+          example: Multimodal encoder for chart and table images
+        output_dimensions:
+          description: The number of dimensions in the output embedding vector. If
+            provided and the model supports truncation, the response will be truncated
+            to this number of dimensions.
+          type: integer
+          format: int32
+          minimum: 1
+        uri:
+          description: The URI endpoint for the vLLM embedding API.
+          type: string
+          format: uri
+          example: https://my-vllm-host/v1/embeddings
+        model:
+          description: The model name to use for embeddings.
+          type: string
+          example: nomic-embed-vision-v1.5
+        auth:
+          $ref: '#/components/schemas/RemoteAuth'
+        image_encoding:
+          description: Whether the encoder produces image embeddings. When `true`,
+            the endpoint must accept image-embedding requests; the create call validates
+            this and fails if the endpoint does not support them.
+          type: boolean
+          default: false
+      required:
+      - name
+      - description
+      - uri
+      - model
+      x-vectaraParents:
+      - CreateEncoderRequest
     CreateEncoderRequest:
       type: object
-      description: Request to create a new encoder
+      description: Request to create a new encoder. Use `openai-compatible` for text-only
+        endpoints that implement OpenAI's `/v1/embeddings`. Use `vllm-compatible`
+        for endpoints that additionally support image embeddings.
       discriminator:
         propertyName: type
         mapping:
           openai-compatible: '#/components/schemas/CreateOpenAIEncoderRequest'
+          vllm-compatible: '#/components/schemas/CreateVLlmEncoderRequest'
       oneOf:
       - $ref: '#/components/schemas/CreateOpenAIEncoderRequest'
+      - $ref: '#/components/schemas/CreateVLlmEncoderRequest'
       required:
       - type
     Reranker:

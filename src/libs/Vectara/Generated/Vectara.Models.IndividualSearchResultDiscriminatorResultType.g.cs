@@ -6,44 +6,44 @@ namespace Vectara
     /// <summary>
     /// 
     /// </summary>
-    public enum CreateEncoderRequestDiscriminatorType
+    public enum IndividualSearchResultDiscriminatorResultType
     {
         /// <summary>
         /// 
         /// </summary>
-        OpenaiCompatible,
+        Image,
         /// <summary>
         /// 
         /// </summary>
-        VllmCompatible,
+        Text,
     }
 
     /// <summary>
     /// Enum extensions to do fast conversions without the reflection.
     /// </summary>
-    public static class CreateEncoderRequestDiscriminatorTypeExtensions
+    public static class IndividualSearchResultDiscriminatorResultTypeExtensions
     {
         /// <summary>
         /// Converts an enum to a string.
         /// </summary>
-        public static string ToValueString(this CreateEncoderRequestDiscriminatorType value)
+        public static string ToValueString(this IndividualSearchResultDiscriminatorResultType value)
         {
             return value switch
             {
-                CreateEncoderRequestDiscriminatorType.OpenaiCompatible => "openai-compatible",
-                CreateEncoderRequestDiscriminatorType.VllmCompatible => "vllm-compatible",
+                IndividualSearchResultDiscriminatorResultType.Image => "image",
+                IndividualSearchResultDiscriminatorResultType.Text => "text",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
         /// <summary>
         /// Converts an string to a enum.
         /// </summary>
-        public static CreateEncoderRequestDiscriminatorType? ToEnum(string value)
+        public static IndividualSearchResultDiscriminatorResultType? ToEnum(string value)
         {
             return value switch
             {
-                "openai-compatible" => CreateEncoderRequestDiscriminatorType.OpenaiCompatible,
-                "vllm-compatible" => CreateEncoderRequestDiscriminatorType.VllmCompatible,
+                "image" => IndividualSearchResultDiscriminatorResultType.Image,
+                "text" => IndividualSearchResultDiscriminatorResultType.Text,
                 _ => null,
             };
         }
