@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to create a new encoder
+    /// Request to create a new encoder. Use `openai-compatible` for text-only endpoints that implement OpenAI's `/v1/embeddings`. Use `vllm-compatible` for endpoints that additionally support image embeddings.
     /// </summary>
     public readonly partial struct CreateEncoderRequest : global::System.IEquatable<CreateEncoderRequest>
     {
@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.CreateEncoderRequestDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Configuration for an OpenAI-compatible encoder
+        /// Configuration for a text-only encoder served by an endpoint that implements OpenAI's `/v1/embeddings` request shape.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateOpenAIEncoderRequest? OpenaiCompatible { get; init; }
@@ -50,6 +50,43 @@ namespace Vectara
         public global::Vectara.CreateOpenAIEncoderRequest PickOpenaiCompatible() => IsOpenaiCompatible
             ? OpenaiCompatible!
             : throw new global::System.InvalidOperationException($"Expected union variant 'OpenaiCompatible' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Configuration for a vLLM-served embedding encoder. The endpoint must accept text-embedding requests and, when `image_encoding` is true, image-embedding requests.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateVLlmEncoderRequest? VllmCompatible { get; init; }
+#else
+        public global::Vectara.CreateVLlmEncoderRequest? VllmCompatible { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VllmCompatible))]
+#endif
+        public bool IsVllmCompatible => VllmCompatible != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickVllmCompatible(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateVLlmEncoderRequest? value)
+        {
+            value = VllmCompatible;
+            return IsVllmCompatible;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateVLlmEncoderRequest PickVllmCompatible() => IsVllmCompatible
+            ? VllmCompatible!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'VllmCompatible' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -76,20 +113,46 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator CreateEncoderRequest(global::Vectara.CreateVLlmEncoderRequest value) => new CreateEncoderRequest((global::Vectara.CreateVLlmEncoderRequest?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.CreateVLlmEncoderRequest?(CreateEncoderRequest @this) => @this.VllmCompatible;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateEncoderRequest(global::Vectara.CreateVLlmEncoderRequest? value)
+        {
+            VllmCompatible = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateEncoderRequest FromVllmCompatible(global::Vectara.CreateVLlmEncoderRequest? value) => new CreateEncoderRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public CreateEncoderRequest(
             global::Vectara.CreateEncoderRequestDiscriminatorType? type,
-            global::Vectara.CreateOpenAIEncoderRequest? openaiCompatible
+            global::Vectara.CreateOpenAIEncoderRequest? openaiCompatible,
+            global::Vectara.CreateVLlmEncoderRequest? vllmCompatible
             )
         {
             Type = type;
 
             OpenaiCompatible = openaiCompatible;
+            VllmCompatible = vllmCompatible;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            VllmCompatible as object ??
             OpenaiCompatible as object 
             ;
 
@@ -97,7 +160,8 @@ namespace Vectara
         /// 
         /// </summary>
         public override string? ToString() =>
-            OpenaiCompatible?.ToString() 
+            OpenaiCompatible?.ToString() ??
+            VllmCompatible?.ToString() 
             ;
 
         /// <summary>
@@ -105,7 +169,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsOpenaiCompatible;
+            return IsOpenaiCompatible && !IsVllmCompatible || !IsOpenaiCompatible && IsVllmCompatible;
         }
 
         /// <summary>
@@ -113,6 +177,7 @@ namespace Vectara
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateOpenAIEncoderRequest, TResult>? openaiCompatible = null,
+            global::System.Func<global::Vectara.CreateVLlmEncoderRequest, TResult>? vllmCompatible = null,
             bool validate = true)
         {
             if (validate)
@@ -124,6 +189,10 @@ namespace Vectara
             {
                 return openaiCompatible(OpenaiCompatible!);
             }
+            else if (IsVllmCompatible && vllmCompatible != null)
+            {
+                return vllmCompatible(VllmCompatible!);
+            }
 
             return default(TResult);
         }
@@ -133,6 +202,8 @@ namespace Vectara
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateOpenAIEncoderRequest>? openaiCompatible = null,
+
+            global::System.Action<global::Vectara.CreateVLlmEncoderRequest>? vllmCompatible = null,
             bool validate = true)
         {
             if (validate)
@@ -143,6 +214,10 @@ namespace Vectara
             if (IsOpenaiCompatible)
             {
                 openaiCompatible?.Invoke(OpenaiCompatible!);
+            }
+            else if (IsVllmCompatible)
+            {
+                vllmCompatible?.Invoke(VllmCompatible!);
             }
         }
 
@@ -151,6 +226,7 @@ namespace Vectara
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateOpenAIEncoderRequest>? openaiCompatible = null,
+            global::System.Action<global::Vectara.CreateVLlmEncoderRequest>? vllmCompatible = null,
             bool validate = true)
         {
             if (validate)
@@ -161,6 +237,10 @@ namespace Vectara
             if (IsOpenaiCompatible)
             {
                 openaiCompatible?.Invoke(OpenaiCompatible!);
+            }
+            else if (IsVllmCompatible)
+            {
+                vllmCompatible?.Invoke(VllmCompatible!);
             }
         }
 
@@ -173,6 +253,8 @@ namespace Vectara
             {
                 OpenaiCompatible,
                 typeof(global::Vectara.CreateOpenAIEncoderRequest),
+                VllmCompatible,
+                typeof(global::Vectara.CreateVLlmEncoderRequest),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -189,7 +271,8 @@ namespace Vectara
         public bool Equals(CreateEncoderRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAIEncoderRequest?>.Default.Equals(OpenaiCompatible, other.OpenaiCompatible) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAIEncoderRequest?>.Default.Equals(OpenaiCompatible, other.OpenaiCompatible) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateVLlmEncoderRequest?>.Default.Equals(VllmCompatible, other.VllmCompatible) 
                 ;
         }
 

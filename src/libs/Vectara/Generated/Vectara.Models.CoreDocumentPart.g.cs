@@ -42,6 +42,14 @@ namespace Vectara
         public string? ImageId { get; set; }
 
         /// <summary>
+        /// Marks this part as representing the image referenced by `image_id`. When `true`, the part is matched by visual similarity against image queries, and its `text` (if set) also makes the image findable through keyword search. When omitted, defaults to `true` if `text` is empty or matches the image's description, otherwise `false`.<br/>
+        /// Example: true
+        /// </summary>
+        /// <example>true</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("is_image_part")]
+        public bool? IsImagePart { get; set; }
+
+        /// <summary>
         /// The context text for the document part.<br/>
         /// Example: This document part is part of the table Customer Billing Info.
         /// </summary>
@@ -80,6 +88,10 @@ namespace Vectara
         /// The ID of the image that this document part is summarizing.<br/>
         /// Example: image_1
         /// </param>
+        /// <param name="isImagePart">
+        /// Marks this part as representing the image referenced by `image_id`. When `true`, the part is matched by visual similarity against image queries, and its `text` (if set) also makes the image findable through keyword search. When omitted, defaults to `true` if `text` is empty or matches the image's description, otherwise `false`.<br/>
+        /// Example: true
+        /// </param>
         /// <param name="context">
         /// The context text for the document part.<br/>
         /// Example: This document part is part of the table Customer Billing Info.
@@ -95,6 +107,7 @@ namespace Vectara
             object? metadata,
             string? tableId,
             string? imageId,
+            bool? isImagePart,
             string? context,
             global::System.Collections.Generic.Dictionary<string, double>? customDimensions)
         {
@@ -102,6 +115,7 @@ namespace Vectara
             this.Metadata = metadata;
             this.TableId = tableId;
             this.ImageId = imageId;
+            this.IsImagePart = isImagePart;
             this.Context = context;
             this.CustomDimensions = customDimensions;
         }

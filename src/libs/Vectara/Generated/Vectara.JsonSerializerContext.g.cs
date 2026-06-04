@@ -49,6 +49,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.LanguageNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.IndividualSearchResultDiscriminatorResultTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.IndividualSearchResultDiscriminatorResultTypeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.QueryWarningJsonConverter),
 
             typeof(global::Vectara.JsonConverters.QueryWarningNullableJsonConverter),
@@ -528,6 +532,12 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseJsonConverter),
 
             typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.TextSearchResultJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageSearchResultJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.IndividualSearchResultJsonConverter),
 
             typeof(global::Vectara.JsonConverters.SearchRerankerJsonConverter),
 
@@ -952,7 +962,14 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetadataQueryResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.ScoredDocument>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Language), TypeInfoPropertyName = "Language2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.IndividualSearchResult))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SearchResultBase))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TextSearchResult), TypeInfoPropertyName = "TextSearchResult2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TextSearchResultVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageSearchResult), TypeInfoPropertyName = "ImageSearchResult2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageSearchResultVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.IndividualSearchResult), TypeInfoPropertyName = "IndividualSearchResult2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.IndividualSearchResultDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.IndividualSearchResultDiscriminatorResultType), TypeInfoPropertyName = "IndividualSearchResultDiscriminatorResultType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.QueryWarning), TypeInfoPropertyName = "QueryWarning2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.FilterExtraction))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RewrittenQuery))]
@@ -1104,6 +1121,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListEncodersResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Encoder>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateOpenAIEncoderRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateVLlmEncoderRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateEncoderRequest), TypeInfoPropertyName = "CreateEncoderRequest2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateEncoderRequestDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateEncoderRequestDiscriminatorType), TypeInfoPropertyName = "CreateEncoderRequestDiscriminatorType2")]
@@ -1345,14 +1363,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GlossaryExpansionReminder))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminder), TypeInfoPropertyName = "AgentStepReminder2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminderDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminderDiscriminatorType), TypeInfoPropertyName = "AgentStepReminderDiscriminatorType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.NextStep))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.FirstAgentStep))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentStepInstruction>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.NextStep>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStep))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CompactionConfig))]
     internal sealed partial class SourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1399,6 +1409,10 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.LanguageJsonConverter),
 
             typeof(global::Vectara.JsonConverters.LanguageNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.IndividualSearchResultDiscriminatorResultTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.IndividualSearchResultDiscriminatorResultTypeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.QueryWarningJsonConverter),
 
@@ -1880,6 +1894,12 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.TextSearchResultJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.ImageSearchResultJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.IndividualSearchResultJsonConverter),
+
             typeof(global::Vectara.JsonConverters.SearchRerankerJsonConverter),
 
             typeof(global::Vectara.JsonConverters.QueryStreamedResponseJsonConverter),
@@ -2204,6 +2224,14 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminderDiscriminatorType), TypeInfoPropertyName = "AgentStepReminderDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.NextStep))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.FirstAgentStep))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentStepInstruction>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.NextStep>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStep))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CompactionConfig))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CompactionConfigToolEventPolicy), TypeInfoPropertyName = "CompactionConfigToolEventPolicy2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolOutputOffloadingConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ToolOutputOffloadingConfigurationMode), TypeInfoPropertyName = "ToolOutputOffloadingConfigurationMode2")]
@@ -2738,6 +2766,8 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.MetadataQueryRequestLevelNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.LanguageJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.LanguageNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.IndividualSearchResultDiscriminatorResultTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.IndividualSearchResultDiscriminatorResultTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.QueryWarningJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.QueryWarningNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.SearchSemanticsJsonConverter());
@@ -2978,6 +3008,9 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.TextSearchResultJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ImageSearchResultJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.IndividualSearchResultJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.SearchRerankerJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.QueryStreamedResponseJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.KeyedSearchCorpusJsonConverter());
