@@ -15166,14 +15166,23 @@ components:
           description: The ID of the image that this document part is summarizing.
           type: string
           example: image_1
-        is_image_part:
-          description: Marks this part as representing the image referenced by `image_id`.
-            When `true`, the part is matched by visual similarity against image queries,
-            and its `text` (if set) also makes the image findable through keyword
-            search. When omitted, defaults to `true` if `text` is empty or matches
-            the image's description, otherwise `false`.
-          type: boolean
-          example: true
+        image_part_mode:
+          description: "How this part is matched at query time.\n\n- `text` \u2014\
+            \ matched on its `text`, like any text part.\n- `image` \u2014 matched\
+            \ by visual similarity against image queries for the image referenced\
+            \ by `image_id`; its `text`, if set, also makes the part findable through\
+            \ keyword search.\n- `image_and_text` \u2014 matched against both the\
+            \ referenced image and its `text` together.\n\nWhen omitted, the mode\
+            \ is inferred. On a corpus that does not support image queries, a part\
+            \ is always `text`. Otherwise it defaults to `image` when it references\
+            \ an image and has no `text`, `image_and_text` when it references an image\
+            \ and has `text`, and `text` otherwise.\n"
+          type: string
+          enum:
+          - text
+          - image
+          - image_and_text
+          example: image_and_text
         context:
           description: The context text for the document part.
           type: string
@@ -18609,7 +18618,8 @@ components:
           type: boolean
           example: true
         image_encoding:
-          description: Whether this encoder can produce embeddings for images.
+          description: Whether this encoder can produce embeddings for images, either
+            of an image alone or jointly with accompanying text.
           type: boolean
           example: false
       required:
@@ -18707,9 +18717,10 @@ components:
         auth:
           $ref: '#/components/schemas/RemoteAuth'
         image_encoding:
-          description: Whether the encoder produces image embeddings. When `true`,
-            the endpoint must accept image-embedding requests; the create call validates
-            this and fails if the endpoint does not support them.
+          description: Whether the encoder produces image embeddings, either of an
+            image alone or jointly with accompanying text. When `true`, the endpoint
+            must accept image-embedding requests; the create call validates this and
+            fails if the endpoint does not support them.
           type: boolean
           default: false
       required:
@@ -25791,9 +25802,12 @@ components:
       description: 'Read view of a Google Chat connector''s configuration. Includes
         the display
 
-        field `client_email` parsed out of the service account key and the audience
+        fields `client_email` and `project_id` parsed out of the service account key,
 
-        URL used to verify inbound events. The service account key is never returned.
+        and the audience URL used to verify inbound events. The service account key
+        is
+
+        never returned.
 
         '
       allOf:
@@ -25824,10 +25838,21 @@ components:
               '
             type: string
             example: chat-bot@my-gchat-app.iam.gserviceaccount.com
+          project_id:
+            description: 'Google Cloud project id derived from the service account
+              key. This is the project that hosts the Chat app, so clients can use
+              it to deep-link into
+
+              the app''s Google Chat configuration.
+
+              '
+            type: string
+            example: my-gchat-app
         required:
         - type
         - audience_url
         - client_email
+        - project_id
       x-vectaraParents:
       - ConnectorConfiguration
     ConnectorConfiguration:

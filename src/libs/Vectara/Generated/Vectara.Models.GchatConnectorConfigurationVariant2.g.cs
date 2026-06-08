@@ -41,6 +41,16 @@ namespace Vectara
         public required string ClientEmail { get; set; }
 
         /// <summary>
+        /// Google Cloud project id derived from the service account key. This is the project that hosts the Chat app, so clients can use it to deep-link into<br/>
+        /// the app's Google Chat configuration.<br/>
+        /// Example: my-gchat-app
+        /// </summary>
+        /// <example>my-gchat-app</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("project_id")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string ProjectId { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -65,17 +75,24 @@ namespace Vectara
         /// Service account email derived from the service account key.<br/>
         /// Example: chat-bot@my-gchat-app.iam.gserviceaccount.com
         /// </param>
+        /// <param name="projectId">
+        /// Google Cloud project id derived from the service account key. This is the project that hosts the Chat app, so clients can use it to deep-link into<br/>
+        /// the app's Google Chat configuration.<br/>
+        /// Example: my-gchat-app
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public GchatConnectorConfigurationVariant2(
             string type,
             string audienceUrl,
-            string clientEmail)
+            string clientEmail,
+            string projectId)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.AudienceUrl = audienceUrl ?? throw new global::System.ArgumentNullException(nameof(audienceUrl));
             this.ClientEmail = clientEmail ?? throw new global::System.ArgumentNullException(nameof(clientEmail));
+            this.ProjectId = projectId ?? throw new global::System.ArgumentNullException(nameof(projectId));
         }
 
         /// <summary>

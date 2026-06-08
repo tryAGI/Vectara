@@ -29,6 +29,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.CoreDocumentPartImagePartModeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CoreDocumentPartImagePartModeNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeNullableJsonConverter),
@@ -928,6 +932,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ImageData))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Image))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CoreDocumentPart))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CoreDocumentPartImagePartMode), TypeInfoPropertyName = "CoreDocumentPartImagePartMode2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CoreDocument))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Image>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.CoreDocumentPart>))]
@@ -1362,7 +1367,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TemplatedReminderHook), TypeInfoPropertyName = "TemplatedReminderHook2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GlossaryExpansionReminder))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminder), TypeInfoPropertyName = "AgentStepReminder2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminderDiscriminator))]
     internal sealed partial class SourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1389,6 +1393,10 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CoreDocumentPartImagePartModeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CoreDocumentPartImagePartModeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeJsonConverter),
 
@@ -2224,6 +2232,7 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminderDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepReminderDiscriminatorType), TypeInfoPropertyName = "AgentStepReminderDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.NextStep))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.FirstAgentStep))]
@@ -2756,6 +2765,8 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.FilterAttributeStatTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ChunkingStrategyDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CoreDocumentPartImagePartModeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CoreDocumentPartImagePartModeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeJsonConverter());
