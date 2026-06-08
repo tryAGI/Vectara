@@ -42,12 +42,17 @@ namespace Vectara
         public string? ImageId { get; set; }
 
         /// <summary>
-        /// Marks this part as representing the image referenced by `image_id`. When `true`, the part is matched by visual similarity against image queries, and its `text` (if set) also makes the image findable through keyword search. When omitted, defaults to `true` if `text` is empty or matches the image's description, otherwise `false`.<br/>
-        /// Example: true
+        /// How this part is matched at query time.<br/>
+        /// - `text` — matched on its `text`, like any text part.<br/>
+        /// - `image` — matched by visual similarity against image queries for the image referenced by `image_id`; its `text`, if set, also makes the part findable through keyword search.<br/>
+        /// - `image_and_text` — matched against both the referenced image and its `text` together.<br/>
+        /// When omitted, the mode is inferred. On a corpus that does not support image queries, a part is always `text`. Otherwise it defaults to `image` when it references an image and has no `text`, `image_and_text` when it references an image and has `text`, and `text` otherwise.<br/>
+        /// Example: image_and_text
         /// </summary>
-        /// <example>true</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("is_image_part")]
-        public bool? IsImagePart { get; set; }
+        /// <example>image_and_text</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("image_part_mode")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CoreDocumentPartImagePartModeJsonConverter))]
+        public global::Vectara.CoreDocumentPartImagePartMode? ImagePartMode { get; set; }
 
         /// <summary>
         /// The context text for the document part.<br/>
@@ -88,9 +93,13 @@ namespace Vectara
         /// The ID of the image that this document part is summarizing.<br/>
         /// Example: image_1
         /// </param>
-        /// <param name="isImagePart">
-        /// Marks this part as representing the image referenced by `image_id`. When `true`, the part is matched by visual similarity against image queries, and its `text` (if set) also makes the image findable through keyword search. When omitted, defaults to `true` if `text` is empty or matches the image's description, otherwise `false`.<br/>
-        /// Example: true
+        /// <param name="imagePartMode">
+        /// How this part is matched at query time.<br/>
+        /// - `text` — matched on its `text`, like any text part.<br/>
+        /// - `image` — matched by visual similarity against image queries for the image referenced by `image_id`; its `text`, if set, also makes the part findable through keyword search.<br/>
+        /// - `image_and_text` — matched against both the referenced image and its `text` together.<br/>
+        /// When omitted, the mode is inferred. On a corpus that does not support image queries, a part is always `text`. Otherwise it defaults to `image` when it references an image and has no `text`, `image_and_text` when it references an image and has `text`, and `text` otherwise.<br/>
+        /// Example: image_and_text
         /// </param>
         /// <param name="context">
         /// The context text for the document part.<br/>
@@ -107,7 +116,7 @@ namespace Vectara
             object? metadata,
             string? tableId,
             string? imageId,
-            bool? isImagePart,
+            global::Vectara.CoreDocumentPartImagePartMode? imagePartMode,
             string? context,
             global::System.Collections.Generic.Dictionary<string, double>? customDimensions)
         {
@@ -115,7 +124,7 @@ namespace Vectara
             this.Metadata = metadata;
             this.TableId = tableId;
             this.ImageId = imageId;
-            this.IsImagePart = isImagePart;
+            this.ImagePartMode = imagePartMode;
             this.Context = context;
             this.CustomDimensions = customDimensions;
         }

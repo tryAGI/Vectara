@@ -6,8 +6,9 @@ namespace Vectara
 {
     /// <summary>
     /// Read view of a Google Chat connector's configuration. Includes the display<br/>
-    /// field `client_email` parsed out of the service account key and the audience<br/>
-    /// URL used to verify inbound events. The service account key is never returned.
+    /// fields `client_email` and `project_id` parsed out of the service account key,<br/>
+    /// and the audience URL used to verify inbound events. The service account key is<br/>
+    /// never returned.
     /// </summary>
     public readonly partial struct GchatConnectorConfiguration : global::System.IEquatable<GchatConnectorConfiguration>
     {

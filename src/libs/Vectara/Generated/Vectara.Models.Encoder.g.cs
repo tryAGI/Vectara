@@ -66,7 +66,7 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Whether this encoder can produce embeddings for images.<br/>
+        /// Whether this encoder can produce embeddings for images, either of an image alone or jointly with accompanying text.<br/>
         /// Example: false
         /// </summary>
         /// <example>false</example>
@@ -111,7 +111,7 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="imageEncoding">
-        /// Whether this encoder can produce embeddings for images.<br/>
+        /// Whether this encoder can produce embeddings for images, either of an image alone or jointly with accompanying text.<br/>
         /// Example: false
         /// </param>
 #if NET7_0_OR_GREATER

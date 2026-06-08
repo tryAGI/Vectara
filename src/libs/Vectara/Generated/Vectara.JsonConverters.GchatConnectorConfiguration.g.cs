@@ -32,6 +32,7 @@ namespace Vectara.JsonConverters
             var __score1 = 0;
             if (__jsonProps.Contains("audience_url")) __score1++;
             if (__jsonProps.Contains("client_email")) __score1++;
+            if (__jsonProps.Contains("project_id")) __score1++;
             if (__jsonProps.Contains("type")) __score1++;
             var __bestScore = 0;
             var __bestIndex = -1;

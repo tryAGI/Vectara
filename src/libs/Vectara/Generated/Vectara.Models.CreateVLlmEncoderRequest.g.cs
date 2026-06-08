@@ -65,7 +65,7 @@ namespace Vectara
         public global::Vectara.RemoteAuth? Auth { get; set; }
 
         /// <summary>
-        /// Whether the encoder produces image embeddings. When `true`, the endpoint must accept image-embedding requests; the create call validates this and fails if the endpoint does not support them.<br/>
+        /// Whether the encoder produces image embeddings, either of an image alone or jointly with accompanying text. When `true`, the endpoint must accept image-embedding requests; the create call validates this and fails if the endpoint does not support them.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("image_encoding")]
@@ -107,7 +107,7 @@ namespace Vectara
         /// Authentication configuration for connecting to a remote service.
         /// </param>
         /// <param name="imageEncoding">
-        /// Whether the encoder produces image embeddings. When `true`, the endpoint must accept image-embedding requests; the create call validates this and fails if the endpoint does not support them.<br/>
+        /// Whether the encoder produces image embeddings, either of an image alone or jointly with accompanying text. When `true`, the endpoint must accept image-embedding requests; the create call validates this and fails if the endpoint does not support them.<br/>
         /// Default Value: false
         /// </param>
 #if NET7_0_OR_GREATER
