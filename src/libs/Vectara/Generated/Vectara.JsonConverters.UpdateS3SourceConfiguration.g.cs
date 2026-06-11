@@ -31,6 +31,8 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("access_key_id")) __score0++;
             if (__jsonProps.Contains("bucket")) __score0++;
             if (__jsonProps.Contains("endpoint_url")) __score0++;
+            if (__jsonProps.Contains("neg_regex")) __score0++;
+            if (__jsonProps.Contains("pos_regex")) __score0++;
             if (__jsonProps.Contains("prefix")) __score0++;
             if (__jsonProps.Contains("region")) __score0++;
             if (__jsonProps.Contains("secret_access_key")) __score0++;

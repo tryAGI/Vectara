@@ -69,6 +69,17 @@ namespace Vectara
         public int? MaxExecutionsToKeep { get; set; }
 
         /// <summary>
+        /// Number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
+        /// or other progress events) before it is considered stalled and retried. Set this above the longest<br/>
+        /// silent operation the agent is expected to perform so an in-flight run is not retried mid-operation.<br/>
+        /// Default Value: 3600<br/>
+        /// Example: 1800
+        /// </summary>
+        /// <example>1800</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("stall_timeout_seconds")]
+        public int? StallTimeoutSeconds { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -107,6 +118,13 @@ namespace Vectara
         /// Maximum number of past execution records to keep. Defaults to 10.<br/>
         /// Default Value: 10
         /// </param>
+        /// <param name="stallTimeoutSeconds">
+        /// Number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
+        /// or other progress events) before it is considered stalled and retried. Set this above the longest<br/>
+        /// silent operation the agent is expected to perform so an in-flight run is not retried mid-operation.<br/>
+        /// Default Value: 3600<br/>
+        /// Example: 1800
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -118,7 +136,8 @@ namespace Vectara
             string? description,
             bool? enabled,
             object? sessionMetadata,
-            int? maxExecutionsToKeep)
+            int? maxExecutionsToKeep,
+            int? stallTimeoutSeconds)
         {
             this.Key = key;
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -128,6 +147,7 @@ namespace Vectara
             this.Enabled = enabled;
             this.SessionMetadata = sessionMetadata;
             this.MaxExecutionsToKeep = maxExecutionsToKeep;
+            this.StallTimeoutSeconds = stallTimeoutSeconds;
         }
 
         /// <summary>

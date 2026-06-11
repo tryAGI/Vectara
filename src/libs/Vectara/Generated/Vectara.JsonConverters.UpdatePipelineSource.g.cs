@@ -21,6 +21,13 @@ namespace Vectara.JsonConverters
                             throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UpdatePipelineSourceDiscriminator)}");
             var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
+            global::Vectara.UpdateSharepointSourceConfiguration? sharepoint = default;
+            if (discriminator?.Type == global::Vectara.UpdatePipelineSourceDiscriminatorType.Sharepoint)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateSharepointSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateSharepointSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UpdateSharepointSourceConfiguration)}");
+                sharepoint = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.UpdateS3SourceConfiguration? s3 = default;
             if (discriminator?.Type == global::Vectara.UpdatePipelineSourceDiscriminatorType.S3)
             {
@@ -45,6 +52,8 @@ namespace Vectara.JsonConverters
 
             var __value = new global::Vectara.UpdatePipelineSource(
                 discriminator?.Type,
+                sharepoint,
+
                 s3,
 
                 googleDrive,
@@ -64,7 +73,13 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsS3)
+            if (value.IsSharepoint)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateSharepointSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateSharepointSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateSharepointSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Sharepoint!.Value, typeInfo);
+            }
+            else if (value.IsS3)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateS3SourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateS3SourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateS3SourceConfiguration).Name}");

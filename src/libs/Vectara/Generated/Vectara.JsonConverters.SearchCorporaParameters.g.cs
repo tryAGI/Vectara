@@ -41,10 +41,12 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("context_configuration.characters_after")) __score1++;
             if (__jsonProps.Contains("context_configuration.characters_before")) __score1++;
             if (__jsonProps.Contains("context_configuration.end_tag")) __score1++;
+            if (__jsonProps.Contains("context_configuration.full_document_context")) __score1++;
             if (__jsonProps.Contains("context_configuration.sentences_after")) __score1++;
             if (__jsonProps.Contains("context_configuration.sentences_before")) __score1++;
             if (__jsonProps.Contains("context_configuration.start_tag")) __score1++;
             if (__jsonProps.Contains("limit")) __score1++;
+            if (__jsonProps.Contains("max_by")) __score1++;
             if (__jsonProps.Contains("offset")) __score1++;
             if (__jsonProps.Contains("reranker")) __score1++;
             var __bestScore = 0;
