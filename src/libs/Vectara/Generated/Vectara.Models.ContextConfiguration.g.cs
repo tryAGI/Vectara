@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configuration on the presentation of each document part in the result set. You can only use characters_before/after or sentences_before/after, but not both. If you specify both in the query, sentences_before/after takes precedence<br/>
+    /// Configuration on the presentation of each document part in the result set. Use either `characters_before`/`characters_after` or `sentences_before`/`sentences_after`; if both are set, `sentences_*` takes precedence. Setting `full_document_context: true` overrides both and returns the entire matching document as context.<br/>
     /// Example: {"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"}
     /// </summary>
     public sealed partial class ContextConfiguration
@@ -56,6 +56,13 @@ namespace Vectara
         public string? EndTag { get; set; }
 
         /// <summary>
+        /// When true, the entire document containing the matching part is returned as context; `characters_before`/`characters_after` and `sentences_before`/`sentences_after` are ignored.<br/>
+        /// Default Value: false
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("full_document_context")]
+        public bool? FullDocumentContext { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -88,6 +95,10 @@ namespace Vectara
         /// The tag that wraps the document part at the end. This is often used to provide a start HTML/XML tag or some other delimiter you can use in an application to understand where to provide highlighting in your UI and understand where the document part ends and the context after begins.<br/>
         /// Example: &lt;/em&gt;
         /// </param>
+        /// <param name="fullDocumentContext">
+        /// When true, the entire document containing the matching part is returned as context; `characters_before`/`characters_after` and `sentences_before`/`sentences_after` are ignored.<br/>
+        /// Default Value: false
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -97,7 +108,8 @@ namespace Vectara
             int? sentencesBefore,
             int? sentencesAfter,
             string? startTag,
-            string? endTag)
+            string? endTag,
+            bool? fullDocumentContext)
         {
             this.CharactersBefore = charactersBefore;
             this.CharactersAfter = charactersAfter;
@@ -105,6 +117,7 @@ namespace Vectara
             this.SentencesAfter = sentencesAfter;
             this.StartTag = startTag;
             this.EndTag = endTag;
+            this.FullDocumentContext = fullDocumentContext;
         }
 
         /// <summary>

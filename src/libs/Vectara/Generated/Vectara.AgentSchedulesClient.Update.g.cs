@@ -663,6 +663,10 @@ namespace Vectara
         /// <param name="maxExecutionsToKeep">
         /// Updated maximum number of past execution records to keep.
         /// </param>
+        /// <param name="stallTimeoutSeconds">
+        /// Updated number of seconds a scheduled run may go without producing output before it is<br/>
+        /// considered stalled and retried. Omit to leave the current value unchanged.
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -678,6 +682,7 @@ namespace Vectara
             bool? enabled = default,
             object? sessionMetadata = default,
             int? maxExecutionsToKeep = default,
+            int? stallTimeoutSeconds = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -690,6 +695,7 @@ namespace Vectara
                 Enabled = enabled,
                 SessionMetadata = sessionMetadata,
                 MaxExecutionsToKeep = maxExecutionsToKeep,
+                StallTimeoutSeconds = stallTimeoutSeconds,
             };
 
             return await UpdateAsync(

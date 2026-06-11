@@ -65,6 +65,18 @@ namespace Vectara
         public string? SecretAccessKey { get; set; }
 
         /// <summary>
+        /// Regex patterns matched against the full object key; a key must fully match at least one to be ingested. Empty list = no positive filter.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("pos_regex")]
+        public global::System.Collections.Generic.IList<string>? PosRegex { get; set; }
+
+        /// <summary>
+        /// Regex patterns matched against the full object key; keys fully matching any are skipped.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("neg_regex")]
+        public global::System.Collections.Generic.IList<string>? NegRegex { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -101,6 +113,12 @@ namespace Vectara
         /// AWS secret access key. Encrypted at rest and not returned in responses.<br/>
         /// Included only in requests
         /// </param>
+        /// <param name="posRegex">
+        /// Regex patterns matched against the full object key; a key must fully match at least one to be ingested. Empty list = no positive filter.
+        /// </param>
+        /// <param name="negRegex">
+        /// Regex patterns matched against the full object key; keys fully matching any are skipped.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -111,7 +129,9 @@ namespace Vectara
             string? region,
             string? endpointUrl,
             string? accessKeyId,
-            string? secretAccessKey)
+            string? secretAccessKey,
+            global::System.Collections.Generic.IList<string>? posRegex,
+            global::System.Collections.Generic.IList<string>? negRegex)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Bucket = bucket;
@@ -120,6 +140,8 @@ namespace Vectara
             this.EndpointUrl = endpointUrl;
             this.AccessKeyId = accessKeyId;
             this.SecretAccessKey = secretAccessKey;
+            this.PosRegex = posRegex;
+            this.NegRegex = negRegex;
         }
 
         /// <summary>

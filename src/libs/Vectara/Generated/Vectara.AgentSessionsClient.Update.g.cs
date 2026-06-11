@@ -643,7 +643,7 @@ namespace Vectara
         /// Example: Updated Session Name
         /// </param>
         /// <param name="description">
-        /// Optional description of the session purpose or context.<br/>
+        /// A short description of the session's purpose. Pass an empty string to suppress auto-generation.<br/>
         /// Example: Updated session description
         /// </param>
         /// <param name="metadata">

@@ -19,6 +19,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Sharepoint,
+        /// <summary>
+        /// 
+        /// </summary>
         Web,
     }
 
@@ -36,6 +40,7 @@ namespace Vectara
             {
                 PipelineSourceDiscriminatorType.GoogleDrive => "google_drive",
                 PipelineSourceDiscriminatorType.S3 => "s3",
+                PipelineSourceDiscriminatorType.Sharepoint => "sharepoint",
                 PipelineSourceDiscriminatorType.Web => "web",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -49,6 +54,7 @@ namespace Vectara
             {
                 "google_drive" => PipelineSourceDiscriminatorType.GoogleDrive,
                 "s3" => PipelineSourceDiscriminatorType.S3,
+                "sharepoint" => PipelineSourceDiscriminatorType.Sharepoint,
                 "web" => PipelineSourceDiscriminatorType.Web,
                 _ => null,
             };

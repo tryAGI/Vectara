@@ -36,7 +36,7 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// Optional description of the session purpose or context.<br/>
+        /// A short description of the session's purpose. If omitted at creation, one is auto-generated once the agent has produced events. An empty string indicates auto-generation is disabled for this session.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </summary>
         /// <example>Helping customer troubleshoot widget installation issues</example>
@@ -69,6 +69,16 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required bool Enabled { get; set; }
+
+        /// <summary>
+        /// Lifecycle status of the session. `unstarted` before any event has been submitted, `running` while the agent is producing events, and `stopped` when the session is idle with no event in flight. `stopped` implies no terminating action — the session returns to `running` on the next request.<br/>
+        /// Included only in responses<br/>
+        /// Example: stopped
+        /// </summary>
+        /// <example>stopped</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("status")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentSessionStatusJsonConverter))]
+        public global::Vectara.AgentSessionStatus? Status { get; set; }
 
         /// <summary>
         /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If not specified, the session will not expire.<br/>
@@ -149,7 +159,7 @@ namespace Vectara
         /// Example: 2024-01-15T10:30:00Z
         /// </param>
         /// <param name="description">
-        /// Optional description of the session purpose or context.<br/>
+        /// A short description of the session's purpose. If omitted at creation, one is auto-generated once the agent has produced events. An empty string indicates auto-generation is disabled for this session.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </param>
         /// <param name="metadata">
@@ -160,6 +170,11 @@ namespace Vectara
         /// The step name the session will resume at on the next user message.<br/>
         /// If null, the session starts at the agent's first_step.<br/>
         /// Example: billing
+        /// </param>
+        /// <param name="status">
+        /// Lifecycle status of the session. `unstarted` before any event has been submitted, `running` while the agent is producing events, and `stopped` when the session is idle with no event in flight. `stopped` implies no terminating action — the session returns to `running` on the next request.<br/>
+        /// Included only in responses<br/>
+        /// Example: stopped
         /// </param>
         /// <param name="ttiMinutes">
         /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If not specified, the session will not expire.<br/>
@@ -194,6 +209,7 @@ namespace Vectara
             string? description,
             object? metadata,
             string? currentStepName,
+            global::Vectara.AgentSessionStatus? status,
             long? ttiMinutes,
             global::Vectara.SessionContextUsage? sessionContextUsage,
             global::Vectara.CompactionConfig? effectiveCompaction,
@@ -207,6 +223,7 @@ namespace Vectara
             this.Metadata = metadata;
             this.CurrentStepName = currentStepName;
             this.Enabled = enabled;
+            this.Status = status;
             this.TtiMinutes = ttiMinutes;
             this.CreatedAt = createdAt;
             this.SessionContextUsage = sessionContextUsage;

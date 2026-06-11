@@ -15,6 +15,43 @@ namespace Vectara
         public global::Vectara.PipelineSourceDiscriminatorType? Type { get; }
 
         /// <summary>
+        /// Configuration for ingesting documents from a SharePoint site.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.SharepointSourceConfiguration? Sharepoint { get; init; }
+#else
+        public global::Vectara.SharepointSourceConfiguration? Sharepoint { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Sharepoint))]
+#endif
+        public bool IsSharepoint => Sharepoint != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSharepoint(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SharepointSourceConfiguration? value)
+        {
+            value = Sharepoint;
+            return IsSharepoint;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.SharepointSourceConfiguration PickSharepoint() => IsSharepoint
+            ? Sharepoint!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Sharepoint' but the value was {ToString()}.");
+
+        /// <summary>
         /// Configuration for ingesting objects from any S3-compatible source (Amazon S3, MinIO, Ceph, etc.).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -128,6 +165,29 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator PipelineSource(global::Vectara.SharepointSourceConfiguration value) => new PipelineSource((global::Vectara.SharepointSourceConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.SharepointSourceConfiguration?(PipelineSource @this) => @this.Sharepoint;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PipelineSource(global::Vectara.SharepointSourceConfiguration? value)
+        {
+            Sharepoint = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineSource FromSharepoint(global::Vectara.SharepointSourceConfiguration? value) => new PipelineSource(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PipelineSource(global::Vectara.S3SourceConfiguration value) => new PipelineSource((global::Vectara.S3SourceConfiguration?)value);
 
         /// <summary>
@@ -199,6 +259,7 @@ namespace Vectara
         /// </summary>
         public PipelineSource(
             global::Vectara.PipelineSourceDiscriminatorType? type,
+            global::Vectara.SharepointSourceConfiguration? sharepoint,
             global::Vectara.S3SourceConfiguration? s3,
             global::Vectara.GoogleDriveSourceConfiguration? googleDrive,
             global::Vectara.WebSourceConfiguration? web
@@ -206,6 +267,7 @@ namespace Vectara
         {
             Type = type;
 
+            Sharepoint = sharepoint;
             S3 = s3;
             GoogleDrive = googleDrive;
             Web = web;
@@ -217,13 +279,15 @@ namespace Vectara
         public object? Object =>
             Web as object ??
             GoogleDrive as object ??
-            S3 as object 
+            S3 as object ??
+            Sharepoint as object 
             ;
 
         /// <summary>
         /// 
         /// </summary>
         public override string? ToString() =>
+            Sharepoint?.ToString() ??
             S3?.ToString() ??
             GoogleDrive?.ToString() ??
             Web?.ToString() 
@@ -234,13 +298,14 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsS3 && !IsGoogleDrive && !IsWeb || !IsS3 && IsGoogleDrive && !IsWeb || !IsS3 && !IsGoogleDrive && IsWeb;
+            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsWeb;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.SharepointSourceConfiguration?, TResult>? sharepoint = null,
             global::System.Func<global::Vectara.S3SourceConfiguration?, TResult>? s3 = null,
             global::System.Func<global::Vectara.GoogleDriveSourceConfiguration?, TResult>? googleDrive = null,
             global::System.Func<global::Vectara.WebSourceConfiguration?, TResult>? web = null,
@@ -251,7 +316,11 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsS3 && s3 != null)
+            if (IsSharepoint && sharepoint != null)
+            {
+                return sharepoint(Sharepoint!);
+            }
+            else if (IsS3 && s3 != null)
             {
                 return s3(S3!);
             }
@@ -271,6 +340,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
+            global::System.Action<global::Vectara.SharepointSourceConfiguration?>? sharepoint = null,
+
             global::System.Action<global::Vectara.S3SourceConfiguration?>? s3 = null,
 
             global::System.Action<global::Vectara.GoogleDriveSourceConfiguration?>? googleDrive = null,
@@ -283,7 +354,11 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsS3)
+            if (IsSharepoint)
+            {
+                sharepoint?.Invoke(Sharepoint!);
+            }
+            else if (IsS3)
             {
                 s3?.Invoke(S3!);
             }
@@ -301,6 +376,7 @@ namespace Vectara
         /// 
         /// </summary>
         public void Switch(
+            global::System.Action<global::Vectara.SharepointSourceConfiguration?>? sharepoint = null,
             global::System.Action<global::Vectara.S3SourceConfiguration?>? s3 = null,
             global::System.Action<global::Vectara.GoogleDriveSourceConfiguration?>? googleDrive = null,
             global::System.Action<global::Vectara.WebSourceConfiguration?>? web = null,
@@ -311,7 +387,11 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsS3)
+            if (IsSharepoint)
+            {
+                sharepoint?.Invoke(Sharepoint!);
+            }
+            else if (IsS3)
             {
                 s3?.Invoke(S3!);
             }
@@ -332,6 +412,8 @@ namespace Vectara
         {
             var fields = new object?[]
             {
+                Sharepoint,
+                typeof(global::Vectara.SharepointSourceConfiguration),
                 S3,
                 typeof(global::Vectara.S3SourceConfiguration),
                 GoogleDrive,
@@ -354,6 +436,7 @@ namespace Vectara
         public bool Equals(PipelineSource other)
         {
             return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SharepointSourceConfiguration?>.Default.Equals(Sharepoint, other.Sharepoint) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.S3SourceConfiguration?>.Default.Equals(S3, other.S3) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.GoogleDriveSourceConfiguration?>.Default.Equals(GoogleDrive, other.GoogleDrive) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebSourceConfiguration?>.Default.Equals(Web, other.Web) 

@@ -25,7 +25,7 @@ namespace Vectara
         public string? Name { get; set; }
 
         /// <summary>
-        /// Optional description of the session purpose or context.<br/>
+        /// A short description of the session's purpose. If omitted, one is auto-generated once the session has produced events. Pass an empty string to suppress auto-generation.<br/>
         /// Example: Helping customer troubleshoot issues
         /// </summary>
         /// <example>Helping customer troubleshoot issues</example>
@@ -96,7 +96,7 @@ namespace Vectara
         /// Example: Customer Support Session
         /// </param>
         /// <param name="description">
-        /// Optional description of the session purpose or context.<br/>
+        /// A short description of the session's purpose. If omitted, one is auto-generated once the session has produced events. Pass an empty string to suppress auto-generation.<br/>
         /// Example: Helping customer troubleshoot issues
         /// </param>
         /// <param name="metadata">

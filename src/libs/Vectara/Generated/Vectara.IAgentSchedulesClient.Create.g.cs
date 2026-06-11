@@ -148,6 +148,13 @@ namespace Vectara
         /// Maximum number of past execution records to keep. Defaults to 10.<br/>
         /// Default Value: 10
         /// </param>
+        /// <param name="stallTimeoutSeconds">
+        /// Number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
+        /// or other progress events) before it is considered stalled and retried. Set this above the longest<br/>
+        /// silent operation the agent is expected to perform so an in-flight run is not retried mid-operation.<br/>
+        /// Default Value: 3600<br/>
+        /// Example: 1800
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -163,6 +170,7 @@ namespace Vectara
             bool? enabled = default,
             object? sessionMetadata = default,
             int? maxExecutionsToKeep = default,
+            int? stallTimeoutSeconds = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

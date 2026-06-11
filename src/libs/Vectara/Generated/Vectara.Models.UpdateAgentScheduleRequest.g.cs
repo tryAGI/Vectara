@@ -54,6 +54,13 @@ namespace Vectara
         public int? MaxExecutionsToKeep { get; set; }
 
         /// <summary>
+        /// Updated number of seconds a scheduled run may go without producing output before it is<br/>
+        /// considered stalled and retried. Omit to leave the current value unchanged.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("stall_timeout_seconds")]
+        public int? StallTimeoutSeconds { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -84,6 +91,10 @@ namespace Vectara
         /// <param name="maxExecutionsToKeep">
         /// Updated maximum number of past execution records to keep.
         /// </param>
+        /// <param name="stallTimeoutSeconds">
+        /// Updated number of seconds a scheduled run may go without producing output before it is<br/>
+        /// considered stalled and retried. Omit to leave the current value unchanged.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -94,7 +105,8 @@ namespace Vectara
             global::Vectara.ScheduleConfiguration? schedule,
             bool? enabled,
             object? sessionMetadata,
-            int? maxExecutionsToKeep)
+            int? maxExecutionsToKeep,
+            int? stallTimeoutSeconds)
         {
             this.Name = name;
             this.Description = description;
@@ -103,6 +115,7 @@ namespace Vectara
             this.Enabled = enabled;
             this.SessionMetadata = sessionMetadata;
             this.MaxExecutionsToKeep = maxExecutionsToKeep;
+            this.StallTimeoutSeconds = stallTimeoutSeconds;
         }
 
         /// <summary>
