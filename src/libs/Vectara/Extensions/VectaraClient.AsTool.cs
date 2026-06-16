@@ -117,15 +117,19 @@ public static class VectaraToolExtensions
             parts.Add("Search Results:");
             foreach (var result in response.SearchResults)
             {
-                var entry = $"- [Score: {result.Score:F3}]";
-                if (!string.IsNullOrWhiteSpace(result.CorpusKey))
+                var resultBase = PickSearchResultBase(result);
+                var entry = resultBase?.Score is { } resultScore
+                    ? $"- [Score: {resultScore:F3}]"
+                    : "-";
+
+                if (!string.IsNullOrWhiteSpace(resultBase?.CorpusKey))
                 {
-                    entry += $" (Corpus: {result.CorpusKey})";
+                    entry += $" (Corpus: {resultBase.CorpusKey})";
                 }
 
-                if (!string.IsNullOrWhiteSpace(result.Text))
+                if (!string.IsNullOrWhiteSpace(resultBase?.Text))
                 {
-                    entry += $": {result.Text}";
+                    entry += $": {resultBase.Text}";
                 }
 
                 parts.Add(entry);
@@ -134,6 +138,9 @@ public static class VectaraToolExtensions
 
         return string.Join("\n", parts);
     }
+
+    private static SearchResultBase? PickSearchResultBase(IndividualSearchResult result) =>
+        result.Text?.Base ?? result.Image?.Base;
 
     private static string FormatCorporaResponse(ListCorporaResponse response)
     {

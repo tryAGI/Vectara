@@ -59,7 +59,15 @@ public partial class Tests
 
         foreach (var result in response.SearchResults ?? [])
         {
-            Console.WriteLine($"  Score: {result.Score}, Text: {result.Text?[..Math.Min(80, result.Text.Length)]}...");
+            var resultBase = PickSearchResultBase(result);
+            var preview = resultBase?.Text is { Length: > 0 } text
+                ? text[..Math.Min(80, text.Length)]
+                : null;
+
+            Console.WriteLine($"  Score: {resultBase?.Score}, Text: {preview}...");
         }
     }
+
+    private static SearchResultBase? PickSearchResultBase(IndividualSearchResult result) =>
+        result.Text?.Base ?? result.Image?.Base;
 }
