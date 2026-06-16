@@ -24,13 +24,13 @@ namespace Vectara
         public bool? SameDomainOnly { get; set; }
 
         /// <summary>
-        /// Regex patterns; URLs must match at least one to be crawled. Empty list = no positive filter.
+        /// Regex patterns matched against the full URL; a URL must fully match at least one to be crawled. Empty list = no positive filter.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pos_regex")]
         public global::System.Collections.Generic.IList<string>? PosRegex { get; set; }
 
         /// <summary>
-        /// Regex patterns; URLs matching any are skipped.
+        /// Regex patterns matched against the full URL; URLs fully matching any are skipped.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("neg_regex")]
         public global::System.Collections.Generic.IList<string>? NegRegex { get; set; }
@@ -53,10 +53,10 @@ namespace Vectara
         /// Default Value: true
         /// </param>
         /// <param name="posRegex">
-        /// Regex patterns; URLs must match at least one to be crawled. Empty list = no positive filter.
+        /// Regex patterns matched against the full URL; a URL must fully match at least one to be crawled. Empty list = no positive filter.
         /// </param>
         /// <param name="negRegex">
-        /// Regex patterns; URLs matching any are skipped.
+        /// Regex patterns matched against the full URL; URLs fully matching any are skipped.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

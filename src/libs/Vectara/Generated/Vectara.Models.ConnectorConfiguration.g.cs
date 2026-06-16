@@ -51,13 +51,14 @@ namespace Vectara
         /// 
         /// </summary>
         public global::Vectara.SlackConnectorConfiguration PickSlack() => IsSlack
-            ? Slack!
+            ? Slack!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Slack' but the value was {ToString()}.");
 
         /// <summary>
         /// Read view of a Google Chat connector's configuration. Includes the display<br/>
-        /// field `client_email` parsed out of the service account key and the audience<br/>
-        /// URL used to verify inbound events. The service account key is never returned.
+        /// fields `client_email` and `project_id` parsed out of the service account key,<br/>
+        /// and the audience URL used to verify inbound events. The service account key is<br/>
+        /// never returned.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GchatConnectorConfiguration? Gchat { get; init; }
@@ -90,7 +91,7 @@ namespace Vectara
         /// 
         /// </summary>
         public global::Vectara.GchatConnectorConfiguration PickGchat() => IsGchat
-            ? Gchat!
+            ? Gchat!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Gchat' but the value was {ToString()}.");
         /// <summary>
         /// 
@@ -181,8 +182,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.SlackConnectorConfiguration, TResult>? slack = null,
-            global::System.Func<global::Vectara.GchatConnectorConfiguration, TResult>? gchat = null,
+            global::System.Func<global::Vectara.SlackConnectorConfiguration?, TResult>? slack = null,
+            global::System.Func<global::Vectara.GchatConnectorConfiguration?, TResult>? gchat = null,
             bool validate = true)
         {
             if (validate)
@@ -206,9 +207,9 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.SlackConnectorConfiguration>? slack = null,
+            global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
 
-            global::System.Action<global::Vectara.GchatConnectorConfiguration>? gchat = null,
+            global::System.Action<global::Vectara.GchatConnectorConfiguration?>? gchat = null,
             bool validate = true)
         {
             if (validate)
@@ -230,8 +231,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Switch(
-            global::System.Action<global::Vectara.SlackConnectorConfiguration>? slack = null,
-            global::System.Action<global::Vectara.GchatConnectorConfiguration>? gchat = null,
+            global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
+            global::System.Action<global::Vectara.GchatConnectorConfiguration?>? gchat = null,
             bool validate = true)
         {
             if (validate)

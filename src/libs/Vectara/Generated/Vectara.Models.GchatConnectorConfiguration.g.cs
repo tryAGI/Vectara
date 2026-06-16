@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -5,87 +6,293 @@ namespace Vectara
 {
     /// <summary>
     /// Read view of a Google Chat connector's configuration. Includes the display<br/>
-    /// field `client_email` parsed out of the service account key and the audience<br/>
-    /// URL used to verify inbound events. The service account key is never returned.
+    /// fields `client_email` and `project_id` parsed out of the service account key,<br/>
+    /// and the audience URL used to verify inbound events. The service account key is<br/>
+    /// never returned.
     /// </summary>
-    public sealed partial class GchatConnectorConfiguration
+    public readonly partial struct GchatConnectorConfiguration : global::System.IEquatable<GchatConnectorConfiguration>
     {
         /// <summary>
-        /// The type of connector configuration.<br/>
-        /// Default Value: gchat<br/>
-        /// Example: gchat
+        /// Properties shared by every connector configuration read view.
         /// </summary>
-        /// <default>"gchat"</default>
-        /// <example>gchat</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "gchat";
-
-        /// <summary>
-        /// The webhook URL for this connector. Set the Chat app's HTTP endpoint URL<br/>
-        /// and Authentication audience fields to this value in the Google Cloud<br/>
-        /// console. Inbound Google Chat ID tokens are accepted only if aud equals<br/>
-        /// this URL. This value contains a secret and is encrypted at rest.<br/>
-        /// Example: https://api.example.com/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/gchat
-        /// </summary>
-        /// <example>https://api.example.com/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/gchat</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("audience_url")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string AudienceUrl { get; set; }
-
-        /// <summary>
-        /// Service account email derived from the service account key.<br/>
-        /// Example: chat-bot@my-gchat-app.iam.gserviceaccount.com
-        /// </summary>
-        /// <example>chat-bot@my-gchat-app.iam.gserviceaccount.com</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("client_email")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string ClientEmail { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GchatConnectorConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of connector configuration.<br/>
-        /// Default Value: gchat<br/>
-        /// Example: gchat
-        /// </param>
-        /// <param name="audienceUrl">
-        /// The webhook URL for this connector. Set the Chat app's HTTP endpoint URL<br/>
-        /// and Authentication audience fields to this value in the Google Cloud<br/>
-        /// console. Inbound Google Chat ID tokens are accepted only if aud equals<br/>
-        /// this URL. This value contains a secret and is encrypted at rest.<br/>
-        /// Example: https://api.example.com/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/gchat
-        /// </param>
-        /// <param name="clientEmail">
-        /// Service account email derived from the service account key.<br/>
-        /// Example: chat-bot@my-gchat-app.iam.gserviceaccount.com
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.ConnectorConfigurationBase? Base { get; init; }
+#else
+        public global::Vectara.ConnectorConfigurationBase? Base { get; }
 #endif
-        public GchatConnectorConfiguration(
-            string type,
-            string audienceUrl,
-            string clientEmail)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
+#endif
+        public bool IsBase => Base != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ConnectorConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.AudienceUrl = audienceUrl ?? throw new global::System.ArgumentNullException(nameof(audienceUrl));
-            this.ClientEmail = clientEmail ?? throw new global::System.ArgumentNullException(nameof(clientEmail));
+            value = Base;
+            return IsBase;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GchatConnectorConfiguration" /> class.
+        /// 
         /// </summary>
-        public GchatConnectorConfiguration()
+        public global::Vectara.ConnectorConfigurationBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.GchatConnectorConfigurationVariant2? GchatConnectorConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.GchatConnectorConfigurationVariant2? GchatConnectorConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GchatConnectorConfigurationVariant2))]
+#endif
+        public bool IsGchatConnectorConfigurationVariant2 => GchatConnectorConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickGchatConnectorConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GchatConnectorConfigurationVariant2? value)
         {
+            value = GchatConnectorConfigurationVariant2;
+            return IsGchatConnectorConfigurationVariant2;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.GchatConnectorConfigurationVariant2 PickGchatConnectorConfigurationVariant2() => IsGchatConnectorConfigurationVariant2
+            ? GchatConnectorConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'GchatConnectorConfigurationVariant2' but the value was {ToString()}.");
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator GchatConnectorConfiguration(global::Vectara.ConnectorConfigurationBase value) => new GchatConnectorConfiguration((global::Vectara.ConnectorConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.ConnectorConfigurationBase?(GchatConnectorConfiguration @this) => @this.Base;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public GchatConnectorConfiguration(global::Vectara.ConnectorConfigurationBase? value)
+        {
+            Base = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static GchatConnectorConfiguration FromBase(global::Vectara.ConnectorConfigurationBase? value) => new GchatConnectorConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator GchatConnectorConfiguration(global::Vectara.GchatConnectorConfigurationVariant2 value) => new GchatConnectorConfiguration((global::Vectara.GchatConnectorConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.GchatConnectorConfigurationVariant2?(GchatConnectorConfiguration @this) => @this.GchatConnectorConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public GchatConnectorConfiguration(global::Vectara.GchatConnectorConfigurationVariant2? value)
+        {
+            GchatConnectorConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static GchatConnectorConfiguration FromGchatConnectorConfigurationVariant2(global::Vectara.GchatConnectorConfigurationVariant2? value) => new GchatConnectorConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public GchatConnectorConfiguration(
+            global::Vectara.ConnectorConfigurationBase? @base,
+            global::Vectara.GchatConnectorConfigurationVariant2? gchatConnectorConfigurationVariant2
+            )
+        {
+            Base = @base;
+            GchatConnectorConfigurationVariant2 = gchatConnectorConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            GchatConnectorConfigurationVariant2 as object ??
+            Base as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            Base?.ToString() ??
+            GchatConnectorConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsBase && IsGchatConnectorConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.ConnectorConfigurationBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.GchatConnectorConfigurationVariant2, TResult>? gchatConnectorConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase && @base != null)
+            {
+                return @base(Base!);
+            }
+            else if (IsGchatConnectorConfigurationVariant2 && gchatConnectorConfigurationVariant2 != null)
+            {
+                return gchatConnectorConfigurationVariant2(GchatConnectorConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.ConnectorConfigurationBase>? @base = null,
+
+            global::System.Action<global::Vectara.GchatConnectorConfigurationVariant2>? gchatConnectorConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsGchatConnectorConfigurationVariant2)
+            {
+                gchatConnectorConfigurationVariant2?.Invoke(GchatConnectorConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.ConnectorConfigurationBase>? @base = null,
+            global::System.Action<global::Vectara.GchatConnectorConfigurationVariant2>? gchatConnectorConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsGchatConnectorConfigurationVariant2)
+            {
+                gchatConnectorConfigurationVariant2?.Invoke(GchatConnectorConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                Base,
+                typeof(global::Vectara.ConnectorConfigurationBase),
+                GchatConnectorConfigurationVariant2,
+                typeof(global::Vectara.GchatConnectorConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(GchatConnectorConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ConnectorConfigurationBase?>.Default.Equals(Base, other.Base) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GchatConnectorConfigurationVariant2?>.Default.Equals(GchatConnectorConfigurationVariant2, other.GchatConnectorConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(GchatConnectorConfiguration obj1, GchatConnectorConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<GchatConnectorConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(GchatConnectorConfiguration obj1, GchatConnectorConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is GchatConnectorConfiguration o && Equals(o);
+        }
     }
 }

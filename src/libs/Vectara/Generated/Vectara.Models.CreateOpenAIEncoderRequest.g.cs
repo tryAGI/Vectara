@@ -4,19 +4,19 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configuration for an OpenAI-compatible encoder
+    /// Configuration for a text-only encoder served by an endpoint that implements OpenAI's `/v1/embeddings` request shape.
     /// </summary>
     public sealed partial class CreateOpenAIEncoderRequest
     {
         /// <summary>
-        /// Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs<br/>
+        /// Must be "openai-compatible" for OpenAI and OpenAI-compatible text-embedding APIs.<br/>
         /// Default Value: openai-compatible
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         public string? Type { get; set; }
 
         /// <summary>
-        /// A unique name for the encoder<br/>
+        /// A unique name for the encoder.<br/>
         /// Example: openai-text-encoder
         /// </summary>
         /// <example>openai-text-encoder</example>
@@ -25,10 +25,10 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// A description of what this encoder does<br/>
-        /// Example: description
+        /// A description of what this encoder does.<br/>
+        /// Example: Text encoder for product catalog search
         /// </summary>
-        /// <example>description</example>
+        /// <example>Text encoder for product catalog search</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Description { get; set; }
@@ -74,12 +74,12 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CreateOpenAIEncoderRequest" /> class.
         /// </summary>
         /// <param name="name">
-        /// A unique name for the encoder<br/>
+        /// A unique name for the encoder.<br/>
         /// Example: openai-text-encoder
         /// </param>
         /// <param name="description">
-        /// A description of what this encoder does<br/>
-        /// Example: description
+        /// A description of what this encoder does.<br/>
+        /// Example: Text encoder for product catalog search
         /// </param>
         /// <param name="uri">
         /// The URI endpoint for the embedding API (can be OpenAI or any compatible embedding API endpoint)<br/>
@@ -90,7 +90,7 @@ namespace Vectara
         /// Example: text-embedding-ada-002
         /// </param>
         /// <param name="type">
-        /// Must be "openai-compatible" for OpenAI and OpenAI-compatible APIs<br/>
+        /// Must be "openai-compatible" for OpenAI and OpenAI-compatible text-embedding APIs.<br/>
         /// Default Value: openai-compatible
         /// </param>
         /// <param name="outputDimensions">

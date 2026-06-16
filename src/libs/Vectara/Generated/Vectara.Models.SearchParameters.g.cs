@@ -24,7 +24,7 @@ namespace Vectara
         public int? Limit { get; set; }
 
         /// <summary>
-        /// Configuration on the presentation of each document part in the result set. You can only use characters_before/after or sentences_before/after, but not both. If you specify both in the query, sentences_before/after takes precedence<br/>
+        /// Configuration on the presentation of each document part in the result set. Use either `characters_before`/`characters_after` or `sentences_before`/`sentences_after`; if both are set, `sentences_*` takes precedence. Setting `full_document_context: true` overrides both and returns the entire matching document as context.<br/>
         /// Example: {"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"}
         /// </summary>
         /// <example>{"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"}</example>
@@ -37,6 +37,15 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonPropertyName("reranker")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.SearchRerankerJsonConverter))]
         public global::Vectara.SearchReranker? Reranker { get; set; }
+
+        /// <summary>
+        /// Collapses the result set so that at most one result is returned per document, keeping the highest-scoring part of each. Applied to the retrieved results before reranking and pagination, so the number of results returned may be smaller than `limit`.<br/>
+        /// Example: doc.id
+        /// </summary>
+        /// <example>doc.id</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("max_by")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.SearchParametersMaxByJsonConverter))]
+        public global::Vectara.SearchParametersMaxBy? MaxBy { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -56,11 +65,15 @@ namespace Vectara
         /// Default Value: 10
         /// </param>
         /// <param name="contextConfiguration">
-        /// Configuration on the presentation of each document part in the result set. You can only use characters_before/after or sentences_before/after, but not both. If you specify both in the query, sentences_before/after takes precedence<br/>
+        /// Configuration on the presentation of each document part in the result set. Use either `characters_before`/`characters_after` or `sentences_before`/`sentences_after`; if both are set, `sentences_*` takes precedence. Setting `full_document_context: true` overrides both and returns the entire matching document as context.<br/>
         /// Example: {"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"}
         /// </param>
         /// <param name="reranker">
         /// Rerank results of the search. Rerankers are very powerful tools to improve the order of search results. By default the search will use the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.
+        /// </param>
+        /// <param name="maxBy">
+        /// Collapses the result set so that at most one result is returned per document, keeping the highest-scoring part of each. Applied to the retrieved results before reranking and pagination, so the number of results returned may be smaller than `limit`.<br/>
+        /// Example: doc.id
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -69,12 +82,14 @@ namespace Vectara
             int? offset,
             int? limit,
             global::Vectara.ContextConfiguration? contextConfiguration,
-            global::Vectara.SearchReranker? reranker)
+            global::Vectara.SearchReranker? reranker,
+            global::Vectara.SearchParametersMaxBy? maxBy)
         {
             this.Offset = offset;
             this.Limit = limit;
             this.ContextConfiguration = contextConfiguration;
             this.Reranker = reranker;
+            this.MaxBy = maxBy;
         }
 
         /// <summary>

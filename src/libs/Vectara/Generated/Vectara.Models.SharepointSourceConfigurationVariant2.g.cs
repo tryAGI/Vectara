@@ -4,10 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// The metadata for the document that contains the document part.<br/>
-    /// Example: {"industry":"banking","year":2023,"doc_type":"annual_report"}
+    /// 
     /// </summary>
-    public sealed partial class IndividualSearchResultDocumentMetadata
+    public sealed partial class SharepointSourceConfigurationVariant2
     {
 
         /// <summary>

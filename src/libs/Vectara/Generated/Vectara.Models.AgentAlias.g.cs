@@ -36,7 +36,7 @@ namespace Vectara
 
         /// <summary>
         /// A routing policy. The `type` discriminator determines which fields apply:<br/>
-        /// * `routed` — evaluate ordered rules; the first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` are then used (one agent for `single`, hashed by `partition_by` for `weighted`). Rules with omitted `match` are catch-all rules (typically last).<br/>
+        /// * `routed` — evaluate ordered rules; the first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` are then used (one agent for `single`, hashed by `partition_by` for `weighted`). A rule with omitted `match` is a catch-all that always matches; it must be the last rule, and any rule placed after it is rejected as unreachable.<br/>
         /// Most use cases (direct, weighted/canary, conditional, conditional+canary) collapse into `routed`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("policy")]
@@ -88,7 +88,7 @@ namespace Vectara
         /// </param>
         /// <param name="policy">
         /// A routing policy. The `type` discriminator determines which fields apply:<br/>
-        /// * `routed` — evaluate ordered rules; the first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` are then used (one agent for `single`, hashed by `partition_by` for `weighted`). Rules with omitted `match` are catch-all rules (typically last).<br/>
+        /// * `routed` — evaluate ordered rules; the first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` are then used (one agent for `single`, hashed by `partition_by` for `weighted`). A rule with omitted `match` is a catch-all that always matches; it must be the last rule, and any rule placed after it is rejected as unreachable.<br/>
         /// Most use cases (direct, weighted/canary, conditional, conditional+canary) collapse into `routed`.
         /// </param>
         /// <param name="enabled">

@@ -1,3 +1,4 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
@@ -6,93 +7,289 @@ namespace Vectara
     /// <summary>
     /// Write view of a Slack connector's configuration, supplied on create or update.
     /// </summary>
-    public sealed partial class CreateSlackConnectorConfiguration
+    public readonly partial struct CreateSlackConnectorConfiguration : global::System.IEquatable<CreateSlackConnectorConfiguration>
     {
         /// <summary>
-        /// The type of connector configuration.<br/>
-        /// Default Value: slack<br/>
-        /// Example: slack
+        /// Properties shared by every connector configuration write view.
         /// </summary>
-        /// <default>"slack"</default>
-        /// <example>slack</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "slack";
-
-        /// <summary>
-        /// Slack bot token (xoxb-) for API access. Encrypted at rest.<br/>
-        /// Example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
-        /// </summary>
-        /// <example>xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("bot_token")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string BotToken { get; set; }
-
-        /// <summary>
-        /// Slack signing secret for webhook verification. Encrypted at rest.<br/>
-        /// Example: abcdef1234567890abcdef1234567890abcdef12
-        /// </summary>
-        /// <example>abcdef1234567890abcdef1234567890abcdef12</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("signing_secret")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string SigningSecret { get; set; }
-
-        /// <summary>
-        /// Slack App ID for customer lookup in webhooks.<br/>
-        /// Example: A1234567890
-        /// </summary>
-        /// <example>A1234567890</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("api_app_id")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string ApiAppId { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CreateSlackConnectorConfiguration" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The type of connector configuration.<br/>
-        /// Default Value: slack<br/>
-        /// Example: slack
-        /// </param>
-        /// <param name="botToken">
-        /// Slack bot token (xoxb-) for API access. Encrypted at rest.<br/>
-        /// Example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
-        /// </param>
-        /// <param name="signingSecret">
-        /// Slack signing secret for webhook verification. Encrypted at rest.<br/>
-        /// Example: abcdef1234567890abcdef1234567890abcdef12
-        /// </param>
-        /// <param name="apiAppId">
-        /// Slack App ID for customer lookup in webhooks.<br/>
-        /// Example: A1234567890
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateConnectorConfigurationBase? Base { get; init; }
+#else
+        public global::Vectara.CreateConnectorConfigurationBase? Base { get; }
 #endif
-        public CreateSlackConnectorConfiguration(
-            string type,
-            string botToken,
-            string signingSecret,
-            string apiAppId)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
+#endif
+        public bool IsBase => Base != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickBase(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateConnectorConfigurationBase? value)
         {
-            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.BotToken = botToken ?? throw new global::System.ArgumentNullException(nameof(botToken));
-            this.SigningSecret = signingSecret ?? throw new global::System.ArgumentNullException(nameof(signingSecret));
-            this.ApiAppId = apiAppId ?? throw new global::System.ArgumentNullException(nameof(apiAppId));
+            value = Base;
+            return IsBase;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateSlackConnectorConfiguration" /> class.
+        /// 
         /// </summary>
-        public CreateSlackConnectorConfiguration()
+        public global::Vectara.CreateConnectorConfigurationBase PickBase() => IsBase
+            ? Base!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateSlackConnectorConfigurationVariant2? CreateSlackConnectorConfigurationVariant2 { get; init; }
+#else
+        public global::Vectara.CreateSlackConnectorConfigurationVariant2? CreateSlackConnectorConfigurationVariant2 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateSlackConnectorConfigurationVariant2))]
+#endif
+        public bool IsCreateSlackConnectorConfigurationVariant2 => CreateSlackConnectorConfigurationVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickCreateSlackConnectorConfigurationVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateSlackConnectorConfigurationVariant2? value)
         {
+            value = CreateSlackConnectorConfigurationVariant2;
+            return IsCreateSlackConnectorConfigurationVariant2;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.CreateSlackConnectorConfigurationVariant2 PickCreateSlackConnectorConfigurationVariant2() => IsCreateSlackConnectorConfigurationVariant2
+            ? CreateSlackConnectorConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'CreateSlackConnectorConfigurationVariant2' but the value was {ToString()}.");
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator CreateSlackConnectorConfiguration(global::Vectara.CreateConnectorConfigurationBase value) => new CreateSlackConnectorConfiguration((global::Vectara.CreateConnectorConfigurationBase?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.CreateConnectorConfigurationBase?(CreateSlackConnectorConfiguration @this) => @this.Base;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateSlackConnectorConfiguration(global::Vectara.CreateConnectorConfigurationBase? value)
+        {
+            Base = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateSlackConnectorConfiguration FromBase(global::Vectara.CreateConnectorConfigurationBase? value) => new CreateSlackConnectorConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator CreateSlackConnectorConfiguration(global::Vectara.CreateSlackConnectorConfigurationVariant2 value) => new CreateSlackConnectorConfiguration((global::Vectara.CreateSlackConnectorConfigurationVariant2?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.CreateSlackConnectorConfigurationVariant2?(CreateSlackConnectorConfiguration @this) => @this.CreateSlackConnectorConfigurationVariant2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateSlackConnectorConfiguration(global::Vectara.CreateSlackConnectorConfigurationVariant2? value)
+        {
+            CreateSlackConnectorConfigurationVariant2 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CreateSlackConnectorConfiguration FromCreateSlackConnectorConfigurationVariant2(global::Vectara.CreateSlackConnectorConfigurationVariant2? value) => new CreateSlackConnectorConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CreateSlackConnectorConfiguration(
+            global::Vectara.CreateConnectorConfigurationBase? @base,
+            global::Vectara.CreateSlackConnectorConfigurationVariant2? createSlackConnectorConfigurationVariant2
+            )
+        {
+            Base = @base;
+            CreateSlackConnectorConfigurationVariant2 = createSlackConnectorConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            CreateSlackConnectorConfigurationVariant2 as object ??
+            Base as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            Base?.ToString() ??
+            CreateSlackConnectorConfigurationVariant2?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsBase && IsCreateSlackConnectorConfigurationVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.CreateConnectorConfigurationBase, TResult>? @base = null,
+            global::System.Func<global::Vectara.CreateSlackConnectorConfigurationVariant2, TResult>? createSlackConnectorConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase && @base != null)
+            {
+                return @base(Base!);
+            }
+            else if (IsCreateSlackConnectorConfigurationVariant2 && createSlackConnectorConfigurationVariant2 != null)
+            {
+                return createSlackConnectorConfigurationVariant2(CreateSlackConnectorConfigurationVariant2!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.CreateConnectorConfigurationBase>? @base = null,
+
+            global::System.Action<global::Vectara.CreateSlackConnectorConfigurationVariant2>? createSlackConnectorConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsCreateSlackConnectorConfigurationVariant2)
+            {
+                createSlackConnectorConfigurationVariant2?.Invoke(CreateSlackConnectorConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CreateConnectorConfigurationBase>? @base = null,
+            global::System.Action<global::Vectara.CreateSlackConnectorConfigurationVariant2>? createSlackConnectorConfigurationVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsBase)
+            {
+                @base?.Invoke(Base!);
+            }
+            else if (IsCreateSlackConnectorConfigurationVariant2)
+            {
+                createSlackConnectorConfigurationVariant2?.Invoke(CreateSlackConnectorConfigurationVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                Base,
+                typeof(global::Vectara.CreateConnectorConfigurationBase),
+                CreateSlackConnectorConfigurationVariant2,
+                typeof(global::Vectara.CreateSlackConnectorConfigurationVariant2),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(CreateSlackConnectorConfiguration other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateConnectorConfigurationBase?>.Default.Equals(Base, other.Base) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateSlackConnectorConfigurationVariant2?>.Default.Equals(CreateSlackConnectorConfigurationVariant2, other.CreateSlackConnectorConfigurationVariant2) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(CreateSlackConnectorConfiguration obj1, CreateSlackConnectorConfiguration obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<CreateSlackConnectorConfiguration>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(CreateSlackConnectorConfiguration obj1, CreateSlackConnectorConfiguration obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is CreateSlackConnectorConfiguration o && Equals(o);
+        }
     }
 }

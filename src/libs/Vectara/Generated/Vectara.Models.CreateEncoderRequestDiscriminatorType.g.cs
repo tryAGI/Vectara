@@ -12,6 +12,10 @@ namespace Vectara
         /// 
         /// </summary>
         OpenaiCompatible,
+        /// <summary>
+        /// 
+        /// </summary>
+        VllmCompatible,
     }
 
     /// <summary>
@@ -27,6 +31,7 @@ namespace Vectara
             return value switch
             {
                 CreateEncoderRequestDiscriminatorType.OpenaiCompatible => "openai-compatible",
+                CreateEncoderRequestDiscriminatorType.VllmCompatible => "vllm-compatible",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -38,6 +43,7 @@ namespace Vectara
             return value switch
             {
                 "openai-compatible" => CreateEncoderRequestDiscriminatorType.OpenaiCompatible,
+                "vllm-compatible" => CreateEncoderRequestDiscriminatorType.VllmCompatible,
                 _ => null,
             };
         }

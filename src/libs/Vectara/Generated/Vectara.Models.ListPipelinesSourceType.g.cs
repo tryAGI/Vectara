@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        GoogleDrive,
+        /// <summary>
+        /// 
+        /// </summary>
         S3,
         /// <summary>
         /// 
@@ -34,6 +38,7 @@ namespace Vectara
         {
             return value switch
             {
+                ListPipelinesSourceType.GoogleDrive => "google_drive",
                 ListPipelinesSourceType.S3 => "s3",
                 ListPipelinesSourceType.Sharepoint => "sharepoint",
                 ListPipelinesSourceType.Web => "web",
@@ -47,6 +52,7 @@ namespace Vectara
         {
             return value switch
             {
+                "google_drive" => ListPipelinesSourceType.GoogleDrive,
                 "s3" => ListPipelinesSourceType.S3,
                 "sharepoint" => ListPipelinesSourceType.Sharepoint,
                 "web" => ListPipelinesSourceType.Web,

@@ -66,6 +66,9 @@ tags:
 - name: Agent Secrets
   description: Manage agent-scoped secrets that can be referenced from tool argument
     overrides via $ref.
+- name: Agent Memory
+  description: Read and update the agent's accumulated learned memory (the `_learned_memory`
+    skill), with version history.
 - name: Agent Aliases
   description: 'Manage routing aliases that map a public name to one or more agents
     under a configurable policy. Create a session through an alias (`POST /v2/agent_aliases/{alias_key}/sessions`)
@@ -4130,7 +4133,8 @@ paths:
                       the agreement.
                     response_language: eng
                     search_results:
-                    - text: Clause 9.2 of the employment contract requires binding
+                    - result_type: text
+                      text: Clause 9.2 of the employment contract requires binding
                         arbitration via AAA in Delaware, with a 30-day opt-out period.
                         The agreement is governed by California law.
                       score: 0.94
@@ -4205,7 +4209,8 @@ paths:
                       requirement. Recent tech company shifts favor RSUs for flexibility.
                     response_language: eng
                     search_results:
-                    - text: RSUs vest over 4 years, while ISOs require a 2-year holding
+                    - result_type: text
+                      text: RSUs vest over 4 years, while ISOs require a 2-year holding
                         period for tax benefits. Tech companies increasingly prefer
                         RSUs for flexibility.
                       score: 0.88
@@ -4279,7 +4284,8 @@ paths:
                       front-end JavaScript.
                     response_language: eng
                     search_results:
-                    - text: 403 errors occur due to stale local tokens after sign-out.
+                    - result_type: text
+                      text: 403 errors occur due to stale local tokens after sign-out.
                         JavaScript token purge resolves the issue on the web portal.
                       score: 0.92
                       part_metadata:
@@ -10752,6 +10758,192 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: updateSecrets
+  /v2/agents/{agent_key}/memory:
+    get:
+      tags:
+      - Agent Memory
+      summary: Get agent memory
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Retrieve the agent''s `_learned_memory` skill and its memory metadata.
+        All learned facts are accumulated into this single skill.
+
+        If the agent has no memory yet, the skill content is empty and `memory_version`
+        is `0`.
+
+        '
+      operationId: getAgentMemory
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      responses:
+        '200':
+          description: The agent's memory skill and metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentMemory'
+        '403':
+          description: Permissions do not allow accessing this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: getMemory
+    patch:
+      tags:
+      - Agent Memory
+      summary: Update agent memory
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: "Replace the agent's `_learned_memory` skill content. The submitted\
+        \ `content` fully replaces the previous memory \u2014 the API does not append.\n\
+        Each successful update increments `memory_version` and records a full snapshot\
+        \ in the memory history.\n\nTo guard against concurrent updates, pass `expected_version`\
+        \ equal to the `memory_version` you last read.\nIf it no longer matches the\
+        \ current version, the update is rejected with `409 Conflict`; re-read the\
+        \ memory and retry.\nOmit `expected_version` to update unconditionally.\n"
+      operationId: updateAgentMemory
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentMemoryRequest'
+      responses:
+        '200':
+          description: The agent's memory after the update.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentMemory'
+        '400':
+          description: Invalid request (e.g. content exceeds the size limit).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow modifying this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: The memory was modified concurrently; the provided expected_version
+            no longer matches the current version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: updateMemory
+  /v2/agents/{agent_key}/memory/history:
+    get:
+      tags:
+      - Agent Memory
+      summary: Get agent memory history
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Retrieve the version history of the agent''s `_learned_memory`
+        skill.
+
+        Each entry is a full snapshot of the memory content at that version, ordered
+        by version ascending.
+
+        Returns an empty list if the agent has no memory history.
+
+        '
+      operationId: getAgentMemoryHistory
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      responses:
+        '200':
+          description: The agent's memory version history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentMemoryHistory'
+        '403':
+          description: Permissions do not allow accessing this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agents
+      x-fern-sdk-method-name: getMemoryHistory
   /v2/agents/{agent_key}/connectors:
     post:
       tags:
@@ -12315,6 +12507,7 @@ paths:
           enum:
           - sharepoint
           - s3
+          - google_drive
           - web
       - in: query
         name: status
@@ -14908,8 +15101,8 @@ components:
           type: string
           example: Sales growth trends for Q1 to Q4 of 2024
         description:
-          description: A longer, detailed description of the image for accessibility
-            or additional context.
+          description: A longer, detailed description of the image. On image-capable
+            corpora this field is indexed as the image's text body for keyword search.
           type: string
           example: A bar chart showing quarterly sales growth, with Q4 outperforming
             all previous quarters by 15%
@@ -14920,7 +15113,6 @@ components:
           example: image/jpeg
       required:
       - id
-      - image_data
       - mime_type
     CustomDimensions:
       description: The custom dimensions as additional weights.
@@ -15135,8 +15327,8 @@ components:
           description: The actual image content and its format metadata.
           $ref: '#/components/schemas/ImageData'
         description:
-          description: A longer, detailed description of the image for accessibility
-            or additional context.
+          description: A longer, detailed description of the image. On image-capable
+            corpora this field is indexed as the image's text body for keyword search.
           type: string
           example: A bar chart showing quarterly sales growth, with Q4 outperforming
             all previous quarters by 15%
@@ -15167,6 +15359,23 @@ components:
           description: The ID of the image that this document part is summarizing.
           type: string
           example: image_1
+        image_part_mode:
+          description: "How this part is matched at query time.\n\n- `text` \u2014\
+            \ matched on its `text`, like any text part.\n- `image` \u2014 matched\
+            \ by visual similarity against image queries for the image referenced\
+            \ by `image_id`; its `text`, if set, also makes the part findable through\
+            \ keyword search.\n- `image_and_text` \u2014 matched against both the\
+            \ referenced image and its `text` together.\n\nWhen omitted, the mode\
+            \ is inferred. On a corpus that does not support image queries, a part\
+            \ is always `text`. Otherwise it defaults to `image` when it references\
+            \ an image and has no `text`, `image_and_text` when it references an image\
+            \ and has `text`, and `text` otherwise.\n"
+          type: string
+          enum:
+          - text
+          - image
+          - image_and_text
+          example: image_and_text
         context:
           description: The context text for the document part.
           type: string
@@ -15868,27 +16077,15 @@ components:
       - msa
       - ron
       default: auto
-    IndividualSearchResult:
-      description: An individual ranked search result from a query.
+    SearchResultBase:
+      description: Common fields for all search result types.
       type: object
       properties:
-        text:
-          description: The document part altered by the context configuration that
-            matches the query.
-          type: string
-          example: EU banks reported a 20% increase in carbon reduction initiatives
-            in 2023, driven by regulatory pressure.
         score:
           description: The score of the individual result.
           type: number
           format: double
           example: 0.92
-        part_metadata:
-          description: The metadata for the document part.
-          type: object
-          additionalProperties: true
-          example:
-            section: executive_summary
         document_metadata:
           description: The metadata for the document that contains the document part.
           type: object
@@ -15901,12 +16098,6 @@ components:
           description: The ID of the document that contains the document part.
           type: string
           example: financial-report-2023
-        table:
-          description: The table that the document part is from.
-          $ref: '#/components/schemas/Table'
-        image:
-          description: The image that the document part is from.
-          $ref: '#/components/schemas/ImageMetadata'
         request_corpora_index:
           description: A query request can search over multiple corpora at a time.
             This property is set to the index in the list of corpora in the original
@@ -15922,6 +16113,70 @@ components:
             came from.
           type: string
           example: fin_docs
+        part_metadata:
+          description: The metadata for the document part as attached at indexing
+            time. Filterable using `part.<key>` in metadata filter expressions.
+          type: object
+          additionalProperties: true
+          example:
+            section: executive_summary
+        text:
+          description: The matched document part's text, expanded to the surrounding
+            context window configured by `context_configuration`. For image parts,
+            this is the text indexed alongside the image.
+          type: string
+          example: EU banks reported a 20% increase in carbon reduction initiatives
+            in 2023, driven by regulatory pressure.
+    TextSearchResult:
+      description: A text document part that matched a query.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SearchResultBase'
+      - type: object
+        properties:
+          result_type:
+            description: The type of search result.
+            type: string
+            default: text
+          table:
+            description: The table that the document part is from.
+            $ref: '#/components/schemas/Table'
+          image:
+            description: The image that the document part is from.
+            $ref: '#/components/schemas/ImageMetadata'
+        required:
+        - result_type
+      x-vectaraParents:
+      - IndividualSearchResult
+    ImageSearchResult:
+      description: An image embedding that matched a query.
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SearchResultBase'
+      - type: object
+        properties:
+          result_type:
+            description: The type of search result.
+            type: string
+            default: image
+          image:
+            description: The metadata for the matched image.
+            $ref: '#/components/schemas/ImageMetadata'
+        required:
+        - result_type
+      x-vectaraParents:
+      - IndividualSearchResult
+    IndividualSearchResult:
+      description: A ranked search result from a query. Discriminated by result_type.
+      type: object
+      discriminator:
+        propertyName: result_type
+        mapping:
+          text: '#/components/schemas/TextSearchResult'
+          image: '#/components/schemas/ImageSearchResult'
+      oneOf:
+      - $ref: '#/components/schemas/TextSearchResult'
+      - $ref: '#/components/schemas/ImageSearchResult'
     QueryWarning:
       type: string
       description: "Non-fatal warnings that occurred during query processing.\n *\
@@ -16037,10 +16292,10 @@ components:
           $ref: '#/components/schemas/SearchSemantics'
     ContextConfiguration:
       type: object
-      description: Configuration on the presentation of each document part in the
-        result set. You can only use characters_before/after or sentences_before/after,
-        but not both. If you specify both in the query, sentences_before/after takes
-        precedence
+      description: 'Configuration on the presentation of each document part in the
+        result set. Use either `characters_before`/`characters_after` or `sentences_before`/`sentences_after`;
+        if both are set, `sentences_*` takes precedence. Setting `full_document_context:
+        true` overrides both and returns the entire matching document as context.'
       properties:
         characters_before:
           description: The number of characters that are shown before the matching
@@ -16091,6 +16346,12 @@ components:
             UI and understand where the document part ends and the context after begins.
           type: string
           example: </em>
+        full_document_context:
+          description: When true, the entire document containing the matching part
+            is returned as context; `characters_before`/`characters_after` and `sentences_before`/`sentences_after`
+            are ignored.
+          type: boolean
+          default: false
       example:
         sentences_before: 2
         sentences_after: 2
@@ -16340,6 +16601,15 @@ components:
           $ref: '#/components/schemas/ContextConfiguration'
         reranker:
           $ref: '#/components/schemas/SearchReranker'
+        max_by:
+          description: Collapses the result set so that at most one result is returned
+            per document, keeping the highest-scoring part of each. Applied to the
+            retrieved results before reranking and pagination, so the number of results
+            returned may be smaller than `limit`.
+          type: string
+          enum:
+          - doc.id
+          example: doc.id
       example:
         limit: 50
     CitationParameters:
@@ -18555,6 +18825,11 @@ components:
           description: Indicates whether the encoder is enabled.
           type: boolean
           example: true
+        image_encoding:
+          description: Whether this encoder can produce embeddings for images, either
+            of an image alone or jointly with accompanying text.
+          type: boolean
+          example: false
       required:
       - id
       - name
@@ -18570,22 +18845,23 @@ components:
         metadata:
           $ref: '#/components/schemas/ListMetadata'
     CreateOpenAIEncoderRequest:
-      description: Configuration for an OpenAI-compatible encoder
+      description: Configuration for a text-only encoder served by an endpoint that
+        implements OpenAI's `/v1/embeddings` request shape.
       type: object
       properties:
         type:
           description: Must be "openai-compatible" for OpenAI and OpenAI-compatible
-            APIs
+            text-embedding APIs.
           type: string
           default: openai-compatible
         name:
-          description: A unique name for the encoder
+          description: A unique name for the encoder.
           type: string
           example: openai-text-encoder
         description:
-          description: A description of what this encoder does
+          description: A description of what this encoder does.
           type: string
-          example: description
+          example: Text encoder for product catalog search
         output_dimensions:
           description: The number of dimensions in the output embedding vector. If
             provided and the model supports truncation, the response will be truncated
@@ -18612,15 +18888,69 @@ components:
       - model
       x-vectaraParents:
       - CreateEncoderRequest
+    CreateVLlmEncoderRequest:
+      description: Configuration for a vLLM-served embedding encoder. The endpoint
+        must accept text-embedding requests and, when `image_encoding` is true, image-embedding
+        requests.
+      type: object
+      properties:
+        type:
+          description: Must be "vllm-compatible" for vLLM-served embedding endpoints.
+          type: string
+          default: vllm-compatible
+        name:
+          description: A unique name for the encoder.
+          type: string
+          example: vllm-multimodal-encoder
+        description:
+          description: A description of what this encoder does.
+          type: string
+          example: Multimodal encoder for chart and table images
+        output_dimensions:
+          description: The number of dimensions in the output embedding vector. If
+            provided and the model supports truncation, the response will be truncated
+            to this number of dimensions.
+          type: integer
+          format: int32
+          minimum: 1
+        uri:
+          description: The URI endpoint for the vLLM embedding API.
+          type: string
+          format: uri
+          example: https://my-vllm-host/v1/embeddings
+        model:
+          description: The model name to use for embeddings.
+          type: string
+          example: nomic-embed-vision-v1.5
+        auth:
+          $ref: '#/components/schemas/RemoteAuth'
+        image_encoding:
+          description: Whether the encoder produces image embeddings, either of an
+            image alone or jointly with accompanying text. When `true`, the endpoint
+            must accept image-embedding requests; the create call validates this and
+            fails if the endpoint does not support them.
+          type: boolean
+          default: false
+      required:
+      - name
+      - description
+      - uri
+      - model
+      x-vectaraParents:
+      - CreateEncoderRequest
     CreateEncoderRequest:
       type: object
-      description: Request to create a new encoder
+      description: Request to create a new encoder. Use `openai-compatible` for text-only
+        endpoints that implement OpenAI's `/v1/embeddings`. Use `vllm-compatible`
+        for endpoints that additionally support image embeddings.
       discriminator:
         propertyName: type
         mapping:
           openai-compatible: '#/components/schemas/CreateOpenAIEncoderRequest'
+          vllm-compatible: '#/components/schemas/CreateVLlmEncoderRequest'
       oneOf:
       - $ref: '#/components/schemas/CreateOpenAIEncoderRequest'
+      - $ref: '#/components/schemas/CreateVLlmEncoderRequest'
       required:
       - type
     Reranker:
@@ -23467,7 +23797,11 @@ components:
           type: string
           example: Customer Support Session
         description:
-          description: Optional description of the session purpose or context.
+          description: 'A short description of the session''s purpose. If omitted
+            at creation, one is auto-generated once the agent has produced events.
+            An empty string indicates auto-generation is disabled for this session.
+
+            '
           type: string
           example: Helping customer troubleshoot widget installation issues
         metadata:
@@ -23494,6 +23828,19 @@ components:
           type: boolean
           default: true
           example: true
+        status:
+          description: "Lifecycle status of the session. `unstarted` before any event\
+            \ has been submitted, `running` while the agent is producing events, and\
+            \ `stopped` when the session is idle with no event in flight. `stopped`\
+            \ implies no terminating action \u2014 the session returns to `running`\
+            \ on the next request.\n"
+          type: string
+          enum:
+          - unstarted
+          - running
+          - stopped
+          readOnly: true
+          example: stopped
         tti_minutes:
           description: Time-to-idle in minutes for the session. If no events occur
             in the session for this duration, the session will be automatically deleted.
@@ -23572,7 +23919,11 @@ components:
           type: string
           example: Customer Support Session
         description:
-          description: Optional description of the session purpose or context.
+          description: 'A short description of the session''s purpose. If omitted,
+            one is auto-generated once the session has produced events. Pass an empty
+            string to suppress auto-generation.
+
+            '
           type: string
           example: Helping customer troubleshoot issues
         metadata:
@@ -23672,7 +24023,10 @@ components:
           type: string
           example: Updated Session Name
         description:
-          description: Optional description of the session purpose or context.
+          description: 'A short description of the session''s purpose. Pass an empty
+            string to suppress auto-generation.
+
+            '
           type: string
           example: Updated session description
         metadata:
@@ -25263,6 +25617,22 @@ components:
       oneOf:
       - $ref: '#/components/schemas/IntervalScheduleConfiguration'
       - $ref: '#/components/schemas/CronScheduleConfiguration'
+    ScheduleStallTimeoutSeconds:
+      description: 'Number of seconds a scheduled run may go without producing output
+        (streamed tokens, tool calls,
+
+        or other progress events) before it is considered stalled and retried. Set
+        this above the longest
+
+        silent operation the agent is expected to perform so an in-flight run is not
+        retried mid-operation.
+
+        '
+      type: integer
+      format: int32
+      default: 3600
+      minimum: 1
+      example: 1800
     AgentSchedule:
       description: An agent schedule that automates agent execution at specified intervals.
       type: object
@@ -25310,6 +25680,8 @@ components:
           minimum: 1
           maximum: 50
           example: 10
+        stall_timeout_seconds:
+          $ref: '#/components/schemas/ScheduleStallTimeoutSeconds'
         last_execution_at:
           description: 'Timestamp of the most recent execution. Tracked by Temporal
             and updated automatically
@@ -25391,6 +25763,8 @@ components:
           default: 10
           minimum: 1
           maximum: 50
+        stall_timeout_seconds:
+          $ref: '#/components/schemas/ScheduleStallTimeoutSeconds'
       required:
       - name
       - message
@@ -25427,6 +25801,16 @@ components:
           format: int32
           minimum: 1
           maximum: 50
+        stall_timeout_seconds:
+          description: 'Updated number of seconds a scheduled run may go without producing
+            output before it is
+
+            considered stalled and retried. Omit to leave the current value unchanged.
+
+            '
+          type: integer
+          format: int32
+          minimum: 1
     AgentScheduleExecution:
       description: A single execution attempt of an agent schedule.
       type: object
@@ -25609,81 +25993,252 @@ components:
             old_token_to_remove: null
       required:
       - secrets
+    AgentMemoryMetadata:
+      description: Version and audit metadata for the agent's memory.
+      type: object
+      properties:
+        memory_version:
+          description: The current memory version. `0` means the agent has no memory
+            yet; each update increments it by one.
+          type: integer
+          format: int32
+          example: 3
+        memory_last_updated:
+          description: The time of the most recent memory update, or `null` if the
+            memory has never been updated.
+          type: string
+          format: date-time
+          nullable: true
+          example: '2026-05-29T18:30:00Z'
+        memory_last_updated_by:
+          description: The identifier of whoever performed the most recent update,
+            or `null` if never updated.
+          type: string
+          nullable: true
+          example: query_handler
+      required:
+      - memory_version
+    AgentMemory:
+      description: 'The agent''s accumulated learned memory, exposed as the reserved
+        `_learned_memory` skill plus version metadata.
+
+        '
+      type: object
+      properties:
+        skill:
+          $ref: '#/components/schemas/AgentSkill'
+        metadata:
+          $ref: '#/components/schemas/AgentMemoryMetadata'
+      required:
+      - skill
+      - metadata
+    UpdateAgentMemoryRequest:
+      description: 'Replace the agent''s `_learned_memory` content. The submitted
+        `content` fully replaces the previous memory.
+
+        '
+      type: object
+      properties:
+        content:
+          description: The full memory content to store. Replaces the previous content
+            entirely.
+          type: string
+          maxLength: 50000
+          example: '- Customer prefers email contact
+
+            - Time zone: PST'
+        updated_by:
+          description: Identifier of who is performing this update (e.g. `query_handler`,
+            `manual_update`).
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: query_handler
+        expected_version:
+          description: 'The `memory_version` the client last read. If provided and
+            it does not match the current version, the update is
+
+            rejected with `409 Conflict`. Omit to update unconditionally.
+
+            '
+          type: integer
+          format: int32
+          nullable: true
+          example: 2
+      required:
+      - content
+      - updated_by
+    AgentMemoryVersion:
+      description: A single snapshot of the agent's memory at a specific version.
+      type: object
+      properties:
+        version:
+          description: The version number of this snapshot.
+          type: integer
+          format: int32
+          example: 2
+        content:
+          description: The full memory content at this version.
+          type: string
+          example: '- Customer prefers email contact
+
+            - Time zone: PST'
+        timestamp:
+          description: The time this version was recorded.
+          type: string
+          format: date-time
+          example: '2026-05-29T18:00:00Z'
+        updated_by:
+          description: The identifier of whoever recorded this version.
+          type: string
+          example: query_handler
+      required:
+      - version
+      - content
+      - timestamp
+      - updated_by
+    AgentMemoryHistory:
+      description: The full version history of the agent's memory, ordered by version
+        ascending.
+      type: object
+      properties:
+        skill_name:
+          description: The name of the memory skill (always `_learned_memory`).
+          type: string
+          example: _learned_memory
+        versions:
+          description: The memory snapshots, ordered by version ascending. Empty if
+            the agent has no memory history.
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentMemoryVersion'
+      required:
+      - skill_name
+      - versions
+    AgentOutputType:
+      description: A category of intermediate agent output a connector can hide from
+        its channel via `hidden_output_types`. `tool_calls` is the agent's tool-call
+        activity, `thinking` is the model's reasoning output, and `structured_output`
+        is structured (JSON) payloads emitted by the agent. The final response is
+        never one of these and is always posted.
+      type: string
+      enum:
+      - tool_calls
+      - thinking
+      - structured_output
+      example: tool_calls
+    ConnectorConfigurationBase:
+      description: Properties shared by every connector configuration read view.
+      type: object
+      properties:
+        hidden_output_types:
+          description: Agent output types omitted from the connector's channel; the
+            final response is always posted.
+          type: array
+          default: []
+          items:
+            $ref: '#/components/schemas/AgentOutputType'
+          example:
+          - tool_calls
     SlackConnectorConfiguration:
       description: Read view of a Slack connector's configuration.
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/ConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: slack
+            example: slack
+          bot_token:
+            description: Slack bot token (xoxb-) for API access. Encrypted at rest.
+            type: string
+            example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
+          signing_secret:
+            description: Slack signing secret for webhook verification. Encrypted
+              at rest.
+            type: string
+            example: abcdef1234567890abcdef1234567890abcdef12
+          api_app_id:
+            description: Slack App ID for customer lookup in webhooks.
+            type: string
+            example: A1234567890
+          webhook_path:
+            description: The webhook path for this Slack connector to receive events.
+            type: string
+            example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
+          respond_to_thread_replies:
+            description: When true, the agent responds to follow-up replies in any
+              thread it has already replied in or started, without requiring a new
+              @-mention. Starting a new thread still requires an @-mention.
+            type: boolean
+            default: false
+        required:
+        - type
+        - bot_token
+        - signing_secret
+        - api_app_id
+        - webhook_path
       x-vectaraParents:
       - ConnectorConfiguration
-      properties:
-        type:
-          description: The type of connector configuration.
-          type: string
-          default: slack
-          example: slack
-        bot_token:
-          description: Slack bot token (xoxb-) for API access. Encrypted at rest.
-          type: string
-          example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
-        signing_secret:
-          description: Slack signing secret for webhook verification. Encrypted at
-            rest.
-          type: string
-          example: abcdef1234567890abcdef1234567890abcdef12
-        api_app_id:
-          description: Slack App ID for customer lookup in webhooks.
-          type: string
-          example: A1234567890
-        webhook_path:
-          description: The webhook path for this Slack connector to receive events.
-          type: string
-          example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/input
-      required:
-      - type
-      - bot_token
-      - signing_secret
-      - api_app_id
-      - webhook_path
     GchatConnectorConfiguration:
       description: 'Read view of a Google Chat connector''s configuration. Includes
         the display
 
-        field `client_email` parsed out of the service account key and the audience
+        fields `client_email` and `project_id` parsed out of the service account key,
 
-        URL used to verify inbound events. The service account key is never returned.
+        and the audience URL used to verify inbound events. The service account key
+        is
+
+        never returned.
 
         '
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/ConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: gchat
+            example: gchat
+          audience_url:
+            description: 'The webhook URL for this connector. Set the Chat app''s
+              HTTP endpoint URL
+
+              and Authentication audience fields to this value in the Google Cloud
+
+              console. Inbound Google Chat ID tokens are accepted only if aud equals
+
+              this URL. This value contains a secret and is encrypted at rest.
+
+              '
+            type: string
+            example: https://api.example.com/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/gchat
+          client_email:
+            description: 'Service account email derived from the service account key.
+
+              '
+            type: string
+            example: chat-bot@my-gchat-app.iam.gserviceaccount.com
+          project_id:
+            description: 'Google Cloud project id derived from the service account
+              key. This is the project that hosts the Chat app, so clients can use
+              it to deep-link into
+
+              the app''s Google Chat configuration.
+
+              '
+            type: string
+            example: my-gchat-app
+        required:
+        - type
+        - audience_url
+        - client_email
+        - project_id
       x-vectaraParents:
       - ConnectorConfiguration
-      properties:
-        type:
-          description: The type of connector configuration.
-          type: string
-          default: gchat
-          example: gchat
-        audience_url:
-          description: 'The webhook URL for this connector. Set the Chat app''s HTTP
-            endpoint URL
-
-            and Authentication audience fields to this value in the Google Cloud
-
-            console. Inbound Google Chat ID tokens are accepted only if aud equals
-
-            this URL. This value contains a secret and is encrypted at rest.
-
-            '
-          type: string
-          example: https://api.example.com/v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/gchat
-        client_email:
-          description: 'Service account email derived from the service account key.
-
-            '
-          type: string
-          example: chat-bot@my-gchat-app.iam.gserviceaccount.com
-      required:
-      - type
-      - audience_url
-      - client_email
     ConnectorConfiguration:
       description: 'Read view of a connector''s configuration as returned by GET and
         list
@@ -25695,6 +26250,7 @@ components:
         exposes `audience_url` and `client_email`.
 
         '
+      x-vectara-base-schema: '#/ConnectorConfigurationBase'
       discriminator:
         propertyName: type
         mapping:
@@ -25832,36 +26388,57 @@ components:
       required:
       - connectors
       - metadata
+    CreateConnectorConfigurationBase:
+      description: Properties shared by every connector configuration write view.
+      type: object
+      properties:
+        hidden_output_types:
+          description: Agent output types omitted from the connector's channel; the
+            final response is always posted.
+          type: array
+          default: []
+          items:
+            $ref: '#/components/schemas/AgentOutputType'
+          example:
+          - tool_calls
     CreateSlackConnectorConfiguration:
       description: Write view of a Slack connector's configuration, supplied on create
         or update.
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/CreateConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: slack
+            example: slack
+          bot_token:
+            description: Slack bot token (xoxb-) for API access. Encrypted at rest.
+            type: string
+            example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
+          signing_secret:
+            description: Slack signing secret for webhook verification. Encrypted
+              at rest.
+            type: string
+            example: abcdef1234567890abcdef1234567890abcdef12
+          api_app_id:
+            description: Slack App ID for customer lookup in webhooks.
+            type: string
+            example: A1234567890
+          respond_to_thread_replies:
+            description: When true, the agent responds to follow-up replies in any
+              thread it has already replied in or started, without requiring a new
+              @-mention. Starting a new thread still requires an @-mention.
+            type: boolean
+            default: false
+        required:
+        - type
+        - bot_token
+        - signing_secret
+        - api_app_id
       x-vectaraParents:
       - CreateConnectorConfiguration
-      properties:
-        type:
-          description: The type of connector configuration.
-          type: string
-          default: slack
-          example: slack
-        bot_token:
-          description: Slack bot token (xoxb-) for API access. Encrypted at rest.
-          type: string
-          example: xoxb-1234567890-1234567890123-abcdefghijklmnopqrstuvwx
-        signing_secret:
-          description: Slack signing secret for webhook verification. Encrypted at
-            rest.
-          type: string
-          example: abcdef1234567890abcdef1234567890abcdef12
-        api_app_id:
-          description: Slack App ID for customer lookup in webhooks.
-          type: string
-          example: A1234567890
-      required:
-      - type
-      - bot_token
-      - signing_secret
-      - api_app_id
     CreateGchatConnectorConfiguration:
       description: 'Write view of a Google Chat connector''s configuration. Supply
         the service
@@ -25873,31 +26450,34 @@ components:
         be set to the connector''s audience_url (returned in the read view).
 
         '
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/CreateConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: gchat
+            example: gchat
+          service_account_key:
+            description: 'Service account JSON key used to authenticate outbound calls
+              to the
+
+              Google Chat API. Encrypted at rest. `client_email` is parsed out of
+              this
+
+              key for display in the read view.
+
+              '
+            type: string
+            example: '{"type":"service_account","project_id":"my-gchat-app", ...}
+
+              '
+        required:
+        - type
+        - service_account_key
       x-vectaraParents:
       - CreateConnectorConfiguration
-      properties:
-        type:
-          description: The type of connector configuration.
-          type: string
-          default: gchat
-          example: gchat
-        service_account_key:
-          description: 'Service account JSON key used to authenticate outbound calls
-            to the
-
-            Google Chat API. Encrypted at rest. `client_email` is parsed out of this
-
-            key for display in the read view.
-
-            '
-          type: string
-          example: '{"type":"service_account","project_id":"my-gchat-app", ...}
-
-            '
-      required:
-      - type
-      - service_account_key
     CreateConnectorConfiguration:
       description: 'Write view of a connector''s configuration. Used when creating
         a connector
@@ -25911,6 +26491,7 @@ components:
         `audience_url` and `client_email`.
 
         '
+      x-vectara-base-schema: '#/CreateConnectorConfigurationBase'
       discriminator:
         propertyName: type
         mapping:
@@ -26126,8 +26707,8 @@ components:
         rule whose `match` expression evaluates to true is selected. The selected
         rule''s `targets` shape determines what runs: `single` routes directly to
         one agent, `weighted` picks one of several agents by hashing the rule''s `partition_by`
-        expression. A rule with no `match` always matches (catch-all) and is conventionally
-        placed last.
+        expression. A rule with no `match` always matches (catch-all). It must be
+        the last rule; any rule placed after it is rejected as unreachable.
 
 
         This single shape covers direct routing (one rule, single target), weighted/canary
@@ -26160,9 +26741,10 @@ components:
         \ apply:\n\n* `routed` \u2014 evaluate ordered rules; the first rule whose\
         \ `match` expression evaluates to true is selected. The selected rule's `targets`\
         \ are then used (one agent for `single`, hashed by `partition_by` for `weighted`).\
-        \ Rules with omitted `match` are catch-all rules (typically last).\n\nMost\
-        \ use cases (direct, weighted/canary, conditional, conditional+canary) collapse\
-        \ into `routed`.\n"
+        \ A rule with omitted `match` is a catch-all that always matches; it must\
+        \ be the last rule, and any rule placed after it is rejected as unreachable.\n\
+        \nMost use cases (direct, weighted/canary, conditional, conditional+canary)\
+        \ collapse into `routed`.\n"
       oneOf:
       - $ref: '#/components/schemas/RoutedAliasPolicy'
       discriminator:
@@ -26301,6 +26883,52 @@ components:
       minLength: 1
       maxLength: 255
       example: SharePoint Legal Docs Ingest
+    BaseSharepointSourceConfiguration:
+      description: Base SharePoint source configuration with all fields optional.
+      type: object
+      properties:
+        type:
+          type: string
+          default: sharepoint
+          example: sharepoint
+        site_url:
+          description: The full URL of the SharePoint site.
+          type: string
+          example: https://contoso.sharepoint.com/sites/legal
+        tenant_id:
+          description: Azure AD tenant ID.
+          type: string
+          example: 72f988bf-86f1-41af-91ab-2d7cd011db47
+        client_id:
+          description: Azure AD application (client) ID for OAuth.
+          type: string
+          example: 0a1b2c3d-4e5f-6789-abcd-ef0123456789
+        client_secret:
+          description: Azure AD client secret. Encrypted at rest and not returned
+            in responses.
+          type: string
+          writeOnly: true
+        drive_id:
+          description: The ID of a specific document library. If omitted, the default
+            document library is used.
+          type: string
+        folder_path:
+          description: Optional folder path to scope ingestion to a subdirectory.
+          type: string
+          example: /Contracts/2026
+      required:
+      - type
+    SharepointSourceConfiguration:
+      description: Configuration for ingesting documents from a SharePoint site.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseSharepointSourceConfiguration'
+      - required:
+        - site_url
+        - tenant_id
+        - client_id
+        - client_secret
     BaseS3SourceConfiguration:
       description: Base S3 source configuration with all fields optional.
       type: object
@@ -26335,6 +26963,22 @@ components:
             responses.
           type: string
           writeOnly: true
+        pos_regex:
+          description: Regex patterns matched against the full object key; a key must
+            fully match at least one to be ingested. Empty list = no positive filter.
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 1024
+        neg_regex:
+          description: Regex patterns matched against the full object key; keys fully
+            matching any are skipped.
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 1024
       required:
       - type
     S3SourceConfiguration:
@@ -26650,15 +27294,16 @@ components:
           type: boolean
           default: true
         pos_regex:
-          description: Regex patterns; URLs must match at least one to be crawled.
-            Empty list = no positive filter.
+          description: Regex patterns matched against the full URL; a URL must fully
+            match at least one to be crawled. Empty list = no positive filter.
           type: array
           maxItems: 100
           items:
             type: string
             maxLength: 1024
         neg_regex:
-          description: Regex patterns; URLs matching any are skipped.
+          description: Regex patterns matched against the full URL; URLs fully matching
+            any are skipped.
           type: array
           maxItems: 100
           items:
@@ -26779,10 +27424,12 @@ components:
       discriminator:
         propertyName: type
         mapping:
+          sharepoint: '#/components/schemas/SharepointSourceConfiguration'
           s3: '#/components/schemas/S3SourceConfiguration'
           google_drive: '#/components/schemas/GoogleDriveSourceConfiguration'
           web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
+      - $ref: '#/components/schemas/SharepointSourceConfiguration'
       - $ref: '#/components/schemas/S3SourceConfiguration'
       - $ref: '#/components/schemas/GoogleDriveSourceConfiguration'
       - $ref: '#/components/schemas/WebSourceConfiguration'
@@ -27115,6 +27762,13 @@ components:
       - source
       - trigger
       - transform
+    UpdateSharepointSourceConfiguration:
+      description: Partial update for SharePoint source configuration. Only provided
+        fields are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseSharepointSourceConfiguration'
     UpdateS3SourceConfiguration:
       description: Partial update for S3 source configuration. Only provided fields
         are merged.
@@ -27160,10 +27814,12 @@ components:
       discriminator:
         propertyName: type
         mapping:
+          sharepoint: '#/components/schemas/UpdateSharepointSourceConfiguration'
           s3: '#/components/schemas/UpdateS3SourceConfiguration'
           google_drive: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
           web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
+      - $ref: '#/components/schemas/UpdateSharepointSourceConfiguration'
       - $ref: '#/components/schemas/UpdateS3SourceConfiguration'
       - $ref: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
@@ -28776,8 +29432,8 @@ x-tagGroups:
   - Tool Servers
   - Agent Connectors
   - Agent Secrets
+  - Agent Memory
 - name: Pipelines
-  x-beta: true
   tags:
   - Pipelines
   - Pipeline Runs

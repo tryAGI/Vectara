@@ -28,10 +28,19 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateOpenAIEncoderRequest)}");
                 openaiCompatible = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.CreateVLlmEncoderRequest? vllmCompatible = default;
+            if (discriminator?.Type == global::Vectara.CreateEncoderRequestDiscriminatorType.VllmCompatible)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateVLlmEncoderRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateVLlmEncoderRequest> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateVLlmEncoderRequest)}");
+                vllmCompatible = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.CreateEncoderRequest(
                 discriminator?.Type,
-                openaiCompatible
+                openaiCompatible,
+
+                vllmCompatible
                 );
 
             return __value;
@@ -51,6 +60,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAIEncoderRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAIEncoderRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateOpenAIEncoderRequest).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiCompatible!, typeInfo);
+            }
+            else if (value.IsVllmCompatible)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateVLlmEncoderRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateVLlmEncoderRequest?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateVLlmEncoderRequest).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.VllmCompatible!, typeInfo);
             }
         }
     }

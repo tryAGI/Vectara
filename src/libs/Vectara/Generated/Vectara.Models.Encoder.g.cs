@@ -66,6 +66,14 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
+        /// Whether this encoder can produce embeddings for images, either of an image alone or jointly with accompanying text.<br/>
+        /// Example: false
+        /// </summary>
+        /// <example>false</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("image_encoding")]
+        public bool? ImageEncoding { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -102,6 +110,10 @@ namespace Vectara
         /// Indicates whether the encoder is enabled.<br/>
         /// Example: true
         /// </param>
+        /// <param name="imageEncoding">
+        /// Whether this encoder can produce embeddings for images, either of an image alone or jointly with accompanying text.<br/>
+        /// Example: false
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -112,7 +124,8 @@ namespace Vectara
             int? outputDimensions,
             string? description,
             bool? @default,
-            bool? enabled)
+            bool? enabled,
+            bool? imageEncoding)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -121,6 +134,7 @@ namespace Vectara
             this.Description = description;
             this.Default = @default;
             this.Enabled = enabled;
+            this.ImageEncoding = imageEncoding;
         }
 
         /// <summary>
