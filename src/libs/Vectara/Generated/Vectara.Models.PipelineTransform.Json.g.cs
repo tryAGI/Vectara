@@ -17,6 +17,14 @@ namespace Vectara
         }
 
         /// <summary>
+        /// Serializes the current instance to a JSON string using the generated default JsonSerializerContext.
+        /// </summary>
+        public string ToJson()
+        {
+            return ToJson(global::Vectara.SourceGenerationContext.Default);
+        }
+
+        /// <summary>
         /// Serializes the current instance to a JSON string using the provided JsonSerializerOptions.
         /// </summary>
 #if NET8_0_OR_GREATER
@@ -26,6 +34,11 @@ namespace Vectara
         public string ToJson(
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
         {
+            if (jsonSerializerOptions is null)
+            {
+                return ToJson(global::Vectara.SourceGenerationContext.Default);
+            }
+
             return global::System.Text.Json.JsonSerializer.Serialize(
                 this,
                 typeof(PipelineTransform),
@@ -47,6 +60,18 @@ namespace Vectara
         }
 
         /// <summary>
+        /// Deserializes a JSON string using the generated default JsonSerializerContext.
+        /// </summary>
+        public static T? FromJson<T>(
+            string json)
+            where T : PipelineTransform
+        {
+            return FromJson<T>(
+                json,
+                global::Vectara.SourceGenerationContext.Default);
+        }
+
+        /// <summary>
         /// Deserializes a JSON string using the provided JsonSerializerOptions.
         /// </summary>
 #if NET8_0_OR_GREATER
@@ -58,6 +83,13 @@ namespace Vectara
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
             where T : PipelineTransform
         {
+            if (jsonSerializerOptions is null)
+            {
+                return FromJson<T>(
+                    json,
+                    global::Vectara.SourceGenerationContext.Default);
+            }
+
             return global::System.Text.Json.JsonSerializer.Deserialize<PipelineTransform>(
                 json,
                 jsonSerializerOptions) as T;
@@ -78,6 +110,18 @@ namespace Vectara
         }
 
         /// <summary>
+        /// Deserializes a JSON stream using the generated default JsonSerializerContext.
+        /// </summary>
+        public static global::System.Threading.Tasks.ValueTask<T?> FromJsonStreamAsync<T>(
+            global::System.IO.Stream jsonStream)
+            where T : PipelineTransform
+        {
+            return FromJsonStreamAsync<T>(
+                jsonStream,
+                global::Vectara.SourceGenerationContext.Default);
+        }
+
+        /// <summary>
         /// Deserializes a JSON stream using the provided JsonSerializerOptions.
         /// </summary>
 #if NET8_0_OR_GREATER
@@ -89,6 +133,13 @@ namespace Vectara
             global::System.Text.Json.JsonSerializerOptions? jsonSerializerOptions = null)
             where T : PipelineTransform
         {
+            if (jsonSerializerOptions is null)
+            {
+                return await FromJsonStreamAsync<T>(
+                    jsonStream,
+                    global::Vectara.SourceGenerationContext.Default).ConfigureAwait(false);
+            }
+
             return (await global::System.Text.Json.JsonSerializer.DeserializeAsync<PipelineTransform?>(
                 jsonStream,
                 jsonSerializerOptions).ConfigureAwait(false)) as T;
