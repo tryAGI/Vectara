@@ -63,7 +63,7 @@ namespace Vectara
 
         /// <summary>
         /// List available metrics<br/>
-        /// Returns the catalog of registered metrics that can be queried via `/v2/metrics/{metric_name}`. Use this to discover metric names, kinds, and supported labels.
+        /// Returns the catalog of registered metrics that can be queried via `/v2/metrics/{metric_name}`. Use this to discover metric names, types, and supported labels.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -90,7 +90,7 @@ namespace Vectara
         }
         /// <summary>
         /// List available metrics<br/>
-        /// Returns the catalog of registered metrics that can be queried via `/v2/metrics/{metric_name}`. Use this to discover metric names, kinds, and supported labels.
+        /// Returns the catalog of registered metrics that can be queried via `/v2/metrics/{metric_name}`. Use this to discover metric names, types, and supported labels.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

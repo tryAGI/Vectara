@@ -20,7 +20,7 @@ namespace Vectara
         public required string Type { get; set; } = "context_consumed";
 
         /// <summary>
-        /// Token usage statistics for a session.
+        /// Token usage of the session's most recent agent call, reflecting current context window consumption. Not a running total across calls.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("session_context_usage")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -50,7 +50,7 @@ namespace Vectara
         /// Example: context_consumed
         /// </param>
         /// <param name="sessionContextUsage">
-        /// Token usage statistics for a session.
+        /// Token usage of the session's most recent agent call, reflecting current context window consumption. Not a running total across calls.
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the event was created.<br/>

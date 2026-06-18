@@ -99,7 +99,7 @@ namespace Vectara
         public required global::System.DateTime CreatedAt { get; set; }
 
         /// <summary>
-        /// Token usage statistics for a session.
+        /// Token usage of the session's most recent agent call, reflecting current context window consumption. Not a running total across calls.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("session_context_usage")]
         public global::Vectara.SessionContextUsage? SessionContextUsage { get; set; }
@@ -182,7 +182,7 @@ namespace Vectara
         /// Example: 60
         /// </param>
         /// <param name="sessionContextUsage">
-        /// Token usage statistics for a session.
+        /// Token usage of the session's most recent agent call, reflecting current context window consumption. Not a running total across calls.
         /// </param>
         /// <param name="effectiveCompaction">
         /// Configuration for automatic context compaction.

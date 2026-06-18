@@ -23,17 +23,15 @@ namespace Vectara
         public global::Vectara.WebGetToolParametersMethod? Method { get; set; }
 
         /// <summary>
-        /// HTTP headers to include in the request. Either a literal `{name: value}` map (where<br/>
-        /// each value may itself be a string OR an EagerReference for per-header secret lookup),<br/>
-        /// or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a<br/>
-        /// `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
+        /// HTTP headers to include in the request.<br/>
+        /// Either a literal `{name: value}` map (where each value may itself be a string OR an EagerReference for per-header secret lookup), or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("headers")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>))]
         public global::Vectara.OneOf<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>? Headers { get; set; }
 
         /// <summary>
-        /// Request body for POST/PUT requests.
+        /// Request body for POST/PUT/PATCH requests.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("body")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>))]
@@ -104,13 +102,11 @@ namespace Vectara
         /// HTTP method to use.
         /// </param>
         /// <param name="headers">
-        /// HTTP headers to include in the request. Either a literal `{name: value}` map (where<br/>
-        /// each value may itself be a string OR an EagerReference for per-header secret lookup),<br/>
-        /// or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a<br/>
-        /// `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
+        /// HTTP headers to include in the request.<br/>
+        /// Either a literal `{name: value}` map (where each value may itself be a string OR an EagerReference for per-header secret lookup), or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
         /// </param>
         /// <param name="body">
-        /// Request body for POST/PUT requests.
+        /// Request body for POST/PUT/PATCH requests.
         /// </param>
         /// <param name="followRedirects">
         /// Whether to follow HTTP redirects.

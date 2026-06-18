@@ -126,6 +126,80 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'GoogleDrive' but the value was {ToString()}.");
 
         /// <summary>
+        /// Partial update for Box source configuration. Only provided fields are merged.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.UpdateBoxSourceConfiguration? Box { get; init; }
+#else
+        public global::Vectara.UpdateBoxSourceConfiguration? Box { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Box))]
+#endif
+        public bool IsBox => Box != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickBox(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateBoxSourceConfiguration? value)
+        {
+            value = Box;
+            return IsBox;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateBoxSourceConfiguration PickBox() => IsBox
+            ? Box!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Box' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Partial update for Wolken source configuration. Only provided fields are merged.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.UpdateWolkenSourceConfiguration? Wolken { get; init; }
+#else
+        public global::Vectara.UpdateWolkenSourceConfiguration? Wolken { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Wolken))]
+#endif
+        public bool IsWolken => Wolken != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickWolken(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateWolkenSourceConfiguration? value)
+        {
+            value = Wolken;
+            return IsWolken;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateWolkenSourceConfiguration PickWolken() => IsWolken
+            ? Wolken!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Wolken' but the value was {ToString()}.");
+
+        /// <summary>
         /// Partial update for a `web` source configuration. Top-level fields are merged into the existing<br/>
         /// record; if `pages_source` is provided, the entire `pages_source` object is replaced (i.e.,<br/>
         /// switching modes or changing per-mode fields requires a complete `pages_source` object).
@@ -235,6 +309,52 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator UpdatePipelineSource(global::Vectara.UpdateBoxSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateBoxSourceConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.UpdateBoxSourceConfiguration?(UpdatePipelineSource @this) => @this.Box;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UpdatePipelineSource(global::Vectara.UpdateBoxSourceConfiguration? value)
+        {
+            Box = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdatePipelineSource FromBox(global::Vectara.UpdateBoxSourceConfiguration? value) => new UpdatePipelineSource(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator UpdatePipelineSource(global::Vectara.UpdateWolkenSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateWolkenSourceConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.UpdateWolkenSourceConfiguration?(UpdatePipelineSource @this) => @this.Wolken;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UpdatePipelineSource(global::Vectara.UpdateWolkenSourceConfiguration? value)
+        {
+            Wolken = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdatePipelineSource FromWolken(global::Vectara.UpdateWolkenSourceConfiguration? value) => new UpdatePipelineSource(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdatePipelineSource(global::Vectara.UpdateWebSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateWebSourceConfiguration?)value);
 
         /// <summary>
@@ -263,6 +383,8 @@ namespace Vectara
             global::Vectara.UpdateSharepointSourceConfiguration? sharepoint,
             global::Vectara.UpdateS3SourceConfiguration? s3,
             global::Vectara.UpdateGoogleDriveSourceConfiguration? googleDrive,
+            global::Vectara.UpdateBoxSourceConfiguration? box,
+            global::Vectara.UpdateWolkenSourceConfiguration? wolken,
             global::Vectara.UpdateWebSourceConfiguration? web
             )
         {
@@ -271,6 +393,8 @@ namespace Vectara
             Sharepoint = sharepoint;
             S3 = s3;
             GoogleDrive = googleDrive;
+            Box = box;
+            Wolken = wolken;
             Web = web;
         }
 
@@ -279,6 +403,8 @@ namespace Vectara
         /// </summary>
         public object? Object =>
             Web as object ??
+            Wolken as object ??
+            Box as object ??
             GoogleDrive as object ??
             S3 as object ??
             Sharepoint as object 
@@ -291,6 +417,8 @@ namespace Vectara
             Sharepoint?.ToString() ??
             S3?.ToString() ??
             GoogleDrive?.ToString() ??
+            Box?.ToString() ??
+            Wolken?.ToString() ??
             Web?.ToString() 
             ;
 
@@ -299,7 +427,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsWeb;
+            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolken && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolken && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolken && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolken && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolken && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolken && IsWeb;
         }
 
         /// <summary>
@@ -309,6 +437,8 @@ namespace Vectara
             global::System.Func<global::Vectara.UpdateSharepointSourceConfiguration?, TResult>? sharepoint = null,
             global::System.Func<global::Vectara.UpdateS3SourceConfiguration?, TResult>? s3 = null,
             global::System.Func<global::Vectara.UpdateGoogleDriveSourceConfiguration?, TResult>? googleDrive = null,
+            global::System.Func<global::Vectara.UpdateBoxSourceConfiguration?, TResult>? box = null,
+            global::System.Func<global::Vectara.UpdateWolkenSourceConfiguration?, TResult>? wolken = null,
             global::System.Func<global::Vectara.UpdateWebSourceConfiguration?, TResult>? web = null,
             bool validate = true)
         {
@@ -329,6 +459,14 @@ namespace Vectara
             {
                 return googleDrive(GoogleDrive!);
             }
+            else if (IsBox && box != null)
+            {
+                return box(Box!);
+            }
+            else if (IsWolken && wolken != null)
+            {
+                return wolken(Wolken!);
+            }
             else if (IsWeb && web != null)
             {
                 return web(Web!);
@@ -347,6 +485,10 @@ namespace Vectara
 
             global::System.Action<global::Vectara.UpdateGoogleDriveSourceConfiguration?>? googleDrive = null,
 
+            global::System.Action<global::Vectara.UpdateBoxSourceConfiguration?>? box = null,
+
+            global::System.Action<global::Vectara.UpdateWolkenSourceConfiguration?>? wolken = null,
+
             global::System.Action<global::Vectara.UpdateWebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -366,6 +508,14 @@ namespace Vectara
             else if (IsGoogleDrive)
             {
                 googleDrive?.Invoke(GoogleDrive!);
+            }
+            else if (IsBox)
+            {
+                box?.Invoke(Box!);
+            }
+            else if (IsWolken)
+            {
+                wolken?.Invoke(Wolken!);
             }
             else if (IsWeb)
             {
@@ -380,6 +530,8 @@ namespace Vectara
             global::System.Action<global::Vectara.UpdateSharepointSourceConfiguration?>? sharepoint = null,
             global::System.Action<global::Vectara.UpdateS3SourceConfiguration?>? s3 = null,
             global::System.Action<global::Vectara.UpdateGoogleDriveSourceConfiguration?>? googleDrive = null,
+            global::System.Action<global::Vectara.UpdateBoxSourceConfiguration?>? box = null,
+            global::System.Action<global::Vectara.UpdateWolkenSourceConfiguration?>? wolken = null,
             global::System.Action<global::Vectara.UpdateWebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -399,6 +551,14 @@ namespace Vectara
             else if (IsGoogleDrive)
             {
                 googleDrive?.Invoke(GoogleDrive!);
+            }
+            else if (IsBox)
+            {
+                box?.Invoke(Box!);
+            }
+            else if (IsWolken)
+            {
+                wolken?.Invoke(Wolken!);
             }
             else if (IsWeb)
             {
@@ -419,6 +579,10 @@ namespace Vectara
                 typeof(global::Vectara.UpdateS3SourceConfiguration),
                 GoogleDrive,
                 typeof(global::Vectara.UpdateGoogleDriveSourceConfiguration),
+                Box,
+                typeof(global::Vectara.UpdateBoxSourceConfiguration),
+                Wolken,
+                typeof(global::Vectara.UpdateWolkenSourceConfiguration),
                 Web,
                 typeof(global::Vectara.UpdateWebSourceConfiguration),
             };
@@ -440,6 +604,8 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateSharepointSourceConfiguration?>.Default.Equals(Sharepoint, other.Sharepoint) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateS3SourceConfiguration?>.Default.Equals(S3, other.S3) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateGoogleDriveSourceConfiguration?>.Default.Equals(GoogleDrive, other.GoogleDrive) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateBoxSourceConfiguration?>.Default.Equals(Box, other.Box) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWolkenSourceConfiguration?>.Default.Equals(Wolken, other.Wolken) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWebSourceConfiguration?>.Default.Equals(Web, other.Web) 
                 ;
         }

@@ -20,9 +20,9 @@ namespace Vectara
         /// <summary>
         /// When the event occurred.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("timestamp")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("occurred_at")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::System.DateTime Timestamp { get; set; }
+        public required global::System.DateTime OccurredAt { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -37,7 +37,7 @@ namespace Vectara
         /// Monotonic, unique-per-run identifier for this event.<br/>
         /// Example: evt_42
         /// </param>
-        /// <param name="timestamp">
+        /// <param name="occurredAt">
         /// When the event occurred.
         /// </param>
 #if NET7_0_OR_GREATER
@@ -45,10 +45,10 @@ namespace Vectara
 #endif
         public PipelineRunEventBase(
             string id,
-            global::System.DateTime timestamp)
+            global::System.DateTime occurredAt)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
-            this.Timestamp = timestamp;
+            this.OccurredAt = occurredAt;
         }
 
         /// <summary>

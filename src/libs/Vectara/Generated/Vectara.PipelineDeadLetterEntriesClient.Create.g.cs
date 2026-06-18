@@ -658,6 +658,8 @@ namespace Vectara
         /// - S3: the object key (e.g. `legal/contracts/doc.pdf`)<br/>
         /// - SharePoint: the drive item ID<br/>
         /// - Google Drive: the file ID<br/>
+        /// - Box: the file ID (e.g. `1422162456741`)<br/>
+        /// - Wolken: the article number (e.g. `345678`)<br/>
         /// - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
         /// </param>
         /// <param name="errorMessage">

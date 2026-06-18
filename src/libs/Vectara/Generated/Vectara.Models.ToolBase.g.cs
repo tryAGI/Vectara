@@ -104,8 +104,7 @@ namespace Vectara
         /// An optional jq expression applied to the tool's JSON output before it is returned to the agent.<br/>
         /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
         /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
-        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent<br/>
-        /// as an error so the agent can react.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent as an error so the agent can react.<br/>
         /// Examples:<br/>
         ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
         ///   - `.items[0:5]` — first 5 items<br/>
@@ -117,16 +116,12 @@ namespace Vectara
         public string? DefaultOutputTransform { get; set; }
 
         /// <summary>
-        /// An optional jq expression applied to the tool's input after argument overrides have been merged<br/>
-        /// with the agent's arguments and before the tool is invoked. Use this to inject server-side<br/>
-        /// context (session metadata, agent secrets) into the tool input, or to reshape the agent's<br/>
-        /// arguments.<br/>
-        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`,<br/>
-        /// and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`),<br/>
-        /// plus an `args` field containing the merged tool input. The output of the expression replaces<br/>
-        /// `args` as the tool input. The pre-transform `args` is what appears in audit events (with<br/>
-        /// secrets masked); the post-transform value goes only to the tool. If the expression fails to<br/>
-        /// compile or evaluate, the tool call is reported to the agent as an error.<br/>
+        /// An optional jq expression applied to the tool's input after argument overrides have been merged with the agent's arguments and before the tool is invoked.<br/>
+        /// Use this to inject server-side context (session metadata, agent secrets) into the tool input, or to reshape the agent's arguments.<br/>
+        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`), plus an `args` field containing the merged tool input.<br/>
+        /// The output of the expression replaces `args` as the tool input.<br/>
+        /// The pre-transform `args` is what appears in audit events (with secrets masked); the post-transform value goes only to the tool.<br/>
+        /// If the expression fails to compile or evaluate, the tool call is reported to the agent as an error.<br/>
         /// Examples:<br/>
         ///   - `.args + { auth: ("Bearer " + .agent.secrets.token) }` — inject a bearer header<br/>
         ///   - `.args | .corpus_key = .session.metadata.corpus_key` — pull a corpus key from session metadata<br/>
@@ -253,8 +248,7 @@ namespace Vectara
         /// An optional jq expression applied to the tool's JSON output before it is returned to the agent.<br/>
         /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
         /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
-        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent<br/>
-        /// as an error so the agent can react.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent as an error so the agent can react.<br/>
         /// Examples:<br/>
         ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
         ///   - `.items[0:5]` — first 5 items<br/>
@@ -262,16 +256,12 @@ namespace Vectara
         /// Example: .results | map({title, url})
         /// </param>
         /// <param name="defaultInputTransform">
-        /// An optional jq expression applied to the tool's input after argument overrides have been merged<br/>
-        /// with the agent's arguments and before the tool is invoked. Use this to inject server-side<br/>
-        /// context (session metadata, agent secrets) into the tool input, or to reshape the agent's<br/>
-        /// arguments.<br/>
-        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`,<br/>
-        /// and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`),<br/>
-        /// plus an `args` field containing the merged tool input. The output of the expression replaces<br/>
-        /// `args` as the tool input. The pre-transform `args` is what appears in audit events (with<br/>
-        /// secrets masked); the post-transform value goes only to the tool. If the expression fails to<br/>
-        /// compile or evaluate, the tool call is reported to the agent as an error.<br/>
+        /// An optional jq expression applied to the tool's input after argument overrides have been merged with the agent's arguments and before the tool is invoked.<br/>
+        /// Use this to inject server-side context (session metadata, agent secrets) into the tool input, or to reshape the agent's arguments.<br/>
+        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`), plus an `args` field containing the merged tool input.<br/>
+        /// The output of the expression replaces `args` as the tool input.<br/>
+        /// The pre-transform `args` is what appears in audit events (with secrets masked); the post-transform value goes only to the tool.<br/>
+        /// If the expression fails to compile or evaluate, the tool call is reported to the agent as an error.<br/>
         /// Examples:<br/>
         ///   - `.args + { auth: ("Bearer " + .agent.secrets.token) }` — inject a bearer header<br/>
         ///   - `.args | .corpus_key = .session.metadata.corpus_key` — pull a corpus key from session metadata<br/>

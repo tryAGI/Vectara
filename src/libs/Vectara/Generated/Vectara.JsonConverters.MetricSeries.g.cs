@@ -22,28 +22,28 @@ namespace Vectara.JsonConverters
             var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
             global::Vectara.CounterMetricSeries? counter = default;
-            if (discriminator?.Kind == global::Vectara.MetricSeriesDiscriminatorKind.Counter)
+            if (discriminator?.Type == global::Vectara.MetricSeriesDiscriminatorType.Counter)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CounterMetricSeries), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CounterMetricSeries> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CounterMetricSeries)}");
                 counter = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.GaugeMetricSeries? gauge = default;
-            if (discriminator?.Kind == global::Vectara.MetricSeriesDiscriminatorKind.Gauge)
+            if (discriminator?.Type == global::Vectara.MetricSeriesDiscriminatorType.Gauge)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GaugeMetricSeries), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GaugeMetricSeries> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.GaugeMetricSeries)}");
                 gauge = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.PercentilesMetricSeries? percentiles = default;
-            if (discriminator?.Kind == global::Vectara.MetricSeriesDiscriminatorKind.Percentiles)
+            if (discriminator?.Type == global::Vectara.MetricSeriesDiscriminatorType.Percentiles)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.PercentilesMetricSeries), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.PercentilesMetricSeries> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.PercentilesMetricSeries)}");
                 percentiles = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.DistributionMetricSeries? distribution = default;
-            if (discriminator?.Kind == global::Vectara.MetricSeriesDiscriminatorKind.Distribution)
+            if (discriminator?.Type == global::Vectara.MetricSeriesDiscriminatorType.Distribution)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.DistributionMetricSeries), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.DistributionMetricSeries> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.DistributionMetricSeries)}");
@@ -51,7 +51,7 @@ namespace Vectara.JsonConverters
             }
 
             var __value = new global::Vectara.MetricSeries(
-                discriminator?.Kind,
+                discriminator?.Type,
                 counter,
 
                 gauge,

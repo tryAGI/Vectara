@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct PercentilesMetricSeries : global::System.IEquatable<PercentilesMetricSeries>
     {
         /// <summary>
-        /// Common properties shared by all metric series kinds.
+        /// Common properties shared by all metric series types.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.MetricSeriesBase? Base { get; init; }

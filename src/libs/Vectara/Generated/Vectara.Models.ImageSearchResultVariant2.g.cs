@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ImageSearchResultVariant2
     {
         /// <summary>
-        /// The type of search result.<br/>
+        /// The type of search result. Always `image` for this variant.<br/>
         /// Default Value: image
         /// </summary>
         /// <default>"image"</default>
@@ -33,7 +33,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ImageSearchResultVariant2" /> class.
         /// </summary>
         /// <param name="resultType">
-        /// The type of search result.<br/>
+        /// The type of search result. Always `image` for this variant.<br/>
         /// Default Value: image
         /// </param>
         /// <param name="image">

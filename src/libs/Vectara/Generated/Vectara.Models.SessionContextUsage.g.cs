@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Token usage statistics for a session.
+    /// Token usage of the session's most recent agent call, reflecting current context window consumption. Not a running total across calls.
     /// </summary>
     public sealed partial class SessionContextUsage
     {
@@ -21,7 +21,7 @@ namespace Vectara
         public global::Vectara.OutputTokens? OutputTokens { get; set; }
 
         /// <summary>
-        /// Total number of tokens used.<br/>
+        /// Input plus output tokens of the most recent agent call. Can be used with model_context_window to calculate context utilization percentage.<br/>
         /// Example: 150
         /// </summary>
         /// <example>150</example>
@@ -29,7 +29,7 @@ namespace Vectara
         public long? TotalTokens { get; set; }
 
         /// <summary>
-        /// Maximum context window size in tokens for the model used by this session. Can be used with input_tokens to calculate context utilization percentage.<br/>
+        /// Maximum context window size in tokens for the model used by this session. Can be used with total_tokens to calculate context utilization percentage.<br/>
         /// Example: 200000
         /// </summary>
         /// <example>200000</example>
@@ -52,11 +52,11 @@ namespace Vectara
         /// Output token usage details.
         /// </param>
         /// <param name="totalTokens">
-        /// Total number of tokens used.<br/>
+        /// Input plus output tokens of the most recent agent call. Can be used with model_context_window to calculate context utilization percentage.<br/>
         /// Example: 150
         /// </param>
         /// <param name="modelContextWindow">
-        /// Maximum context window size in tokens for the model used by this session. Can be used with input_tokens to calculate context utilization percentage.<br/>
+        /// Maximum context window size in tokens for the model used by this session. Can be used with total_tokens to calculate context utilization percentage.<br/>
         /// Example: 200000
         /// </param>
 #if NET7_0_OR_GREATER

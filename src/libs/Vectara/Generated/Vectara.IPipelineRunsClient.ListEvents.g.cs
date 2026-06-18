@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List pipeline run events<br/>
-        /// List the timeline of events for a pipeline run. Events surface what the run did from a customer-observability perspective (records discovered, records processed, agent sessions created, dead letters, watermark advances, lifecycle transitions) rather than every internal Temporal step. A pipeline run may span multiple underlying Temporal executions; this endpoint stitches them into a single timeline keyed by `run_id`.
+        /// List the timeline of events for a pipeline run, keyed by `run_id`. Events report what the run did — records discovered, records processed, agent sessions created, dead letters, watermark advances, and lifecycle transitions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -44,7 +44,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List pipeline run events<br/>
-        /// List the timeline of events for a pipeline run. Events surface what the run did from a customer-observability perspective (records discovered, records processed, agent sessions created, dead letters, watermark advances, lifecycle transitions) rather than every internal Temporal step. A pipeline run may span multiple underlying Temporal executions; this endpoint stitches them into a single timeline keyed by `run_id`.
+        /// List the timeline of events for a pipeline run, keyed by `run_id`. Events report what the run did — records discovered, records processed, agent sessions created, dead letters, watermark advances, and lifecycle transitions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

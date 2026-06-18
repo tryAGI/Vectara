@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CounterMetricDescriptor : global::System.IEquatable<CounterMetricDescriptor>
     {
         /// <summary>
-        /// Common metadata fields shared by every metric descriptor regardless of kind.
+        /// Common metadata fields shared by every metric descriptor regardless of type.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.MetricDescriptorBase? Base { get; init; }

@@ -12,9 +12,9 @@ namespace Vectara
         /// Example: percentiles
         /// </summary>
         /// <example>percentiles</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Kind { get; set; }
+        public required string Type { get; set; }
 
         /// <summary>
         /// Percentile entries returned by this metric, in canonical order. Each entry's `label` matches a corresponding entry in every response point's `percentiles` array; `value` is the percentile rank (e.g. `0.5` for p50).<br/>
@@ -34,7 +34,7 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="PercentilesMetricDescriptorVariant2" /> class.
         /// </summary>
-        /// <param name="kind">
+        /// <param name="type">
         /// Example: percentiles
         /// </param>
         /// <param name="percentiles">
@@ -45,10 +45,10 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public PercentilesMetricDescriptorVariant2(
-            string kind,
+            string type,
             global::System.Collections.Generic.IList<global::Vectara.PercentileEntry> percentiles)
         {
-            this.Kind = kind ?? throw new global::System.ArgumentNullException(nameof(kind));
+            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Percentiles = percentiles ?? throw new global::System.ArgumentNullException(nameof(percentiles));
         }
 
