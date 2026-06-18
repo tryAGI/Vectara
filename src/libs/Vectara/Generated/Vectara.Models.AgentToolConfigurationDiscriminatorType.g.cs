@@ -11,10 +11,6 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        ArtifactCreate,
-        /// <summary>
-        /// 
-        /// </summary>
         ArtifactGrep,
         /// <summary>
         /// 
@@ -55,6 +51,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Reference,
+        /// <summary>
+        /// 
+        /// </summary>
         SubAgent,
         /// <summary>
         /// 
@@ -78,7 +78,6 @@ namespace Vectara
         {
             return value switch
             {
-                AgentToolConfigurationDiscriminatorType.ArtifactCreate => "artifact_create",
                 AgentToolConfigurationDiscriminatorType.ArtifactGrep => "artifact_grep",
                 AgentToolConfigurationDiscriminatorType.ArtifactRead => "artifact_read",
                 AgentToolConfigurationDiscriminatorType.Client => "client",
@@ -89,6 +88,7 @@ namespace Vectara
                 AgentToolConfigurationDiscriminatorType.ImageRead => "image_read",
                 AgentToolConfigurationDiscriminatorType.Lambda => "lambda",
                 AgentToolConfigurationDiscriminatorType.Mcp => "mcp",
+                AgentToolConfigurationDiscriminatorType.Reference => "reference",
                 AgentToolConfigurationDiscriminatorType.SubAgent => "sub_agent",
                 AgentToolConfigurationDiscriminatorType.WebGet => "web_get",
                 AgentToolConfigurationDiscriminatorType.WebSearch => "web_search",
@@ -102,7 +102,6 @@ namespace Vectara
         {
             return value switch
             {
-                "artifact_create" => AgentToolConfigurationDiscriminatorType.ArtifactCreate,
                 "artifact_grep" => AgentToolConfigurationDiscriminatorType.ArtifactGrep,
                 "artifact_read" => AgentToolConfigurationDiscriminatorType.ArtifactRead,
                 "client" => AgentToolConfigurationDiscriminatorType.Client,
@@ -113,6 +112,7 @@ namespace Vectara
                 "image_read" => AgentToolConfigurationDiscriminatorType.ImageRead,
                 "lambda" => AgentToolConfigurationDiscriminatorType.Lambda,
                 "mcp" => AgentToolConfigurationDiscriminatorType.Mcp,
+                "reference" => AgentToolConfigurationDiscriminatorType.Reference,
                 "sub_agent" => AgentToolConfigurationDiscriminatorType.SubAgent,
                 "web_get" => AgentToolConfigurationDiscriminatorType.WebGet,
                 "web_search" => AgentToolConfigurationDiscriminatorType.WebSearch,

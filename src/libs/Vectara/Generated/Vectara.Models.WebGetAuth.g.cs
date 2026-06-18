@@ -15,8 +15,8 @@ namespace Vectara
         public global::Vectara.WebGetAuthDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Explicitly disables authentication. Useful in argument_override to force a tool config to<br/>
-        /// clear any auth the agent would otherwise supply, since merge semantics ignore null patches.
+        /// Explicitly disables authentication.<br/>
+        /// Useful in argument_override to force a tool config to clear any auth the agent would otherwise supply, since merge semantics ignore null patches.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetNoAuth? None { get; init; }
@@ -127,8 +127,8 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Header' but the value was {ToString()}.");
 
         /// <summary>
-        /// OAuth 2.0 client-credentials grant. The platform fetches an access token from the token<br/>
-        /// endpoint and caches it until it expires.
+        /// OAuth 2.0 client-credentials grant.<br/>
+        /// The platform fetches an access token from the token endpoint and caches it until it expires.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetOAuthClientCredentialsAuth? OauthClientCredentials { get; init; }
@@ -165,9 +165,9 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthClientCredentials' but the value was {ToString()}.");
 
         /// <summary>
-        /// OAuth 2.0 refresh-token grant. The platform exchanges a long-lived refresh token for an<br/>
-        /// access token and caches the result until it expires. Supports refresh-token rotation: if<br/>
-        /// the IdP returns a new refresh_token, subsequent refreshes use it automatically.
+        /// OAuth 2.0 refresh-token grant.<br/>
+        /// The platform exchanges a long-lived refresh token for an access token and caches the result until it expires.<br/>
+        /// Supports refresh-token rotation: if the IdP returns a new refresh_token, subsequent refreshes use it automatically.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetOAuthRefreshTokenAuth? OauthRefreshToken { get; init; }

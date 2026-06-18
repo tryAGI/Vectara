@@ -12,9 +12,9 @@ namespace Vectara
         /// Example: distribution
         /// </summary>
         /// <example>distribution</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Kind { get; set; }
+        public required string Type { get; set; }
 
         /// <summary>
         /// Bins that this distribution may emit, in canonical order. Each bin has a stable label, an inclusive lower bound, and an exclusive upper bound (omitted for the overflow bin).
@@ -32,7 +32,7 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="DistributionMetricDescriptorVariant2" /> class.
         /// </summary>
-        /// <param name="kind">
+        /// <param name="type">
         /// Example: distribution
         /// </param>
         /// <param name="bins">
@@ -42,10 +42,10 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public DistributionMetricDescriptorVariant2(
-            string kind,
+            string type,
             global::System.Collections.Generic.IList<global::Vectara.DistributionBinDescriptor> bins)
         {
-            this.Kind = kind ?? throw new global::System.ArgumentNullException(nameof(kind));
+            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Bins = bins ?? throw new global::System.ArgumentNullException(nameof(bins));
         }
 

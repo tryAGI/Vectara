@@ -6,20 +6,21 @@ info:
     \ and full observability. Build agents that combine Vectara's multimodal retrieval\
     \ with tool use, structured instructions, and managed sessions \u2014 all through\
     \ simple REST endpoints.\n\nAll endpoints live at `https://api.vectara.io/v2/<resource>`\
-    \ using lowercase, hyphenated paths (e.g. `/corpora/:corpus_key/documents`).\n\
-    \n## API conventions\n\nWe follow standard REST conventions: `GET` to read, `POST`\
-    \ to create, `PUT` to replace, and `DELETE` to remove. A small number of endpoints\
-    \ use `PATCH` for partial update; most updates use `PUT`. Actions that don't map\
-    \ to CRUD verbs use a separate `POST /<resource>/<action>` path (e.g. `POST /corpora/:corpus_key/reset`).\n\
-    \n**Backward compatibility** \u2014 New fields may be added to any response at\
-    \ any time. Fields are never removed, only deprecated. Clients should ignore unknown\
-    \ fields. We aim for strong backward compatibility, though the agentic AI space\
-    \ is evolving rapidly and agent-related APIs may see more frequent additions.\n\
-    \n## Authentication methods\n\nEvery API request must be authenticated using one\
-    \ of these methods:\n\n**API Key** \u2014 Pass your key in the `x-api-key` header.\
-    \ Create API keys with precise roles for least-privilege access, or use personal\
-    \ API keys that inherit the same roles as your user account.\n\n**OAuth 2.0**\
-    \ \u2014 Use the client credentials flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`,\
+    \ using lowercase paths with underscores for multi-word segments (e.g. `/corpora/:corpus_key/documents`,\
+    \ `/tool_servers`).\n\n## API conventions\n\nWe follow standard REST conventions:\
+    \ `GET` to read, `POST` to create, `PATCH` to partially update, `PUT` to replace,\
+    \ and `DELETE` to remove. Most resources use `PATCH` for updates; a few use `PUT`\
+    \ for full replacement. Actions that don't map to CRUD verbs use a separate `POST\
+    \ /<resource>/<action>` path (e.g. `POST /corpora/:corpus_key/reset`).\n\n**Backward\
+    \ compatibility** \u2014 New fields may be added to any response at any time.\
+    \ Fields are never removed, only deprecated. Clients should ignore unknown fields.\
+    \ We aim for strong backward compatibility, though the agentic AI space is evolving\
+    \ rapidly and agent-related APIs may see more frequent additions.\n\n## Authentication\
+    \ methods\n\nEvery API request must be authenticated using one of these methods:\n\
+    \n**API Key** \u2014 Pass your key in the `x-api-key` header. Create API keys\
+    \ with precise roles for least-privilege access, or use personal API keys that\
+    \ inherit the same roles as your user account.\n\n**OAuth 2.0** \u2014 Use the\
+    \ client credentials flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`,\
     \ then pass it in the `Authorization: Bearer <token>` header. Tokens expire after\
     \ 30 minutes.\n\n## Role-based access control\n\nEach endpoint requires specific\
     \ roles. The role badges on each endpoint page show which roles grant access.\
@@ -67,8 +68,8 @@ tags:
   description: Manage agent-scoped secrets that can be referenced from tool argument
     overrides via $ref.
 - name: Agent Memory
-  description: Read and update the agent's accumulated learned memory (the `_learned_memory`
-    skill), with version history.
+  description: Read and update the agent's accumulated learned memory, with version
+    history.
 - name: Agent Aliases
   description: 'Manage routing aliases that map a public name to one or more agents
     under a configurable policy. Create a session through an alias (`POST /v2/agent_aliases/{alias_key}/sessions`)
@@ -82,6 +83,8 @@ tags:
   description: Create and manage instructions that guide agent behavior.
 - name: Tools
   description: Manage and discover tools available for AI agents to use in their workflows.
+- name: Tool Configurations
+  description: Manage reusable tool configurations that agents can reference by key.
 - name: Tool Servers
   description: Manage tool servers that provide access to external tools for AI agents.
 - name: Agent Connectors
@@ -2786,7 +2789,8 @@ paths:
                       energy sector.
                     response_language: eng
                     search_results:
-                    - text: The VaR at 95% confidence level rose from $1.2M to $1.6M...
+                    - result_type: text
+                      text: The VaR at 95% confidence level rose from $1.2M to $1.6M...
                       score: 0.91
                       document_id: risk_report_q1
                       document_metadata:
@@ -2800,7 +2804,8 @@ paths:
                       vendor in case of third-party claims.
                     response_language: eng
                     search_results:
-                    - text: Under this agreement, the vendor agrees to indemnify the
+                    - result_type: text
+                      text: Under this agreement, the vendor agrees to indemnify the
                         client...
                       score: 0.89
                       document_id: vendor_contract_2024
@@ -2815,7 +2820,8 @@ paths:
                       by user identity verification.
                     response_language: eng
                     search_results:
-                    - text: To reset 2FA, submit a ticket with user ID and last login
+                    - result_type: text
+                      text: To reset 2FA, submit a ticket with user ID and last login
                         IP...
                       score: 0.87
                       document_id: it_kb_2fa_reset
@@ -3127,7 +3133,8 @@ paths:
                       #end {"role": "user", "content": "Summarize ESG compliance trends
                       among EU banks based on the above findings."}]'
                     search_results:
-                    - text: EU banks reported a 20% increase in carbon reduction initiatives
+                    - result_type: text
+                      text: EU banks reported a 20% increase in carbon reduction initiatives
                         in 2023, driven by regulatory pressure.
                       score: 0.9462
                       document_metadata:
@@ -3138,7 +3145,8 @@ paths:
                       document_id: fin-report-2023-001
                       request_corpora_index: 0
                       corpus_key: fin_docs
-                    - text: Investment in sustainable finance grew by 15% among EU
+                    - result_type: text
+                      text: Investment in sustainable finance grew by 15% among EU
                         banks, aligning with ESG mandates.
                       score: 0.9187
                       document_metadata:
@@ -3167,7 +3175,8 @@ paths:
                       for the query ''Recent court rulings on IP rights in California''
                       based on these rulings."}]'
                     search_results:
-                    - text: The court upheld trade secret protections, ruling against
+                    - result_type: text
+                      text: The court upheld trade secret protections, ruling against
                         unauthorized disclosure by a former employee.
                       score: 0.9241
                       document_metadata:
@@ -3177,7 +3186,8 @@ paths:
                         year: 2023
                       document_id: case-ip-2023-001
                       request_corpora_index: 0
-                    - text: Patent infringement penalties were increased due to willful
+                    - result_type: text
+                      text: Patent infringement penalties were increased due to willful
                         violation, setting a precedent for IP enforcement.
                       score: 0.9056
                       document_metadata:
@@ -3206,7 +3216,8 @@ paths:
                       a concise step-by-step fix for: ''How to fix printer offline
                       in Windows 11''"}]'
                     search_results:
-                    - text: Restart the Print Spooler service via services.msc to
+                    - result_type: text
+                      text: Restart the Print Spooler service via services.msc to
                         resolve most printer offline issues in Windows 11.
                       score: 0.937
                       part_metadata:
@@ -3218,7 +3229,8 @@ paths:
                         doc_version: v5.1
                       document_id: support-printer-001
                       request_corpora_index: 0
-                    - text: Ensure the printer is connected to the same network as
+                    - result_type: text
+                      text: Ensure the printer is connected to the same network as
                         the Windows 11 device to prevent offline status.
                       score: 0.9123
                       part_metadata:
@@ -3530,7 +3542,8 @@ paths:
                       {"role": "user", "content": "Summarize arbitration terms for
                       U.S. SaaS NDAs based on the above findings."}]'
                     search_results:
-                    - text: Clause 14.2 mandates AAA arbitration in San Francisco
+                    - result_type: text
+                      text: Clause 14.2 mandates AAA arbitration in San Francisco
                         under California law, with a 30-day opt-out period and no
                         class-action rights.
                       score: 0.9254
@@ -3542,7 +3555,8 @@ paths:
                       document_id: contract-nda-2023-001
                       request_corpora_index: 0
                       corpus_key: fin_docs
-                    - text: Arbitration via AAA in New York under Delaware law, with
+                    - result_type: text
+                      text: Arbitration via AAA in New York under Delaware law, with
                         a 60-day opt-out and mediation as a prerequisite.
                       score: 0.9087
                       document_metadata:
@@ -3572,7 +3586,8 @@ paths:
                       "Compare RSU vesting schedules for 2022 and 2024 policies in
                       Canada."}]'
                     search_results:
-                    - text: The 2022 policy vests RSUs at 25% annually over 4 years
+                    - result_type: text
+                      text: The 2022 policy vests RSUs at 25% annually over 4 years
                         for Canadian employees.
                       score: 0.9198
                       document_metadata:
@@ -3582,7 +3597,8 @@ paths:
                       document_id: equity-policy-2022-001
                       request_corpora_index: 0
                       corpus_key: fin_docs
-                    - text: The 2024 policy introduces a 1-year cliff with monthly
+                    - result_type: text
+                      text: The 2024 policy introduces a 1-year cliff with monthly
                         vesting over 3 years, aligning with tech industry standards
                         in Canada.
                       score: 0.9043
@@ -3613,7 +3629,8 @@ paths:
                       a resolution for intermittent login failures in the SaaS portal
                       on Chrome, focusing on SSO and caching."}]'
                     search_results:
-                    - text: Clearing the Chrome browser cache resolves persistent
+                    - result_type: text
+                      text: Clearing the Chrome browser cache resolves persistent
                         SSO token issues causing login failures.
                       score: 0.9365
                       part_metadata:
@@ -3627,7 +3644,8 @@ paths:
                       document_id: support-login-001
                       request_corpora_index: 0
                       corpus_key: support_kb
-                    - text: Updating SSO configurations to enforce token refresh every
+                    - result_type: text
+                      text: Updating SSO configurations to enforce token refresh every
                         24 hours prevents login disruptions on Chrome.
                       score: 0.9172
                       part_metadata:
@@ -9137,11 +9155,13 @@ paths:
       x-required-roles:
       - type: AgentRole
         roles:
+        - agent_user
         - agent_viewer
         - agent_developer
         - agent_administrator
       - type: ApiRole
         roles:
+        - agent_user
         - agent_viewer
         - agent_developer
         - agent_administrator
@@ -10758,192 +10778,6 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: updateSecrets
-  /v2/agents/{agent_key}/memory:
-    get:
-      tags:
-      - Agent Memory
-      summary: Get agent memory
-      x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
-      - type: ApiRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
-        - administrator
-        - owner
-      description: 'Retrieve the agent''s `_learned_memory` skill and its memory metadata.
-        All learned facts are accumulated into this single skill.
-
-        If the agent has no memory yet, the skill content is empty and `memory_version`
-        is `0`.
-
-        '
-      operationId: getAgentMemory
-      parameters:
-      - $ref: '#/components/parameters/RequestTimeout'
-      - $ref: '#/components/parameters/RequestTimeoutMillis'
-      - in: path
-        name: agent_key
-        description: The unique key of the agent.
-        required: true
-        schema:
-          $ref: '#/components/schemas/AgentKey'
-      responses:
-        '200':
-          description: The agent's memory skill and metadata.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AgentMemory'
-        '403':
-          description: Permissions do not allow accessing this agent.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Agent not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundError'
-      x-fern-sdk-group-name: agents
-      x-fern-sdk-method-name: getMemory
-    patch:
-      tags:
-      - Agent Memory
-      summary: Update agent memory
-      x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
-      - type: ApiRole
-        roles:
-        - agent_developer
-        - agent_administrator
-        - administrator
-        - owner
-      description: "Replace the agent's `_learned_memory` skill content. The submitted\
-        \ `content` fully replaces the previous memory \u2014 the API does not append.\n\
-        Each successful update increments `memory_version` and records a full snapshot\
-        \ in the memory history.\n\nTo guard against concurrent updates, pass `expected_version`\
-        \ equal to the `memory_version` you last read.\nIf it no longer matches the\
-        \ current version, the update is rejected with `409 Conflict`; re-read the\
-        \ memory and retry.\nOmit `expected_version` to update unconditionally.\n"
-      operationId: updateAgentMemory
-      parameters:
-      - $ref: '#/components/parameters/RequestTimeout'
-      - $ref: '#/components/parameters/RequestTimeoutMillis'
-      - in: path
-        name: agent_key
-        description: The unique key of the agent.
-        required: true
-        schema:
-          $ref: '#/components/schemas/AgentKey'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateAgentMemoryRequest'
-      responses:
-        '200':
-          description: The agent's memory after the update.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AgentMemory'
-        '400':
-          description: Invalid request (e.g. content exceeds the size limit).
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestError'
-        '403':
-          description: Permissions do not allow modifying this agent.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Agent not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundError'
-        '409':
-          description: The memory was modified concurrently; the provided expected_version
-            no longer matches the current version.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-fern-sdk-group-name: agents
-      x-fern-sdk-method-name: updateMemory
-  /v2/agents/{agent_key}/memory/history:
-    get:
-      tags:
-      - Agent Memory
-      summary: Get agent memory history
-      x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
-      - type: ApiRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
-        - administrator
-        - owner
-      description: 'Retrieve the version history of the agent''s `_learned_memory`
-        skill.
-
-        Each entry is a full snapshot of the memory content at that version, ordered
-        by version ascending.
-
-        Returns an empty list if the agent has no memory history.
-
-        '
-      operationId: getAgentMemoryHistory
-      parameters:
-      - $ref: '#/components/parameters/RequestTimeout'
-      - $ref: '#/components/parameters/RequestTimeoutMillis'
-      - in: path
-        name: agent_key
-        description: The unique key of the agent.
-        required: true
-        schema:
-          $ref: '#/components/schemas/AgentKey'
-      responses:
-        '200':
-          description: The agent's memory version history.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AgentMemoryHistory'
-        '403':
-          description: Permissions do not allow accessing this agent.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Agent not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundError'
-      x-fern-sdk-group-name: agents
-      x-fern-sdk-method-name: getMemoryHistory
   /v2/agents/{agent_key}/connectors:
     post:
       tags:
@@ -12508,6 +12342,8 @@ paths:
           - sharepoint
           - s3
           - google_drive
+          - box
+          - wolken
           - web
       - in: query
         name: status
@@ -13323,12 +13159,10 @@ paths:
         - viewer
         - administrator
         - owner
-      description: List the timeline of events for a pipeline run. Events surface
-        what the run did from a customer-observability perspective (records discovered,
-        records processed, agent sessions created, dead letters, watermark advances,
-        lifecycle transitions) rather than every internal Temporal step. A pipeline
-        run may span multiple underlying Temporal executions; this endpoint stitches
-        them into a single timeline keyed by `run_id`.
+      description: "List the timeline of events for a pipeline run, keyed by `run_id`.\
+        \ Events report what the run did \u2014 records discovered, records processed,\
+        \ agent sessions created, dead letters, watermark advances, and lifecycle\
+        \ transitions."
       operationId: listPipelineRunEvents
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -13421,7 +13255,7 @@ paths:
         - administrator
         - owner
       description: Returns the catalog of registered metrics that can be queried via
-        `/v2/metrics/{metric_name}`. Use this to discover metric names, kinds, and
+        `/v2/metrics/{metric_name}`. Use this to discover metric names, types, and
         supported labels.
       operationId: listMetrics
       x-fern-sdk-group-name: customer_metrics
@@ -14323,36 +14157,6 @@ paths:
       x-fern-sdk-group-name: glossaries
       x-fern-sdk-method-name: delete_entries
 components:
-  parameters:
-    RequestTimeout:
-      in: header
-      name: Request-Timeout
-      description: The API will make a best effort to complete the request in the
-        specified seconds or time out.
-      schema:
-        type: integer
-        minimum: 1
-      required: false
-    RequestTimeoutMillis:
-      in: header
-      name: Request-Timeout-Millis
-      description: The API will make a best effort to complete the request in the
-        specified milliseconds or time out.
-      schema:
-        type: integer
-        minimum: 1
-  securitySchemes:
-    OAuth2:
-      type: oauth2
-      description: OAuth2 access to Vectara
-      flows:
-        clientCredentials:
-          tokenUrl: https://auth.vectara.io/oauth2/token
-          scopes: {}
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: x-api-key
   schemas:
     CorpusKey:
       description: A user-provided key for a corpus.
@@ -16135,8 +15939,9 @@ components:
       - type: object
         properties:
           result_type:
-            description: The type of search result.
+            description: The type of search result. Always `text` for this variant.
             type: string
+            pattern: ^text$
             default: text
           table:
             description: The table that the document part is from.
@@ -16156,8 +15961,9 @@ components:
       - type: object
         properties:
           result_type:
-            description: The type of search result.
+            description: The type of search result. Always `image` for this variant.
             type: string
+            pattern: ^image$
             default: image
           image:
             description: The metadata for the matched image.
@@ -19875,7 +19681,7 @@ components:
         \ tool output to keep responses concise and on-topic.\n\nThe expression operates\
         \ on the tool's response JSON and the result replaces the original output.\n\
         If the expression fails to compile or evaluate at runtime, the tool call is\
-        \ reported to the agent\nas an error so the agent can react.\n\nExamples:\n\
+        \ reported to the agent as an error so the agent can react.\n\nExamples:\n\
         \  - `.results | map({title, url})` \u2014 keep only title/url for each result\n\
         \  - `.items[0:5]` \u2014 first 5 items\n  - `del(.debug)` \u2014 drop a noisy\
         \ field\n"
@@ -19884,16 +19690,16 @@ components:
       example: .results | map({title, url})
     InputTransform:
       description: "An optional jq expression applied to the tool's input after argument\
-        \ overrides have been merged\nwith the agent's arguments and before the tool\
-        \ is invoked. Use this to inject server-side\ncontext (session metadata, agent\
-        \ secrets) into the tool input, or to reshape the agent's\narguments.\n\n\
-        The expression receives the standard runtime context \u2014 the same `agent`,\
-        \ `session`, `tools`,\nand `currentDate` values exposed to `argument_override`\
-        \ `$ref`s (see `ArgumentOverrideDescription`),\nplus an `args` field containing\
-        \ the merged tool input. The output of the expression replaces\n`args` as\
-        \ the tool input. The pre-transform `args` is what appears in audit events\
-        \ (with\nsecrets masked); the post-transform value goes only to the tool.\
-        \ If the expression fails to\ncompile or evaluate, the tool call is reported\
+        \ overrides have been merged with the agent's arguments and before the tool\
+        \ is invoked.\nUse this to inject server-side context (session metadata, agent\
+        \ secrets) into the tool input, or to reshape the agent's arguments.\n\nThe\
+        \ expression receives the standard runtime context \u2014 the same `agent`,\
+        \ `session`, `tools`, and `currentDate` values exposed to `argument_override`\
+        \ `$ref`s (see `ArgumentOverrideDescription`), plus an `args` field containing\
+        \ the merged tool input.\nThe output of the expression replaces `args` as\
+        \ the tool input.\nThe pre-transform `args` is what appears in audit events\
+        \ (with secrets masked); the post-transform value goes only to the tool.\n\
+        If the expression fails to compile or evaluate, the tool call is reported\
         \ to the agent as an error.\n\nExamples:\n  - `.args + { auth: (\"Bearer \"\
         \ + .agent.secrets.token) }` \u2014 inject a bearer header\n  - `.args | .corpus_key\
         \ = .session.metadata.corpus_key` \u2014 pull a corpus key from session metadata\n\
@@ -21357,86 +21163,134 @@ components:
       minLength: 1
       maxLength: 50
       example: Customer Support Agent
-    AgentToolConfigurationBase:
-      description: Base properties shared by all inline tool configurations on an
-        agent.
+    ToolConfigurationKey:
+      description: 'A unique key that identifies a reusable tool configuration within
+        a customer account.
+
+        Customer-provided; if omitted when creating a configuration, one is generated
+        from the name.
+
+        '
+      type: string
+      pattern: ^[0-9a-zA-Z_-]+$
+      minLength: 1
+      maxLength: 50
+      example: customer_support_search
+    ToolConfigurationName:
+      description: The human-readable name of a tool configuration.
+      type: string
+      minLength: 1
+      maxLength: 50
+      example: Customer Support Search Config
+    ToolConfigurationBase:
+      description: 'Base properties shared by all tool configuration types.
+
+        The identity properties (`key`, `name`, `description`, `enabled`, `metadata`)
+        apply to reusable configurations managed via the `/v2/tool_configurations`
+        endpoints; they are ignored when the configuration is defined inline in an
+        agent''s `tool_configurations` map, where the map key is the tool''s name.
+
+        '
       type: object
       properties:
+        key:
+          $ref: '#/components/schemas/ToolConfigurationKey'
+        name:
+          $ref: '#/components/schemas/ToolConfigurationName'
         description:
-          description: Optional override for the tool's description shown to the agent.
-            When set, replaces the description from the underlying tool definition.
+          description: 'A detailed description of what this tool configuration is
+            for and how it should be used.
+
+            Ignored for configurations defined inline on an agent.
+
+            '
           type: string
-          example: Search the customer support knowledge base
+          example: Configuration for searching customer support documentation with
+            optimized parameters
         description_template:
           $ref: '#/components/schemas/ToolDescriptionTemplate'
+        enabled:
+          description: 'Whether the tool configuration is currently enabled and available
+            for use.
+
+            Ignored for configurations defined inline on an agent, which are always
+            enabled.
+
+            '
+          type: boolean
+          default: true
+        metadata:
+          description: Optional metadata associated with this tool configuration.
+            Ignored for configurations defined inline on an agent.
+          type: object
+          additionalProperties: true
+          example:
+            tags:
+            - production
+            - v2
+            owner: team-platform
+        created_at:
+          description: Timestamp when the tool configuration was created.
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          description: Timestamp when the tool configuration was last updated.
+          type: string
+          format: date-time
+          readOnly: true
         output_transform:
           $ref: '#/components/schemas/OutputTransform'
         input_transform:
           $ref: '#/components/schemas/InputTransform'
-    InlineDynamicVectaraToolConfiguration:
-      title: InlineDynamicVectaraToolConfiguration
-      description: 'An inline configuration for built-in Vectara tools that have implementations
-        within the platform but do not have a dedicated configuration type schema.
-        Use the List Tools endpoint to discover available tools and obtain the `tool_id`
-        required for this configuration.
+    ToolConfigurationReference:
+      title: ToolConfigurationReference
+      description: 'References a reusable tool configuration by its key. The configuration
+        is managed independently via
+
+        the Tool Configurations API and can be shared across agents. The agent-facing
+        tool name is the key
+
+        of this entry in the agent''s `tool_configurations` map, which may differ
+        from the configuration''s own name.
 
         '
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: The type of tool configuration, which is always 'reference'
+              for referenced configurations.
             type: string
-            description: The type of tool configuration, which is always 'dynamic_vectara'
-              for generic Vectara tool configurations.
-            default: dynamic_vectara
-          tool_id:
-            $ref: '#/components/schemas/ToolId'
-          argument_override:
-            description: "Optional hardcoded arguments for tool calls. The key specifies\
-              \ the location in the tool arguments to overide, and the value specifies\
-              \ what to override with. The agent will not be able to change the parameters,\
-              \ nor know those values exist within the tool.\n\nThe values can also\
-              \ be dynamic references to context values using $ref with dot notation\
-              \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
-              \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
-              \ at runtime from context:\n- session.metadata.* - Access session metadata\
-              \ fields\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
-              \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
-              \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
-              \ - The current date/time in ISO 8601 format\n\nA bracket index may\
-              \ reference another context value, whose resolved value is used as the\
-              \ lookup key. The inner path may optionally carry a leading $ root marker:\n\
-              - Indirect reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
-              }` looks up the per-user secret named by `session.metadata.user_id`\n\
-              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
-              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
-              \nIf you want to have a real value `\"$ref\"` use `\"$$ref\"`, that\
-              \ is you can escape the first $ by using $$."
-            type: object
-            additionalProperties: true
-            example:
-              custom_param: value
-              limit: 10
+            default: reference
+          tool_configuration_key:
+            $ref: '#/components/schemas/ToolConfigurationKey'
+            description: The key of the reusable tool configuration to reference.
         required:
-        - tool_id
         - type
+        - tool_configuration_key
       x-vectaraParents:
       - AgentToolConfiguration
-    InlineMcpToolConfiguration:
-      title: InlineMcpToolConfiguration
-      description: An MCP tool configuration defined inline in the agent.
+    DynamicVectaraToolConfiguration:
+      description: 'A configuration for built-in Vectara tools that have implementations
+        within the platform but do not have a dedicated configuration type schema.
+        Use the List Tools endpoint to discover available tools and obtain the `tool_id`
+        required when creating this configuration.
+
+        '
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `dynamic_vectara`.
             type: string
-            description: The type of tool configuration, which is always 'mcp' for
-              inline MCP tool configurations.
-            default: mcp
+            default: dynamic_vectara
+            example: dynamic_vectara
           tool_id:
             $ref: '#/components/schemas/ToolId'
+            readOnly: true
           argument_override:
             description: "Optional hardcoded arguments for tool calls. The key specifies\
               \ the location in the tool arguments to overide, and the value specifies\
@@ -21462,12 +21316,60 @@ components:
             additionalProperties: true
             example:
               custom_param: value
-              limit: 10
+              max_results: 10
         required:
-        - tool_id
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
+    McpToolConfiguration:
+      description: A reusable configuration for an MCP tool that stores predefined
+        argument overrides and settings.
+      allOf:
+      - $ref: '#/components/schemas/ToolConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `mcp`.
+            type: string
+            default: mcp
+            example: mcp
+          tool_id:
+            $ref: '#/components/schemas/ToolId'
+            readOnly: true
+          argument_override:
+            description: "Optional hardcoded arguments for tool calls. The key specifies\
+              \ the location in the tool arguments to overide, and the value specifies\
+              \ what to override with. The agent will not be able to change the parameters,\
+              \ nor know those values exist within the tool.\n\nThe values can also\
+              \ be dynamic references to context values using $ref with dot notation\
+              \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
+              \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
+              \ at runtime from context:\n- session.metadata.* - Access session metadata\
+              \ fields\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
+              \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
+              \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
+              \ - The current date/time in ISO 8601 format\n\nA bracket index may\
+              \ reference another context value, whose resolved value is used as the\
+              \ lookup key. The inner path may optionally carry a leading $ root marker:\n\
+              - Indirect reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
+              }` looks up the per-user secret named by `session.metadata.user_id`\n\
+              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+              \nIf you want to have a real value `\"$ref\"` use `\"$$ref\"`, that\
+              \ is you can escape the first $ by using $$."
+            type: object
+            additionalProperties: true
+            example:
+              custom_param: value
+              max_results: 10
+        required:
+        - type
+      x-vectaraParents:
+      - ToolConfiguration
+      - AgentToolConfiguration
+      - ConcreteToolConfiguration
     CorporaSearchToolParameters:
       description: Agent-exposed parameters for the corpora search tool that can be
         filled in during execution.
@@ -21593,33 +21495,34 @@ components:
           description: Whether to save the query to history.
           type: boolean
           default: false
-    InlineCorporaSearchToolConfiguration:
-      title: InlineCorporaSearchToolConfiguration
-      description: A corpora search tool configuration defined inline in the agent.
+    CorporaSearchToolConfiguration:
+      description: A reusable configuration for a corpora search tool that stores
+        predefined search parameters and overrides.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `corpora_search`.
             type: string
-            description: The type of tool configuration, which is always 'corpora_search'
-              for inline corpora search tool configurations.
             default: corpora_search
+            example: corpora_search
           argument_override:
-            description: Optional hardcoded arguments for the corpus search call such
-              as the query. When specified, these values will be used instead of allowing
-              the agent to fill in those parameters.
+            description: Optional hardcoded arguments for tool calls. When specified,
+              these values will be used instead of allowing the agent to fill in those
+              parameters.
             $ref: '#/components/schemas/CorporaSearchToolParameters'
           query_configuration:
-            description: User-configurable settings for the corpus search that are
-              not exposed to the agent. Supports dynamic references for runtime resolution
-              from session context.
+            description: User-configurable settings for the search that are not exposed
+              to the agent. Supports dynamic references using $ref syntax.
             $ref: '#/components/schemas/AgentCorporaSearchQueryConfiguration'
         required:
         - type
         - query_configuration
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
     WebSearchToolParameters:
       description: Configurable parameters for the web search tool. If not provided,
         will be filled in by the agent.
@@ -21666,35 +21569,35 @@ components:
           - spam.com
           - unreliable-source.com
       additionalProperties: false
-    InlineWebSearchToolConfiguration:
-      title: InlineWebSearchToolConfiguration
-      description: A web search tool configuration defined inline in the agent.
+    WebSearchToolConfiguration:
+      description: A reusable configuration for a web search tool that stores predefined
+        search parameters and settings.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `web_search`.
             type: string
-            description: The type of tool configuration, which is always 'web_search'
-              for inline web search tool configurations.
             default: web_search
+            example: web_search
           argument_override:
-            description: Optional hardcoded arguments for the web search tool call
-              such as limit etc. When specified, these values will be used instead
-              of allowing the agent to fill in those parameters.
+            description: Optional hardcoded arguments for tool calls. When specified,
+              these values will be used instead of allowing the agent to fill in those
+              parameters.
             $ref: '#/components/schemas/WebSearchToolParameters'
         required:
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
     WebGetHeaderValue:
-      description: 'The value for a single HTTP header in the web_get tool. Either
-        a literal string or an
+      description: 'The value for a single HTTP header in the web_get tool.
 
-        EagerReference ({"$ref": "agent.secrets.foo"}) that resolves at session start
-        so the
-
-        secret value never appears in the tool configuration.
+        Either a literal string or an EagerReference ({"$ref": "agent.secrets.foo"})
+        that resolves at session start so the secret value never appears in the tool
+        configuration.
 
         '
       oneOf:
@@ -21702,20 +21605,19 @@ components:
       - $ref: '#/components/schemas/EagerReference'
     WebGetHeadersMap:
       description: 'A map of HTTP header names to their values for the web_get tool.
-        Each value may be a
 
-        literal string or an EagerReference for per-header secret resolution.
+        Each value may be a literal string or an EagerReference for per-header secret
+        resolution.
 
         '
       type: object
       additionalProperties:
         $ref: '#/components/schemas/WebGetHeaderValue'
     WebGetNoAuth:
-      description: 'Explicitly disables authentication. Useful in argument_override
-        to force a tool config to
+      description: 'Explicitly disables authentication.
 
-        clear any auth the agent would otherwise supply, since merge semantics ignore
-        null patches.'
+        Useful in argument_override to force a tool config to clear any auth the agent
+        would otherwise supply, since merge semantics ignore null patches.'
       type: object
       properties:
         type:
@@ -21768,10 +21670,10 @@ components:
       x-vectaraParents:
       - WebGetAuth
     WebGetOAuthClientCredentialsAuth:
-      description: 'OAuth 2.0 client-credentials grant. The platform fetches an access
-        token from the token
+      description: 'OAuth 2.0 client-credentials grant.
 
-        endpoint and caches it until it expires.'
+        The platform fetches an access token from the token endpoint and caches it
+        until it expires.'
       type: object
       properties:
         type:
@@ -21804,13 +21706,13 @@ components:
       x-vectaraParents:
       - WebGetAuth
     WebGetOAuthRefreshTokenAuth:
-      description: 'OAuth 2.0 refresh-token grant. The platform exchanges a long-lived
-        refresh token for an
+      description: 'OAuth 2.0 refresh-token grant.
 
-        access token and caches the result until it expires. Supports refresh-token
-        rotation: if
+        The platform exchanges a long-lived refresh token for an access token and
+        caches the result until it expires.
 
-        the IdP returns a new refresh_token, subsequent refreshes use it automatically.'
+        Supports refresh-token rotation: if the IdP returns a new refresh_token, subsequent
+        refreshes use it automatically.'
       type: object
       properties:
         type:
@@ -21877,20 +21779,16 @@ components:
           - GET
           - POST
           - PUT
+          - PATCH
           - DELETE
           - HEAD
         headers:
-          description: 'HTTP headers to include in the request. Either a literal `{name:
-            value}` map (where
+          description: 'HTTP headers to include in the request.
 
-            each value may itself be a string OR an EagerReference for per-header
-            secret lookup),
-
-            or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session
-            start to a
-
-            `Map<String, String>` (handy for sourcing the whole header set from agent
-            secrets).
+            Either a literal `{name: value}` map (where each value may itself be a
+            string OR an EagerReference for per-header secret lookup), or an EagerReference
+            ({"$ref": "agent.secrets"}) that resolves at session start to a `Map<String,
+            String>` (handy for sourcing the whole header set from agent secrets).
 
             '
           x-vectara-default-subtype: WebGetHeadersMap
@@ -21898,7 +21796,7 @@ components:
           - $ref: '#/components/schemas/WebGetHeadersMap'
           - $ref: '#/components/schemas/EagerReference'
         body:
-          description: Request body for POST/PUT requests.
+          description: Request body for POST/PUT/PATCH requests.
           oneOf:
           - type: string
           - $ref: '#/components/schemas/EagerReference'
@@ -21948,86 +21846,107 @@ components:
             configuration plaintext.'
           $ref: '#/components/schemas/WebGetAuth'
       additionalProperties: false
-    InlineWebGetToolConfiguration:
-      title: InlineWebGetToolConfiguration
-      description: A web get tool configuration defined inline in the agent for fetching
-        content from URLs.
+    WebGetToolConfiguration:
+      description: A reusable configuration for a web get tool that stores predefined
+        parameters for fetching content from URLs.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `web_get`.
             type: string
-            description: The type of tool configuration, which is always 'web_get'
-              for inline web get tool configurations.
             default: web_get
+            example: web_get
           argument_override:
-            description: Optional hardcoded arguments for the web get tool call. When
-              specified, these values will be used instead of allowing the agent to
-              fill in those parameters.
+            description: Optional hardcoded arguments for tool calls. When specified,
+              these values will be used instead of allowing the agent to fill in those
+              parameters.
             $ref: '#/components/schemas/WebGetToolParameters'
         required:
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
-    InlineLambdaToolConfiguration:
-      title: InlineLambdaToolConfiguration
-      description: A lambda tool configuration defined inline in the agent for executing
-        user-defined functions.
+      - ConcreteToolConfiguration
+    LambdaToolConfiguration:
+      description: A reusable configuration for a Lambda tool that executes user-defined
+        functions in a sandboxed environment.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `lambda`.
             type: string
-            description: The type of tool configuration, which is always 'lambda'
-              for inline lambda tool configurations.
             default: lambda
+            example: lambda
           tool_id:
             $ref: '#/components/schemas/ToolId'
+            readOnly: true
           argument_override:
-            description: Optional hardcoded arguments that will be passed to the lambda
-              function. When specified, these values will be used instead of allowing
-              the agent to fill in those parameters.
+            description: "Optional hardcoded arguments for tool calls. The key specifies\
+              \ the location in the tool arguments to overide, and the value specifies\
+              \ what to override with. The agent will not be able to change the parameters,\
+              \ nor know those values exist within the tool.\n\nThe values can also\
+              \ be dynamic references to context values using $ref with dot notation\
+              \ path syntax:\n- Static value: \"fixed_value\" or 123\n- Dynamic reference:\
+              \ `{\"$ref\": \"session.metadata.field_name\"}`\n\nReferences are resolved\
+              \ at runtime from context:\n- session.metadata.* - Access session metadata\
+              \ fields\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
+              \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
+              \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
+              \ - The current date/time in ISO 8601 format\n\nA bracket index may\
+              \ reference another context value, whose resolved value is used as the\
+              \ lookup key. The inner path may optionally carry a leading $ root marker:\n\
+              - Indirect reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
+              }` looks up the per-user secret named by `session.metadata.user_id`\n\
+              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+              \nIf you want to have a real value `\"$ref\"` use `\"$$ref\"`, that\
+              \ is you can escape the first $ by using $$."
             type: object
             additionalProperties: true
             example:
-              custom_param: value
+              connection_string: postgresql://prod-db:5432/analytics
+              max_retries: 3
         required:
-        - tool_id
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
-    InlineClientToolConfiguration:
-      title: InlineClientToolConfiguration
-      description: 'A client tool configuration defined inline in the agent. When
-        invoked, the agent emits a `tool_input` event and waits for the calling client
-        to submit a matching tool output via `createAgentInput`.
+      - ConcreteToolConfiguration
+    ClientToolConfiguration:
+      description: 'A client tool configuration.
+
+        When invoked, the agent emits a `tool_input` event and waits for the calling
+        client to submit a matching tool output.
+
+        Only valid inline on an agent; client tools are not reusable across agents.
 
         '
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `client`.
             type: string
-            description: The type of tool configuration, which is always 'client'
-              for inline client tool configurations.
             default: client
+            example: client
           tool_id:
             $ref: '#/components/schemas/ToolId'
           argument_override:
-            description: Optional hardcoded arguments that will be merged into the
-              LLM-generated arguments before dispatch to the client.
+            description: Optional hardcoded arguments merged into the LLM-generated
+              arguments before dispatch to the client.
             type: object
             additionalProperties: true
-            example:
-              channel: support
         required:
-        - tool_id
         - type
+        - tool_id
       x-vectaraParents:
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
     SubAgentToolParameters:
       description: Configurable parameters for the sub-agent tool. If not overridden,
         they will be required by the agent to fill in.
@@ -22083,19 +22002,18 @@ components:
             task_type: code_review
       required:
       - agent_key
-    InlineSubAgentToolConfiguration:
-      title: InlineSubAgentToolConfiguration
-      description: A sub-agent tool configuration defined inline in the agent for
-        invoking specialized sub-agents.
+    SubAgentToolConfiguration:
+      description: A reusable configuration for a sub-agent tool that invokes specialized
+        agents for complex tasks.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `sub_agent`.
             type: string
-            description: The type of tool configuration, which is always 'sub_agent'
-              for inline sub-agent tool configurations.
             default: sub_agent
+            example: sub_agent
           argument_override:
             $ref: '#/components/schemas/SubAgentToolParameters'
           sub_agent_configuration:
@@ -22104,24 +22022,9 @@ components:
         - type
         - sub_agent_configuration
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
-    InlineArtifactCreateToolConfiguration:
-      title: InlineArtifactCreateToolConfiguration
-      description: An artifact create tool configuration defined inline in the agent
-        for creating artifacts on-the-fly from text or structured data content.
-      allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
-      - type: object
-        properties:
-          type:
-            type: string
-            description: The type of tool configuration, which is always 'artifact_create'
-              for inline artifact create tool configurations.
-            default: artifact_create
-        required:
-        - type
-      x-vectaraParents:
-      - AgentToolConfiguration
+      - ConcreteToolConfiguration
     ArtifactReadToolParameters:
       description: Configurable parameters for the artifact read tool. If not overridden,
         they will be required by the agent to fill in.
@@ -22169,19 +22072,18 @@ components:
           minimum: 1
           maximum: 10000
           default: 200
-    InlineArtifactReadToolConfiguration:
-      title: InlineArtifactReadToolConfiguration
-      description: An artifact read tool configuration defined inline in the agent
-        for reading artifacts from the session workspace.
+    ArtifactReadToolConfiguration:
+      description: A reusable configuration for an artifact read tool that reads artifacts
+        from the session workspace.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `artifact_read`.
             type: string
-            description: The type of tool configuration, which is always 'artifact_read'
-              for inline artifact read tool configurations.
             default: artifact_read
+            example: artifact_read
           argument_override:
             $ref: '#/components/schemas/ArtifactReadToolParameters'
           tool_configuration:
@@ -22189,7 +22091,9 @@ components:
         required:
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
     ArtifactGrepToolParameters:
       description: Configurable parameters for the artifact grep tool. If not overridden,
         they will be required by the agent to fill in.
@@ -22212,25 +22116,26 @@ components:
           - -i
           - -n
       additionalProperties: false
-    InlineArtifactGrepToolConfiguration:
-      title: InlineArtifactGrepToolConfiguration
-      description: An artifact grep tool configuration defined inline in the agent
-        for searching through artifact content.
+    ArtifactGrepToolConfiguration:
+      description: A reusable configuration for an artifact grep tool that searches
+        through artifact content.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `artifact_grep`.
             type: string
-            description: The type of tool configuration, which is always 'artifact_grep'
-              for inline artifact grep tool configurations.
             default: artifact_grep
+            example: artifact_grep
           argument_override:
             $ref: '#/components/schemas/ArtifactGrepToolParameters'
         required:
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
     ImageReadToolParameters:
       description: Configurable parameters for the image read tool. If not overridden,
         they will be required by the agent to fill in.
@@ -22251,25 +22156,26 @@ components:
           default: auto
           example: auto
       additionalProperties: false
-    InlineImageReadToolConfiguration:
-      title: InlineImageReadToolConfiguration
-      description: An image read tool configuration defined inline in the agent for
-        loading images into the conversation context.
+    ImageReadToolConfiguration:
+      description: A reusable configuration for an image read tool that loads images
+        into the conversation context.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `image_read`.
             type: string
-            description: The type of tool configuration, which is always 'image_read'
-              for inline image read tool configurations.
             default: image_read
+            example: image_read
           argument_override:
             $ref: '#/components/schemas/ImageReadToolParameters'
         required:
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
     DocumentConversionToolParameters:
       description: Configurable parameters for the document conversion tool. If not
         overridden, they will be required by the agent to fill in.
@@ -22291,25 +22197,26 @@ components:
           type: string
           example: PDF converted to markdown
       additionalProperties: false
-    InlineDocumentConversionToolConfiguration:
-      title: InlineDocumentConversionToolConfiguration
-      description: A document conversion tool configuration defined inline in the
-        agent for converting document artifacts to various formats.
+    DocumentConversionToolConfiguration:
+      description: A reusable configuration for a document conversion tool that converts
+        document artifacts to various formats.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `document_conversion`.
             type: string
-            description: The type of tool configuration, which is always 'document_conversion'
-              for inline document conversion tool configurations.
             default: document_conversion
+            example: document_conversion
           argument_override:
             $ref: '#/components/schemas/DocumentConversionToolParameters'
         required:
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
     GetDocumentTextParameters:
       description: Configurable parameters for the get document text tool. If not
         overridden, they will be required by the agent to fill in.
@@ -22350,19 +22257,18 @@ components:
               example:
               - $.internal.processedAt
               - $.debug
-    InlineGetDocumentTextToolConfiguration:
-      title: InlineGetDocumentTextToolConfiguration
-      description: A get document text tool configuration defined inline in the agent
-        for fetching document text content from a corpus.
+    GetDocumentTextToolConfiguration:
+      description: A reusable configuration for a get document text tool that fetches
+        document text content from a corpus.
       allOf:
-      - $ref: '#/components/schemas/AgentToolConfigurationBase'
+      - $ref: '#/components/schemas/ToolConfigurationBase'
       - type: object
         properties:
           type:
+            description: This should always be `get_document_text`.
             type: string
-            description: The type of tool configuration, which is always 'get_document_text'
-              for inline get document text tool configurations.
             default: get_document_text
+            example: get_document_text
           argument_override:
             $ref: '#/components/schemas/GetDocumentTextParameters'
           tool_configuration:
@@ -22370,46 +22276,54 @@ components:
         required:
         - type
       x-vectaraParents:
+      - ToolConfiguration
       - AgentToolConfiguration
+      - ConcreteToolConfiguration
     AgentToolConfiguration:
       title: AgentToolConfiguration
-      description: A tool configuration that can be used by an agent, defined inline
-        with a specific configuration type.
+      description: 'A tool configuration available to an agent, either defined inline
+        with a specific configuration type,
+
+        or referencing a reusable tool configuration by its key (`type: reference`).
+
+        '
       type: object
-      x-vectara-base-schema: '#/AgentToolConfigurationBase'
+      x-vectara-base-schema: '#/ToolConfigurationBase'
       discriminator:
         propertyName: type
         mapping:
-          dynamic_vectara: '#/components/schemas/InlineDynamicVectaraToolConfiguration'
-          mcp: '#/components/schemas/InlineMcpToolConfiguration'
-          corpora_search: '#/components/schemas/InlineCorporaSearchToolConfiguration'
-          web_search: '#/components/schemas/InlineWebSearchToolConfiguration'
-          web_get: '#/components/schemas/InlineWebGetToolConfiguration'
-          lambda: '#/components/schemas/InlineLambdaToolConfiguration'
-          client: '#/components/schemas/InlineClientToolConfiguration'
-          sub_agent: '#/components/schemas/InlineSubAgentToolConfiguration'
-          artifact_create: '#/components/schemas/InlineArtifactCreateToolConfiguration'
-          artifact_read: '#/components/schemas/InlineArtifactReadToolConfiguration'
-          artifact_grep: '#/components/schemas/InlineArtifactGrepToolConfiguration'
-          image_read: '#/components/schemas/InlineImageReadToolConfiguration'
-          document_conversion: '#/components/schemas/InlineDocumentConversionToolConfiguration'
-          get_document_text: '#/components/schemas/InlineGetDocumentTextToolConfiguration'
+          reference: '#/components/schemas/ToolConfigurationReference'
+          dynamic_vectara: '#/components/schemas/DynamicVectaraToolConfiguration'
+          mcp: '#/components/schemas/McpToolConfiguration'
+          corpora_search: '#/components/schemas/CorporaSearchToolConfiguration'
+          web_search: '#/components/schemas/WebSearchToolConfiguration'
+          web_get: '#/components/schemas/WebGetToolConfiguration'
+          lambda: '#/components/schemas/LambdaToolConfiguration'
+          client: '#/components/schemas/ClientToolConfiguration'
+          sub_agent: '#/components/schemas/SubAgentToolConfiguration'
+          artifact_read: '#/components/schemas/ArtifactReadToolConfiguration'
+          artifact_grep: '#/components/schemas/ArtifactGrepToolConfiguration'
+          image_read: '#/components/schemas/ImageReadToolConfiguration'
+          document_conversion: '#/components/schemas/DocumentConversionToolConfiguration'
+          get_document_text: '#/components/schemas/GetDocumentTextToolConfiguration'
       oneOf:
-      - $ref: '#/components/schemas/InlineDynamicVectaraToolConfiguration'
-      - $ref: '#/components/schemas/InlineMcpToolConfiguration'
-      - $ref: '#/components/schemas/InlineCorporaSearchToolConfiguration'
-      - $ref: '#/components/schemas/InlineWebSearchToolConfiguration'
-      - $ref: '#/components/schemas/InlineWebGetToolConfiguration'
-      - $ref: '#/components/schemas/InlineLambdaToolConfiguration'
-      - $ref: '#/components/schemas/InlineClientToolConfiguration'
-      - $ref: '#/components/schemas/InlineSubAgentToolConfiguration'
-      - $ref: '#/components/schemas/InlineArtifactCreateToolConfiguration'
-      - $ref: '#/components/schemas/InlineArtifactReadToolConfiguration'
-      - $ref: '#/components/schemas/InlineArtifactGrepToolConfiguration'
-      - $ref: '#/components/schemas/InlineImageReadToolConfiguration'
-      - $ref: '#/components/schemas/InlineDocumentConversionToolConfiguration'
-      - $ref: '#/components/schemas/InlineGetDocumentTextToolConfiguration'
+      - $ref: '#/components/schemas/ToolConfigurationReference'
+      - $ref: '#/components/schemas/DynamicVectaraToolConfiguration'
+      - $ref: '#/components/schemas/McpToolConfiguration'
+      - $ref: '#/components/schemas/CorporaSearchToolConfiguration'
+      - $ref: '#/components/schemas/WebSearchToolConfiguration'
+      - $ref: '#/components/schemas/WebGetToolConfiguration'
+      - $ref: '#/components/schemas/LambdaToolConfiguration'
+      - $ref: '#/components/schemas/ClientToolConfiguration'
+      - $ref: '#/components/schemas/SubAgentToolConfiguration'
+      - $ref: '#/components/schemas/ArtifactReadToolConfiguration'
+      - $ref: '#/components/schemas/ArtifactGrepToolConfiguration'
+      - $ref: '#/components/schemas/ImageReadToolConfiguration'
+      - $ref: '#/components/schemas/DocumentConversionToolConfiguration'
+      - $ref: '#/components/schemas/GetDocumentTextToolConfiguration'
       example:
+      - type: reference
+        tool_configuration_key: shared_kb_search
       - type: web_search
         argument_override:
           limit: 5
@@ -23743,17 +23657,25 @@ components:
       type: object
       properties:
         count:
-          description: Number of input tokens consumed.
+          description: Number of input tokens consumed by the most recent agent call,
+            including cached tokens.
           type: integer
           format: int64
           example: 120
+        cached_tokens:
+          description: Subset of count served from the prompt cache. Omitted when
+            no input tokens were served from the cache.
+          type: integer
+          format: int64
+          example: 100
     OutputTokens:
       title: OutputTokens
       description: Output token usage details.
       type: object
       properties:
         count:
-          description: Number of output tokens generated.
+          description: Number of output tokens generated by the most recent agent
+            call.
           type: integer
           format: int64
           example: 30
@@ -23764,7 +23686,8 @@ components:
           example: 0
     SessionContextUsage:
       title: SessionContextUsage
-      description: Token usage statistics for a session.
+      description: Token usage of the session's most recent agent call, reflecting
+        current context window consumption. Not a running total across calls.
       type: object
       properties:
         input_tokens:
@@ -23772,13 +23695,14 @@ components:
         output_tokens:
           $ref: '#/components/schemas/OutputTokens'
         total_tokens:
-          description: Total number of tokens used.
+          description: Input plus output tokens of the most recent agent call. Can
+            be used with model_context_window to calculate context utilization percentage.
           type: integer
           format: int64
           example: 150
         model_context_window:
           description: Maximum context window size in tokens for the model used by
-            this session. Can be used with input_tokens to calculate context utilization
+            this session. Can be used with total_tokens to calculate context utilization
             percentage.
           type: integer
           format: int64
@@ -25993,128 +25917,6 @@ components:
             old_token_to_remove: null
       required:
       - secrets
-    AgentMemoryMetadata:
-      description: Version and audit metadata for the agent's memory.
-      type: object
-      properties:
-        memory_version:
-          description: The current memory version. `0` means the agent has no memory
-            yet; each update increments it by one.
-          type: integer
-          format: int32
-          example: 3
-        memory_last_updated:
-          description: The time of the most recent memory update, or `null` if the
-            memory has never been updated.
-          type: string
-          format: date-time
-          nullable: true
-          example: '2026-05-29T18:30:00Z'
-        memory_last_updated_by:
-          description: The identifier of whoever performed the most recent update,
-            or `null` if never updated.
-          type: string
-          nullable: true
-          example: query_handler
-      required:
-      - memory_version
-    AgentMemory:
-      description: 'The agent''s accumulated learned memory, exposed as the reserved
-        `_learned_memory` skill plus version metadata.
-
-        '
-      type: object
-      properties:
-        skill:
-          $ref: '#/components/schemas/AgentSkill'
-        metadata:
-          $ref: '#/components/schemas/AgentMemoryMetadata'
-      required:
-      - skill
-      - metadata
-    UpdateAgentMemoryRequest:
-      description: 'Replace the agent''s `_learned_memory` content. The submitted
-        `content` fully replaces the previous memory.
-
-        '
-      type: object
-      properties:
-        content:
-          description: The full memory content to store. Replaces the previous content
-            entirely.
-          type: string
-          maxLength: 50000
-          example: '- Customer prefers email contact
-
-            - Time zone: PST'
-        updated_by:
-          description: Identifier of who is performing this update (e.g. `query_handler`,
-            `manual_update`).
-          type: string
-          minLength: 1
-          maxLength: 255
-          example: query_handler
-        expected_version:
-          description: 'The `memory_version` the client last read. If provided and
-            it does not match the current version, the update is
-
-            rejected with `409 Conflict`. Omit to update unconditionally.
-
-            '
-          type: integer
-          format: int32
-          nullable: true
-          example: 2
-      required:
-      - content
-      - updated_by
-    AgentMemoryVersion:
-      description: A single snapshot of the agent's memory at a specific version.
-      type: object
-      properties:
-        version:
-          description: The version number of this snapshot.
-          type: integer
-          format: int32
-          example: 2
-        content:
-          description: The full memory content at this version.
-          type: string
-          example: '- Customer prefers email contact
-
-            - Time zone: PST'
-        timestamp:
-          description: The time this version was recorded.
-          type: string
-          format: date-time
-          example: '2026-05-29T18:00:00Z'
-        updated_by:
-          description: The identifier of whoever recorded this version.
-          type: string
-          example: query_handler
-      required:
-      - version
-      - content
-      - timestamp
-      - updated_by
-    AgentMemoryHistory:
-      description: The full version history of the agent's memory, ordered by version
-        ascending.
-      type: object
-      properties:
-        skill_name:
-          description: The name of the memory skill (always `_learned_memory`).
-          type: string
-          example: _learned_memory
-        versions:
-          description: The memory snapshots, ordered by version ascending. Empty if
-            the agent has no memory history.
-          type: array
-          items:
-            $ref: '#/components/schemas/AgentMemoryVersion'
-      required:
-      - skill_name
-      - versions
     AgentOutputType:
       description: A category of intermediate agent output a connector can hide from
         its channel via `hidden_output_types`. `tool_calls` is the agent's tool-call
@@ -27142,6 +26944,206 @@ components:
         - scopes
         - client_email
         - private_key
+    BoxCcgAuth:
+      description: 'Box server-to-server authentication via the Client Credentials
+        Grant. The app must be
+
+        authorized for the enterprise in the Box Admin Console.
+
+        '
+      type: object
+      properties:
+        type:
+          type: string
+          default: ccg
+          example: ccg
+        client_id:
+          description: Box app client ID.
+          type: string
+          example: n3xq8r2v9k5m1p7t4w6yj0zb3c5d7f9g
+        client_secret:
+          description: Box app client secret. Encrypted at rest and not returned in
+            responses.
+          type: string
+          writeOnly: true
+        enterprise_id:
+          description: Box enterprise ID the app is authorized for.
+          type: string
+          example: '1234567'
+      required:
+      - type
+      - client_id
+      - client_secret
+      - enterprise_id
+    BaseBoxSourceConfiguration:
+      description: 'Base Box source configuration. Ingests files from a Box enterprise
+        starting at `folder_id`,
+
+        walking every descendant subfolder and inheriting each item''s Box collaborations
+        as
+
+        document-level ACL.
+
+        '
+      type: object
+      properties:
+        type:
+          type: string
+          default: box
+          example: box
+        folder_id:
+          description: 'The Box folder ID to ingest from. A Box folder URL (`https://app.box.com/folder/<id>`)
+
+            is also accepted, in which case the ID is taken from the URL. Defaults
+            to the enterprise
+
+            root (ID `"0"`).
+
+            '
+          type: string
+          default: '0'
+          example: '323805611740'
+        auth:
+          description: Credentials used to authenticate with the Box API.
+          allOf:
+          - $ref: '#/components/schemas/BoxCcgAuth'
+      required:
+      - type
+    BoxSourceConfiguration:
+      description: Configuration for ingesting files from a Box enterprise, inheriting
+        Box collaborations as document-level ACL.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseBoxSourceConfiguration'
+      - required:
+        - auth
+    BaseWolkenSourceConfiguration:
+      description: 'Base Wolken ServiceDesk knowledge-base source configuration. Ingests
+        knowledge-base articles
+
+        matching the configured filters, with each article''s audience attributes
+        carried as document
+
+        metadata for attribute-based filtering. Requires Wolken data API credentials
+        with read access
+
+        to the knowledge-base listing and article-detail endpoints. Incremental sync
+        additionally
+
+        requires the listing to support update-time filters. Supported filters vary
+        by Wolken
+
+        deployment.
+
+        '
+      type: object
+      properties:
+        type:
+          type: string
+          default: wolken
+          example: wolken
+        api_endpoint:
+          description: Base URL of the Wolken API.
+          type: string
+          example: https://example-api.wolkenservicedesk.com
+        domain:
+          description: The Wolken tenant name issued with your Wolken API credentials,
+            not a hostname. For example `example`, not `example.wolkenservicedesk.com`.
+          type: string
+          example: example
+        status_id:
+          description: 'Lifecycle status to filter articles by. If unset, articles
+            of every lifecycle status are
+
+            ingested. Status IDs are specific to your Wolken deployment.
+
+            '
+          type: integer
+          format: int32
+          example: 2
+        validation_status_id:
+          description: 'Validation status to filter articles by. If unset, articles
+            of every validation status
+
+            are ingested. Validation status IDs are specific to your Wolken deployment.
+
+            '
+          type: integer
+          format: int32
+          example: 2
+        level_id:
+          description: 'Audience level to filter articles by. If unset, articles of
+            every audience level are
+
+            ingested. Level IDs are specific to your Wolken deployment.
+
+            '
+          type: integer
+          format: int32
+          example: 3
+        update_upper_bound_operator:
+          description: 'Operator used for the upper bound when filtering articles
+            by when they were last updated.
+
+            `lt` is strict less-than and `lte` is less-than-or-equal.
+
+            '
+          type: string
+          enum:
+          - lt
+          - lte
+          default: lte
+        article_url_template:
+          description: 'Template for each article''s public URL. The `{article_number}`
+            placeholder is replaced
+
+            with the article number. When omitted, the URL returned by the Wolken
+            listing is used. If
+
+            the listing returns no URL, the article has no public URL recorded.
+
+            '
+          type: string
+          example: https://example.wolkenservicedesk.com/external/article?articleNumber={article_number}
+        client_id:
+          description: Wolken OAuth client ID.
+          type: string
+          example: a1b2c3d4e5f6g7h8i9j0k1l2
+        service_account:
+          description: Wolken service account the data API calls run as.
+          type: string
+          example: svc-kb-reader@example.com
+        auth_code:
+          description: 'The auth code Wolken issues for the instance, used with `refresh_token`
+            to obtain access
+
+            tokens. Encrypted at rest and not returned in responses.
+
+            '
+          type: string
+          writeOnly: true
+        refresh_token:
+          description: Long-lived refresh token exchanged for access tokens. Encrypted
+            at rest and not returned in responses.
+          type: string
+          writeOnly: true
+      required:
+      - type
+    WolkenSourceConfiguration:
+      description: Configuration for ingesting knowledge-base articles from a Wolken
+        ServiceDesk instance.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWolkenSourceConfiguration'
+      - required:
+        - api_endpoint
+        - domain
+        - client_id
+        - service_account
+        - auth_code
+        - refresh_token
     BaseWebSource:
       description: 'Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl).
         Politeness, limits, auth.
@@ -27427,11 +27429,15 @@ components:
           sharepoint: '#/components/schemas/SharepointSourceConfiguration'
           s3: '#/components/schemas/S3SourceConfiguration'
           google_drive: '#/components/schemas/GoogleDriveSourceConfiguration'
+          box: '#/components/schemas/BoxSourceConfiguration'
+          wolken: '#/components/schemas/WolkenSourceConfiguration'
           web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/SharepointSourceConfiguration'
       - $ref: '#/components/schemas/S3SourceConfiguration'
       - $ref: '#/components/schemas/GoogleDriveSourceConfiguration'
+      - $ref: '#/components/schemas/BoxSourceConfiguration'
+      - $ref: '#/components/schemas/WolkenSourceConfiguration'
       - $ref: '#/components/schemas/WebSourceConfiguration'
     CronTriggerConfiguration:
       description: Run the pipeline on a cron schedule.
@@ -27783,6 +27789,20 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseGoogleDriveSourceConfiguration'
+    UpdateBoxSourceConfiguration:
+      description: Partial update for Box source configuration. Only provided fields
+        are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseBoxSourceConfiguration'
+    UpdateWolkenSourceConfiguration:
+      description: Partial update for Wolken source configuration. Only provided fields
+        are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWolkenSourceConfiguration'
     UpdateWebSourceConfiguration:
       description: 'Partial update for a `web` source configuration. Top-level fields
         are merged into the existing
@@ -27817,11 +27837,15 @@ components:
           sharepoint: '#/components/schemas/UpdateSharepointSourceConfiguration'
           s3: '#/components/schemas/UpdateS3SourceConfiguration'
           google_drive: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
+          box: '#/components/schemas/UpdateBoxSourceConfiguration'
+          wolken: '#/components/schemas/UpdateWolkenSourceConfiguration'
           web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/UpdateSharepointSourceConfiguration'
       - $ref: '#/components/schemas/UpdateS3SourceConfiguration'
       - $ref: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateBoxSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateWolkenSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
     UpdatePipelineRequest:
       description: Request to partially update an existing pipeline. Omitted fields
@@ -27970,6 +27994,10 @@ components:
 
             - Google Drive: the file ID
 
+            - Box: the file ID (e.g. `1422162456741`)
+
+            - Wolken: the article number (e.g. `345678`)
+
             - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
 
             '
@@ -28040,6 +28068,10 @@ components:
             - SharePoint: the drive item ID
 
             - Google Drive: the file ID
+
+            - Box: the file ID (e.g. `1422162456741`)
+
+            - Wolken: the article number (e.g. `345678`)
 
             - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
 
@@ -28114,13 +28146,13 @@ components:
           description: Monotonic, unique-per-run identifier for this event.
           type: string
           example: evt_42
-        timestamp:
+        occurred_at:
           description: When the event occurred.
           type: string
           format: date-time
       required:
       - id
-      - timestamp
+      - occurred_at
     RunStartedEvent:
       description: The pipeline run started executing.
       allOf:
@@ -28305,7 +28337,7 @@ components:
       - metadata
     MetricDescriptorBase:
       description: Common metadata fields shared by every metric descriptor regardless
-        of kind.
+        of type.
       type: object
       properties:
         name:
@@ -28352,22 +28384,22 @@ components:
       - $ref: '#/components/schemas/MetricDescriptorBase'
       - type: object
         properties:
-          kind:
+          type:
             type: string
             example: counter
         required:
-        - kind
+        - type
     GaugeMetricDescriptor:
       description: Descriptor for a gauge metric.
       allOf:
       - $ref: '#/components/schemas/MetricDescriptorBase'
       - type: object
         properties:
-          kind:
+          type:
             type: string
             example: gauge
         required:
-        - kind
+        - type
     PercentileEntry:
       description: 'A single entry in a percentiles array. On a metric descriptor,
         `value` is the percentile rank (a fraction in [0, 1], e.g. `0.95` for p95).
@@ -28396,7 +28428,7 @@ components:
       - $ref: '#/components/schemas/MetricDescriptorBase'
       - type: object
         properties:
-          kind:
+          type:
             type: string
             example: percentiles
           percentiles:
@@ -28417,7 +28449,7 @@ components:
             - label: p99
               value: 0.99
         required:
-        - kind
+        - type
         - percentiles
     DistributionBinDescriptor:
       description: 'A single bin of a distribution metric. The numeric range `[range_min,
@@ -28452,7 +28484,7 @@ components:
       - $ref: '#/components/schemas/MetricDescriptorBase'
       - type: object
         properties:
-          kind:
+          type:
             type: string
             example: distribution
           bins:
@@ -28463,14 +28495,14 @@ components:
             items:
               $ref: '#/components/schemas/DistributionBinDescriptor'
         required:
-        - kind
+        - type
         - bins
     MetricDescriptor:
       description: Metadata about a registered metric. The concrete variant is selected
-        by `kind`.
+        by `type`.
       x-vectara-base-schema: '#/MetricDescriptorBase'
       discriminator:
-        propertyName: kind
+        propertyName: type
         mapping:
           counter: '#/components/schemas/CounterMetricDescriptor'
           gauge: '#/components/schemas/GaugeMetricDescriptor'
@@ -28492,7 +28524,7 @@ components:
       required:
       - metrics
     MetricSeriesBase:
-      description: Common properties shared by all metric series kinds.
+      description: Common properties shared by all metric series types.
       type: object
       properties:
         metric_name:
@@ -28537,7 +28569,7 @@ components:
       - $ref: '#/components/schemas/MetricSeriesBase'
       - type: object
         properties:
-          kind:
+          type:
             type: string
             example: counter
           points:
@@ -28545,7 +28577,7 @@ components:
             items:
               $ref: '#/components/schemas/ScalarMetricPoint'
         required:
-        - kind
+        - type
         - points
     GaugeMetricSeries:
       description: A series of gauge values (point-in-time aggregates such as mean,
@@ -28554,7 +28586,7 @@ components:
       - $ref: '#/components/schemas/MetricSeriesBase'
       - type: object
         properties:
-          kind:
+          type:
             type: string
             example: gauge
           points:
@@ -28562,7 +28594,7 @@ components:
             items:
               $ref: '#/components/schemas/ScalarMetricPoint'
         required:
-        - kind
+        - type
         - points
     PercentilesMetricPoint:
       description: A point in a percentiles metric series. Entries correspond by `label`
@@ -28589,7 +28621,7 @@ components:
       - $ref: '#/components/schemas/MetricSeriesBase'
       - type: object
         properties:
-          kind:
+          type:
             type: string
             example: percentiles
           points:
@@ -28597,7 +28629,7 @@ components:
             items:
               $ref: '#/components/schemas/PercentilesMetricPoint'
         required:
-        - kind
+        - type
         - points
     HistogramBin:
       description: 'A single bin''s count within a distribution response point. The
@@ -28644,7 +28676,7 @@ components:
       - $ref: '#/components/schemas/MetricSeriesBase'
       - type: object
         properties:
-          kind:
+          type:
             type: string
             example: distribution
           points:
@@ -28652,14 +28684,14 @@ components:
             items:
               $ref: '#/components/schemas/DistributionMetricPoint'
         required:
-        - kind
+        - type
         - points
     MetricSeries:
       description: A time series of metric points. The shape of points varies by metric
-        kind.
+        type.
       x-vectara-base-schema: '#/MetricSeriesBase'
       discriminator:
-        propertyName: kind
+        propertyName: type
         mapping:
           counter: '#/components/schemas/CounterMetricSeries'
           gauge: '#/components/schemas/GaugeMetricSeries'
@@ -29417,6 +29449,36 @@ components:
           maxItems: 1000
       required:
       - terms
+  parameters:
+    RequestTimeout:
+      in: header
+      name: Request-Timeout
+      description: The API will make a best effort to complete the request in the
+        specified seconds or time out.
+      schema:
+        type: integer
+        minimum: 1
+      required: false
+    RequestTimeoutMillis:
+      in: header
+      name: Request-Timeout-Millis
+      description: The API will make a best effort to complete the request in the
+        specified milliseconds or time out.
+      schema:
+        type: integer
+        minimum: 1
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth2 access to Vectara
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.vectara.io/oauth2/token
+          scopes: {}
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
 x-tagGroups:
 - name: Agents
   tags:

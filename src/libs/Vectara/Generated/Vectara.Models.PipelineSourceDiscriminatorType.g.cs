@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Box,
+        /// <summary>
+        /// 
+        /// </summary>
         GoogleDrive,
         /// <summary>
         /// 
@@ -24,6 +28,10 @@ namespace Vectara
         /// 
         /// </summary>
         Web,
+        /// <summary>
+        /// 
+        /// </summary>
+        Wolken,
     }
 
     /// <summary>
@@ -38,10 +46,12 @@ namespace Vectara
         {
             return value switch
             {
+                PipelineSourceDiscriminatorType.Box => "box",
                 PipelineSourceDiscriminatorType.GoogleDrive => "google_drive",
                 PipelineSourceDiscriminatorType.S3 => "s3",
                 PipelineSourceDiscriminatorType.Sharepoint => "sharepoint",
                 PipelineSourceDiscriminatorType.Web => "web",
+                PipelineSourceDiscriminatorType.Wolken => "wolken",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -52,10 +62,12 @@ namespace Vectara
         {
             return value switch
             {
+                "box" => PipelineSourceDiscriminatorType.Box,
                 "google_drive" => PipelineSourceDiscriminatorType.GoogleDrive,
                 "s3" => PipelineSourceDiscriminatorType.S3,
                 "sharepoint" => PipelineSourceDiscriminatorType.Sharepoint,
                 "web" => PipelineSourceDiscriminatorType.Web,
+                "wolken" => PipelineSourceDiscriminatorType.Wolken,
                 _ => null,
             };
         }

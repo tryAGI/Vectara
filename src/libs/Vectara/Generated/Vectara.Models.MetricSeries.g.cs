@@ -5,14 +5,14 @@
 namespace Vectara
 {
     /// <summary>
-    /// A time series of metric points. The shape of points varies by metric kind.
+    /// A time series of metric points. The shape of points varies by metric type.
     /// </summary>
     public readonly partial struct MetricSeries : global::System.IEquatable<MetricSeries>
     {
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.MetricSeriesDiscriminatorKind? Kind { get; }
+        public global::Vectara.MetricSeriesDiscriminatorType? Type { get; }
 
         /// <summary>
         /// A series of counter values (monotonic count or sum).
@@ -257,14 +257,14 @@ namespace Vectara
         /// 
         /// </summary>
         public MetricSeries(
-            global::Vectara.MetricSeriesDiscriminatorKind? kind,
+            global::Vectara.MetricSeriesDiscriminatorType? type,
             global::Vectara.CounterMetricSeries? counter,
             global::Vectara.GaugeMetricSeries? gauge,
             global::Vectara.PercentilesMetricSeries? percentiles,
             global::Vectara.DistributionMetricSeries? distribution
             )
         {
-            Kind = kind;
+            Type = type;
 
             Counter = counter;
             Gauge = gauge;

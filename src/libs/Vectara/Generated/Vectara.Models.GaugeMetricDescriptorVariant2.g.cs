@@ -12,9 +12,9 @@ namespace Vectara
         /// Example: gauge
         /// </summary>
         /// <example>gauge</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Kind { get; set; }
+        public required string Type { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -25,16 +25,16 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="GaugeMetricDescriptorVariant2" /> class.
         /// </summary>
-        /// <param name="kind">
+        /// <param name="type">
         /// Example: gauge
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public GaugeMetricDescriptorVariant2(
-            string kind)
+            string type)
         {
-            this.Kind = kind ?? throw new global::System.ArgumentNullException(nameof(kind));
+            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
         }
 
         /// <summary>

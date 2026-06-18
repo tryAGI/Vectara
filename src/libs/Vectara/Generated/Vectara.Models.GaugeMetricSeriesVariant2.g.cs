@@ -12,9 +12,9 @@ namespace Vectara
         /// Example: gauge
         /// </summary>
         /// <example>gauge</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Kind { get; set; }
+        public required string Type { get; set; }
 
         /// <summary>
         /// 
@@ -32,7 +32,7 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="GaugeMetricSeriesVariant2" /> class.
         /// </summary>
-        /// <param name="kind">
+        /// <param name="type">
         /// Example: gauge
         /// </param>
         /// <param name="points"></param>
@@ -40,10 +40,10 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public GaugeMetricSeriesVariant2(
-            string kind,
+            string type,
             global::System.Collections.Generic.IList<global::Vectara.ScalarMetricPoint> points)
         {
-            this.Kind = kind ?? throw new global::System.ArgumentNullException(nameof(kind));
+            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Points = points ?? throw new global::System.ArgumentNullException(nameof(points));
         }
 

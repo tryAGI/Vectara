@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Common metadata fields shared by every metric descriptor regardless of kind.
+    /// Common metadata fields shared by every metric descriptor regardless of type.
     /// </summary>
     public sealed partial class MetricDescriptorBase
     {

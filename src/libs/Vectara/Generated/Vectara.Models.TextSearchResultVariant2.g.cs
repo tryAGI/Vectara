@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class TextSearchResultVariant2
     {
         /// <summary>
-        /// The type of search result.<br/>
+        /// The type of search result. Always `text` for this variant.<br/>
         /// Default Value: text
         /// </summary>
         /// <default>"text"</default>
@@ -39,7 +39,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="TextSearchResultVariant2" /> class.
         /// </summary>
         /// <param name="resultType">
-        /// The type of search result.<br/>
+        /// The type of search result. Always `text` for this variant.<br/>
         /// Default Value: text
         /// </param>
         /// <param name="table">

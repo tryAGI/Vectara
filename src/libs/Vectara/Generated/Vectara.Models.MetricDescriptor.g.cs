@@ -5,14 +5,14 @@
 namespace Vectara
 {
     /// <summary>
-    /// Metadata about a registered metric. The concrete variant is selected by `kind`.
+    /// Metadata about a registered metric. The concrete variant is selected by `type`.
     /// </summary>
     public readonly partial struct MetricDescriptor : global::System.IEquatable<MetricDescriptor>
     {
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.MetricDescriptorDiscriminatorKind? Kind { get; }
+        public global::Vectara.MetricDescriptorDiscriminatorType? Type { get; }
 
         /// <summary>
         /// Descriptor for a counter metric.
@@ -257,14 +257,14 @@ namespace Vectara
         /// 
         /// </summary>
         public MetricDescriptor(
-            global::Vectara.MetricDescriptorDiscriminatorKind? kind,
+            global::Vectara.MetricDescriptorDiscriminatorType? type,
             global::Vectara.CounterMetricDescriptor? counter,
             global::Vectara.GaugeMetricDescriptor? gauge,
             global::Vectara.PercentilesMetricDescriptor? percentiles,
             global::Vectara.DistributionMetricDescriptor? distribution
             )
         {
-            Kind = kind;
+            Type = type;
 
             Counter = counter;
             Gauge = gauge;

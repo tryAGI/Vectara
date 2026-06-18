@@ -5,9 +5,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// The value for a single HTTP header in the web_get tool. Either a literal string or an<br/>
-    /// EagerReference ({"$ref": "agent.secrets.foo"}) that resolves at session start so the<br/>
-    /// secret value never appears in the tool configuration.
+    /// The value for a single HTTP header in the web_get tool.<br/>
+    /// Either a literal string or an EagerReference ({"$ref": "agent.secrets.foo"}) that resolves at session start so the secret value never appears in the tool configuration.
     /// </summary>
     public readonly partial struct WebGetHeaderValue : global::System.IEquatable<WebGetHeaderValue>
     {

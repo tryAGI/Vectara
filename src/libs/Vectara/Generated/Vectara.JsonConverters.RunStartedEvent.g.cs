@@ -29,7 +29,7 @@ namespace Vectara.JsonConverters
 
             var __score0 = 0;
             if (__jsonProps.Contains("id")) __score0++;
-            if (__jsonProps.Contains("timestamp")) __score0++;
+            if (__jsonProps.Contains("occurred_at")) __score0++;
             var __score1 = 0;
             if (__jsonProps.Contains("agent_key")) __score1++;
             if (__jsonProps.Contains("end_watermark")) __score1++;

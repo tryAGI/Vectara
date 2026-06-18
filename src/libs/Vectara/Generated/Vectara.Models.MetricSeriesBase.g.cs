@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Common properties shared by all metric series kinds.
+    /// Common properties shared by all metric series types.
     /// </summary>
     public sealed partial class MetricSeriesBase
     {

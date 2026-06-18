@@ -4,8 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// A map of HTTP header names to their values for the web_get tool. Each value may be a<br/>
-    /// literal string or an EagerReference for per-header secret resolution.
+    /// A map of HTTP header names to their values for the web_get tool.<br/>
+    /// Each value may be a literal string or an EagerReference for per-header secret resolution.
     /// </summary>
     public sealed partial class WebGetHeadersMap
     {

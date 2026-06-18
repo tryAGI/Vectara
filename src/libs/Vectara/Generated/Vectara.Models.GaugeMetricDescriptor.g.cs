@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct GaugeMetricDescriptor : global::System.IEquatable<GaugeMetricDescriptor>
     {
         /// <summary>
-        /// Common metadata fields shared by every metric descriptor regardless of kind.
+        /// Common metadata fields shared by every metric descriptor regardless of type.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.MetricDescriptorBase? Base { get; init; }

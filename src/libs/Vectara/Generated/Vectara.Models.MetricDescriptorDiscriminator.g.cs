@@ -11,9 +11,9 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("kind")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.MetricDescriptorDiscriminatorKindJsonConverter))]
-        public global::Vectara.MetricDescriptorDiscriminatorKind? Kind { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.MetricDescriptorDiscriminatorTypeJsonConverter))]
+        public global::Vectara.MetricDescriptorDiscriminatorType? Type { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -24,14 +24,14 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="MetricDescriptorDiscriminator" /> class.
         /// </summary>
-        /// <param name="kind"></param>
+        /// <param name="type"></param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public MetricDescriptorDiscriminator(
-            global::Vectara.MetricDescriptorDiscriminatorKind? kind)
+            global::Vectara.MetricDescriptorDiscriminatorType? type)
         {
-            this.Kind = kind;
+            this.Type = type;
         }
 
         /// <summary>

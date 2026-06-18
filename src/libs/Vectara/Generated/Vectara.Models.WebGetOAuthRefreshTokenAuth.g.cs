@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// OAuth 2.0 refresh-token grant. The platform exchanges a long-lived refresh token for an<br/>
-    /// access token and caches the result until it expires. Supports refresh-token rotation: if<br/>
-    /// the IdP returns a new refresh_token, subsequent refreshes use it automatically.
+    /// OAuth 2.0 refresh-token grant.<br/>
+    /// The platform exchanges a long-lived refresh token for an access token and caches the result until it expires.<br/>
+    /// Supports refresh-token rotation: if the IdP returns a new refresh_token, subsequent refreshes use it automatically.
     /// </summary>
     public sealed partial class WebGetOAuthRefreshTokenAuth
     {

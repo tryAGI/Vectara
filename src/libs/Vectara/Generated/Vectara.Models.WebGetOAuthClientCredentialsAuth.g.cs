@@ -4,8 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// OAuth 2.0 client-credentials grant. The platform fetches an access token from the token<br/>
-    /// endpoint and caches it until it expires.
+    /// OAuth 2.0 client-credentials grant.<br/>
+    /// The platform fetches an access token from the token endpoint and caches it until it expires.
     /// </summary>
     public sealed partial class WebGetOAuthClientCredentialsAuth
     {

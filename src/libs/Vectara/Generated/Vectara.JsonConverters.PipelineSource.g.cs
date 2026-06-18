@@ -42,6 +42,20 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.GoogleDriveSourceConfiguration)}");
                 googleDrive = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.BoxSourceConfiguration? box = default;
+            if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Box)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BoxSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BoxSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.BoxSourceConfiguration)}");
+                box = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.WolkenSourceConfiguration? wolken = default;
+            if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Wolken)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.WolkenSourceConfiguration)}");
+                wolken = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.WebSourceConfiguration? web = default;
             if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Web)
             {
@@ -57,6 +71,10 @@ namespace Vectara.JsonConverters
                 s3,
 
                 googleDrive,
+
+                box,
+
+                wolken,
 
                 web
                 );
@@ -90,6 +108,18 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GoogleDriveSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GoogleDriveSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GoogleDriveSourceConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.GoogleDrive!.Value, typeInfo);
+            }
+            else if (value.IsBox)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BoxSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BoxSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BoxSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Box!.Value, typeInfo);
+            }
+            else if (value.IsWolken)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WolkenSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Wolken!.Value, typeInfo);
             }
             else if (value.IsWeb)
             {

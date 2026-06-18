@@ -23,6 +23,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Patch,
+        /// <summary>
+        /// 
+        /// </summary>
         Post,
         /// <summary>
         /// 
@@ -45,6 +49,7 @@ namespace Vectara
                 WebGetToolParametersMethod.Delete => "DELETE",
                 WebGetToolParametersMethod.Get => "GET",
                 WebGetToolParametersMethod.Head => "HEAD",
+                WebGetToolParametersMethod.Patch => "PATCH",
                 WebGetToolParametersMethod.Post => "POST",
                 WebGetToolParametersMethod.Put => "PUT",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
@@ -60,6 +65,7 @@ namespace Vectara
                 "DELETE" => WebGetToolParametersMethod.Delete,
                 "GET" => WebGetToolParametersMethod.Get,
                 "HEAD" => WebGetToolParametersMethod.Head,
+                "PATCH" => WebGetToolParametersMethod.Patch,
                 "POST" => WebGetToolParametersMethod.Post,
                 "PUT" => WebGetToolParametersMethod.Put,
                 _ => null,
