@@ -35,12 +35,21 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateGchatConnectorConfiguration)}");
                 gchat = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.CreateZoomConnectorConfiguration? zoom = default;
+            if (discriminator?.Type == global::Vectara.CreateConnectorConfigurationDiscriminatorType.Zoom)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateZoomConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateZoomConnectorConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateZoomConnectorConfiguration)}");
+                zoom = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.CreateConnectorConfiguration(
                 discriminator?.Type,
                 slack,
 
-                gchat
+                gchat,
+
+                zoom
                 );
 
             return __value;
@@ -66,6 +75,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateGchatConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateGchatConnectorConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateGchatConnectorConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Gchat!.Value, typeInfo);
+            }
+            else if (value.IsZoom)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateZoomConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateZoomConnectorConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateZoomConnectorConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Zoom!.Value, typeInfo);
             }
         }
     }

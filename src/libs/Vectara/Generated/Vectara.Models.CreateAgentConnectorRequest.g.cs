@@ -47,8 +47,9 @@ namespace Vectara
         /// Write view of a connector's configuration. Used when creating a connector<br/>
         /// and reused when updating one. Carries the secrets and inputs the customer<br/>
         /// must supply. Server-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
-        /// `audience_url` and `client_email`.
+        /// appear in the read view: Slack returns `webhook_path`, gchat returns<br/>
+        /// `audience_url` and `client_email`, and zoom returns the generated<br/>
+        /// `connector_token` and `webhook_path`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter))]
@@ -72,8 +73,9 @@ namespace Vectara
         /// Write view of a connector's configuration. Used when creating a connector<br/>
         /// and reused when updating one. Carries the secrets and inputs the customer<br/>
         /// must supply. Server-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
-        /// `audience_url` and `client_email`.
+        /// appear in the read view: Slack returns `webhook_path`, gchat returns<br/>
+        /// `audience_url` and `client_email`, and zoom returns the generated<br/>
+        /// `connector_token` and `webhook_path`.
         /// </param>
         /// <param name="description">
         /// A detailed description of what this connector does.<br/>

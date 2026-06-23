@@ -10793,7 +10793,7 @@ paths:
         - administrator
         - owner
       description: Create a new connector for an agent to receive events from an external
-        platform like Slack or Google Chat.
+        platform like Slack, Google Chat, or Zoom Contact Center.
       operationId: createAgentConnector
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -10872,6 +10872,7 @@ paths:
           enum:
           - slack
           - gchat
+          - zoom
           example: slack
       - in: query
         name: enabled
@@ -26041,15 +26042,105 @@ components:
         - project_id
       x-vectaraParents:
       - ConnectorConfiguration
+    ZoomConnectorConfiguration:
+      description: 'Read view of a Zoom Contact Center connector''s configuration.
+        Includes the
+
+        server-generated `connector_token` to configure as the `x-zoom-connector-token`
+        header on the
+
+        Zoom Contact Center bot connector, and the `webhook_path` to configure as
+
+        the bot endpoint URL. The agent''s reply is always delivered asynchronously.
+
+        The webhook returns a typing indicator and the reply is POSTed to
+
+        `callback_url` when the agent finishes.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/ConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: zoom
+            example: zoom
+          connector_token:
+            description: 'Server-generated shared secret that authenticates inbound
+              webhook
+
+              requests. Zoom Contact Center must send this value in the
+
+              `x-zoom-connector-token` header. Generated at create time, preserved
+
+              across configuration updates, and encrypted at rest.
+
+              '
+            type: string
+            example: 3q2-8hG7kPzR5tWvYxA1bC4dE6fJ9mN0oQsUiZlXnKw
+          callback_url:
+            description: 'The Zoom-provided URL the agent''s reply is POSTed to once
+              it is
+
+              ready. Always an absolute https URL.
+
+              '
+            type: string
+            example: https://zcc.zoom.us/webhook/chatbot/12345
+          callback_access_token:
+            description: 'Optional access token issued by Zoom for the callback URL.
+              When
+
+              set, reply POSTs carry it as a bearer Authorization header.
+
+              Encrypted at rest.
+
+              '
+            type: string
+            example: kP9mW2nR7sT1vX6cB3dF8gH5jL0qYzA4eU7iO2xK
+          typing_duration_seconds:
+            description: 'How long the typing indicator returned by the webhook runs
+              while
+
+              the agent works on its reply.
+
+              '
+            type: integer
+            default: 60
+            minimum: 1
+            example: 60
+          webhook_path:
+            description: 'The inbound webhook path for this connector. Configure the
+              Zoom
+
+              Contact Center bot endpoint URL to this path on the Vectara API
+
+              host.
+
+              '
+            type: string
+            example: /v2/agents/customer_support/connectors/con_3Kx9QpVn2mZr8YbLc5TdWe/zoom
+        required:
+        - type
+        - connector_token
+        - callback_url
+        - typing_duration_seconds
+        - webhook_path
+      x-vectaraParents:
+      - ConnectorConfiguration
     ConnectorConfiguration:
       description: 'Read view of a connector''s configuration as returned by GET and
         list
 
         endpoints. Contains the secrets supplied at create time alongside
 
-        server-derived display fields: Slack exposes `webhook_path`, and gchat
+        server-derived display fields: Slack exposes `webhook_path`, gchat
 
-        exposes `audience_url` and `client_email`.
+        exposes `audience_url` and `client_email`, and zoom exposes the
+
+        generated `connector_token` and `webhook_path`.
 
         '
       x-vectara-base-schema: '#/ConnectorConfigurationBase'
@@ -26058,12 +26149,14 @@ components:
         mapping:
           slack: '#/components/schemas/SlackConnectorConfiguration'
           gchat: '#/components/schemas/GchatConnectorConfiguration'
+          zoom: '#/components/schemas/ZoomConnectorConfiguration'
       oneOf:
       - $ref: '#/components/schemas/SlackConnectorConfiguration'
       - $ref: '#/components/schemas/GchatConnectorConfiguration'
+      - $ref: '#/components/schemas/ZoomConnectorConfiguration'
     AgentConnector:
       description: A connector that allows an agent to receive events from external
-        platforms like Slack or Google Chat.
+        platforms like Slack, Google Chat, or Zoom Contact Center.
       type: object
       properties:
         id:
@@ -26087,6 +26180,7 @@ components:
           enum:
           - slack
           - gchat
+          - zoom
           example: slack
         status:
           description: The current status of the connector.
@@ -26143,19 +26237,31 @@ components:
           description: 'Outcome of the most recently received inbound webhook. Absent
             until the
 
-            first webhook arrives. Values: success when the webhook verified and the
+            first webhook arrives. Values:
 
-            event was accepted, jwt_verification_failed when the bearer token was
+            - `success`: the webhook verified and the event was accepted.
 
-            missing or could not be verified, audience_mismatch when the token was
+            - `jwt_verification_failed`: the bearer token was missing or could not
+            be verified.
 
-            valid but its aud did not equal the connector''s audience_url,
+            - `audience_mismatch`: the token was valid but its aud did not equal the
+            connector''s audience_url.
 
-            event_parse_failed when the event body could not be parsed,
+            - `auth_failed`: the inbound request lacked or did not match the connector''s
+            authentication secret.
 
-            internal_error when an unexpected error occurred after the connector was
+            - `missing_signature`: the request lacked the signature needed for an
+            asynchronous reply.
 
-            resolved, and unknown when the outcome could not be classified.
+            - `missing_engagement`: the request lacked the engagement identifier needed
+            to route the session.
+
+            - `event_parse_failed`: the event body could not be parsed.
+
+            - `internal_error`: an unexpected error occurred after the connector was
+            resolved.
+
+            - `unknown`: the outcome could not be classified.
 
             '
           type: string
@@ -26163,6 +26269,9 @@ components:
           - success
           - jwt_verification_failed
           - audience_mismatch
+          - auth_failed
+          - missing_signature
+          - missing_engagement
           - event_parse_failed
           - internal_error
           - unknown
@@ -26280,6 +26389,65 @@ components:
         - service_account_key
       x-vectaraParents:
       - CreateConnectorConfiguration
+    CreateZoomConnectorConfiguration:
+      description: 'Write view of a Zoom Contact Center connector''s configuration.
+        Supply the
+
+        Zoom-provided callback URL that agent replies are POSTed to. The inbound
+
+        `connector_token` is generated by the server and returned in the read view.
+
+        Configure it as the `x-zoom-connector-token` header on the Zoom Contact Center
+        bot
+
+        connector. Updating the configuration preserves the existing `connector_token`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/CreateConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: zoom
+            example: zoom
+          callback_url:
+            description: 'The Zoom-provided URL the agent''s reply is POSTed to once
+              it is
+
+              ready. Must be an absolute https URL.
+
+              '
+            type: string
+            example: https://zcc.zoom.us/webhook/chatbot/12345
+          callback_access_token:
+            description: 'Optional access token issued by Zoom for the callback URL.
+              When
+
+              set, reply POSTs carry it as a bearer Authorization header.
+
+              Encrypted at rest.
+
+              '
+            type: string
+            example: kP9mW2nR7sT1vX6cB3dF8gH5jL0qYzA4eU7iO2xK
+          typing_duration_seconds:
+            description: 'How long the typing indicator returned by the webhook runs
+              while
+
+              the agent works on its reply.
+
+              '
+            type: integer
+            default: 60
+            minimum: 1
+            example: 60
+        required:
+        - type
+        - callback_url
+      x-vectaraParents:
+      - CreateConnectorConfiguration
     CreateConnectorConfiguration:
       description: 'Write view of a connector''s configuration. Used when creating
         a connector
@@ -26288,9 +26456,11 @@ components:
 
         must supply. Server-derived display fields are not accepted here and instead
 
-        appear in the read view: Slack returns `webhook_path`, and gchat returns
+        appear in the read view: Slack returns `webhook_path`, gchat returns
 
-        `audience_url` and `client_email`.
+        `audience_url` and `client_email`, and zoom returns the generated
+
+        `connector_token` and `webhook_path`.
 
         '
       x-vectara-base-schema: '#/CreateConnectorConfigurationBase'
@@ -26299,9 +26469,11 @@ components:
         mapping:
           slack: '#/components/schemas/CreateSlackConnectorConfiguration'
           gchat: '#/components/schemas/CreateGchatConnectorConfiguration'
+          zoom: '#/components/schemas/CreateZoomConnectorConfiguration'
       oneOf:
       - $ref: '#/components/schemas/CreateSlackConnectorConfiguration'
       - $ref: '#/components/schemas/CreateGchatConnectorConfiguration'
+      - $ref: '#/components/schemas/CreateZoomConnectorConfiguration'
     CreateAgentConnectorRequest:
       description: Request object for creating a new agent connector.
       type: object
@@ -26337,7 +26509,11 @@ components:
 
         is supplied, it fully replaces the existing configuration including any
 
-        secrets. If omitted, the existing configuration is left untouched.
+        caller-supplied secrets. Server-generated fields, such as the Zoom
+
+        connector''s `connector_token`, are preserved across updates. If
+
+        `configuration` is omitted, the existing configuration is left untouched.
 
         '
       type: object

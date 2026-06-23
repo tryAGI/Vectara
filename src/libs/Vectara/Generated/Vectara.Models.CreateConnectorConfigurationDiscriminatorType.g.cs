@@ -16,6 +16,10 @@ namespace Vectara
         /// 
         /// </summary>
         Slack,
+        /// <summary>
+        /// 
+        /// </summary>
+        Zoom,
     }
 
     /// <summary>
@@ -32,6 +36,7 @@ namespace Vectara
             {
                 CreateConnectorConfigurationDiscriminatorType.Gchat => "gchat",
                 CreateConnectorConfigurationDiscriminatorType.Slack => "slack",
+                CreateConnectorConfigurationDiscriminatorType.Zoom => "zoom",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -44,6 +49,7 @@ namespace Vectara
             {
                 "gchat" => CreateConnectorConfigurationDiscriminatorType.Gchat,
                 "slack" => CreateConnectorConfigurationDiscriminatorType.Slack,
+                "zoom" => CreateConnectorConfigurationDiscriminatorType.Zoom,
                 _ => null,
             };
         }

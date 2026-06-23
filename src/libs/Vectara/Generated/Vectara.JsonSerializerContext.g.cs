@@ -747,11 +747,15 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.GchatConnectorConfigurationJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.ZoomConnectorConfigurationJsonConverter),
+
             typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateSlackConnectorConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateGchatConnectorConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateZoomConnectorConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter),
 
@@ -2136,11 +2140,15 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.GchatConnectorConfigurationJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.ZoomConnectorConfigurationJsonConverter),
+
             typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateSlackConnectorConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateGchatConnectorConfigurationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.CreateZoomConnectorConfigurationJsonConverter),
 
             typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter),
 
@@ -2436,6 +2444,8 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SlackConnectorConfigurationVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GchatConnectorConfiguration), TypeInfoPropertyName = "GchatConnectorConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GchatConnectorConfigurationVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ZoomConnectorConfiguration), TypeInfoPropertyName = "ZoomConnectorConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ZoomConnectorConfigurationVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConnectorConfiguration), TypeInfoPropertyName = "ConnectorConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConnectorConfigurationDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConnectorConfigurationDiscriminatorType), TypeInfoPropertyName = "ConnectorConfigurationDiscriminatorType2")]
@@ -2450,6 +2460,8 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateSlackConnectorConfigurationVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateGchatConnectorConfiguration), TypeInfoPropertyName = "CreateGchatConnectorConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateGchatConnectorConfigurationVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateZoomConnectorConfiguration), TypeInfoPropertyName = "CreateZoomConnectorConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateZoomConnectorConfigurationVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateConnectorConfiguration), TypeInfoPropertyName = "CreateConnectorConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateConnectorConfigurationDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateConnectorConfigurationDiscriminatorType), TypeInfoPropertyName = "CreateConnectorConfigurationDiscriminatorType2")]
@@ -3185,9 +3197,11 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.SlackConnectorConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.GchatConnectorConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.ZoomConnectorConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateSlackConnectorConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateGchatConnectorConfigurationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.CreateZoomConnectorConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.RuleTargetsJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AliasPolicyJsonConverter());
