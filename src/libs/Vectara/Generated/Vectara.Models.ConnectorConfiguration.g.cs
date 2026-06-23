@@ -7,8 +7,9 @@ namespace Vectara
     /// <summary>
     /// Read view of a connector's configuration as returned by GET and list<br/>
     /// endpoints. Contains the secrets supplied at create time alongside<br/>
-    /// server-derived display fields: Slack exposes `webhook_path`, and gchat<br/>
-    /// exposes `audience_url` and `client_email`.
+    /// server-derived display fields: Slack exposes `webhook_path`, gchat<br/>
+    /// exposes `audience_url` and `client_email`, and zoom exposes the<br/>
+    /// generated `connector_token` and `webhook_path`.
     /// </summary>
     public readonly partial struct ConnectorConfiguration : global::System.IEquatable<ConnectorConfiguration>
     {
@@ -93,6 +94,48 @@ namespace Vectara
         public global::Vectara.GchatConnectorConfiguration PickGchat() => IsGchat
             ? Gchat!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Gchat' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Read view of a Zoom Contact Center connector's configuration. Includes the<br/>
+        /// server-generated `connector_token` to configure as the `x-zoom-connector-token` header on the<br/>
+        /// Zoom Contact Center bot connector, and the `webhook_path` to configure as<br/>
+        /// the bot endpoint URL. The agent's reply is always delivered asynchronously.<br/>
+        /// The webhook returns a typing indicator and the reply is POSTed to<br/>
+        /// `callback_url` when the agent finishes.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.ZoomConnectorConfiguration? Zoom { get; init; }
+#else
+        public global::Vectara.ZoomConnectorConfiguration? Zoom { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Zoom))]
+#endif
+        public bool IsZoom => Zoom != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickZoom(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ZoomConnectorConfiguration? value)
+        {
+            value = Zoom;
+            return IsZoom;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.ZoomConnectorConfiguration PickZoom() => IsZoom
+            ? Zoom!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Zoom' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -142,22 +185,48 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator ConnectorConfiguration(global::Vectara.ZoomConnectorConfiguration value) => new ConnectorConfiguration((global::Vectara.ZoomConnectorConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.ZoomConnectorConfiguration?(ConnectorConfiguration @this) => @this.Zoom;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ConnectorConfiguration(global::Vectara.ZoomConnectorConfiguration? value)
+        {
+            Zoom = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ConnectorConfiguration FromZoom(global::Vectara.ZoomConnectorConfiguration? value) => new ConnectorConfiguration(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ConnectorConfiguration(
             global::Vectara.ConnectorConfigurationDiscriminatorType? type,
             global::Vectara.SlackConnectorConfiguration? slack,
-            global::Vectara.GchatConnectorConfiguration? gchat
+            global::Vectara.GchatConnectorConfiguration? gchat,
+            global::Vectara.ZoomConnectorConfiguration? zoom
             )
         {
             Type = type;
 
             Slack = slack;
             Gchat = gchat;
+            Zoom = zoom;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            Zoom as object ??
             Gchat as object ??
             Slack as object 
             ;
@@ -167,7 +236,8 @@ namespace Vectara
         /// </summary>
         public override string? ToString() =>
             Slack?.ToString() ??
-            Gchat?.ToString() 
+            Gchat?.ToString() ??
+            Zoom?.ToString() 
             ;
 
         /// <summary>
@@ -175,7 +245,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsSlack && !IsGchat || !IsSlack && IsGchat;
+            return IsSlack && !IsGchat && !IsZoom || !IsSlack && IsGchat && !IsZoom || !IsSlack && !IsGchat && IsZoom;
         }
 
         /// <summary>
@@ -184,6 +254,7 @@ namespace Vectara
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.SlackConnectorConfiguration?, TResult>? slack = null,
             global::System.Func<global::Vectara.GchatConnectorConfiguration?, TResult>? gchat = null,
+            global::System.Func<global::Vectara.ZoomConnectorConfiguration?, TResult>? zoom = null,
             bool validate = true)
         {
             if (validate)
@@ -199,6 +270,10 @@ namespace Vectara
             {
                 return gchat(Gchat!);
             }
+            else if (IsZoom && zoom != null)
+            {
+                return zoom(Zoom!);
+            }
 
             return default(TResult);
         }
@@ -210,6 +285,8 @@ namespace Vectara
             global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
 
             global::System.Action<global::Vectara.GchatConnectorConfiguration?>? gchat = null,
+
+            global::System.Action<global::Vectara.ZoomConnectorConfiguration?>? zoom = null,
             bool validate = true)
         {
             if (validate)
@@ -224,6 +301,10 @@ namespace Vectara
             else if (IsGchat)
             {
                 gchat?.Invoke(Gchat!);
+            }
+            else if (IsZoom)
+            {
+                zoom?.Invoke(Zoom!);
             }
         }
 
@@ -233,6 +314,7 @@ namespace Vectara
         public void Switch(
             global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
             global::System.Action<global::Vectara.GchatConnectorConfiguration?>? gchat = null,
+            global::System.Action<global::Vectara.ZoomConnectorConfiguration?>? zoom = null,
             bool validate = true)
         {
             if (validate)
@@ -247,6 +329,10 @@ namespace Vectara
             else if (IsGchat)
             {
                 gchat?.Invoke(Gchat!);
+            }
+            else if (IsZoom)
+            {
+                zoom?.Invoke(Zoom!);
             }
         }
 
@@ -261,6 +347,8 @@ namespace Vectara
                 typeof(global::Vectara.SlackConnectorConfiguration),
                 Gchat,
                 typeof(global::Vectara.GchatConnectorConfiguration),
+                Zoom,
+                typeof(global::Vectara.ZoomConnectorConfiguration),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -278,7 +366,8 @@ namespace Vectara
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.SlackConnectorConfiguration?>.Default.Equals(Slack, other.Slack) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GchatConnectorConfiguration?>.Default.Equals(Gchat, other.Gchat) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GchatConnectorConfiguration?>.Default.Equals(Gchat, other.Gchat) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ZoomConnectorConfiguration?>.Default.Equals(Zoom, other.Zoom) 
                 ;
         }
 

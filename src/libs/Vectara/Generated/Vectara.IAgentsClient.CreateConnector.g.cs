@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Create agent connector<br/>
-        /// Create a new connector for an agent to receive events from an external platform like Slack or Google Chat.
+        /// Create a new connector for an agent to receive events from an external platform like Slack, Google Chat, or Zoom Contact Center.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -28,7 +28,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent connector<br/>
-        /// Create a new connector for an agent to receive events from an external platform like Slack or Google Chat.
+        /// Create a new connector for an agent to receive events from an external platform like Slack, Google Chat, or Zoom Contact Center.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -50,7 +50,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent connector<br/>
-        /// Create a new connector for an agent to receive events from an external platform like Slack or Google Chat.
+        /// Create a new connector for an agent to receive events from an external platform like Slack, Google Chat, or Zoom Contact Center.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -80,8 +80,9 @@ namespace Vectara
         /// Write view of a connector's configuration. Used when creating a connector<br/>
         /// and reused when updating one. Carries the secrets and inputs the customer<br/>
         /// must supply. Server-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view: Slack returns `webhook_path`, and gchat returns<br/>
-        /// `audience_url` and `client_email`.
+        /// appear in the read view: Slack returns `webhook_path`, gchat returns<br/>
+        /// `audience_url` and `client_email`, and zoom returns the generated<br/>
+        /// `connector_token` and `webhook_path`.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>

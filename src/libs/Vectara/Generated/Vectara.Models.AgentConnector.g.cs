@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A connector that allows an agent to receive events from external platforms like Slack or Google Chat.
+    /// A connector that allows an agent to receive events from external platforms like Slack, Google Chat, or Zoom Contact Center.
     /// </summary>
     public sealed partial class AgentConnector
     {
@@ -94,8 +94,9 @@ namespace Vectara
         /// <summary>
         /// Read view of a connector's configuration as returned by GET and list<br/>
         /// endpoints. Contains the secrets supplied at create time alongside<br/>
-        /// server-derived display fields: Slack exposes `webhook_path`, and gchat<br/>
-        /// exposes `audience_url` and `client_email`.
+        /// server-derived display fields: Slack exposes `webhook_path`, gchat<br/>
+        /// exposes `audience_url` and `client_email`, and zoom exposes the<br/>
+        /// generated `connector_token` and `webhook_path`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter))]
@@ -131,13 +132,16 @@ namespace Vectara
 
         /// <summary>
         /// Outcome of the most recently received inbound webhook. Absent until the<br/>
-        /// first webhook arrives. Values: success when the webhook verified and the<br/>
-        /// event was accepted, jwt_verification_failed when the bearer token was<br/>
-        /// missing or could not be verified, audience_mismatch when the token was<br/>
-        /// valid but its aud did not equal the connector's audience_url,<br/>
-        /// event_parse_failed when the event body could not be parsed,<br/>
-        /// internal_error when an unexpected error occurred after the connector was<br/>
-        /// resolved, and unknown when the outcome could not be classified.<br/>
+        /// first webhook arrives. Values:<br/>
+        /// - `success`: the webhook verified and the event was accepted.<br/>
+        /// - `jwt_verification_failed`: the bearer token was missing or could not be verified.<br/>
+        /// - `audience_mismatch`: the token was valid but its aud did not equal the connector's audience_url.<br/>
+        /// - `auth_failed`: the inbound request lacked or did not match the connector's authentication secret.<br/>
+        /// - `missing_signature`: the request lacked the signature needed for an asynchronous reply.<br/>
+        /// - `missing_engagement`: the request lacked the engagement identifier needed to route the session.<br/>
+        /// - `event_parse_failed`: the event body could not be parsed.<br/>
+        /// - `internal_error`: an unexpected error occurred after the connector was resolved.<br/>
+        /// - `unknown`: the outcome could not be classified.<br/>
         /// Example: success
         /// </summary>
         /// <example>success</example>
@@ -183,8 +187,9 @@ namespace Vectara
         /// <param name="configuration">
         /// Read view of a connector's configuration as returned by GET and list<br/>
         /// endpoints. Contains the secrets supplied at create time alongside<br/>
-        /// server-derived display fields: Slack exposes `webhook_path`, and gchat<br/>
-        /// exposes `audience_url` and `client_email`.
+        /// server-derived display fields: Slack exposes `webhook_path`, gchat<br/>
+        /// exposes `audience_url` and `client_email`, and zoom exposes the<br/>
+        /// generated `connector_token` and `webhook_path`.
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the connector was created.<br/>
@@ -214,13 +219,16 @@ namespace Vectara
         /// </param>
         /// <param name="lastWebhookStatus">
         /// Outcome of the most recently received inbound webhook. Absent until the<br/>
-        /// first webhook arrives. Values: success when the webhook verified and the<br/>
-        /// event was accepted, jwt_verification_failed when the bearer token was<br/>
-        /// missing or could not be verified, audience_mismatch when the token was<br/>
-        /// valid but its aud did not equal the connector's audience_url,<br/>
-        /// event_parse_failed when the event body could not be parsed,<br/>
-        /// internal_error when an unexpected error occurred after the connector was<br/>
-        /// resolved, and unknown when the outcome could not be classified.<br/>
+        /// first webhook arrives. Values:<br/>
+        /// - `success`: the webhook verified and the event was accepted.<br/>
+        /// - `jwt_verification_failed`: the bearer token was missing or could not be verified.<br/>
+        /// - `audience_mismatch`: the token was valid but its aud did not equal the connector's audience_url.<br/>
+        /// - `auth_failed`: the inbound request lacked or did not match the connector's authentication secret.<br/>
+        /// - `missing_signature`: the request lacked the signature needed for an asynchronous reply.<br/>
+        /// - `missing_engagement`: the request lacked the engagement identifier needed to route the session.<br/>
+        /// - `event_parse_failed`: the event body could not be parsed.<br/>
+        /// - `internal_error`: an unexpected error occurred after the connector was resolved.<br/>
+        /// - `unknown`: the outcome could not be classified.<br/>
         /// Example: success
         /// </param>
 #if NET7_0_OR_GREATER
