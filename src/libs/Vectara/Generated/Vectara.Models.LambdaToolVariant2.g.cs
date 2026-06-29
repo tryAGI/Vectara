@@ -55,6 +55,16 @@ namespace Vectara
         public required global::Vectara.FunctionDefinition FunctionDefinition { get; set; }
 
         /// <summary>
+        /// Named tool configurations private to this lambda tool, each callable from the tool's code as `tool.&lt;name&gt;(...)`. They do not appear on<br/>
+        /// the hosting agent's tool surface, and their calls produce no session events. `$ref`s in `argument_override` resolve against the hosting<br/>
+        /// agent and session at execution time.<br/>
+        /// Example: {"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}
+        /// </summary>
+        /// <example>{"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_configurations")]
+        public global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? ToolConfigurations { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -88,6 +98,12 @@ namespace Vectara
         /// - Parameter descriptions are extracted and included in the input schema<br/>
         /// - This gives agents better context about how to use each parameter
         /// </param>
+        /// <param name="toolConfigurations">
+        /// Named tool configurations private to this lambda tool, each callable from the tool's code as `tool.&lt;name&gt;(...)`. They do not appear on<br/>
+        /// the hosting agent's tool surface, and their calls produce no session events. `$ref`s in `argument_override` resolve against the hosting<br/>
+        /// agent and session at execution time.<br/>
+        /// Example: {"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}
+        /// </param>
         /// <param name="language">
         /// The programming language of the lambda function. Currently only Python 3.12 is supported.<br/>
         /// Default Value: python<br/>
@@ -99,11 +115,13 @@ namespace Vectara
         public LambdaToolVariant2(
             string type,
             global::Vectara.FunctionDefinition functionDefinition,
+            global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? toolConfigurations,
             global::Vectara.LambdaToolVariant2Language language = global::Vectara.LambdaToolVariant2Language.Python)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Language = language;
             this.FunctionDefinition = functionDefinition ?? throw new global::System.ArgumentNullException(nameof(functionDefinition));
+            this.ToolConfigurations = toolConfigurations;
         }
 
         /// <summary>

@@ -11,17 +11,17 @@ namespace Vectara
     /// requires the listing to support update-time filters. Supported filters vary by Wolken<br/>
     /// deployment.
     /// </summary>
-    public sealed partial class BaseWolkenSourceConfiguration
+    public sealed partial class BaseWolkenKbSourceConfiguration
     {
         /// <summary>
-        /// Default Value: wolken<br/>
-        /// Example: wolken
+        /// Default Value: wolken_kb<br/>
+        /// Example: wolken_kb
         /// </summary>
-        /// <default>"wolken"</default>
-        /// <example>wolken</example>
+        /// <default>"wolken_kb"</default>
+        /// <example>wolken_kb</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Type { get; set; } = "wolken";
+        public required string Type { get; set; } = "wolken_kb";
 
         /// <summary>
         /// Base URL of the Wolken API.<br/>
@@ -72,8 +72,8 @@ namespace Vectara
         /// Default Value: lte
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("update_upper_bound_operator")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.BaseWolkenSourceConfigurationUpdateUpperBoundOperatorJsonConverter))]
-        public global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperator? UpdateUpperBoundOperator { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperatorJsonConverter))]
+        public global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator? UpdateUpperBoundOperator { get; set; }
 
         /// <summary>
         /// Template for each article's public URL. The `{article_number}` placeholder is replaced<br/>
@@ -123,11 +123,11 @@ namespace Vectara
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseWolkenSourceConfiguration" /> class.
+        /// Initializes a new instance of the <see cref="BaseWolkenKbSourceConfiguration" /> class.
         /// </summary>
         /// <param name="type">
-        /// Default Value: wolken<br/>
-        /// Example: wolken
+        /// Default Value: wolken_kb<br/>
+        /// Example: wolken_kb
         /// </param>
         /// <param name="apiEndpoint">
         /// Base URL of the Wolken API.<br/>
@@ -183,14 +183,14 @@ namespace Vectara
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
-        public BaseWolkenSourceConfiguration(
+        public BaseWolkenKbSourceConfiguration(
             string type,
             string? apiEndpoint,
             string? domain,
             int? statusId,
             int? validationStatusId,
             int? levelId,
-            global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperator? updateUpperBoundOperator,
+            global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator? updateUpperBoundOperator,
             string? articleUrlTemplate,
             string? clientId,
             string? serviceAccount,
@@ -212,9 +212,9 @@ namespace Vectara
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseWolkenSourceConfiguration" /> class.
+        /// Initializes a new instance of the <see cref="BaseWolkenKbSourceConfiguration" /> class.
         /// </summary>
-        public BaseWolkenSourceConfiguration()
+        public BaseWolkenKbSourceConfiguration()
         {
         }
 

@@ -7,7 +7,7 @@ namespace Vectara
     /// <summary>
     /// Configuration for ingesting knowledge-base articles from a Wolken ServiceDesk instance.
     /// </summary>
-    public readonly partial struct WolkenSourceConfiguration : global::System.IEquatable<WolkenSourceConfiguration>
+    public readonly partial struct WolkenKbSourceConfiguration : global::System.IEquatable<WolkenKbSourceConfiguration>
     {
         /// <summary>
         /// Base Wolken ServiceDesk knowledge-base source configuration. Ingests knowledge-base articles<br/>
@@ -18,9 +18,9 @@ namespace Vectara
         /// deployment.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.BaseWolkenSourceConfiguration? Base { get; init; }
+        public global::Vectara.BaseWolkenKbSourceConfiguration? Base { get; init; }
 #else
-        public global::Vectara.BaseWolkenSourceConfiguration? Base { get; }
+        public global::Vectara.BaseWolkenKbSourceConfiguration? Base { get; }
 #endif
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Vectara
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
-            out global::Vectara.BaseWolkenSourceConfiguration? value)
+            out global::Vectara.BaseWolkenKbSourceConfiguration? value)
         {
             value = Base;
             return IsBase;
@@ -47,7 +47,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.BaseWolkenSourceConfiguration PickBase() => IsBase
+        public global::Vectara.BaseWolkenKbSourceConfiguration PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
@@ -55,52 +55,52 @@ namespace Vectara
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        public object? WolkenSourceConfigurationVariant2 { get; init; }
+        public object? WolkenKbSourceConfigurationVariant2 { get; init; }
 #else
-        public object? WolkenSourceConfigurationVariant2 { get; }
+        public object? WolkenKbSourceConfigurationVariant2 { get; }
 #endif
 
         /// <summary>
         /// 
         /// </summary>
 #if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WolkenSourceConfigurationVariant2))]
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WolkenKbSourceConfigurationVariant2))]
 #endif
-        public bool IsWolkenSourceConfigurationVariant2 => WolkenSourceConfigurationVariant2 != null;
+        public bool IsWolkenKbSourceConfigurationVariant2 => WolkenKbSourceConfigurationVariant2 != null;
 
         /// <summary>
         /// 
         /// </summary>
-        public bool TryPickWolkenSourceConfigurationVariant2(
+        public bool TryPickWolkenKbSourceConfigurationVariant2(
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
             out object? value)
         {
-            value = WolkenSourceConfigurationVariant2;
-            return IsWolkenSourceConfigurationVariant2;
+            value = WolkenKbSourceConfigurationVariant2;
+            return IsWolkenKbSourceConfigurationVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public object PickWolkenSourceConfigurationVariant2() => IsWolkenSourceConfigurationVariant2
-            ? WolkenSourceConfigurationVariant2!
-            : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenSourceConfigurationVariant2' but the value was {ToString()}.");
+        public object PickWolkenKbSourceConfigurationVariant2() => IsWolkenKbSourceConfigurationVariant2
+            ? WolkenKbSourceConfigurationVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenKbSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator WolkenSourceConfiguration(global::Vectara.BaseWolkenSourceConfiguration value) => new WolkenSourceConfiguration((global::Vectara.BaseWolkenSourceConfiguration?)value);
+        public static implicit operator WolkenKbSourceConfiguration(global::Vectara.BaseWolkenKbSourceConfiguration value) => new WolkenKbSourceConfiguration((global::Vectara.BaseWolkenKbSourceConfiguration?)value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.BaseWolkenSourceConfiguration?(WolkenSourceConfiguration @this) => @this.Base;
+        public static implicit operator global::Vectara.BaseWolkenKbSourceConfiguration?(WolkenKbSourceConfiguration @this) => @this.Base;
 
         /// <summary>
         /// 
         /// </summary>
-        public WolkenSourceConfiguration(global::Vectara.BaseWolkenSourceConfiguration? value)
+        public WolkenKbSourceConfiguration(global::Vectara.BaseWolkenKbSourceConfiguration? value)
         {
             Base = value;
         }
@@ -108,25 +108,25 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static WolkenSourceConfiguration FromBase(global::Vectara.BaseWolkenSourceConfiguration? value) => new WolkenSourceConfiguration(value);
+        public static WolkenKbSourceConfiguration FromBase(global::Vectara.BaseWolkenKbSourceConfiguration? value) => new WolkenKbSourceConfiguration(value);
 
         /// <summary>
         /// 
         /// </summary>
-        public WolkenSourceConfiguration(
-            global::Vectara.BaseWolkenSourceConfiguration? @base,
-            object? wolkenSourceConfigurationVariant2
+        public WolkenKbSourceConfiguration(
+            global::Vectara.BaseWolkenKbSourceConfiguration? @base,
+            object? wolkenKbSourceConfigurationVariant2
             )
         {
             Base = @base;
-            WolkenSourceConfigurationVariant2 = wolkenSourceConfigurationVariant2;
+            WolkenKbSourceConfigurationVariant2 = wolkenKbSourceConfigurationVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
-            WolkenSourceConfigurationVariant2 as object ??
+            WolkenKbSourceConfigurationVariant2 as object ??
             Base as object 
             ;
 
@@ -135,7 +135,7 @@ namespace Vectara
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            WolkenSourceConfigurationVariant2?.ToString() 
+            WolkenKbSourceConfigurationVariant2?.ToString() 
             ;
 
         /// <summary>
@@ -143,15 +143,15 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsBase && IsWolkenSourceConfigurationVariant2;
+            return IsBase && IsWolkenKbSourceConfigurationVariant2;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.BaseWolkenSourceConfiguration, TResult>? @base = null,
-            global::System.Func<object, TResult>? wolkenSourceConfigurationVariant2 = null,
+            global::System.Func<global::Vectara.BaseWolkenKbSourceConfiguration, TResult>? @base = null,
+            global::System.Func<object, TResult>? wolkenKbSourceConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -163,9 +163,9 @@ namespace Vectara
             {
                 return @base(Base!);
             }
-            else if (IsWolkenSourceConfigurationVariant2 && wolkenSourceConfigurationVariant2 != null)
+            else if (IsWolkenKbSourceConfigurationVariant2 && wolkenKbSourceConfigurationVariant2 != null)
             {
-                return wolkenSourceConfigurationVariant2(WolkenSourceConfigurationVariant2!);
+                return wolkenKbSourceConfigurationVariant2(WolkenKbSourceConfigurationVariant2!);
             }
 
             return default(TResult);
@@ -175,9 +175,9 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.BaseWolkenSourceConfiguration>? @base = null,
+            global::System.Action<global::Vectara.BaseWolkenKbSourceConfiguration>? @base = null,
 
-            global::System.Action<object>? wolkenSourceConfigurationVariant2 = null,
+            global::System.Action<object>? wolkenKbSourceConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -189,9 +189,9 @@ namespace Vectara
             {
                 @base?.Invoke(Base!);
             }
-            else if (IsWolkenSourceConfigurationVariant2)
+            else if (IsWolkenKbSourceConfigurationVariant2)
             {
-                wolkenSourceConfigurationVariant2?.Invoke(WolkenSourceConfigurationVariant2!);
+                wolkenKbSourceConfigurationVariant2?.Invoke(WolkenKbSourceConfigurationVariant2!);
             }
         }
 
@@ -199,8 +199,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Switch(
-            global::System.Action<global::Vectara.BaseWolkenSourceConfiguration>? @base = null,
-            global::System.Action<object>? wolkenSourceConfigurationVariant2 = null,
+            global::System.Action<global::Vectara.BaseWolkenKbSourceConfiguration>? @base = null,
+            global::System.Action<object>? wolkenKbSourceConfigurationVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -212,9 +212,9 @@ namespace Vectara
             {
                 @base?.Invoke(Base!);
             }
-            else if (IsWolkenSourceConfigurationVariant2)
+            else if (IsWolkenKbSourceConfigurationVariant2)
             {
-                wolkenSourceConfigurationVariant2?.Invoke(WolkenSourceConfigurationVariant2!);
+                wolkenKbSourceConfigurationVariant2?.Invoke(WolkenKbSourceConfigurationVariant2!);
             }
         }
 
@@ -226,8 +226,8 @@ namespace Vectara
             var fields = new object?[]
             {
                 Base,
-                typeof(global::Vectara.BaseWolkenSourceConfiguration),
-                WolkenSourceConfigurationVariant2,
+                typeof(global::Vectara.BaseWolkenKbSourceConfiguration),
+                WolkenKbSourceConfigurationVariant2,
                 typeof(object),
             };
             const int offset = unchecked((int)2166136261);
@@ -242,26 +242,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public bool Equals(WolkenSourceConfiguration other)
+        public bool Equals(WolkenKbSourceConfiguration other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseWolkenSourceConfiguration?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(WolkenSourceConfigurationVariant2, other.WolkenSourceConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseWolkenKbSourceConfiguration?>.Default.Equals(Base, other.Base) &&
+                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(WolkenKbSourceConfigurationVariant2, other.WolkenKbSourceConfigurationVariant2) 
                 ;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator ==(WolkenSourceConfiguration obj1, WolkenSourceConfiguration obj2)
+        public static bool operator ==(WolkenKbSourceConfiguration obj1, WolkenKbSourceConfiguration obj2)
         {
-            return global::System.Collections.Generic.EqualityComparer<WolkenSourceConfiguration>.Default.Equals(obj1, obj2);
+            return global::System.Collections.Generic.EqualityComparer<WolkenKbSourceConfiguration>.Default.Equals(obj1, obj2);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator !=(WolkenSourceConfiguration obj1, WolkenSourceConfiguration obj2)
+        public static bool operator !=(WolkenKbSourceConfiguration obj1, WolkenKbSourceConfiguration obj2)
         {
             return !(obj1 == obj2);
         }
@@ -271,7 +271,7 @@ namespace Vectara
         /// </summary>
         public override bool Equals(object? obj)
         {
-            return obj is WolkenSourceConfiguration o && Equals(o);
+            return obj is WolkenKbSourceConfiguration o && Equals(o);
         }
     }
 }

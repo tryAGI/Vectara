@@ -16,7 +16,10 @@ namespace Vectara
 
         /// <summary>
         /// Request to create a new lambda tool. Lambda tools are user-defined functions that run in a secure, sandboxed environment with Python 3.12.<br/>
-        /// Input and output schemas are automatically discovered from function parameter type annotations in your code.
+        /// Input and output schemas are automatically discovered from function parameter type annotations in your code.<br/>
+        /// When `tool_configurations` is set, each configured tool is callable from the lambda tool's code as a<br/>
+        /// function on the built-in `tool` module. `$ref` values in those configurations resolve against the hosting agent<br/>
+        /// and session at execution time.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateLambdaToolRequest? Lambda { get; init; }

@@ -5,22 +5,19 @@
 namespace Vectara
 {
     /// <summary>
-    /// Partial update for Wolken source configuration. Only provided fields are merged.
+    /// Partial update for Confluence source configuration. Only provided fields are merged.
     /// </summary>
-    public readonly partial struct UpdateWolkenSourceConfiguration : global::System.IEquatable<UpdateWolkenSourceConfiguration>
+    public readonly partial struct UpdateConfluenceSourceConfiguration : global::System.IEquatable<UpdateConfluenceSourceConfiguration>
     {
         /// <summary>
-        /// Base Wolken ServiceDesk knowledge-base source configuration. Ingests knowledge-base articles<br/>
-        /// matching the configured filters, with each article's audience attributes carried as document<br/>
-        /// metadata for attribute-based filtering. Requires Wolken data API credentials with read access<br/>
-        /// to the knowledge-base listing and article-detail endpoints. Incremental sync additionally<br/>
-        /// requires the listing to support update-time filters. Supported filters vary by Wolken<br/>
-        /// deployment.
+        /// Base Confluence source configuration. Ingests pages from the configured spaces<br/>
+        /// and inherits each page's read restrictions and space permissions as document ACL. Works against<br/>
+        /// both Confluence Cloud and Data Center.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.BaseWolkenSourceConfiguration? Base { get; init; }
+        public global::Vectara.BaseConfluenceSourceConfiguration? Base { get; init; }
 #else
-        public global::Vectara.BaseWolkenSourceConfiguration? Base { get; }
+        public global::Vectara.BaseConfluenceSourceConfiguration? Base { get; }
 #endif
 
         /// <summary>
@@ -38,7 +35,7 @@ namespace Vectara
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
-            out global::Vectara.BaseWolkenSourceConfiguration? value)
+            out global::Vectara.BaseConfluenceSourceConfiguration? value)
         {
             value = Base;
             return IsBase;
@@ -47,23 +44,23 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.BaseWolkenSourceConfiguration PickBase() => IsBase
+        public global::Vectara.BaseConfluenceSourceConfiguration PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator UpdateWolkenSourceConfiguration(global::Vectara.BaseWolkenSourceConfiguration value) => new UpdateWolkenSourceConfiguration((global::Vectara.BaseWolkenSourceConfiguration?)value);
+        public static implicit operator UpdateConfluenceSourceConfiguration(global::Vectara.BaseConfluenceSourceConfiguration value) => new UpdateConfluenceSourceConfiguration((global::Vectara.BaseConfluenceSourceConfiguration?)value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.BaseWolkenSourceConfiguration?(UpdateWolkenSourceConfiguration @this) => @this.Base;
+        public static implicit operator global::Vectara.BaseConfluenceSourceConfiguration?(UpdateConfluenceSourceConfiguration @this) => @this.Base;
 
         /// <summary>
         /// 
         /// </summary>
-        public UpdateWolkenSourceConfiguration(global::Vectara.BaseWolkenSourceConfiguration? value)
+        public UpdateConfluenceSourceConfiguration(global::Vectara.BaseConfluenceSourceConfiguration? value)
         {
             Base = value;
         }
@@ -71,7 +68,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static UpdateWolkenSourceConfiguration FromBase(global::Vectara.BaseWolkenSourceConfiguration? value) => new UpdateWolkenSourceConfiguration(value);
+        public static UpdateConfluenceSourceConfiguration FromBase(global::Vectara.BaseConfluenceSourceConfiguration? value) => new UpdateConfluenceSourceConfiguration(value);
 
         /// <summary>
         /// 
@@ -99,7 +96,7 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.BaseWolkenSourceConfiguration, TResult>? @base = null,
+            global::System.Func<global::Vectara.BaseConfluenceSourceConfiguration, TResult>? @base = null,
             bool validate = true)
         {
             if (validate)
@@ -119,7 +116,7 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.BaseWolkenSourceConfiguration>? @base = null,
+            global::System.Action<global::Vectara.BaseConfluenceSourceConfiguration>? @base = null,
             bool validate = true)
         {
             if (validate)
@@ -137,7 +134,7 @@ namespace Vectara
         /// 
         /// </summary>
         public void Switch(
-            global::System.Action<global::Vectara.BaseWolkenSourceConfiguration>? @base = null,
+            global::System.Action<global::Vectara.BaseConfluenceSourceConfiguration>? @base = null,
             bool validate = true)
         {
             if (validate)
@@ -159,7 +156,7 @@ namespace Vectara
             var fields = new object?[]
             {
                 Base,
-                typeof(global::Vectara.BaseWolkenSourceConfiguration),
+                typeof(global::Vectara.BaseConfluenceSourceConfiguration),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -173,25 +170,25 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public bool Equals(UpdateWolkenSourceConfiguration other)
+        public bool Equals(UpdateConfluenceSourceConfiguration other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseWolkenSourceConfiguration?>.Default.Equals(Base, other.Base) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseConfluenceSourceConfiguration?>.Default.Equals(Base, other.Base) 
                 ;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator ==(UpdateWolkenSourceConfiguration obj1, UpdateWolkenSourceConfiguration obj2)
+        public static bool operator ==(UpdateConfluenceSourceConfiguration obj1, UpdateConfluenceSourceConfiguration obj2)
         {
-            return global::System.Collections.Generic.EqualityComparer<UpdateWolkenSourceConfiguration>.Default.Equals(obj1, obj2);
+            return global::System.Collections.Generic.EqualityComparer<UpdateConfluenceSourceConfiguration>.Default.Equals(obj1, obj2);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator !=(UpdateWolkenSourceConfiguration obj1, UpdateWolkenSourceConfiguration obj2)
+        public static bool operator !=(UpdateConfluenceSourceConfiguration obj1, UpdateConfluenceSourceConfiguration obj2)
         {
             return !(obj1 == obj2);
         }
@@ -201,7 +198,7 @@ namespace Vectara
         /// </summary>
         public override bool Equals(object? obj)
         {
-            return obj is UpdateWolkenSourceConfiguration o && Equals(o);
+            return obj is UpdateConfluenceSourceConfiguration o && Equals(o);
         }
     }
 }

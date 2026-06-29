@@ -12,6 +12,7 @@ namespace Vectara
         /// - Discover input/output schemas from type annotations<br/>
         /// - Test execution with sample input<br/>
         /// - Verify schema compatibility<br/>
+        /// - Exercise the lambda tool's `tool_configurations` with a stand-in `test_context` that supplies the agent metadata, secrets, and session metadata its `$ref`s resolve against<br/>
         /// The function is executed in the same secure sandbox environment as production tools.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -35,6 +36,7 @@ namespace Vectara
         /// - Discover input/output schemas from type annotations<br/>
         /// - Test execution with sample input<br/>
         /// - Verify schema compatibility<br/>
+        /// - Exercise the lambda tool's `tool_configurations` with a stand-in `test_context` that supplies the agent metadata, secrets, and session metadata its `$ref`s resolve against<br/>
         /// The function is executed in the same secure sandbox environment as production tools.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -58,6 +60,7 @@ namespace Vectara
         /// - Discover input/output schemas from type annotations<br/>
         /// - Test execution with sample input<br/>
         /// - Verify schema compatibility<br/>
+        /// - Exercise the lambda tool's `tool_configurations` with a stand-in `test_context` that supplies the agent metadata, secrets, and session metadata its `$ref`s resolve against<br/>
         /// The function is executed in the same secure sandbox environment as production tools.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -86,6 +89,14 @@ namespace Vectara
         /// Maximum execution time in seconds for this test. Overrides execution_configuration if specified.<br/>
         /// Example: 10
         /// </param>
+        /// <param name="toolConfigurations">
+        /// Named configurations of other tools the code under test may invoke through its built-in `tool` module.<br/>
+        /// See the `tool_configurations` field on `CreateLambdaToolRequest` for semantics and constraints.
+        /// </param>
+        /// <param name="testContext">
+        /// Stand-in values for the hosting agent and session, used to resolve `agent.*` and `session.*` `$ref`s inside the tool configurations under test. Accepted by both `POST /v2/tools/test` and `POST /v2/tools/{tool_id}/test`.<br/>
+        /// Example: {"agent":{"metadata":{"ticket_api_base":"https://tickets.example.com/api/v1/"},"secrets":{"ticket_api_token":"test-token"}},"session":{"metadata":{"tenant_corpus":"kb"}}}
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -97,6 +108,8 @@ namespace Vectara
             global::Vectara.TestLambdaToolRequestLanguage? language = default,
             global::Vectara.ExecutionConfiguration? executionConfiguration = default,
             int? timeoutSeconds = default,
+            global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? toolConfigurations = default,
+            global::Vectara.TestLambdaToolContext? testContext = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

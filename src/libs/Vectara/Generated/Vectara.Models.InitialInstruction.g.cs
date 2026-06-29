@@ -44,7 +44,9 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// The templating engine used for instructions.<br/>
+        /// The templating engine used to render the instruction's template.<br/>
+        /// - `velocity`: render the template with the Velocity engine, substituting agent, session, and tool variables.<br/>
+        /// - `text`: use the template verbatim as plain text, with no variable substitution.<br/>
         /// Default Value: velocity<br/>
         /// Example: velocity
         /// </summary>
@@ -52,11 +54,13 @@ namespace Vectara
         /// <example>velocity</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("template_type")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.TemplateTypeJsonConverter))]
-        public global::Vectara.TemplateType TemplateType { get; set; } = global::Vectara.TemplateType.Velocity;
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::Vectara.TemplateType TemplateType { get; set; } = global::Vectara.TemplateType.Velocity;
 
         /// <summary>
-        /// The instruction template content using the specified template engine.<br/>
-        /// Available Velocity variables:<br/>
+        /// The instruction template content. How it is rendered depends on the sibling `template_type`.<br/>
+        /// When `template_type` is `text`, the content is used verbatim as the instruction and no variables are substituted.<br/>
+        /// When `template_type` is `velocity`, the content is rendered with the Velocity engine and the following variables are available:<br/>
         /// - `$agent.name` - Agent name<br/>
         /// - `$agent.key` - Agent key<br/>
         /// - `$agent.metadata` - Agent metadata map<br/>
@@ -129,9 +133,17 @@ namespace Vectara
         /// The human-readable name of an instruction.<br/>
         /// Example: Customer Support Initial Instruction
         /// </param>
+        /// <param name="templateType">
+        /// The templating engine used to render the instruction's template.<br/>
+        /// - `velocity`: render the template with the Velocity engine, substituting agent, session, and tool variables.<br/>
+        /// - `text`: use the template verbatim as plain text, with no variable substitution.<br/>
+        /// Default Value: velocity<br/>
+        /// Example: velocity
+        /// </param>
         /// <param name="template">
-        /// The instruction template content using the specified template engine.<br/>
-        /// Available Velocity variables:<br/>
+        /// The instruction template content. How it is rendered depends on the sibling `template_type`.<br/>
+        /// When `template_type` is `text`, the content is used verbatim as the instruction and no variables are substituted.<br/>
+        /// When `template_type` is `velocity`, the content is rendered with the Velocity engine and the following variables are available:<br/>
         /// - `$agent.name` - Agent name<br/>
         /// - `$agent.key` - Agent key<br/>
         /// - `$agent.metadata` - Agent metadata map<br/>
@@ -162,11 +174,6 @@ namespace Vectara
         /// <param name="updatedAt">
         /// Timestamp when the instruction was last updated.
         /// </param>
-        /// <param name="templateType">
-        /// The templating engine used for instructions.<br/>
-        /// Default Value: velocity<br/>
-        /// Example: velocity
-        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -174,14 +181,14 @@ namespace Vectara
             string id,
             string type,
             string name,
+            global::Vectara.TemplateType templateType,
             string template,
             int version,
             bool enabled,
             string? description,
             object? metadata,
             global::System.DateTime? createdAt,
-            global::System.DateTime? updatedAt,
-            global::Vectara.TemplateType templateType = global::Vectara.TemplateType.Velocity)
+            global::System.DateTime? updatedAt)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));

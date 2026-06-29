@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A templated reminder with a Velocity template that is compiled at session start and injected into messages matching the specified hooks.
+    /// A reminder whose template is rendered at session start according to its template_type (Velocity by default, or text for verbatim content) and injected into messages matching the specified hooks.
     /// </summary>
     public sealed partial class TemplatedReminder
     {
@@ -20,7 +20,9 @@ namespace Vectara
         public required string Type { get; set; } = "templated";
 
         /// <summary>
-        /// The templating engine used for instructions.<br/>
+        /// The templating engine used to render the instruction's template.<br/>
+        /// - `velocity`: render the template with the Velocity engine, substituting agent, session, and tool variables.<br/>
+        /// - `text`: use the template verbatim as plain text, with no variable substitution.<br/>
         /// Default Value: velocity<br/>
         /// Example: velocity
         /// </summary>
@@ -30,8 +32,9 @@ namespace Vectara
         public global::Vectara.TemplateType? TemplateType { get; set; }
 
         /// <summary>
-        /// The instruction template content using the specified template engine.<br/>
-        /// Available Velocity variables:<br/>
+        /// The instruction template content. How it is rendered depends on the sibling `template_type`.<br/>
+        /// When `template_type` is `text`, the content is used verbatim as the instruction and no variables are substituted.<br/>
+        /// When `template_type` is `velocity`, the content is rendered with the Velocity engine and the following variables are available:<br/>
         /// - `$agent.name` - Agent name<br/>
         /// - `$agent.key` - Agent key<br/>
         /// - `$agent.metadata` - Agent metadata map<br/>
@@ -95,8 +98,9 @@ namespace Vectara
         /// Example: templated
         /// </param>
         /// <param name="template">
-        /// The instruction template content using the specified template engine.<br/>
-        /// Available Velocity variables:<br/>
+        /// The instruction template content. How it is rendered depends on the sibling `template_type`.<br/>
+        /// When `template_type` is `text`, the content is used verbatim as the instruction and no variables are substituted.<br/>
+        /// When `template_type` is `velocity`, the content is rendered with the Velocity engine and the following variables are available:<br/>
         /// - `$agent.name` - Agent name<br/>
         /// - `$agent.key` - Agent key<br/>
         /// - `$agent.metadata` - Agent metadata map<br/>
@@ -112,7 +116,9 @@ namespace Vectara
         /// Example: [tool_output]
         /// </param>
         /// <param name="templateType">
-        /// The templating engine used for instructions.<br/>
+        /// The templating engine used to render the instruction's template.<br/>
+        /// - `velocity`: render the template with the Velocity engine, substituting agent, session, and tool variables.<br/>
+        /// - `text`: use the template verbatim as plain text, with no variable substitution.<br/>
         /// Default Value: velocity<br/>
         /// Example: velocity
         /// </param>

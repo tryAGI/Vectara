@@ -3,10 +3,10 @@
 namespace Vectara.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class BaseWolkenSourceConfigurationUpdateUpperBoundOperatorNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperator?>
+    public sealed class BaseWolkenKbSourceConfigurationUpdateUpperBoundOperatorJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator>
     {
         /// <inheritdoc />
-        public override global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperator? Read(
+        public override global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace Vectara.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperatorExtensions.ToEnum(stringValue);
+                        return global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperatorExtensions.ToEnum(stringValue) ?? default;
                     }
                     
                     break;
@@ -26,11 +26,11 @@ namespace Vectara.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperator)numValue;
+                    return (global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator)numValue;
                 }
                 case global::System.Text.Json.JsonTokenType.Null:
                 {
-                    return default(global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperator?);
+                    return default(global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator);
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -42,19 +42,12 @@ namespace Vectara.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperator? value,
+            global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
 
-            if (value == null)
-            {
-                writer.WriteNullValue();
-            }
-            else
-            {
-                writer.WriteStringValue(global::Vectara.BaseWolkenSourceConfigurationUpdateUpperBoundOperatorExtensions.ToValueString(value.Value));
-            }
+            writer.WriteStringValue(global::Vectara.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperatorExtensions.ToValueString(value));
         }
     }
 }

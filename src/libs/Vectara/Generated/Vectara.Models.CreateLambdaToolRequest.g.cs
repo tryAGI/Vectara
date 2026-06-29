@@ -5,7 +5,10 @@ namespace Vectara
 {
     /// <summary>
     /// Request to create a new lambda tool. Lambda tools are user-defined functions that run in a secure, sandboxed environment with Python 3.12.<br/>
-    /// Input and output schemas are automatically discovered from function parameter type annotations in your code.
+    /// Input and output schemas are automatically discovered from function parameter type annotations in your code.<br/>
+    /// When `tool_configurations` is set, each configured tool is callable from the lambda tool's code as a<br/>
+    /// function on the built-in `tool` module. `$ref` values in those configurations resolve against the hosting agent<br/>
+    /// and session at execution time.
     /// </summary>
     public sealed partial class CreateLambdaToolRequest
     {
@@ -147,6 +150,7 @@ namespace Vectara
         /// def process(status: Literal["active", "inactive", "pending"], priority: Literal[1, 2, 3]) -&gt; dict:<br/>
         ///     return {"status": status, "priority": priority}<br/>
         /// ```<br/>
+        /// When `tool_configurations` is set, the code can call those tools through the built-in `tool` module; see the `tool_configurations` field.<br/>
         /// Example: def process(order_count: int, total_revenue: float, days_active: int = 1) -&gt; dict:<br/>
         ///     score = (order_count * 10 + total_revenue * 0.1) / days_active<br/>
         ///     return {'score': round(score, 2)}
@@ -165,6 +169,22 @@ namespace Vectara
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("execution_configuration")]
         public global::Vectara.ExecutionConfiguration? ExecutionConfiguration { get; set; }
+
+        /// <summary>
+        /// Named configurations of other tools this lambda may invoke from its Python code through the built-in `tool` module. Each entry is exposed as<br/>
+        /// `tool.&lt;name&gt;(param=value)`; `tool.list()` returns their names and schemas, and failures raise `tool.ToolError`.<br/>
+        /// `$ref` values inside `argument_override` resolve against the hosting agent and session at execution time — `agent.metadata.*`, `agent.secrets.*`, and<br/>
+        /// `session.metadata.*` only. These configurations are private to the tool: they never appear on the hosting agent's callable tools, and their calls produce<br/>
+        /// no session events.<br/>
+        /// A configured tool may itself be a lambda with its own `tool_configurations`, nested up to three levels deep.<br/>
+        /// Each configuration name is how the code calls it (`tool.&lt;name&gt;`), so it must be a valid identifier: a letter followed by letters, digits, or<br/>
+        /// underscores.<br/>
+        /// See `POST /v2/tools/test` for exercising these calls without persisting the tool.<br/>
+        /// Example: {"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}
+        /// </summary>
+        /// <example>{"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_configurations")]
+        public global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? ToolConfigurations { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -279,6 +299,7 @@ namespace Vectara
         /// def process(status: Literal["active", "inactive", "pending"], priority: Literal[1, 2, 3]) -&gt; dict:<br/>
         ///     return {"status": status, "priority": priority}<br/>
         /// ```<br/>
+        /// When `tool_configurations` is set, the code can call those tools through the built-in `tool` module; see the `tool_configurations` field.<br/>
         /// Example: def process(order_count: int, total_revenue: float, days_active: int = 1) -&gt; dict:<br/>
         ///     score = (order_count * 10 + total_revenue * 0.1) / days_active<br/>
         ///     return {'score': round(score, 2)}
@@ -295,6 +316,18 @@ namespace Vectara
         /// <param name="executionConfiguration">
         /// Execution configuration for the function.
         /// </param>
+        /// <param name="toolConfigurations">
+        /// Named configurations of other tools this lambda may invoke from its Python code through the built-in `tool` module. Each entry is exposed as<br/>
+        /// `tool.&lt;name&gt;(param=value)`; `tool.list()` returns their names and schemas, and failures raise `tool.ToolError`.<br/>
+        /// `$ref` values inside `argument_override` resolve against the hosting agent and session at execution time — `agent.metadata.*`, `agent.secrets.*`, and<br/>
+        /// `session.metadata.*` only. These configurations are private to the tool: they never appear on the hosting agent's callable tools, and their calls produce<br/>
+        /// no session events.<br/>
+        /// A configured tool may itself be a lambda with its own `tool_configurations`, nested up to three levels deep.<br/>
+        /// Each configuration name is how the code calls it (`tool.&lt;name&gt;`), so it must be a valid identifier: a letter followed by letters, digits, or<br/>
+        /// underscores.<br/>
+        /// See `POST /v2/tools/test` for exercising these calls without persisting the tool.<br/>
+        /// Example: {"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -305,7 +338,8 @@ namespace Vectara
             string code,
             string? title,
             global::Vectara.CreateLambdaToolRequestLanguage? language,
-            global::Vectara.ExecutionConfiguration? executionConfiguration)
+            global::Vectara.ExecutionConfiguration? executionConfiguration,
+            global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? toolConfigurations)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -314,6 +348,7 @@ namespace Vectara
             this.Language = language;
             this.Code = code ?? throw new global::System.ArgumentNullException(nameof(code));
             this.ExecutionConfiguration = executionConfiguration;
+            this.ToolConfigurations = toolConfigurations;
         }
 
         /// <summary>

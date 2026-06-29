@@ -4,10 +4,10 @@
 namespace Vectara.JsonConverters
 {
     /// <inheritdoc />
-    public class UpdateWolkenSourceConfigurationJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.UpdateWolkenSourceConfiguration>
+    public class UpdateConfluenceSourceConfigurationJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.UpdateConfluenceSourceConfiguration>
     {
         /// <inheritdoc />
-        public override global::Vectara.UpdateWolkenSourceConfiguration Read(
+        public override global::Vectara.UpdateConfluenceSourceConfiguration Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -28,31 +28,24 @@ namespace Vectara.JsonConverters
             }
 
             var __score0 = 0;
-            if (__jsonProps.Contains("api_endpoint")) __score0++;
-            if (__jsonProps.Contains("article_url_template")) __score0++;
-            if (__jsonProps.Contains("auth_code")) __score0++;
-            if (__jsonProps.Contains("client_id")) __score0++;
-            if (__jsonProps.Contains("domain")) __score0++;
-            if (__jsonProps.Contains("level_id")) __score0++;
-            if (__jsonProps.Contains("refresh_token")) __score0++;
-            if (__jsonProps.Contains("service_account")) __score0++;
-            if (__jsonProps.Contains("status_id")) __score0++;
+            if (__jsonProps.Contains("auth")) __score0++;
+            if (__jsonProps.Contains("base_url")) __score0++;
+            if (__jsonProps.Contains("deployment")) __score0++;
+            if (__jsonProps.Contains("space_keys")) __score0++;
             if (__jsonProps.Contains("type")) __score0++;
-            if (__jsonProps.Contains("update_upper_bound_operator")) __score0++;
-            if (__jsonProps.Contains("validation_status_id")) __score0++;
             var __bestScore = 0;
             var __bestIndex = -1;
             if (__score0 > __bestScore) { __bestScore = __score0; __bestIndex = 0; }
 
-            global::Vectara.BaseWolkenSourceConfiguration? @base = default;
+            global::Vectara.BaseConfluenceSourceConfiguration? @base = default;
             if (__bestIndex >= 0)
             {
                 if (__bestIndex == 0)
                 {
                     try
                     {
-                        var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BaseWolkenSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BaseWolkenSourceConfiguration> ??
-                                       throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BaseWolkenSourceConfiguration).Name}");
+                        var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BaseConfluenceSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BaseConfluenceSourceConfiguration> ??
+                                       throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BaseConfluenceSourceConfiguration).Name}");
                         @base = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                     }
                     catch (global::System.Text.Json.JsonException)
@@ -69,8 +62,8 @@ namespace Vectara.JsonConverters
                 try
                 {
 
-                    var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BaseWolkenSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BaseWolkenSourceConfiguration> ??
-                                   throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BaseWolkenSourceConfiguration).Name}");
+                    var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BaseConfluenceSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BaseConfluenceSourceConfiguration> ??
+                                   throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BaseConfluenceSourceConfiguration).Name}");
                     @base = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
                 }
                 catch (global::System.Text.Json.JsonException)
@@ -81,7 +74,7 @@ namespace Vectara.JsonConverters
                 }
             }
 
-            var __value = new global::Vectara.UpdateWolkenSourceConfiguration(
+            var __value = new global::Vectara.UpdateConfluenceSourceConfiguration(
                 @base
                 );
 
@@ -91,7 +84,7 @@ namespace Vectara.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Vectara.UpdateWolkenSourceConfiguration value,
+            global::Vectara.UpdateConfluenceSourceConfiguration value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
@@ -99,8 +92,8 @@ namespace Vectara.JsonConverters
 
             if (value.IsBase)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BaseWolkenSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BaseWolkenSourceConfiguration?> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BaseWolkenSourceConfiguration).Name}");
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BaseConfluenceSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BaseConfluenceSourceConfiguration?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BaseConfluenceSourceConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Base!, typeInfo);
             }
         }

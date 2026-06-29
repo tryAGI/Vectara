@@ -65,6 +65,15 @@ namespace Vectara
         public global::Vectara.ExecutionConfiguration? ExecutionConfiguration { get; set; }
 
         /// <summary>
+        /// Replaces the tool's `tool_configurations` map. Omit to leave the existing configurations unchanged; set to `null` to clear them.<br/>
+        /// See the `tool_configurations` field on `CreateLambdaToolRequest` for semantics and constraints.<br/>
+        /// Example: {"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}
+        /// </summary>
+        /// <example>{"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_configurations")]
+        public global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? ToolConfigurations { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -100,6 +109,11 @@ namespace Vectara
         /// <param name="executionConfiguration">
         /// Execution configuration for the function.
         /// </param>
+        /// <param name="toolConfigurations">
+        /// Replaces the tool's `tool_configurations` map. Omit to leave the existing configurations unchanged; set to `null` to clear them.<br/>
+        /// See the `tool_configurations` field on `CreateLambdaToolRequest` for semantics and constraints.<br/>
+        /// Example: {"fetch_status":{"type":"web_get","argument_override":{"url":"https://status.example.com/api/health"}}}
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -109,7 +123,8 @@ namespace Vectara
             string? title,
             string? description,
             string? code,
-            global::Vectara.ExecutionConfiguration? executionConfiguration)
+            global::Vectara.ExecutionConfiguration? executionConfiguration,
+            global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? toolConfigurations)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Enabled = enabled;
@@ -117,6 +132,7 @@ namespace Vectara
             this.Description = description;
             this.Code = code;
             this.ExecutionConfiguration = executionConfiguration;
+            this.ToolConfigurations = toolConfigurations;
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace Vectara
     /// `lt` is strict less-than and `lte` is less-than-or-equal.<br/>
     /// Default Value: lte
     /// </summary>
-    public enum BaseWolkenSourceConfigurationUpdateUpperBoundOperator
+    public enum BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator
     {
         /// <summary>
         /// 
@@ -23,29 +23,29 @@ namespace Vectara
     /// <summary>
     /// Enum extensions to do fast conversions without the reflection.
     /// </summary>
-    public static class BaseWolkenSourceConfigurationUpdateUpperBoundOperatorExtensions
+    public static class BaseWolkenKbSourceConfigurationUpdateUpperBoundOperatorExtensions
     {
         /// <summary>
         /// Converts an enum to a string.
         /// </summary>
-        public static string ToValueString(this BaseWolkenSourceConfigurationUpdateUpperBoundOperator value)
+        public static string ToValueString(this BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator value)
         {
             return value switch
             {
-                BaseWolkenSourceConfigurationUpdateUpperBoundOperator.Lt => "lt",
-                BaseWolkenSourceConfigurationUpdateUpperBoundOperator.Lte => "lte",
+                BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator.Lt => "lt",
+                BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator.Lte => "lte",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
         /// <summary>
         /// Converts an string to a enum.
         /// </summary>
-        public static BaseWolkenSourceConfigurationUpdateUpperBoundOperator? ToEnum(string value)
+        public static BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator? ToEnum(string value)
         {
             return value switch
             {
-                "lt" => BaseWolkenSourceConfigurationUpdateUpperBoundOperator.Lt,
-                "lte" => BaseWolkenSourceConfigurationUpdateUpperBoundOperator.Lte,
+                "lt" => BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator.Lt,
+                "lte" => BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator.Lte,
                 _ => null,
             };
         }

@@ -22,6 +22,16 @@ namespace Vectara
         public required string Description { get; set; }
 
         /// <summary>
+        /// Trigger conditions describing when the agent should invoke this skill, such as concrete user situations or<br/>
+        /// phrases that should cause the skill to load. Used alongside the description when the agent decides which<br/>
+        /// skill to invoke.<br/>
+        /// Example: Use when the user asks to review, audit, or check code, or mentions "bugs", "security", or "best practices".
+        /// </summary>
+        /// <example>Use when the user asks to review, audit, or check code, or mentions "bugs", "security", or "best practices".</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("when_to_use")]
+        public string? WhenToUse { get; set; }
+
+        /// <summary>
         /// The full instruction content for this skill.<br/>
         /// This is NOT shown in the instructions by default; it is loaded when the skill is invoked.<br/>
         /// Example: When reviewing code, check for security vulnerabilities, performance issues, and adherence to best practices...
@@ -49,14 +59,22 @@ namespace Vectara
         /// This is NOT shown in the instructions by default; it is loaded when the skill is invoked.<br/>
         /// Example: When reviewing code, check for security vulnerabilities, performance issues, and adherence to best practices...
         /// </param>
+        /// <param name="whenToUse">
+        /// Trigger conditions describing when the agent should invoke this skill, such as concrete user situations or<br/>
+        /// phrases that should cause the skill to load. Used alongside the description when the agent decides which<br/>
+        /// skill to invoke.<br/>
+        /// Example: Use when the user asks to review, audit, or check code, or mentions "bugs", "security", or "best practices".
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public AgentSkill(
             string description,
-            string content)
+            string content,
+            string? whenToUse)
         {
             this.Description = description ?? throw new global::System.ArgumentNullException(nameof(description));
+            this.WhenToUse = whenToUse;
             this.Content = content ?? throw new global::System.ArgumentNullException(nameof(content));
         }
 
