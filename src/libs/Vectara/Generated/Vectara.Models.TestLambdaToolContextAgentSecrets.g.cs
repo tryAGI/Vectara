@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    /// Stand-in for the hosting agent's secrets. Each entry resolves a `$ref` of the form `agent.secrets.&lt;key&gt;`; values must be strings.
     /// </summary>
-    public sealed partial class WolkenSourceConfigurationVariant2
+    public sealed partial class TestLambdaToolContextAgentSecrets
     {
 
         /// <summary>

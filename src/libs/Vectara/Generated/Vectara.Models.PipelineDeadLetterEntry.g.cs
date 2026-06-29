@@ -27,6 +27,7 @@ namespace Vectara
         /// - Google Drive: the file ID<br/>
         /// - Box: the file ID (e.g. `1422162456741`)<br/>
         /// - Wolken: the article number (e.g. `345678`)<br/>
+        /// - Confluence: the page ID (e.g. `123456789`)<br/>
         /// - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source_record_id")]
@@ -97,6 +98,7 @@ namespace Vectara
         /// - Google Drive: the file ID<br/>
         /// - Box: the file ID (e.g. `1422162456741`)<br/>
         /// - Wolken: the article number (e.g. `345678`)<br/>
+        /// - Confluence: the page ID (e.g. `123456789`)<br/>
         /// - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
         /// </param>
         /// <param name="status">

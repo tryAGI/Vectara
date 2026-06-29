@@ -7571,6 +7571,11 @@ paths:
         \ and the current session.\n\nVectara provides several built-in tools, but\
         \ you can also create your own. This endpoint currently supports creating\
         \ **Lambda tools**, which run user-defined Python functions in a secure sandbox.\n\
+        \nA lambda tool can declare its own `tool_configurations`: named configurations\
+        \ of other tools that the lambda tool's Python code calls as functions through\
+        \ the built-in `tool` module. They stay private to the tool, and `$ref` values\
+        \ in their `argument_override` resolve against the hosting agent and session.\
+        \ See `CreateLambdaToolRequest.tool_configurations` for the contract and examples.\n\
         \nEach tool is defined by:\n- A unique tool ID\n- A description of its purpose\n\
         - An input schema describing accepted parameters\n- Optional metadata\n- Enabled/disabled\
         \ runtime availability\n\n ## Artifact-based tools\nSome built-in tools work\
@@ -7756,6 +7761,10 @@ paths:
         - Test execution with sample input
 
         - Verify schema compatibility
+
+        - Exercise the lambda tool''s `tool_configurations` with a stand-in `test_context`
+        that supplies the agent metadata, secrets, and session metadata its `$ref`s
+        resolve against
 
 
         The function is executed in the same secure sandbox environment as production
@@ -7980,6 +7989,10 @@ paths:
 
         This endpoint allows users to test their functions before using them with
         agents.
+
+        Optionally supply a `test_context` to provide stand-in agent metadata, secrets,
+        and session metadata that the `$ref`s in the tool''s stored `tool_configurations`
+        resolve against.
 
         The function is executed in a secure sandbox environment with the same constraints
         as production.
@@ -12344,7 +12357,8 @@ paths:
           - s3
           - google_drive
           - box
-          - wolken
+          - wolken_kb
+          - confluence
           - web
       - in: query
         name: status
@@ -20058,1112 +20072,6 @@ components:
       required:
       - language
       - code
-    LambdaTool:
-      description: 'A user-defined function that can be executed as a tool by agents.
-
-        Lambda tools run in a secure, sandboxed environment with resource limits.
-
-        Currently supports Python 3.12 with a curated set of libraries.
-
-        '
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `lambda`.
-            type: string
-            default: lambda
-            example: lambda
-          language:
-            description: The programming language of the lambda function. Currently
-              only Python 3.12 is supported.
-            type: string
-            enum:
-            - python
-            default: python
-            example: python
-          function_definition:
-            $ref: '#/components/schemas/FunctionDefinition'
-        required:
-        - type
-        - language
-        - function_definition
-      x-vectaraParents:
-      - Tool
-    SubAgentTool:
-      description: 'A tool that spawns a specialized sub-agent to handle complex,
-        multi-step tasks autonomously.
-
-        Sub-agents maintain separate context from the main agent and can be specialized
-        for specific types of tasks like code review, general research, or output
-        styling.
-
-        '
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `sub_agent`.
-            type: string
-            default: sub_agent
-            example: sub_agent
-        required:
-        - type
-      x-vectaraParents:
-      - Tool
-    ArtifactCreateTool:
-      description: A tool that creates artifacts from text or structured data content
-        that can be stored and referenced later.
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `artifact_create`.
-            type: string
-            default: artifact_create
-            example: artifact_create
-        required:
-        - type
-      x-vectaraParents:
-      - Tool
-    ArtifactReadTool:
-      description: A tool that reads artifact content from the agent session workspace
-        with flexible size and range options.
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `artifact_read`.
-            type: string
-            default: artifact_read
-            example: artifact_read
-        required:
-        - type
-      x-vectaraParents:
-      - Tool
-    ArtifactGrepTool:
-      description: A tool that searches through an artifact's content using grep with
-        support for all standard grep options.
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `artifact_grep`.
-            type: string
-            default: artifact_grep
-            example: artifact_grep
-        required:
-        - type
-      x-vectaraParents:
-      - Tool
-    ImageReadTool:
-      description: A tool that loads image artifacts into the conversation context
-        for viewing and analysis.
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `image_read`.
-            type: string
-            default: image_read
-            example: image_read
-        required:
-        - type
-      x-vectaraParents:
-      - Tool
-    DocumentConversionTool:
-      description: A tool that converts document artifacts (PDF, Word, PowerPoint,
-        etc.) to various formats.
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `document_conversion`.
-            type: string
-            default: document_conversion
-            example: document_conversion
-        required:
-        - type
-      x-vectaraParents:
-      - Tool
-    GetDocumentTextTool:
-      description: A tool that fetches the full text content of a document from a
-        corpus and stores it as an artifact.
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `get_document_text`.
-            type: string
-            default: get_document_text
-            example: get_document_text
-        required:
-        - type
-      x-vectaraParents:
-      - Tool
-    ClientTool:
-      description: 'A tool whose execution is performed by the calling client. When
-        invoked, the platform emits a `tool_input` event with the tool call arguments.
-        The client submits the result as a `tool_output` input via `createAgentInput`.
-
-        '
-      allOf:
-      - $ref: '#/components/schemas/ToolBase'
-      - type: object
-        properties:
-          type:
-            description: This should always be `client`.
-            type: string
-            default: client
-            example: client
-        required:
-        - type
-      x-vectaraParents:
-      - Tool
-    Tool:
-      description: A tool that can be used by agents to perform specific actions or
-        operations.
-      x-vectara-base-schema: '#/ToolBase'
-      discriminator:
-        propertyName: type
-        mapping:
-          dynamic_vectara: '#/components/schemas/DynamicVectaraTool'
-          mcp: '#/components/schemas/McpTool'
-          corpora_search: '#/components/schemas/CorporaSearchTool'
-          web_search: '#/components/schemas/WebSearchTool'
-          web_get: '#/components/schemas/WebGetTool'
-          lambda: '#/components/schemas/LambdaTool'
-          sub_agent: '#/components/schemas/SubAgentTool'
-          artifact_create: '#/components/schemas/ArtifactCreateTool'
-          artifact_read: '#/components/schemas/ArtifactReadTool'
-          artifact_grep: '#/components/schemas/ArtifactGrepTool'
-          image_read: '#/components/schemas/ImageReadTool'
-          document_conversion: '#/components/schemas/DocumentConversionTool'
-          get_document_text: '#/components/schemas/GetDocumentTextTool'
-          client: '#/components/schemas/ClientTool'
-      oneOf:
-      - $ref: '#/components/schemas/DynamicVectaraTool'
-      - $ref: '#/components/schemas/McpTool'
-      - $ref: '#/components/schemas/CorporaSearchTool'
-      - $ref: '#/components/schemas/WebSearchTool'
-      - $ref: '#/components/schemas/WebGetTool'
-      - $ref: '#/components/schemas/LambdaTool'
-      - $ref: '#/components/schemas/SubAgentTool'
-      - $ref: '#/components/schemas/ArtifactCreateTool'
-      - $ref: '#/components/schemas/ArtifactReadTool'
-      - $ref: '#/components/schemas/ArtifactGrepTool'
-      - $ref: '#/components/schemas/ImageReadTool'
-      - $ref: '#/components/schemas/DocumentConversionTool'
-      - $ref: '#/components/schemas/GetDocumentTextTool'
-      - $ref: '#/components/schemas/ClientTool'
-    ListToolsResponse:
-      description: Response containing a list of tools.
-      type: object
-      properties:
-        tools:
-          description: List of tools.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tool'
-        metadata:
-          $ref: '#/components/schemas/ListMetadata'
-      required:
-      - tools
-    CreateLambdaToolRequest:
-      description: 'Request to create a new lambda tool. Lambda tools are user-defined
-        functions that run in a secure, sandboxed environment with Python 3.12.
-
-
-        Input and output schemas are automatically discovered from function parameter
-        type annotations in your code.
-
-        '
-      type: object
-      properties:
-        type:
-          description: This should always be `lambda`.
-          type: string
-          default: lambda
-          example: lambda
-        name:
-          description: The unique name of the tool (used as the function identifier).
-          type: string
-          minLength: 1
-          maxLength: 50
-          pattern: ^[a-zA-Z0-9_-]+$
-          example: calculate_customer_score
-        title:
-          description: Human-readable title of the tool displayed in the UI.
-          type: string
-          minLength: 1
-          maxLength: 128
-          example: Customer Score Calculator
-        description:
-          description: A detailed description of what the function does, when to use
-            it, and what it returns.
-          type: string
-          minLength: 1
-          maxLength: 5000
-          example: Calculate a customer score based on order history and revenue.
-            Returns a score between 0-100.
-        language:
-          description: The programming language. Currently only 'python' (Python 3.12)
-            is supported.
-          type: string
-          enum:
-          - python
-          default: python
-          example: python
-        code:
-          description: "The Python 3.12 code for the function.\n\n**Required**: Must\
-            \ define a `process()` entry point function. Use type annotations on parameters\
-            \ for automatic schema discovery.\n\n**Parameters**: Passed as keyword\
-            \ arguments matched to the function signature.\n\n**Return types**: Can\
-            \ return any JSON-serializable type (strings, numbers, booleans, lists,\
-            \ or objects).\n\n**Parameter Descriptions**: Use docstrings to provide\
-            \ descriptions for parameters (Google, NumPy, ReST, and Epydoc styles\
-            \ are supported). These descriptions are automatically extracted and included\
-            \ in the input schema, giving agents better context about how to use each\
-            \ parameter.\n\n**Example with Google-style docstring:**\n```python\n\
-            def process(order_count: int, total_revenue: float, days_active: int =\
-            \ 1) -> dict:\n    \"\"\"Calculate customer engagement score.\n\n    Args:\n\
-            \        order_count: The number of orders placed by the customer.\n \
-            \       total_revenue: Total revenue in USD from the customer.\n     \
-            \   days_active: Number of days the customer was active (default: 1).\n\
-            \n    Returns:\n        A dict with the calculated score.\n    \"\"\"\n\
-            \    score = (order_count * 10 + total_revenue * 0.1) / days_active\n\
-            \    return {'score': round(score, 2)}\n```\n\nThis produces an input\
-            \ schema with descriptions:\n```json\n{\n  \"type\": \"object\",\n  \"\
-            properties\": {\n    \"order_count\": {\n      \"type\": \"integer\",\n\
-            \      \"description\": \"The number of orders placed by the customer.\"\
-            \n    },\n    \"total_revenue\": {\n      \"type\": \"number\",\n    \
-            \  \"description\": \"Total revenue in USD from the customer.\"\n    },\n\
-            \    \"days_active\": {\n      \"type\": \"integer\",\n      \"description\"\
-            : \"Number of days the customer was active (default: 1).\"\n    }\n  },\n\
-            \  \"required\": [\"order_count\", \"total_revenue\"]\n}\n```\n\n**Example:\
-            \ Returning a number**\n```python\ndef process(x: int, y: int) -> int:\n\
-            \    return x + y\n```\n\n**Example: Returning a string**\n```python\n\
-            def process(name: str) -> str:\n    return f\"Hello, {name}!\"\n```\n\n\
-            **Example: Returning a boolean**\n```python\ndef process(value: int, threshold:\
-            \ int) -> bool:\n    return value > threshold\n```\n\n**Example: Returning\
-            \ a list**\n```python\nfrom typing import List\n\ndef process(items: List[str])\
-            \ -> List[str]:\n    return sorted(items)\n```\n\n**Example: Returning\
-            \ an object (dict)**\n```python\ndef process(order_count: int, total_revenue:\
-            \ float, days_active: int = 1) -> dict:\n    score = (order_count * 10\
-            \ + total_revenue * 0.1) / days_active\n    return {'score': round(score,\
-            \ 2), 'rating': 'high' if score > 100 else 'low'}\n```\n\nFor complex\
-            \ types, use the `typing` module:\n\n```python\nfrom typing import List\n\
-            \ndef process(items: List[str], count: int) -> dict:\n    return {'total':\
-            \ len(items) * count}\n```\n\n**Object parameters must use TypedDict**:\
-            \ Bare `dict` and `Dict[K, V]` parameters are not supported and will be\
-            \ rejected during validation. All object-typed parameters must use `TypedDict`\
-            \ to define explicit fields. This ensures the agent receives a clear schema\
-            \ for each parameter.\n\n```python\nfrom typing import TypedDict, Optional\n\
-            \nclass Adjustment(TypedDict, total=False):\n    monthly_premium: float\n\
-            \    target_income_age: int\n    illustrated_rate: float\n\ndef process(client_id:\
-            \ str, adjustment: Adjustment) -> dict:\n    return {\"client_id\": client_id,\
-            \ \"adjustment\": adjustment}\n```\n\nTypedDict supports inheritance,\
-            \ `Optional` fields, nested TypedDicts, and `total=False` to make all\
-            \ fields optional.\n\n**Constraining parameters to specific values with\
-            \ Literal**: Use `Literal` to restrict a parameter to a fixed set of allowed\
-            \ values. This generates an `enum` constraint in the JSON schema, helping\
-            \ the agent choose valid options.\n\n```python\nfrom typing import Literal\n\
-            \ndef process(status: Literal[\"active\", \"inactive\", \"pending\"],\
-            \ priority: Literal[1, 2, 3]) -> dict:\n    return {\"status\": status,\
-            \ \"priority\": priority}\n```\n"
-          type: string
-          minLength: 1
-          maxLength: 100000
-          example: "def process(order_count: int, total_revenue: float, days_active:\
-            \ int = 1) -> dict:\n    score = (order_count * 10 + total_revenue * 0.1)\
-            \ / days_active\n    return {'score': round(score, 2)}\n"
-        execution_configuration:
-          $ref: '#/components/schemas/ExecutionConfiguration'
-      required:
-      - type
-      - name
-      - description
-      - code
-      x-vectaraParents:
-      - CreateToolRequest
-    CreateClientToolRequest:
-      description: 'Request to create a new client tool. When invoked, the platform
-        emits a `tool_input` event; the client performs the work and submits a `tool_output`
-        input via `createAgentInput`.
-
-        '
-      type: object
-      properties:
-        type:
-          description: This should always be `client`.
-          type: string
-          default: client
-          example: client
-        name:
-          description: The unique name of the tool.
-          type: string
-          minLength: 1
-          maxLength: 50
-          pattern: ^[a-zA-Z0-9_-]+$
-          example: collect_signature
-        title:
-          description: Human-readable title of the tool displayed in the UI.
-          type: string
-          minLength: 1
-          maxLength: 128
-          example: Collect Customer Signature
-        description:
-          description: A detailed description of what the tool does, when the agent
-            should invoke it, and what the expected output represents.
-          type: string
-          minLength: 1
-          maxLength: 5000
-          example: Prompts the user to e-sign a document. Returns the signed document
-            URL once the user completes signing.
-        input_schema:
-          description: 'JSON Schema describing the arguments the LLM should produce
-            when invoking this tool. These arguments are forwarded verbatim to the
-            client in the `tool_input` event.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/JsonSchemaDefinition'
-          example:
-            type: object
-            properties:
-              document_url:
-                type: string
-                description: URL of the document to be signed.
-            required:
-            - document_url
-        output_schema:
-          description: 'Optional JSON Schema describing the structure the client must
-            submit as the tool output. When set, submitted outputs are validated against
-            this schema before being returned to the agent.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/JsonSchemaDefinition'
-          example:
-            type: object
-            properties:
-              signed_document_url:
-                type: string
-            required:
-            - signed_document_url
-      required:
-      - type
-      - name
-      - description
-      x-vectaraParents:
-      - CreateToolRequest
-    CreateToolRequest:
-      description: Request to create a tool. Supports lambda tools for user-defined
-        functions and client tools whose execution is performed by the calling client.
-      discriminator:
-        propertyName: type
-        mapping:
-          lambda: '#/components/schemas/CreateLambdaToolRequest'
-          client: '#/components/schemas/CreateClientToolRequest'
-      oneOf:
-      - $ref: '#/components/schemas/CreateLambdaToolRequest'
-      - $ref: '#/components/schemas/CreateClientToolRequest'
-    TestLambdaToolRequest:
-      description: 'Request to test a Lambda tool before creating it. This allows
-        users to validate their code, schemas, and execution before committing to
-        tool creation.
-
-
-        Use this endpoint to:
-
-        - Validate Python code syntax and security constraints
-
-        - Discover input/output schemas from type annotations
-
-        - Test execution with sample input
-
-        - Verify schema compatibility
-
-        '
-      type: object
-      properties:
-        language:
-          description: The programming language. Currently only 'python' (Python 3.12)
-            is supported.
-          type: string
-          enum:
-          - python
-          default: python
-          example: python
-        code:
-          description: 'The Python 3.12 code for the function. Must define a `process()`
-            entry point.
-
-            Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters
-            are rejected.
-
-            See the `code` field on `CreateLambdaToolRequest` for full details and
-            examples.
-
-            '
-          type: string
-          minLength: 1
-          maxLength: 100000
-          example: "def process(order_count: int, total_revenue: float) -> dict:\n\
-            \    score = order_count * 10 + total_revenue * 0.1\n    return {'score':\
-            \ round(score, 2)}\n"
-        execution_configuration:
-          $ref: '#/components/schemas/ExecutionConfiguration'
-        test_input:
-          description: The input parameters to test the function with. Will be validated
-            against the discovered input schema.
-          type: object
-          additionalProperties: true
-          example:
-            order_count: 10
-            total_revenue: 500
-        timeout_seconds:
-          description: Maximum execution time in seconds for this test. Overrides
-            execution_configuration if specified.
-          type: integer
-          minimum: 1
-          maximum: 300
-          example: 10
-      required:
-      - code
-      - test_input
-    TestLambdaToolResponse:
-      description: 'Response from testing a Lambda tool before creation. Contains
-        comprehensive validation, schema discovery, and execution results to help
-        users create tools successfully.
-
-        '
-      type: object
-      properties:
-        validation:
-          description: Results of code validation (static and sandbox).
-          type: object
-          properties:
-            status:
-              description: Overall validation status.
-              type: string
-              enum:
-              - valid
-              - invalid
-              - pending
-              example: valid
-            errors:
-              description: List of validation errors if the code is invalid.
-              type: array
-              items:
-                type: string
-              example:
-              - 'Line 5: Use of forbidden module ''os'''
-          required:
-          - status
-        input_schema:
-          description: The discovered input schema from type annotations. May be null
-            if validation failed or no type hints provided.
-          type: object
-          additionalProperties: true
-          example:
-            type: object
-            properties:
-              order_count:
-                type: integer
-              total_revenue:
-                type: number
-            required:
-            - order_count
-            - total_revenue
-        output_schema:
-          description: The discovered output schema from type annotations. May be
-            null if validation failed or no type hints provided.
-          type: object
-          additionalProperties: true
-          example:
-            type: object
-            properties:
-              score:
-                type: number
-        execution:
-          description: Results of executing the function with test input. Only present
-            if validation passed.
-          type: object
-          properties:
-            success:
-              description: Whether the execution was successful.
-              type: boolean
-              example: true
-            output:
-              description: The output returned by the function.
-              type: object
-              additionalProperties: true
-              example:
-                score: 105
-            error:
-              description: Error information if execution failed.
-              type: object
-              properties:
-                message:
-                  description: The error message.
-                  type: string
-                traceback:
-                  description: Stack trace for debugging.
-                  type: string
-            latency_millis:
-              description: Time taken to execute the function in milliseconds.
-              type: integer
-              example: 125
-            memory_used_mb:
-              description: Memory used during execution in megabytes.
-              type: integer
-              example: 32
-            validation_results:
-              description: Results of input/output schema validation.
-              type: object
-              properties:
-                input_valid:
-                  description: Whether the test input matched the discovered schema.
-                  type: boolean
-                  example: true
-                output_valid:
-                  description: Whether the output matched the discovered schema.
-                  type: boolean
-                  example: true
-                validation_errors:
-                  description: Details of any schema validation errors.
-                  type: array
-                  items:
-                    type: string
-                  example: []
-          required:
-          - success
-      required:
-      - validation
-    UpdateMcpToolRequest:
-      description: Request object for updating an existing MCP tool.
-      type: object
-      properties:
-        type:
-          description: This should always be `mcp`.
-          type: string
-          default: mcp
-          example: mcp
-        enabled:
-          description: Whether the tool is enabled.
-          type: boolean
-      required:
-      - type
-      x-vectaraParents:
-      - UpdateToolRequest
-    UpdateLambdaToolRequest:
-      description: 'Request to update a lambda tool, allowing modifications to code,
-        configuration, and metadata.
-
-
-        When code is updated, input and output schemas are automatically re-discovered
-        from function parameter type annotations.
-
-        '
-      type: object
-      properties:
-        type:
-          description: This should always be `lambda`.
-          type: string
-          default: lambda
-          example: lambda
-        enabled:
-          description: Whether the tool should be enabled or disabled.
-          type: boolean
-          example: true
-        title:
-          description: Updated user-friendly display name for the tool.
-          type: string
-          minLength: 1
-          maxLength: 255
-          example: Updated Calculator Tool
-        description:
-          description: Updated description of what the tool does.
-          type: string
-          example: An updated tool that performs advanced calculations
-        code:
-          description: 'Updated code for the lambda function. Use function parameter
-            type annotations for automatic schema discovery.
-
-            Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters
-            are rejected.
-
-            See the `code` field on `CreateLambdaToolRequest` for full details and
-            examples.
-
-            '
-          type: string
-          minLength: 1
-          example: "def process(value: float) -> dict:\n    return {\"result\": value\
-            \ * 2}\n"
-        execution_configuration:
-          description: Updated execution configuration.
-          $ref: '#/components/schemas/ExecutionConfiguration'
-      required:
-      - type
-      x-vectaraParents:
-      - UpdateToolRequest
-    UpdateClientToolRequest:
-      description: Request to update an existing client tool.
-      type: object
-      properties:
-        type:
-          description: This should always be `client`.
-          type: string
-          default: client
-          example: client
-        enabled:
-          description: Whether the tool should be enabled or disabled.
-          type: boolean
-          example: true
-        title:
-          description: Updated human-readable title of the tool.
-          type: string
-          minLength: 1
-          maxLength: 128
-          example: Collect Customer Signature
-        description:
-          description: Updated description of what the tool does.
-          type: string
-          minLength: 1
-          maxLength: 5000
-        input_schema:
-          description: Updated JSON Schema for the arguments the LLM produces when
-            invoking this tool.
-          allOf:
-          - $ref: '#/components/schemas/JsonSchemaDefinition'
-        output_schema:
-          description: 'Updated JSON Schema for the structure the client must submit
-            as the tool output. Pass an empty object to clear the schema and accept
-            any output.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/JsonSchemaDefinition'
-      required:
-      - type
-      x-vectaraParents:
-      - UpdateToolRequest
-    UpdateToolRequest:
-      description: Request to update a tool. Supports updating MCP, Python lambda,
-        and client tools.
-      discriminator:
-        propertyName: type
-        mapping:
-          mcp: '#/components/schemas/UpdateMcpToolRequest'
-          lambda: '#/components/schemas/UpdateLambdaToolRequest'
-          client: '#/components/schemas/UpdateClientToolRequest'
-      oneOf:
-      - $ref: '#/components/schemas/UpdateMcpToolRequest'
-      - $ref: '#/components/schemas/UpdateLambdaToolRequest'
-      - $ref: '#/components/schemas/UpdateClientToolRequest'
-    TestToolRequest:
-      description: Request to test a Lambda tool with sample input.
-      type: object
-      properties:
-        input:
-          description: The input parameters to pass to the function. Must match the
-            tool's input schema.
-          type: object
-          additionalProperties: true
-          example:
-            number: 42
-            text: Hello, world!
-        timeout_seconds:
-          description: Maximum execution time in seconds. If not specified, uses the
-            tool's configured timeout.
-          type: integer
-          minimum: 1
-          maximum: 300
-          example: 10
-      required:
-      - input
-    TestToolSuccessResponse:
-      description: Successful execution response from testing a Lambda tool.
-      type: object
-      properties:
-        type:
-          description: Response type indicator. Always "success" for successful executions.
-          type: string
-          default: success
-          example: success
-        output:
-          description: The output returned by the function.
-          type: object
-          additionalProperties: true
-          example:
-            result: 1764
-            message: Computed successfully
-        latency_millis:
-          description: Time taken to execute the function in milliseconds.
-          type: integer
-          example: 125
-        memory_used_mb:
-          description: Memory used during execution in megabytes.
-          type: integer
-          example: 32
-        validation_results:
-          description: Results of input/output schema validation.
-          type: object
-          properties:
-            input_valid:
-              description: Whether the input matched the expected schema.
-              type: boolean
-              example: true
-            output_valid:
-              description: Whether the output matched the expected schema.
-              type: boolean
-              example: true
-            validation_errors:
-              description: Details of any validation errors.
-              type: array
-              items:
-                type: string
-              example:
-              - Output missing required field 'result'
-      required:
-      - type
-      - output
-      - latency_millis
-      x-vectaraParents:
-      - TestToolResponse
-    TestToolErrorResponse:
-      description: Error response from testing a Lambda tool.
-      type: object
-      properties:
-        type:
-          description: Response type indicator. Always "error" for failed executions.
-          type: string
-          default: error
-          example: error
-        error:
-          description: Error information from the failed execution.
-          type: object
-          properties:
-            message:
-              description: The error message.
-              type: string
-              example: 'ValueError: Input must be positive'
-            traceback:
-              description: Stack trace for debugging.
-              type: string
-              example: "Traceback (most recent call last):\n  File \"<string>\", line\
-                \ 3, in process\nValueError: Input must be positive"
-          required:
-          - message
-        latency_millis:
-          description: Time taken before the error occurred in milliseconds.
-          type: integer
-          example: 125
-        memory_used_mb:
-          description: Memory used before the error occurred in megabytes.
-          type: integer
-          example: 32
-      required:
-      - type
-      - error
-      - latency_millis
-      x-vectaraParents:
-      - TestToolResponse
-    TestToolResponse:
-      description: Response from testing a Lambda tool. Uses type field to discriminate
-        between success and error responses.
-      discriminator:
-        propertyName: type
-        mapping:
-          success: '#/components/schemas/TestToolSuccessResponse'
-          error: '#/components/schemas/TestToolErrorResponse'
-      oneOf:
-      - $ref: '#/components/schemas/TestToolSuccessResponse'
-      - $ref: '#/components/schemas/TestToolErrorResponse'
-    InstructionId:
-      description: The unique identifier for an instruction.
-      type: string
-      pattern: ins_[0-9a-zA-Z_-]+$
-      example: ins_customer_support_init
-    InstructionName:
-      description: The human-readable name of an instruction.
-      type: string
-      minLength: 1
-      maxLength: 50
-      example: Customer Support Initial Instruction
-    TemplateType:
-      description: The templating engine used for instructions.
-      type: string
-      enum:
-      - velocity
-      default: velocity
-      example: velocity
-    InstructionTemplate:
-      description: 'The instruction template content using the specified template
-        engine.
-
-
-        Available Velocity variables:
-
-        - `$agent.name` - Agent name
-
-        - `$agent.key` - Agent key
-
-        - `$agent.metadata` - Agent metadata map
-
-        - `$session.key` - Session key
-
-        - `$session.metadata` - Session metadata map (includes user-provided context
-        from test/runtime)
-
-        - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")
-
-        - `$tools` - List of tool maps, each with `name` and `description` fields
-
-
-        Example: `You are a helpful customer support agent. Agent: $agent.name. Today
-        is $currentDate. Available tools: #foreach($tool in $tools)${tool.name}#if($foreach.hasNext),
-        #end#end`
-
-        '
-      type: string
-      example: 'You are an expert customer support agent for $agent.name. Available
-        tools: #foreach($tool in $tools)${tool.name}#if($foreach.hasNext), #end#end'
-    InitialInstruction:
-      description: An initial instruction that provides guidance to the agent before
-        user messages.
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/InstructionId'
-        type:
-          description: The type of instruction.
-          type: string
-          default: initial
-          example: initial
-        name:
-          $ref: '#/components/schemas/InstructionName'
-        description:
-          description: A detailed description of what this instruction does.
-          type: string
-        template_type:
-          $ref: '#/components/schemas/TemplateType'
-        template:
-          $ref: '#/components/schemas/InstructionTemplate'
-        version:
-          description: The version identifier for this instruction. This is automatically
-            incremented when the instruction is updated.
-          type: integer
-          minimum: 1
-          example: 1
-        metadata:
-          description: Arbitrary metadata associated with the instruction.
-          type: object
-          additionalProperties: true
-        enabled:
-          description: Whether the instruction is currently enabled and available
-            for use.
-          type: boolean
-          default: true
-        created_at:
-          description: Timestamp when the instruction was created.
-          type: string
-          format: date-time
-        updated_at:
-          description: Timestamp when the instruction was last updated.
-          type: string
-          format: date-time
-      required:
-      - id
-      - type
-      - name
-      - template_type
-      - template
-      - version
-      - enabled
-      x-vectaraParents:
-      - Instruction
-    Instruction:
-      description: An instruction that guides agent behavior.
-      discriminator:
-        propertyName: type
-        mapping:
-          initial: '#/components/schemas/InitialInstruction'
-      oneOf:
-      - $ref: '#/components/schemas/InitialInstruction'
-    ListInstructionsResponse:
-      description: Response containing a list of instructions.
-      type: object
-      properties:
-        instructions:
-          description: List of instructions.
-          type: array
-          items:
-            $ref: '#/components/schemas/Instruction'
-        metadata:
-          $ref: '#/components/schemas/ListMetadata'
-      required:
-      - instructions
-      - metadata
-    InstructionRequestBase:
-      description: Base properties for creating an instruction, without the type discriminator
-        field.
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/InstructionName'
-        description:
-          description: A detailed description of what this instruction does.
-          type: string
-          example: Provides initial context and guidelines for customer support interactions
-        template_type:
-          $ref: '#/components/schemas/TemplateType'
-        template:
-          $ref: '#/components/schemas/InstructionTemplate'
-        metadata:
-          description: Arbitrary metadata associated with the instruction.
-          type: object
-          additionalProperties: true
-          default: {}
-          example:
-            version: 1.0.0
-            author: support-team
-        enabled:
-          description: Whether the instruction should be enabled upon creation.
-          type: boolean
-          default: true
-          example: true
-      required:
-      - name
-      - template
-    CreateInitialInstructionRequest:
-      description: Request object for creating a new initial instruction.
-      allOf:
-      - $ref: '#/components/schemas/InstructionRequestBase'
-      - type: object
-        properties:
-          type:
-            description: The type of instruction to create.
-            type: string
-            default: initial
-            example: initial
-        required:
-        - type
-      x-vectaraParents:
-      - CreateInstructionRequest
-    CreateInstructionRequest:
-      description: Request to create an instruction. Currently only initial instructions
-        are supported.
-      discriminator:
-        propertyName: type
-        mapping:
-          initial: '#/components/schemas/CreateInitialInstructionRequest'
-      oneOf:
-      - $ref: '#/components/schemas/CreateInitialInstructionRequest'
-    UpdateInitialInstructionRequest:
-      description: Request object for updating an existing initial instruction.
-      type: object
-      properties:
-        type:
-          description: The type of instruction to update.
-          type: string
-          default: initial
-          example: initial
-        name:
-          $ref: '#/components/schemas/InstructionName'
-        description:
-          description: A detailed description of what this instruction does.
-          type: string
-          example: Enhanced initial context and guidelines for customer support interactions
-        template:
-          $ref: '#/components/schemas/InstructionTemplate'
-        template_type:
-          $ref: '#/components/schemas/TemplateType'
-        metadata:
-          description: Arbitrary metadata associated with the instruction.
-          type: object
-          additionalProperties: true
-          example:
-            version: 1.1.0
-            author: support-team
-            last_reviewed: '2024-01-15'
-        enabled:
-          description: Whether the instruction is enabled.
-          type: boolean
-          example: true
-      required:
-      - type
-      x-vectaraParents:
-      - UpdateInstructionRequest
-    UpdateInstructionRequest:
-      description: Request to update an instruction. Currently only initial instructions
-        are supported.
-      discriminator:
-        propertyName: type
-        mapping:
-          initial: '#/components/schemas/UpdateInitialInstructionRequest'
-      oneOf:
-      - $ref: '#/components/schemas/UpdateInitialInstructionRequest'
-    TestInstructionRequest:
-      description: Request to test an instruction with provided context data.
-      type: object
-      properties:
-        context:
-          description: 'Context data to use when rendering the instruction template.
-            This will be merged into `$session.metadata` for template access.
-
-
-            Example: If you provide `{"currentDate": "2024-01-15"}`, you can access
-            it in the template as `$session.metadata.currentDate`.
-
-            '
-          type: object
-          additionalProperties: true
-          example:
-            currentDate: '2024-01-15'
-            companyName: Acme Corp
-        tools:
-          description: List of tools to include in the instruction context for testing.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tool'
-          default: []
-          example: []
-    TestInstructionResponse:
-      description: Response containing the rendered instruction.
-      type: object
-      properties:
-        rendered_instruction:
-          description: The instruction template rendered with the provided context.
-          type: string
-          example: 'You are a helpful customer support agent for Acme Corp. Today''s
-            date is 2024-01-15. You have access to the following tools: Web Search,
-            Email Sender'
-      required:
-      - rendered_instruction
-    AgentKey:
-      description: A unique key that identifies an agent.
-      type: string
-      pattern: '[0-9a-zA-Z_-]+$'
-      minLength: 1
-      maxLength: 50
-      example: customer_support
-    AgentName:
-      description: The human-readable name of an agent.
-      type: string
-      minLength: 1
-      maxLength: 50
-      example: Customer Support Agent
     ToolConfigurationKey:
       description: 'A unique key that identifies a reusable tool configuration within
         a customer account.
@@ -21965,22 +20873,42 @@ components:
           minimum: 1
           example: 60
       additionalProperties: false
+    AgentKey:
+      description: A unique key that identifies an agent.
+      type: string
+      pattern: '[0-9a-zA-Z_-]+$'
+      minLength: 1
+      maxLength: 50
+      example: customer_support
     SubAgentSessionMode:
       description: 'Controls session behavior for sub-agent invocations:
 
-        - llm_controlled: the agent decides whether to create a new session or resume
-        an existing one
+        - `ephemeral`: Creates a new session on every invocation. Never resumes.
 
-        - persistent: Always reuse the same session (created on first invocation)
+        - `persistent`: Reuses one session per (parent session, tool configuration)
+        pair, created on first invocation. Two `persistent` configurations on the
+        same agent keep separate sessions.
 
-        - ephemeral: Always create a new session on each invocation
+        - `session_scoped`: Resumes the session named by `session_key`, if provided;
+        otherwise creates a new one. Only the parent session that originally created
+        the named session may resume it. Scope is enforced by parent session and target
+        sub-agent, not by tool configuration.
+
+        - `agent_scoped`: Like `session_scoped`, but any session of the creating agent
+        may resume the named session. Scope is enforced by creating agent and target
+        sub-agent.
+
+        - `llm_controlled`: Deprecated alias for `session_scoped`. Use `session_scoped`
+        for new agents.
 
         '
       type: string
       enum:
-      - llm_controlled
-      - persistent
       - ephemeral
+      - persistent
+      - session_scoped
+      - agent_scoped
+      - llm_controlled
       default: ephemeral
       example: ephemeral
     SubAgentConfiguration:
@@ -22333,6 +21261,1282 @@ components:
           - stackoverflow.com
           exclude_domains:
           - spam.com
+    LambdaTool:
+      description: 'A user-defined function that can be executed as a tool by agents.
+
+        Lambda tools run in a secure, sandboxed environment with resource limits.
+
+        Currently supports Python 3.12 with a curated set of libraries.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `lambda`.
+            type: string
+            default: lambda
+            example: lambda
+          language:
+            description: The programming language of the lambda function. Currently
+              only Python 3.12 is supported.
+            type: string
+            enum:
+            - python
+            default: python
+            example: python
+          function_definition:
+            $ref: '#/components/schemas/FunctionDefinition'
+          tool_configurations:
+            description: 'Named tool configurations private to this lambda tool, each
+              callable from the tool''s code as `tool.<name>(...)`. They do not appear
+              on
+
+              the hosting agent''s tool surface, and their calls produce no session
+              events. `$ref`s in `argument_override` resolve against the hosting
+
+              agent and session at execution time.
+
+              '
+            type: object
+            propertyNames:
+              pattern: ^[A-Za-z][A-Za-z0-9_]*$
+            additionalProperties:
+              $ref: '#/components/schemas/AgentToolConfiguration'
+            maxProperties: 20
+            example:
+              fetch_status:
+                type: web_get
+                argument_override:
+                  url: https://status.example.com/api/health
+        required:
+        - type
+        - language
+        - function_definition
+      x-vectaraParents:
+      - Tool
+    SubAgentTool:
+      description: 'A tool that spawns a specialized sub-agent to handle complex,
+        multi-step tasks autonomously.
+
+        Sub-agents maintain separate context from the main agent and can be specialized
+        for specific types of tasks like code review, general research, or output
+        styling.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `sub_agent`.
+            type: string
+            default: sub_agent
+            example: sub_agent
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
+    ArtifactCreateTool:
+      description: A tool that creates artifacts from text or structured data content
+        that can be stored and referenced later.
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `artifact_create`.
+            type: string
+            default: artifact_create
+            example: artifact_create
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
+    ArtifactReadTool:
+      description: A tool that reads artifact content from the agent session workspace
+        with flexible size and range options.
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `artifact_read`.
+            type: string
+            default: artifact_read
+            example: artifact_read
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
+    ArtifactGrepTool:
+      description: A tool that searches through an artifact's content using grep with
+        support for all standard grep options.
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `artifact_grep`.
+            type: string
+            default: artifact_grep
+            example: artifact_grep
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
+    ImageReadTool:
+      description: A tool that loads image artifacts into the conversation context
+        for viewing and analysis.
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `image_read`.
+            type: string
+            default: image_read
+            example: image_read
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
+    DocumentConversionTool:
+      description: A tool that converts document artifacts (PDF, Word, PowerPoint,
+        etc.) to various formats.
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `document_conversion`.
+            type: string
+            default: document_conversion
+            example: document_conversion
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
+    GetDocumentTextTool:
+      description: A tool that fetches the full text content of a document from a
+        corpus and stores it as an artifact.
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `get_document_text`.
+            type: string
+            default: get_document_text
+            example: get_document_text
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
+    ClientTool:
+      description: 'A tool whose execution is performed by the calling client. When
+        invoked, the platform emits a `tool_input` event with the tool call arguments.
+        The client submits the result as a `tool_output` input via `createAgentInput`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/ToolBase'
+      - type: object
+        properties:
+          type:
+            description: This should always be `client`.
+            type: string
+            default: client
+            example: client
+        required:
+        - type
+      x-vectaraParents:
+      - Tool
+    Tool:
+      description: A tool that can be used by agents to perform specific actions or
+        operations.
+      x-vectara-base-schema: '#/ToolBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          dynamic_vectara: '#/components/schemas/DynamicVectaraTool'
+          mcp: '#/components/schemas/McpTool'
+          corpora_search: '#/components/schemas/CorporaSearchTool'
+          web_search: '#/components/schemas/WebSearchTool'
+          web_get: '#/components/schemas/WebGetTool'
+          lambda: '#/components/schemas/LambdaTool'
+          sub_agent: '#/components/schemas/SubAgentTool'
+          artifact_create: '#/components/schemas/ArtifactCreateTool'
+          artifact_read: '#/components/schemas/ArtifactReadTool'
+          artifact_grep: '#/components/schemas/ArtifactGrepTool'
+          image_read: '#/components/schemas/ImageReadTool'
+          document_conversion: '#/components/schemas/DocumentConversionTool'
+          get_document_text: '#/components/schemas/GetDocumentTextTool'
+          client: '#/components/schemas/ClientTool'
+      oneOf:
+      - $ref: '#/components/schemas/DynamicVectaraTool'
+      - $ref: '#/components/schemas/McpTool'
+      - $ref: '#/components/schemas/CorporaSearchTool'
+      - $ref: '#/components/schemas/WebSearchTool'
+      - $ref: '#/components/schemas/WebGetTool'
+      - $ref: '#/components/schemas/LambdaTool'
+      - $ref: '#/components/schemas/SubAgentTool'
+      - $ref: '#/components/schemas/ArtifactCreateTool'
+      - $ref: '#/components/schemas/ArtifactReadTool'
+      - $ref: '#/components/schemas/ArtifactGrepTool'
+      - $ref: '#/components/schemas/ImageReadTool'
+      - $ref: '#/components/schemas/DocumentConversionTool'
+      - $ref: '#/components/schemas/GetDocumentTextTool'
+      - $ref: '#/components/schemas/ClientTool'
+    ListToolsResponse:
+      description: Response containing a list of tools.
+      type: object
+      properties:
+        tools:
+          description: List of tools.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+      required:
+      - tools
+    CreateLambdaToolRequest:
+      description: 'Request to create a new lambda tool. Lambda tools are user-defined
+        functions that run in a secure, sandboxed environment with Python 3.12.
+
+
+        Input and output schemas are automatically discovered from function parameter
+        type annotations in your code.
+
+
+        When `tool_configurations` is set, each configured tool is callable from the
+        lambda tool''s code as a
+
+        function on the built-in `tool` module. `$ref` values in those configurations
+        resolve against the hosting agent
+
+        and session at execution time.
+
+        '
+      type: object
+      properties:
+        type:
+          description: This should always be `lambda`.
+          type: string
+          default: lambda
+          example: lambda
+        name:
+          description: The unique name of the tool (used as the function identifier).
+          type: string
+          minLength: 1
+          maxLength: 50
+          pattern: ^[a-zA-Z0-9_-]+$
+          example: calculate_customer_score
+        title:
+          description: Human-readable title of the tool displayed in the UI.
+          type: string
+          minLength: 1
+          maxLength: 128
+          example: Customer Score Calculator
+        description:
+          description: A detailed description of what the function does, when to use
+            it, and what it returns.
+          type: string
+          minLength: 1
+          maxLength: 5000
+          example: Calculate a customer score based on order history and revenue.
+            Returns a score between 0-100.
+        language:
+          description: The programming language. Currently only 'python' (Python 3.12)
+            is supported.
+          type: string
+          enum:
+          - python
+          default: python
+          example: python
+        code:
+          description: "The Python 3.12 code for the function.\n\n**Required**: Must\
+            \ define a `process()` entry point function. Use type annotations on parameters\
+            \ for automatic schema discovery.\n\n**Parameters**: Passed as keyword\
+            \ arguments matched to the function signature.\n\n**Return types**: Can\
+            \ return any JSON-serializable type (strings, numbers, booleans, lists,\
+            \ or objects).\n\n**Parameter Descriptions**: Use docstrings to provide\
+            \ descriptions for parameters (Google, NumPy, ReST, and Epydoc styles\
+            \ are supported). These descriptions are automatically extracted and included\
+            \ in the input schema, giving agents better context about how to use each\
+            \ parameter.\n\n**Example with Google-style docstring:**\n```python\n\
+            def process(order_count: int, total_revenue: float, days_active: int =\
+            \ 1) -> dict:\n    \"\"\"Calculate customer engagement score.\n\n    Args:\n\
+            \        order_count: The number of orders placed by the customer.\n \
+            \       total_revenue: Total revenue in USD from the customer.\n     \
+            \   days_active: Number of days the customer was active (default: 1).\n\
+            \n    Returns:\n        A dict with the calculated score.\n    \"\"\"\n\
+            \    score = (order_count * 10 + total_revenue * 0.1) / days_active\n\
+            \    return {'score': round(score, 2)}\n```\n\nThis produces an input\
+            \ schema with descriptions:\n```json\n{\n  \"type\": \"object\",\n  \"\
+            properties\": {\n    \"order_count\": {\n      \"type\": \"integer\",\n\
+            \      \"description\": \"The number of orders placed by the customer.\"\
+            \n    },\n    \"total_revenue\": {\n      \"type\": \"number\",\n    \
+            \  \"description\": \"Total revenue in USD from the customer.\"\n    },\n\
+            \    \"days_active\": {\n      \"type\": \"integer\",\n      \"description\"\
+            : \"Number of days the customer was active (default: 1).\"\n    }\n  },\n\
+            \  \"required\": [\"order_count\", \"total_revenue\"]\n}\n```\n\n**Example:\
+            \ Returning a number**\n```python\ndef process(x: int, y: int) -> int:\n\
+            \    return x + y\n```\n\n**Example: Returning a string**\n```python\n\
+            def process(name: str) -> str:\n    return f\"Hello, {name}!\"\n```\n\n\
+            **Example: Returning a boolean**\n```python\ndef process(value: int, threshold:\
+            \ int) -> bool:\n    return value > threshold\n```\n\n**Example: Returning\
+            \ a list**\n```python\nfrom typing import List\n\ndef process(items: List[str])\
+            \ -> List[str]:\n    return sorted(items)\n```\n\n**Example: Returning\
+            \ an object (dict)**\n```python\ndef process(order_count: int, total_revenue:\
+            \ float, days_active: int = 1) -> dict:\n    score = (order_count * 10\
+            \ + total_revenue * 0.1) / days_active\n    return {'score': round(score,\
+            \ 2), 'rating': 'high' if score > 100 else 'low'}\n```\n\nFor complex\
+            \ types, use the `typing` module:\n\n```python\nfrom typing import List\n\
+            \ndef process(items: List[str], count: int) -> dict:\n    return {'total':\
+            \ len(items) * count}\n```\n\n**Object parameters must use TypedDict**:\
+            \ Bare `dict` and `Dict[K, V]` parameters are not supported and will be\
+            \ rejected during validation. All object-typed parameters must use `TypedDict`\
+            \ to define explicit fields. This ensures the agent receives a clear schema\
+            \ for each parameter.\n\n```python\nfrom typing import TypedDict, Optional\n\
+            \nclass Adjustment(TypedDict, total=False):\n    monthly_premium: float\n\
+            \    target_income_age: int\n    illustrated_rate: float\n\ndef process(client_id:\
+            \ str, adjustment: Adjustment) -> dict:\n    return {\"client_id\": client_id,\
+            \ \"adjustment\": adjustment}\n```\n\nTypedDict supports inheritance,\
+            \ `Optional` fields, nested TypedDicts, and `total=False` to make all\
+            \ fields optional.\n\n**Constraining parameters to specific values with\
+            \ Literal**: Use `Literal` to restrict a parameter to a fixed set of allowed\
+            \ values. This generates an `enum` constraint in the JSON schema, helping\
+            \ the agent choose valid options.\n\n```python\nfrom typing import Literal\n\
+            \ndef process(status: Literal[\"active\", \"inactive\", \"pending\"],\
+            \ priority: Literal[1, 2, 3]) -> dict:\n    return {\"status\": status,\
+            \ \"priority\": priority}\n```\n\nWhen `tool_configurations` is set, the\
+            \ code can call those tools through the built-in `tool` module; see the\
+            \ `tool_configurations` field.\n"
+          type: string
+          minLength: 1
+          maxLength: 100000
+          example: "def process(order_count: int, total_revenue: float, days_active:\
+            \ int = 1) -> dict:\n    score = (order_count * 10 + total_revenue * 0.1)\
+            \ / days_active\n    return {'score': round(score, 2)}\n"
+        execution_configuration:
+          $ref: '#/components/schemas/ExecutionConfiguration'
+        tool_configurations:
+          description: "Named configurations of other tools this lambda may invoke\
+            \ from its Python code through the built-in `tool` module. Each entry\
+            \ is exposed as\n`tool.<name>(param=value)`; `tool.list()` returns their\
+            \ names and schemas, and failures raise `tool.ToolError`.\n\n`$ref` values\
+            \ inside `argument_override` resolve against the hosting agent and session\
+            \ at execution time \u2014 `agent.metadata.*`, `agent.secrets.*`, and\n\
+            `session.metadata.*` only. These configurations are private to the tool:\
+            \ they never appear on the hosting agent's callable tools, and their calls\
+            \ produce\nno session events.\n\nA configured tool may itself be a lambda\
+            \ with its own `tool_configurations`, nested up to three levels deep.\n\
+            \nEach configuration name is how the code calls it (`tool.<name>`), so\
+            \ it must be a valid identifier: a letter followed by letters, digits,\
+            \ or\nunderscores.\n\nSee `POST /v2/tools/test` for exercising these calls\
+            \ without persisting the tool.\n"
+          type: object
+          maxProperties: 20
+          propertyNames:
+            pattern: ^[A-Za-z][A-Za-z0-9_]*$
+          additionalProperties:
+            $ref: '#/components/schemas/AgentToolConfiguration'
+          example:
+            fetch_status:
+              type: web_get
+              argument_override:
+                url: https://status.example.com/api/health
+      required:
+      - type
+      - name
+      - description
+      - code
+      x-vectaraParents:
+      - CreateToolRequest
+    CreateClientToolRequest:
+      description: 'Request to create a new client tool. When invoked, the platform
+        emits a `tool_input` event; the client performs the work and submits a `tool_output`
+        input via `createAgentInput`.
+
+        '
+      type: object
+      properties:
+        type:
+          description: This should always be `client`.
+          type: string
+          default: client
+          example: client
+        name:
+          description: The unique name of the tool.
+          type: string
+          minLength: 1
+          maxLength: 50
+          pattern: ^[a-zA-Z0-9_-]+$
+          example: collect_signature
+        title:
+          description: Human-readable title of the tool displayed in the UI.
+          type: string
+          minLength: 1
+          maxLength: 128
+          example: Collect Customer Signature
+        description:
+          description: A detailed description of what the tool does, when the agent
+            should invoke it, and what the expected output represents.
+          type: string
+          minLength: 1
+          maxLength: 5000
+          example: Prompts the user to e-sign a document. Returns the signed document
+            URL once the user completes signing.
+        input_schema:
+          description: 'JSON Schema describing the arguments the LLM should produce
+            when invoking this tool. These arguments are forwarded verbatim to the
+            client in the `tool_input` event.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+          example:
+            type: object
+            properties:
+              document_url:
+                type: string
+                description: URL of the document to be signed.
+            required:
+            - document_url
+        output_schema:
+          description: 'Optional JSON Schema describing the structure the client must
+            submit as the tool output. When set, submitted outputs are validated against
+            this schema before being returned to the agent.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+          example:
+            type: object
+            properties:
+              signed_document_url:
+                type: string
+            required:
+            - signed_document_url
+      required:
+      - type
+      - name
+      - description
+      x-vectaraParents:
+      - CreateToolRequest
+    CreateToolRequest:
+      description: Request to create a tool. Supports lambda tools for user-defined
+        functions and client tools whose execution is performed by the calling client.
+      discriminator:
+        propertyName: type
+        mapping:
+          lambda: '#/components/schemas/CreateLambdaToolRequest'
+          client: '#/components/schemas/CreateClientToolRequest'
+      oneOf:
+      - $ref: '#/components/schemas/CreateLambdaToolRequest'
+      - $ref: '#/components/schemas/CreateClientToolRequest'
+    TestLambdaToolContextAgent:
+      description: Values that substitute for the hosting agent during a lambda test
+        run.
+      type: object
+      properties:
+        metadata:
+          description: Stand-in for the hosting agent's metadata. Each entry resolves
+            a `$ref` of the form `agent.metadata.<key>` in the tool configurations
+            under test; values may be any JSON.
+          type: object
+          additionalProperties: true
+        secrets:
+          description: Stand-in for the hosting agent's secrets. Each entry resolves
+            a `$ref` of the form `agent.secrets.<key>`; values must be strings.
+          type: object
+          additionalProperties:
+            type: string
+    TestLambdaToolContextSession:
+      description: Values that substitute for the hosting session during a lambda
+        test run.
+      type: object
+      properties:
+        metadata:
+          description: Stand-in for the hosting session's metadata. Each entry resolves
+            a `$ref` of the form `session.metadata.<key>` in the tool configurations
+            under test; values may be any JSON.
+          type: object
+          additionalProperties: true
+    TestLambdaToolContext:
+      description: Stand-in values for the hosting agent and session, used to resolve
+        `agent.*` and `session.*` `$ref`s inside the tool configurations under test.
+        Accepted by both `POST /v2/tools/test` and `POST /v2/tools/{tool_id}/test`.
+      type: object
+      properties:
+        agent:
+          description: Values that resolve `agent.*` references in `tool_configurations`
+            for this test run.
+          $ref: '#/components/schemas/TestLambdaToolContextAgent'
+        session:
+          description: Values that resolve `session.*` references in `tool_configurations`
+            for this test run.
+          $ref: '#/components/schemas/TestLambdaToolContextSession'
+      example:
+        agent:
+          metadata:
+            ticket_api_base: https://tickets.example.com/api/v1/
+          secrets:
+            ticket_api_token: test-token
+        session:
+          metadata:
+            tenant_corpus: kb
+    TestLambdaToolRequest:
+      description: 'Request to test a Lambda tool before creating it. This allows
+        users to validate their code, schemas, and execution before committing to
+        tool creation.
+
+
+        Use this endpoint to:
+
+        - Validate Python code syntax and security constraints
+
+        - Discover input/output schemas from type annotations
+
+        - Test execution with sample input
+
+        - Verify schema compatibility
+
+        '
+      type: object
+      properties:
+        language:
+          description: The programming language. Currently only 'python' (Python 3.12)
+            is supported.
+          type: string
+          enum:
+          - python
+          default: python
+          example: python
+        code:
+          description: 'The Python 3.12 code for the function. Must define a `process()`
+            entry point.
+
+            Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters
+            are rejected.
+
+            See the `code` field on `CreateLambdaToolRequest` for full details and
+            examples.
+
+            '
+          type: string
+          minLength: 1
+          maxLength: 100000
+          example: "def process(order_count: int, total_revenue: float) -> dict:\n\
+            \    score = order_count * 10 + total_revenue * 0.1\n    return {'score':\
+            \ round(score, 2)}\n"
+        execution_configuration:
+          $ref: '#/components/schemas/ExecutionConfiguration'
+        test_input:
+          description: The input parameters to test the function with. Will be validated
+            against the discovered input schema.
+          type: object
+          additionalProperties: true
+          example:
+            order_count: 10
+            total_revenue: 500
+        timeout_seconds:
+          description: Maximum execution time in seconds for this test. Overrides
+            execution_configuration if specified.
+          type: integer
+          minimum: 1
+          maximum: 300
+          example: 10
+        tool_configurations:
+          description: 'Named configurations of other tools the code under test may
+            invoke through its built-in `tool` module.
+
+            See the `tool_configurations` field on `CreateLambdaToolRequest` for semantics
+            and constraints.
+
+            '
+          type: object
+          maxProperties: 20
+          propertyNames:
+            pattern: ^[A-Za-z][A-Za-z0-9_]*$
+          additionalProperties:
+            $ref: '#/components/schemas/AgentToolConfiguration'
+        test_context:
+          description: 'Substitutes for the hosting agent and session for the duration
+            of the test. See `test_context` on
+
+            `TestToolRequest` for how `$ref` values resolve.
+
+            '
+          $ref: '#/components/schemas/TestLambdaToolContext'
+      required:
+      - code
+      - test_input
+    TestLambdaToolResponse:
+      description: 'Response from testing a Lambda tool before creation. Contains
+        comprehensive validation, schema discovery, and execution results to help
+        users create tools successfully.
+
+        '
+      type: object
+      properties:
+        validation:
+          description: Results of code validation (static and sandbox).
+          type: object
+          properties:
+            status:
+              description: Overall validation status.
+              type: string
+              enum:
+              - valid
+              - invalid
+              - pending
+              example: valid
+            errors:
+              description: List of validation errors if the code is invalid.
+              type: array
+              items:
+                type: string
+              example:
+              - 'Line 5: Use of forbidden module ''os'''
+          required:
+          - status
+        input_schema:
+          description: The discovered input schema from type annotations. May be null
+            if validation failed or no type hints provided.
+          type: object
+          additionalProperties: true
+          example:
+            type: object
+            properties:
+              order_count:
+                type: integer
+              total_revenue:
+                type: number
+            required:
+            - order_count
+            - total_revenue
+        output_schema:
+          description: The discovered output schema from type annotations. May be
+            null if validation failed or no type hints provided.
+          type: object
+          additionalProperties: true
+          example:
+            type: object
+            properties:
+              score:
+                type: number
+        execution:
+          description: Results of executing the function with test input. Only present
+            if validation passed.
+          type: object
+          properties:
+            success:
+              description: Whether the execution was successful.
+              type: boolean
+              example: true
+            output:
+              description: The output returned by the function.
+              type: object
+              additionalProperties: true
+              example:
+                score: 105
+            error:
+              description: Error information if execution failed.
+              type: object
+              properties:
+                message:
+                  description: The error message.
+                  type: string
+                traceback:
+                  description: Stack trace for debugging.
+                  type: string
+            latency_millis:
+              description: Time taken to execute the function in milliseconds.
+              type: integer
+              example: 125
+            memory_used_mb:
+              description: Memory used during execution in megabytes.
+              type: integer
+              example: 32
+            validation_results:
+              description: Results of input/output schema validation.
+              type: object
+              properties:
+                input_valid:
+                  description: Whether the test input matched the discovered schema.
+                  type: boolean
+                  example: true
+                output_valid:
+                  description: Whether the output matched the discovered schema.
+                  type: boolean
+                  example: true
+                validation_errors:
+                  description: Details of any schema validation errors.
+                  type: array
+                  items:
+                    type: string
+                  example: []
+          required:
+          - success
+      required:
+      - validation
+    UpdateMcpToolRequest:
+      description: Request object for updating an existing MCP tool.
+      type: object
+      properties:
+        type:
+          description: This should always be `mcp`.
+          type: string
+          default: mcp
+          example: mcp
+        enabled:
+          description: Whether the tool is enabled.
+          type: boolean
+      required:
+      - type
+      x-vectaraParents:
+      - UpdateToolRequest
+    UpdateLambdaToolRequest:
+      description: 'Request to update a lambda tool, allowing modifications to code,
+        configuration, and metadata.
+
+
+        When code is updated, input and output schemas are automatically re-discovered
+        from function parameter type annotations.
+
+        '
+      type: object
+      properties:
+        type:
+          description: This should always be `lambda`.
+          type: string
+          default: lambda
+          example: lambda
+        enabled:
+          description: Whether the tool should be enabled or disabled.
+          type: boolean
+          example: true
+        title:
+          description: Updated user-friendly display name for the tool.
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: Updated Calculator Tool
+        description:
+          description: Updated description of what the tool does.
+          type: string
+          example: An updated tool that performs advanced calculations
+        code:
+          description: 'Updated code for the lambda function. Use function parameter
+            type annotations for automatic schema discovery.
+
+            Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters
+            are rejected.
+
+            See the `code` field on `CreateLambdaToolRequest` for full details and
+            examples.
+
+            '
+          type: string
+          minLength: 1
+          example: "def process(value: float) -> dict:\n    return {\"result\": value\
+            \ * 2}\n"
+        execution_configuration:
+          description: Updated execution configuration.
+          $ref: '#/components/schemas/ExecutionConfiguration'
+        tool_configurations:
+          description: 'Replaces the tool''s `tool_configurations` map. Omit to leave
+            the existing configurations unchanged; set to `null` to clear them.
+
+            See the `tool_configurations` field on `CreateLambdaToolRequest` for semantics
+            and constraints.
+
+            '
+          type: object
+          nullable: true
+          maxProperties: 20
+          propertyNames:
+            pattern: ^[A-Za-z][A-Za-z0-9_]*$
+          additionalProperties:
+            $ref: '#/components/schemas/AgentToolConfiguration'
+          example:
+            fetch_status:
+              type: web_get
+              argument_override:
+                url: https://status.example.com/api/health
+      required:
+      - type
+      x-vectaraParents:
+      - UpdateToolRequest
+    UpdateClientToolRequest:
+      description: Request to update an existing client tool.
+      type: object
+      properties:
+        type:
+          description: This should always be `client`.
+          type: string
+          default: client
+          example: client
+        enabled:
+          description: Whether the tool should be enabled or disabled.
+          type: boolean
+          example: true
+        title:
+          description: Updated human-readable title of the tool.
+          type: string
+          minLength: 1
+          maxLength: 128
+          example: Collect Customer Signature
+        description:
+          description: Updated description of what the tool does.
+          type: string
+          minLength: 1
+          maxLength: 5000
+        input_schema:
+          description: Updated JSON Schema for the arguments the LLM produces when
+            invoking this tool.
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+        output_schema:
+          description: 'Updated JSON Schema for the structure the client must submit
+            as the tool output. Pass an empty object to clear the schema and accept
+            any output.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/JsonSchemaDefinition'
+      required:
+      - type
+      x-vectaraParents:
+      - UpdateToolRequest
+    UpdateToolRequest:
+      description: Request to update a tool. Supports updating MCP, Python lambda,
+        and client tools.
+      discriminator:
+        propertyName: type
+        mapping:
+          mcp: '#/components/schemas/UpdateMcpToolRequest'
+          lambda: '#/components/schemas/UpdateLambdaToolRequest'
+          client: '#/components/schemas/UpdateClientToolRequest'
+      oneOf:
+      - $ref: '#/components/schemas/UpdateMcpToolRequest'
+      - $ref: '#/components/schemas/UpdateLambdaToolRequest'
+      - $ref: '#/components/schemas/UpdateClientToolRequest'
+    TestToolRequest:
+      description: Request to test a Lambda tool with sample input.
+      type: object
+      properties:
+        input:
+          description: The input parameters to pass to the function. Must match the
+            tool's input schema.
+          type: object
+          additionalProperties: true
+          example:
+            number: 42
+            text: Hello, world!
+        timeout_seconds:
+          description: Maximum execution time in seconds. If not specified, uses the
+            tool's configured timeout.
+          type: integer
+          minimum: 1
+          maximum: 300
+          example: 10
+        test_context:
+          description: 'Substitutes for the hosting agent and session for the duration
+            of the test. `$ref` values in the tool''s
+
+            stored `tool_configurations` resolve against these values exactly as they
+            would against a live agent and
+
+            session.
+
+            '
+          $ref: '#/components/schemas/TestLambdaToolContext'
+      required:
+      - input
+    TestToolSuccessResponse:
+      description: Successful execution response from testing a Lambda tool.
+      type: object
+      properties:
+        type:
+          description: Response type indicator. Always "success" for successful executions.
+          type: string
+          default: success
+          example: success
+        output:
+          description: The output returned by the function.
+          type: object
+          additionalProperties: true
+          example:
+            result: 1764
+            message: Computed successfully
+        latency_millis:
+          description: Time taken to execute the function in milliseconds.
+          type: integer
+          example: 125
+        memory_used_mb:
+          description: Memory used during execution in megabytes.
+          type: integer
+          example: 32
+        validation_results:
+          description: Results of input/output schema validation.
+          type: object
+          properties:
+            input_valid:
+              description: Whether the input matched the expected schema.
+              type: boolean
+              example: true
+            output_valid:
+              description: Whether the output matched the expected schema.
+              type: boolean
+              example: true
+            validation_errors:
+              description: Details of any validation errors.
+              type: array
+              items:
+                type: string
+              example:
+              - Output missing required field 'result'
+      required:
+      - type
+      - output
+      - latency_millis
+      x-vectaraParents:
+      - TestToolResponse
+    TestToolErrorResponse:
+      description: Error response from testing a Lambda tool.
+      type: object
+      properties:
+        type:
+          description: Response type indicator. Always "error" for failed executions.
+          type: string
+          default: error
+          example: error
+        error:
+          description: Error information from the failed execution.
+          type: object
+          properties:
+            message:
+              description: The error message.
+              type: string
+              example: 'ValueError: Input must be positive'
+            traceback:
+              description: Stack trace for debugging.
+              type: string
+              example: "Traceback (most recent call last):\n  File \"<string>\", line\
+                \ 3, in process\nValueError: Input must be positive"
+          required:
+          - message
+        latency_millis:
+          description: Time taken before the error occurred in milliseconds.
+          type: integer
+          example: 125
+        memory_used_mb:
+          description: Memory used before the error occurred in megabytes.
+          type: integer
+          example: 32
+      required:
+      - type
+      - error
+      - latency_millis
+      x-vectaraParents:
+      - TestToolResponse
+    TestToolResponse:
+      description: Response from testing a Lambda tool. Uses type field to discriminate
+        between success and error responses.
+      discriminator:
+        propertyName: type
+        mapping:
+          success: '#/components/schemas/TestToolSuccessResponse'
+          error: '#/components/schemas/TestToolErrorResponse'
+      oneOf:
+      - $ref: '#/components/schemas/TestToolSuccessResponse'
+      - $ref: '#/components/schemas/TestToolErrorResponse'
+    InstructionId:
+      description: The unique identifier for an instruction.
+      type: string
+      pattern: ins_[0-9a-zA-Z_-]+$
+      example: ins_customer_support_init
+    InstructionName:
+      description: The human-readable name of an instruction.
+      type: string
+      minLength: 1
+      maxLength: 50
+      example: Customer Support Initial Instruction
+    TemplateType:
+      description: 'The templating engine used to render the instruction''s template.
+
+
+        - `velocity`: render the template with the Velocity engine, substituting agent,
+        session, and tool variables.
+
+        - `text`: use the template verbatim as plain text, with no variable substitution.
+
+        '
+      type: string
+      enum:
+      - velocity
+      - text
+      default: velocity
+      example: velocity
+    InstructionTemplate:
+      description: 'The instruction template content. How it is rendered depends on
+        the sibling `template_type`.
+
+
+        When `template_type` is `text`, the content is used verbatim as the instruction
+        and no variables are substituted.
+
+
+        When `template_type` is `velocity`, the content is rendered with the Velocity
+        engine and the following variables are available:
+
+        - `$agent.name` - Agent name
+
+        - `$agent.key` - Agent key
+
+        - `$agent.metadata` - Agent metadata map
+
+        - `$session.key` - Session key
+
+        - `$session.metadata` - Session metadata map (includes user-provided context
+        from test/runtime)
+
+        - `$currentDate` - Current date/time in ISO 8601 format (e.g., "2025-10-24T15:30:45Z")
+
+        - `$tools` - List of tool maps, each with `name` and `description` fields
+
+
+        Example: `You are a helpful customer support agent. Agent: $agent.name. Today
+        is $currentDate. Available tools: #foreach($tool in $tools)${tool.name}#if($foreach.hasNext),
+        #end#end`
+
+        '
+      type: string
+      example: 'You are an expert customer support agent for $agent.name. Available
+        tools: #foreach($tool in $tools)${tool.name}#if($foreach.hasNext), #end#end'
+    InitialInstruction:
+      description: An initial instruction that provides guidance to the agent before
+        user messages.
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/InstructionId'
+        type:
+          description: The type of instruction.
+          type: string
+          default: initial
+          example: initial
+        name:
+          $ref: '#/components/schemas/InstructionName'
+        description:
+          description: A detailed description of what this instruction does.
+          type: string
+        template_type:
+          $ref: '#/components/schemas/TemplateType'
+        template:
+          $ref: '#/components/schemas/InstructionTemplate'
+        version:
+          description: The version identifier for this instruction. This is automatically
+            incremented when the instruction is updated.
+          type: integer
+          minimum: 1
+          example: 1
+        metadata:
+          description: Arbitrary metadata associated with the instruction.
+          type: object
+          additionalProperties: true
+        enabled:
+          description: Whether the instruction is currently enabled and available
+            for use.
+          type: boolean
+          default: true
+        created_at:
+          description: Timestamp when the instruction was created.
+          type: string
+          format: date-time
+        updated_at:
+          description: Timestamp when the instruction was last updated.
+          type: string
+          format: date-time
+      required:
+      - id
+      - type
+      - name
+      - template_type
+      - template
+      - version
+      - enabled
+      x-vectaraParents:
+      - Instruction
+    Instruction:
+      description: An instruction that guides agent behavior.
+      discriminator:
+        propertyName: type
+        mapping:
+          initial: '#/components/schemas/InitialInstruction'
+      oneOf:
+      - $ref: '#/components/schemas/InitialInstruction'
+    ListInstructionsResponse:
+      description: Response containing a list of instructions.
+      type: object
+      properties:
+        instructions:
+          description: List of instructions.
+          type: array
+          items:
+            $ref: '#/components/schemas/Instruction'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+      required:
+      - instructions
+      - metadata
+    InstructionRequestBase:
+      description: Base properties for creating an instruction, without the type discriminator
+        field.
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/InstructionName'
+        description:
+          description: A detailed description of what this instruction does.
+          type: string
+          example: Provides initial context and guidelines for customer support interactions
+        template_type:
+          $ref: '#/components/schemas/TemplateType'
+        template:
+          $ref: '#/components/schemas/InstructionTemplate'
+        metadata:
+          description: Arbitrary metadata associated with the instruction.
+          type: object
+          additionalProperties: true
+          default: {}
+          example:
+            version: 1.0.0
+            author: support-team
+        enabled:
+          description: Whether the instruction should be enabled upon creation.
+          type: boolean
+          default: true
+          example: true
+      required:
+      - name
+      - template
+    CreateInitialInstructionRequest:
+      description: Request object for creating a new initial instruction.
+      allOf:
+      - $ref: '#/components/schemas/InstructionRequestBase'
+      - type: object
+        properties:
+          type:
+            description: The type of instruction to create.
+            type: string
+            default: initial
+            example: initial
+        required:
+        - type
+      x-vectaraParents:
+      - CreateInstructionRequest
+    CreateInstructionRequest:
+      description: Request to create an instruction. Currently only initial instructions
+        are supported.
+      discriminator:
+        propertyName: type
+        mapping:
+          initial: '#/components/schemas/CreateInitialInstructionRequest'
+      oneOf:
+      - $ref: '#/components/schemas/CreateInitialInstructionRequest'
+    UpdateInitialInstructionRequest:
+      description: Request object for updating an existing initial instruction.
+      type: object
+      properties:
+        type:
+          description: The type of instruction to update.
+          type: string
+          default: initial
+          example: initial
+        name:
+          $ref: '#/components/schemas/InstructionName'
+        description:
+          description: A detailed description of what this instruction does.
+          type: string
+          example: Enhanced initial context and guidelines for customer support interactions
+        template:
+          $ref: '#/components/schemas/InstructionTemplate'
+        template_type:
+          $ref: '#/components/schemas/TemplateType'
+        metadata:
+          description: Arbitrary metadata associated with the instruction.
+          type: object
+          additionalProperties: true
+          example:
+            version: 1.1.0
+            author: support-team
+            last_reviewed: '2024-01-15'
+        enabled:
+          description: Whether the instruction is enabled.
+          type: boolean
+          example: true
+      required:
+      - type
+      x-vectaraParents:
+      - UpdateInstructionRequest
+    UpdateInstructionRequest:
+      description: Request to update an instruction. Currently only initial instructions
+        are supported.
+      discriminator:
+        propertyName: type
+        mapping:
+          initial: '#/components/schemas/UpdateInitialInstructionRequest'
+      oneOf:
+      - $ref: '#/components/schemas/UpdateInitialInstructionRequest'
+    TestInstructionRequest:
+      description: Request to test an instruction with provided context data.
+      type: object
+      properties:
+        context:
+          description: 'Context data to use when rendering the instruction template.
+            This will be merged into `$session.metadata` for template access.
+
+
+            Example: If you provide `{"currentDate": "2024-01-15"}`, you can access
+            it in the template as `$session.metadata.currentDate`.
+
+            '
+          type: object
+          additionalProperties: true
+          example:
+            currentDate: '2024-01-15'
+            companyName: Acme Corp
+        tools:
+          description: List of tools to include in the instruction context for testing.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+          default: []
+          example: []
+    TestInstructionResponse:
+      description: Response containing the rendered instruction.
+      type: object
+      properties:
+        rendered_instruction:
+          description: The instruction template rendered with the provided context.
+          type: string
+          example: 'You are a helpful customer support agent for Acme Corp. Today''s
+            date is 2024-01-15. You have access to the following tools: Web Search,
+            Email Sender'
+      required:
+      - rendered_instruction
+    AgentName:
+      description: The human-readable name of an agent.
+      type: string
+      minLength: 1
+      maxLength: 50
+      example: Customer Support Agent
     AgentSkill:
       title: AgentSkill
       description: 'A skill that provides progressively disclosed instructions to
@@ -22357,6 +22561,20 @@ components:
           type: string
           maxLength: 500
           example: Reviews code for best practices, bugs, and security issues.
+        when_to_use:
+          description: 'Trigger conditions describing when the agent should invoke
+            this skill, such as concrete user situations or
+
+            phrases that should cause the skill to load. Used alongside the description
+            when the agent decides which
+
+            skill to invoke.
+
+            '
+          type: string
+          maxLength: 500
+          example: Use when the user asks to review, audit, or check code, or mentions
+            "bugs", "security", or "best practices".
         content:
           description: 'The full instruction content for this skill.
 
@@ -22587,8 +22805,9 @@ components:
       - $ref: '#/components/schemas/StructuredOutputParser'
     TemplatedReminder:
       title: TemplatedReminder
-      description: A templated reminder with a Velocity template that is compiled
-        at session start and injected into messages matching the specified hooks.
+      description: A reminder whose template is rendered at session start according
+        to its template_type (Velocity by default, or text for verbatim content) and
+        injected into messages matching the specified hooks.
       type: object
       properties:
         type:
@@ -23766,6 +23985,22 @@ components:
           - stopped
           readOnly: true
           example: stopped
+        created_by_agent_key:
+          allOf:
+          - $ref: '#/components/schemas/AgentKey'
+          description: 'Key of the agent that created this session via the sub-agent
+            tool. Null if the session was not created by a sub-agent invocation. Read-only.
+
+            '
+          readOnly: true
+        created_by_session_key:
+          allOf:
+          - $ref: '#/components/schemas/AgentSessionKey'
+          description: 'Key of the parent session that created this session via the
+            sub-agent tool. Only set together with `created_by_agent_key`. Read-only.
+
+            '
+          readOnly: true
         tti_minutes:
           description: Time-to-idle in minutes for the session. If no events occur
             in the session for this duration, the session will be automatically deleted.
@@ -27194,7 +27429,7 @@ components:
       - $ref: '#/components/schemas/BaseBoxSourceConfiguration'
       - required:
         - auth
-    BaseWolkenSourceConfiguration:
+    BaseWolkenKbSourceConfiguration:
       description: 'Base Wolken ServiceDesk knowledge-base source configuration. Ingests
         knowledge-base articles
 
@@ -27217,8 +27452,8 @@ components:
       properties:
         type:
           type: string
-          default: wolken
-          example: wolken
+          default: wolken_kb
+          example: wolken_kb
         api_endpoint:
           description: Base URL of the Wolken API.
           type: string
@@ -27306,13 +27541,13 @@ components:
           writeOnly: true
       required:
       - type
-    WolkenSourceConfiguration:
+    WolkenKbSourceConfiguration:
       description: Configuration for ingesting knowledge-base articles from a Wolken
         ServiceDesk instance.
       x-vectaraParents:
       - PipelineSource
       allOf:
-      - $ref: '#/components/schemas/BaseWolkenSourceConfiguration'
+      - $ref: '#/components/schemas/BaseWolkenKbSourceConfiguration'
       - required:
         - api_endpoint
         - domain
@@ -27320,6 +27555,72 @@ components:
         - service_account
         - auth_code
         - refresh_token
+    BaseConfluenceSourceConfiguration:
+      description: 'Base Confluence source configuration. Ingests pages from the configured
+        spaces
+
+        and inherits each page''s read restrictions and space permissions as document
+        ACL. Works against
+
+        both Confluence Cloud and Data Center.
+
+        '
+      type: object
+      properties:
+        type:
+          type: string
+          default: confluence
+          example: confluence
+        base_url:
+          description: 'Base URL of your Confluence instance, e.g. `https://your-domain.atlassian.net`
+            for Cloud or
+
+            `https://confluence.example.com` for Data Center. The Cloud `/wiki` context
+            path is added
+
+            automatically, so it does not need to be included.
+
+            '
+          type: string
+          pattern: ^https?://.+
+          example: https://your-domain.atlassian.net
+        deployment:
+          description: 'Confluence deployment type. `cloud` for Atlassian-hosted Confluence
+            Cloud. `data_center`
+
+            for a self-hosted Confluence Data Center or legacy Server instance.
+
+            '
+          type: string
+          enum:
+          - cloud
+          - data_center
+          default: cloud
+        space_keys:
+          description: Space keys to ingest. When omitted, every global space the
+            authenticated account can read is ingested.
+          type: array
+          maxItems: 1000
+          items:
+            type: string
+            maxLength: 255
+          example:
+          - ENG
+          - SUPPORT
+        auth:
+          description: Authentication for the Confluence instance. Omit only if the
+            instance allows anonymous read access.
+          $ref: '#/components/schemas/RemoteAuth'
+      required:
+      - type
+    ConfluenceSourceConfiguration:
+      description: Configuration for ingesting pages from a Confluence instance.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseConfluenceSourceConfiguration'
+      - required:
+        - base_url
     BaseWebSource:
       description: 'Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl).
         Politeness, limits, auth.
@@ -27606,14 +27907,16 @@ components:
           s3: '#/components/schemas/S3SourceConfiguration'
           google_drive: '#/components/schemas/GoogleDriveSourceConfiguration'
           box: '#/components/schemas/BoxSourceConfiguration'
-          wolken: '#/components/schemas/WolkenSourceConfiguration'
+          wolken_kb: '#/components/schemas/WolkenKbSourceConfiguration'
+          confluence: '#/components/schemas/ConfluenceSourceConfiguration'
           web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/SharepointSourceConfiguration'
       - $ref: '#/components/schemas/S3SourceConfiguration'
       - $ref: '#/components/schemas/GoogleDriveSourceConfiguration'
       - $ref: '#/components/schemas/BoxSourceConfiguration'
-      - $ref: '#/components/schemas/WolkenSourceConfiguration'
+      - $ref: '#/components/schemas/WolkenKbSourceConfiguration'
+      - $ref: '#/components/schemas/ConfluenceSourceConfiguration'
       - $ref: '#/components/schemas/WebSourceConfiguration'
     CronTriggerConfiguration:
       description: Run the pipeline on a cron schedule.
@@ -27972,13 +28275,20 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseBoxSourceConfiguration'
-    UpdateWolkenSourceConfiguration:
+    UpdateWolkenKbSourceConfiguration:
       description: Partial update for Wolken source configuration. Only provided fields
         are merged.
       x-vectaraParents:
       - UpdatePipelineSource
       allOf:
-      - $ref: '#/components/schemas/BaseWolkenSourceConfiguration'
+      - $ref: '#/components/schemas/BaseWolkenKbSourceConfiguration'
+    UpdateConfluenceSourceConfiguration:
+      description: Partial update for Confluence source configuration. Only provided
+        fields are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseConfluenceSourceConfiguration'
     UpdateWebSourceConfiguration:
       description: 'Partial update for a `web` source configuration. Top-level fields
         are merged into the existing
@@ -28014,14 +28324,16 @@ components:
           s3: '#/components/schemas/UpdateS3SourceConfiguration'
           google_drive: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
           box: '#/components/schemas/UpdateBoxSourceConfiguration'
-          wolken: '#/components/schemas/UpdateWolkenSourceConfiguration'
+          wolken_kb: '#/components/schemas/UpdateWolkenKbSourceConfiguration'
+          confluence: '#/components/schemas/UpdateConfluenceSourceConfiguration'
           web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/UpdateSharepointSourceConfiguration'
       - $ref: '#/components/schemas/UpdateS3SourceConfiguration'
       - $ref: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
       - $ref: '#/components/schemas/UpdateBoxSourceConfiguration'
-      - $ref: '#/components/schemas/UpdateWolkenSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateWolkenKbSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateConfluenceSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
     UpdatePipelineRequest:
       description: Request to partially update an existing pipeline. Omitted fields
@@ -28174,6 +28486,8 @@ components:
 
             - Wolken: the article number (e.g. `345678`)
 
+            - Confluence: the page ID (e.g. `123456789`)
+
             - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
 
             '
@@ -28248,6 +28562,8 @@ components:
             - Box: the file ID (e.g. `1422162456741`)
 
             - Wolken: the article number (e.g. `345678`)
+
+            - Confluence: the page ID (e.g. `123456789`)
 
             - Web: the canonicalized URL (e.g. `https://docs.example.com/page`)
 

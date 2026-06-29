@@ -49,12 +49,19 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.BoxSourceConfiguration)}");
                 box = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.WolkenSourceConfiguration? wolken = default;
-            if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Wolken)
+            global::Vectara.WolkenKbSourceConfiguration? wolkenKb = default;
+            if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.WolkenKb)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenSourceConfiguration> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.WolkenSourceConfiguration)}");
-                wolken = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenKbSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenKbSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.WolkenKbSourceConfiguration)}");
+                wolkenKb = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.ConfluenceSourceConfiguration? confluence = default;
+            if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Confluence)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ConfluenceSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ConfluenceSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ConfluenceSourceConfiguration)}");
+                confluence = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.WebSourceConfiguration? web = default;
             if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Web)
@@ -74,7 +81,9 @@ namespace Vectara.JsonConverters
 
                 box,
 
-                wolken,
+                wolkenKb,
+
+                confluence,
 
                 web
                 );
@@ -115,11 +124,17 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BoxSourceConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Box!.Value, typeInfo);
             }
-            else if (value.IsWolken)
+            else if (value.IsWolkenKb)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenSourceConfiguration> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WolkenSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Wolken!.Value, typeInfo);
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenKbSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenKbSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WolkenKbSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WolkenKb!.Value, typeInfo);
+            }
+            else if (value.IsConfluence)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ConfluenceSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ConfluenceSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ConfluenceSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Confluence!.Value, typeInfo);
             }
             else if (value.IsWeb)
             {

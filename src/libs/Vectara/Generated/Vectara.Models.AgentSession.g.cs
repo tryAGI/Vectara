@@ -81,6 +81,20 @@ namespace Vectara
         public global::Vectara.AgentSessionStatus? Status { get; set; }
 
         /// <summary>
+        /// Key of the agent that created this session via the sub-agent tool. Null if the session was not created by a sub-agent invocation. Read-only.<br/>
+        /// Included only in responses
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("created_by_agent_key")]
+        public string? CreatedByAgentKey { get; set; }
+
+        /// <summary>
+        /// Key of the parent session that created this session via the sub-agent tool. Only set together with `created_by_agent_key`. Read-only.<br/>
+        /// Included only in responses
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("created_by_session_key")]
+        public string? CreatedBySessionKey { get; set; }
+
+        /// <summary>
         /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If not specified, the session will not expire.<br/>
         /// Default Value: 0<br/>
         /// Example: 60
@@ -176,6 +190,14 @@ namespace Vectara
         /// Included only in responses<br/>
         /// Example: stopped
         /// </param>
+        /// <param name="createdByAgentKey">
+        /// Key of the agent that created this session via the sub-agent tool. Null if the session was not created by a sub-agent invocation. Read-only.<br/>
+        /// Included only in responses
+        /// </param>
+        /// <param name="createdBySessionKey">
+        /// Key of the parent session that created this session via the sub-agent tool. Only set together with `created_by_agent_key`. Read-only.<br/>
+        /// Included only in responses
+        /// </param>
         /// <param name="ttiMinutes">
         /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If not specified, the session will not expire.<br/>
         /// Default Value: 0<br/>
@@ -210,6 +232,8 @@ namespace Vectara
             object? metadata,
             string? currentStepName,
             global::Vectara.AgentSessionStatus? status,
+            string? createdByAgentKey,
+            string? createdBySessionKey,
             long? ttiMinutes,
             global::Vectara.SessionContextUsage? sessionContextUsage,
             global::Vectara.CompactionConfig? effectiveCompaction,
@@ -224,6 +248,8 @@ namespace Vectara
             this.CurrentStepName = currentStepName;
             this.Enabled = enabled;
             this.Status = status;
+            this.CreatedByAgentKey = createdByAgentKey;
+            this.CreatedBySessionKey = createdBySessionKey;
             this.TtiMinutes = ttiMinutes;
             this.CreatedAt = createdAt;
             this.SessionContextUsage = sessionContextUsage;

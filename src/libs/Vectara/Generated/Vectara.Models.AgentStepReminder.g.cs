@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.AgentStepReminderDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// A templated reminder with a Velocity template that is compiled at session start and injected into messages matching the specified hooks.
+        /// A reminder whose template is rendered at session start according to its template_type (Velocity by default, or text for verbatim content) and injected into messages matching the specified hooks.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.TemplatedReminder? Templated { get; init; }
