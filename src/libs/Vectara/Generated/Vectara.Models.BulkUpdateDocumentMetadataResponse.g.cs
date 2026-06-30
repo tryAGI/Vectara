@@ -5,37 +5,23 @@
 namespace Vectara
 {
     /// <summary>
-    /// Response for bulk delete operations. Structure varies based on async/sync mode.<br/>
-    /// **Async mode (async=true)**: Returns HTTP 202 immediately with job_id to track progress<br/>
-    /// **Sync mode (async=false)**: Returns HTTP 200 after completion with deletion counts<br/>
-    /// **Important: Best-Effort Operation**<br/>
-    /// This is a best-effort deletion operation. The behavior differs based on which parameter you use:<br/>
-    /// **Using `document_ids` (Recommended for precision)**<br/>
-    /// - Deletes only the exact documents specified by ID<br/>
-    /// - Most reliable option - documents are deleted from the primary storage directly<br/>
-    /// - Use this when you know exactly which documents to delete<br/>
-    /// **Using `metadata_filter` (Subject to indexing lag)**<br/>
-    /// - Filters are applied against the search index, not the primary document store<br/>
-    /// - Documents that have been recently indexed may not yet appear in search results due to indexing pipeline lag<br/>
-    /// - This means recently added documents matching your filter may be missed<br/>
-    /// - A timestamp cutoff is captured at operation start; only documents created/updated before this time are deleted<br/>
-    /// - Due to distributed system timing, documents added very close to the operation start may still be deleted if timestamps are not perfectly synchronized<br/>
-    /// For mission-critical deletions where completeness is required, use `document_ids` or run the filter-based deletion multiple times after indexing has caught up.
+    /// Response for a bulk metadata update. Discriminated on `type`: `async` (HTTP 202) when `async=true`; `success` (HTTP 200) when `async=false` and the update completes within the request timeout.<br/>
+    /// Selection is best-effort. When `document_ids` is supplied, exactly the listed documents are updated. When `metadata_filter` is supplied, the filter is evaluated against the search index and a `cutoff_at` is captured when the operation starts; only documents created or updated before `cutoff_at` are eligible, so documents added after the operation began are not included. Re-run the operation, or supply `document_ids`, to cover any documents the filter misses.
     /// </summary>
-    public readonly partial struct BulkDeleteDocumentsResponse : global::System.IEquatable<BulkDeleteDocumentsResponse>
+    public readonly partial struct BulkUpdateDocumentMetadataResponse : global::System.IEquatable<BulkUpdateDocumentMetadataResponse>
     {
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType? Type { get; }
+        public global::Vectara.BulkUpdateDocumentMetadataResponseDiscriminatorType? Type { get; }
 
         /// <summary>
         /// Response when async=true. Operation queued, returns immediately (HTTP 202).
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.BulkDeleteAsyncResponse? Async { get; init; }
+        public global::Vectara.BulkUpdateDocumentMetadataAsyncResponse? Async { get; init; }
 #else
-        public global::Vectara.BulkDeleteAsyncResponse? Async { get; }
+        public global::Vectara.BulkUpdateDocumentMetadataAsyncResponse? Async { get; }
 #endif
 
         /// <summary>
@@ -53,7 +39,7 @@ namespace Vectara
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
-            out global::Vectara.BulkDeleteAsyncResponse? value)
+            out global::Vectara.BulkUpdateDocumentMetadataAsyncResponse? value)
         {
             value = Async;
             return IsAsync;
@@ -62,17 +48,17 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.BulkDeleteAsyncResponse PickAsync() => IsAsync
-            ? Async!
+        public global::Vectara.BulkUpdateDocumentMetadataAsyncResponse PickAsync() => IsAsync
+            ? Async!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Async' but the value was {ToString()}.");
 
         /// <summary>
         /// Response when async=false and operation completes successfully (HTTP 200).
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.BulkDeleteSyncSuccessResponse? Success { get; init; }
+        public global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse? Success { get; init; }
 #else
-        public global::Vectara.BulkDeleteSyncSuccessResponse? Success { get; }
+        public global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse? Success { get; }
 #endif
 
         /// <summary>
@@ -90,7 +76,7 @@ namespace Vectara
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
-            out global::Vectara.BulkDeleteSyncSuccessResponse? value)
+            out global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse? value)
         {
             value = Success;
             return IsSuccess;
@@ -99,23 +85,23 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.BulkDeleteSyncSuccessResponse PickSuccess() => IsSuccess
-            ? Success!
+        public global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse PickSuccess() => IsSuccess
+            ? Success!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Success' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteAsyncResponse value) => new BulkDeleteDocumentsResponse((global::Vectara.BulkDeleteAsyncResponse?)value);
+        public static implicit operator BulkUpdateDocumentMetadataResponse(global::Vectara.BulkUpdateDocumentMetadataAsyncResponse value) => new BulkUpdateDocumentMetadataResponse((global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?)value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.BulkDeleteAsyncResponse?(BulkDeleteDocumentsResponse @this) => @this.Async;
+        public static implicit operator global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?(BulkUpdateDocumentMetadataResponse @this) => @this.Async;
 
         /// <summary>
         /// 
         /// </summary>
-        public BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteAsyncResponse? value)
+        public BulkUpdateDocumentMetadataResponse(global::Vectara.BulkUpdateDocumentMetadataAsyncResponse? value)
         {
             Async = value;
         }
@@ -123,22 +109,22 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static BulkDeleteDocumentsResponse FromAsync(global::Vectara.BulkDeleteAsyncResponse? value) => new BulkDeleteDocumentsResponse(value);
+        public static BulkUpdateDocumentMetadataResponse FromAsync(global::Vectara.BulkUpdateDocumentMetadataAsyncResponse? value) => new BulkUpdateDocumentMetadataResponse(value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteSyncSuccessResponse value) => new BulkDeleteDocumentsResponse((global::Vectara.BulkDeleteSyncSuccessResponse?)value);
+        public static implicit operator BulkUpdateDocumentMetadataResponse(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse value) => new BulkUpdateDocumentMetadataResponse((global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?)value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.BulkDeleteSyncSuccessResponse?(BulkDeleteDocumentsResponse @this) => @this.Success;
+        public static implicit operator global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?(BulkUpdateDocumentMetadataResponse @this) => @this.Success;
 
         /// <summary>
         /// 
         /// </summary>
-        public BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteSyncSuccessResponse? value)
+        public BulkUpdateDocumentMetadataResponse(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse? value)
         {
             Success = value;
         }
@@ -146,15 +132,15 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static BulkDeleteDocumentsResponse FromSuccess(global::Vectara.BulkDeleteSyncSuccessResponse? value) => new BulkDeleteDocumentsResponse(value);
+        public static BulkUpdateDocumentMetadataResponse FromSuccess(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse? value) => new BulkUpdateDocumentMetadataResponse(value);
 
         /// <summary>
         /// 
         /// </summary>
-        public BulkDeleteDocumentsResponse(
-            global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType? type,
-            global::Vectara.BulkDeleteAsyncResponse? async,
-            global::Vectara.BulkDeleteSyncSuccessResponse? success
+        public BulkUpdateDocumentMetadataResponse(
+            global::Vectara.BulkUpdateDocumentMetadataResponseDiscriminatorType? type,
+            global::Vectara.BulkUpdateDocumentMetadataAsyncResponse? async,
+            global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse? success
             )
         {
             Type = type;
@@ -191,8 +177,8 @@ namespace Vectara
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::Vectara.BulkDeleteAsyncResponse, TResult>? async = null,
-            global::System.Func<global::Vectara.BulkDeleteSyncSuccessResponse, TResult>? success = null,
+            global::System.Func<global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?, TResult>? async = null,
+            global::System.Func<global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?, TResult>? success = null,
             bool validate = true)
         {
             if (validate)
@@ -216,9 +202,9 @@ namespace Vectara
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::Vectara.BulkDeleteAsyncResponse>? async = null,
+            global::System.Action<global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?>? async = null,
 
-            global::System.Action<global::Vectara.BulkDeleteSyncSuccessResponse>? success = null,
+            global::System.Action<global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?>? success = null,
             bool validate = true)
         {
             if (validate)
@@ -240,8 +226,8 @@ namespace Vectara
         /// 
         /// </summary>
         public void Switch(
-            global::System.Action<global::Vectara.BulkDeleteAsyncResponse>? async = null,
-            global::System.Action<global::Vectara.BulkDeleteSyncSuccessResponse>? success = null,
+            global::System.Action<global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?>? async = null,
+            global::System.Action<global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?>? success = null,
             bool validate = true)
         {
             if (validate)
@@ -267,9 +253,9 @@ namespace Vectara
             var fields = new object?[]
             {
                 Async,
-                typeof(global::Vectara.BulkDeleteAsyncResponse),
+                typeof(global::Vectara.BulkUpdateDocumentMetadataAsyncResponse),
                 Success,
-                typeof(global::Vectara.BulkDeleteSyncSuccessResponse),
+                typeof(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -283,26 +269,26 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public bool Equals(BulkDeleteDocumentsResponse other)
+        public bool Equals(BulkUpdateDocumentMetadataResponse other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkDeleteAsyncResponse?>.Default.Equals(Async, other.Async) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkDeleteSyncSuccessResponse?>.Default.Equals(Success, other.Success) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?>.Default.Equals(Async, other.Async) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?>.Default.Equals(Success, other.Success) 
                 ;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator ==(BulkDeleteDocumentsResponse obj1, BulkDeleteDocumentsResponse obj2)
+        public static bool operator ==(BulkUpdateDocumentMetadataResponse obj1, BulkUpdateDocumentMetadataResponse obj2)
         {
-            return global::System.Collections.Generic.EqualityComparer<BulkDeleteDocumentsResponse>.Default.Equals(obj1, obj2);
+            return global::System.Collections.Generic.EqualityComparer<BulkUpdateDocumentMetadataResponse>.Default.Equals(obj1, obj2);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static bool operator !=(BulkDeleteDocumentsResponse obj1, BulkDeleteDocumentsResponse obj2)
+        public static bool operator !=(BulkUpdateDocumentMetadataResponse obj1, BulkUpdateDocumentMetadataResponse obj2)
         {
             return !(obj1 == obj2);
         }
@@ -312,7 +298,7 @@ namespace Vectara
         /// </summary>
         public override bool Equals(object? obj)
         {
-            return obj is BulkDeleteDocumentsResponse o && Equals(o);
+            return obj is BulkUpdateDocumentMetadataResponse o && Equals(o);
         }
     }
 }

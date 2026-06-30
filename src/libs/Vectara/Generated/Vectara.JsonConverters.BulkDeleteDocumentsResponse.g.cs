@@ -22,14 +22,14 @@ namespace Vectara.JsonConverters
             var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
 
             global::Vectara.BulkDeleteAsyncResponse? async = default;
-            if (discriminator?.ResponseType == global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType.Async)
+            if (discriminator?.Type == global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType.Async)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BulkDeleteAsyncResponse), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BulkDeleteAsyncResponse> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.BulkDeleteAsyncResponse)}");
                 async = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.BulkDeleteSyncSuccessResponse? success = default;
-            if (discriminator?.ResponseType == global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType.Success)
+            if (discriminator?.Type == global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType.Success)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BulkDeleteSyncSuccessResponse), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BulkDeleteSyncSuccessResponse> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.BulkDeleteSyncSuccessResponse)}");
@@ -37,7 +37,7 @@ namespace Vectara.JsonConverters
             }
 
             var __value = new global::Vectara.BulkDeleteDocumentsResponse(
-                discriminator?.ResponseType,
+                discriminator?.Type,
                 async,
 
                 success

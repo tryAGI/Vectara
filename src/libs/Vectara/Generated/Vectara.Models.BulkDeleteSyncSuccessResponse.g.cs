@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Vectara
@@ -11,27 +13,43 @@ namespace Vectara
         /// <summary>
         /// Indicates this is a successful sync response.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("response_type")]
+        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string ResponseType { get; set; }
+        public required string Type { get; set; }
+
+        /// <summary>
+        /// Deprecated alias for `type`; identical value. Use `type`.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("response_type")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::Vectara.BulkDeleteSyncSuccessResponseResponseType ResponseType { get; set; }
 
         /// <summary>
         /// Job ID to track the bulk delete operation via the Jobs API.<br/>
-        /// Example: job_bulk_del_123456
+        /// Example: job_3Kx9QpVn2mZr8YbLc5TdWe
         /// </summary>
-        /// <example>job_bulk_del_123456</example>
+        /// <example>job_3Kx9QpVn2mZr8YbLc5TdWe</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("job_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string JobId { get; set; }
 
         /// <summary>
-        /// ISO 8601 timestamp captured at workflow launch. Only documents created or updated before this timestamp will be deleted.<br/>
+        /// Instant captured when the operation started. Only documents created or updated before this instant are eligible. Present only when selection uses `metadata_filter`; omitted when `document_ids` is supplied.<br/>
+        /// Example: 2025-12-18T15:30:00Z
+        /// </summary>
+        /// <example>2025-12-18T15:30:00Z</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("cutoff_at")]
+        public global::System.DateTime? CutoffAt { get; set; }
+
+        /// <summary>
+        /// Deprecated alias for `cutoff_at`; identical value and presence rules. Use `cutoff_at`.<br/>
         /// Example: 2025-12-18T15:30:00Z
         /// </summary>
         /// <example>2025-12-18T15:30:00Z</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("cutoff_timestamp")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::System.DateTime CutoffTimestamp { get; set; }
+        [global::System.Obsolete("This property marked as deprecated.")]
+        public global::System.DateTime? CutoffTimestamp { get; set; }
 
         /// <summary>
         /// Number of documents successfully deleted.<br/>
@@ -52,6 +70,15 @@ namespace Vectara
         public required long SkippedCount { get; set; }
 
         /// <summary>
+        /// Number of documents that could not be deleted due to a non-retryable error (for example, a document that was not found).<br/>
+        /// Example: 0
+        /// </summary>
+        /// <example>0</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("failed_count")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required long FailedCount { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -60,16 +87,15 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="BulkDeleteSyncSuccessResponse" /> class.
         /// </summary>
-        /// <param name="responseType">
+        /// <param name="type">
         /// Indicates this is a successful sync response.
+        /// </param>
+        /// <param name="responseType">
+        /// Deprecated alias for `type`; identical value. Use `type`.
         /// </param>
         /// <param name="jobId">
         /// Job ID to track the bulk delete operation via the Jobs API.<br/>
-        /// Example: job_bulk_del_123456
-        /// </param>
-        /// <param name="cutoffTimestamp">
-        /// ISO 8601 timestamp captured at workflow launch. Only documents created or updated before this timestamp will be deleted.<br/>
-        /// Example: 2025-12-18T15:30:00Z
+        /// Example: job_3Kx9QpVn2mZr8YbLc5TdWe
         /// </param>
         /// <param name="deletedCount">
         /// Number of documents successfully deleted.<br/>
@@ -79,21 +105,33 @@ namespace Vectara
         /// Number of documents skipped.<br/>
         /// Example: 0
         /// </param>
+        /// <param name="failedCount">
+        /// Number of documents that could not be deleted due to a non-retryable error (for example, a document that was not found).<br/>
+        /// Example: 0
+        /// </param>
+        /// <param name="cutoffAt">
+        /// Instant captured when the operation started. Only documents created or updated before this instant are eligible. Present only when selection uses `metadata_filter`; omitted when `document_ids` is supplied.<br/>
+        /// Example: 2025-12-18T15:30:00Z
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public BulkDeleteSyncSuccessResponse(
-            string responseType,
+            string type,
+            global::Vectara.BulkDeleteSyncSuccessResponseResponseType responseType,
             string jobId,
-            global::System.DateTime cutoffTimestamp,
             long deletedCount,
-            long skippedCount)
+            long skippedCount,
+            long failedCount,
+            global::System.DateTime? cutoffAt)
         {
-            this.ResponseType = responseType ?? throw new global::System.ArgumentNullException(nameof(responseType));
+            this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
+            this.ResponseType = responseType;
             this.JobId = jobId ?? throw new global::System.ArgumentNullException(nameof(jobId));
-            this.CutoffTimestamp = cutoffTimestamp;
+            this.CutoffAt = cutoffAt;
             this.DeletedCount = deletedCount;
             this.SkippedCount = skippedCount;
+            this.FailedCount = failedCount;
         }
 
         /// <summary>

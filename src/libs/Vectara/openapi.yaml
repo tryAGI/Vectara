@@ -1996,7 +1996,7 @@ paths:
           API.
 
 
-          The workflow continues running in the background even if the API wait times
+          The operation continues running in the background even if the API wait times
           out.
 
           '
@@ -2037,14 +2037,158 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
         '504':
           description: Synchronous operation timed out. The error message contains
-            the job_id to track status via Jobs API. Workflow continues running in
-            background.
+            the job_id to track status via Jobs API. The operation continues running
+            in the background.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: documents
       x-fern-sdk-method-name: bulk_delete
+    patch:
+      tags:
+      - Documents
+      summary: Bulk update document metadata
+      x-required-roles:
+      - type: CorpusRole
+        roles:
+        - editor
+        - administrator
+        - owner
+      - type: ApiRole
+        roles:
+        - corpus_developer
+        - corpus_administrator
+        - administrator
+        - owner
+      description: 'Initiates an asynchronous bulk metadata update for documents in
+        a corpus.
+
+        Select documents with either `document_ids` or `metadata_filter`. If `document_ids`
+        is provided, `metadata_filter` is ignored.
+
+        The same metadata object (from the request body) is applied to every matched
+        document, using the chosen `strategy`.
+
+        `merge` (default) adds or overwrites only the supplied fields and leaves the
+        rest intact; `replace` overwrites the entire metadata object.
+
+
+        **Important**: This is a best-effort operation.
+
+        See the response schema documentation for details on the behavior differences
+        between `metadata_filter` and `document_ids` parameters.
+
+
+        Use the returned `job_id` to track progress via the Jobs API.
+
+        '
+      operationId: bulkUpdateCorpusDocumentMetadata
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: corpus_key
+        description: The unique key identifying the corpus containing documents to
+          update.
+        required: true
+        schema:
+          $ref: '#/components/schemas/CorpusKey'
+      - name: metadata_filter
+        in: query
+        description: 'Filter documents by metadata. Uses the same expression as a
+          query metadata filter.
+
+          Ignored when `document_ids` is provided.
+
+          Example: `doc.status = ''archived'' AND doc.year < 2020`
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: document_ids
+        in: query
+        description: Comma-separated list of document IDs to update. Takes precedence
+          over `metadata_filter`. Maximum 10,000 IDs per request.
+        required: false
+        schema:
+          type: string
+      - name: async
+        in: query
+        description: 'Whether to perform the update asynchronously.
+
+          - `true` (default): Returns immediately with job_id to track progress (HTTP
+          202)
+
+          - `false`: Waits for completion and returns update results (HTTP 200)
+
+
+          When `async=false`, the operation will wait for the update to complete up
+          to the timeout specified in the `Request-Timeout` or `Request-Timeout-Millis`
+          header.
+
+          If no timeout header is provided, defaults to 7 days.
+
+          If the operation times out, returns HTTP 504 with job_id to track via Jobs
+          API.
+
+
+          The operation continues running in the background even if the API wait times
+          out.
+
+          '
+        required: false
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkUpdateDocumentMetadataRequest'
+      responses:
+        '200':
+          description: Bulk metadata update completed successfully (synchronous mode).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkUpdateDocumentMetadataResponse'
+        '202':
+          description: Bulk metadata update accepted and queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkUpdateDocumentMetadataResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow bulk updating document metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Corpus not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '504':
+          description: Synchronous operation timed out. The error message contains
+            the job_id to track status via Jobs API. The operation continues running
+            in the background.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: documents
+      x-fern-sdk-method-name: bulk_update_metadata
   /v2/corpora/{corpus_key}/documents/{document_id}:
     delete:
       tags:
@@ -15482,44 +15626,74 @@ components:
         (HTTP 202).
       type: object
       properties:
-        response_type:
+        type:
           type: string
           const: async
           description: Indicates this is an async response.
+        response_type:
+          type: string
+          enum:
+          - async
+          - success
+          deprecated: true
+          description: Deprecated alias for `type`; identical value. Use `type`.
         job_id:
           type: string
           pattern: job_.+$
           description: Job ID to track the bulk delete operation via the Jobs API.
-          example: job_bulk_del_123456
+          example: job_3Kx9QpVn2mZr8YbLc5TdWe
+        cutoff_at:
+          type: string
+          format: date-time
+          description: Instant captured when the operation started. Only documents
+            created or updated before this instant are eligible. Present only when
+            selection uses `metadata_filter`; omitted when `document_ids` is supplied.
+          example: '2025-12-18T15:30:00Z'
         cutoff_timestamp:
           type: string
           format: date-time
-          description: ISO 8601 timestamp captured at workflow launch. Only documents
-            created or updated before this timestamp will be deleted.
+          deprecated: true
+          description: Deprecated alias for `cutoff_at`; identical value and presence
+            rules. Use `cutoff_at`.
           example: '2025-12-18T15:30:00Z'
       required:
+      - type
       - response_type
       - job_id
-      - cutoff_timestamp
     BulkDeleteSyncSuccessResponse:
       description: Response when async=false and operation completes successfully
         (HTTP 200).
       type: object
       properties:
-        response_type:
+        type:
           type: string
           const: success
           description: Indicates this is a successful sync response.
+        response_type:
+          type: string
+          enum:
+          - async
+          - success
+          deprecated: true
+          description: Deprecated alias for `type`; identical value. Use `type`.
         job_id:
           type: string
           pattern: job_.+$
           description: Job ID to track the bulk delete operation via the Jobs API.
-          example: job_bulk_del_123456
+          example: job_3Kx9QpVn2mZr8YbLc5TdWe
+        cutoff_at:
+          type: string
+          format: date-time
+          description: Instant captured when the operation started. Only documents
+            created or updated before this instant are eligible. Present only when
+            selection uses `metadata_filter`; omitted when `document_ids` is supplied.
+          example: '2025-12-18T15:30:00Z'
         cutoff_timestamp:
           type: string
           format: date-time
-          description: ISO 8601 timestamp captured at workflow launch. Only documents
-            created or updated before this timestamp will be deleted.
+          deprecated: true
+          description: Deprecated alias for `cutoff_at`; identical value and presence
+            rules. Use `cutoff_at`.
           example: '2025-12-18T15:30:00Z'
         deleted_count:
           type: integer
@@ -15531,12 +15705,19 @@ components:
           format: int64
           description: Number of documents skipped.
           example: 0
+        failed_count:
+          type: integer
+          format: int64
+          description: Number of documents that could not be deleted due to a non-retryable
+            error (for example, a document that was not found).
+          example: 0
       required:
+      - type
       - response_type
       - job_id
-      - cutoff_timestamp
       - deleted_count
       - skipped_count
+      - failed_count
     BulkDeleteDocumentsResponse:
       description: 'Response for bulk delete operations. Structure varies based on
         async/sync mode.
@@ -15590,10 +15771,127 @@ components:
       - $ref: '#/components/schemas/BulkDeleteAsyncResponse'
       - $ref: '#/components/schemas/BulkDeleteSyncSuccessResponse'
       discriminator:
-        propertyName: response_type
+        propertyName: type
         mapping:
           async: '#/components/schemas/BulkDeleteAsyncResponse'
           success: '#/components/schemas/BulkDeleteSyncSuccessResponse'
+    BulkUpdateDocumentMetadataRequest:
+      description: 'Request body for a bulk document metadata update.
+
+        The same `metadata` object is applied to every document matched by the `metadata_filter`
+        and/or `document_ids` query parameters, using the chosen `strategy`.
+
+        '
+      type: object
+      required:
+      - metadata
+      properties:
+        metadata:
+          description: The metadata object to apply to every matched document.
+          type: object
+          additionalProperties: true
+          example:
+            status: archived
+            reviewed: true
+            year: 2024
+        strategy:
+          description: 'How to apply the supplied `metadata` to each matched document.
+
+            - `merge` (default): adds or overwrites only the supplied fields, leaving
+            other existing fields intact.
+
+            - `replace`: replaces the entire existing metadata with the supplied object.
+
+            '
+          type: string
+          enum:
+          - merge
+          - replace
+          default: merge
+    BulkUpdateDocumentMetadataResponseBase:
+      description: Fields common to every bulk metadata update response variant.
+      type: object
+      properties:
+        job_id:
+          type: string
+          pattern: job_.+$
+          description: Job ID to track the bulk metadata update via the Jobs API.
+          example: job_3Kx9QpVn2mZr8YbLc5TdWe
+        cutoff_at:
+          type: string
+          format: date-time
+          description: Instant captured when the operation started. Only documents
+            created or updated before this instant are eligible. Present only when
+            selection uses `metadata_filter`; omitted when `document_ids` is supplied.
+          example: '2025-12-18T15:30:00Z'
+      required:
+      - job_id
+    BulkUpdateDocumentMetadataAsyncResponse:
+      description: Response when async=true. Operation queued, returns immediately
+        (HTTP 202).
+      allOf:
+      - $ref: '#/components/schemas/BulkUpdateDocumentMetadataResponseBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            const: async
+            description: Indicates this is an async response.
+        required:
+        - type
+    BulkUpdateDocumentMetadataSyncSuccessResponse:
+      description: Response when async=false and operation completes successfully
+        (HTTP 200).
+      allOf:
+      - $ref: '#/components/schemas/BulkUpdateDocumentMetadataResponseBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            const: success
+            description: Indicates this is a successful sync response.
+          updated_count:
+            type: integer
+            format: int64
+            description: Number of documents successfully updated.
+            example: 1523
+          skipped_count:
+            type: integer
+            format: int64
+            description: Number of documents skipped.
+            example: 0
+          failed_count:
+            type: integer
+            format: int64
+            description: Number of documents that could not be updated due to a non-retryable
+              error (for example, a document that was not found).
+            example: 0
+        required:
+        - type
+        - updated_count
+        - skipped_count
+        - failed_count
+    BulkUpdateDocumentMetadataResponse:
+      description: 'Response for a bulk metadata update. Discriminated on `type`:
+        `async` (HTTP 202) when `async=true`; `success` (HTTP 200) when `async=false`
+        and the update completes within the request timeout.
+
+
+        Selection is best-effort. When `document_ids` is supplied, exactly the listed
+        documents are updated. When `metadata_filter` is supplied, the filter is evaluated
+        against the search index and a `cutoff_at` is captured when the operation
+        starts; only documents created or updated before `cutoff_at` are eligible,
+        so documents added after the operation began are not included. Re-run the
+        operation, or supply `document_ids`, to cover any documents the filter misses.'
+      x-vectara-base-schema: '#/BulkUpdateDocumentMetadataResponseBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          async: '#/components/schemas/BulkUpdateDocumentMetadataAsyncResponse'
+          success: '#/components/schemas/BulkUpdateDocumentMetadataSyncSuccessResponse'
+      oneOf:
+      - $ref: '#/components/schemas/BulkUpdateDocumentMetadataAsyncResponse'
+      - $ref: '#/components/schemas/BulkUpdateDocumentMetadataSyncSuccessResponse'
     UpdateDocumentRequest:
       description: Schema for updating the document. For PUT requests, the request
         body metadata replaces the existing metadata. For PATCH requests, the request
@@ -18988,6 +19286,7 @@ components:
           - rebuild_vector_index
           - replace_filter_attributes
           - bulk_delete_documents
+          - bulk_update_document_metadata
           - unknown
         corpus_keys:
           description: The corpora that this job belongs to. It may not belong to
@@ -19012,6 +19311,11 @@ components:
         created_by_username:
           description: The username of the user who created the job. This property
             may be missing, e.g., if the job was created by the system, not a user.
+          type: string
+        comment:
+          description: A human-readable explanation of the job's current status. Format
+            and content depend on the job type; on failure it carries the error message.
+            May be absent.
           type: string
       required:
       - id

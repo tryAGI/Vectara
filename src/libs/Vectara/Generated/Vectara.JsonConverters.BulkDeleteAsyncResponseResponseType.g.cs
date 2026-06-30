@@ -3,10 +3,10 @@
 namespace Vectara.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class BulkDeleteDocumentsResponseDiscriminatorResponseTypeNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType?>
+    public sealed class BulkDeleteAsyncResponseResponseTypeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.BulkDeleteAsyncResponseResponseType>
     {
         /// <inheritdoc />
-        public override global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType? Read(
+        public override global::Vectara.BulkDeleteAsyncResponseResponseType Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace Vectara.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseTypeExtensions.ToEnum(stringValue);
+                        return global::Vectara.BulkDeleteAsyncResponseResponseTypeExtensions.ToEnum(stringValue) ?? default;
                     }
                     
                     break;
@@ -26,11 +26,11 @@ namespace Vectara.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType)numValue;
+                    return (global::Vectara.BulkDeleteAsyncResponseResponseType)numValue;
                 }
                 case global::System.Text.Json.JsonTokenType.Null:
                 {
-                    return default(global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType?);
+                    return default(global::Vectara.BulkDeleteAsyncResponseResponseType);
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -42,19 +42,12 @@ namespace Vectara.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType? value,
+            global::Vectara.BulkDeleteAsyncResponseResponseType value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
 
-            if (value == null)
-            {
-                writer.WriteNullValue();
-            }
-            else
-            {
-                writer.WriteStringValue(global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseTypeExtensions.ToValueString(value.Value));
-            }
+            writer.WriteStringValue(global::Vectara.BulkDeleteAsyncResponseResponseTypeExtensions.ToValueString(value));
         }
     }
 }

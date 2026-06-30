@@ -6,14 +6,14 @@ namespace Vectara
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class BulkDeleteDocumentsResponseDiscriminator
+    public sealed partial class BulkUpdateDocumentMetadataResponseDiscriminator
     {
         /// <summary>
         /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeJsonConverter))]
-        public global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType? Type { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeJsonConverter))]
+        public global::Vectara.BulkUpdateDocumentMetadataResponseDiscriminatorType? Type { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -22,22 +22,22 @@ namespace Vectara
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BulkDeleteDocumentsResponseDiscriminator" /> class.
+        /// Initializes a new instance of the <see cref="BulkUpdateDocumentMetadataResponseDiscriminator" /> class.
         /// </summary>
         /// <param name="type"></param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
-        public BulkDeleteDocumentsResponseDiscriminator(
-            global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType? type)
+        public BulkUpdateDocumentMetadataResponseDiscriminator(
+            global::Vectara.BulkUpdateDocumentMetadataResponseDiscriminatorType? type)
         {
             this.Type = type;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BulkDeleteDocumentsResponseDiscriminator" /> class.
+        /// Initializes a new instance of the <see cref="BulkUpdateDocumentMetadataResponseDiscriminator" /> class.
         /// </summary>
-        public BulkDeleteDocumentsResponseDiscriminator()
+        public BulkUpdateDocumentMetadataResponseDiscriminator()
         {
         }
 
