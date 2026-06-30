@@ -7,7 +7,7 @@ namespace Vectara
     {
 
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_BulkDeleteSecurityRequirement0 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_BulkUpdateMetadataSecurityRequirement0 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -22,7 +22,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_BulkDeleteSecurityRequirement1 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_BulkUpdateMetadataSecurityRequirement1 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -36,20 +36,21 @@ namespace Vectara
                     },
                 },
             };
-        private static readonly global::Vectara.EndPointSecurityRequirement[] s_BulkDeleteSecurityRequirements =
+        private static readonly global::Vectara.EndPointSecurityRequirement[] s_BulkUpdateMetadataSecurityRequirements =
             new global::Vectara.EndPointSecurityRequirement[]
-            {                s_BulkDeleteSecurityRequirement0,
-                s_BulkDeleteSecurityRequirement1,
+            {                s_BulkUpdateMetadataSecurityRequirement0,
+                s_BulkUpdateMetadataSecurityRequirement1,
             };
-        partial void PrepareBulkDeleteArguments(
+        partial void PrepareBulkUpdateMetadataArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
             ref string corpusKey,
             ref string? metadataFilter,
             ref string? documentIds,
-            ref bool? async);
-        partial void PrepareBulkDeleteRequest(
+            ref bool? async,
+            global::Vectara.BulkUpdateDocumentMetadataRequest request);
+        partial void PrepareBulkUpdateMetadataRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
@@ -57,23 +58,25 @@ namespace Vectara
             string corpusKey,
             string? metadataFilter,
             string? documentIds,
-            bool? async);
-        partial void ProcessBulkDeleteResponse(
+            bool? async,
+            global::Vectara.BulkUpdateDocumentMetadataRequest request);
+        partial void ProcessBulkUpdateMetadataResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessBulkDeleteResponseContent(
+        partial void ProcessBulkUpdateMetadataResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// Bulk delete documents from a corpus<br/>
-        /// Initiates an asynchronous bulk delete operation for documents in a corpus.<br/>
-        /// This operation accepts a metadata filter, a list of specific document IDs, or both.<br/>
+        /// Bulk update document metadata<br/>
+        /// Initiates an asynchronous bulk metadata update for documents in a corpus.<br/>
+        /// Select documents with either `document_ids` or `metadata_filter`. If `document_ids` is provided, `metadata_filter` is ignored.<br/>
+        /// The same metadata object (from the request body) is applied to every matched document, using the chosen `strategy`.<br/>
+        /// `merge` (default) adds or overwrites only the supplied fields and leaves the rest intact; `replace` overwrites the entire metadata object.<br/>
         /// **Important**: This is a best-effort operation.<br/>
         /// See the response schema documentation for details on the behavior differences between `metadata_filter` and `document_ids` parameters.<br/>
-        /// The operation runs as a background workflow.<br/>
         /// Use the returned `job_id` to track progress via the Jobs API.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -87,11 +90,14 @@ namespace Vectara
         /// <param name="async">
         /// Default Value: true
         /// </param>
+        /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.BulkDeleteDocumentsResponse> BulkDeleteAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.BulkUpdateDocumentMetadataResponse> BulkUpdateMetadataAsync(
             string corpusKey,
+
+            global::Vectara.BulkUpdateDocumentMetadataRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? metadataFilter = default,
@@ -100,8 +106,10 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __response = await BulkDeleteAsResponseAsync(
+            var __response = await BulkUpdateMetadataAsResponseAsync(
                 corpusKey: corpusKey,
+
+                request: request,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 metadataFilter: metadataFilter,
@@ -114,12 +122,13 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// Bulk delete documents from a corpus<br/>
-        /// Initiates an asynchronous bulk delete operation for documents in a corpus.<br/>
-        /// This operation accepts a metadata filter, a list of specific document IDs, or both.<br/>
+        /// Bulk update document metadata<br/>
+        /// Initiates an asynchronous bulk metadata update for documents in a corpus.<br/>
+        /// Select documents with either `document_ids` or `metadata_filter`. If `document_ids` is provided, `metadata_filter` is ignored.<br/>
+        /// The same metadata object (from the request body) is applied to every matched document, using the chosen `strategy`.<br/>
+        /// `merge` (default) adds or overwrites only the supplied fields and leaves the rest intact; `replace` overwrites the entire metadata object.<br/>
         /// **Important**: This is a best-effort operation.<br/>
         /// See the response schema documentation for details on the behavior differences between `metadata_filter` and `document_ids` parameters.<br/>
-        /// The operation runs as a background workflow.<br/>
         /// Use the returned `job_id` to track progress via the Jobs API.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -133,11 +142,14 @@ namespace Vectara
         /// <param name="async">
         /// Default Value: true
         /// </param>
+        /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.BulkDeleteDocumentsResponse>> BulkDeleteAsResponseAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.BulkUpdateDocumentMetadataResponse>> BulkUpdateMetadataAsResponseAsync(
             string corpusKey,
+
+            global::Vectara.BulkUpdateDocumentMetadataRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? metadataFilter = default,
@@ -146,22 +158,25 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+            request = request ?? throw new global::System.ArgumentNullException(nameof(request));
+
             PrepareArguments(
                 client: HttpClient);
-            PrepareBulkDeleteArguments(
+            PrepareBulkUpdateMetadataArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 corpusKey: ref corpusKey,
                 metadataFilter: ref metadataFilter,
                 documentIds: ref documentIds,
-                async: ref async);
+                async: ref async,
+                request: request);
 
 
             var __authorizations = global::Vectara.EndPointSecurityResolver.ResolveAuthorizations(
                 availableAuthorizations: Authorizations,
-                securityRequirements: s_BulkDeleteSecurityRequirements,
-                operationName: "BulkDeleteAsync");
+                securityRequirements: s_BulkUpdateMetadataSecurityRequirements,
+                operationName: "BulkUpdateMetadataAsync");
 
             using var __timeoutCancellationTokenSource = global::Vectara.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
@@ -194,7 +209,7 @@ namespace Vectara
                     clientParameters: Options.QueryParameters,
                     requestParameters: requestOptions?.QueryParameters);
                 var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                    method: global::System.Net.Http.HttpMethod.Delete,
+                    method: new global::System.Net.Http.HttpMethod("PATCH"),
                     requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
                 __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -227,6 +242,12 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
+                            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
+                            var __httpRequestContent = new global::System.Net.Http.StringContent(
+                                content: __httpRequestContentBody,
+                                encoding: global::System.Text.Encoding.UTF8,
+                                mediaType: "application/json");
+                            __httpRequest.Content = __httpRequestContent;
                 global::Vectara.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,
                     clientHeaders: Options.Headers,
@@ -235,7 +256,7 @@ namespace Vectara
                 PrepareRequest(
                     client: HttpClient,
                     request: __httpRequest);
-                PrepareBulkDeleteRequest(
+                PrepareBulkUpdateMetadataRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
@@ -243,7 +264,8 @@ namespace Vectara
                     corpusKey: corpusKey!,
                     metadataFilter: metadataFilter,
                     documentIds: documentIds,
-                    async: async);
+                    async: async,
+                    request: request);
 
                 return __httpRequest;
             }
@@ -260,10 +282,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnBeforeRequestAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "BulkDelete",
-                                methodName: "BulkDeleteAsync",
+                                operationId: "BulkUpdateMetadata",
+                                methodName: "BulkUpdateMetadataAsync",
                                 pathTemplate: "$\"/v2/corpora/{corpusKey}/documents\"",
-                                httpMethod: "DELETE",
+                                httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -297,10 +319,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "BulkDelete",
-                                methodName: "BulkDeleteAsync",
+                                operationId: "BulkUpdateMetadata",
+                                methodName: "BulkUpdateMetadataAsync",
                                 pathTemplate: "$\"/v2/corpora/{corpusKey}/documents\"",
-                                httpMethod: "DELETE",
+                                httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -338,10 +360,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "BulkDelete",
-                                methodName: "BulkDeleteAsync",
+                                operationId: "BulkUpdateMetadata",
+                                methodName: "BulkUpdateMetadataAsync",
                                 pathTemplate: "$\"/v2/corpora/{corpusKey}/documents\"",
-                                httpMethod: "DELETE",
+                                httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -378,7 +400,7 @@ namespace Vectara
                 ProcessResponse(
                     client: HttpClient,
                     response: __response);
-                ProcessBulkDeleteResponse(
+                ProcessBulkUpdateMetadataResponse(
                     httpClient: HttpClient,
                     httpResponseMessage: __response);
                 if (__response.IsSuccessStatusCode)
@@ -386,10 +408,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterSuccessAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "BulkDelete",
-                                methodName: "BulkDeleteAsync",
+                                operationId: "BulkUpdateMetadata",
+                                methodName: "BulkUpdateMetadataAsync",
                                 pathTemplate: "$\"/v2/corpora/{corpusKey}/documents\"",
-                                httpMethod: "DELETE",
+                                httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -408,10 +430,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "BulkDelete",
-                                methodName: "BulkDeleteAsync",
+                                operationId: "BulkUpdateMetadata",
+                                methodName: "BulkUpdateMetadataAsync",
                                 pathTemplate: "$\"/v2/corpora/{corpusKey}/documents\"",
-                                httpMethod: "DELETE",
+                                httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -462,7 +484,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow bulk deleting documents.
+                            // Permissions do not allow bulk updating document metadata.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -586,7 +608,7 @@ namespace Vectara
                                     client: HttpClient,
                                     response: __response,
                                     content: ref __content);
-                                ProcessBulkDeleteResponseContent(
+                                ProcessBulkUpdateMetadataResponseContent(
                                     httpClient: HttpClient,
                                     httpResponseMessage: __response,
                                     content: ref __content);
@@ -595,9 +617,9 @@ namespace Vectara
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::Vectara.BulkDeleteDocumentsResponse.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::Vectara.BulkUpdateDocumentMetadataResponse.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.BulkDeleteDocumentsResponse>(
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.BulkUpdateDocumentMetadataResponse>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -627,9 +649,9 @@ namespace Vectara
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    var __value = await global::Vectara.BulkDeleteDocumentsResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::Vectara.BulkUpdateDocumentMetadataResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.BulkDeleteDocumentsResponse>(
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.BulkUpdateDocumentMetadataResponse>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -668,6 +690,69 @@ namespace Vectara
             {
                 __httpRequest?.Dispose();
             }
+        }
+        /// <summary>
+        /// Bulk update document metadata<br/>
+        /// Initiates an asynchronous bulk metadata update for documents in a corpus.<br/>
+        /// Select documents with either `document_ids` or `metadata_filter`. If `document_ids` is provided, `metadata_filter` is ignored.<br/>
+        /// The same metadata object (from the request body) is applied to every matched document, using the chosen `strategy`.<br/>
+        /// `merge` (default) adds or overwrites only the supplied fields and leaves the rest intact; `replace` overwrites the entire metadata object.<br/>
+        /// **Important**: This is a best-effort operation.<br/>
+        /// See the response schema documentation for details on the behavior differences between `metadata_filter` and `document_ids` parameters.<br/>
+        /// Use the returned `job_id` to track progress via the Jobs API.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="corpusKey">
+        /// A user-provided key for a corpus.<br/>
+        /// Example: my-corpus
+        /// </param>
+        /// <param name="metadataFilter"></param>
+        /// <param name="documentIds"></param>
+        /// <param name="async">
+        /// Default Value: true
+        /// </param>
+        /// <param name="metadata">
+        /// The metadata object to apply to every matched document.<br/>
+        /// Example: {"status":"archived","reviewed":true,"year":2024}
+        /// </param>
+        /// <param name="strategy">
+        /// How to apply the supplied `metadata` to each matched document.<br/>
+        /// - `merge` (default): adds or overwrites only the supplied fields, leaving other existing fields intact.<br/>
+        /// - `replace`: replaces the entire existing metadata with the supplied object.<br/>
+        /// Default Value: merge
+        /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::System.InvalidOperationException"></exception>
+        public async global::System.Threading.Tasks.Task<global::Vectara.BulkUpdateDocumentMetadataResponse> BulkUpdateMetadataAsync(
+            string corpusKey,
+            object metadata,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            string? metadataFilter = default,
+            string? documentIds = default,
+            bool? async = default,
+            global::Vectara.BulkUpdateDocumentMetadataRequestStrategy? strategy = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
+            var __request = new global::Vectara.BulkUpdateDocumentMetadataRequest
+            {
+                Metadata = metadata,
+                Strategy = strategy,
+            };
+
+            return await BulkUpdateMetadataAsync(
+                requestTimeout: requestTimeout,
+                requestTimeoutMillis: requestTimeoutMillis,
+                corpusKey: corpusKey,
+                metadataFilter: metadataFilter,
+                documentIds: documentIds,
+                async: async,
+                request: __request,
+                requestOptions: requestOptions,
+                cancellationToken: cancellationToken).ConfigureAwait(false);
         }
     }
 }

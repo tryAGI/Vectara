@@ -62,6 +62,12 @@ namespace Vectara
         public string? CreatedByUsername { get; set; }
 
         /// <summary>
+        /// A human-readable explanation of the job's current status. Format and content depend on the job type; on failure it carries the error message. May be absent.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("comment")]
+        public string? Comment { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -95,6 +101,9 @@ namespace Vectara
         /// <param name="createdByUsername">
         /// The username of the user who created the job. This property may be missing, e.g., if the job was created by the system, not a user.
         /// </param>
+        /// <param name="comment">
+        /// A human-readable explanation of the job's current status. Format and content depend on the job type; on failure it carries the error message. May be absent.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -106,7 +115,8 @@ namespace Vectara
             global::System.DateTime? createdAt,
             global::System.DateTime? startedAt,
             global::System.DateTime? completedAt,
-            string? createdByUsername)
+            string? createdByUsername,
+            string? comment)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Type = type;
@@ -116,6 +126,7 @@ namespace Vectara
             this.StartedAt = startedAt;
             this.CompletedAt = completedAt;
             this.CreatedByUsername = createdByUsername;
+            this.Comment = comment;
         }
 
         /// <summary>

@@ -15,6 +15,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        BulkUpdateDocumentMetadata,
+        /// <summary>
+        /// 
+        /// </summary>
         RebuildVectorIndex,
         /// <summary>
         /// 
@@ -39,6 +43,7 @@ namespace Vectara
             return value switch
             {
                 JobType.BulkDeleteDocuments => "bulk_delete_documents",
+                JobType.BulkUpdateDocumentMetadata => "bulk_update_document_metadata",
                 JobType.RebuildVectorIndex => "rebuild_vector_index",
                 JobType.ReplaceFilterAttributes => "replace_filter_attributes",
                 JobType.Unknown => "unknown",
@@ -53,6 +58,7 @@ namespace Vectara
             return value switch
             {
                 "bulk_delete_documents" => JobType.BulkDeleteDocuments,
+                "bulk_update_document_metadata" => JobType.BulkUpdateDocumentMetadata,
                 "rebuild_vector_index" => JobType.RebuildVectorIndex,
                 "replace_filter_attributes" => JobType.ReplaceFilterAttributes,
                 "unknown" => JobType.Unknown,

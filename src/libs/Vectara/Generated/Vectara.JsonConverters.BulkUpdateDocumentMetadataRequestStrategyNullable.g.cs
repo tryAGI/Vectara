@@ -3,10 +3,10 @@
 namespace Vectara.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class BulkDeleteDocumentsResponseDiscriminatorResponseTypeJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType>
+    public sealed class BulkUpdateDocumentMetadataRequestStrategyNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.BulkUpdateDocumentMetadataRequestStrategy?>
     {
         /// <inheritdoc />
-        public override global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType Read(
+        public override global::Vectara.BulkUpdateDocumentMetadataRequestStrategy? Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace Vectara.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseTypeExtensions.ToEnum(stringValue) ?? default;
+                        return global::Vectara.BulkUpdateDocumentMetadataRequestStrategyExtensions.ToEnum(stringValue);
                     }
                     
                     break;
@@ -26,11 +26,11 @@ namespace Vectara.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType)numValue;
+                    return (global::Vectara.BulkUpdateDocumentMetadataRequestStrategy)numValue;
                 }
                 case global::System.Text.Json.JsonTokenType.Null:
                 {
-                    return default(global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType);
+                    return default(global::Vectara.BulkUpdateDocumentMetadataRequestStrategy?);
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -42,12 +42,19 @@ namespace Vectara.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType value,
+            global::Vectara.BulkUpdateDocumentMetadataRequestStrategy? value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
 
-            writer.WriteStringValue(global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseTypeExtensions.ToValueString(value));
+            if (value == null)
+            {
+                writer.WriteNullValue();
+            }
+            else
+            {
+                writer.WriteStringValue(global::Vectara.BulkUpdateDocumentMetadataRequestStrategyExtensions.ToValueString(value.Value));
+            }
         }
     }
 }

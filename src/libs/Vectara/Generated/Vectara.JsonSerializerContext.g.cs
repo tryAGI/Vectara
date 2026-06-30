@@ -37,9 +37,25 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeJsonConverter),
+            typeof(global::Vectara.JsonConverters.BulkDeleteAsyncResponseResponseTypeJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.BulkDeleteAsyncResponseResponseTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataRequestStrategyJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataRequestStrategyNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeJsonConverter),
 
@@ -550,6 +566,12 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.CreateDocumentRequestJsonConverter),
 
             typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataAsyncResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataSyncSuccessResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseJsonConverter),
 
             typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter),
 
@@ -979,10 +1001,22 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateDocumentRequestDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateDocumentRequestDiscriminatorType), TypeInfoPropertyName = "CreateDocumentRequestDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteAsyncResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteAsyncResponseResponseType), TypeInfoPropertyName = "BulkDeleteAsyncResponseResponseType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteSyncSuccessResponse))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteSyncSuccessResponseResponseType), TypeInfoPropertyName = "BulkDeleteSyncSuccessResponseResponseType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponse), TypeInfoPropertyName = "BulkDeleteDocumentsResponse2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponseDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponseDiscriminatorResponseType), TypeInfoPropertyName = "BulkDeleteDocumentsResponseDiscriminatorResponseType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType), TypeInfoPropertyName = "BulkDeleteDocumentsResponseDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataRequestStrategy), TypeInfoPropertyName = "BulkUpdateDocumentMetadataRequestStrategy2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataResponseBase))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataAsyncResponse), TypeInfoPropertyName = "BulkUpdateDocumentMetadataAsyncResponse2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataAsyncResponseVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse), TypeInfoPropertyName = "BulkUpdateDocumentMetadataSyncSuccessResponse2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponseVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataResponse), TypeInfoPropertyName = "BulkUpdateDocumentMetadataResponse2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataResponseDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataResponseDiscriminatorType), TypeInfoPropertyName = "BulkUpdateDocumentMetadataResponseDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateDocumentRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SummarizeDocumentRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SummarizeDocumentResponse))]
@@ -1391,18 +1425,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RetryConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentModel))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InstructionReference))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ReferenceInstruction), TypeInfoPropertyName = "ReferenceInstruction2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ReferenceInstructionVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineInstruction), TypeInfoPropertyName = "InlineInstruction2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineInstructionVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepInstruction), TypeInfoPropertyName = "AgentStepInstruction2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepInstructionDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepInstructionDiscriminatorType), TypeInfoPropertyName = "AgentStepInstructionDiscriminatorType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DefaultOutputParser))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.StructuredOutputParser))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentOutputParser), TypeInfoPropertyName = "AgentOutputParser2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentOutputParserDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentOutputParserDiscriminatorType), TypeInfoPropertyName = "AgentOutputParserDiscriminatorType2")]
     internal sealed partial class SourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1438,9 +1460,25 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeJsonConverter),
+            typeof(global::Vectara.JsonConverters.BulkDeleteAsyncResponseResponseTypeJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.BulkDeleteAsyncResponseResponseTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataRequestStrategyJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataRequestStrategyNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeJsonConverter),
 
@@ -1952,6 +1990,12 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataAsyncResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataSyncSuccessResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseJsonConverter),
+
             typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter),
 
             typeof(global::Vectara.JsonConverters.TextSearchResultJsonConverter),
@@ -2304,6 +2348,18 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ReferenceInstruction), TypeInfoPropertyName = "ReferenceInstruction2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ReferenceInstructionVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineInstruction), TypeInfoPropertyName = "InlineInstruction2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineInstructionVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepInstruction), TypeInfoPropertyName = "AgentStepInstruction2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepInstructionDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentStepInstructionDiscriminatorType), TypeInfoPropertyName = "AgentStepInstructionDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.DefaultOutputParser))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.StructuredOutputParser))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentOutputParser), TypeInfoPropertyName = "AgentOutputParser2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentOutputParserDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentOutputParserDiscriminatorType), TypeInfoPropertyName = "AgentOutputParserDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TemplatedReminder))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.TemplatedReminderHook>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TemplatedReminderHook), TypeInfoPropertyName = "TemplatedReminderHook2")]
@@ -2792,18 +2848,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.WeightedTarget>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AliasRule>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentAlias>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.GoogleDriveScope>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Pipeline>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineDeadLetterEntry>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRun>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRunEvent>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PercentileEntry>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.DistributionBinDescriptor>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.MetricDescriptor>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ScalarMetricPoint>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PercentilesMetricPoint>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.HistogramBin>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.DistributionMetricPoint>))]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -2839,9 +2883,25 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeNullableJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeJsonConverter),
+            typeof(global::Vectara.JsonConverters.BulkDeleteAsyncResponseResponseTypeJsonConverter),
 
-            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeNullableJsonConverter),
+            typeof(global::Vectara.JsonConverters.BulkDeleteAsyncResponseResponseTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataRequestStrategyJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataRequestStrategyNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeJsonConverter),
 
@@ -3353,6 +3413,12 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.BulkDeleteDocumentsResponseJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataAsyncResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataSyncSuccessResponseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseJsonConverter),
+
             typeof(global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter),
 
             typeof(global::Vectara.JsonConverters.TextSearchResultJsonConverter),
@@ -3705,6 +3771,18 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.GoogleDriveScope>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Pipeline>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineDeadLetterEntry>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRun>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineRunEvent>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PercentileEntry>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.DistributionBinDescriptor>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.MetricDescriptor>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ScalarMetricPoint>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PercentilesMetricPoint>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.HistogramBin>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.DistributionMetricPoint>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentTrace>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentTraceInputFile>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentTraceSpan>))]
@@ -3768,8 +3846,16 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.CoreDocumentPartImagePartModeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestDiscriminatorTypeNullableJsonConverter());
-            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeJsonConverter());
-            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorResponseTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteAsyncResponseResponseTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteAsyncResponseResponseTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteSyncSuccessResponseResponseTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseDiscriminatorTypeNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkUpdateDocumentMetadataRequestStrategyJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkUpdateDocumentMetadataRequestStrategyNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.MetadataQueryRequestLevelJsonConverter());
@@ -4025,6 +4111,9 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.ChunkingStrategyJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.CreateDocumentRequestJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.BulkDeleteDocumentsResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkUpdateDocumentMetadataAsyncResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkUpdateDocumentMetadataSyncSuccessResponseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.BulkUpdateDocumentMetadataResponseJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.SummarizeDocumentStreamedResponseJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.TextSearchResultJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ImageSearchResultJsonConverter());
