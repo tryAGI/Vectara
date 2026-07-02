@@ -11323,9 +11323,7 @@ paths:
         - viewer
         - administrator
         - owner
-      description: 'List all aliases owned by the current customer.
-
-        '
+      description: List aliases.
       operationId: listAgentAliases
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -11361,6 +11359,13 @@ paths:
         schema:
           type: boolean
           example: true
+      - in: query
+        name: aliased_agent_key
+        description: Return only aliases whose routing policy points at the agent
+          with this key.
+        required: false
+        schema:
+          $ref: '#/components/schemas/AgentKey'
       responses:
         '200':
           description: List of aliases.

@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List aliases<br/>
-        /// List all aliases owned by the current customer.
+        /// List aliases.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -19,6 +19,10 @@ namespace Vectara
         /// </param>
         /// <param name="enabled">
         /// Example: true
+        /// </param>
+        /// <param name="aliasedAgentKey">
+        /// A unique key that identifies an agent.<br/>
+        /// Example: customer_support
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -30,11 +34,12 @@ namespace Vectara
             string? pageKey = default,
             string? filter = default,
             bool? enabled = default,
+            string? aliasedAgentKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List aliases<br/>
-        /// List all aliases owned by the current customer.
+        /// List aliases.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -48,6 +53,10 @@ namespace Vectara
         /// <param name="enabled">
         /// Example: true
         /// </param>
+        /// <param name="aliasedAgentKey">
+        /// A unique key that identifies an agent.<br/>
+        /// Example: customer_support
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
@@ -58,6 +67,7 @@ namespace Vectara
             string? pageKey = default,
             string? filter = default,
             bool? enabled = default,
+            string? aliasedAgentKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
