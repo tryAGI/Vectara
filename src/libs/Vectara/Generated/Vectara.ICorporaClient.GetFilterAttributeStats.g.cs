@@ -25,6 +25,7 @@ namespace Vectara
         /// </param>
         /// <param name="fields"></param>
         /// <param name="metadataFilter"></param>
+        /// <param name="fuzzyMatch"></param>
         /// <param name="maxValues">
         /// Default Value: 100
         /// </param>
@@ -37,6 +38,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? fields = default,
             string? metadataFilter = default,
+            string? fuzzyMatch = default,
             int? maxValues = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
@@ -61,6 +63,7 @@ namespace Vectara
         /// </param>
         /// <param name="fields"></param>
         /// <param name="metadataFilter"></param>
+        /// <param name="fuzzyMatch"></param>
         /// <param name="maxValues">
         /// Default Value: 100
         /// </param>
@@ -73,6 +76,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? fields = default,
             string? metadataFilter = default,
+            string? fuzzyMatch = default,
             int? maxValues = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);

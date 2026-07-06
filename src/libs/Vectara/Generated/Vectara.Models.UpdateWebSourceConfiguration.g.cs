@@ -6,8 +6,9 @@ namespace Vectara
 {
     /// <summary>
     /// Partial update for a `web` source configuration. Top-level fields are merged into the existing<br/>
-    /// record; if `pages_source` is provided, the entire `pages_source` object is replaced (i.e.,<br/>
-    /// switching modes or changing per-mode fields requires a complete `pages_source` object).
+    /// record; if `pages_source` or `source_record_metadata` is provided, that entire object is<br/>
+    /// replaced. Switching modes or changing per-mode fields requires a complete `pages_source` object,<br/>
+    /// and a `source_record_metadata` must carry every value you want to keep.
     /// </summary>
     public readonly partial struct UpdateWebSourceConfiguration : global::System.IEquatable<UpdateWebSourceConfiguration>
     {

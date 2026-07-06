@@ -1339,6 +1339,21 @@ paths:
         schema:
           type: string
         example: doc.year >= 2020 AND doc.category = 'financial'
+      - name: fuzzy_match
+        in: query
+        description: "Term that narrows the returned values of text attributes. A\
+          \ distinct value is returned only when it contains the term, ignoring letter\
+          \ case and non-alphanumeric characters on both sides \u2014 for example,\
+          \ '10k' matches the values '10-K', '10K', and 'FY24 10-K'. Values of numeric\
+          \ and boolean attributes are not affected. The term must contain at least\
+          \ one alphanumeric character."
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: .*[a-zA-Z0-9].*
+        example: 10k
       - name: max_values
         in: query
         description: Maximum number of distinct values to return per field in the
@@ -27405,6 +27420,120 @@ components:
       minLength: 1
       maxLength: 255
       example: SharePoint Legal Docs Ingest
+    AclAccessLevel:
+      description: 'Access level a grant confers on a record. `none` means the access
+        concept applies to the record but
+
+        no grant was made. New levels may be added over time; clients should treat
+        unknown values as opaque.
+
+        '
+      type: string
+      enum:
+      - none
+      - reader
+      - commenter
+      - editor
+    AclMetadata:
+      description: "Access-control grants recorded on each ingested record \u2014\
+        \ extracted from the source system or\nsupplied via a source's `source_record_metadata.acl_metadata`\
+        \ (a supplied value always takes\npriority over extraction).\nGrants are independent\
+        \ and additive: the effective audience is the union of the user lists, the\n\
+        group lists, `public_access`, and `org_wide_access`. An omitted list means\
+        \ the source does not\ntrack that concept for the record; an empty list means\
+        \ it was tracked and nobody holds the grant.\nUser and group identifiers are\
+        \ stored verbatim \u2014 use the identifier form your query-time access\n\
+        filter presents (e.g. email addresses for users), and supply the querying\
+        \ user's groups at query\ntime since the platform does not expand group membership.\
+        \ Grants are recorded at ingestion;\nenforcing them at query time is up to\
+        \ the query's access filtering.\n"
+      type: object
+      properties:
+        owners:
+          description: User identifiers that own the record.
+          type: array
+          maxItems: 1000
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        editors:
+          description: User identifiers granted edit access.
+          type: array
+          maxItems: 1000
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        commenters:
+          description: User identifiers granted comment access.
+          type: array
+          maxItems: 1000
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        readers:
+          description: User identifiers granted read access.
+          type: array
+          maxItems: 1000
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        group_editors:
+          description: Group identifiers granted edit access.
+          type: array
+          maxItems: 1000
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        group_commenters:
+          description: Group identifiers granted comment access.
+          type: array
+          maxItems: 1000
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        group_readers:
+          description: Group identifiers granted read access.
+          type: array
+          maxItems: 1000
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        public_access:
+          description: Access granted to any caller.
+          $ref: '#/components/schemas/AclAccessLevel'
+        org_wide_access:
+          description: Access granted to every member of the organization.
+          $ref: '#/components/schemas/AclAccessLevel'
+    SourceRecordMetadata:
+      description: "Metadata recorded on each ingested record: source-system fields,\
+        \ owner-attached fields, and\naccess-control grants. It is set as the `source_record_metadata`\
+        \ field in each record's session\nmetadata, where the pipeline agent can access\
+        \ it. When supplied on a source configuration,\nuser-provided values take\
+        \ precedence over connector-derived ones \u2014 `system_metadata` and\n`user_metadata`\
+        \ entries override derived entries key by key (derived keys not named are\
+        \ kept), and\na provided `acl_metadata` replaces ACL extraction entirely.\n"
+      type: object
+      properties:
+        system_metadata:
+          description: Metadata the source system manages, such as size, timestamps,
+            or eTag.
+          type: object
+          additionalProperties: true
+        user_metadata:
+          description: Metadata the owner of the source object attached, such as S3
+            object tags or SharePoint custom columns.
+          type: object
+          additionalProperties: true
+        acl_metadata:
+          description: Access-control grants recorded on the record.
+          $ref: '#/components/schemas/AclMetadata'
     BaseSharepointSourceConfiguration:
       description: Base SharePoint source configuration with all fields optional.
       type: object
@@ -27438,6 +27567,23 @@ components:
           description: Optional folder path to scope ingestion to a subdirectory.
           type: string
           example: /Contracts/2026
+        source_record_metadata:
+          description: 'Metadata applied to every item ingested from this source;
+            provided values take precedence over
+
+            what the connector derives. SharePoint permissions are not extracted,
+            so a provided
+
+            `acl_metadata` is the only ACL a record carries. On a partial update (PATCH),
+            a provided
+
+            `source_record_metadata` replaces the stored object as a whole and an
+            omitted one keeps it;
+
+            removing it entirely requires a full source replace (PUT) without it.
+
+            '
+          $ref: '#/components/schemas/SourceRecordMetadata'
       required:
       - type
     SharepointSourceConfiguration:
@@ -27501,6 +27647,22 @@ components:
           items:
             type: string
             maxLength: 1024
+        source_record_metadata:
+          description: "Metadata applied to every object ingested from this source;\
+            \ provided values take precedence\nover what the connector derives. `system_metadata`\
+            \ and `user_metadata` entries override the\nderived entries key by key.\
+            \ A provided `acl_metadata` \u2014 including an explicit empty object,\n\
+            which records no grants \u2014 takes priority and per-object ACL extraction\
+            \ is skipped entirely;\nwhen it is omitted, the connector extracts each\
+            \ object's own ACL where readable, and objects\nwhose ACL cannot be read\
+            \ \u2014 a bucket with ACLs disabled (bucket-owner-enforced Object\nOwnership,\
+            \ the AWS default) or credentials without `s3:GetObjectAcl` \u2014 are\
+            \ ingested with no\naccess-control metadata. On a partial update (PATCH),\
+            \ a provided `source_record_metadata`\nreplaces the stored object as a\
+            \ whole and an omitted one keeps it; to remove it entirely (and\nreturn\
+            \ to per-object ACL extraction), use a full source replace (PUT) without\
+            \ it.\n"
+          $ref: '#/components/schemas/SourceRecordMetadata'
       required:
       - type
     S3SourceConfiguration:
@@ -28024,6 +28186,23 @@ components:
         auth:
           description: Authentication for the website. Omit for public sites.
           $ref: '#/components/schemas/RemoteAuth'
+        source_record_metadata:
+          description: 'Metadata applied to every page ingested from this source;
+            provided values take precedence over
+
+            what the connector derives. Web page permissions are not extracted, so
+            a provided
+
+            `acl_metadata` is the only ACL a record carries. On a partial update (PATCH),
+            a provided
+
+            `source_record_metadata` replaces the stored object as a whole and an
+            omitted one keeps it;
+
+            removing it entirely requires a full source replace (PUT) without it.
+
+            '
+          $ref: '#/components/schemas/SourceRecordMetadata'
     WebUrl:
       description: "An http(s) URL accepted by the Web crawler. Other schemes (file://,\
         \ gopher://, etc.) are rejected.\nThe scheme match is case-insensitive (RFC\
@@ -28557,15 +28736,23 @@ components:
       - trigger
       - transform
     UpdateSharepointSourceConfiguration:
-      description: Partial update for SharePoint source configuration. Only provided
-        fields are merged.
+      description: 'Partial update for SharePoint source configuration. Only provided
+        fields are merged; a provided
+
+        `source_record_metadata` is replaced as a whole.
+
+        '
       x-vectaraParents:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseSharepointSourceConfiguration'
     UpdateS3SourceConfiguration:
-      description: Partial update for S3 source configuration. Only provided fields
-        are merged.
+      description: 'Partial update for S3 source configuration. Only provided fields
+        are merged; a provided
+
+        `source_record_metadata` is replaced as a whole.
+
+        '
       x-vectaraParents:
       - UpdatePipelineSource
       allOf:
@@ -28602,11 +28789,13 @@ components:
       description: 'Partial update for a `web` source configuration. Top-level fields
         are merged into the existing
 
-        record; if `pages_source` is provided, the entire `pages_source` object is
-        replaced (i.e.,
+        record; if `pages_source` or `source_record_metadata` is provided, that entire
+        object is
 
-        switching modes or changing per-mode fields requires a complete `pages_source`
-        object).
+        replaced. Switching modes or changing per-mode fields requires a complete
+        `pages_source` object,
+
+        and a `source_record_metadata` must carry every value you want to keep.
 
         '
       x-vectaraParents:
