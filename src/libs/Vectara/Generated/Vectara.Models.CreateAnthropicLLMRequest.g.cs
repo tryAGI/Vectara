@@ -38,11 +38,11 @@ namespace Vectara
         public required string Model { get; set; }
 
         /// <summary>
-        /// Optional custom endpoint URI for the Anthropic API. Defaults to https://api.anthropic.com/v1/messages if not specified when using direct Anthropic API (header auth with x-api-key). Not required when using Bedrock or Vertex authentication as the endpoint is determined from region/project configuration.<br/>
-        /// Default Value: https://api.anthropic.com/v1/messages<br/>
-        /// Example: https://api.anthropic.com/v1/messages
+        /// Optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com if not specified when using direct Anthropic API (header auth with x-api-key). Not required when using Bedrock or Vertex authentication as the endpoint is determined from region/project configuration.<br/>
+        /// Default Value: https://api.anthropic.com<br/>
+        /// Example: https://api.anthropic.com
         /// </summary>
-        /// <example>https://api.anthropic.com/v1/messages</example>
+        /// <example>https://api.anthropic.com</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("uri")]
         public string? Uri { get; set; }
 
@@ -106,9 +106,9 @@ namespace Vectara
         /// Description of the LLM.
         /// </param>
         /// <param name="uri">
-        /// Optional custom endpoint URI for the Anthropic API. Defaults to https://api.anthropic.com/v1/messages if not specified when using direct Anthropic API (header auth with x-api-key). Not required when using Bedrock or Vertex authentication as the endpoint is determined from region/project configuration.<br/>
-        /// Default Value: https://api.anthropic.com/v1/messages<br/>
-        /// Example: https://api.anthropic.com/v1/messages
+        /// Optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com if not specified when using direct Anthropic API (header auth with x-api-key). Not required when using Bedrock or Vertex authentication as the endpoint is determined from region/project configuration.<br/>
+        /// Default Value: https://api.anthropic.com<br/>
+        /// Example: https://api.anthropic.com
         /// </param>
         /// <param name="headers">
         /// Optional additional headers to send with the request

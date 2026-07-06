@@ -18295,15 +18295,14 @@ components:
             claude-3-opus-20240229, etc).
           type: string
         uri:
-          description: Optional custom endpoint URI for the Anthropic API. Defaults
-            to https://api.anthropic.com/v1/messages if not specified when using direct
-            Anthropic API (header auth with x-api-key). Not required when using Bedrock
-            or Vertex authentication as the endpoint is determined from region/project
-            configuration.
+          description: Optional custom base URL for the Anthropic API. Defaults to
+            https://api.anthropic.com if not specified when using direct Anthropic
+            API (header auth with x-api-key). Not required when using Bedrock or Vertex
+            authentication as the endpoint is determined from region/project configuration.
           type: string
           format: uri
-          example: https://api.anthropic.com/v1/messages
-          default: https://api.anthropic.com/v1/messages
+          example: https://api.anthropic.com
+          default: https://api.anthropic.com
         auth:
           $ref: '#/components/schemas/AnthropicAuth'
         headers:
