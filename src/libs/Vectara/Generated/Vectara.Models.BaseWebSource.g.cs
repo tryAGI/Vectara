@@ -81,6 +81,17 @@ namespace Vectara
         public global::Vectara.RemoteAuth? Auth { get; set; }
 
         /// <summary>
+        /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
+        /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
+        /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
+        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
+        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("source_record_metadata")]
+        public global::Vectara.SourceRecordMetadata? SourceRecordMetadata { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -132,6 +143,14 @@ namespace Vectara
         /// <param name="auth">
         /// Authentication configuration for connecting to a remote service.
         /// </param>
+        /// <param name="sourceRecordMetadata">
+        /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
+        /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
+        /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
+        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
+        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -144,7 +163,8 @@ namespace Vectara
             string? userAgent,
             long? maxPageBytes,
             global::System.Collections.Generic.IList<string>? excludedContentTypes,
-            global::Vectara.RemoteAuth? auth)
+            global::Vectara.RemoteAuth? auth,
+            global::Vectara.SourceRecordMetadata? sourceRecordMetadata)
         {
             this.RespectRobotsTxt = respectRobotsTxt;
             this.RequestsPerSecond = requestsPerSecond;
@@ -155,6 +175,7 @@ namespace Vectara
             this.MaxPageBytes = maxPageBytes;
             this.ExcludedContentTypes = excludedContentTypes;
             this.Auth = auth;
+            this.SourceRecordMetadata = sourceRecordMetadata;
         }
 
         /// <summary>

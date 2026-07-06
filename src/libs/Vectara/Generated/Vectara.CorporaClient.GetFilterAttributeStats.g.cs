@@ -48,6 +48,7 @@ namespace Vectara
             ref string corpusKey,
             ref string? fields,
             ref string? metadataFilter,
+            ref string? fuzzyMatch,
             ref int? maxValues);
         partial void PrepareGetFilterAttributeStatsRequest(
             global::System.Net.Http.HttpClient httpClient,
@@ -57,6 +58,7 @@ namespace Vectara
             string corpusKey,
             string? fields,
             string? metadataFilter,
+            string? fuzzyMatch,
             int? maxValues);
         partial void ProcessGetFilterAttributeStatsResponse(
             global::System.Net.Http.HttpClient httpClient,
@@ -88,6 +90,7 @@ namespace Vectara
         /// </param>
         /// <param name="fields"></param>
         /// <param name="metadataFilter"></param>
+        /// <param name="fuzzyMatch"></param>
         /// <param name="maxValues">
         /// Default Value: 100
         /// </param>
@@ -100,6 +103,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? fields = default,
             string? metadataFilter = default,
+            string? fuzzyMatch = default,
             int? maxValues = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -110,6 +114,7 @@ namespace Vectara
                 requestTimeoutMillis: requestTimeoutMillis,
                 fields: fields,
                 metadataFilter: metadataFilter,
+                fuzzyMatch: fuzzyMatch,
                 maxValues: maxValues,
                 requestOptions: requestOptions,
                 cancellationToken: cancellationToken
@@ -138,6 +143,7 @@ namespace Vectara
         /// </param>
         /// <param name="fields"></param>
         /// <param name="metadataFilter"></param>
+        /// <param name="fuzzyMatch"></param>
         /// <param name="maxValues">
         /// Default Value: 100
         /// </param>
@@ -150,6 +156,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? fields = default,
             string? metadataFilter = default,
+            string? fuzzyMatch = default,
             int? maxValues = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -163,6 +170,7 @@ namespace Vectara
                 corpusKey: ref corpusKey,
                 fields: ref fields,
                 metadataFilter: ref metadataFilter,
+                fuzzyMatch: ref fuzzyMatch,
                 maxValues: ref maxValues);
 
 
@@ -194,6 +202,7 @@ namespace Vectara
                             __pathBuilder
                                 .AddOptionalParameter("fields", fields)
                                 .AddOptionalParameter("metadata_filter", metadataFilter)
+                                .AddOptionalParameter("fuzzy_match", fuzzyMatch)
                                 .AddOptionalParameter("max_values", maxValues?.ToString())
                                 ;
                             var __path = __pathBuilder.ToString();
@@ -251,6 +260,7 @@ namespace Vectara
                     corpusKey: corpusKey!,
                     fields: fields,
                     metadataFilter: metadataFilter,
+                    fuzzyMatch: fuzzyMatch,
                     maxValues: maxValues);
 
                 return __httpRequest;

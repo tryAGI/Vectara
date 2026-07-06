@@ -401,6 +401,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.AclAccessLevelJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AclAccessLevelNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.GoogleDriveScopeDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.GoogleDriveScopeDiscriminatorTypeNullableJsonConverter),
@@ -1824,6 +1828,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.AclAccessLevelJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AclAccessLevelNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.GoogleDriveScopeDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.GoogleDriveScopeDiscriminatorTypeNullableJsonConverter),
@@ -2562,6 +2570,9 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateAgentAliasRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ReplaceAliasPolicyRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineStatus), TypeInfoPropertyName = "PipelineStatus2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AclAccessLevel), TypeInfoPropertyName = "AclAccessLevel2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AclMetadata))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SourceRecordMetadata))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseSharepointSourceConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SharepointSourceConfiguration), TypeInfoPropertyName = "SharepointSourceConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseS3SourceConfiguration))]
@@ -2845,9 +2856,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentScheduleExecution>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentOutputType>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentConnector>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.WeightedTarget>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AliasRule>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentAlias>))]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -3246,6 +3254,10 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.PipelineStatusJsonConverter),
 
             typeof(global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AclAccessLevelJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.AclAccessLevelNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.GoogleDriveScopeDiscriminatorTypeJsonConverter),
 
@@ -3771,6 +3783,9 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.WeightedTarget>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AliasRule>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentAlias>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.GoogleDriveScope>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Pipeline>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.PipelineDeadLetterEntry>))]
@@ -4028,6 +4043,8 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.AliasPolicyDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineStatusJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.PipelineStatusNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AclAccessLevelJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AclAccessLevelNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.GoogleDriveScopeDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.GoogleDriveScopeDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.BaseWolkenKbSourceConfigurationUpdateUpperBoundOperatorJsonConverter());

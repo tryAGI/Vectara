@@ -5,7 +5,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Partial update for S3 source configuration. Only provided fields are merged.
+    /// Partial update for S3 source configuration. Only provided fields are merged; a provided<br/>
+    /// `source_record_metadata` is replaced as a whole.
     /// </summary>
     public readonly partial struct UpdateS3SourceConfiguration : global::System.IEquatable<UpdateS3SourceConfiguration>
     {

@@ -64,6 +64,17 @@ namespace Vectara
         public string? FolderPath { get; set; }
 
         /// <summary>
+        /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
+        /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
+        /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
+        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
+        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("source_record_metadata")]
+        public global::Vectara.SourceRecordMetadata? SourceRecordMetadata { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -99,6 +110,14 @@ namespace Vectara
         /// Optional folder path to scope ingestion to a subdirectory.<br/>
         /// Example: /Contracts/2026
         /// </param>
+        /// <param name="sourceRecordMetadata">
+        /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
+        /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
+        /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
+        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
+        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -109,7 +128,8 @@ namespace Vectara
             string? clientId,
             string? clientSecret,
             string? driveId,
-            string? folderPath)
+            string? folderPath,
+            global::Vectara.SourceRecordMetadata? sourceRecordMetadata)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.SiteUrl = siteUrl;
@@ -118,6 +138,7 @@ namespace Vectara
             this.ClientSecret = clientSecret;
             this.DriveId = driveId;
             this.FolderPath = folderPath;
+            this.SourceRecordMetadata = sourceRecordMetadata;
         }
 
         /// <summary>

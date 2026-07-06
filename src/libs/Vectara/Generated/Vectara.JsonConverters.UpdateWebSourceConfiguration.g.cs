@@ -23,6 +23,13 @@ namespace Vectara.JsonConverters
                 foreach (var __jsonProp in __jsonDocument.RootElement.EnumerateObject())
                 {
                     __jsonProps.Add(__jsonProp.Name);
+                    if (__jsonProp.Value.ValueKind == global::System.Text.Json.JsonValueKind.Object)
+                    {
+                        foreach (var __nestedJsonProp in __jsonProp.Value.EnumerateObject())
+                        {
+                            __jsonProps.Add(__jsonProp.Name + "." + __nestedJsonProp.Name);
+                        }
+                    }
 
                 }
             }
@@ -36,6 +43,10 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("max_pages")) __score0++;
             if (__jsonProps.Contains("requests_per_second")) __score0++;
             if (__jsonProps.Contains("respect_robots_txt")) __score0++;
+            if (__jsonProps.Contains("source_record_metadata")) __score0++;
+            if (__jsonProps.Contains("source_record_metadata.acl_metadata")) __score0++;
+            if (__jsonProps.Contains("source_record_metadata.system_metadata")) __score0++;
+            if (__jsonProps.Contains("source_record_metadata.user_metadata")) __score0++;
             if (__jsonProps.Contains("user_agent")) __score0++;
             var __score1 = 0;
             if (__jsonProps.Contains("pages_source")) __score1++;

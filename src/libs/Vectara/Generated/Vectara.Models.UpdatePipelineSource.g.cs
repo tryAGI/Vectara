@@ -15,7 +15,8 @@ namespace Vectara
         public global::Vectara.UpdatePipelineSourceDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Partial update for SharePoint source configuration. Only provided fields are merged.
+        /// Partial update for SharePoint source configuration. Only provided fields are merged; a provided<br/>
+        /// `source_record_metadata` is replaced as a whole.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateSharepointSourceConfiguration? Sharepoint { get; init; }
@@ -52,7 +53,8 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Sharepoint' but the value was {ToString()}.");
 
         /// <summary>
-        /// Partial update for S3 source configuration. Only provided fields are merged.
+        /// Partial update for S3 source configuration. Only provided fields are merged; a provided<br/>
+        /// `source_record_metadata` is replaced as a whole.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateS3SourceConfiguration? S3 { get; init; }
@@ -238,8 +240,9 @@ namespace Vectara
 
         /// <summary>
         /// Partial update for a `web` source configuration. Top-level fields are merged into the existing<br/>
-        /// record; if `pages_source` is provided, the entire `pages_source` object is replaced (i.e.,<br/>
-        /// switching modes or changing per-mode fields requires a complete `pages_source` object).
+        /// record; if `pages_source` or `source_record_metadata` is provided, that entire object is<br/>
+        /// replaced. Switching modes or changing per-mode fields requires a complete `pages_source` object,<br/>
+        /// and a `source_record_metadata` must carry every value you want to keep.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateWebSourceConfiguration? Web { get; init; }
