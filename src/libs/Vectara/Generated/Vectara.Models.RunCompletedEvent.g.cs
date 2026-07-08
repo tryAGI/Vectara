@@ -6,7 +6,7 @@ namespace Vectara
 {
     /// <summary>
     /// The pipeline run reached a terminal state. `status` distinguishes a successful completion<br/>
-    /// from a failure, cancellation, or timeout.
+    /// from a failure or cancellation.
     /// </summary>
     public readonly partial struct RunCompletedEvent : global::System.IEquatable<RunCompletedEvent>
     {

@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List pipeline run events<br/>
-        /// List the timeline of events for a pipeline run, keyed by `run_id`. Events report what the run did — records discovered, records processed, agent sessions created, dead letters, watermark advances, and lifecycle transitions.
+        /// List the timeline of events for a pipeline run, keyed by `run_id`. Events report what the run did — records discovered, records processed, agent sessions created, dead letters, watermark advances, and lifecycle transitions. The terminal `run_completed` event is present once a run has finished (a run that ended abruptly surfaces as `failed`) and agrees with the run's `status` field, which is the authoritative terminal signal.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -44,7 +44,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List pipeline run events<br/>
-        /// List the timeline of events for a pipeline run, keyed by `run_id`. Events report what the run did — records discovered, records processed, agent sessions created, dead letters, watermark advances, and lifecycle transitions.
+        /// List the timeline of events for a pipeline run, keyed by `run_id`. Events report what the run did — records discovered, records processed, agent sessions created, dead letters, watermark advances, and lifecycle transitions. The terminal `run_completed` event is present once a run has finished (a run that ended abruptly surfaces as `failed`) and agrees with the run's `status` field, which is the authoritative terminal signal.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

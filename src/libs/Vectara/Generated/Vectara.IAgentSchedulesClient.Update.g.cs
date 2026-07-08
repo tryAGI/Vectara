@@ -97,6 +97,9 @@ namespace Vectara
         /// <param name="sessionMetadata">
         /// Updated metadata to include in each session created by this schedule.
         /// </param>
+        /// <param name="runCondition">
+        /// Updated UserFn boolean gate that determines whether each scheduled execution creates a session. Send null to clear the gate so the schedule runs on every execution.
+        /// </param>
         /// <param name="maxExecutionsToKeep">
         /// Updated maximum number of past execution records to keep.
         /// </param>
@@ -118,6 +121,7 @@ namespace Vectara
             global::Vectara.ScheduleConfiguration? schedule = default,
             bool? enabled = default,
             object? sessionMetadata = default,
+            string? runCondition = default,
             int? maxExecutionsToKeep = default,
             int? stallTimeoutSeconds = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

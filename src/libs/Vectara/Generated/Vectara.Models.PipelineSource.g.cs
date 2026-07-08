@@ -237,6 +237,43 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Confluence' but the value was {ToString()}.");
 
         /// <summary>
+        /// Configuration for ingesting content from a Fluid Topics tenant via the Knowledge Hub REST API.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.FluidtopicsSourceConfiguration? Fluidtopics { get; init; }
+#else
+        public global::Vectara.FluidtopicsSourceConfiguration? Fluidtopics { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Fluidtopics))]
+#endif
+        public bool IsFluidtopics => Fluidtopics != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickFluidtopics(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.FluidtopicsSourceConfiguration? value)
+        {
+            value = Fluidtopics;
+            return IsFluidtopics;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.FluidtopicsSourceConfiguration PickFluidtopics() => IsFluidtopics
+            ? Fluidtopics!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Fluidtopics' but the value was {ToString()}.");
+
+        /// <summary>
         /// Configuration for ingesting pages from a website. Politeness, limits, and auth are configured<br/>
         /// here; the `pages_source` field selects how URLs are discovered (sitemap, crawl, or both).
         /// </summary>
@@ -414,6 +451,29 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator PipelineSource(global::Vectara.FluidtopicsSourceConfiguration value) => new PipelineSource((global::Vectara.FluidtopicsSourceConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.FluidtopicsSourceConfiguration?(PipelineSource @this) => @this.Fluidtopics;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PipelineSource(global::Vectara.FluidtopicsSourceConfiguration? value)
+        {
+            Fluidtopics = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static PipelineSource FromFluidtopics(global::Vectara.FluidtopicsSourceConfiguration? value) => new PipelineSource(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator PipelineSource(global::Vectara.WebSourceConfiguration value) => new PipelineSource((global::Vectara.WebSourceConfiguration?)value);
 
         /// <summary>
@@ -445,6 +505,7 @@ namespace Vectara
             global::Vectara.BoxSourceConfiguration? box,
             global::Vectara.WolkenKbSourceConfiguration? wolkenKb,
             global::Vectara.ConfluenceSourceConfiguration? confluence,
+            global::Vectara.FluidtopicsSourceConfiguration? fluidtopics,
             global::Vectara.WebSourceConfiguration? web
             )
         {
@@ -456,6 +517,7 @@ namespace Vectara
             Box = box;
             WolkenKb = wolkenKb;
             Confluence = confluence;
+            Fluidtopics = fluidtopics;
             Web = web;
         }
 
@@ -464,6 +526,7 @@ namespace Vectara
         /// </summary>
         public object? Object =>
             Web as object ??
+            Fluidtopics as object ??
             Confluence as object ??
             WolkenKb as object ??
             Box as object ??
@@ -482,6 +545,7 @@ namespace Vectara
             Box?.ToString() ??
             WolkenKb?.ToString() ??
             Confluence?.ToString() ??
+            Fluidtopics?.ToString() ??
             Web?.ToString() 
             ;
 
@@ -490,7 +554,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolkenKb && !IsConfluence && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolkenKb && !IsConfluence && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && IsConfluence && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && IsWeb;
+            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && IsWeb;
         }
 
         /// <summary>
@@ -503,6 +567,7 @@ namespace Vectara
             global::System.Func<global::Vectara.BoxSourceConfiguration?, TResult>? box = null,
             global::System.Func<global::Vectara.WolkenKbSourceConfiguration?, TResult>? wolkenKb = null,
             global::System.Func<global::Vectara.ConfluenceSourceConfiguration?, TResult>? confluence = null,
+            global::System.Func<global::Vectara.FluidtopicsSourceConfiguration?, TResult>? fluidtopics = null,
             global::System.Func<global::Vectara.WebSourceConfiguration?, TResult>? web = null,
             bool validate = true)
         {
@@ -535,6 +600,10 @@ namespace Vectara
             {
                 return confluence(Confluence!);
             }
+            else if (IsFluidtopics && fluidtopics != null)
+            {
+                return fluidtopics(Fluidtopics!);
+            }
             else if (IsWeb && web != null)
             {
                 return web(Web!);
@@ -559,6 +628,8 @@ namespace Vectara
 
             global::System.Action<global::Vectara.ConfluenceSourceConfiguration?>? confluence = null,
 
+            global::System.Action<global::Vectara.FluidtopicsSourceConfiguration?>? fluidtopics = null,
+
             global::System.Action<global::Vectara.WebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -590,6 +661,10 @@ namespace Vectara
             else if (IsConfluence)
             {
                 confluence?.Invoke(Confluence!);
+            }
+            else if (IsFluidtopics)
+            {
+                fluidtopics?.Invoke(Fluidtopics!);
             }
             else if (IsWeb)
             {
@@ -607,6 +682,7 @@ namespace Vectara
             global::System.Action<global::Vectara.BoxSourceConfiguration?>? box = null,
             global::System.Action<global::Vectara.WolkenKbSourceConfiguration?>? wolkenKb = null,
             global::System.Action<global::Vectara.ConfluenceSourceConfiguration?>? confluence = null,
+            global::System.Action<global::Vectara.FluidtopicsSourceConfiguration?>? fluidtopics = null,
             global::System.Action<global::Vectara.WebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -638,6 +714,10 @@ namespace Vectara
             else if (IsConfluence)
             {
                 confluence?.Invoke(Confluence!);
+            }
+            else if (IsFluidtopics)
+            {
+                fluidtopics?.Invoke(Fluidtopics!);
             }
             else if (IsWeb)
             {
@@ -664,6 +744,8 @@ namespace Vectara
                 typeof(global::Vectara.WolkenKbSourceConfiguration),
                 Confluence,
                 typeof(global::Vectara.ConfluenceSourceConfiguration),
+                Fluidtopics,
+                typeof(global::Vectara.FluidtopicsSourceConfiguration),
                 Web,
                 typeof(global::Vectara.WebSourceConfiguration),
             };
@@ -688,6 +770,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BoxSourceConfiguration?>.Default.Equals(Box, other.Box) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WolkenKbSourceConfiguration?>.Default.Equals(WolkenKb, other.WolkenKb) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ConfluenceSourceConfiguration?>.Default.Equals(Confluence, other.Confluence) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.FluidtopicsSourceConfiguration?>.Default.Equals(Fluidtopics, other.Fluidtopics) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebSourceConfiguration?>.Default.Equals(Web, other.Web) 
                 ;
         }

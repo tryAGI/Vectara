@@ -19,6 +19,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Fluidtopics,
+        /// <summary>
+        /// 
+        /// </summary>
         GoogleDrive,
         /// <summary>
         /// 
@@ -52,6 +56,7 @@ namespace Vectara
             {
                 PipelineSourceDiscriminatorType.Box => "box",
                 PipelineSourceDiscriminatorType.Confluence => "confluence",
+                PipelineSourceDiscriminatorType.Fluidtopics => "fluidtopics",
                 PipelineSourceDiscriminatorType.GoogleDrive => "google_drive",
                 PipelineSourceDiscriminatorType.S3 => "s3",
                 PipelineSourceDiscriminatorType.Sharepoint => "sharepoint",
@@ -69,6 +74,7 @@ namespace Vectara
             {
                 "box" => PipelineSourceDiscriminatorType.Box,
                 "confluence" => PipelineSourceDiscriminatorType.Confluence,
+                "fluidtopics" => PipelineSourceDiscriminatorType.Fluidtopics,
                 "google_drive" => PipelineSourceDiscriminatorType.GoogleDrive,
                 "s3" => PipelineSourceDiscriminatorType.S3,
                 "sharepoint" => PipelineSourceDiscriminatorType.Sharepoint,

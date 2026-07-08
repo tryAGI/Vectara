@@ -111,6 +111,13 @@ namespace Vectara
         public string? InputTransform { get; set; }
 
         /// <summary>
+        /// When true, this tool configuration is used only during session-creation enrichment and is never exposed to the agent's model. Enrichment tool calls in session_enrichment.tool_calls reference these configurations by name.<br/>
+        /// Default Value: false
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("enrichment_only")]
+        public bool? EnrichmentOnly { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -184,6 +191,10 @@ namespace Vectara
         ///   - `.args | .query = (.args.query + " " + .session.metadata.query_suffix)` — augment the agent's query<br/>
         /// Example: .args + { auth: ("Bearer " + .agent.secrets.token) }
         /// </param>
+        /// <param name="enrichmentOnly">
+        /// When true, this tool configuration is used only during session-creation enrichment and is never exposed to the agent's model. Enrichment tool calls in session_enrichment.tool_calls reference these configurations by name.<br/>
+        /// Default Value: false
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -197,7 +208,8 @@ namespace Vectara
             global::System.DateTime? createdAt,
             global::System.DateTime? updatedAt,
             string? outputTransform,
-            string? inputTransform)
+            string? inputTransform,
+            bool? enrichmentOnly)
         {
             this.Key = key;
             this.Name = name;
@@ -209,6 +221,7 @@ namespace Vectara
             this.UpdatedAt = updatedAt;
             this.OutputTransform = outputTransform;
             this.InputTransform = inputTransform;
+            this.EnrichmentOnly = enrichmentOnly;
         }
 
         /// <summary>

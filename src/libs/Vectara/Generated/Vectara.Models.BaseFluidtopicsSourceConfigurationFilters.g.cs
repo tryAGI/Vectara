@@ -1,0 +1,22 @@
+
+#nullable enable
+
+namespace Vectara
+{
+    /// <summary>
+    /// Restricts ingestion to records matching the given Fluid Topics metadata, as a map of metadata<br/>
+    /// key to the list of accepted values. For example `{"Disclosure": ["Public"]}` ingests only<br/>
+    /// public content. When unset, no metadata filter is applied.<br/>
+    /// Example: {"Disclosure":["Public"]}
+    /// </summary>
+    public sealed partial class BaseFluidtopicsSourceConfigurationFilters
+    {
+
+        /// <summary>
+        /// Additional properties that are not explicitly defined in the schema
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonExtensionData]
+        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
+
+    }
+}

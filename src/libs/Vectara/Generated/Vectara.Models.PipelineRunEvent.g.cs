@@ -54,7 +54,7 @@ namespace Vectara
 
         /// <summary>
         /// The pipeline run reached a terminal state. `status` distinguishes a successful completion<br/>
-        /// from a failure, cancellation, or timeout.
+        /// from a failure or cancellation.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.RunCompletedEvent? RunCompleted { get; init; }

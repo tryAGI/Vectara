@@ -39,7 +39,11 @@ namespace Vectara
         public required int Attempt { get; set; }
 
         /// <summary>
-        /// Outcome of this attempt.
+        /// Outcome of this attempt.<br/>
+        /// * `success`: a session was created and the agent ran<br/>
+        /// * `error`: the attempt failed, either before a session could be created, for example from an invalid run_condition expression, or while the agent ran<br/>
+        /// * `skipped`: run_condition evaluated false, so no session was created<br/>
+        /// * `enrichment_failed`: session metadata enrichment failed, so no session was created
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentScheduleExecutionStatusJsonConverter))]
@@ -47,7 +51,7 @@ namespace Vectara
         public required global::Vectara.AgentScheduleExecutionStatus Status { get; set; }
 
         /// <summary>
-        /// Error message if the attempt failed.
+        /// Error message for a failed attempt. Null for success and skipped attempts.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("error_message")]
         public string? ErrorMessage { get; set; }
@@ -80,7 +84,11 @@ namespace Vectara
         /// 1-based attempt number within the workflow run.
         /// </param>
         /// <param name="status">
-        /// Outcome of this attempt.
+        /// Outcome of this attempt.<br/>
+        /// * `success`: a session was created and the agent ran<br/>
+        /// * `error`: the attempt failed, either before a session could be created, for example from an invalid run_condition expression, or while the agent ran<br/>
+        /// * `skipped`: run_condition evaluated false, so no session was created<br/>
+        /// * `enrichment_failed`: session metadata enrichment failed, so no session was created
         /// </param>
         /// <param name="executedAt">
         /// Timestamp when this attempt ran.
@@ -89,7 +97,7 @@ namespace Vectara
         /// Session created by this attempt. Null if the attempt failed before session creation.
         /// </param>
         /// <param name="errorMessage">
-        /// Error message if the attempt failed.
+        /// Error message for a failed attempt. Null for success and skipped attempts.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

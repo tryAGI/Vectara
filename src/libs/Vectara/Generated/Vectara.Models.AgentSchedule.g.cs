@@ -81,6 +81,19 @@ namespace Vectara
         public object? SessionMetadata { get; set; }
 
         /// <summary>
+        /// A UserFn boolean expression that gates execution. On each scheduled execution the agent's enrichment runs first, then this expression is evaluated against the enriched session context. The scheduled session is created and the agent runs only when the expression evaluates to true. When it evaluates to false the execution is skipped and no session is created.<br/>
+        /// The expression uses the `get()` function with JSONPath to read the enriched context:<br/>
+        /// * `$.session.metadata.*` for values written by the agent's enrichment<br/>
+        /// * `$.agent.metadata.*` for the owning agent's metadata<br/>
+        /// An enrichment tool call's output is visible to the condition only when the call writes it to metadata via metadata_target_path. Missing paths return null, and comparing against null is falsy, so an unresolved path skips the execution. Use `get('$.path', default)` for an explicit fallback. Omit this field to run on every execution.<br/>
+        /// See https://docs.vectara.com/docs/reference/userfn-language for the UserFn language reference.<br/>
+        /// Example: get('$.session.metadata.open_incidents') &gt; 0
+        /// </summary>
+        /// <example>get('$.session.metadata.open_incidents') &gt; 0</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("run_condition")]
+        public string? RunCondition { get; set; }
+
+        /// <summary>
         /// Maximum number of past execution records to keep. Older records are deleted automatically when a new execution is recorded.<br/>
         /// Default Value: 10<br/>
         /// Example: 10
@@ -167,6 +180,15 @@ namespace Vectara
         /// Default Value: {}<br/>
         /// Example: {"report_type":"daily","format":"markdown"}
         /// </param>
+        /// <param name="runCondition">
+        /// A UserFn boolean expression that gates execution. On each scheduled execution the agent's enrichment runs first, then this expression is evaluated against the enriched session context. The scheduled session is created and the agent runs only when the expression evaluates to true. When it evaluates to false the execution is skipped and no session is created.<br/>
+        /// The expression uses the `get()` function with JSONPath to read the enriched context:<br/>
+        /// * `$.session.metadata.*` for values written by the agent's enrichment<br/>
+        /// * `$.agent.metadata.*` for the owning agent's metadata<br/>
+        /// An enrichment tool call's output is visible to the condition only when the call writes it to metadata via metadata_target_path. Missing paths return null, and comparing against null is falsy, so an unresolved path skips the execution. Use `get('$.path', default)` for an explicit fallback. Omit this field to run on every execution.<br/>
+        /// See https://docs.vectara.com/docs/reference/userfn-language for the UserFn language reference.<br/>
+        /// Example: get('$.session.metadata.open_incidents') &gt; 0
+        /// </param>
         /// <param name="maxExecutionsToKeep">
         /// Maximum number of past execution records to keep. Older records are deleted automatically when a new execution is recorded.<br/>
         /// Default Value: 10<br/>
@@ -197,6 +219,7 @@ namespace Vectara
             global::System.DateTime createdAt,
             string? description,
             object? sessionMetadata,
+            string? runCondition,
             int? maxExecutionsToKeep,
             int? stallTimeoutSeconds,
             global::System.DateTime? lastExecutionAt)
@@ -209,6 +232,7 @@ namespace Vectara
             this.Schedule = schedule;
             this.Enabled = enabled;
             this.SessionMetadata = sessionMetadata;
+            this.RunCondition = runCondition;
             this.MaxExecutionsToKeep = maxExecutionsToKeep;
             this.StallTimeoutSeconds = stallTimeoutSeconds;
             this.LastExecutionAt = lastExecutionAt;

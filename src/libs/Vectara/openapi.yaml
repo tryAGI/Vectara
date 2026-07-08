@@ -13341,7 +13341,9 @@ paths:
       description: "List the timeline of events for a pipeline run, keyed by `run_id`.\
         \ Events report what the run did \u2014 records discovered, records processed,\
         \ agent sessions created, dead letters, watermark advances, and lifecycle\
-        \ transitions."
+        \ transitions. The terminal `run_completed` event is present once a run has\
+        \ finished (a run that ended abruptly surfaces as `failed`) and agrees with\
+        \ the run's `status` field, which is the authoritative terminal signal."
       operationId: listPipelineRunEvents
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -20475,6 +20477,13 @@ components:
           $ref: '#/components/schemas/OutputTransform'
         input_transform:
           $ref: '#/components/schemas/InputTransform'
+        enrichment_only:
+          description: When true, this tool configuration is used only during session-creation
+            enrichment and is never exposed to the agent's model. Enrichment tool
+            calls in session_enrichment.tool_calls reference these configurations
+            by name.
+          type: boolean
+          default: false
     ToolConfigurationReference:
       title: ToolConfigurationReference
       description: 'References a reusable tool configuration by its key. The configuration
@@ -23551,6 +23560,85 @@ components:
           - include_outputs
           - include_all
           default: include_outputs
+    SessionEnrichmentToolCall:
+      title: SessionEnrichmentToolCall
+      description: A single tool call run during session enrichment. It names one
+        of the agent's enrichment-only tool configurations and supplies the arguments
+        to invoke it with. The tool's own configuration, including its argument defaults
+        and output_transform, lives on the tool configuration rather than on the call.
+        Because enrichment runs with no model to fill arguments in, the arguments
+        must include every required parameter of the called tool, either as a literal
+        value or as a reference to an earlier call's output. A call that omits a required
+        parameter is rejected when the agent is created or updated.
+      type: object
+      required:
+      - tool
+      properties:
+        tool:
+          type: string
+          minLength: 1
+          description: Name of the tool configuration to call. Must name one of the
+            agent's tool_configurations whose enrichment_only is true. A later tool
+            call references an earlier call's output as tools.<tool>.outputs.latest.
+        arguments:
+          description: Arguments to invoke the tool with. These may set only the parameters
+            that the tool definition does not already fix through its own configured
+            argument_override. A parameter fixed by the tool cannot be set per call,
+            so naming one here is rejected when the agent is created or updated. Because
+            enrichment runs with no model to fill arguments in, these arguments together
+            with the parameters fixed by the tool must cover every required parameter
+            of the tool. Each value is either a literal or a $ref object that resolves
+            against session or agent metadata or an earlier call's output as tools.<name>.outputs.latest.
+          type: object
+          additionalProperties: true
+        metadata_target_path:
+          type: string
+          pattern: ^[^.]+(\.[^.]+)*$
+          description: Dotted metadata path the tool's output is written to, after
+            the tool's own configured output_transform is applied. Outputs are written
+            to the session metadata in call order. Later writes to a path replaces
+            any value written earlier at that path. A call without a target path is
+            compute only, so later calls can reference its output but nothing is written
+            to the metadata.
+        timeout_seconds:
+          description: Seconds the call may run before it is treated as a failed call.
+          type: integer
+          minimum: 1
+          maximum: 120
+          default: 30
+        continue_on_error:
+          type: boolean
+          default: false
+          description: When true a failure of this call is ignored and its target
+            is left unset. Otherwise a call failure aborts session creation.
+    SessionEnrichmentConfig:
+      title: SessionEnrichmentConfig
+      description: 'Tool calls run at session creation to populate the new session''s
+        metadata before the agent''s first turn. Each call invokes one of the agent''s
+        enrichment-only tool configurations and writes its output into the session
+        metadata, so the agent, run conditions, and routing can read values fetched
+        or computed at session start. Enrichment tools are ordinary entries in the
+        agent''s tool_configurations marked enrichment_only, so they are never exposed
+        to the agent''s model. Enrichment runs for every session the agent creates
+        regardless of trigger, including the API, chat connectors, and schedules.
+        Independent calls run in parallel and a call may consume an earlier call''s
+        output. Enrichment is fail-closed: unless a call sets continue_on_error, a
+        failed call aborts session creation and no session is created.'
+      type: object
+      properties:
+        enabled:
+          description: When false, enrichment does not run and sessions are created
+            with the metadata provided by the caller.
+          type: boolean
+          default: true
+        tool_calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/SessionEnrichmentToolCall'
+          default: []
+          description: Ordered tool calls run at session creation. Independent calls
+            run in parallel. A call that references another call's output runs after
+            it.
     ToolOutputOffloadingConfiguration:
       title: ToolOutputOffloadingConfiguration
       description: "Controls how large tool outputs are kept from overwhelming the\
@@ -23796,6 +23884,8 @@ components:
           description: Configuration for automatic context compaction when the session
             approaches context limits.
           $ref: '#/components/schemas/CompactionConfig'
+        session_enrichment:
+          $ref: '#/components/schemas/SessionEnrichmentConfig'
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
         created_at:
@@ -23946,6 +24036,8 @@ components:
           description: Configuration for automatic context compaction when the session
             approaches context limits.
           $ref: '#/components/schemas/CompactionConfig'
+        session_enrichment:
+          $ref: '#/components/schemas/SessionEnrichmentConfig'
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
       required:
@@ -24164,6 +24256,11 @@ components:
           description: Configuration for automatic context compaction. Set to null
             to clear.
           $ref: '#/components/schemas/CompactionConfig'
+          nullable: true
+        session_enrichment:
+          description: Configuration for session metadata enrichment. Set to null
+            to clear.
+          $ref: '#/components/schemas/SessionEnrichmentConfig'
           nullable: true
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
@@ -26154,6 +26251,37 @@ components:
           example:
             report_type: daily
             format: markdown
+        run_condition:
+          description: 'A UserFn boolean expression that gates execution. On each
+            scheduled execution the agent''s enrichment runs first, then this expression
+            is evaluated against the enriched session context. The scheduled session
+            is created and the agent runs only when the expression evaluates to true.
+            When it evaluates to false the execution is skipped and no session is
+            created.
+
+
+            The expression uses the `get()` function with JSONPath to read the enriched
+            context:
+
+
+            * `$.session.metadata.*` for values written by the agent''s enrichment
+
+            * `$.agent.metadata.*` for the owning agent''s metadata
+
+
+            An enrichment tool call''s output is visible to the condition only when
+            the call writes it to metadata via metadata_target_path. Missing paths
+            return null, and comparing against null is falsy, so an unresolved path
+            skips the execution. Use `get(''$.path'', default)` for an explicit fallback.
+            Omit this field to run on every execution.
+
+
+            See https://docs.vectara.com/docs/reference/userfn-language for the UserFn
+            language reference.
+
+            '
+          type: string
+          example: get('$.session.metadata.open_incidents') > 0
         max_executions_to_keep:
           description: Maximum number of past execution records to keep. Older records
             are deleted automatically when a new execution is recorded.
@@ -26238,6 +26366,37 @@ components:
           type: object
           additionalProperties: true
           default: {}
+        run_condition:
+          description: 'A UserFn boolean expression that gates execution. On each
+            scheduled execution the agent''s enrichment runs first, then this expression
+            is evaluated against the enriched session context. The scheduled session
+            is created and the agent runs only when the expression evaluates to true.
+            When it evaluates to false the execution is skipped and no session is
+            created.
+
+
+            The expression uses the `get()` function with JSONPath to read the enriched
+            context:
+
+
+            * `$.session.metadata.*` for values written by the agent''s enrichment
+
+            * `$.agent.metadata.*` for the owning agent''s metadata
+
+
+            An enrichment tool call''s output is visible to the condition only when
+            the call writes it to metadata via metadata_target_path. Missing paths
+            return null, and comparing against null is falsy, so an unresolved path
+            skips the execution. Use `get(''$.path'', default)` for an explicit fallback.
+            Omit this field to run on every execution.
+
+
+            See https://docs.vectara.com/docs/reference/userfn-language for the UserFn
+            language reference.
+
+            '
+          type: string
+          example: get('$.session.metadata.open_incidents') > 0
         max_executions_to_keep:
           description: Maximum number of past execution records to keep. Defaults
             to 10.
@@ -26278,6 +26437,12 @@ components:
             schedule.
           type: object
           additionalProperties: true
+        run_condition:
+          description: Updated UserFn boolean gate that determines whether each scheduled
+            execution creates a session. Send null to clear the gate so the schedule
+            runs on every execution.
+          type: string
+          nullable: true
         max_executions_to_keep:
           description: Updated maximum number of past execution records to keep.
           type: integer
@@ -26313,13 +26478,30 @@ components:
           type: integer
           format: int32
         status:
-          description: Outcome of this attempt.
+          description: 'Outcome of this attempt.
+
+
+            * `success`: a session was created and the agent ran
+
+            * `error`: the attempt failed, either before a session could be created,
+            for example from an invalid run_condition expression, or while the agent
+            ran
+
+            * `skipped`: run_condition evaluated false, so no session was created
+
+            * `enrichment_failed`: session metadata enrichment failed, so no session
+            was created
+
+            '
           type: string
           enum:
           - success
           - error
+          - skipped
+          - enrichment_failed
         error_message:
-          description: Error message if the attempt failed.
+          description: Error message for a failed attempt. Null for success and skipped
+            attempts.
           type: string
           nullable: true
         executed_at:
@@ -27294,9 +27476,12 @@ components:
         \ decides which underlying agent runs that session.\n\nUse aliases for canary\
         \ rollouts (weighted between two agents), tenant routing (different agents\
         \ for different customers in your tenant metadata), or as a stable handle\
-        \ in front of agents whose configuration evolves.\n\nRouting rules use userfn\
-        \ expressions \u2014 see the `AliasRule.match` field for the context shape\
-        \ and example expressions.\n"
+        \ in front of agents whose configuration evolves.\n\nSessions created through\
+        \ an alias are enriched by the resolved agent's session_enrichment, applied\
+        \ after routing resolves. Routing is evaluated before enrichment runs, so\
+        \ routing rules read the request metadata and not enriched values.\n\nRouting\
+        \ rules use userfn expressions \u2014 see the `AliasRule.match` field for\
+        \ the context shape and example expressions.\n"
       type: object
       required:
       - key
@@ -28073,7 +28258,9 @@ components:
           maxItems: 1000
           items:
             type: string
+            minLength: 1
             maxLength: 255
+            pattern: ^\S+$
           example:
           - ENG
           - SUPPORT
@@ -28091,6 +28278,86 @@ components:
       - $ref: '#/components/schemas/BaseConfluenceSourceConfiguration'
       - required:
         - base_url
+    BaseFluidtopicsSourceConfiguration:
+      description: "Base Fluid Topics source configuration. Ingests content from a\
+        \ Fluid Topics tenant via the\nKnowledge Hub REST API. `content_scope` selects\
+        \ which layer to ingest \u2014 `documents` (standalone\nitems) or `topics`\
+        \ (the sections inside publications, each carrying its parent map's identity\
+        \ and\nclassification). Every record carries its full Fluid Topics metadata,\
+        \ including classification and\nentitlement fields, as document metadata for\
+        \ attribute-based filtering and access control. Requires\na Fluid Topics API\
+        \ key with read access to the configured content.\n"
+      type: object
+      properties:
+        type:
+          type: string
+          default: fluidtopics
+          example: fluidtopics
+        base_url:
+          description: Base URL of the Fluid Topics tenant.
+          type: string
+          example: https://example.fluidtopics.net
+        api_key:
+          description: "Fluid Topics API key, sent as an HTTP Bearer authorization\
+            \ token. Generate one in the Fluid\nTopics administration interface under\
+            \ Integrations, API keys \u2014 see\nhttps://doc.fluidtopics.com/r/Fluid-Topics-Configuration-and-Administration-Guide/Configure-a-Fluid-Topics-tenant/Integrations/API-keys.\n\
+            Encrypted at rest and not returned in responses.\n"
+          type: string
+          writeOnly: true
+        content_scope:
+          description: 'Which Fluid Topics content layer to ingest. `documents` enumerates
+            standalone documents;
+
+            `topics` enumerates the topics within publications, iterating map by map
+            so each topic carries
+
+            its parent map''s identity and classification.
+
+            '
+          type: string
+          enum:
+          - documents
+          - topics
+          default: documents
+        query:
+          description: Search query used to select the content to ingest. Defaults
+            to `*` (all content).
+          type: string
+          default: '*'
+          example: '*'
+        locale:
+          description: Restricts ingestion to a single content locale (Fluid Topics
+            `contentLocale`), for example `en-US`. When unset, all locales are ingested.
+          type: string
+          example: en-US
+        filters:
+          description: 'Restricts ingestion to records matching the given Fluid Topics
+            metadata, as a map of metadata
+
+            key to the list of accepted values. For example `{"Disclosure": ["Public"]}`
+            ingests only
+
+            public content. When unset, no metadata filter is applied.
+
+            '
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            Disclosure:
+            - Public
+    FluidtopicsSourceConfiguration:
+      description: Configuration for ingesting content from a Fluid Topics tenant
+        via the Knowledge Hub REST API.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseFluidtopicsSourceConfiguration'
+      - required:
+        - base_url
+        - api_key
     BaseWebSource:
       description: 'Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl).
         Politeness, limits, auth.
@@ -28396,6 +28663,7 @@ components:
           box: '#/components/schemas/BoxSourceConfiguration'
           wolken_kb: '#/components/schemas/WolkenKbSourceConfiguration'
           confluence: '#/components/schemas/ConfluenceSourceConfiguration'
+          fluidtopics: '#/components/schemas/FluidtopicsSourceConfiguration'
           web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/SharepointSourceConfiguration'
@@ -28404,6 +28672,7 @@ components:
       - $ref: '#/components/schemas/BoxSourceConfiguration'
       - $ref: '#/components/schemas/WolkenKbSourceConfiguration'
       - $ref: '#/components/schemas/ConfluenceSourceConfiguration'
+      - $ref: '#/components/schemas/FluidtopicsSourceConfiguration'
       - $ref: '#/components/schemas/WebSourceConfiguration'
     CronTriggerConfiguration:
       description: Run the pipeline on a cron schedule.
@@ -28784,6 +29053,13 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseConfluenceSourceConfiguration'
+    UpdateFluidtopicsSourceConfiguration:
+      description: Partial update for Fluid Topics source configuration. Only provided
+        fields are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseFluidtopicsSourceConfiguration'
     UpdateWebSourceConfiguration:
       description: 'Partial update for a `web` source configuration. Top-level fields
         are merged into the existing
@@ -28823,6 +29099,7 @@ components:
           box: '#/components/schemas/UpdateBoxSourceConfiguration'
           wolken_kb: '#/components/schemas/UpdateWolkenKbSourceConfiguration'
           confluence: '#/components/schemas/UpdateConfluenceSourceConfiguration'
+          fluidtopics: '#/components/schemas/UpdateFluidtopicsSourceConfiguration'
           web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/UpdateSharepointSourceConfiguration'
@@ -28831,6 +29108,7 @@ components:
       - $ref: '#/components/schemas/UpdateBoxSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWolkenKbSourceConfiguration'
       - $ref: '#/components/schemas/UpdateConfluenceSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateFluidtopicsSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
     UpdatePipelineRequest:
       description: Request to partially update an existing pipeline. Omitted fields
@@ -29176,12 +29454,11 @@ components:
       - completed
       - failed
       - cancelled
-      - timed_out
     RunCompletedEvent:
       description: 'The pipeline run reached a terminal state. `status` distinguishes
         a successful completion
 
-        from a failure, cancellation, or timeout.
+        from a failure or cancellation.
 
         '
       allOf:
@@ -29195,7 +29472,7 @@ components:
             $ref: '#/components/schemas/RunCompletedEventStatus'
           records_fetched:
             description: Total records fetched across the run. Present when the run
-              reported counters; absent for cancellation or timeout.
+              reported counters; absent or partial for cancellation.
             type: integer
             format: int32
             nullable: true
@@ -29270,6 +29547,19 @@ components:
             description: Whether a `failed` record resulted in a dead-letter write
               or update. Only meaningful when `status` is `failed`.
             type: boolean
+            nullable: true
+          attempt:
+            description: 'Which processing attempt produced this event, starting at
+              1. A record that fails is retried, so the same
+
+              record can emit `started` and `failed` events for several attempts before
+              it finally `completed` or is
+
+              dead-lettered.
+
+              '
+            type: integer
+            format: int32
             nullable: true
         required:
         - type
