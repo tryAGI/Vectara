@@ -9638,6 +9638,7 @@ paths:
               context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
               step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
               session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+              error: '#/components/schemas/AgentErrorEvent'
               client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
               image_read: '#/components/schemas/ImageReadEvent'
               step_transition: '#/components/schemas/StepTransitionEvent'
@@ -9654,6 +9655,7 @@ paths:
           - $ref: '#/components/schemas/ContextLimitExceededEvent'
           - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
           - $ref: '#/components/schemas/SessionInterruptedEvent'
+          - $ref: '#/components/schemas/AgentErrorEvent'
           - $ref: '#/components/schemas/ClientToolPendingEvent'
           - $ref: '#/components/schemas/ImageReadEvent'
           - $ref: '#/components/schemas/StepTransitionEvent'
@@ -9686,7 +9688,7 @@ paths:
               thinking: '#/components/schemas/ThinkingEvent'
               artifact_upload: '#/components/schemas/ArtifactUploadEvent'
               tool_activity: '#/components/schemas/ToolActivityEvent'
-              error: '#/components/schemas/StreamError'
+              error: '#/components/schemas/AgentErrorEvent'
               end: '#/components/schemas/StreamResponseEnd'
           oneOf:
           - $ref: '#/components/schemas/SkillLoadEvent'
@@ -9710,7 +9712,7 @@ paths:
           - $ref: '#/components/schemas/ContextConsumedEvent'
           - $ref: '#/components/schemas/CompactionStartedEvent'
           - $ref: '#/components/schemas/CompactionEvent'
-          - $ref: '#/components/schemas/StreamError'
+          - $ref: '#/components/schemas/AgentErrorEvent'
           - $ref: '#/components/schemas/StreamResponseEnd'
     get:
       tags:
@@ -16042,7 +16044,6 @@ components:
       - QueryStreamedResponse
       - ChatStreamedResponse
       - SummarizeDocumentStreamedResponse
-      - AgentStreamedResponse
     StreamResponseEnd:
       description: The end of a query response stream.
       type: object
@@ -25102,10 +25103,13 @@ components:
       - AgentStreamedResponse
     ContextLimitExceededEvent:
       title: ContextLimitExceededEvent
-      description: 'A transient event indicating the current request exceeded the
+      description: 'A turn-ending event indicating the current request exceeded the
         agent''s context limit.
 
-        This event is not persisted to the session history.
+        A subsequent turn can succeed once the context is reduced, for example by
+        compacting the session
+
+        or sending a shorter input. Persisted to the session history.
 
         '
       allOf:
@@ -25138,12 +25142,13 @@ components:
       - AgentStreamedResponse
     StepTransitionLimitExceededEvent:
       title: StepTransitionLimitExceededEvent
-      description: 'A transient event indicating the agent exceeded the maximum number
-        of step transitions,
+      description: 'A turn-ending event indicating the agent exceeded the maximum
+        number of step transitions in the
 
-        which may indicate an infinite loop between steps.
+        turn, which may indicate an infinite loop between steps. A subsequent turn
+        can be started with
 
-        This event is not persisted to the session history.
+        new input. Persisted to the session history.
 
         '
       allOf:
@@ -25171,10 +25176,11 @@ components:
       - AgentStreamedResponse
     SessionInterruptedEvent:
       title: SessionInterruptedEvent
-      description: 'A transient event indicating the agent session was interrupted
+      description: 'A turn-ending event indicating the current turn was interrupted
         by a user request.
 
-        This event is not persisted to the session history.
+        A subsequent turn can be started with the next input. Persisted to the session
+        history.
 
         '
       allOf:
@@ -25187,6 +25193,22 @@ components:
             default: session_interrupted
         required:
         - type
+      x-vectaraParents:
+      - AgentEvent
+      - AgentStreamedResponse
+    AgentErrorEvent:
+      title: AgentErrorEvent
+      description: "A turn-ending event emitted when the turn failed because of an\
+        \ unexpected error \u2014 for example a\nmodel configuration problem, a blocked\
+        \ LLM endpoint, or an internal failure. It is a `StreamError`\ncarrying the\
+        \ same `messages`, plus the event id, session key, and timestamp. It is streamed\
+        \ as the\n`error` frame and, when the failure happened inside a running turn,\
+        \ also recorded on the session so\nthe reason the turn failed stays visible\
+        \ when inspecting the session later. A new turn can be\nstarted with the next\
+        \ input.\n"
+      allOf:
+      - $ref: '#/components/schemas/AgentEventBase'
+      - $ref: '#/components/schemas/StreamError'
       x-vectaraParents:
       - AgentEvent
       - AgentStreamedResponse
@@ -25379,6 +25401,7 @@ components:
           context_limit_exceeded: '#/components/schemas/ContextLimitExceededEvent'
           step_transition_limit_exceeded: '#/components/schemas/StepTransitionLimitExceededEvent'
           session_interrupted: '#/components/schemas/SessionInterruptedEvent'
+          error: '#/components/schemas/AgentErrorEvent'
           client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
           image_read: '#/components/schemas/ImageReadEvent'
           step_transition: '#/components/schemas/StepTransitionEvent'
@@ -25395,6 +25418,7 @@ components:
       - $ref: '#/components/schemas/ContextLimitExceededEvent'
       - $ref: '#/components/schemas/StepTransitionLimitExceededEvent'
       - $ref: '#/components/schemas/SessionInterruptedEvent'
+      - $ref: '#/components/schemas/AgentErrorEvent'
       - $ref: '#/components/schemas/ClientToolPendingEvent'
       - $ref: '#/components/schemas/ImageReadEvent'
       - $ref: '#/components/schemas/StepTransitionEvent'
@@ -25954,7 +25978,7 @@ components:
           thinking: '#/components/schemas/ThinkingEvent'
           artifact_upload: '#/components/schemas/ArtifactUploadEvent'
           tool_activity: '#/components/schemas/ToolActivityEvent'
-          error: '#/components/schemas/StreamError'
+          error: '#/components/schemas/AgentErrorEvent'
           end: '#/components/schemas/StreamResponseEnd'
       oneOf:
       - $ref: '#/components/schemas/SkillLoadEvent'
@@ -25978,7 +26002,7 @@ components:
       - $ref: '#/components/schemas/ContextConsumedEvent'
       - $ref: '#/components/schemas/CompactionStartedEvent'
       - $ref: '#/components/schemas/CompactionEvent'
-      - $ref: '#/components/schemas/StreamError'
+      - $ref: '#/components/schemas/AgentErrorEvent'
       - $ref: '#/components/schemas/StreamResponseEnd'
     OutstandingClientToolCallsResponse:
       description: The client tool calls a session is currently waiting on the caller

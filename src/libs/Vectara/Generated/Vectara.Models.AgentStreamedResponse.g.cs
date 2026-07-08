@@ -468,8 +468,9 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutput' but the value was {ToString()}.");
 
         /// <summary>
-        /// A transient event indicating the current request exceeded the agent's context limit.<br/>
-        /// This event is not persisted to the session history.
+        /// A turn-ending event indicating the current request exceeded the agent's context limit.<br/>
+        /// A subsequent turn can succeed once the context is reduced, for example by compacting the session<br/>
+        /// or sending a shorter input. Persisted to the session history.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ContextLimitExceededEvent? ContextLimitExceeded { get; init; }
@@ -506,9 +507,9 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'ContextLimitExceeded' but the value was {ToString()}.");
 
         /// <summary>
-        /// A transient event indicating the agent exceeded the maximum number of step transitions,<br/>
-        /// which may indicate an infinite loop between steps.<br/>
-        /// This event is not persisted to the session history.
+        /// A turn-ending event indicating the agent exceeded the maximum number of step transitions in the<br/>
+        /// turn, which may indicate an infinite loop between steps. A subsequent turn can be started with<br/>
+        /// new input. Persisted to the session history.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StepTransitionLimitExceededEvent? StepTransitionLimitExceeded { get; init; }
@@ -545,8 +546,8 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransitionLimitExceeded' but the value was {ToString()}.");
 
         /// <summary>
-        /// A transient event indicating the agent session was interrupted by a user request.<br/>
-        /// This event is not persisted to the session history.
+        /// A turn-ending event indicating the current turn was interrupted by a user request.<br/>
+        /// A subsequent turn can be started with the next input. Persisted to the session history.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SessionInterruptedEvent? SessionInterrupted { get; init; }
@@ -812,12 +813,17 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Compaction' but the value was {ToString()}.");
 
         /// <summary>
-        /// Event signaling there was an error with the request.
+        /// A turn-ending event emitted when the turn failed because of an unexpected error — for example a<br/>
+        /// model configuration problem, a blocked LLM endpoint, or an internal failure. It is a `StreamError`<br/>
+        /// carrying the same `messages`, plus the event id, session key, and timestamp. It is streamed as the<br/>
+        /// `error` frame and, when the failure happened inside a running turn, also recorded on the session so<br/>
+        /// the reason the turn failed stays visible when inspecting the session later. A new turn can be<br/>
+        /// started with the next input.
         /// </summary>
 #if NET6_0_OR_GREATER
-        public global::Vectara.StreamError? Error { get; init; }
+        public global::Vectara.AgentErrorEvent? Error { get; init; }
 #else
-        public global::Vectara.StreamError? Error { get; }
+        public global::Vectara.AgentErrorEvent? Error { get; }
 #endif
 
         /// <summary>
@@ -835,7 +841,7 @@ namespace Vectara
 #if NET6_0_OR_GREATER
             [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
 #endif
-            out global::Vectara.StreamError? value)
+            out global::Vectara.AgentErrorEvent? value)
         {
             value = Error;
             return IsError;
@@ -844,8 +850,8 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public global::Vectara.StreamError PickError() => IsError
-            ? Error!
+        public global::Vectara.AgentErrorEvent PickError() => IsError
+            ? Error!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
 
         /// <summary>
@@ -1370,17 +1376,17 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator AgentStreamedResponse(global::Vectara.StreamError value) => new AgentStreamedResponse((global::Vectara.StreamError?)value);
+        public static implicit operator AgentStreamedResponse(global::Vectara.AgentErrorEvent value) => new AgentStreamedResponse((global::Vectara.AgentErrorEvent?)value);
 
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator global::Vectara.StreamError?(AgentStreamedResponse @this) => @this.Error;
+        public static implicit operator global::Vectara.AgentErrorEvent?(AgentStreamedResponse @this) => @this.Error;
 
         /// <summary>
         /// 
         /// </summary>
-        public AgentStreamedResponse(global::Vectara.StreamError? value)
+        public AgentStreamedResponse(global::Vectara.AgentErrorEvent? value)
         {
             Error = value;
         }
@@ -1388,7 +1394,7 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static AgentStreamedResponse FromError(global::Vectara.StreamError? value) => new AgentStreamedResponse(value);
+        public static AgentStreamedResponse FromError(global::Vectara.AgentErrorEvent? value) => new AgentStreamedResponse(value);
 
         /// <summary>
         /// 
@@ -1439,7 +1445,7 @@ namespace Vectara
             global::Vectara.ContextConsumedEvent? contextConsumed,
             global::Vectara.CompactionStartedEvent? compactionStarted,
             global::Vectara.CompactionEvent? compaction,
-            global::Vectara.StreamError? error,
+            global::Vectara.AgentErrorEvent? error,
             global::Vectara.StreamResponseEnd? end
             )
         {
@@ -1561,7 +1567,7 @@ namespace Vectara
             global::System.Func<global::Vectara.ContextConsumedEvent, TResult>? contextConsumed = null,
             global::System.Func<global::Vectara.CompactionStartedEvent?, TResult>? compactionStarted = null,
             global::System.Func<global::Vectara.CompactionEvent?, TResult>? compaction = null,
-            global::System.Func<global::Vectara.StreamError, TResult>? error = null,
+            global::System.Func<global::Vectara.AgentErrorEvent?, TResult>? error = null,
             global::System.Func<global::Vectara.StreamResponseEnd, TResult>? end = null,
             bool validate = true)
         {
@@ -1712,7 +1718,7 @@ namespace Vectara
 
             global::System.Action<global::Vectara.CompactionEvent?>? compaction = null,
 
-            global::System.Action<global::Vectara.StreamError>? error = null,
+            global::System.Action<global::Vectara.AgentErrorEvent?>? error = null,
 
             global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
             bool validate = true)
@@ -1841,7 +1847,7 @@ namespace Vectara
             global::System.Action<global::Vectara.ContextConsumedEvent>? contextConsumed = null,
             global::System.Action<global::Vectara.CompactionStartedEvent?>? compactionStarted = null,
             global::System.Action<global::Vectara.CompactionEvent?>? compaction = null,
-            global::System.Action<global::Vectara.StreamError>? error = null,
+            global::System.Action<global::Vectara.AgentErrorEvent?>? error = null,
             global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
             bool validate = true)
         {
@@ -1994,7 +2000,7 @@ namespace Vectara
                 Compaction,
                 typeof(global::Vectara.CompactionEvent),
                 Error,
-                typeof(global::Vectara.StreamError),
+                typeof(global::Vectara.AgentErrorEvent),
                 End,
                 typeof(global::Vectara.StreamResponseEnd),
             };
@@ -2034,7 +2040,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ContextConsumedEvent?>.Default.Equals(ContextConsumed, other.ContextConsumed) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionStartedEvent?>.Default.Equals(CompactionStarted, other.CompactionStarted) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionEvent?>.Default.Equals(Compaction, other.Compaction) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamError?>.Default.Equals(Error, other.Error) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentErrorEvent?>.Default.Equals(Error, other.Error) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamResponseEnd?>.Default.Equals(End, other.End) 
                 ;
         }

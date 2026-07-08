@@ -5,9 +5,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// A transient event indicating the agent exceeded the maximum number of step transitions,<br/>
-    /// which may indicate an infinite loop between steps.<br/>
-    /// This event is not persisted to the session history.
+    /// A turn-ending event indicating the agent exceeded the maximum number of step transitions in the<br/>
+    /// turn, which may indicate an infinite loop between steps. A subsequent turn can be started with<br/>
+    /// new input. Persisted to the session history.
     /// </summary>
     public readonly partial struct StepTransitionLimitExceededEvent : global::System.IEquatable<StepTransitionLimitExceededEvent>
     {

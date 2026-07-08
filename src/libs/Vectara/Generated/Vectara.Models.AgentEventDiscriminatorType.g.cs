@@ -31,6 +31,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Error,
+        /// <summary>
+        /// 
+        /// </summary>
         ImageRead,
         /// <summary>
         /// 
@@ -87,6 +91,7 @@ namespace Vectara
                 AgentEventDiscriminatorType.ClientToolPending => "client_tool_pending",
                 AgentEventDiscriminatorType.Compaction => "compaction",
                 AgentEventDiscriminatorType.ContextLimitExceeded => "context_limit_exceeded",
+                AgentEventDiscriminatorType.Error => "error",
                 AgentEventDiscriminatorType.ImageRead => "image_read",
                 AgentEventDiscriminatorType.InputMessage => "input_message",
                 AgentEventDiscriminatorType.SessionInterrupted => "session_interrupted",
@@ -112,6 +117,7 @@ namespace Vectara
                 "client_tool_pending" => AgentEventDiscriminatorType.ClientToolPending,
                 "compaction" => AgentEventDiscriminatorType.Compaction,
                 "context_limit_exceeded" => AgentEventDiscriminatorType.ContextLimitExceeded,
+                "error" => AgentEventDiscriminatorType.Error,
                 "image_read" => AgentEventDiscriminatorType.ImageRead,
                 "input_message" => AgentEventDiscriminatorType.InputMessage,
                 "session_interrupted" => AgentEventDiscriminatorType.SessionInterrupted,

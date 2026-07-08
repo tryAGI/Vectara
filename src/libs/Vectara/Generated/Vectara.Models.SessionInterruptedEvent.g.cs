@@ -5,8 +5,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// A transient event indicating the agent session was interrupted by a user request.<br/>
-    /// This event is not persisted to the session history.
+    /// A turn-ending event indicating the current turn was interrupted by a user request.<br/>
+    /// A subsequent turn can be started with the next input. Persisted to the session history.
     /// </summary>
     public readonly partial struct SessionInterruptedEvent : global::System.IEquatable<SessionInterruptedEvent>
     {
