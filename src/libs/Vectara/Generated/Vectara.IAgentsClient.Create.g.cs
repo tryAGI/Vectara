@@ -135,6 +135,9 @@ namespace Vectara
         /// <param name="compaction">
         /// Configuration for automatic context compaction.
         /// </param>
+        /// <param name="sessionEnrichment">
+        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata, so the agent, run conditions, and routing can read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
+        /// </param>
         /// <param name="toolOutputOffloading">
         /// Controls how large tool outputs are kept from overwhelming the agent context window.<br/>
         /// Tool outputs are inspected as they are produced. A small output is always passed through<br/>
@@ -165,6 +168,7 @@ namespace Vectara
             object? metadata = default,
             bool? enabled = default,
             global::Vectara.CompactionConfig? compaction = default,
+            global::Vectara.SessionEnrichmentConfig? sessionEnrichment = default,
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);

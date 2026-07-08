@@ -6,6 +6,7 @@ namespace Vectara
     /// <summary>
     /// A routing primitive that maps a public name to one or more agents under a configurable policy. When a session is created through an alias (via `POST /v2/agent_aliases/{alias_key}/sessions`), the alias's policy decides which underlying agent runs that session.<br/>
     /// Use aliases for canary rollouts (weighted between two agents), tenant routing (different agents for different customers in your tenant metadata), or as a stable handle in front of agents whose configuration evolves.<br/>
+    /// Sessions created through an alias are enriched by the resolved agent's session_enrichment, applied after routing resolves. Routing is evaluated before enrichment runs, so routing rules read the request metadata and not enriched values.<br/>
     /// Routing rules use userfn expressions — see the `AliasRule.match` field for the context shape and example expressions.
     /// </summary>
     public sealed partial class AgentAlias

@@ -20,10 +20,6 @@ namespace Vectara
         /// 
         /// </summary>
         Failed,
-        /// <summary>
-        /// 
-        /// </summary>
-        TimedOut,
     }
 
     /// <summary>
@@ -41,7 +37,6 @@ namespace Vectara
                 RunCompletedEventStatus.Cancelled => "cancelled",
                 RunCompletedEventStatus.Completed => "completed",
                 RunCompletedEventStatus.Failed => "failed",
-                RunCompletedEventStatus.TimedOut => "timed_out",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -55,7 +50,6 @@ namespace Vectara
                 "cancelled" => RunCompletedEventStatus.Cancelled,
                 "completed" => RunCompletedEventStatus.Completed,
                 "failed" => RunCompletedEventStatus.Failed,
-                "timed_out" => RunCompletedEventStatus.TimedOut,
                 _ => null,
             };
         }
