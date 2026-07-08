@@ -168,11 +168,11 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CompactionEvent)}");
                 compaction = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.StreamError? error = default;
+            global::Vectara.AgentErrorEvent? error = default;
             if (discriminator?.Type == global::Vectara.AgentStreamedResponseDiscriminatorType.Error)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamError), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamError> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StreamError)}");
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.AgentErrorEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.AgentErrorEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.AgentErrorEvent)}");
                 error = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.StreamResponseEnd? end = default;
@@ -372,9 +372,9 @@ namespace Vectara.JsonConverters
             }
             else if (value.IsError)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamError), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamError?> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamError).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Error!, typeInfo);
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.AgentErrorEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.AgentErrorEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.AgentErrorEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Error!.Value, typeInfo);
             }
             else if (value.IsEnd)
             {

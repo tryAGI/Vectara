@@ -739,6 +739,8 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.SessionInterruptedEventJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.AgentErrorEventJsonConverter),
+
             typeof(global::Vectara.JsonConverters.ClientToolPendingEventJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ImageReadEventJsonConverter),
@@ -2174,6 +2176,8 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.SessionInterruptedEventJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.AgentErrorEventJsonConverter),
+
             typeof(global::Vectara.JsonConverters.ClientToolPendingEventJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ImageReadEventJsonConverter),
@@ -2456,6 +2460,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.StepTransitionLimitExceededEventVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SessionInterruptedEvent), TypeInfoPropertyName = "SessionInterruptedEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SessionInterruptedEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentErrorEvent), TypeInfoPropertyName = "AgentErrorEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ClientToolPendingCall))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ClientToolPendingEvent), TypeInfoPropertyName = "ClientToolPendingEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ClientToolPendingEventVariant2))]
@@ -2871,7 +2876,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentSession>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentInput>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ArtifactReference>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ClientToolPendingCall>))]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -3609,6 +3613,8 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.SessionInterruptedEventJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.AgentErrorEventJsonConverter),
+
             typeof(global::Vectara.JsonConverters.ClientToolPendingEventJsonConverter),
 
             typeof(global::Vectara.JsonConverters.ImageReadEventJsonConverter),
@@ -3807,6 +3813,7 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ClientToolPendingCall>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentEvent>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.CreateToolOutputRequest>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<byte[]>))]
@@ -4244,6 +4251,7 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.ContextLimitExceededEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.StepTransitionLimitExceededEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.SessionInterruptedEventJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.AgentErrorEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ClientToolPendingEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ImageReadEventJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.StepTransitionEventJsonConverter());

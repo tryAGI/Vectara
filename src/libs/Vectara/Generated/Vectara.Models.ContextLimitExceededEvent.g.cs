@@ -5,8 +5,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// A transient event indicating the current request exceeded the agent's context limit.<br/>
-    /// This event is not persisted to the session history.
+    /// A turn-ending event indicating the current request exceeded the agent's context limit.<br/>
+    /// A subsequent turn can succeed once the context is reduced, for example by compacting the session<br/>
+    /// or sending a shorter input. Persisted to the session history.
     /// </summary>
     public readonly partial struct ContextLimitExceededEvent : global::System.IEquatable<ContextLimitExceededEvent>
     {
