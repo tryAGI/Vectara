@@ -51,6 +51,15 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? Scopes { get; set; }
 
         /// <summary>
+        /// Optional. Sent as the OAuth `audience` form parameter so the IdP mints a token scoped to this audience.<br/>
+        /// Required by IdPs like Ory Hydra to issue a token whose `aud` claim targets an external service (e.g. an STS).<br/>
+        /// Example: https://sts.example.com
+        /// </summary>
+        /// <example>https://sts.example.com</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("audience")]
+        public string? Audience { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -71,6 +80,11 @@ namespace Vectara
         /// <param name="scopes">
         /// Example: [read:items]
         /// </param>
+        /// <param name="audience">
+        /// Optional. Sent as the OAuth `audience` form parameter so the IdP mints a token scoped to this audience.<br/>
+        /// Required by IdPs like Ory Hydra to issue a token whose `aud` claim targets an external service (e.g. an STS).<br/>
+        /// Example: https://sts.example.com
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -79,13 +93,15 @@ namespace Vectara
             global::Vectara.OneOf<string, global::Vectara.EagerReference> clientId,
             global::Vectara.OneOf<string, global::Vectara.EagerReference> clientSecret,
             string tokenEndpoint,
-            global::System.Collections.Generic.IList<string>? scopes)
+            global::System.Collections.Generic.IList<string>? scopes,
+            string? audience)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;
             this.TokenEndpoint = tokenEndpoint ?? throw new global::System.ArgumentNullException(nameof(tokenEndpoint));
             this.Scopes = scopes;
+            this.Audience = audience;
         }
 
         /// <summary>

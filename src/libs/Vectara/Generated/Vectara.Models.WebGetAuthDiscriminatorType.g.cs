@@ -28,6 +28,10 @@ namespace Vectara
         /// 
         /// </summary>
         OauthRefreshToken,
+        /// <summary>
+        /// 
+        /// </summary>
+        OauthTokenExchange,
     }
 
     /// <summary>
@@ -47,6 +51,7 @@ namespace Vectara
                 WebGetAuthDiscriminatorType.None => "none",
                 WebGetAuthDiscriminatorType.OauthClientCredentials => "oauth_client_credentials",
                 WebGetAuthDiscriminatorType.OauthRefreshToken => "oauth_refresh_token",
+                WebGetAuthDiscriminatorType.OauthTokenExchange => "oauth_token_exchange",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -62,6 +67,7 @@ namespace Vectara
                 "none" => WebGetAuthDiscriminatorType.None,
                 "oauth_client_credentials" => WebGetAuthDiscriminatorType.OauthClientCredentials,
                 "oauth_refresh_token" => WebGetAuthDiscriminatorType.OauthRefreshToken,
+                "oauth_token_exchange" => WebGetAuthDiscriminatorType.OauthTokenExchange,
                 _ => null,
             };
         }

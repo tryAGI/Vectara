@@ -56,6 +56,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.WebGetOAuthRefreshTokenAuth)}");
                 oauthRefreshToken = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.WebGetOAuthTokenExchangeAuth? oauthTokenExchange = default;
+            if (discriminator?.Type == global::Vectara.WebGetAuthDiscriminatorType.OauthTokenExchange)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetOAuthTokenExchangeAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetOAuthTokenExchangeAuth> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.WebGetOAuthTokenExchangeAuth)}");
+                oauthTokenExchange = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.WebGetAuth(
                 discriminator?.Type,
@@ -67,7 +74,9 @@ namespace Vectara.JsonConverters
 
                 oauthClientCredentials,
 
-                oauthRefreshToken
+                oauthRefreshToken,
+
+                oauthTokenExchange
                 );
 
             return __value;
@@ -111,6 +120,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetOAuthRefreshTokenAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetOAuthRefreshTokenAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetOAuthRefreshTokenAuth).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.OauthRefreshToken!, typeInfo);
+            }
+            else if (value.IsOauthTokenExchange)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetOAuthTokenExchangeAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetOAuthTokenExchangeAuth?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetOAuthTokenExchangeAuth).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OauthTokenExchange!, typeInfo);
             }
         }
     }

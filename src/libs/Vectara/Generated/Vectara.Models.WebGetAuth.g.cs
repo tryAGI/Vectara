@@ -202,6 +202,43 @@ namespace Vectara
         public global::Vectara.WebGetOAuthRefreshTokenAuth PickOauthRefreshToken() => IsOauthRefreshToken
             ? OauthRefreshToken!
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthRefreshToken' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Two-legged OAuth token exchange. The platform first mints a subject token via the client-credentials grant at `token_endpoint` (scoped to `subject_audience`), then exchanges it at `exchange_endpoint` for the token sent to the target service. Configurable to cover both RFC 8693 and non-standard STS endpoints that present the subject token or parameters differently. Both tokens are cached until they expire.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.WebGetOAuthTokenExchangeAuth? OauthTokenExchange { get; init; }
+#else
+        public global::Vectara.WebGetOAuthTokenExchangeAuth? OauthTokenExchange { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OauthTokenExchange))]
+#endif
+        public bool IsOauthTokenExchange => OauthTokenExchange != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickOauthTokenExchange(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WebGetOAuthTokenExchangeAuth? value)
+        {
+            value = OauthTokenExchange;
+            return IsOauthTokenExchange;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.WebGetOAuthTokenExchangeAuth PickOauthTokenExchange() => IsOauthTokenExchange
+            ? OauthTokenExchange!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'OauthTokenExchange' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -320,13 +357,37 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator WebGetAuth(global::Vectara.WebGetOAuthTokenExchangeAuth value) => new WebGetAuth((global::Vectara.WebGetOAuthTokenExchangeAuth?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.WebGetOAuthTokenExchangeAuth?(WebGetAuth @this) => @this.OauthTokenExchange;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public WebGetAuth(global::Vectara.WebGetOAuthTokenExchangeAuth? value)
+        {
+            OauthTokenExchange = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static WebGetAuth FromOauthTokenExchange(global::Vectara.WebGetOAuthTokenExchangeAuth? value) => new WebGetAuth(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public WebGetAuth(
             global::Vectara.WebGetAuthDiscriminatorType? type,
             global::Vectara.WebGetNoAuth? none,
             global::Vectara.WebGetBearerAuth? bearer,
             global::Vectara.WebGetHeaderAuth? header,
             global::Vectara.WebGetOAuthClientCredentialsAuth? oauthClientCredentials,
-            global::Vectara.WebGetOAuthRefreshTokenAuth? oauthRefreshToken
+            global::Vectara.WebGetOAuthRefreshTokenAuth? oauthRefreshToken,
+            global::Vectara.WebGetOAuthTokenExchangeAuth? oauthTokenExchange
             )
         {
             Type = type;
@@ -336,12 +397,14 @@ namespace Vectara
             Header = header;
             OauthClientCredentials = oauthClientCredentials;
             OauthRefreshToken = oauthRefreshToken;
+            OauthTokenExchange = oauthTokenExchange;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            OauthTokenExchange as object ??
             OauthRefreshToken as object ??
             OauthClientCredentials as object ??
             Header as object ??
@@ -357,7 +420,8 @@ namespace Vectara
             Bearer?.ToString() ??
             Header?.ToString() ??
             OauthClientCredentials?.ToString() ??
-            OauthRefreshToken?.ToString() 
+            OauthRefreshToken?.ToString() ??
+            OauthTokenExchange?.ToString() 
             ;
 
         /// <summary>
@@ -365,7 +429,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken || !IsNone && IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken || !IsNone && !IsBearer && IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken || !IsNone && !IsBearer && !IsHeader && IsOauthClientCredentials && !IsOauthRefreshToken || !IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && IsOauthRefreshToken;
+            return IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && !IsBearer && IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && !IsBearer && !IsHeader && IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && IsOauthTokenExchange;
         }
 
         /// <summary>
@@ -377,6 +441,7 @@ namespace Vectara
             global::System.Func<global::Vectara.WebGetHeaderAuth, TResult>? header = null,
             global::System.Func<global::Vectara.WebGetOAuthClientCredentialsAuth, TResult>? oauthClientCredentials = null,
             global::System.Func<global::Vectara.WebGetOAuthRefreshTokenAuth, TResult>? oauthRefreshToken = null,
+            global::System.Func<global::Vectara.WebGetOAuthTokenExchangeAuth, TResult>? oauthTokenExchange = null,
             bool validate = true)
         {
             if (validate)
@@ -404,6 +469,10 @@ namespace Vectara
             {
                 return oauthRefreshToken(OauthRefreshToken!);
             }
+            else if (IsOauthTokenExchange && oauthTokenExchange != null)
+            {
+                return oauthTokenExchange(OauthTokenExchange!);
+            }
 
             return default(TResult);
         }
@@ -421,6 +490,8 @@ namespace Vectara
             global::System.Action<global::Vectara.WebGetOAuthClientCredentialsAuth>? oauthClientCredentials = null,
 
             global::System.Action<global::Vectara.WebGetOAuthRefreshTokenAuth>? oauthRefreshToken = null,
+
+            global::System.Action<global::Vectara.WebGetOAuthTokenExchangeAuth>? oauthTokenExchange = null,
             bool validate = true)
         {
             if (validate)
@@ -447,6 +518,10 @@ namespace Vectara
             else if (IsOauthRefreshToken)
             {
                 oauthRefreshToken?.Invoke(OauthRefreshToken!);
+            }
+            else if (IsOauthTokenExchange)
+            {
+                oauthTokenExchange?.Invoke(OauthTokenExchange!);
             }
         }
 
@@ -459,6 +534,7 @@ namespace Vectara
             global::System.Action<global::Vectara.WebGetHeaderAuth>? header = null,
             global::System.Action<global::Vectara.WebGetOAuthClientCredentialsAuth>? oauthClientCredentials = null,
             global::System.Action<global::Vectara.WebGetOAuthRefreshTokenAuth>? oauthRefreshToken = null,
+            global::System.Action<global::Vectara.WebGetOAuthTokenExchangeAuth>? oauthTokenExchange = null,
             bool validate = true)
         {
             if (validate)
@@ -485,6 +561,10 @@ namespace Vectara
             else if (IsOauthRefreshToken)
             {
                 oauthRefreshToken?.Invoke(OauthRefreshToken!);
+            }
+            else if (IsOauthTokenExchange)
+            {
+                oauthTokenExchange?.Invoke(OauthTokenExchange!);
             }
         }
 
@@ -505,6 +585,8 @@ namespace Vectara
                 typeof(global::Vectara.WebGetOAuthClientCredentialsAuth),
                 OauthRefreshToken,
                 typeof(global::Vectara.WebGetOAuthRefreshTokenAuth),
+                OauthTokenExchange,
+                typeof(global::Vectara.WebGetOAuthTokenExchangeAuth),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -525,7 +607,8 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetBearerAuth?>.Default.Equals(Bearer, other.Bearer) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetHeaderAuth?>.Default.Equals(Header, other.Header) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthClientCredentialsAuth?>.Default.Equals(OauthClientCredentials, other.OauthClientCredentials) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthRefreshTokenAuth?>.Default.Equals(OauthRefreshToken, other.OauthRefreshToken) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthRefreshTokenAuth?>.Default.Equals(OauthRefreshToken, other.OauthRefreshToken) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthTokenExchangeAuth?>.Default.Equals(OauthTokenExchange, other.OauthTokenExchange) 
                 ;
         }
 
