@@ -20940,6 +20940,14 @@ components:
             type: string
           example:
           - read:items
+        audience:
+          type: string
+          description: 'Optional. Sent as the OAuth `audience` form parameter so the
+            IdP mints a token scoped to this audience.
+
+            Required by IdPs like Ory Hydra to issue a token whose `aud` claim targets
+            an external service (e.g. an STS).'
+          example: https://sts.example.com
       required:
       - type
       - client_id
@@ -20985,6 +20993,101 @@ components:
       - token_endpoint
       x-vectaraParents:
       - WebGetAuth
+    WebGetOAuthTokenExchangeAuth:
+      description: Two-legged OAuth token exchange. The platform first mints a subject
+        token via the client-credentials grant at `token_endpoint` (scoped to `subject_audience`),
+        then exchanges it at `exchange_endpoint` for the token sent to the target
+        service. Configurable to cover both RFC 8693 and non-standard STS endpoints
+        that present the subject token or parameters differently. Both tokens are
+        cached until they expire.
+      type: object
+      properties:
+        type:
+          type: string
+          description: The auth type discriminator; always `oauth_token_exchange`
+            for this variant.
+          default: oauth_token_exchange
+          example: oauth_token_exchange
+        client_id:
+          description: Client id used to mint the subject token (client-credentials
+            grant). May be an EagerReference to an agent secret.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        client_secret:
+          description: Client secret used to mint the subject token. May be an EagerReference
+            to an agent secret.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        token_endpoint:
+          type: string
+          format: uri
+          description: Token endpoint that mints the subject token.
+          example: https://auth.example.com/oauth2/token
+        scopes:
+          type: array
+          description: OAuth scopes requested for the subject token.
+          items:
+            type: string
+        subject_audience:
+          type: string
+          description: Audience requested for the subject token; must be accepted
+            by the exchange endpoint (e.g. the STS issuer).
+          example: https://sts.example.com
+        exchange_endpoint:
+          type: string
+          format: uri
+          description: STS endpoint that exchanges the subject token for the target
+            token.
+          example: https://sts.example.com/exchange
+        subject_placement:
+          type: string
+          enum:
+          - authorization_bearer
+          - body_param
+          default: authorization_bearer
+          description: 'How the subject token is sent to the exchange endpoint: authorization_bearer
+            (in the `Authorization: Bearer` header) or body_param (an RFC 8693 `subject_token`
+            form field).'
+        subject_body_param:
+          type: string
+          description: Body parameter name carrying the subject token when subject_placement
+            is body_param (e.g. `subject_token`).
+        param_location:
+          type: string
+          enum:
+          - query
+          - body
+          default: query
+          description: 'Where the exchange `params` are sent: query or body (RFC 8693
+            uses body).'
+        params:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'Extra exchange parameters (e.g. `aud` and an `identity` selector
+            for an assumable-identity STS; `grant_type`, `audience`,
+
+            `subject_token_type` for RFC 8693).'
+          example:
+            aud: https://api.example.com
+            identity: <assumable-identity-id>
+        token_response_field:
+          type: string
+          default: access_token
+          description: JSON field in the exchange response holding the issued token
+            (e.g. `token`, or `access_token` for RFC 8693).
+          example: token
+      required:
+      - type
+      - client_id
+      - client_secret
+      - token_endpoint
+      - subject_audience
+      - exchange_endpoint
+      x-vectaraParents:
+      - WebGetAuth
     WebGetAuth:
       description: Authentication configuration for the outgoing HTTP request.
       type: object
@@ -20996,12 +21099,14 @@ components:
           header: '#/components/schemas/WebGetHeaderAuth'
           oauth_client_credentials: '#/components/schemas/WebGetOAuthClientCredentialsAuth'
           oauth_refresh_token: '#/components/schemas/WebGetOAuthRefreshTokenAuth'
+          oauth_token_exchange: '#/components/schemas/WebGetOAuthTokenExchangeAuth'
       oneOf:
       - $ref: '#/components/schemas/WebGetNoAuth'
       - $ref: '#/components/schemas/WebGetBearerAuth'
       - $ref: '#/components/schemas/WebGetHeaderAuth'
       - $ref: '#/components/schemas/WebGetOAuthClientCredentialsAuth'
       - $ref: '#/components/schemas/WebGetOAuthRefreshTokenAuth'
+      - $ref: '#/components/schemas/WebGetOAuthTokenExchangeAuth'
       required:
       - type
     WebGetToolParameters:

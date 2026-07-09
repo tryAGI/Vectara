@@ -213,6 +213,14 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthSubjectPlacementJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthSubjectPlacementNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthParamLocationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthParamLocationNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.WebGetAuthDiscriminatorTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.WebGetAuthDiscriminatorTypeNullableJsonConverter),
@@ -898,6 +906,10 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.AgentTraceSpanJsonConverter),
 
             typeof(global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
 
             typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
 
@@ -1316,6 +1328,9 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetHeaderAuth))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetOAuthClientCredentialsAuth))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetOAuthRefreshTokenAuth))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetOAuthTokenExchangeAuth))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetOAuthTokenExchangeAuthSubjectPlacement), TypeInfoPropertyName = "WebGetOAuthTokenExchangeAuthSubjectPlacement2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetOAuthTokenExchangeAuthParamLocation), TypeInfoPropertyName = "WebGetOAuthTokenExchangeAuthParamLocation2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetAuth), TypeInfoPropertyName = "WebGetAuth2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetAuthDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetAuthDiscriminatorType), TypeInfoPropertyName = "WebGetAuthDiscriminatorType2")]
@@ -1436,9 +1451,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestInstructionRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestInstructionResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentSkill))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RetryConfiguration))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentModel))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InstructionReference))]
     internal sealed partial class SourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1649,6 +1661,14 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderJsonConverter),
 
             typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthSubjectPlacementJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthSubjectPlacementNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthParamLocationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthParamLocationNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.WebGetAuthDiscriminatorTypeJsonConverter),
 
@@ -2356,6 +2376,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
 
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
             typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>),
 
             typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
@@ -2376,6 +2400,9 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RetryConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentModel))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InstructionReference))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ReferenceInstruction), TypeInfoPropertyName = "ReferenceInstruction2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ReferenceInstructionVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InlineInstruction), TypeInfoPropertyName = "InlineInstruction2")]
@@ -2873,9 +2900,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.NextStep>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.SessionEnrichmentToolCall>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Agent>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentSession>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentInput>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ArtifactReference>))]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -3086,6 +3110,14 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderJsonConverter),
 
             typeof(global::Vectara.JsonConverters.WebSearchToolParametersProviderNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthSubjectPlacementJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthSubjectPlacementNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthParamLocationJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthParamLocationNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.WebGetAuthDiscriminatorTypeJsonConverter),
 
@@ -3793,6 +3825,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
 
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
+            typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
+
             typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>),
 
             typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>),
@@ -3813,6 +3849,9 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentSession>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentInput>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ArtifactReference>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ClientToolPendingCall>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentEvent>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.CreateToolOutputRequest>))]
@@ -3988,6 +4027,10 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.FunctionDefinitionValidationStatusNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.WebSearchToolParametersProviderJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.WebSearchToolParametersProviderNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthSubjectPlacementJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthSubjectPlacementNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthParamLocationJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.WebGetOAuthTokenExchangeAuthParamLocationNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.WebGetAuthDiscriminatorTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.WebGetAuthDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.WebGetToolParametersMethodJsonConverter());
@@ -4331,6 +4374,8 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.CompactionTraceSpanJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AgentTraceSpanJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.AllOfJsonConverter<global::Vectara.SearchCorpus, global::Vectara.SearchParameters>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
