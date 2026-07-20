@@ -76,9 +76,6 @@ tags:
     and the alias''s policy picks the underlying agent that runs.
 
     '
-- name: Guardrails
-  description: List predefined guardrails for validating tool calls, agent outputs,
-    and agent actions.
 - name: Instructions
   description: Create and manage instructions that guide agent behavior.
 - name: Tools
@@ -4360,8 +4357,6 @@ paths:
                       request_corpora_index: 0
                       corpus_key: legal_docs
                     factual_consistency_score: 0.94
-                    audio_response:
-                      audio_response: ''
                     rendered_prompt: '[{"role": "system", "content": "You are a legal
                       analyst."}, {"role": "user", "content": "What are the arbitration
                       terms in the employment contract?"}, {"role": "assistant", "content":
@@ -4436,8 +4431,6 @@ paths:
                       request_corpora_index: 0
                       corpus_key: fin_docs
                     factual_consistency_score: 0.88
-                    audio_response:
-                      audio_response: ''
                     rendered_prompt: '[{"role": "system", "content": "You are a financial
                       analyst."}, {"role": "user", "content": "Compare RSUs and ISOs
                       in tech companies."}, {"role": "assistant", "content": "${vectaraQueryResults[0].getText()}"}]'
@@ -4510,8 +4503,6 @@ paths:
                       request_corpora_index: 0
                       corpus_key: support_docs
                     factual_consistency_score: 0.92
-                    audio_response:
-                      audio_response: ''
                     rendered_prompt: '[{"role": "system", "content": "You are a technical
                       support specialist."}, {"role": "user", "content": "How to fix
                       403 errors in the web portal?"}, {"role": "assistant", "content":
@@ -9047,7 +9038,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateAgentRequest'
+              $ref: '#/components/schemas/ReplaceAgentRequest'
       responses:
         '200':
           description: The agent has been replaced successfully.
@@ -9559,6 +9550,9 @@ paths:
                 style: form
               stream_response:
                 contentType: application/json, text/plain
+                style: form
+              surface_description:
+                contentType: application/json
                 style: form
               since:
                 contentType: application/json
@@ -13613,7 +13607,6 @@ paths:
           - execute_tool
           - thinking
           - output
-          - guardrail
           - step_transition
           - image_read
           - compaction
@@ -13806,7 +13799,6 @@ paths:
           - execute_tool
           - thinking
           - output
-          - guardrail
           - step_transition
           - image_read
           - compaction
@@ -21088,6 +21080,57 @@ components:
       - exchange_endpoint
       x-vectaraParents:
       - WebGetAuth
+    WebGetAwsSigV4Auth:
+      description: AWS Signature Version 4 request signing, e.g. for reading an S3
+        bucket directly. The platform signs the final request (method, URL, query
+        parameters, and body) with the supplied credentials; user-supplied headers
+        ride along unsigned. Redirects are never followed on signed requests. When
+        `role_arn` is set, the platform first calls sts:AssumeRole with the static
+        credentials and signs with the assumed-role credentials.
+      type: object
+      properties:
+        type:
+          type: string
+          default: aws_sigv4
+          example: aws_sigv4
+        access_key_id:
+          description: AWS access key id.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        secret_access_key:
+          description: AWS secret access key.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        session_token:
+          description: Optional session token when the static credentials are temporary.
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/EagerReference'
+        region:
+          type: string
+          description: AWS region to sign for (e.g. `us-east-2`).
+          example: us-east-2
+        service:
+          type: string
+          default: s3
+          description: AWS service name to sign for.
+          example: s3
+        role_arn:
+          type: string
+          description: Optional IAM role to assume (via sts:AssumeRole) from the static
+            credentials before signing.
+        role_session_name:
+          type: string
+          description: Session name for the assumed role. Defaults to `vectara-agent`.
+      required:
+      - type
+      - access_key_id
+      - secret_access_key
+      - region
+      x-vectaraParents:
+      - WebGetAuth
     WebGetAuth:
       description: Authentication configuration for the outgoing HTTP request.
       type: object
@@ -21100,6 +21143,7 @@ components:
           oauth_client_credentials: '#/components/schemas/WebGetOAuthClientCredentialsAuth'
           oauth_refresh_token: '#/components/schemas/WebGetOAuthRefreshTokenAuth'
           oauth_token_exchange: '#/components/schemas/WebGetOAuthTokenExchangeAuth'
+          aws_sigv4: '#/components/schemas/WebGetAwsSigV4Auth'
       oneOf:
       - $ref: '#/components/schemas/WebGetNoAuth'
       - $ref: '#/components/schemas/WebGetBearerAuth'
@@ -21107,6 +21151,7 @@ components:
       - $ref: '#/components/schemas/WebGetOAuthClientCredentialsAuth'
       - $ref: '#/components/schemas/WebGetOAuthRefreshTokenAuth'
       - $ref: '#/components/schemas/WebGetOAuthTokenExchangeAuth'
+      - $ref: '#/components/schemas/WebGetAwsSigV4Auth'
       required:
       - type
     WebGetToolParameters:
@@ -21177,6 +21222,16 @@ components:
           oneOf:
           - type: integer
           - $ref: '#/components/schemas/EagerReference'
+        response_mode:
+          description: How to return the response body. `content` (default) returns
+            the body inline in `content`, truncated to `head_lines`/`tail_lines`/`max_content_bytes`.
+            `artifact` streams the body into a session artifact and returns its id
+            in `artifact_id`; `content` is then absent.
+          type: string
+          enum:
+          - content
+          - artifact
+          default: content
         auth:
           description: 'Optional authentication to apply to the request. The resulting
             credential header is
@@ -24150,6 +24205,32 @@ components:
       - name
       - tool_configurations
       - model
+    ReplaceAgentRequest:
+      description: 'Full replacement of an existing agent. Accepts every field that
+        agent creation accepts;
+
+        created_at and updated_at may be included but are ignored, so the body returned
+        by
+
+        getAgent can be sent back unmodified.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/CreateAgentRequest'
+      - type: object
+        properties:
+          created_at:
+            description: Timestamp when the agent was created. Set by the server;
+              any value provided in the request body is ignored.
+            type: string
+            format: date-time
+            example: '2024-01-15T10:30:00Z'
+          updated_at:
+            description: Timestamp when the agent was last updated. Set by the server
+              on every write; any value provided in the request body is ignored.
+            type: string
+            format: date-time
+            example: '2024-01-16T14:45:00Z'
     UpdateFirstAgentStep:
       title: UpdateFirstAgentStep
       description: 'Partial update for the first (entry point) step. Omitted fields
@@ -24276,7 +24357,7 @@ components:
       description: 'Request object for updating an existing agent. Omitted fields
         are preserved.
 
-        Nullable fields (description, tool_configurations, metadata, enabled, guardrails)
+        Nullable fields (description, tool_configurations, metadata, enabled)
 
         can be set to null to clear them.
 
@@ -25102,6 +25183,19 @@ components:
             additionalProperties: true
             example:
               result: "Current weather is 70\xB0F and sunny"
+          output_wrapped:
+            description: 'Whether `tool_output` is an envelope holding a non-object
+              result: tools may return raw text, a number, or an
+
+              array, which is stored as `{"content": <result>}` so the event stays
+              a JSON object. When true, the actual tool
+
+              result is the value under `content`; when false or absent, `tool_output`
+              is the tool''s own object result.
+
+              '
+            type: boolean
+            default: false
           error:
             description: Whether the tool call resulted in an error.
             type: boolean
@@ -25542,6 +25636,33 @@ components:
       required:
       - events
       - metadata
+    SurfaceDescription:
+      description: 'Identifies the surface submitting this input, such as a connector.
+        The `(type, id)` pair identifies the surface within the session; repeat submissions
+        from the same pair are treated as one surface. All fields are optional; a
+        caller that omits `type` is treated as an `api` surface.
+
+        '
+      type: object
+      properties:
+        type:
+          description: "The kind of surface the input came from, so the agent knows\
+            \ where its reply will be seen and can shape it for that surface \u2014\
+            \ a free-form label, not a fixed set. Connectors send \"slack\", \"gchat\"\
+            , or \"zoom\"; API callers may send a label describing their own surface.\
+            \ Treated as \"api\" when omitted."
+          type: string
+          example: slack
+        id:
+          description: An identifier for this surface within its `type`, e.g. a connector
+            id. Combined with `type` to identify the surface within the session.
+          type: string
+          example: con_slack_support
+        include:
+          description: "When true, the agent is told which listeners \u2014 surfaces\
+            \ currently streaming this session \u2014 will see this turn's response."
+          type: boolean
+          default: false
     CreateInputRequestBase:
       description: Base properties shared by all input request types.
       type: object
@@ -25550,6 +25671,8 @@ components:
           description: Indicates whether the response should be streamed or not.
           type: boolean
           default: false
+        surface_description:
+          $ref: '#/components/schemas/SurfaceDescription'
     InputBehavior:
       description: "Controls how the input is processed when the session is already\
         \ running.\n- `steer`: Insert the message as soon as possible on the next\
@@ -25593,6 +25716,14 @@ components:
             example: start
           behavior:
             $ref: '#/components/schemas/InputBehavior'
+          entry_step:
+            description: 'Name of the step the agent enters before processing this
+              input. Must be a key in the agent''s `steps` map or the agent''s `first_step_name`.
+              When omitted, the session resumes at its `current_step_name`.
+
+              '
+            type: string
+            example: triage
         required:
         - messages
       x-vectaraParents:
@@ -25793,6 +25924,8 @@ components:
           description: Indicates whether the response should be streamed or not.
           type: boolean
           default: false
+        surface_description:
+          $ref: '#/components/schemas/SurfaceDescription'
         since:
           description: 'Event ID to return all events created after queueing the new
             input. When provided and the session is currently running, the response
@@ -25807,6 +25940,14 @@ components:
           example: start
         behavior:
           $ref: '#/components/schemas/InputBehavior'
+        entry_step:
+          description: 'Name of the step the agent enters before processing this input.
+            Must be a key in the agent''s `steps` map or the agent''s `first_step_name`.
+            When omitted, the session resumes at its `current_step_name`.
+
+            '
+          type: string
+          example: triage
     AgentResponse:
       description: Response containing the complete list of events generated by an
         agent.
@@ -30512,47 +30653,6 @@ components:
         - event_id
       x-vectaraParents:
       - AgentTraceSpan
-    GuardrailSpanAttributes:
-      description: Attributes for a guardrail span.
-      type: object
-      properties:
-        guardrail_passed:
-          description: Whether the guardrail check passed.
-          type: boolean
-        retry_attempt:
-          description: The retry attempt number, if this span was retried.
-          type: integer
-          format: int32
-    GuardrailSpanContent:
-      description: Decrypted content of a guardrail span.
-      type: object
-      properties:
-        guardrail_issues:
-          description: Details of guardrail violations found, if any.
-          type: string
-    GuardrailTraceSpan:
-      description: A span representing a guardrail safety check on tool call results.
-      allOf:
-      - $ref: '#/components/schemas/AgentTraceSpanBase'
-      - type: object
-        properties:
-          operation:
-            description: The operation type for this span.
-            type: string
-            default: guardrail
-            example: guardrail
-          attributes:
-            $ref: '#/components/schemas/GuardrailSpanAttributes'
-          content:
-            description: Span content, only included when include_content=true is
-              requested.
-            allOf:
-            - $ref: '#/components/schemas/GuardrailSpanContent'
-            nullable: true
-        required:
-        - operation
-      x-vectaraParents:
-      - AgentTraceSpan
     StepTransitionSpanAttributes:
       description: Attributes for a step_transition span.
       type: object
@@ -30664,7 +30764,6 @@ components:
           execute_tool: '#/components/schemas/ExecuteToolTraceSpan'
           thinking: '#/components/schemas/ThinkingTraceSpan'
           output: '#/components/schemas/OutputTraceSpan'
-          guardrail: '#/components/schemas/GuardrailTraceSpan'
           step_transition: '#/components/schemas/StepTransitionTraceSpan'
           image_read: '#/components/schemas/ImageReadTraceSpan'
           compaction: '#/components/schemas/CompactionTraceSpan'
@@ -30674,7 +30773,6 @@ components:
       - $ref: '#/components/schemas/ExecuteToolTraceSpan'
       - $ref: '#/components/schemas/ThinkingTraceSpan'
       - $ref: '#/components/schemas/OutputTraceSpan'
-      - $ref: '#/components/schemas/GuardrailTraceSpan'
       - $ref: '#/components/schemas/StepTransitionTraceSpan'
       - $ref: '#/components/schemas/ImageReadTraceSpan'
       - $ref: '#/components/schemas/CompactionTraceSpan'
@@ -30896,7 +30994,6 @@ x-tagGroups:
   - Agent Identity
   - Agent Aliases
   - Glossaries
-  - Guardrails
   - Instructions
   - Tools
   - Tool Servers

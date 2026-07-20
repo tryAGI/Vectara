@@ -56,13 +56,6 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.OutputTraceSpan)}");
                 output = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.GuardrailTraceSpan? guardrail = default;
-            if (discriminator?.Operation == global::Vectara.AgentTraceSpanDiscriminatorOperation.Guardrail)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GuardrailTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GuardrailTraceSpan> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.GuardrailTraceSpan)}");
-                guardrail = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
-            }
             global::Vectara.StepTransitionTraceSpan? stepTransition = default;
             if (discriminator?.Operation == global::Vectara.AgentTraceSpanDiscriminatorOperation.StepTransition)
             {
@@ -96,8 +89,6 @@ namespace Vectara.JsonConverters
                 thinking,
 
                 output,
-
-                guardrail,
 
                 stepTransition,
 
@@ -147,12 +138,6 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.OutputTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.OutputTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.OutputTraceSpan).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Output!.Value, typeInfo);
-            }
-            else if (value.IsGuardrail)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GuardrailTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GuardrailTraceSpan> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GuardrailTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Guardrail!.Value, typeInfo);
             }
             else if (value.IsStepTransition)
             {

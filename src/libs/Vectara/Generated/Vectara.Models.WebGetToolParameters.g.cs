@@ -80,6 +80,14 @@ namespace Vectara
         public global::Vectara.OneOf<long?, global::Vectara.EagerReference>? MaxContentBytes { get; set; }
 
         /// <summary>
+        /// How to return the response body. `content` (default) returns the body inline in `content`, truncated to `head_lines`/`tail_lines`/`max_content_bytes`. `artifact` streams the body into a session artifact and returns its id in `artifact_id`; `content` is then absent.<br/>
+        /// Default Value: content
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("response_mode")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.WebGetToolParametersResponseModeJsonConverter))]
+        public global::Vectara.WebGetToolParametersResponseMode? ResponseMode { get; set; }
+
+        /// <summary>
         /// Authentication configuration for the outgoing HTTP request.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
@@ -126,6 +134,10 @@ namespace Vectara
         /// <param name="maxContentBytes">
         /// Maximum response size in bytes before truncation.
         /// </param>
+        /// <param name="responseMode">
+        /// How to return the response body. `content` (default) returns the body inline in `content`, truncated to `head_lines`/`tail_lines`/`max_content_bytes`. `artifact` streams the body into a session artifact and returns its id in `artifact_id`; `content` is then absent.<br/>
+        /// Default Value: content
+        /// </param>
         /// <param name="auth">
         /// Authentication configuration for the outgoing HTTP request.
         /// </param>
@@ -143,6 +155,7 @@ namespace Vectara
             global::Vectara.OneOf<int?, global::Vectara.EagerReference>? tailLines,
             global::Vectara.OneOf<bool?, global::Vectara.EagerReference>? sslVerify,
             global::Vectara.OneOf<long?, global::Vectara.EagerReference>? maxContentBytes,
+            global::Vectara.WebGetToolParametersResponseMode? responseMode,
             global::Vectara.WebGetAuth? auth)
         {
             this.Url = url;
@@ -155,6 +168,7 @@ namespace Vectara
             this.TailLines = tailLines;
             this.SslVerify = sslVerify;
             this.MaxContentBytes = maxContentBytes;
+            this.ResponseMode = responseMode;
             this.Auth = auth;
         }
 

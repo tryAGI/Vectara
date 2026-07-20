@@ -23,10 +23,6 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Guardrail,
-        /// <summary>
-        /// 
-        /// </summary>
         ImageRead,
         /// <summary>
         /// 
@@ -61,7 +57,6 @@ namespace Vectara
                 ListTracesOperation.Chat => "chat",
                 ListTracesOperation.Compaction => "compaction",
                 ListTracesOperation.ExecuteTool => "execute_tool",
-                ListTracesOperation.Guardrail => "guardrail",
                 ListTracesOperation.ImageRead => "image_read",
                 ListTracesOperation.InvokeAgent => "invoke_agent",
                 ListTracesOperation.Output => "output",
@@ -80,7 +75,6 @@ namespace Vectara
                 "chat" => ListTracesOperation.Chat,
                 "compaction" => ListTracesOperation.Compaction,
                 "execute_tool" => ListTracesOperation.ExecuteTool,
-                "guardrail" => ListTracesOperation.Guardrail,
                 "image_read" => ListTracesOperation.ImageRead,
                 "invoke_agent" => ListTracesOperation.InvokeAgent,
                 "output" => ListTracesOperation.Output,

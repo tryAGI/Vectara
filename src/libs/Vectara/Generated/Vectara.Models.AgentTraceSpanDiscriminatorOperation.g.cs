@@ -23,10 +23,6 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        Guardrail,
-        /// <summary>
-        /// 
-        /// </summary>
         ImageRead,
         /// <summary>
         /// 
@@ -61,7 +57,6 @@ namespace Vectara
                 AgentTraceSpanDiscriminatorOperation.Chat => "chat",
                 AgentTraceSpanDiscriminatorOperation.Compaction => "compaction",
                 AgentTraceSpanDiscriminatorOperation.ExecuteTool => "execute_tool",
-                AgentTraceSpanDiscriminatorOperation.Guardrail => "guardrail",
                 AgentTraceSpanDiscriminatorOperation.ImageRead => "image_read",
                 AgentTraceSpanDiscriminatorOperation.InvokeAgent => "invoke_agent",
                 AgentTraceSpanDiscriminatorOperation.Output => "output",
@@ -80,7 +75,6 @@ namespace Vectara
                 "chat" => AgentTraceSpanDiscriminatorOperation.Chat,
                 "compaction" => AgentTraceSpanDiscriminatorOperation.Compaction,
                 "execute_tool" => AgentTraceSpanDiscriminatorOperation.ExecuteTool,
-                "guardrail" => AgentTraceSpanDiscriminatorOperation.Guardrail,
                 "image_read" => AgentTraceSpanDiscriminatorOperation.ImageRead,
                 "invoke_agent" => AgentTraceSpanDiscriminatorOperation.InvokeAgent,
                 "output" => AgentTraceSpanDiscriminatorOperation.Output,
