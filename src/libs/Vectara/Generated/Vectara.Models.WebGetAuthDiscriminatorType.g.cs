@@ -11,6 +11,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        AwsSigv4,
+        /// <summary>
+        /// 
+        /// </summary>
         Bearer,
         /// <summary>
         /// 
@@ -46,6 +50,7 @@ namespace Vectara
         {
             return value switch
             {
+                WebGetAuthDiscriminatorType.AwsSigv4 => "aws_sigv4",
                 WebGetAuthDiscriminatorType.Bearer => "bearer",
                 WebGetAuthDiscriminatorType.Header => "header",
                 WebGetAuthDiscriminatorType.None => "none",
@@ -62,6 +67,7 @@ namespace Vectara
         {
             return value switch
             {
+                "aws_sigv4" => WebGetAuthDiscriminatorType.AwsSigv4,
                 "bearer" => WebGetAuthDiscriminatorType.Bearer,
                 "header" => WebGetAuthDiscriminatorType.Header,
                 "none" => WebGetAuthDiscriminatorType.None,

@@ -239,6 +239,43 @@ namespace Vectara
         public global::Vectara.WebGetOAuthTokenExchangeAuth PickOauthTokenExchange() => IsOauthTokenExchange
             ? OauthTokenExchange!
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthTokenExchange' but the value was {ToString()}.");
+
+        /// <summary>
+        /// AWS Signature Version 4 request signing, e.g. for reading an S3 bucket directly. The platform signs the final request (method, URL, query parameters, and body) with the supplied credentials; user-supplied headers ride along unsigned. Redirects are never followed on signed requests. When `role_arn` is set, the platform first calls sts:AssumeRole with the static credentials and signs with the assumed-role credentials.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.WebGetAwsSigV4Auth? AwsSigv4 { get; init; }
+#else
+        public global::Vectara.WebGetAwsSigV4Auth? AwsSigv4 { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AwsSigv4))]
+#endif
+        public bool IsAwsSigv4 => AwsSigv4 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickAwsSigv4(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WebGetAwsSigV4Auth? value)
+        {
+            value = AwsSigv4;
+            return IsAwsSigv4;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.WebGetAwsSigV4Auth PickAwsSigv4() => IsAwsSigv4
+            ? AwsSigv4!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'AwsSigv4' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -380,6 +417,29 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator WebGetAuth(global::Vectara.WebGetAwsSigV4Auth value) => new WebGetAuth((global::Vectara.WebGetAwsSigV4Auth?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.WebGetAwsSigV4Auth?(WebGetAuth @this) => @this.AwsSigv4;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public WebGetAuth(global::Vectara.WebGetAwsSigV4Auth? value)
+        {
+            AwsSigv4 = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static WebGetAuth FromAwsSigv4(global::Vectara.WebGetAwsSigV4Auth? value) => new WebGetAuth(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public WebGetAuth(
             global::Vectara.WebGetAuthDiscriminatorType? type,
             global::Vectara.WebGetNoAuth? none,
@@ -387,7 +447,8 @@ namespace Vectara
             global::Vectara.WebGetHeaderAuth? header,
             global::Vectara.WebGetOAuthClientCredentialsAuth? oauthClientCredentials,
             global::Vectara.WebGetOAuthRefreshTokenAuth? oauthRefreshToken,
-            global::Vectara.WebGetOAuthTokenExchangeAuth? oauthTokenExchange
+            global::Vectara.WebGetOAuthTokenExchangeAuth? oauthTokenExchange,
+            global::Vectara.WebGetAwsSigV4Auth? awsSigv4
             )
         {
             Type = type;
@@ -398,12 +459,14 @@ namespace Vectara
             OauthClientCredentials = oauthClientCredentials;
             OauthRefreshToken = oauthRefreshToken;
             OauthTokenExchange = oauthTokenExchange;
+            AwsSigv4 = awsSigv4;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public object? Object =>
+            AwsSigv4 as object ??
             OauthTokenExchange as object ??
             OauthRefreshToken as object ??
             OauthClientCredentials as object ??
@@ -421,7 +484,8 @@ namespace Vectara
             Header?.ToString() ??
             OauthClientCredentials?.ToString() ??
             OauthRefreshToken?.ToString() ??
-            OauthTokenExchange?.ToString() 
+            OauthTokenExchange?.ToString() ??
+            AwsSigv4?.ToString() 
             ;
 
         /// <summary>
@@ -429,7 +493,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && !IsBearer && IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && !IsBearer && !IsHeader && IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && IsOauthRefreshToken && !IsOauthTokenExchange || !IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && IsOauthTokenExchange;
+            return IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange && !IsAwsSigv4 || !IsNone && IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange && !IsAwsSigv4 || !IsNone && !IsBearer && IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange && !IsAwsSigv4 || !IsNone && !IsBearer && !IsHeader && IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange && !IsAwsSigv4 || !IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && IsOauthRefreshToken && !IsOauthTokenExchange && !IsAwsSigv4 || !IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && IsOauthTokenExchange && !IsAwsSigv4 || !IsNone && !IsBearer && !IsHeader && !IsOauthClientCredentials && !IsOauthRefreshToken && !IsOauthTokenExchange && IsAwsSigv4;
         }
 
         /// <summary>
@@ -442,6 +506,7 @@ namespace Vectara
             global::System.Func<global::Vectara.WebGetOAuthClientCredentialsAuth, TResult>? oauthClientCredentials = null,
             global::System.Func<global::Vectara.WebGetOAuthRefreshTokenAuth, TResult>? oauthRefreshToken = null,
             global::System.Func<global::Vectara.WebGetOAuthTokenExchangeAuth, TResult>? oauthTokenExchange = null,
+            global::System.Func<global::Vectara.WebGetAwsSigV4Auth, TResult>? awsSigv4 = null,
             bool validate = true)
         {
             if (validate)
@@ -473,6 +538,10 @@ namespace Vectara
             {
                 return oauthTokenExchange(OauthTokenExchange!);
             }
+            else if (IsAwsSigv4 && awsSigv4 != null)
+            {
+                return awsSigv4(AwsSigv4!);
+            }
 
             return default(TResult);
         }
@@ -492,6 +561,8 @@ namespace Vectara
             global::System.Action<global::Vectara.WebGetOAuthRefreshTokenAuth>? oauthRefreshToken = null,
 
             global::System.Action<global::Vectara.WebGetOAuthTokenExchangeAuth>? oauthTokenExchange = null,
+
+            global::System.Action<global::Vectara.WebGetAwsSigV4Auth>? awsSigv4 = null,
             bool validate = true)
         {
             if (validate)
@@ -522,6 +593,10 @@ namespace Vectara
             else if (IsOauthTokenExchange)
             {
                 oauthTokenExchange?.Invoke(OauthTokenExchange!);
+            }
+            else if (IsAwsSigv4)
+            {
+                awsSigv4?.Invoke(AwsSigv4!);
             }
         }
 
@@ -535,6 +610,7 @@ namespace Vectara
             global::System.Action<global::Vectara.WebGetOAuthClientCredentialsAuth>? oauthClientCredentials = null,
             global::System.Action<global::Vectara.WebGetOAuthRefreshTokenAuth>? oauthRefreshToken = null,
             global::System.Action<global::Vectara.WebGetOAuthTokenExchangeAuth>? oauthTokenExchange = null,
+            global::System.Action<global::Vectara.WebGetAwsSigV4Auth>? awsSigv4 = null,
             bool validate = true)
         {
             if (validate)
@@ -565,6 +641,10 @@ namespace Vectara
             else if (IsOauthTokenExchange)
             {
                 oauthTokenExchange?.Invoke(OauthTokenExchange!);
+            }
+            else if (IsAwsSigv4)
+            {
+                awsSigv4?.Invoke(AwsSigv4!);
             }
         }
 
@@ -587,6 +667,8 @@ namespace Vectara
                 typeof(global::Vectara.WebGetOAuthRefreshTokenAuth),
                 OauthTokenExchange,
                 typeof(global::Vectara.WebGetOAuthTokenExchangeAuth),
+                AwsSigv4,
+                typeof(global::Vectara.WebGetAwsSigV4Auth),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -608,7 +690,8 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetHeaderAuth?>.Default.Equals(Header, other.Header) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthClientCredentialsAuth?>.Default.Equals(OauthClientCredentials, other.OauthClientCredentials) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthRefreshTokenAuth?>.Default.Equals(OauthRefreshToken, other.OauthRefreshToken) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthTokenExchangeAuth?>.Default.Equals(OauthTokenExchange, other.OauthTokenExchange) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthTokenExchangeAuth?>.Default.Equals(OauthTokenExchange, other.OauthTokenExchange) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetAwsSigV4Auth?>.Default.Equals(AwsSigv4, other.AwsSigv4) 
                 ;
         }
 

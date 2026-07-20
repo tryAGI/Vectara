@@ -55,6 +55,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("argument_override.headers")) __score1++;
             if (__jsonProps.Contains("argument_override.max_content_bytes")) __score1++;
             if (__jsonProps.Contains("argument_override.method")) __score1++;
+            if (__jsonProps.Contains("argument_override.response_mode")) __score1++;
             if (__jsonProps.Contains("argument_override.ssl_verify")) __score1++;
             if (__jsonProps.Contains("argument_override.tail_lines")) __score1++;
             if (__jsonProps.Contains("argument_override.timeout_seconds")) __score1++;

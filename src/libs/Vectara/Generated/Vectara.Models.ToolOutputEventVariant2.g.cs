@@ -67,6 +67,15 @@ namespace Vectara
         public required object ToolOutput { get; set; }
 
         /// <summary>
+        /// Whether `tool_output` is an envelope holding a non-object result: tools may return raw text, a number, or an<br/>
+        /// array, which is stored as `{"content": &lt;result&gt;}` so the event stays a JSON object. When true, the actual tool<br/>
+        /// result is the value under `content`; when false or absent, `tool_output` is the tool's own object result.<br/>
+        /// Default Value: false
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("output_wrapped")]
+        public bool? OutputWrapped { get; set; }
+
+        /// <summary>
         /// Whether the tool call resulted in an error.<br/>
         /// Default Value: false
         /// </summary>
@@ -116,6 +125,12 @@ namespace Vectara
         /// unresolved dependency).<br/>
         /// Example: {"api_key":"****","base_url":"https://api.example.com"}
         /// </param>
+        /// <param name="outputWrapped">
+        /// Whether `tool_output` is an envelope holding a non-object result: tools may return raw text, a number, or an<br/>
+        /// array, which is stored as `{"content": &lt;result&gt;}` so the event stays a JSON object. When true, the actual tool<br/>
+        /// result is the value under `content`; when false or absent, `tool_output` is the tool's own object result.<br/>
+        /// Default Value: false
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -126,7 +141,8 @@ namespace Vectara
             string toolName,
             object toolOutput,
             bool error,
-            object? resolvedArgumentOverrides)
+            object? resolvedArgumentOverrides,
+            bool? outputWrapped)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.ToolCallId = toolCallId ?? throw new global::System.ArgumentNullException(nameof(toolCallId));
@@ -134,6 +150,7 @@ namespace Vectara
             this.ToolName = toolName ?? throw new global::System.ArgumentNullException(nameof(toolName));
             this.ResolvedArgumentOverrides = resolvedArgumentOverrides;
             this.ToolOutput = toolOutput ?? throw new global::System.ArgumentNullException(nameof(toolOutput));
+            this.OutputWrapped = outputWrapped;
             this.Error = error;
         }
 

@@ -43,6 +43,14 @@ namespace Vectara
         public global::Vectara.InputBehavior? Behavior { get; set; }
 
         /// <summary>
+        /// Name of the step the agent enters before processing this input. Must be a key in the agent's `steps` map or the agent's `first_step_name`. When omitted, the session resumes at its `current_step_name`.<br/>
+        /// Example: triage
+        /// </summary>
+        /// <example>triage</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("entry_step")]
+        public string? EntryStep { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -69,6 +77,10 @@ namespace Vectara
         ///   Follow-up inputs are consumed one at a time: after each follow-up turn completes, the next<br/>
         ///   queued follow-up is processed. This ensures each follow-up gets a full agent loop iteration.
         /// </param>
+        /// <param name="entryStep">
+        /// Name of the step the agent enters before processing this input. Must be a key in the agent's `steps` map or the agent's `first_step_name`. When omitted, the session resumes at its `current_step_name`.<br/>
+        /// Example: triage
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -76,12 +88,14 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.AgentInput> messages,
             string? type,
             string? since,
-            global::Vectara.InputBehavior? behavior)
+            global::Vectara.InputBehavior? behavior,
+            string? entryStep)
         {
             this.Type = type;
             this.Messages = messages ?? throw new global::System.ArgumentNullException(nameof(messages));
             this.Since = since;
             this.Behavior = behavior;
+            this.EntryStep = entryStep;
         }
 
         /// <summary>

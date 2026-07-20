@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// Request object for updating an existing agent. Omitted fields are preserved.<br/>
-    /// Nullable fields (description, tool_configurations, metadata, enabled, guardrails)<br/>
+    /// Nullable fields (description, tool_configurations, metadata, enabled)<br/>
     /// can be set to null to clear them.
     /// </summary>
     public sealed partial class UpdateAgentRequest

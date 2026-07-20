@@ -63,6 +63,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.WebGetOAuthTokenExchangeAuth)}");
                 oauthTokenExchange = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.WebGetAwsSigV4Auth? awsSigv4 = default;
+            if (discriminator?.Type == global::Vectara.WebGetAuthDiscriminatorType.AwsSigv4)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetAwsSigV4Auth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetAwsSigV4Auth> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.WebGetAwsSigV4Auth)}");
+                awsSigv4 = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.WebGetAuth(
                 discriminator?.Type,
@@ -76,7 +83,9 @@ namespace Vectara.JsonConverters
 
                 oauthRefreshToken,
 
-                oauthTokenExchange
+                oauthTokenExchange,
+
+                awsSigv4
                 );
 
             return __value;
@@ -126,6 +135,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetOAuthTokenExchangeAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetOAuthTokenExchangeAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetOAuthTokenExchangeAuth).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.OauthTokenExchange!, typeInfo);
+            }
+            else if (value.IsAwsSigv4)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetAwsSigV4Auth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetAwsSigV4Auth?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetAwsSigV4Auth).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.AwsSigv4!, typeInfo);
             }
         }
     }

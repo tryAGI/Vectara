@@ -44,6 +44,12 @@ namespace Vectara
         public bool? StreamResponse { get; set; }
 
         /// <summary>
+        /// Identifies the surface submitting this input, such as a connector. The `(type, id)` pair identifies the surface within the session; repeat submissions from the same pair are treated as one surface. All fields are optional; a caller that omits `type` is treated as an `api` surface.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("surface_description")]
+        public global::Vectara.SurfaceDescription? SurfaceDescription { get; set; }
+
+        /// <summary>
         /// Event ID to return all events created after queueing the new input. When provided and the session is currently running, the response will include all events created after this event ID, and the new input will be processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
         /// Example: start
         /// </summary>
@@ -61,6 +67,14 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonPropertyName("behavior")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.InputBehaviorJsonConverter))]
         public global::Vectara.InputBehavior? Behavior { get; set; }
+
+        /// <summary>
+        /// Name of the step the agent enters before processing this input. Must be a key in the agent's `steps` map or the agent's `first_step_name`. When omitted, the session resumes at its `current_step_name`.<br/>
+        /// Example: triage
+        /// </summary>
+        /// <example>triage</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("entry_step")]
+        public string? EntryStep { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -83,6 +97,9 @@ namespace Vectara
         /// Indicates whether the response should be streamed or not.<br/>
         /// Default Value: false
         /// </param>
+        /// <param name="surfaceDescription">
+        /// Identifies the surface submitting this input, such as a connector. The `(type, id)` pair identifies the surface within the session; repeat submissions from the same pair are treated as one surface. All fields are optional; a caller that omits `type` is treated as an `api` surface.
+        /// </param>
         /// <param name="since">
         /// Event ID to return all events created after queueing the new input. When provided and the session is currently running, the response will include all events created after this event ID, and the new input will be processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
         /// Example: start
@@ -94,6 +111,10 @@ namespace Vectara
         ///   Follow-up inputs are consumed one at a time: after each follow-up turn completes, the next<br/>
         ///   queued follow-up is processed. This ensures each follow-up gets a full agent loop iteration.
         /// </param>
+        /// <param name="entryStep">
+        /// Name of the step the agent enters before processing this input. Must be a key in the agent's `steps` map or the agent's `first_step_name`. When omitted, the session resumes at its `current_step_name`.<br/>
+        /// Example: triage
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -101,14 +122,18 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.AgentInput>? messages,
             global::System.Collections.Generic.IList<byte[]>? files,
             bool? streamResponse,
+            global::Vectara.SurfaceDescription? surfaceDescription,
             string? since,
-            global::Vectara.InputBehavior? behavior)
+            global::Vectara.InputBehavior? behavior,
+            string? entryStep)
         {
             this.Messages = messages;
             this.Files = files;
             this.StreamResponse = streamResponse;
+            this.SurfaceDescription = surfaceDescription;
             this.Since = since;
             this.Behavior = behavior;
+            this.EntryStep = entryStep;
         }
 
         /// <summary>

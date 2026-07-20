@@ -200,43 +200,6 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Output' but the value was {ToString()}.");
 
         /// <summary>
-        /// A span representing a guardrail safety check on tool call results.
-        /// </summary>
-#if NET6_0_OR_GREATER
-        public global::Vectara.GuardrailTraceSpan? Guardrail { get; init; }
-#else
-        public global::Vectara.GuardrailTraceSpan? Guardrail { get; }
-#endif
-
-        /// <summary>
-        /// 
-        /// </summary>
-#if NET6_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Guardrail))]
-#endif
-        public bool IsGuardrail => Guardrail != null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool TryPickGuardrail(
-#if NET6_0_OR_GREATER
-            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
-#endif
-            out global::Vectara.GuardrailTraceSpan? value)
-        {
-            value = Guardrail;
-            return IsGuardrail;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public global::Vectara.GuardrailTraceSpan PickGuardrail() => IsGuardrail
-            ? Guardrail!.Value
-            : throw new global::System.InvalidOperationException($"Expected union variant 'Guardrail' but the value was {ToString()}.");
-
-        /// <summary>
         /// A span representing a transition between agent steps.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -464,29 +427,6 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
-        public static implicit operator AgentTraceSpan(global::Vectara.GuardrailTraceSpan value) => new AgentTraceSpan((global::Vectara.GuardrailTraceSpan?)value);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static implicit operator global::Vectara.GuardrailTraceSpan?(AgentTraceSpan @this) => @this.Guardrail;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public AgentTraceSpan(global::Vectara.GuardrailTraceSpan? value)
-        {
-            Guardrail = value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static AgentTraceSpan FromGuardrail(global::Vectara.GuardrailTraceSpan? value) => new AgentTraceSpan(value);
-
-        /// <summary>
-        /// 
-        /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.StepTransitionTraceSpan value) => new AgentTraceSpan((global::Vectara.StepTransitionTraceSpan?)value);
 
         /// <summary>
@@ -563,7 +503,6 @@ namespace Vectara
             global::Vectara.ExecuteToolTraceSpan? executeTool,
             global::Vectara.ThinkingTraceSpan? thinking,
             global::Vectara.OutputTraceSpan? output,
-            global::Vectara.GuardrailTraceSpan? guardrail,
             global::Vectara.StepTransitionTraceSpan? stepTransition,
             global::Vectara.ImageReadTraceSpan? imageRead,
             global::Vectara.CompactionTraceSpan? compaction
@@ -576,7 +515,6 @@ namespace Vectara
             ExecuteTool = executeTool;
             Thinking = thinking;
             Output = output;
-            Guardrail = guardrail;
             StepTransition = stepTransition;
             ImageRead = imageRead;
             Compaction = compaction;
@@ -589,7 +527,6 @@ namespace Vectara
             Compaction as object ??
             ImageRead as object ??
             StepTransition as object ??
-            Guardrail as object ??
             Output as object ??
             Thinking as object ??
             ExecuteTool as object ??
@@ -606,7 +543,6 @@ namespace Vectara
             ExecuteTool?.ToString() ??
             Thinking?.ToString() ??
             Output?.ToString() ??
-            Guardrail?.ToString() ??
             StepTransition?.ToString() ??
             ImageRead?.ToString() ??
             Compaction?.ToString() 
@@ -617,7 +553,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsGuardrail && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsGuardrail && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && IsExecuteTool && !IsThinking && !IsOutput && !IsGuardrail && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && IsThinking && !IsOutput && !IsGuardrail && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && IsOutput && !IsGuardrail && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && IsGuardrail && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsGuardrail && IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsGuardrail && !IsStepTransition && IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsGuardrail && !IsStepTransition && !IsImageRead && IsCompaction;
+            return IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && IsExecuteTool && !IsThinking && !IsOutput && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && IsThinking && !IsOutput && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && IsOutput && !IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && IsStepTransition && !IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsStepTransition && IsImageRead && !IsCompaction || !IsInvokeAgent && !IsChat && !IsExecuteTool && !IsThinking && !IsOutput && !IsStepTransition && !IsImageRead && IsCompaction;
         }
 
         /// <summary>
@@ -629,7 +565,6 @@ namespace Vectara
             global::System.Func<global::Vectara.ExecuteToolTraceSpan?, TResult>? executeTool = null,
             global::System.Func<global::Vectara.ThinkingTraceSpan?, TResult>? thinking = null,
             global::System.Func<global::Vectara.OutputTraceSpan?, TResult>? output = null,
-            global::System.Func<global::Vectara.GuardrailTraceSpan?, TResult>? guardrail = null,
             global::System.Func<global::Vectara.StepTransitionTraceSpan?, TResult>? stepTransition = null,
             global::System.Func<global::Vectara.ImageReadTraceSpan?, TResult>? imageRead = null,
             global::System.Func<global::Vectara.CompactionTraceSpan?, TResult>? compaction = null,
@@ -659,10 +594,6 @@ namespace Vectara
             else if (IsOutput && output != null)
             {
                 return output(Output!);
-            }
-            else if (IsGuardrail && guardrail != null)
-            {
-                return guardrail(Guardrail!);
             }
             else if (IsStepTransition && stepTransition != null)
             {
@@ -694,8 +625,6 @@ namespace Vectara
 
             global::System.Action<global::Vectara.OutputTraceSpan?>? output = null,
 
-            global::System.Action<global::Vectara.GuardrailTraceSpan?>? guardrail = null,
-
             global::System.Action<global::Vectara.StepTransitionTraceSpan?>? stepTransition = null,
 
             global::System.Action<global::Vectara.ImageReadTraceSpan?>? imageRead = null,
@@ -727,10 +656,6 @@ namespace Vectara
             else if (IsOutput)
             {
                 output?.Invoke(Output!);
-            }
-            else if (IsGuardrail)
-            {
-                guardrail?.Invoke(Guardrail!);
             }
             else if (IsStepTransition)
             {
@@ -755,7 +680,6 @@ namespace Vectara
             global::System.Action<global::Vectara.ExecuteToolTraceSpan?>? executeTool = null,
             global::System.Action<global::Vectara.ThinkingTraceSpan?>? thinking = null,
             global::System.Action<global::Vectara.OutputTraceSpan?>? output = null,
-            global::System.Action<global::Vectara.GuardrailTraceSpan?>? guardrail = null,
             global::System.Action<global::Vectara.StepTransitionTraceSpan?>? stepTransition = null,
             global::System.Action<global::Vectara.ImageReadTraceSpan?>? imageRead = null,
             global::System.Action<global::Vectara.CompactionTraceSpan?>? compaction = null,
@@ -785,10 +709,6 @@ namespace Vectara
             else if (IsOutput)
             {
                 output?.Invoke(Output!);
-            }
-            else if (IsGuardrail)
-            {
-                guardrail?.Invoke(Guardrail!);
             }
             else if (IsStepTransition)
             {
@@ -821,8 +741,6 @@ namespace Vectara
                 typeof(global::Vectara.ThinkingTraceSpan),
                 Output,
                 typeof(global::Vectara.OutputTraceSpan),
-                Guardrail,
-                typeof(global::Vectara.GuardrailTraceSpan),
                 StepTransition,
                 typeof(global::Vectara.StepTransitionTraceSpan),
                 ImageRead,
@@ -850,7 +768,6 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ExecuteToolTraceSpan?>.Default.Equals(ExecuteTool, other.ExecuteTool) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingTraceSpan?>.Default.Equals(Thinking, other.Thinking) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.OutputTraceSpan?>.Default.Equals(Output, other.Output) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GuardrailTraceSpan?>.Default.Equals(Guardrail, other.Guardrail) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StepTransitionTraceSpan?>.Default.Equals(StepTransition, other.StepTransition) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageReadTraceSpan?>.Default.Equals(ImageRead, other.ImageRead) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionTraceSpan?>.Default.Equals(Compaction, other.Compaction) 

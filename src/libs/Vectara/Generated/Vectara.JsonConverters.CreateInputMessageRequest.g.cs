@@ -23,14 +23,26 @@ namespace Vectara.JsonConverters
                 foreach (var __jsonProp in __jsonDocument.RootElement.EnumerateObject())
                 {
                     __jsonProps.Add(__jsonProp.Name);
+                    if (__jsonProp.Value.ValueKind == global::System.Text.Json.JsonValueKind.Object)
+                    {
+                        foreach (var __nestedJsonProp in __jsonProp.Value.EnumerateObject())
+                        {
+                            __jsonProps.Add(__jsonProp.Name + "." + __nestedJsonProp.Name);
+                        }
+                    }
 
                 }
             }
 
             var __score0 = 0;
             if (__jsonProps.Contains("stream_response")) __score0++;
+            if (__jsonProps.Contains("surface_description")) __score0++;
+            if (__jsonProps.Contains("surface_description.id")) __score0++;
+            if (__jsonProps.Contains("surface_description.include")) __score0++;
+            if (__jsonProps.Contains("surface_description.type")) __score0++;
             var __score1 = 0;
             if (__jsonProps.Contains("behavior")) __score1++;
+            if (__jsonProps.Contains("entry_step")) __score1++;
             if (__jsonProps.Contains("messages")) __score1++;
             if (__jsonProps.Contains("since")) __score1++;
             if (__jsonProps.Contains("type")) __score1++;
