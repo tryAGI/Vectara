@@ -31,11 +31,19 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Scim,
+        /// <summary>
+        /// 
+        /// </summary>
         Sharepoint,
         /// <summary>
         /// 
         /// </summary>
         Web,
+        /// <summary>
+        /// 
+        /// </summary>
+        WolkenForms,
         /// <summary>
         /// 
         /// </summary>
@@ -59,8 +67,10 @@ namespace Vectara
                 PipelineSourceDiscriminatorType.Fluidtopics => "fluidtopics",
                 PipelineSourceDiscriminatorType.GoogleDrive => "google_drive",
                 PipelineSourceDiscriminatorType.S3 => "s3",
+                PipelineSourceDiscriminatorType.Scim => "scim",
                 PipelineSourceDiscriminatorType.Sharepoint => "sharepoint",
                 PipelineSourceDiscriminatorType.Web => "web",
+                PipelineSourceDiscriminatorType.WolkenForms => "wolken_forms",
                 PipelineSourceDiscriminatorType.WolkenKb => "wolken_kb",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -77,8 +87,10 @@ namespace Vectara
                 "fluidtopics" => PipelineSourceDiscriminatorType.Fluidtopics,
                 "google_drive" => PipelineSourceDiscriminatorType.GoogleDrive,
                 "s3" => PipelineSourceDiscriminatorType.S3,
+                "scim" => PipelineSourceDiscriminatorType.Scim,
                 "sharepoint" => PipelineSourceDiscriminatorType.Sharepoint,
                 "web" => PipelineSourceDiscriminatorType.Web,
+                "wolken_forms" => PipelineSourceDiscriminatorType.WolkenForms,
                 "wolken_kb" => PipelineSourceDiscriminatorType.WolkenKb,
                 _ => null,
             };

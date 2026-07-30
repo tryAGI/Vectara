@@ -166,6 +166,10 @@ tags:
   description: Create and manage glossaries that map terms, acronyms, and abbreviations
     to their expanded forms. Agents can be reminded by glossaries to map domain specific
     terms to other terms.
+- name: A2A Protocol
+  description: Agent-to-Agent (A2A) protocol endpoints for interoperability with external
+    A2A clients. Exposes agent discovery via Agent Cards, and message-driven Tasks
+    scoped to a session.
 - name: Chats
   description: 'Deprecated: use Agents instead. Chat endpoints are no longer supported.'
 paths:
@@ -488,7 +492,17 @@ paths:
       x-fern-sdk-method-name: create
     get:
       summary: List corpora
+      x-resource-locator: implicit.viewable_corpus_keys
+      x-implicit-authorization:
+        type: response_filter
+        resource_key: implicit.viewable_corpus_keys
       x-required-roles:
+      - type: CorpusRole
+        roles:
+        - viewer
+        - editor
+        - administrator
+        - owner
       - type: ApiRole
         roles:
         - corpus_viewer
@@ -695,6 +709,7 @@ paths:
       tags:
       - Corpora
       summary: Retrieve metadata about a corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -707,7 +722,14 @@ paths:
         - corpus_viewer
         - corpus_developer
         - corpus_administrator
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - pipeline_viewer
+        - pipeline_administrator
         - viewer
+        - billing_administrator
         - administrator
         - owner
       description: 'The Get Corpus API lets you view metadata about a specific corpus.
@@ -921,6 +943,7 @@ paths:
       tags:
       - Corpora
       summary: Delete a corpus and all its data
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -966,6 +989,7 @@ paths:
       tags:
       - Corpora
       summary: Update a corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -1029,6 +1053,7 @@ paths:
       tags:
       - Corpora
       summary: Remove all documents and data in a corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -1075,6 +1100,7 @@ paths:
       tags:
       - Corpora
       summary: Replace the filter attributes of a corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -1256,6 +1282,7 @@ paths:
       tags:
       - Corpora
       summary: Get filter attribute statistics for corpus metadata
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -1532,6 +1559,7 @@ paths:
       tags:
       - Upload
       summary: Upload a file to the corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -1690,6 +1718,7 @@ paths:
       tags:
       - Index
       summary: Add a document to a corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -1837,6 +1866,7 @@ paths:
       tags:
       - Documents
       summary: List the documents in the corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -1929,6 +1959,7 @@ paths:
       tags:
       - Documents
       summary: Bulk delete documents from a corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2061,6 +2092,7 @@ paths:
       tags:
       - Documents
       summary: Bulk update document metadata
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2206,6 +2238,7 @@ paths:
       tags:
       - Documents
       summary: Delete a document
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2258,6 +2291,7 @@ paths:
       tags:
       - Documents
       summary: Retrieve a document
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2328,6 +2362,7 @@ paths:
       tags:
       - Index
       summary: Update document, merging the metadata.
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2397,6 +2432,7 @@ paths:
       tags:
       - Index
       summary: Replace the document metadata.
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2465,6 +2501,7 @@ paths:
       tags:
       - Documents
       summary: Summarize a document
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2649,6 +2686,7 @@ paths:
       tags:
       - Documents
       summary: Retrieve an image from a document
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2727,6 +2765,7 @@ paths:
       tags:
       - Metadata Query
       summary: Query across metadata fields in a corpus
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -2794,6 +2833,7 @@ paths:
       tags:
       - Queries
       summary: Simple Single Corpus Query
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -3011,6 +3051,7 @@ paths:
       tags:
       - Queries
       summary: Advanced Single Corpus Query
+      x-resource-locator: path.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -3498,6 +3539,7 @@ paths:
       tags:
       - Queries
       summary: Multiple Corpora Query
+      x-resource-locator: body.search.corpora.*.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -3958,12 +4000,6 @@ paths:
       - Query History
       summary: Get a query history
       x-required-roles:
-      - type: CorpusRole
-        roles:
-        - viewer
-        - editor
-        - administrator
-        - owner
       - type: ApiRole
         roles:
         - corpus_viewer
@@ -4024,6 +4060,7 @@ paths:
       tags:
       - Query History
       summary: List the history of previous queries
+      x-resource-locator: query.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -4135,6 +4172,7 @@ paths:
       tags:
       - Chats
       summary: Start a chat
+      x-resource-locator: body.search.corpora.*.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -4144,10 +4182,8 @@ paths:
         - owner
       - type: ApiRole
         roles:
-        - corpus_viewer
         - corpus_developer
         - corpus_administrator
-        - viewer
         - administrator
         - owner
       description: Create a chat while specifying the default retrieval parameters
@@ -4831,6 +4867,7 @@ paths:
       tags:
       - Chats
       summary: Create a new turn in the chat
+      x-resource-locator: body.search.corpora.*.corpus_key
       x-required-roles:
       - type: CorpusRole
         roles:
@@ -4840,10 +4877,8 @@ paths:
         - owner
       - type: ApiRole
         roles:
-        - corpus_viewer
         - corpus_developer
         - corpus_administrator
-        - viewer
         - administrator
         - owner
       description: Create a new turn in the chat. Each conversation has a series of
@@ -5354,6 +5389,7 @@ paths:
         - viewer
         - administrator
         - owner
+      x-always-allowed: true
       description: List LLMs that can be used with query and chat endpoints. The LLM
         is not directly specified in a query, but instead a `generation_preset_name`
         is used. The `generation_preset_name` property in generation parameters can
@@ -5617,6 +5653,7 @@ paths:
         - viewer
         - administrator
         - owner
+      x-always-allowed: true
       description: "The Chat Completions API provides an OpenAI-compatible interface\
         \ for generating model responses in multi-turn chat conversations. This API\
         \ enables you to integrate our language models directly into applications\
@@ -5696,6 +5733,7 @@ paths:
         - viewer
         - administrator
         - owner
+      x-always-allowed: true
       description: 'Organizations often struggle to fine-tune query responses and
         maintain consistency across different use cases. Vectara creates and maintains
         predefined generation presets for our users which provides a flexible and
@@ -5971,6 +6009,7 @@ paths:
         - viewer
         - administrator
         - owner
+      x-always-allowed: true
       description: "Evaluate the factual consistency of a generated text (like a summary)\
         \ against source documents. This determines how accurately the generated text\
         \ reflects the information in the source documents, helping identify potential\
@@ -6089,6 +6128,7 @@ paths:
         - viewer
         - administrator
         - owner
+      x-always-allowed: true
       description: 'The List Encoders API retrieves a list of available encoders used
         for embedding documents and queries.
 
@@ -6154,6 +6194,7 @@ paths:
         - viewer
         - administrator
         - owner
+      x-always-allowed: true
       description: 'The List Rerankers API retrieves a list of available rerankers
         used to improve the ranking and ordering of search results.
 
@@ -6213,6 +6254,7 @@ paths:
       tags:
       - Table Extractors
       summary: List supported table extractors
+      x-always-allowed: true
       x-required-roles:
       - type: ApiRole
         roles:
@@ -6257,6 +6299,7 @@ paths:
         - viewer
         - administrator
         - owner
+      x-always-allowed: true
       description: 'The List Hallucination Correctors API enables users to list available
         hallucination correctors used for detecting and correcting hallucinations
         in AI-generated content. Vectara provides these models as part of its broader
@@ -6334,6 +6377,7 @@ paths:
         - viewer
         - administrator
         - owner
+      x-always-allowed: true
       description: 'The Hallucination Correctors API enables users to automatically
         detect and correct factual inaccuracies, commonly referred to as hallucinations,
         in generated summaries or responses. By comparing a user-provided summary
@@ -6652,6 +6696,7 @@ paths:
       tags:
       - Users
       summary: Get a user
+      x-user-self-service: true
       x-required-roles:
       - type: ApiRole
         roles:
@@ -6837,13 +6882,13 @@ paths:
       tags:
       - API Keys
       summary: Create an API key
+      x-user-self-service:
+        body.api_key_role:
+        - personal
       x-required-roles:
       - type: ApiRole
         roles:
-        - corpus_viewer
-        - corpus_developer
         - corpus_administrator
-        - viewer
         - administrator
         - owner
       description: 'The Create API Key API lets you create new API keys, which you
@@ -6897,13 +6942,11 @@ paths:
       tags:
       - API Keys
       summary: List API keys
+      x-user-self-service: true
       x-required-roles:
       - type: ApiRole
         roles:
-        - corpus_viewer
-        - corpus_developer
         - corpus_administrator
-        - viewer
         - administrator
         - owner
       description: 'The List API Keys API lists all existing API keys for a customer
@@ -6978,13 +7021,11 @@ paths:
       tags:
       - API Keys
       summary: Get an API key
+      x-user-self-service: true
       x-required-roles:
       - type: ApiRole
         roles:
-        - corpus_viewer
-        - corpus_developer
         - corpus_administrator
-        - viewer
         - administrator
         - owner
       description: 'The Get API Key API lists all existing API keys for a customer
@@ -7025,13 +7066,11 @@ paths:
       tags:
       - API Keys
       summary: Update an API key
+      x-user-self-service: true
       x-required-roles:
       - type: ApiRole
         roles:
-        - corpus_viewer
-        - corpus_developer
         - corpus_administrator
-        - viewer
         - administrator
         - owner
       description: 'The Update API Key API lets you enable or disable specific API
@@ -7077,13 +7116,11 @@ paths:
       tags:
       - API Keys
       summary: Delete an API key
+      x-user-self-service: true
       x-required-roles:
       - type: ApiRole
         roles:
-        - corpus_viewer
-        - corpus_developer
         - corpus_administrator
-        - viewer
         - administrator
         - owner
       description: "The Delete API Key API lets you delete one or more existing API\
@@ -7381,10 +7418,6 @@ paths:
       - Tool Servers
       summary: List tool servers
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -7461,9 +7494,6 @@ paths:
       - Tool Servers
       summary: Create tool server
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_administrator
@@ -7507,10 +7537,6 @@ paths:
       - Tool Servers
       summary: Get tool Server
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -7556,9 +7582,6 @@ paths:
       - Tool Servers
       summary: Update tool server
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_administrator
@@ -7615,9 +7638,6 @@ paths:
       - Tool Servers
       summary: Delete tool server
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_administrator
@@ -7660,9 +7680,6 @@ paths:
       - Tool Servers
       summary: Synchronize tool server
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_administrator
@@ -7705,10 +7722,6 @@ paths:
       - Tools
       summary: Create tool
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -7776,11 +7789,6 @@ paths:
       - Tools
       summary: List tools
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_viewer
@@ -7887,10 +7895,6 @@ paths:
       - Tools
       summary: Test Lambda tool without creation
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -7958,11 +7962,6 @@ paths:
       - Tools
       summary: Get tool
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_viewer
@@ -8014,10 +8013,6 @@ paths:
       - Tools
       summary: Update tool
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -8077,10 +8072,6 @@ paths:
       - Tools
       summary: Delete tool
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -8125,10 +8116,6 @@ paths:
       - Tools
       summary: Test Lambda tool
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -8205,10 +8192,6 @@ paths:
       - Instructions
       summary: Create instruction
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -8283,11 +8266,6 @@ paths:
       - Instructions
       summary: List instructions
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_viewer
@@ -8371,11 +8349,6 @@ paths:
       - Instructions
       summary: Get instruction
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_viewer
@@ -8435,10 +8408,6 @@ paths:
       - Instructions
       summary: Update instruction
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -8523,10 +8492,6 @@ paths:
       - Instructions
       summary: Delete instruction
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -8578,10 +8543,6 @@ paths:
       - Instructions
       summary: Test instruction
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -8658,10 +8619,6 @@ paths:
       - Instructions
       summary: Delete instruction version
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_developer
@@ -8717,6 +8674,9 @@ paths:
       tags:
       - Agents
       summary: Create agent
+      x-implicit-authorization:
+        type: service
+        resource_key: implicit.sub_agent_keys
       x-required-roles:
       - type: ApiRole
         roles:
@@ -8800,6 +8760,10 @@ paths:
       tags:
       - Agents
       summary: List agents
+      x-resource-locator: implicit.viewable_agent_keys
+      x-implicit-authorization:
+        type: response_filter
+        resource_key: implicit.viewable_agent_keys
       x-required-roles:
       - type: AgentRole
         roles:
@@ -8878,6 +8842,7 @@ paths:
       tags:
       - Agents
       summary: Get agent
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -8939,6 +8904,10 @@ paths:
       tags:
       - Agents
       summary: Update agent
+      x-resource-locator: path.agent_key
+      x-implicit-authorization:
+        type: service
+        resource_key: implicit.sub_agent_keys
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9010,6 +8979,10 @@ paths:
       tags:
       - Agents
       summary: Replace agent
+      x-resource-locator: path.agent_key
+      x-implicit-authorization:
+        type: service
+        resource_key: implicit.sub_agent_keys
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9071,6 +9044,7 @@ paths:
       tags:
       - Agents
       summary: Delete agent
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9117,6 +9091,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: "The agent is still referenced \u2014 by aliases, or, for the\
+            \ system judge agent, by evaluators. Remove or rebind the references,\
+            \ then retry."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: delete
   /v2/agents/{agent_key}/sessions:
@@ -9124,6 +9106,12 @@ paths:
       tags:
       - Agent Sessions
       summary: Create agent session
+      x-resource-locator: path.agent_key
+      x-implicit-authorization:
+        type: body_key
+        resource_key: implicit.readable_agent_keys
+        body_path: from_session.agent_key
+        same_resource_path_param: agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9201,6 +9189,7 @@ paths:
       tags:
       - Agent Sessions
       summary: List agent sessions
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9315,6 +9304,7 @@ paths:
       tags:
       - Agent Sessions
       summary: Get agent session
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9376,6 +9366,7 @@ paths:
       tags:
       - Agent Sessions
       summary: Update agent session
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9449,6 +9440,7 @@ paths:
       tags:
       - Agent Sessions
       summary: Delete agent session
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9499,6 +9491,7 @@ paths:
       tags:
       - Agent Sessions
       summary: Interact with an agent
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9510,6 +9503,8 @@ paths:
         - agent_user
         - agent_developer
         - agent_administrator
+        - corpus_developer
+        - corpus_administrator
         - administrator
         - owner
       description: Create a new input to an agent to interact with it.
@@ -9712,6 +9707,7 @@ paths:
       tags:
       - Agent Sessions
       summary: List events in agent session
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9798,6 +9794,7 @@ paths:
       tags:
       - Agent Sessions
       summary: List outstanding client tool calls for an agent session
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9867,6 +9864,7 @@ paths:
       tags:
       - Agent Sessions
       summary: Get event in agent session
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -9931,12 +9929,15 @@ paths:
       tags:
       - Agent Sessions
       summary: Delete event
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
+        - agent_developer
         - agent_administrator
       - type: ApiRole
         roles:
+        - agent_developer
         - agent_administrator
         - administrator
         - owner
@@ -9978,6 +9979,7 @@ paths:
       tags:
       - Agent Sessions
       summary: Hide event
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10030,6 +10032,7 @@ paths:
       tags:
       - Agent Sessions
       summary: Unhide event
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10082,6 +10085,7 @@ paths:
       tags:
       - Agent Sessions
       summary: List session artifacts
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10116,6 +10120,37 @@ paths:
         required: true
         schema:
           $ref: '#/components/schemas/AgentSessionKey'
+      - in: query
+        name: metadata_filter
+        description: 'A filter expression to narrow the list to artifacts whose metadata
+          matches. Field names refer to keys on the artifact''s `metadata` object.
+          Syntax is similar to a SQL WHERE clause, the same as the `metadata_filter`
+          used in query requests. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview)
+          for more information.
+
+
+          Examples:
+
+          - `source = ''user_upload''`
+
+          - `page_count >= 10 AND category = ''report''`
+
+          - `label LIKE ''draft%''`
+
+          - `category IN (''report'', ''invoice'')`
+
+          - `category IS NULL`
+
+          - `"extraction.engine" = ''ocr''` (nested fields use a quoted dotted path)
+
+          - `1 IN page_numbers` (value present in an array)
+
+          '
+        required: false
+        schema:
+          type: string
+          maxLength: 8000
+          example: source = 'user_upload' AND page_count >= 10
       - in: query
         name: limit
         description: The maximum number of artifacts to return in the list.
@@ -10183,6 +10218,7 @@ paths:
       tags:
       - Agent Sessions
       summary: Get session artifact
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10244,11 +10280,85 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agent_artifacts
       x-fern-sdk-method-name: get
+  /v2/agents/{agent_key}/sessions/{session_key}/artifacts/{artifact_id}/content:
+    get:
+      tags:
+      - Agent Sessions
+      summary: Get session artifact raw bytes
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Retrieve the raw bytes of an artifact. Unlike `getSessionArtifact`,
+        which returns a JSON wrapper with base64-encoded data, this endpoint returns
+        the file content as the response body with the artifact's own `Content-Type`.
+        Used by A2A `FilePart.fileWithUri` and any other consumer that needs to dereference
+        an artifact URL as a binary download.
+      operationId: getSessionArtifactContent
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique identifier of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: session_key
+        description: The unique key of the session.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      - in: path
+        name: artifact_id
+        description: The unique identifier of the artifact to retrieve.
+        required: true
+        schema:
+          type: string
+          pattern: art_[a-z0-9_-]+$
+          example: art_report_pdf_a3f2
+      responses:
+        '200':
+          description: The artifact bytes. `Content-Type` is the artifact's stored
+            MIME type; a `Content-Disposition` header is set when an original filename
+            is known.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '403':
+          description: Permissions do not allow accessing this artifact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Agent, session, or artifact not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_artifacts
+      x-fern-sdk-method-name: getContent
   /v2/agents/{agent_key}/schedules:
     post:
       tags:
       - Agent Schedules
       summary: Create agent schedule
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10327,6 +10437,7 @@ paths:
       tags:
       - Agent Schedules
       summary: List agent schedules
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10401,6 +10512,7 @@ paths:
       tags:
       - Agent Schedules
       summary: Get agent schedule
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10459,6 +10571,7 @@ paths:
       tags:
       - Agent Schedules
       summary: Update agent schedule
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10532,6 +10645,7 @@ paths:
       tags:
       - Agent Schedules
       summary: Delete agent schedule
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10587,6 +10701,7 @@ paths:
       tags:
       - Agent Schedules
       summary: List agent schedule executions
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10647,6 +10762,7 @@ paths:
       tags:
       - Agent Identity
       summary: Get agent identity
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10708,6 +10824,7 @@ paths:
       tags:
       - Agent Identity
       summary: Update agent identity
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10778,6 +10895,7 @@ paths:
       tags:
       - Agent Secrets
       summary: Get agent secrets
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10826,6 +10944,7 @@ paths:
       tags:
       - Agent Secrets
       summary: Replace agent secrets
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10888,6 +11007,7 @@ paths:
       tags:
       - Agent Secrets
       summary: Update agent secrets
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -10951,6 +11071,7 @@ paths:
       tags:
       - Agent Connectors
       summary: Create agent connector
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -11010,6 +11131,7 @@ paths:
       tags:
       - Agent Connectors
       summary: List agent connectors
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -11096,6 +11218,7 @@ paths:
       tags:
       - Agent Connectors
       summary: Get agent connector
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -11150,6 +11273,7 @@ paths:
       tags:
       - Agent Connectors
       summary: Update agent connector
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -11217,6 +11341,7 @@ paths:
       tags:
       - Agent Connectors
       summary: Delete agent connector
+      x-resource-locator: path.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -11263,6 +11388,1056 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: deleteConnector
+  /v2/agents/{agent_key}/.well-known/agent-card.json:
+    get:
+      tags:
+      - A2A Protocol
+      summary: Get A2A agent card (well-known)
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: 'Returns the A2A v0.3 [Agent Card](https://a2a-protocol.org) for
+        the specified agent at the canonical `.well-known/agent-card.json` discovery
+        URL. Stock A2A clients fetch this URL, then use the card''s `url` and `preferredTransport`
+        to drive subsequent calls.
+
+        '
+      operationId: getA2aV03AgentCardWellKnown
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      responses:
+        '200':
+          description: The A2A v0.3 Agent Card describing this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV03AgentCard'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: getAgentCardWellKnown
+  /v2/agents/{agent_key}/v1/card:
+    get:
+      tags:
+      - A2A Protocol
+      summary: Get A2A agent card (v0.3 RPC)
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: 'Returns the same v0.3 Agent Card as `.well-known/agent-card.json`,
+        served at the v0.3 RPC URL `GET /v1/card`.
+
+        '
+      operationId: getA2aV03AgentCardRpc
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      responses:
+        '200':
+          description: The A2A v0.3 Agent Card describing this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV03AgentCard'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: getAgentCardRpc
+  /v2/agents/{agent_key}/v1/message:send:
+    post:
+      tags:
+      - A2A Protocol
+      summary: Send A2A v0.3 message
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Send a message to the agent. Blocks until the agent reaches a
+        terminal or interrupted state and returns the resulting `task` (or a direct
+        `message` reply for stateless interactions).
+
+
+        To continue an existing conversation, set `message.contextId` to the prior
+        task''s id.
+
+        '
+      operationId: sendA2aV03Message
+      x-max-body-bytes: 104857600
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent to interact with.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/A2aV03SendMessageRequest'
+      responses:
+        '200':
+          description: "The send-message response \u2014 exactly one of `task` or\
+            \ `message`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV03SendMessageResponse'
+        '400':
+          description: The request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '404':
+          description: Agent or referenced context not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: sendMessage
+  /v2/agents/{agent_key}/v1/message:stream:
+    post:
+      tags:
+      - A2A Protocol
+      summary: Send A2A v0.3 streaming message
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Send a message to the agent and stream task lifecycle events as
+        Server-Sent Events. Each SSE `data:` line is a JSON `A2aV03StreamResponse`
+        carrying a `task`, `message`, `statusUpdate`, or `artifactUpdate`. The stream
+        ends when the task reaches a terminal or interrupted state.
+
+        '
+      operationId: sendA2aV03MessageStream
+      x-max-body-bytes: 104857600
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/A2aV03SendMessageRequest'
+      x-always-stream: true
+      responses:
+        '200':
+          description: A stream of `A2aV03StreamResponse` events.
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/A2aV03StreamResponse'
+        '400':
+          description: The request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '404':
+          description: Agent or referenced context not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: sendMessageStream
+      x-fern-streaming:
+        format: sse
+        response-stream:
+          description: 'Each SSE event payload from `POST /v1/message:stream` and
+            `GET /v1/tasks/{task_id}:subscribe`. Exactly one of `task`, `message`,
+            `statusUpdate`, or `artifactUpdate` is populated.
+
+            '
+          type: object
+          properties:
+            task:
+              description: A full task snapshot event.
+              $ref: '#/components/schemas/A2aV03Task'
+              nullable: true
+            message:
+              description: A message event from the agent.
+              $ref: '#/components/schemas/A2aV03Message'
+              nullable: true
+            statusUpdate:
+              description: A task status change event.
+              $ref: '#/components/schemas/A2aV03TaskStatusUpdateEvent'
+              nullable: true
+              x-alias: status_update
+            artifactUpdate:
+              description: A task artifact change event.
+              $ref: '#/components/schemas/A2aV03TaskArtifactUpdateEvent'
+              nullable: true
+              x-alias: artifact_update
+          additionalProperties: false
+  /v2/agents/{agent_key}/v1/tasks/{task_id}:
+    get:
+      tags:
+      - A2A Protocol
+      summary: Get A2A v0.3 task
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: "Fetch the current state of an A2A task \u2014 including its status,\
+        \ conversation history, and any produced artifacts."
+      operationId: getA2aV03Task
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: task_id
+        description: "The A2A task id, as returned in `task.id`. Opaque \u2014 do\
+          \ not construct or parse."
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+      - in: query
+        name: historyLength
+        description: Maximum number of historical messages to include. 0 means unlimited.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: The current state of the task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV03Task'
+        '404':
+          description: Task not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: getTask
+  /v2/agents/{agent_key}/v1/tasks/{task_id}:cancel:
+    post:
+      tags:
+      - A2A Protocol
+      summary: Cancel A2A v0.3 task
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: Cancel a running task. Returns the canonical state of the task
+        after cancellation. If the task is already terminal, returns `409`.
+      operationId: cancelA2aV03Task
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: task_id
+        description: "The A2A task id, as returned in `task.id`. Opaque \u2014 do\
+          \ not construct or parse."
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+      responses:
+        '200':
+          description: The task state after cancellation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV03Task'
+        '404':
+          description: Task not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: Task is not currently running.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: cancelTask
+  /v2/agents/{agent_key}/v1/tasks/{task_id}:subscribe:
+    post:
+      tags:
+      - A2A Protocol
+      summary: Subscribe to A2A v0.3 task updates
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Attach to a running task and stream subsequent lifecycle updates
+        as Server-Sent Events. If the task is already terminal, streams the final
+        task and closes.
+      operationId: subscribeA2aV03Task
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: task_id
+        description: "The A2A task id, as returned in `task.id`. Opaque \u2014 do\
+          \ not construct or parse."
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+      x-always-stream: true
+      responses:
+        '200':
+          description: A stream of `A2aV03StreamResponse` events.
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/A2aV03StreamResponse'
+        '404':
+          description: Task not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: subscribeTask
+      x-fern-streaming:
+        format: sse
+        response-stream:
+          description: 'Each SSE event payload from `POST /v1/message:stream` and
+            `GET /v1/tasks/{task_id}:subscribe`. Exactly one of `task`, `message`,
+            `statusUpdate`, or `artifactUpdate` is populated.
+
+            '
+          type: object
+          properties:
+            task:
+              description: A full task snapshot event.
+              $ref: '#/components/schemas/A2aV03Task'
+              nullable: true
+            message:
+              description: A message event from the agent.
+              $ref: '#/components/schemas/A2aV03Message'
+              nullable: true
+            statusUpdate:
+              description: A task status change event.
+              $ref: '#/components/schemas/A2aV03TaskStatusUpdateEvent'
+              nullable: true
+              x-alias: status_update
+            artifactUpdate:
+              description: A task artifact change event.
+              $ref: '#/components/schemas/A2aV03TaskArtifactUpdateEvent'
+              nullable: true
+              x-alias: artifact_update
+          additionalProperties: false
+  /v2/agents/{agent_key}/.well-known/a2a/v1/agent-card.json:
+    get:
+      tags:
+      - A2A Protocol
+      summary: Get A2A v1 agent card (well-known)
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: 'Returns the v1 [Agent Card](https://a2a-protocol.org) at the well-known
+        discovery URL `/.well-known/a2a/v1/agent-card.json`. The card lists every
+        supported transport in `supportedInterfaces` (the first entry is preferred);
+        v1 clients discover this URL and pick a binding from the list.
+
+        '
+      operationId: getA2aV1AgentCardWellKnown
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      responses:
+        '200':
+          description: The A2A v1 Agent Card describing this agent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV1AgentCard'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: getV1AgentCardWellKnown
+  /v2/agents/{agent_key}/message:send:
+    post:
+      tags:
+      - A2A Protocol
+      summary: Send A2A v1 message
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Send a message to the agent using the A2A v1 wire format. Blocks
+        until the agent reaches a terminal or interrupted state and returns the resulting
+        `task`, or a direct `message` reply for stateless interactions.
+
+
+        To continue an existing conversation, set `message.contextId` to the prior
+        task''s id.
+
+        '
+      operationId: sendA2aV1Message
+      x-max-body-bytes: 104857600
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/A2aV1SendMessageRequest'
+      responses:
+        '200':
+          description: "Send-message response \u2014 exactly one of `task` or `message`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV1SendMessageResponse'
+        '400':
+          description: The request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '404':
+          description: Agent or referenced context not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: sendV1Message
+  /v2/agents/{agent_key}/message:stream:
+    post:
+      tags:
+      - A2A Protocol
+      summary: Send A2A v1 streaming message
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Send a message to the agent using the A2A v1 wire format and stream
+        task lifecycle events as Server-Sent Events. Each SSE `data:` line is a JSON
+        `A2aV1StreamResponse` carrying a `task`, `message`, `statusUpdate`, or `artifactUpdate`.
+        The stream ends when the task reaches a terminal or interrupted state.
+
+        '
+      operationId: sendA2aV1MessageStream
+      x-max-body-bytes: 104857600
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/A2aV1SendMessageRequest'
+      x-always-stream: true
+      responses:
+        '200':
+          description: A stream of `A2aV1StreamResponse` events.
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/A2aV1StreamResponse'
+        '400':
+          description: The request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '404':
+          description: Agent or referenced context not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: sendV1MessageStream
+      x-fern-streaming:
+        format: sse
+        response-stream:
+          description: 'Each SSE event payload from `POST /message:stream` and `GET
+            /tasks/{id}:subscribe`. Exactly one of `task`, `message`, `statusUpdate`,
+            or `artifactUpdate` is populated.
+
+            '
+          type: object
+          properties:
+            task:
+              description: A full task snapshot event.
+              $ref: '#/components/schemas/A2aV1Task'
+              nullable: true
+            message:
+              description: A message event from the agent.
+              $ref: '#/components/schemas/A2aV1Message'
+              nullable: true
+            statusUpdate:
+              description: A task status change event.
+              $ref: '#/components/schemas/A2aV1TaskStatusUpdateEvent'
+              nullable: true
+              x-alias: status_update
+            artifactUpdate:
+              description: A task artifact change event.
+              $ref: '#/components/schemas/A2aV1TaskArtifactUpdateEvent'
+              nullable: true
+              x-alias: artifact_update
+          additionalProperties: false
+  /v2/agents/{agent_key}/tasks/{task_id}:
+    get:
+      tags:
+      - A2A Protocol
+      summary: Get A2A v1 task
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: "Fetch the current state of an A2A task in the v1 wire format \u2014\
+        \ including its status, conversation history, and any produced artifacts."
+      operationId: getA2aV1Task
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: task_id
+        description: "The A2A task id, as returned in `task.id`. Opaque \u2014 do\
+          \ not construct or parse."
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+      - in: query
+        name: historyLength
+        description: Maximum number of historical messages to include. 0 means unlimited.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: The current state of the task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV1Task'
+        '404':
+          description: Task not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: getV1Task
+  /v2/agents/{agent_key}/tasks/{task_id}:cancel:
+    post:
+      tags:
+      - A2A Protocol
+      summary: Cancel A2A v1 task
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: Cancel a running task and return its state after cancellation in
+        the v1 wire format. Returns `409` if the task is not currently running.
+      operationId: cancelA2aV1Task
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: task_id
+        description: "The A2A task id, as returned in `task.id`. Opaque \u2014 do\
+          \ not construct or parse."
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+      responses:
+        '200':
+          description: The task state after cancellation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV1Task'
+        '404':
+          description: Task not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: Task is not currently running.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: cancelV1Task
+  /v2/agents/{agent_key}/tasks/{task_id}:subscribe:
+    post:
+      tags:
+      - A2A Protocol
+      summary: Subscribe to A2A v1 task updates
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: Attach to a running task and stream subsequent lifecycle updates
+        as Server-Sent Events in the v1 wire format. If the task is already terminal,
+        streams the final task and closes.
+      operationId: subscribeA2aV1Task
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: path
+        name: task_id
+        description: "The A2A task id, as returned in `task.id`. Opaque \u2014 do\
+          \ not construct or parse."
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+      x-always-stream: true
+      responses:
+        '200':
+          description: A stream of `A2aV1StreamResponse` events.
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/A2aV1StreamResponse'
+        '404':
+          description: Task not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: subscribeV1Task
+      x-fern-streaming:
+        format: sse
+        response-stream:
+          description: 'Each SSE event payload from `POST /message:stream` and `GET
+            /tasks/{id}:subscribe`. Exactly one of `task`, `message`, `statusUpdate`,
+            or `artifactUpdate` is populated.
+
+            '
+          type: object
+          properties:
+            task:
+              description: A full task snapshot event.
+              $ref: '#/components/schemas/A2aV1Task'
+              nullable: true
+            message:
+              description: A message event from the agent.
+              $ref: '#/components/schemas/A2aV1Message'
+              nullable: true
+            statusUpdate:
+              description: A task status change event.
+              $ref: '#/components/schemas/A2aV1TaskStatusUpdateEvent'
+              nullable: true
+              x-alias: status_update
+            artifactUpdate:
+              description: A task artifact change event.
+              $ref: '#/components/schemas/A2aV1TaskArtifactUpdateEvent'
+              nullable: true
+              x-alias: artifact_update
+          additionalProperties: false
+  /v2/agents/{agent_key}/extendedAgentCard:
+    get:
+      tags:
+      - A2A Protocol
+      summary: Get A2A v1 extended agent card
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: 'Returns the v1 [Agent Card](https://a2a-protocol.org) for authenticated
+        callers. The response body is identical to the well-known v1 card.
+
+        '
+      operationId: getA2aV1ExtendedAgentCard
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      responses:
+        '200':
+          description: The A2A v1 Agent Card.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV1AgentCard'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: getExtendedAgentCard
+  /v2/agents/{agent_key}/tasks:
+    get:
+      tags:
+      - A2A Protocol
+      summary: List A2A v1 tasks
+      x-resource-locator: path.agent_key
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
+      description: List the agent's tasks, with pagination and optional filtering
+        by conversation context and lifecycle state.
+      operationId: listA2aV1Tasks
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: agent_key
+        description: The unique key of the agent.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentKey'
+      - in: query
+        name: contextId
+        description: Only return tasks belonging to this conversation context.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: status
+        description: Only return tasks currently in this lifecycle state.
+        required: false
+        schema:
+          $ref: '#/components/schemas/A2aV1TaskState'
+      - in: query
+        name: pageSize
+        description: Maximum number of tasks to return per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 50
+      - in: query
+        name: pageToken
+        description: Token from a previous response's `nextPageToken` used to fetch
+          the next page.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: historyLength
+        description: Maximum number of recent events to include per task. 0 (the default)
+          returns tasks without history. Values above 100 are capped to 100.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+      - in: query
+        name: statusTimestampAfter
+        description: ISO-8601 timestamp; only tasks whose status last changed at or
+          after this value are returned.
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: includeArtifacts
+        description: When true, include each task's produced artifacts in the response.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: A page of tasks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A2aV1ListTasksResponse'
+        '404':
+          description: Agent not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: a2a
+      x-fern-sdk-method-name: listV1Tasks
+      x-fern-pagination:
+        cursor: $request.pageToken
+        next_cursor: $response.nextPageToken
+        results: $response.tasks
   /v2/agent_aliases:
     post:
       tags:
@@ -11271,7 +12446,6 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
-        - agent_developer
         - agent_administrator
         - administrator
         - owner
@@ -11449,7 +12623,6 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
-        - agent_developer
         - agent_administrator
         - administrator
         - owner
@@ -12319,6 +13492,37 @@ paths:
         schema:
           $ref: '#/components/schemas/AgentSessionKey'
       - in: query
+        name: metadata_filter
+        description: 'A filter expression to narrow the list to artifacts whose metadata
+          matches. Field names refer to keys on the artifact''s `metadata` object.
+          Syntax is similar to a SQL WHERE clause, the same as the `metadata_filter`
+          used in query requests. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview)
+          for more information.
+
+
+          Examples:
+
+          - `source = ''user_upload''`
+
+          - `page_count >= 10 AND category = ''report''`
+
+          - `label LIKE ''draft%''`
+
+          - `category IN (''report'', ''invoice'')`
+
+          - `category IS NULL`
+
+          - `"extraction.engine" = ''ocr''` (nested fields use a quoted dotted path)
+
+          - `1 IN page_numbers` (value present in an array)
+
+          '
+        required: false
+        schema:
+          type: string
+          maxLength: 8000
+          example: source = 'user_upload' AND page_count >= 10
+      - in: query
         name: limit
         required: false
         schema:
@@ -12438,12 +13642,36 @@ paths:
       tags:
       - Pipelines
       summary: Create pipeline
+      x-resource-locator: implicit.pipeline_agent_keys
+      x-implicit-authorization:
+        type: body_key
+        resource_key: implicit.pipeline_agent_keys
+        body_path: transform.agent_key
       x-required-roles:
       - type: ApiRole
         roles:
-        - pipeline_administrator
         - administrator
         - owner
+      - type: AndRole
+        roles:
+        - type: ApiRole
+          roles:
+          - pipeline_administrator
+        - type: ApiRole
+          roles:
+          - agent_user
+          - agent_developer
+          - agent_administrator
+      - type: AndRole
+        roles:
+        - type: ApiRole
+          roles:
+          - pipeline_administrator
+        - type: AgentRole
+          roles:
+          - agent_user
+          - agent_developer
+          - agent_administrator
       description: Create a new pipeline that continuously ingests data from a source
         system and sends each record to an agent for processing. A new agent session
         is created per source record. A pipeline is distinct from an agent schedule
@@ -12518,7 +13746,9 @@ paths:
           - google_drive
           - box
           - wolken_kb
+          - wolken_forms
           - confluence
+          - scim
           - web
       - in: query
         name: status
@@ -12624,12 +13854,36 @@ paths:
       tags:
       - Pipelines
       summary: Replace pipeline
+      x-resource-locator: implicit.pipeline_agent_keys
+      x-implicit-authorization:
+        type: body_key
+        resource_key: implicit.pipeline_agent_keys
+        body_path: transform.agent_key
       x-required-roles:
       - type: ApiRole
         roles:
-        - pipeline_administrator
         - administrator
         - owner
+      - type: AndRole
+        roles:
+        - type: ApiRole
+          roles:
+          - pipeline_administrator
+        - type: ApiRole
+          roles:
+          - agent_user
+          - agent_developer
+          - agent_administrator
+      - type: AndRole
+        roles:
+        - type: ApiRole
+          roles:
+          - pipeline_administrator
+        - type: AgentRole
+          roles:
+          - agent_user
+          - agent_developer
+          - agent_administrator
       description: Replace a pipeline's configuration. The full pipeline definition
         must be provided.
       operationId: replacePipeline
@@ -12680,12 +13934,36 @@ paths:
       tags:
       - Pipelines
       summary: Update pipeline
+      x-resource-locator: implicit.pipeline_agent_keys
+      x-implicit-authorization:
+        type: body_key
+        resource_key: implicit.pipeline_agent_keys
+        body_path: transform.agent_key
       x-required-roles:
       - type: ApiRole
         roles:
-        - pipeline_administrator
         - administrator
         - owner
+      - type: AndRole
+        roles:
+        - type: ApiRole
+          roles:
+          - pipeline_administrator
+        - type: ApiRole
+          roles:
+          - agent_user
+          - agent_developer
+          - agent_administrator
+      - type: AndRole
+        roles:
+        - type: ApiRole
+          roles:
+          - pipeline_administrator
+        - type: AgentRole
+          roles:
+          - agent_user
+          - agent_developer
+          - agent_administrator
       description: Partially update a pipeline's configuration. Omitted fields are
         preserved.
       operationId: updatePipeline
@@ -13428,6 +14706,9 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
+        - corpus_viewer
+        - corpus_developer
+        - corpus_administrator
         - viewer
         - administrator
         - owner
@@ -13466,6 +14747,9 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
+        - corpus_viewer
+        - corpus_developer
+        - corpus_administrator
         - viewer
         - administrator
         - owner
@@ -13541,6 +14825,7 @@ paths:
       tags:
       - Agent Analytics
       summary: List agent traces
+      x-resource-locator: query.agent_key
       x-required-roles:
       - type: AgentRole
         roles:
@@ -13627,6 +14912,7 @@ paths:
           enum:
           - invalid_input
           - not_found
+          - forbidden
           - invalid_configuration
           - timeout
           - execution_error
@@ -13702,11 +14988,6 @@ paths:
       - Agent Analytics
       summary: Get agent trace
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_viewer
@@ -13754,11 +15035,6 @@ paths:
       - Agent Analytics
       summary: List spans in a trace
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_viewer
@@ -13864,11 +15140,6 @@ paths:
       - Agent Analytics
       summary: Get span in a trace
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_viewer
-        - agent_developer
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_viewer
@@ -17672,13 +18943,15 @@ components:
       example: platform
     IdleTimeoutSeconds:
       description: "Maximum time in seconds the platform will wait for the model to\
-        \ send data before considering the connection stale and terminating it. For\
-        \ example, this is used as the SSE idle timeout during streaming \u2014 if\
-        \ no new server-sent events arrive within this window the stream is closed\
-        \ with an error. If unset, the platform falls back to its default read timeout\
-        \ for that provider (typically 60 seconds for OpenAI / Anthropic; provider\
-        \ SDK default for Vertex). On update, omit the field to leave the configured\
-        \ value unchanged or send an explicit null to clear it."
+        \ send data before considering the connection stale and terminating it. During\
+        \ streaming this is the SSE idle timeout \u2014 if no new server-sent events\
+        \ arrive within this window the stream is closed with an error. For non-streaming\
+        \ requests, where the model sends the entire response at once, this is the\
+        \ maximum time to wait for that response. If unset, the platform falls back\
+        \ to its default read timeout for that provider (typically 60 seconds for\
+        \ OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the\
+        \ field to leave the configured value unchanged or send an explicit null to\
+        \ clear it."
       type: integer
       format: int32
       nullable: true
@@ -20409,6 +21682,100 @@ components:
       minLength: 1
       maxLength: 50
       example: Customer Support Search Config
+    ToolOutputOffloadingConfiguration:
+      title: ToolOutputOffloadingConfiguration
+      description: "Controls how large tool outputs are kept from overwhelming the\
+        \ agent context window.\nTool outputs are inspected as they are produced.\
+        \ A small output is always passed through unchanged. A larger output is handled\
+        \ in one of two cases: when the output on its own is big enough to dominate\
+        \ the context, or when adding it to the conversation would leave too little\
+        \ room for the agent to continue. In either case the output is handled according\
+        \ to `mode` \u2014 stored as an artifact and replaced with a compact reference,\
+        \ or truncated in place with the head and tail preserved and the middle omitted.\
+        \ When stored as an artifact, the agent is expected to have artifact_read,\
+        \ artifact_grep, or artifact_jq configured so it can retrieve the full content\
+        \ on demand.\nAll fields are optional; omitted fields fall back to defaults."
+      type: object
+      properties:
+        enabled:
+          description: Whether tool output offloading is active. Defaults to true.
+            When disabled, tool outputs are always passed through to the agent verbatim.
+          type: boolean
+          example: true
+        mode:
+          description: 'How a large tool output is handled once it has been selected
+            for offloading.
+
+            In `artifact` mode, the full output is stored as a session artifact and
+            replaced in the conversation with a compact reference containing the artifact
+            id, size, shape, and hints for the available artifact tools. The agent
+            can then use artifact_read, artifact_grep, or artifact_jq to retrieve
+            just the parts it needs.
+
+            In `truncate` mode, the output is shortened in place to fit within the
+            target size. The head and tail are preserved and the middle is replaced
+            with a short notice explaining that content was omitted. No artifact is
+            created.
+
+            When unset, the default is `artifact` if the agent has any of artifact_read,
+            artifact_grep, or artifact_jq configured, and `truncate` otherwise.'
+          type: string
+          enum:
+          - artifact
+          - truncate
+          example: artifact
+        context_percentage:
+          description: The fraction of the model's context window that a single tool
+            output is allowed to occupy before it is considered large enough to offload
+            on its own, estimated at four characters per token. The resulting byte
+            threshold is clamped between `min_threshold_bytes` and `max_threshold_bytes`,
+            so for very large context models this percentage is usually dominated
+            by `max_threshold_bytes`, and for very small context models it is dominated
+            by `min_threshold_bytes`.
+          type: number
+          format: double
+          minimum: 0.01
+          maximum: 1
+          default: 0.25
+          example: 0.25
+        max_threshold_bytes:
+          description: An absolute ceiling on single-output size. Any output above
+            this many bytes is considered large enough to offload on its own, regardless
+            of the model's context window. This prevents unusually large outputs from
+            slipping through on models with very large context windows.
+          type: integer
+          format: int64
+          minimum: 1024
+          example: 1048576
+        min_threshold_bytes:
+          description: A hard floor on offloading. Tool outputs below this size are
+            always passed through to the agent unchanged, even when cumulative context
+            usage is high. This ensures that short, useful outputs are never unnecessarily
+            truncated or replaced with a reference.
+          type: integer
+          format: int64
+          minimum: 1024
+          example: 4096
+        headroom_percentage:
+          description: 'The fraction of the model''s context window at which offloading
+            becomes sensitive to cumulative usage. When adding a tool output would
+            push total input tokens above this fraction of the context window (estimated
+            at four characters per token), the output is offloaded even if it would
+            otherwise be considered small enough to pass through.
+
+            This is independent of the compaction `threshold_percent`: both can be
+            configured on the same agent and both can apply. In practice it is often
+            useful to set this below the compaction threshold so that large tool outputs
+            are offloaded before compaction is triggered, avoiding the case where
+            a large tool result is immediately summarized away. Setting this to 1.0
+            effectively disables the headroom behavior, leaving only the per-output
+            size thresholds in effect.'
+          type: number
+          format: double
+          minimum: 0.01
+          maximum: 1
+          default: 0.7
+          example: 0.7
     ToolConfigurationBase:
       description: 'Base properties shared by all tool configuration types.
 
@@ -20470,6 +21837,24 @@ components:
           $ref: '#/components/schemas/OutputTransform'
         input_transform:
           $ref: '#/components/schemas/InputTransform'
+        max_execution_time_seconds:
+          description: Maximum wall-clock time, in seconds, before a call to this
+            tool is aborted. For `sandbox_exec`, this also bounds the command running
+            inside the sandbox pod; it does not change the pod's session lifetime.
+            For `lambda` tools, this also bounds the function's execution, taking
+            precedence over the tool's `execution_configuration`. When unset, no timeout
+            is applied and the tool's own limits, if any, govern how long a call may
+            run.
+          type: integer
+          minimum: 1
+          maximum: 3600
+          example: 180
+        tool_output_offloading:
+          allOf:
+          - $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
+          description: Overrides the agent's `tool_output_offloading` for outputs
+            of this tool. Fields left unset inherit their value from the agent's configuration.
+            When unset, the agent's configuration applies unchanged.
         enrichment_only:
           description: When true, this tool configuration is used only during session-creation
             enrichment and is never exposed to the agent's model. Enrichment tool
@@ -21188,7 +22573,8 @@ components:
           - $ref: '#/components/schemas/WebGetHeadersMap'
           - $ref: '#/components/schemas/EagerReference'
         body:
-          description: Request body for POST/PUT/PATCH requests.
+          description: Request body for POST/PUT/PATCH requests. Its UTF-8 byte length
+            must not exceed `max_body_bytes`.
           oneOf:
           - type: string
           - $ref: '#/components/schemas/EagerReference'
@@ -21221,6 +22607,17 @@ components:
           description: Maximum response size in bytes before truncation.
           oneOf:
           - type: integer
+          - $ref: '#/components/schemas/EagerReference'
+        max_body_bytes:
+          description: Maximum UTF-8 byte length of `body`; a request whose body exceeds
+            this is rejected without being sent. Must be between 1024 (1 KB) and 4194304
+            (4 MB). Defaults to 65536 (64 KB).
+          oneOf:
+          - type: integer
+            format: int64
+            default: 65536
+            minimum: 1024
+            maximum: 4194304
           - $ref: '#/components/schemas/EagerReference'
         response_mode:
           description: How to return the response body. `content` (default) returns
@@ -23800,159 +25197,6 @@ components:
           description: Ordered tool calls run at session creation. Independent calls
             run in parallel. A call that references another call's output runs after
             it.
-    ToolOutputOffloadingConfiguration:
-      title: ToolOutputOffloadingConfiguration
-      description: "Controls how large tool outputs are kept from overwhelming the\
-        \ agent context window.\n\nTool outputs are inspected as they are produced.\
-        \ A small output is always passed through\nunchanged. A larger output is handled\
-        \ in one of two cases: when the output on its own is\nbig enough to dominate\
-        \ the context, or when adding it to the conversation would leave\ntoo little\
-        \ room for the agent to continue. In either case the output is handled according\n\
-        to `mode` \u2014 stored as an artifact and replaced with a compact reference,\
-        \ or truncated in\nplace with the head and tail preserved and the middle omitted.\
-        \ When stored as an artifact,\nthe agent is expected to have artifact_read,\
-        \ artifact_grep, or artifact_jq configured so\nit can retrieve the full content\
-        \ on demand.\n\nAll fields are optional; omitted fields fall back to defaults.\n"
-      type: object
-      properties:
-        enabled:
-          description: 'Whether tool output offloading is active. Defaults to true.
-            When disabled, tool
-
-            outputs are always passed through to the agent verbatim.
-
-            '
-          type: boolean
-          example: true
-        mode:
-          description: 'How a large tool output is handled once it has been selected
-            for offloading.
-
-
-            In `artifact` mode, the full output is stored as a session artifact and
-            replaced in
-
-            the conversation with a compact reference containing the artifact id,
-            size, shape,
-
-            and hints for the available artifact tools. The agent can then use artifact_read,
-
-            artifact_grep, or artifact_jq to retrieve just the parts it needs.
-
-
-            In `truncate` mode, the output is shortened in place to fit within the
-            target size.
-
-            The head and tail are preserved and the middle is replaced with a short
-            notice
-
-            explaining that content was omitted. No artifact is created.
-
-
-            When unset, the default is `artifact` if the agent has any of artifact_read,
-
-            artifact_grep, or artifact_jq configured, and `truncate` otherwise.
-
-            '
-          type: string
-          enum:
-          - artifact
-          - truncate
-          example: artifact
-        context_percentage:
-          description: 'The fraction of the model''s context window that a single
-            tool output is allowed to
-
-            occupy before it is considered large enough to offload on its own, estimated
-            at four
-
-            characters per token. The resulting byte threshold is clamped between
-
-            `min_threshold_bytes` and `max_threshold_bytes`, so for very large context
-            models
-
-            this percentage is usually dominated by `max_threshold_bytes`, and for
-            very small
-
-            context models it is dominated by `min_threshold_bytes`.
-
-            '
-          type: number
-          format: double
-          minimum: 0.01
-          maximum: 1
-          default: 0.25
-          example: 0.25
-        max_threshold_bytes:
-          description: 'An absolute ceiling on single-output size. Any output above
-            this many bytes is
-
-            considered large enough to offload on its own, regardless of the model''s
-            context
-
-            window. This prevents unusually large outputs from slipping through on
-            models with
-
-            very large context windows.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1024
-          example: 1048576
-        min_threshold_bytes:
-          description: 'A hard floor on offloading. Tool outputs below this size are
-            always passed through
-
-            to the agent unchanged, even when cumulative context usage is high. This
-            ensures that
-
-            short, useful outputs are never unnecessarily truncated or replaced with
-            a reference.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1024
-          example: 4096
-        headroom_percentage:
-          description: 'The fraction of the model''s context window at which offloading
-            becomes sensitive to
-
-            cumulative usage. When adding a tool output would push total input tokens
-            above this
-
-            fraction of the context window (estimated at four characters per token),
-            the output
-
-            is offloaded even if it would otherwise be considered small enough to
-            pass through.
-
-
-            This is independent of the compaction `threshold_percent`: both can be
-            configured on
-
-            the same agent and both can apply. In practice it is often useful to set
-            this below
-
-            the compaction threshold so that large tool outputs are offloaded before
-            compaction
-
-            is triggered, avoiding the case where a large tool result is immediately
-            summarized
-
-            away. Setting this to 1.0 effectively disables the headroom behavior,
-            leaving only
-
-            the per-output size thresholds in effect.
-
-            '
-          type: number
-          format: double
-          minimum: 0.01
-          maximum: 1
-          default: 0.7
-          example: 0.7
     Agent:
       description: An AI agent that can use tools to provide intelligent responses
         and actions.
@@ -27550,6 +28794,1627 @@ components:
           example: false
         configuration:
           $ref: '#/components/schemas/CreateConnectorConfiguration'
+    A2aV03AgentInterface:
+      description: An additional transport endpoint advertised by the agent card beyond
+        `url`.
+      type: object
+      properties:
+        url:
+          description: URL of the transport endpoint.
+          type: string
+        transport:
+          description: Transport name. Open string; common values include `JSONRPC`,
+            `GRPC`, `HTTP+JSON`.
+          type: string
+      required:
+      - url
+      - transport
+      additionalProperties: false
+    A2aV03AgentProvider:
+      description: Identifies the organization providing the agent.
+      type: object
+      properties:
+        url:
+          description: URL of the provider's website or homepage.
+          type: string
+        organization:
+          description: Name of the organization providing the agent.
+          type: string
+      required:
+      - url
+      - organization
+      additionalProperties: false
+    A2aV03AgentExtension:
+      description: A v0.3 protocol extension supported by the agent.
+      type: object
+      properties:
+        uri:
+          description: URI uniquely identifying the extension.
+          type: string
+        description:
+          description: Human-readable description of what the extension does.
+          type: string
+          nullable: true
+        required:
+          description: True if the client must understand this extension to interact
+            with the agent.
+          type: boolean
+          default: false
+        params:
+          description: Extension-specific configuration parameters.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - uri
+      additionalProperties: false
+    A2aV03AgentCapabilities:
+      description: Capabilities the v0.3 agent advertises.
+      type: object
+      properties:
+        streaming:
+          description: True if the agent supports streaming responses via SSE.
+          type: boolean
+          default: false
+        pushNotifications:
+          description: True if the agent supports out-of-band push notifications.
+          type: boolean
+          default: false
+          x-alias: push_notifications
+        extensions:
+          description: Protocol extensions supported by the agent.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV03AgentExtension'
+          nullable: true
+      additionalProperties: false
+    A2aV03ApiKeySecurityScheme:
+      description: API key passed via header, query parameter, or cookie.
+      type: object
+      properties:
+        description:
+          description: Human-readable description of the security scheme.
+          type: string
+          nullable: true
+        location:
+          description: One of `query`, `header`, or `cookie`.
+          type: string
+        name:
+          description: Name of the header, query parameter, or cookie carrying the
+            API key.
+          type: string
+      required:
+      - name
+      - location
+      additionalProperties: false
+    A2aV03HttpAuthSecurityScheme:
+      description: HTTP-based authentication (Basic, Bearer, etc.).
+      type: object
+      properties:
+        description:
+          description: Human-readable description of the security scheme.
+          type: string
+          nullable: true
+        scheme:
+          description: HTTP authentication scheme name (e.g. `Basic`, `Bearer`).
+          type: string
+        bearerFormat:
+          description: Format of the bearer token, for documentation purposes (e.g.
+            `JWT`).
+          type: string
+          nullable: true
+          x-alias: bearer_format
+      required:
+      - scheme
+      additionalProperties: false
+    A2aV03AuthorizationCodeOAuthFlow:
+      description: OAuth 2.0 authorization code flow configuration.
+      type: object
+      properties:
+        authorizationUrl:
+          description: Authorization endpoint URL.
+          type: string
+          x-alias: authorization_url
+        tokenUrl:
+          description: Token endpoint URL.
+          type: string
+          x-alias: token_url
+        refreshUrl:
+          description: Token refresh endpoint URL.
+          type: string
+          nullable: true
+          x-alias: refresh_url
+        scopes:
+          description: Available scopes mapped to their human-readable descriptions.
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - authorizationUrl
+      - tokenUrl
+      - scopes
+      additionalProperties: false
+    A2aV03ClientCredentialsOAuthFlow:
+      description: OAuth 2.0 client credentials flow configuration.
+      type: object
+      properties:
+        tokenUrl:
+          description: Token endpoint URL.
+          type: string
+          x-alias: token_url
+        refreshUrl:
+          description: Token refresh endpoint URL.
+          type: string
+          nullable: true
+          x-alias: refresh_url
+        scopes:
+          description: Available scopes mapped to their human-readable descriptions.
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - tokenUrl
+      - scopes
+      additionalProperties: false
+    A2aV03ImplicitOAuthFlow:
+      description: OAuth 2.0 implicit flow configuration.
+      type: object
+      properties:
+        authorizationUrl:
+          description: Authorization endpoint URL.
+          type: string
+          x-alias: authorization_url
+        refreshUrl:
+          description: Token refresh endpoint URL.
+          type: string
+          nullable: true
+          x-alias: refresh_url
+        scopes:
+          description: Available scopes mapped to their human-readable descriptions.
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - authorizationUrl
+      - scopes
+      additionalProperties: false
+    A2aV03PasswordOAuthFlow:
+      description: OAuth 2.0 resource owner password flow configuration.
+      type: object
+      properties:
+        tokenUrl:
+          description: Token endpoint URL.
+          type: string
+          x-alias: token_url
+        refreshUrl:
+          description: Token refresh endpoint URL.
+          type: string
+          nullable: true
+          x-alias: refresh_url
+        scopes:
+          description: Available scopes mapped to their human-readable descriptions.
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - tokenUrl
+      - scopes
+      additionalProperties: false
+    A2aV03OAuthFlows:
+      description: Container for the supported OAuth 2.0 flows. Exactly one is populated.
+      type: object
+      properties:
+        authorizationCode:
+          description: Configuration for the OAuth 2.0 authorization code flow.
+          $ref: '#/components/schemas/A2aV03AuthorizationCodeOAuthFlow'
+          nullable: true
+          x-alias: authorization_code
+        clientCredentials:
+          description: Configuration for the OAuth 2.0 client credentials flow.
+          $ref: '#/components/schemas/A2aV03ClientCredentialsOAuthFlow'
+          nullable: true
+          x-alias: client_credentials
+        implicit:
+          description: Configuration for the OAuth 2.0 implicit flow.
+          $ref: '#/components/schemas/A2aV03ImplicitOAuthFlow'
+          nullable: true
+        password:
+          description: Configuration for the OAuth 2.0 resource owner password flow.
+          $ref: '#/components/schemas/A2aV03PasswordOAuthFlow'
+          nullable: true
+      additionalProperties: false
+    A2aV03OAuth2SecurityScheme:
+      description: OAuth 2.0 authentication scheme.
+      type: object
+      properties:
+        description:
+          description: Human-readable description of the security scheme.
+          type: string
+          nullable: true
+        flows:
+          description: The OAuth 2.0 flows supported by this scheme.
+          $ref: '#/components/schemas/A2aV03OAuthFlows'
+        oauth2MetadataUrl:
+          description: URL of the OAuth 2.0 authorization server metadata document.
+          type: string
+          nullable: true
+          x-alias: oauth2_metadata_url
+      required:
+      - flows
+      additionalProperties: false
+    A2aV03OpenIdConnectSecurityScheme:
+      description: OpenID Connect authentication scheme.
+      type: object
+      properties:
+        description:
+          description: Human-readable description of the security scheme.
+          type: string
+          nullable: true
+        openIdConnectUrl:
+          description: URL of the OpenID Connect discovery document.
+          type: string
+          x-alias: open_id_connect_url
+      required:
+      - openIdConnectUrl
+      additionalProperties: false
+    A2aV03MutualTlsSecurityScheme:
+      description: Mutual TLS (client certificate) authentication scheme.
+      type: object
+      properties:
+        description:
+          description: Human-readable description of the security scheme.
+          type: string
+          nullable: true
+      additionalProperties: false
+    A2aV03SecurityScheme:
+      description: 'A v0.3 security scheme entry. Exactly one of the scheme fields
+        is populated.
+
+        '
+      type: object
+      properties:
+        apiKeySecurityScheme:
+          description: API key scheme variant.
+          $ref: '#/components/schemas/A2aV03ApiKeySecurityScheme'
+          nullable: true
+          x-alias: api_key_security_scheme
+        httpAuthSecurityScheme:
+          description: HTTP authentication scheme variant.
+          $ref: '#/components/schemas/A2aV03HttpAuthSecurityScheme'
+          nullable: true
+          x-alias: http_auth_security_scheme
+        oauth2SecurityScheme:
+          description: OAuth 2.0 scheme variant.
+          $ref: '#/components/schemas/A2aV03OAuth2SecurityScheme'
+          nullable: true
+          x-alias: oauth2_security_scheme
+        openIdConnectSecurityScheme:
+          description: OpenID Connect scheme variant.
+          $ref: '#/components/schemas/A2aV03OpenIdConnectSecurityScheme'
+          nullable: true
+          x-alias: open_id_connect_security_scheme
+        mtlsSecurityScheme:
+          description: Mutual TLS scheme variant.
+          $ref: '#/components/schemas/A2aV03MutualTlsSecurityScheme'
+          nullable: true
+          x-alias: mtls_security_scheme
+      additionalProperties: false
+    A2aV03AgentSkill:
+      description: A discrete capability the v0.3 agent advertises.
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the skill.
+          type: string
+        name:
+          description: Human-readable name of the skill.
+          type: string
+        description:
+          description: Human-readable description of what the skill does.
+          type: string
+        tags:
+          description: Tags categorizing the skill for discovery.
+          type: array
+          items:
+            type: string
+          nullable: true
+        examples:
+          description: Example prompts or inputs demonstrating the skill.
+          type: array
+          items:
+            type: string
+          nullable: true
+        inputModes:
+          description: Media types the skill accepts as input.
+          type: array
+          items:
+            type: string
+          nullable: true
+          x-alias: input_modes
+        outputModes:
+          description: Media types the skill produces as output.
+          type: array
+          items:
+            type: string
+          nullable: true
+          x-alias: output_modes
+        security:
+          description: "Security requirements for the skill \u2014 list of OR'd AND-combined\
+            \ scheme/scope sets."
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string
+          nullable: true
+      required:
+      - id
+      - name
+      - description
+      additionalProperties: false
+    A2aV03AgentCardSignature:
+      description: A JWS-style signature over the agent card.
+      type: object
+      properties:
+        protected:
+          description: Base64url-encoded protected JOSE header.
+          type: string
+        signature:
+          description: Base64url-encoded signature.
+          type: string
+        header:
+          description: Unprotected JOSE header (free-form object).
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - protected
+      - signature
+      additionalProperties: false
+    A2aV03AgentCard:
+      description: 'The A2A v0.3 Agent Card. Returned from `GET /v2/agents/{agent_key}/.well-known/agent-card.json`
+        and `GET /v2/agents/{agent_key}/v1/card`. The card''s `url` advertises the
+        JSON-RPC, gRPC, or HTTP+JSON RPC endpoint per `preferredTransport`; `additionalInterfaces`
+        lists other supported transports.
+
+        '
+      type: object
+      properties:
+        protocolVersion:
+          description: The version of the A2A protocol this agent supports (e.g. `0.3.0`).
+          type: string
+          x-alias: protocol_version
+        name:
+          description: Human-readable name of the agent.
+          type: string
+        description:
+          description: Human-readable description of the agent.
+          type: string
+        url:
+          description: URL of the agent's preferred RPC endpoint.
+          type: string
+        preferredTransport:
+          description: Transport of the preferred endpoint. If empty, defaults to
+            `JSONRPC`.
+          type: string
+          nullable: true
+          x-alias: preferred_transport
+        additionalInterfaces:
+          description: Additional transport endpoints supported beyond `url`.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV03AgentInterface'
+          nullable: true
+          x-alias: additional_interfaces
+        provider:
+          description: The organization providing the agent.
+          $ref: '#/components/schemas/A2aV03AgentProvider'
+          nullable: true
+        version:
+          description: Version string of the agent implementation.
+          type: string
+        documentationUrl:
+          description: URL of the agent's documentation.
+          type: string
+          nullable: true
+          x-alias: documentation_url
+        capabilities:
+          description: Capabilities advertised by the agent.
+          $ref: '#/components/schemas/A2aV03AgentCapabilities'
+        securitySchemes:
+          description: Security schemes the agent supports, keyed by scheme name.
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/A2aV03SecurityScheme'
+          nullable: true
+          x-alias: security_schemes
+        security:
+          description: "List of OR'd security requirements; each entry is a map of\
+            \ scheme name \u2192 scope list."
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string
+          nullable: true
+        defaultInputModes:
+          description: Default media types the agent accepts as input across all skills.
+          type: array
+          items:
+            type: string
+          x-alias: default_input_modes
+        defaultOutputModes:
+          description: Default media types the agent produces as output across all
+            skills.
+          type: array
+          items:
+            type: string
+          x-alias: default_output_modes
+        skills:
+          description: The skills the agent advertises.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV03AgentSkill'
+        supportsAuthenticatedExtendedCard:
+          description: True if the agent serves an extended card requiring authentication.
+          type: boolean
+          default: false
+          x-alias: supports_authenticated_extended_card
+        signatures:
+          description: JWS signatures over the agent card.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV03AgentCardSignature'
+          nullable: true
+      required:
+      - name
+      - description
+      - url
+      - version
+      - capabilities
+      - defaultInputModes
+      - defaultOutputModes
+      - skills
+      additionalProperties: false
+    A2aV03Role:
+      description: The sender role in an A2A v0.3 message.
+      type: string
+      enum:
+      - ROLE_UNSPECIFIED
+      - ROLE_USER
+      - ROLE_AGENT
+    A2aV03FilePart:
+      description: A v0.3 file attachment. Exactly one of `fileWithUri` or `fileWithBytes`
+        is populated.
+      type: object
+      properties:
+        fileWithUri:
+          description: URI to the file's content.
+          type: string
+          nullable: true
+          x-alias: file_with_uri
+        fileWithBytes:
+          description: Inline base64-encoded file bytes.
+          type: string
+          format: byte
+          nullable: true
+          x-alias: file_with_bytes
+        mimeType:
+          description: Media type of the file content.
+          type: string
+          nullable: true
+          x-alias: mime_type
+      additionalProperties: false
+    A2aV03DataPart:
+      description: A v0.3 structured-data part. The `data` field is an arbitrary JSON
+        object.
+      type: object
+      properties:
+        data:
+          description: Arbitrary structured JSON object payload.
+          type: object
+          additionalProperties: true
+      required:
+      - data
+      additionalProperties: false
+    A2aV03Part:
+      description: "A v0.3 message or artifact content part. Exactly one of `text`,\
+        \ `file`, or `data` is populated. There is no `kind` discriminator field \u2014\
+        \ the populated oneof field selects the variant.\n"
+      type: object
+      properties:
+        text:
+          description: Plain-text content.
+          type: string
+          nullable: true
+        file:
+          description: A file attachment variant of this part.
+          $ref: '#/components/schemas/A2aV03FilePart'
+          nullable: true
+        data:
+          description: A structured-data variant of this part.
+          $ref: '#/components/schemas/A2aV03DataPart'
+          nullable: true
+      additionalProperties: false
+    A2aV03Message:
+      description: 'A v0.3 unit of communication between client and agent. The `content`
+        field carries the message parts.
+
+        '
+      type: object
+      properties:
+        messageId:
+          description: Unique identifier for this message, set by the sender.
+          type: string
+          x-alias: message_id
+        contextId:
+          description: Identifier of the conversation context this message belongs
+            to.
+          type: string
+          nullable: true
+          x-alias: context_id
+        taskId:
+          description: Identifier of the task this message is associated with.
+          type: string
+          nullable: true
+          x-alias: task_id
+        role:
+          description: Whether the message was sent by the user or the agent.
+          $ref: '#/components/schemas/A2aV03Role'
+        content:
+          description: Message content parts.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV03Part'
+        metadata:
+          description: Arbitrary sender-supplied metadata.
+          type: object
+          additionalProperties: true
+          nullable: true
+        extensions:
+          description: URIs of A2A extensions this message activates.
+          type: array
+          items:
+            type: string
+          nullable: true
+      required:
+      - messageId
+      - role
+      - content
+      additionalProperties: false
+    A2aV03AuthenticationInfo:
+      description: Authentication parameters for the agent to use when pushing task
+        updates to a webhook.
+      type: object
+      properties:
+        schemes:
+          description: Supported authentication scheme names the agent may use.
+          type: array
+          items:
+            type: string
+        credentials:
+          description: Optional credentials passed to the webhook for the listed schemes.
+          type: string
+          nullable: true
+      required:
+      - schemes
+      additionalProperties: false
+    A2aV03PushNotificationConfig:
+      description: Webhook configuration for receiving v0.3 task updates out-of-band.
+      type: object
+      properties:
+        id:
+          description: Server-assigned identifier for this push notification config.
+          type: string
+          nullable: true
+        url:
+          description: Webhook URL the agent posts task updates to.
+          type: string
+        token:
+          description: Optional token included in update requests so the receiver
+            can validate the caller.
+          type: string
+          nullable: true
+        authentication:
+          description: Authentication details the agent uses when calling the webhook.
+          $ref: '#/components/schemas/A2aV03AuthenticationInfo'
+          nullable: true
+      required:
+      - url
+      additionalProperties: false
+    A2aV03SendMessageConfiguration:
+      description: Optional knobs that influence how the agent processes and responds
+        to a v0.3 message.
+      type: object
+      properties:
+        acceptedOutputModes:
+          description: Media types the client accepts for the agent's output.
+          type: array
+          items:
+            type: string
+          nullable: true
+          x-alias: accepted_output_modes
+        pushNotification:
+          description: Webhook configuration for receiving task updates out-of-band.
+          $ref: '#/components/schemas/A2aV03PushNotificationConfig'
+          nullable: true
+          x-alias: push_notification
+        historyLength:
+          description: Maximum number of recent history messages to include in the
+            response.
+          type: integer
+          format: int32
+          nullable: true
+          x-alias: history_length
+        blocking:
+          description: When true, the call blocks until the task reaches a terminal
+            state.
+          type: boolean
+          nullable: true
+        returnImmediately:
+          description: Inverse-semantics alias for `blocking`. If both are provided,
+            `blocking` wins.
+          type: boolean
+          nullable: true
+          x-alias: return_immediately
+      additionalProperties: false
+    A2aV03SendMessageRequest:
+      description: 'Body of `POST /v1/message:send` and `POST /v1/message:stream`.
+
+        '
+      type: object
+      properties:
+        message:
+          description: The message to send to the agent.
+          $ref: '#/components/schemas/A2aV03Message'
+        configuration:
+          description: Optional configuration influencing how the message is processed.
+          $ref: '#/components/schemas/A2aV03SendMessageConfiguration'
+          nullable: true
+        metadata:
+          description: Arbitrary client-supplied metadata for the request.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - message
+      additionalProperties: false
+    A2aV03TaskState:
+      description: A2A v0.3 task lifecycle state. Note `TASK_STATE_CANCELLED` uses
+        the UK spelling per the v0.3 proto.
+      type: string
+      enum:
+      - TASK_STATE_UNSPECIFIED
+      - TASK_STATE_SUBMITTED
+      - TASK_STATE_WORKING
+      - TASK_STATE_COMPLETED
+      - TASK_STATE_FAILED
+      - TASK_STATE_CANCELLED
+      - TASK_STATE_INPUT_REQUIRED
+      - TASK_STATE_REJECTED
+      - TASK_STATE_AUTH_REQUIRED
+    A2aV03TaskStatus:
+      description: 'Current status of a v0.3 task.
+
+        '
+      type: object
+      properties:
+        state:
+          description: The current lifecycle state of the task.
+          $ref: '#/components/schemas/A2aV03TaskState'
+        message:
+          description: Optional message describing the current status.
+          $ref: '#/components/schemas/A2aV03Message'
+          nullable: true
+        timestamp:
+          description: ISO 8601 timestamp of the transition into this state.
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - state
+      additionalProperties: false
+    A2aV03Artifact:
+      description: A v0.3 task output artifact.
+      type: object
+      properties:
+        artifactId:
+          description: Unique identifier for this artifact, stable across appended
+            updates.
+          type: string
+          x-alias: artifact_id
+        name:
+          description: Human-readable name of the artifact.
+          type: string
+          nullable: true
+        description:
+          description: Human-readable description of the artifact's contents.
+          type: string
+          nullable: true
+        parts:
+          description: The content parts that make up this artifact.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV03Part'
+        metadata:
+          description: Arbitrary agent-supplied metadata for the artifact.
+          type: object
+          additionalProperties: true
+          nullable: true
+        extensions:
+          description: URIs of A2A extensions associated with this artifact.
+          type: array
+          items:
+            type: string
+          nullable: true
+      required:
+      - artifactId
+      - parts
+      additionalProperties: false
+    A2aV03Task:
+      description: A v0.3 unit of work executed by the agent on behalf of a user.
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the task.
+          type: string
+        contextId:
+          description: Identifier of the conversation context the task belongs to.
+          type: string
+          x-alias: context_id
+        status:
+          description: Current status of the task.
+          $ref: '#/components/schemas/A2aV03TaskStatus'
+        artifacts:
+          description: Artifacts produced by the task.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV03Artifact'
+          nullable: true
+        history:
+          description: Conversation messages exchanged during the task.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV03Message'
+          nullable: true
+        metadata:
+          description: Arbitrary agent-supplied metadata for the task.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - id
+      - status
+      additionalProperties: false
+    A2aV03SendMessageResponse:
+      description: 'Response of `POST /v1/message:send`. Exactly one of `task` or
+        `message` is populated.
+
+        '
+      type: object
+      properties:
+        task:
+          description: The created or updated task, when the agent responds with a
+            task.
+          $ref: '#/components/schemas/A2aV03Task'
+          nullable: true
+        message:
+          description: The agent's reply message, when the agent responds with a message.
+          $ref: '#/components/schemas/A2aV03Message'
+          nullable: true
+      additionalProperties: false
+    A2aV03TaskStatusUpdateEvent:
+      description: A v0.3 streaming event indicating a task status change.
+      type: object
+      properties:
+        taskId:
+          description: Identifier of the task whose status changed.
+          type: string
+          x-alias: task_id
+        contextId:
+          description: Identifier of the conversation context the task belongs to.
+          type: string
+          x-alias: context_id
+        status:
+          description: The new status of the task.
+          $ref: '#/components/schemas/A2aV03TaskStatus'
+        final:
+          description: True when this is the terminal status update for the task.
+          type: boolean
+        metadata:
+          description: Arbitrary agent-supplied metadata for the event.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - taskId
+      - contextId
+      - status
+      additionalProperties: false
+    A2aV03TaskArtifactUpdateEvent:
+      description: A v0.3 streaming event indicating an artifact change.
+      type: object
+      properties:
+        taskId:
+          description: Identifier of the task that produced the artifact.
+          type: string
+          x-alias: task_id
+        contextId:
+          description: Identifier of the conversation context the task belongs to.
+          type: string
+          x-alias: context_id
+        artifact:
+          description: The artifact that was added or updated.
+          $ref: '#/components/schemas/A2aV03Artifact'
+        append:
+          description: True when this artifact's parts append to the prior version
+            with the same `artifactId`.
+          type: boolean
+          nullable: true
+        lastChunk:
+          description: True when this is the final chunk for the artifact.
+          type: boolean
+          nullable: true
+          x-alias: last_chunk
+        metadata:
+          description: Arbitrary agent-supplied metadata for the event.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - taskId
+      - contextId
+      - artifact
+      additionalProperties: false
+    A2aV03StreamResponse:
+      description: 'Each SSE event payload from `POST /v1/message:stream` and `GET
+        /v1/tasks/{task_id}:subscribe`. Exactly one of `task`, `message`, `statusUpdate`,
+        or `artifactUpdate` is populated.
+
+        '
+      type: object
+      properties:
+        task:
+          description: A full task snapshot event.
+          $ref: '#/components/schemas/A2aV03Task'
+          nullable: true
+        message:
+          description: A message event from the agent.
+          $ref: '#/components/schemas/A2aV03Message'
+          nullable: true
+        statusUpdate:
+          description: A task status change event.
+          $ref: '#/components/schemas/A2aV03TaskStatusUpdateEvent'
+          nullable: true
+          x-alias: status_update
+        artifactUpdate:
+          description: A task artifact change event.
+          $ref: '#/components/schemas/A2aV03TaskArtifactUpdateEvent'
+          nullable: true
+          x-alias: artifact_update
+      additionalProperties: false
+    A2aV1AgentInterface:
+      description: 'A single transport binding endpoint advertised by the v1 agent
+        card. The card lists every supported transport in `supportedInterfaces`; the
+        first entry is the preferred binding.
+
+        '
+      type: object
+      properties:
+        url:
+          description: URL of this transport endpoint.
+          type: string
+        protocolBinding:
+          description: The transport binding for this interface. Open string; one
+            of `JSONRPC`, `GRPC`, or `HTTP+JSON`.
+          type: string
+          x-alias: protocol_binding
+        tenant:
+          description: Tenant identifier substituted into the URL on requests.
+          type: string
+          nullable: true
+        protocolVersion:
+          description: A2A protocol version this interface exposes (e.g. `0.3`, `1.0`).
+          type: string
+          x-alias: protocol_version
+      required:
+      - url
+      - protocolBinding
+      - protocolVersion
+      additionalProperties: false
+    A2aV1AgentProvider:
+      description: Identifies the organization providing the v1 agent.
+      type: object
+      properties:
+        url:
+          description: URL of the provider's website or homepage.
+          type: string
+        organization:
+          description: Name of the organization providing the agent.
+          type: string
+      required:
+      - url
+      - organization
+      additionalProperties: false
+    A2aV1AgentExtension:
+      description: A v1 protocol extension supported by the agent.
+      type: object
+      properties:
+        uri:
+          description: URI uniquely identifying the extension.
+          type: string
+        description:
+          description: Human-readable description of what the extension does.
+          type: string
+          nullable: true
+        required:
+          description: True if the client must understand this extension to interact
+            with the agent.
+          type: boolean
+          default: false
+        params:
+          description: Extension-specific configuration parameters.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - uri
+      additionalProperties: false
+    A2aV1AgentCapabilities:
+      description: Optional capabilities the v1 agent supports, such as streaming
+        and the extended agent card.
+      type: object
+      properties:
+        streaming:
+          description: True if the agent supports streaming responses via SSE.
+          type: boolean
+          nullable: true
+        pushNotifications:
+          description: True if the agent supports out-of-band push notifications.
+          type: boolean
+          nullable: true
+          x-alias: push_notifications
+        extensions:
+          description: Protocol extensions supported by the agent.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1AgentExtension'
+          nullable: true
+        extendedAgentCard:
+          description: True if the agent serves an extended card requiring authentication.
+          type: boolean
+          nullable: true
+          x-alias: extended_agent_card
+      additionalProperties: false
+    A2aV1AgentSkill:
+      description: A discrete capability the v1 agent advertises.
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the skill.
+          type: string
+        name:
+          description: Human-readable name of the skill.
+          type: string
+        description:
+          description: Human-readable description of what the skill does.
+          type: string
+        tags:
+          description: Tags categorizing the skill for discovery.
+          type: array
+          items:
+            type: string
+        examples:
+          description: Example prompts or inputs demonstrating the skill.
+          type: array
+          items:
+            type: string
+          nullable: true
+        inputModes:
+          description: Media types the skill accepts as input.
+          type: array
+          items:
+            type: string
+          nullable: true
+          x-alias: input_modes
+        outputModes:
+          description: Media types the skill produces as output.
+          type: array
+          items:
+            type: string
+          nullable: true
+          x-alias: output_modes
+        securityRequirements:
+          description: "Security requirements for the skill \u2014 list of OR'd AND-combined\
+            \ scheme/scope sets."
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string
+          nullable: true
+          x-alias: security_requirements
+      required:
+      - id
+      - name
+      - description
+      - tags
+      additionalProperties: false
+    A2aV1AgentCardSignature:
+      description: A JWS-style signature over the v1 agent card.
+      type: object
+      properties:
+        protected:
+          description: Base64url-encoded protected JOSE header.
+          type: string
+        signature:
+          description: Base64url-encoded signature.
+          type: string
+        header:
+          description: Unprotected JOSE header (free-form object).
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - protected
+      - signature
+      additionalProperties: false
+    A2aV1AgentCard:
+      description: 'The A2A v1 Agent Card. The card lists every transport endpoint
+        in `supportedInterfaces`; the first entry is the preferred binding.
+
+        '
+      type: object
+      properties:
+        name:
+          description: Human-readable name of the agent.
+          type: string
+        description:
+          description: Human-readable description of the agent.
+          type: string
+        supportedInterfaces:
+          description: All transport endpoints supported by the agent; the first entry
+            is the preferred binding.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1AgentInterface'
+          x-alias: supported_interfaces
+        provider:
+          description: The organization providing the agent.
+          $ref: '#/components/schemas/A2aV1AgentProvider'
+          nullable: true
+        version:
+          description: Version string of the agent implementation.
+          type: string
+        documentationUrl:
+          description: URL of the agent's documentation.
+          type: string
+          nullable: true
+          x-alias: documentation_url
+        capabilities:
+          description: Capabilities advertised by the agent.
+          $ref: '#/components/schemas/A2aV1AgentCapabilities'
+        securitySchemes:
+          description: Security schemes the agent supports, keyed by scheme name.
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/A2aV03SecurityScheme'
+          nullable: true
+          x-alias: security_schemes
+        securityRequirements:
+          description: "List of OR'd security requirements; each entry is a map of\
+            \ scheme name \u2192 scope list."
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string
+          nullable: true
+          x-alias: security_requirements
+        defaultInputModes:
+          description: Default media types the agent accepts as input across all skills.
+          type: array
+          items:
+            type: string
+          x-alias: default_input_modes
+        defaultOutputModes:
+          description: Default media types the agent produces as output across all
+            skills.
+          type: array
+          items:
+            type: string
+          x-alias: default_output_modes
+        skills:
+          description: The skills the agent advertises.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1AgentSkill'
+        signatures:
+          description: JWS signatures over the agent card.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1AgentCardSignature'
+          nullable: true
+        iconUrl:
+          description: URL of the agent's icon image.
+          type: string
+          nullable: true
+          x-alias: icon_url
+      required:
+      - name
+      - description
+      - supportedInterfaces
+      - version
+      - capabilities
+      - defaultInputModes
+      - defaultOutputModes
+      - skills
+      additionalProperties: false
+    A2aV1Role:
+      description: The sender role in an A2A v1 message.
+      type: string
+      enum:
+      - ROLE_UNSPECIFIED
+      - ROLE_USER
+      - ROLE_AGENT
+    A2aV1Part:
+      description: 'A v1 message or artifact content part. Exactly one of `text`,
+        `raw`, `url`, or `data` is populated. Optional `metadata`, `filename`, and
+        `mediaType` siblings are valid for any variant.
+
+        '
+      type: object
+      properties:
+        text:
+          description: Plain-text content.
+          type: string
+          nullable: true
+        raw:
+          description: Inline base64-encoded raw bytes.
+          type: string
+          format: byte
+          nullable: true
+        url:
+          description: URL pointing to the file's content.
+          type: string
+          nullable: true
+        data:
+          description: Arbitrary structured JSON value.
+          nullable: true
+        metadata:
+          description: Arbitrary metadata associated with this part.
+          type: object
+          additionalProperties: true
+          nullable: true
+        filename:
+          description: Name of the file, when this part carries a file.
+          type: string
+          nullable: true
+        mediaType:
+          description: Media type of the part's content.
+          type: string
+          nullable: true
+          x-alias: media_type
+      additionalProperties: false
+    A2aV1Message:
+      description: 'A v1 unit of communication between client and agent. The `parts`
+        field carries the message parts.
+
+        '
+      type: object
+      properties:
+        messageId:
+          description: Unique identifier for this message, set by the sender.
+          type: string
+          x-alias: message_id
+        contextId:
+          description: Identifier of the conversation context this message belongs
+            to.
+          type: string
+          nullable: true
+          x-alias: context_id
+        taskId:
+          description: Identifier of the task this message is associated with.
+          type: string
+          nullable: true
+          x-alias: task_id
+        role:
+          description: Whether the message was sent by the user or the agent.
+          $ref: '#/components/schemas/A2aV1Role'
+        parts:
+          description: Message content parts.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1Part'
+        metadata:
+          description: Arbitrary sender-supplied metadata.
+          type: object
+          additionalProperties: true
+          nullable: true
+        extensions:
+          description: URIs of A2A extensions this message activates.
+          type: array
+          items:
+            type: string
+          nullable: true
+        referenceTaskIds:
+          description: Identifiers of tasks referenced by this message.
+          type: array
+          items:
+            type: string
+          nullable: true
+          x-alias: reference_task_ids
+      required:
+      - messageId
+      - role
+      - parts
+      additionalProperties: false
+    A2aV1AuthenticationInfo:
+      description: Authentication details the agent uses when calling the v1 push-notification
+        URL.
+      type: object
+      properties:
+        scheme:
+          description: The authentication scheme name the agent uses for the webhook.
+          type: string
+        credentials:
+          description: Optional credentials passed to the webhook for the scheme.
+          type: string
+          nullable: true
+      required:
+      - scheme
+      additionalProperties: false
+    A2aV1TaskPushNotificationConfig:
+      description: 'Push notification configuration for a v1 task.
+
+        '
+      type: object
+      properties:
+        tenant:
+          description: Tenant identifier the config applies to.
+          type: string
+          nullable: true
+        id:
+          description: Server-assigned identifier for this push notification config.
+          type: string
+          nullable: true
+        taskId:
+          description: Identifier of the task this config applies to.
+          type: string
+          nullable: true
+          x-alias: task_id
+        url:
+          description: Webhook URL the agent posts task updates to.
+          type: string
+        token:
+          description: Optional token included in update requests so the receiver
+            can validate the caller.
+          type: string
+          nullable: true
+        authentication:
+          description: Authentication details the agent uses when calling the webhook.
+          $ref: '#/components/schemas/A2aV1AuthenticationInfo'
+          nullable: true
+      required:
+      - url
+      additionalProperties: false
+    A2aV1SendMessageConfiguration:
+      description: Optional knobs that influence how the agent processes and responds
+        to a v1 message.
+      type: object
+      properties:
+        acceptedOutputModes:
+          description: Media types the client accepts for the agent's output.
+          type: array
+          items:
+            type: string
+          nullable: true
+          x-alias: accepted_output_modes
+        pushNotification:
+          description: Webhook configuration for receiving task updates out-of-band.
+          $ref: '#/components/schemas/A2aV1TaskPushNotificationConfig'
+          nullable: true
+          x-alias: push_notification
+        historyLength:
+          description: Maximum number of recent history messages to include in the
+            response.
+          type: integer
+          format: int32
+          nullable: true
+          x-alias: history_length
+        blocking:
+          description: 'When true (the default), the call blocks until the task reaches
+            a terminal or interrupted state and returns the resulting task. Set to
+            false to return as soon as the task is accepted and poll `getTask` or
+            subscribe to the task stream instead. `returnImmediately` is accepted
+            as an inverse-semantics alias; if both are sent, `blocking` wins.
+
+            '
+          type: boolean
+          nullable: true
+        returnImmediately:
+          description: 'Inverse-semantics alias for `blocking`. When `returnImmediately=true`
+            the call returns as soon as the task is accepted (equivalent to `blocking=false`).
+            If both are provided, `blocking` wins.
+
+            '
+          type: boolean
+          nullable: true
+          x-alias: return_immediately
+      additionalProperties: false
+    A2aV1SendMessageRequest:
+      description: Body of `POST /message:send` and `POST /message:stream`.
+      type: object
+      properties:
+        tenant:
+          description: Tenant identifier the message is sent to.
+          type: string
+          nullable: true
+        message:
+          description: The message to send to the agent.
+          $ref: '#/components/schemas/A2aV1Message'
+        configuration:
+          description: Optional configuration influencing how the message is processed.
+          $ref: '#/components/schemas/A2aV1SendMessageConfiguration'
+          nullable: true
+        metadata:
+          description: Arbitrary client-supplied metadata for the request.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - message
+      additionalProperties: false
+    A2aV1TaskState:
+      description: A2A v1 task lifecycle state. Note `TASK_STATE_CANCELED` uses the
+        US spelling per the v1 proto (one L).
+      type: string
+      enum:
+      - TASK_STATE_UNSPECIFIED
+      - TASK_STATE_SUBMITTED
+      - TASK_STATE_WORKING
+      - TASK_STATE_COMPLETED
+      - TASK_STATE_FAILED
+      - TASK_STATE_CANCELED
+      - TASK_STATE_INPUT_REQUIRED
+      - TASK_STATE_REJECTED
+      - TASK_STATE_AUTH_REQUIRED
+    A2aV1TaskStatus:
+      description: 'Current status of a v1 task.
+
+        '
+      type: object
+      properties:
+        state:
+          description: The current lifecycle state of the task.
+          $ref: '#/components/schemas/A2aV1TaskState'
+        message:
+          description: Optional message describing the current status.
+          $ref: '#/components/schemas/A2aV1Message'
+          nullable: true
+        timestamp:
+          description: ISO 8601 timestamp of the transition into this state.
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - state
+      additionalProperties: false
+    A2aV1Artifact:
+      description: A v1 task output artifact.
+      type: object
+      properties:
+        artifactId:
+          description: Unique identifier for this artifact, stable across appended
+            updates.
+          type: string
+          x-alias: artifact_id
+        name:
+          description: Human-readable name of the artifact.
+          type: string
+          nullable: true
+        description:
+          description: Human-readable description of the artifact's contents.
+          type: string
+          nullable: true
+        parts:
+          description: The content parts that make up this artifact.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1Part'
+        metadata:
+          description: Arbitrary agent-supplied metadata for the artifact.
+          type: object
+          additionalProperties: true
+          nullable: true
+        extensions:
+          description: URIs of A2A extensions associated with this artifact.
+          type: array
+          items:
+            type: string
+          nullable: true
+      required:
+      - artifactId
+      - parts
+      additionalProperties: false
+    A2aV1Task:
+      description: A v1 unit of work executed by the agent.
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the task.
+          type: string
+        contextId:
+          description: Identifier of the conversation context the task belongs to.
+          type: string
+          x-alias: context_id
+        status:
+          description: Current status of the task.
+          $ref: '#/components/schemas/A2aV1TaskStatus'
+        artifacts:
+          description: Artifacts produced by the task.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1Artifact'
+          nullable: true
+        history:
+          description: Conversation messages exchanged during the task.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1Message'
+          nullable: true
+        metadata:
+          description: Arbitrary agent-supplied metadata for the task.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - id
+      - status
+      additionalProperties: false
+    A2aV1SendMessageResponse:
+      description: Response of `POST /message:send`. Exactly one of `task` or `message`
+        is populated.
+      type: object
+      properties:
+        task:
+          description: The created or updated task, when the agent responds with a
+            task.
+          $ref: '#/components/schemas/A2aV1Task'
+          nullable: true
+        message:
+          description: The agent's reply message, when the agent responds with a message.
+          $ref: '#/components/schemas/A2aV1Message'
+          nullable: true
+      additionalProperties: false
+    A2aV1TaskStatusUpdateEvent:
+      description: A v1 streaming event indicating a task status change.
+      type: object
+      properties:
+        taskId:
+          description: Identifier of the task whose status changed.
+          type: string
+          x-alias: task_id
+        contextId:
+          description: Identifier of the conversation context the task belongs to.
+          type: string
+          x-alias: context_id
+        status:
+          description: The new status of the task.
+          $ref: '#/components/schemas/A2aV1TaskStatus'
+        final:
+          description: True when this is the terminal status update for the task;
+            v1 SSE clients use it as the signal to stop reading the stream.
+          type: boolean
+        metadata:
+          description: Arbitrary agent-supplied metadata for the event.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - taskId
+      - contextId
+      - status
+      additionalProperties: false
+    A2aV1TaskArtifactUpdateEvent:
+      description: A v1 streaming event indicating an artifact change.
+      type: object
+      properties:
+        taskId:
+          description: Identifier of the task that produced the artifact.
+          type: string
+          x-alias: task_id
+        contextId:
+          description: Identifier of the conversation context the task belongs to.
+          type: string
+          x-alias: context_id
+        artifact:
+          description: The artifact that was added or updated.
+          $ref: '#/components/schemas/A2aV1Artifact'
+        append:
+          description: True when this artifact's parts append to the prior version
+            with the same `artifactId`.
+          type: boolean
+          nullable: true
+        lastChunk:
+          description: True when this is the final chunk for the artifact.
+          type: boolean
+          nullable: true
+          x-alias: last_chunk
+        metadata:
+          description: Arbitrary agent-supplied metadata for the event.
+          type: object
+          additionalProperties: true
+          nullable: true
+      required:
+      - taskId
+      - contextId
+      - artifact
+      additionalProperties: false
+    A2aV1StreamResponse:
+      description: 'Each SSE event payload from `POST /message:stream` and `GET /tasks/{id}:subscribe`.
+        Exactly one of `task`, `message`, `statusUpdate`, or `artifactUpdate` is populated.
+
+        '
+      type: object
+      properties:
+        task:
+          description: A full task snapshot event.
+          $ref: '#/components/schemas/A2aV1Task'
+          nullable: true
+        message:
+          description: A message event from the agent.
+          $ref: '#/components/schemas/A2aV1Message'
+          nullable: true
+        statusUpdate:
+          description: A task status change event.
+          $ref: '#/components/schemas/A2aV1TaskStatusUpdateEvent'
+          nullable: true
+          x-alias: status_update
+        artifactUpdate:
+          description: A task artifact change event.
+          $ref: '#/components/schemas/A2aV1TaskArtifactUpdateEvent'
+          nullable: true
+          x-alias: artifact_update
+      additionalProperties: false
+    A2aV1ListTasksResponse:
+      description: Paged response of `GET /tasks`.
+      type: object
+      properties:
+        tasks:
+          description: The tasks in this page of results.
+          type: array
+          items:
+            $ref: '#/components/schemas/A2aV1Task'
+        nextPageToken:
+          description: Token to retrieve the next page of results. Empty when there
+            are no further pages.
+          type: string
+          x-alias: next_page_token
+        pageSize:
+          description: Number of tasks requested per page.
+          type: integer
+          format: int32
+          x-alias: page_size
+        totalSize:
+          description: Total number of tasks matching the query across all pages.
+          type: integer
+          format: int32
+          x-alias: total_size
+      required:
+      - tasks
+      - nextPageToken
+      - pageSize
+      - totalSize
+      additionalProperties: false
     AgentAliasKey:
       description: "The unique key identifying an alias. Alias keys are independent\
         \ of agent keys \u2014 the same string may exist as both an alias and an agent\
@@ -28354,23 +31219,37 @@ components:
       - $ref: '#/components/schemas/BaseBoxSourceConfiguration'
       - required:
         - auth
+    WolkenArticleStatus:
+      description: A Wolken knowledge-base article lifecycle status.
+      type: string
+      enum:
+      - published
+      - retired
+      - draft
+      - delete
     BaseWolkenKbSourceConfiguration:
       description: 'Base Wolken ServiceDesk knowledge-base source configuration. Ingests
         knowledge-base articles
 
-        matching the configured filters, with each article''s audience attributes
-        carried as document
+        through the API family selected by `kb_api`, with each article''s audience
+        attributes carried
 
-        metadata for attribute-based filtering. Requires Wolken data API credentials
-        with read access
+        as document metadata for attribute-based filtering. Requires Wolken credentials
+        with read
 
-        to the knowledge-base listing and article-detail endpoints. Incremental sync
-        additionally
+        access to the knowledge-base listing and article-detail endpoints of the selected
+        family.
 
-        requires the listing to support update-time filters. Supported filters vary
-        by Wolken
+        With `data_api`, articles are filtered server side by the configured status,
+        validation, and
 
-        deployment.
+        level filters, and incremental sync additionally requires the listing to support
+        update-time
+
+        filters. With `kb_module`, articles are listed per category and update-time
+        bounds are
+
+        applied after listing. Supported filters vary by Wolken deployment.
 
         '
       type: object
@@ -28384,15 +31263,81 @@ components:
           type: string
           example: https://example-api.wolkenservicedesk.com
         domain:
-          description: The Wolken tenant name issued with your Wolken API credentials,
-            not a hostname. For example `example`, not `example.wolkenservicedesk.com`.
+          description: The value of the `domain` header issued with your Wolken API
+            credentials. Wolken deployments vary in whether this is a tenant name
+            or a full hostname, so use the exact value from your credential handoff.
           type: string
-          example: example
+          example: example.wolkenservicedesk.com
+        kb_api:
+          description: 'The Wolken API family used to read the knowledge base. `data_api`
+            reads through the
+
+            provisioned data API endpoint and supports server-side update-time filters.
+            `kb_module`
+
+            reads through the Knowledge Base module REST API, which lists articles
+            by category and
+
+            offers no server-side filters, so update detection happens after listing.
+            Which family a
+
+            Wolken deployment provisions is determined by the Wolken administrator.
+
+            '
+          type: string
+          enum:
+          - data_api
+          - kb_module
+          default: data_api
+        category_ids:
+          description: 'Wolken knowledge-base category IDs to restrict ingestion to.
+            If unset, articles of every
+
+            category are ingested. Category IDs are specific to your Wolken deployment
+            and can be
+
+            read from the Knowledge Base module category listing. Applies to `kb_module`
+            only.
+
+            '
+          type: array
+          items:
+            type: string
+          example:
+          - '9'
+          - '12'
+        article_ids:
+          description: 'Wolken knowledge-base article IDs to restrict ingestion to.
+            If unset, all articles
+
+            matching the other configured filters are ingested.
+
+            '
+          type: array
+          items:
+            type: string
+          example:
+          - '101'
+          - '205'
+        article_statuses:
+          description: 'Article lifecycle statuses to ingest. If unset, articles of
+            every status are ingested. An
+
+            article Wolken reports no status for is always ingested.
+
+            '
+          type: array
+          items:
+            $ref: '#/components/schemas/WolkenArticleStatus'
+          example:
+          - published
+          - draft
         status_id:
           description: 'Lifecycle status to filter articles by. If unset, articles
             of every lifecycle status are
 
-            ingested. Status IDs are specific to your Wolken deployment.
+            ingested. Status IDs are specific to your Wolken deployment. Applies to
+            `data_api` only.
 
             '
           type: integer
@@ -28403,6 +31348,9 @@ components:
             of every validation status
 
             are ingested. Validation status IDs are specific to your Wolken deployment.
+            Applies to
+
+            `data_api` only.
 
             '
           type: integer
@@ -28412,7 +31360,8 @@ components:
           description: 'Audience level to filter articles by. If unset, articles of
             every audience level are
 
-            ingested. Level IDs are specific to your Wolken deployment.
+            ingested. Level IDs are specific to your Wolken deployment. Applies to
+            `data_api` only.
 
             '
           type: integer
@@ -28422,7 +31371,8 @@ components:
           description: 'Operator used for the upper bound when filtering articles
             by when they were last updated.
 
-            `lt` is strict less-than and `lte` is less-than-or-equal.
+            `lt` is strict less-than and `lte` is less-than-or-equal. Applies to `data_api`
+            only.
 
             '
           type: string
@@ -28475,6 +31425,106 @@ components:
       - $ref: '#/components/schemas/BaseWolkenKbSourceConfiguration'
       - required:
         - api_endpoint
+        - domain
+        - client_id
+        - service_account
+        - auth_code
+        - refresh_token
+    BaseWolkenFormsSourceConfiguration:
+      description: 'Base Wolken ServiceDesk forms source configuration. Ingests the
+        end-user-facing service catalog
+
+        forms of a Wolken ServiceDesk instance, covering both incident forms and service
+        request forms.
+
+        Each form becomes one document carrying the form''s title, description, and
+        category, and, when
+
+        `include_form_details` is true, its FAQs, field definitions, and option values.
+        Requires Wolken
+
+        credentials with read access to the service catalog listing endpoint, and,
+        when
+
+        `include_form_details` is true, to the form metadata, special instructions,
+        and lookup value
+
+        endpoints.
+
+        '
+      type: object
+      properties:
+        type:
+          description: Discriminator value identifying this source configuration as
+            `wolken_forms`.
+          type: string
+          default: wolken_forms
+          example: wolken_forms
+        base_url:
+          description: Base URL of the Wolken API.
+          type: string
+          example: https://example-api.wolkenservicedesk.com
+        domain:
+          description: The value of the `domain` header issued with your Wolken API
+            credentials. Wolken deployments vary in whether this is a tenant name
+            or a full hostname, so use the exact value from your credential handoff.
+          type: string
+          example: example.wolkenservicedesk.com
+        include_form_details:
+          description: 'Whether each form document includes the form''s FAQs, field
+            definitions, field help text,
+
+            and the selectable values of its dropdown and lookup fields. When false,
+            documents are
+
+            built from the service catalog listing alone.
+
+            '
+          type: boolean
+          default: true
+        item_url_template:
+          description: 'Template for the portal URL of a form. The `{item_id}` placeholder
+            is replaced with the
+
+            form''s item ID. When omitted, documents carry no URL metadata.
+
+            '
+          type: string
+          example: https://example-enduser.wolkenservicedesk.com/wolken-support/item_details?itemId={item_id}
+        client_id:
+          description: Wolken OAuth client ID.
+          type: string
+          example: a1b2c3d4e5f6g7h8i9j0k1l2
+        service_account:
+          description: Wolken service account the API calls run as. Sent as a header
+            on API requests.
+          type: string
+          example: svc-catalog-reader@example.com
+        auth_code:
+          description: 'The auth code Wolken issues for the instance, used with `refresh_token`
+            to obtain access
+
+            tokens. Encrypted at rest and not returned in responses.
+
+            '
+          type: string
+          writeOnly: true
+        refresh_token:
+          description: Long-lived refresh token exchanged for access tokens. Encrypted
+            at rest and not returned in responses.
+          type: string
+          writeOnly: true
+      required:
+      - type
+    WolkenFormsSourceConfiguration:
+      description: Configuration for ingesting end-user-facing service catalog forms
+        from a Wolken ServiceDesk instance.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWolkenFormsSourceConfiguration'
+      - required:
+        - base_url
         - domain
         - client_id
         - service_account
@@ -28548,6 +31598,18 @@ components:
       - $ref: '#/components/schemas/BaseConfluenceSourceConfiguration'
       - required:
         - base_url
+    FluidtopicsDocumentFetchMode:
+      description: "How a Fluid Topics document body is fetched.\n- `extracted_text`:\
+        \ the Fluid Topics plain-text extraction of the body.\n- `original_file`:\
+        \ the original file, converted by the platform, which preserves document\n\
+        \  structure such as tables, headings, and figures.\n- `metadata_only`: no\
+        \ body download; the record is indexed from its title, description, and\n\
+        \  metadata alone.\n"
+      type: string
+      enum:
+      - extracted_text
+      - original_file
+      - metadata_only
     BaseFluidtopicsSourceConfiguration:
       description: "Base Fluid Topics source configuration. Ingests content from a\
         \ Fluid Topics tenant via the\nKnowledge Hub REST API. `content_scope` selects\
@@ -28618,6 +31680,60 @@ components:
           example:
             Disclosure:
             - Public
+        include_sources:
+          description: 'Fluid Topics source ids (`ft:sourceId`) to ingest; a record
+            whose source is not listed is
+
+            skipped. Applied to every ingestion path regardless of `query` or `filters`.
+            Empty (the
+
+            default) ingests every source.
+
+            '
+          type: array
+          items:
+            type: string
+          example:
+          - ud
+        exclude_sources:
+          description: 'Fluid Topics source ids (`ft:sourceId`, for example `drupal`
+            or `khoros`) whose records are
+
+            excluded from ingestion, even when they also match `include_sources`.
+            Applied to every
+
+            ingestion path regardless of `query` or `filters`. Empty (the default)
+            excludes nothing.
+
+            '
+          type: array
+          items:
+            type: string
+          example:
+          - drupal
+          - khoros
+        document_fetch_modes:
+          description: 'How document bodies are fetched in the `documents` scope,
+            as a map of MIME type to fetch
+
+            mode. Keys match a document''s MIME type (`ft:mimeType`) exactly (`application/pdf`),
+            by
+
+            prefix (`image/*`), or `*` as the catch-all default. Types matching no
+            key use
+
+            `extracted_text`, the behavior when this map is unset. Ignored when `content_scope`
+            is
+
+            `topics`.
+
+            '
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FluidtopicsDocumentFetchMode'
+          example:
+            application/pdf: original_file
+            video/*: metadata_only
     FluidtopicsSourceConfiguration:
       description: Configuration for ingesting content from a Fluid Topics tenant
         via the Knowledge Hub REST API.
@@ -28628,6 +31744,129 @@ components:
       - required:
         - base_url
         - api_key
+    BaseScimSourceConfiguration:
+      description: 'Base SCIM source configuration. Ingests user records from a SCIM
+        2.0 service provider
+
+        through the Users endpoint. Each user becomes one document carrying profile,
+        group
+
+        membership, and enterprise attributes as document metadata for attribute-based
+        filtering.
+
+        '
+      type: object
+      properties:
+        type:
+          type: string
+          default: scim
+          example: scim
+        base_url:
+          description: 'Base URL of the SCIM 2.0 service provider. The Users resource
+            path is appended
+
+            automatically and must not be included.
+
+            '
+          type: string
+          pattern: ^https?://.+
+          example: https://example.okta.com/scim/v2
+        auth:
+          description: Authentication for the SCIM service provider.
+          $ref: '#/components/schemas/RemoteAuth'
+        filter:
+          description: 'SCIM filter expression applied to the user listing, restricting
+            which users are
+
+            ingested. Requires a service provider that supports the filter query parameter.
+
+            When `incremental_strategy` is `last_modified_filter`, the change window
+            is combined
+
+            with this expression.
+
+            '
+          type: string
+          maxLength: 2048
+          example: userType eq "Employee"
+        attributes:
+          description: 'Attribute names to request from the service provider, passed
+            as the SCIM attributes
+
+            query parameter. The meta attribute is always requested so that incremental
+            sync can
+
+            read each user''s meta.lastModified timestamp. When unset, the service
+            provider
+
+            returns its default attribute set. Returned attributes land in two places
+            on each
+
+            record. They are rendered into the user''s profile document, which is
+            what the agent
+
+            converts and indexes, and they populate the record''s source_record_metadata
+            in the
+
+            agent session metadata, where they are available for attribute based filtering
+            and
+
+            for tool argument overrides. Narrowing this list therefore narrows both
+            what is
+
+            indexed and what is available as metadata. An attribute the service provider
+            marks
+
+            as returned only on request is included only when named here.
+
+            '
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+          example:
+          - userName
+          - name
+          - emails
+          - groups
+          - active
+        incremental_strategy:
+          description: 'How incremental syncs detect changed users. `last_modified_filter`
+            pushes the change
+
+            window into the SCIM filter query parameter as a `meta.lastModified` range.
+
+            `client_side` enumerates every user on each run and evaluates the change
+            window
+
+            locally. Support for the filter query parameter is optional in the SCIM
+            2.0
+
+            specification, so set `client_side` when the service provider does not
+            support
+
+            filtering on `meta.lastModified`.
+
+            '
+          type: string
+          enum:
+          - client_side
+          - last_modified_filter
+          default: last_modified_filter
+      required:
+      - type
+    ScimSourceConfiguration:
+      description: Configuration for ingesting user records from a SCIM 2.0 service
+        provider.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseScimSourceConfiguration'
+      - required:
+        - base_url
+        - auth
     BaseWebSource:
       description: 'Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl).
         Politeness, limits, auth.
@@ -28932,8 +32171,10 @@ components:
           google_drive: '#/components/schemas/GoogleDriveSourceConfiguration'
           box: '#/components/schemas/BoxSourceConfiguration'
           wolken_kb: '#/components/schemas/WolkenKbSourceConfiguration'
+          wolken_forms: '#/components/schemas/WolkenFormsSourceConfiguration'
           confluence: '#/components/schemas/ConfluenceSourceConfiguration'
           fluidtopics: '#/components/schemas/FluidtopicsSourceConfiguration'
+          scim: '#/components/schemas/ScimSourceConfiguration'
           web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/SharepointSourceConfiguration'
@@ -28941,8 +32182,10 @@ components:
       - $ref: '#/components/schemas/GoogleDriveSourceConfiguration'
       - $ref: '#/components/schemas/BoxSourceConfiguration'
       - $ref: '#/components/schemas/WolkenKbSourceConfiguration'
+      - $ref: '#/components/schemas/WolkenFormsSourceConfiguration'
       - $ref: '#/components/schemas/ConfluenceSourceConfiguration'
       - $ref: '#/components/schemas/FluidtopicsSourceConfiguration'
+      - $ref: '#/components/schemas/ScimSourceConfiguration'
       - $ref: '#/components/schemas/WebSourceConfiguration'
     CronTriggerConfiguration:
       description: Run the pipeline on a cron schedule.
@@ -29316,6 +32559,13 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseWolkenKbSourceConfiguration'
+    UpdateWolkenFormsSourceConfiguration:
+      description: Partial update for Wolken forms source configuration. Only provided
+        fields are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWolkenFormsSourceConfiguration'
     UpdateConfluenceSourceConfiguration:
       description: Partial update for Confluence source configuration. Only provided
         fields are merged.
@@ -29330,6 +32580,13 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseFluidtopicsSourceConfiguration'
+    UpdateScimSourceConfiguration:
+      description: Partial update for SCIM source configuration. Only provided fields
+        are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseScimSourceConfiguration'
     UpdateWebSourceConfiguration:
       description: 'Partial update for a `web` source configuration. Top-level fields
         are merged into the existing
@@ -29368,8 +32625,10 @@ components:
           google_drive: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
           box: '#/components/schemas/UpdateBoxSourceConfiguration'
           wolken_kb: '#/components/schemas/UpdateWolkenKbSourceConfiguration'
+          wolken_forms: '#/components/schemas/UpdateWolkenFormsSourceConfiguration'
           confluence: '#/components/schemas/UpdateConfluenceSourceConfiguration'
           fluidtopics: '#/components/schemas/UpdateFluidtopicsSourceConfiguration'
+          scim: '#/components/schemas/UpdateScimSourceConfiguration'
           web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/UpdateSharepointSourceConfiguration'
@@ -29377,8 +32636,10 @@ components:
       - $ref: '#/components/schemas/UpdateGoogleDriveSourceConfiguration'
       - $ref: '#/components/schemas/UpdateBoxSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWolkenKbSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateWolkenFormsSourceConfiguration'
       - $ref: '#/components/schemas/UpdateConfluenceSourceConfiguration'
       - $ref: '#/components/schemas/UpdateFluidtopicsSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateScimSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
     UpdatePipelineRequest:
       description: Request to partially update an existing pipeline. Omitted fields
@@ -30999,6 +34260,7 @@ x-tagGroups:
   - Tool Servers
   - Agent Connectors
   - Agent Secrets
+  - A2A Protocol
   - Agent Memory
 - name: Pipelines
   tags:

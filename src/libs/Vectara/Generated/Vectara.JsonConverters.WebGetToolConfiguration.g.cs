@@ -42,9 +42,11 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("enrichment_only")) __score0++;
             if (__jsonProps.Contains("input_transform")) __score0++;
             if (__jsonProps.Contains("key")) __score0++;
+            if (__jsonProps.Contains("max_execution_time_seconds")) __score0++;
             if (__jsonProps.Contains("metadata")) __score0++;
             if (__jsonProps.Contains("name")) __score0++;
             if (__jsonProps.Contains("output_transform")) __score0++;
+            if (__jsonProps.Contains("tool_output_offloading")) __score0++;
             if (__jsonProps.Contains("updated_at")) __score0++;
             var __score1 = 0;
             if (__jsonProps.Contains("argument_override")) __score1++;
@@ -53,6 +55,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("argument_override.follow_redirects")) __score1++;
             if (__jsonProps.Contains("argument_override.head_lines")) __score1++;
             if (__jsonProps.Contains("argument_override.headers")) __score1++;
+            if (__jsonProps.Contains("argument_override.max_body_bytes")) __score1++;
             if (__jsonProps.Contains("argument_override.max_content_bytes")) __score1++;
             if (__jsonProps.Contains("argument_override.method")) __score1++;
             if (__jsonProps.Contains("argument_override.response_mode")) __score1++;

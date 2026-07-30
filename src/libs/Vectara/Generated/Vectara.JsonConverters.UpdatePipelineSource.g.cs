@@ -56,6 +56,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UpdateWolkenKbSourceConfiguration)}");
                 wolkenKb = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.UpdateWolkenFormsSourceConfiguration? wolkenForms = default;
+            if (discriminator?.Type == global::Vectara.UpdatePipelineSourceDiscriminatorType.WolkenForms)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateWolkenFormsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateWolkenFormsSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UpdateWolkenFormsSourceConfiguration)}");
+                wolkenForms = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.UpdateConfluenceSourceConfiguration? confluence = default;
             if (discriminator?.Type == global::Vectara.UpdatePipelineSourceDiscriminatorType.Confluence)
             {
@@ -69,6 +76,13 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateFluidtopicsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateFluidtopicsSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UpdateFluidtopicsSourceConfiguration)}");
                 fluidtopics = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.UpdateScimSourceConfiguration? scim = default;
+            if (discriminator?.Type == global::Vectara.UpdatePipelineSourceDiscriminatorType.Scim)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateScimSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateScimSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UpdateScimSourceConfiguration)}");
+                scim = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
             global::Vectara.UpdateWebSourceConfiguration? web = default;
             if (discriminator?.Type == global::Vectara.UpdatePipelineSourceDiscriminatorType.Web)
@@ -90,9 +104,13 @@ namespace Vectara.JsonConverters
 
                 wolkenKb,
 
+                wolkenForms,
+
                 confluence,
 
                 fluidtopics,
+
+                scim,
 
                 web
                 );
@@ -139,6 +157,12 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateWolkenKbSourceConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.WolkenKb!.Value, typeInfo);
             }
+            else if (value.IsWolkenForms)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateWolkenFormsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateWolkenFormsSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateWolkenFormsSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WolkenForms!.Value, typeInfo);
+            }
             else if (value.IsConfluence)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateConfluenceSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateConfluenceSourceConfiguration> ??
@@ -150,6 +174,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateFluidtopicsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateFluidtopicsSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateFluidtopicsSourceConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Fluidtopics!.Value, typeInfo);
+            }
+            else if (value.IsScim)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateScimSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateScimSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateScimSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Scim!.Value, typeInfo);
             }
             else if (value.IsWeb)
             {

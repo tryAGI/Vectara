@@ -5,11 +5,13 @@ namespace Vectara
 {
     /// <summary>
     /// Base Wolken ServiceDesk knowledge-base source configuration. Ingests knowledge-base articles<br/>
-    /// matching the configured filters, with each article's audience attributes carried as document<br/>
-    /// metadata for attribute-based filtering. Requires Wolken data API credentials with read access<br/>
-    /// to the knowledge-base listing and article-detail endpoints. Incremental sync additionally<br/>
-    /// requires the listing to support update-time filters. Supported filters vary by Wolken<br/>
-    /// deployment.
+    /// through the API family selected by `kb_api`, with each article's audience attributes carried<br/>
+    /// as document metadata for attribute-based filtering. Requires Wolken credentials with read<br/>
+    /// access to the knowledge-base listing and article-detail endpoints of the selected family.<br/>
+    /// With `data_api`, articles are filtered server side by the configured status, validation, and<br/>
+    /// level filters, and incremental sync additionally requires the listing to support update-time<br/>
+    /// filters. With `kb_module`, articles are listed per category and update-time bounds are<br/>
+    /// applied after listing. Supported filters vary by Wolken deployment.
     /// </summary>
     public sealed partial class BaseWolkenKbSourceConfiguration
     {
@@ -32,16 +34,56 @@ namespace Vectara
         public string? ApiEndpoint { get; set; }
 
         /// <summary>
-        /// The Wolken tenant name issued with your Wolken API credentials, not a hostname. For example `example`, not `example.wolkenservicedesk.com`.<br/>
-        /// Example: example
+        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname, so use the exact value from your credential handoff.<br/>
+        /// Example: example.wolkenservicedesk.com
         /// </summary>
-        /// <example>example</example>
+        /// <example>example.wolkenservicedesk.com</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("domain")]
         public string? Domain { get; set; }
 
         /// <summary>
+        /// The Wolken API family used to read the knowledge base. `data_api` reads through the<br/>
+        /// provisioned data API endpoint and supports server-side update-time filters. `kb_module`<br/>
+        /// reads through the Knowledge Base module REST API, which lists articles by category and<br/>
+        /// offers no server-side filters, so update detection happens after listing. Which family a<br/>
+        /// Wolken deployment provisions is determined by the Wolken administrator.<br/>
+        /// Default Value: data_api
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("kb_api")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.BaseWolkenKbSourceConfigurationKbApiJsonConverter))]
+        public global::Vectara.BaseWolkenKbSourceConfigurationKbApi? KbApi { get; set; }
+
+        /// <summary>
+        /// Wolken knowledge-base category IDs to restrict ingestion to. If unset, articles of every<br/>
+        /// category are ingested. Category IDs are specific to your Wolken deployment and can be<br/>
+        /// read from the Knowledge Base module category listing. Applies to `kb_module` only.<br/>
+        /// Example: [9, 12]
+        /// </summary>
+        /// <example>[9, 12]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("category_ids")]
+        public global::System.Collections.Generic.IList<string>? CategoryIds { get; set; }
+
+        /// <summary>
+        /// Wolken knowledge-base article IDs to restrict ingestion to. If unset, all articles<br/>
+        /// matching the other configured filters are ingested.<br/>
+        /// Example: [101, 205]
+        /// </summary>
+        /// <example>[101, 205]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("article_ids")]
+        public global::System.Collections.Generic.IList<string>? ArticleIds { get; set; }
+
+        /// <summary>
+        /// Article lifecycle statuses to ingest. If unset, articles of every status are ingested. An<br/>
+        /// article Wolken reports no status for is always ingested.<br/>
+        /// Example: [published, draft]
+        /// </summary>
+        /// <example>[published, draft]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("article_statuses")]
+        public global::System.Collections.Generic.IList<global::Vectara.WolkenArticleStatus>? ArticleStatuses { get; set; }
+
+        /// <summary>
         /// Lifecycle status to filter articles by. If unset, articles of every lifecycle status are<br/>
-        /// ingested. Status IDs are specific to your Wolken deployment.<br/>
+        /// ingested. Status IDs are specific to your Wolken deployment. Applies to `data_api` only.<br/>
         /// Example: 2
         /// </summary>
         /// <example>2</example>
@@ -50,7 +92,8 @@ namespace Vectara
 
         /// <summary>
         /// Validation status to filter articles by. If unset, articles of every validation status<br/>
-        /// are ingested. Validation status IDs are specific to your Wolken deployment.<br/>
+        /// are ingested. Validation status IDs are specific to your Wolken deployment. Applies to<br/>
+        /// `data_api` only.<br/>
         /// Example: 2
         /// </summary>
         /// <example>2</example>
@@ -59,7 +102,7 @@ namespace Vectara
 
         /// <summary>
         /// Audience level to filter articles by. If unset, articles of every audience level are<br/>
-        /// ingested. Level IDs are specific to your Wolken deployment.<br/>
+        /// ingested. Level IDs are specific to your Wolken deployment. Applies to `data_api` only.<br/>
         /// Example: 3
         /// </summary>
         /// <example>3</example>
@@ -68,7 +111,7 @@ namespace Vectara
 
         /// <summary>
         /// Operator used for the upper bound when filtering articles by when they were last updated.<br/>
-        /// `lt` is strict less-than and `lte` is less-than-or-equal.<br/>
+        /// `lt` is strict less-than and `lte` is less-than-or-equal. Applies to `data_api` only.<br/>
         /// Default Value: lte
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("update_upper_bound_operator")]
@@ -134,27 +177,52 @@ namespace Vectara
         /// Example: https://example-api.wolkenservicedesk.com
         /// </param>
         /// <param name="domain">
-        /// The Wolken tenant name issued with your Wolken API credentials, not a hostname. For example `example`, not `example.wolkenservicedesk.com`.<br/>
-        /// Example: example
+        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname, so use the exact value from your credential handoff.<br/>
+        /// Example: example.wolkenservicedesk.com
+        /// </param>
+        /// <param name="kbApi">
+        /// The Wolken API family used to read the knowledge base. `data_api` reads through the<br/>
+        /// provisioned data API endpoint and supports server-side update-time filters. `kb_module`<br/>
+        /// reads through the Knowledge Base module REST API, which lists articles by category and<br/>
+        /// offers no server-side filters, so update detection happens after listing. Which family a<br/>
+        /// Wolken deployment provisions is determined by the Wolken administrator.<br/>
+        /// Default Value: data_api
+        /// </param>
+        /// <param name="categoryIds">
+        /// Wolken knowledge-base category IDs to restrict ingestion to. If unset, articles of every<br/>
+        /// category are ingested. Category IDs are specific to your Wolken deployment and can be<br/>
+        /// read from the Knowledge Base module category listing. Applies to `kb_module` only.<br/>
+        /// Example: [9, 12]
+        /// </param>
+        /// <param name="articleIds">
+        /// Wolken knowledge-base article IDs to restrict ingestion to. If unset, all articles<br/>
+        /// matching the other configured filters are ingested.<br/>
+        /// Example: [101, 205]
+        /// </param>
+        /// <param name="articleStatuses">
+        /// Article lifecycle statuses to ingest. If unset, articles of every status are ingested. An<br/>
+        /// article Wolken reports no status for is always ingested.<br/>
+        /// Example: [published, draft]
         /// </param>
         /// <param name="statusId">
         /// Lifecycle status to filter articles by. If unset, articles of every lifecycle status are<br/>
-        /// ingested. Status IDs are specific to your Wolken deployment.<br/>
+        /// ingested. Status IDs are specific to your Wolken deployment. Applies to `data_api` only.<br/>
         /// Example: 2
         /// </param>
         /// <param name="validationStatusId">
         /// Validation status to filter articles by. If unset, articles of every validation status<br/>
-        /// are ingested. Validation status IDs are specific to your Wolken deployment.<br/>
+        /// are ingested. Validation status IDs are specific to your Wolken deployment. Applies to<br/>
+        /// `data_api` only.<br/>
         /// Example: 2
         /// </param>
         /// <param name="levelId">
         /// Audience level to filter articles by. If unset, articles of every audience level are<br/>
-        /// ingested. Level IDs are specific to your Wolken deployment.<br/>
+        /// ingested. Level IDs are specific to your Wolken deployment. Applies to `data_api` only.<br/>
         /// Example: 3
         /// </param>
         /// <param name="updateUpperBoundOperator">
         /// Operator used for the upper bound when filtering articles by when they were last updated.<br/>
-        /// `lt` is strict less-than and `lte` is less-than-or-equal.<br/>
+        /// `lt` is strict less-than and `lte` is less-than-or-equal. Applies to `data_api` only.<br/>
         /// Default Value: lte
         /// </param>
         /// <param name="articleUrlTemplate">
@@ -187,6 +255,10 @@ namespace Vectara
             string type,
             string? apiEndpoint,
             string? domain,
+            global::Vectara.BaseWolkenKbSourceConfigurationKbApi? kbApi,
+            global::System.Collections.Generic.IList<string>? categoryIds,
+            global::System.Collections.Generic.IList<string>? articleIds,
+            global::System.Collections.Generic.IList<global::Vectara.WolkenArticleStatus>? articleStatuses,
             int? statusId,
             int? validationStatusId,
             int? levelId,
@@ -200,6 +272,10 @@ namespace Vectara
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.ApiEndpoint = apiEndpoint;
             this.Domain = domain;
+            this.KbApi = kbApi;
+            this.CategoryIds = categoryIds;
+            this.ArticleIds = articleIds;
+            this.ArticleStatuses = articleStatuses;
             this.StatusId = statusId;
             this.ValidationStatusId = validationStatusId;
             this.LevelId = levelId;
