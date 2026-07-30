@@ -29,10 +29,14 @@ namespace Vectara.JsonConverters
 
             var __score0 = 0;
             if (__jsonProps.Contains("api_endpoint")) __score0++;
+            if (__jsonProps.Contains("article_ids")) __score0++;
+            if (__jsonProps.Contains("article_statuses")) __score0++;
             if (__jsonProps.Contains("article_url_template")) __score0++;
             if (__jsonProps.Contains("auth_code")) __score0++;
+            if (__jsonProps.Contains("category_ids")) __score0++;
             if (__jsonProps.Contains("client_id")) __score0++;
             if (__jsonProps.Contains("domain")) __score0++;
+            if (__jsonProps.Contains("kb_api")) __score0++;
             if (__jsonProps.Contains("level_id")) __score0++;
             if (__jsonProps.Contains("refresh_token")) __score0++;
             if (__jsonProps.Contains("service_account")) __score0++;

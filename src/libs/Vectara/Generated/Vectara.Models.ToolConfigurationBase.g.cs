@@ -111,6 +111,20 @@ namespace Vectara
         public string? InputTransform { get; set; }
 
         /// <summary>
+        /// Maximum wall-clock time, in seconds, before a call to this tool is aborted. For `sandbox_exec`, this also bounds the command running inside the sandbox pod; it does not change the pod's session lifetime. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout is applied and the tool's own limits, if any, govern how long a call may run.<br/>
+        /// Example: 180
+        /// </summary>
+        /// <example>180</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("max_execution_time_seconds")]
+        public int? MaxExecutionTimeSeconds { get; set; }
+
+        /// <summary>
+        /// Overrides the agent's `tool_output_offloading` for outputs of this tool. Fields left unset inherit their value from the agent's configuration. When unset, the agent's configuration applies unchanged.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_output_offloading")]
+        public global::Vectara.ToolOutputOffloadingConfiguration? ToolOutputOffloading { get; set; }
+
+        /// <summary>
         /// When true, this tool configuration is used only during session-creation enrichment and is never exposed to the agent's model. Enrichment tool calls in session_enrichment.tool_calls reference these configurations by name.<br/>
         /// Default Value: false
         /// </summary>
@@ -191,6 +205,13 @@ namespace Vectara
         ///   - `.args | .query = (.args.query + " " + .session.metadata.query_suffix)` — augment the agent's query<br/>
         /// Example: .args + { auth: ("Bearer " + .agent.secrets.token) }
         /// </param>
+        /// <param name="maxExecutionTimeSeconds">
+        /// Maximum wall-clock time, in seconds, before a call to this tool is aborted. For `sandbox_exec`, this also bounds the command running inside the sandbox pod; it does not change the pod's session lifetime. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout is applied and the tool's own limits, if any, govern how long a call may run.<br/>
+        /// Example: 180
+        /// </param>
+        /// <param name="toolOutputOffloading">
+        /// Overrides the agent's `tool_output_offloading` for outputs of this tool. Fields left unset inherit their value from the agent's configuration. When unset, the agent's configuration applies unchanged.
+        /// </param>
         /// <param name="enrichmentOnly">
         /// When true, this tool configuration is used only during session-creation enrichment and is never exposed to the agent's model. Enrichment tool calls in session_enrichment.tool_calls reference these configurations by name.<br/>
         /// Default Value: false
@@ -209,6 +230,8 @@ namespace Vectara
             global::System.DateTime? updatedAt,
             string? outputTransform,
             string? inputTransform,
+            int? maxExecutionTimeSeconds,
+            global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading,
             bool? enrichmentOnly)
         {
             this.Key = key;
@@ -221,6 +244,8 @@ namespace Vectara
             this.UpdatedAt = updatedAt;
             this.OutputTransform = outputTransform;
             this.InputTransform = inputTransform;
+            this.MaxExecutionTimeSeconds = maxExecutionTimeSeconds;
+            this.ToolOutputOffloading = toolOutputOffloading;
             this.EnrichmentOnly = enrichmentOnly;
         }
 

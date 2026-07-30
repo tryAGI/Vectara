@@ -19,6 +19,10 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        Forbidden,
+        /// <summary>
+        /// 
+        /// </summary>
         InvalidConfiguration,
         /// <summary>
         /// 
@@ -48,6 +52,7 @@ namespace Vectara
             {
                 ListTracesToolErrorType.DependencyFailed => "dependency_failed",
                 ListTracesToolErrorType.ExecutionError => "execution_error",
+                ListTracesToolErrorType.Forbidden => "forbidden",
                 ListTracesToolErrorType.InvalidConfiguration => "invalid_configuration",
                 ListTracesToolErrorType.InvalidInput => "invalid_input",
                 ListTracesToolErrorType.NotFound => "not_found",
@@ -64,6 +69,7 @@ namespace Vectara
             {
                 "dependency_failed" => ListTracesToolErrorType.DependencyFailed,
                 "execution_error" => ListTracesToolErrorType.ExecutionError,
+                "forbidden" => ListTracesToolErrorType.Forbidden,
                 "invalid_configuration" => ListTracesToolErrorType.InvalidConfiguration,
                 "invalid_input" => ListTracesToolErrorType.InvalidInput,
                 "not_found" => ListTracesToolErrorType.NotFound,

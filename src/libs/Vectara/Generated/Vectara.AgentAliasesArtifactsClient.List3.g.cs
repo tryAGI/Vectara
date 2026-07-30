@@ -47,6 +47,7 @@ namespace Vectara
             ref int? requestTimeoutMillis,
             ref string aliasKey,
             ref string sessionKey,
+            ref string? metadataFilter,
             ref int? limit,
             ref string? pageKey,
             ref global::Vectara.ListAliasRoutedSessionArtifactsSortBy? sortBy,
@@ -58,6 +59,7 @@ namespace Vectara
             int? requestTimeoutMillis,
             string aliasKey,
             string sessionKey,
+            string? metadataFilter,
             int? limit,
             string? pageKey,
             global::Vectara.ListAliasRoutedSessionArtifactsSortBy? sortBy,
@@ -85,6 +87,9 @@ namespace Vectara
         /// A unique key that identifies an agent session.<br/>
         /// Example: customer_support_chat
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: source = 'user_upload' AND page_count &gt;= 10
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -103,6 +108,7 @@ namespace Vectara
             string sessionKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? metadataFilter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.ListAliasRoutedSessionArtifactsSortBy? sortBy = default,
@@ -115,6 +121,7 @@ namespace Vectara
                 sessionKey: sessionKey,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
+                metadataFilter: metadataFilter,
                 limit: limit,
                 pageKey: pageKey,
                 sortBy: sortBy,
@@ -139,6 +146,9 @@ namespace Vectara
         /// A unique key that identifies an agent session.<br/>
         /// Example: customer_support_chat
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: source = 'user_upload' AND page_count &gt;= 10
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -157,6 +167,7 @@ namespace Vectara
             string sessionKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? metadataFilter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.ListAliasRoutedSessionArtifactsSortBy? sortBy = default,
@@ -172,6 +183,7 @@ namespace Vectara
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 aliasKey: ref aliasKey,
                 sessionKey: ref sessionKey,
+                metadataFilter: ref metadataFilter,
                 limit: ref limit,
                 pageKey: ref pageKey,
                 sortBy: ref sortBy,
@@ -204,6 +216,7 @@ namespace Vectara
                                 path: $"/v2/agent_aliases/{aliasKey}/sessions/{sessionKey}/artifacts",
                                 baseUri: HttpClient.BaseAddress);
                             __pathBuilder
+                                .AddOptionalParameter("metadata_filter", metadataFilter)
                                 .AddOptionalParameter("limit", limit?.ToString())
                                 .AddOptionalParameter("page_key", pageKey)
                                 .AddOptionalParameter("sort_by", sortBy?.ToValueString())
@@ -263,6 +276,7 @@ namespace Vectara
                     requestTimeoutMillis: requestTimeoutMillis,
                     aliasKey: aliasKey!,
                     sessionKey: sessionKey!,
+                    metadataFilter: metadataFilter,
                     limit: limit,
                     pageKey: pageKey,
                     sortBy: sortBy,

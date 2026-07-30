@@ -18,6 +18,9 @@ namespace Vectara
         /// A unique key that identifies an agent session.<br/>
         /// Example: customer_support_chat
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: source = 'user_upload' AND page_count &gt;= 10
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -36,6 +39,7 @@ namespace Vectara
             string sessionKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? metadataFilter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.ListSessionArtifactsSortBy? sortBy = default,
@@ -56,6 +60,9 @@ namespace Vectara
         /// A unique key that identifies an agent session.<br/>
         /// Example: customer_support_chat
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: source = 'user_upload' AND page_count &gt;= 10
+        /// </param>
         /// <param name="limit">
         /// Default Value: 10
         /// </param>
@@ -74,6 +81,7 @@ namespace Vectara
             string sessionKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? metadataFilter = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.ListSessionArtifactsSortBy? sortBy = default,

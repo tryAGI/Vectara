@@ -31,7 +31,10 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("api_key")) __score0++;
             if (__jsonProps.Contains("base_url")) __score0++;
             if (__jsonProps.Contains("content_scope")) __score0++;
+            if (__jsonProps.Contains("document_fetch_modes")) __score0++;
+            if (__jsonProps.Contains("exclude_sources")) __score0++;
             if (__jsonProps.Contains("filters")) __score0++;
+            if (__jsonProps.Contains("include_sources")) __score0++;
             if (__jsonProps.Contains("locale")) __score0++;
             if (__jsonProps.Contains("query")) __score0++;
             if (__jsonProps.Contains("type")) __score0++;

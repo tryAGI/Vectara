@@ -77,6 +77,38 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? Filters { get; set; }
 
         /// <summary>
+        /// Fluid Topics source ids (`ft:sourceId`) to ingest; a record whose source is not listed is<br/>
+        /// skipped. Applied to every ingestion path regardless of `query` or `filters`. Empty (the<br/>
+        /// default) ingests every source.<br/>
+        /// Example: [ud]
+        /// </summary>
+        /// <example>[ud]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("include_sources")]
+        public global::System.Collections.Generic.IList<string>? IncludeSources { get; set; }
+
+        /// <summary>
+        /// Fluid Topics source ids (`ft:sourceId`, for example `drupal` or `khoros`) whose records are<br/>
+        /// excluded from ingestion, even when they also match `include_sources`. Applied to every<br/>
+        /// ingestion path regardless of `query` or `filters`. Empty (the default) excludes nothing.<br/>
+        /// Example: [drupal, khoros]
+        /// </summary>
+        /// <example>[drupal, khoros]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("exclude_sources")]
+        public global::System.Collections.Generic.IList<string>? ExcludeSources { get; set; }
+
+        /// <summary>
+        /// How document bodies are fetched in the `documents` scope, as a map of MIME type to fetch<br/>
+        /// mode. Keys match a document's MIME type (`ft:mimeType`) exactly (`application/pdf`), by<br/>
+        /// prefix (`image/*`), or `*` as the catch-all default. Types matching no key use<br/>
+        /// `extracted_text`, the behavior when this map is unset. Ignored when `content_scope` is<br/>
+        /// `topics`.<br/>
+        /// Example: {"application/pdf":"original_file","video/*":"metadata_only"}
+        /// </summary>
+        /// <example>{"application/pdf":"original_file","video/*":"metadata_only"}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("document_fetch_modes")]
+        public global::System.Collections.Generic.Dictionary<string, global::Vectara.FluidtopicsDocumentFetchMode>? DocumentFetchModes { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -121,6 +153,26 @@ namespace Vectara
         /// public content. When unset, no metadata filter is applied.<br/>
         /// Example: {"Disclosure":["Public"]}
         /// </param>
+        /// <param name="includeSources">
+        /// Fluid Topics source ids (`ft:sourceId`) to ingest; a record whose source is not listed is<br/>
+        /// skipped. Applied to every ingestion path regardless of `query` or `filters`. Empty (the<br/>
+        /// default) ingests every source.<br/>
+        /// Example: [ud]
+        /// </param>
+        /// <param name="excludeSources">
+        /// Fluid Topics source ids (`ft:sourceId`, for example `drupal` or `khoros`) whose records are<br/>
+        /// excluded from ingestion, even when they also match `include_sources`. Applied to every<br/>
+        /// ingestion path regardless of `query` or `filters`. Empty (the default) excludes nothing.<br/>
+        /// Example: [drupal, khoros]
+        /// </param>
+        /// <param name="documentFetchModes">
+        /// How document bodies are fetched in the `documents` scope, as a map of MIME type to fetch<br/>
+        /// mode. Keys match a document's MIME type (`ft:mimeType`) exactly (`application/pdf`), by<br/>
+        /// prefix (`image/*`), or `*` as the catch-all default. Types matching no key use<br/>
+        /// `extracted_text`, the behavior when this map is unset. Ignored when `content_scope` is<br/>
+        /// `topics`.<br/>
+        /// Example: {"application/pdf":"original_file","video/*":"metadata_only"}
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -131,7 +183,10 @@ namespace Vectara
             global::Vectara.BaseFluidtopicsSourceConfigurationContentScope? contentScope,
             string? query,
             string? locale,
-            global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? filters)
+            global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? filters,
+            global::System.Collections.Generic.IList<string>? includeSources,
+            global::System.Collections.Generic.IList<string>? excludeSources,
+            global::System.Collections.Generic.Dictionary<string, global::Vectara.FluidtopicsDocumentFetchMode>? documentFetchModes)
         {
             this.Type = type;
             this.BaseUrl = baseUrl;
@@ -140,6 +195,9 @@ namespace Vectara
             this.Query = query;
             this.Locale = locale;
             this.Filters = filters;
+            this.IncludeSources = includeSources;
+            this.ExcludeSources = excludeSources;
+            this.DocumentFetchModes = documentFetchModes;
         }
 
         /// <summary>

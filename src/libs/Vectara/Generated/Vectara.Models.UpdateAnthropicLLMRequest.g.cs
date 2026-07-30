@@ -47,7 +47,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, string>? Headers { get; set; }
 
         /// <summary>
-        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. For example, this is used as the SSE idle timeout during streaming — if no new server-sent events arrive within this window the stream is closed with an error. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. During streaming this is the SSE idle timeout — if no new server-sent events arrive within this window the stream is closed with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
         /// Example: 300
         /// </summary>
         /// <example>300</example>
@@ -101,7 +101,7 @@ namespace Vectara
         /// Optional additional headers to send with the request
         /// </param>
         /// <param name="idleTimeoutSeconds">
-        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. For example, this is used as the SSE idle timeout during streaming — if no new server-sent events arrive within this window the stream is closed with an error. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. During streaming this is the SSE idle timeout — if no new server-sent events arrive within this window the stream is closed with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
         /// Example: 300
         /// </param>
         /// <param name="enabled">

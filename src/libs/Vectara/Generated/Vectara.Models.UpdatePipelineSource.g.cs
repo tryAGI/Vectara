@@ -202,6 +202,43 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenKb' but the value was {ToString()}.");
 
         /// <summary>
+        /// Partial update for Wolken forms source configuration. Only provided fields are merged.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.UpdateWolkenFormsSourceConfiguration? WolkenForms { get; init; }
+#else
+        public global::Vectara.UpdateWolkenFormsSourceConfiguration? WolkenForms { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WolkenForms))]
+#endif
+        public bool IsWolkenForms => WolkenForms != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickWolkenForms(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateWolkenFormsSourceConfiguration? value)
+        {
+            value = WolkenForms;
+            return IsWolkenForms;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateWolkenFormsSourceConfiguration PickWolkenForms() => IsWolkenForms
+            ? WolkenForms!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenForms' but the value was {ToString()}.");
+
+        /// <summary>
         /// Partial update for Confluence source configuration. Only provided fields are merged.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -274,6 +311,43 @@ namespace Vectara
         public global::Vectara.UpdateFluidtopicsSourceConfiguration PickFluidtopics() => IsFluidtopics
             ? Fluidtopics!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Fluidtopics' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Partial update for SCIM source configuration. Only provided fields are merged.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.UpdateScimSourceConfiguration? Scim { get; init; }
+#else
+        public global::Vectara.UpdateScimSourceConfiguration? Scim { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Scim))]
+#endif
+        public bool IsScim => Scim != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickScim(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateScimSourceConfiguration? value)
+        {
+            value = Scim;
+            return IsScim;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.UpdateScimSourceConfiguration PickScim() => IsScim
+            ? Scim!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Scim' but the value was {ToString()}.");
 
         /// <summary>
         /// Partial update for a `web` source configuration. Top-level fields are merged into the existing<br/>
@@ -432,6 +506,29 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator UpdatePipelineSource(global::Vectara.UpdateWolkenFormsSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateWolkenFormsSourceConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.UpdateWolkenFormsSourceConfiguration?(UpdatePipelineSource @this) => @this.WolkenForms;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UpdatePipelineSource(global::Vectara.UpdateWolkenFormsSourceConfiguration? value)
+        {
+            WolkenForms = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdatePipelineSource FromWolkenForms(global::Vectara.UpdateWolkenFormsSourceConfiguration? value) => new UpdatePipelineSource(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdatePipelineSource(global::Vectara.UpdateConfluenceSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateConfluenceSourceConfiguration?)value);
 
         /// <summary>
@@ -478,6 +575,29 @@ namespace Vectara
         /// <summary>
         /// 
         /// </summary>
+        public static implicit operator UpdatePipelineSource(global::Vectara.UpdateScimSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateScimSourceConfiguration?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.UpdateScimSourceConfiguration?(UpdatePipelineSource @this) => @this.Scim;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UpdatePipelineSource(global::Vectara.UpdateScimSourceConfiguration? value)
+        {
+            Scim = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static UpdatePipelineSource FromScim(global::Vectara.UpdateScimSourceConfiguration? value) => new UpdatePipelineSource(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator UpdatePipelineSource(global::Vectara.UpdateWebSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateWebSourceConfiguration?)value);
 
         /// <summary>
@@ -508,8 +628,10 @@ namespace Vectara
             global::Vectara.UpdateGoogleDriveSourceConfiguration? googleDrive,
             global::Vectara.UpdateBoxSourceConfiguration? box,
             global::Vectara.UpdateWolkenKbSourceConfiguration? wolkenKb,
+            global::Vectara.UpdateWolkenFormsSourceConfiguration? wolkenForms,
             global::Vectara.UpdateConfluenceSourceConfiguration? confluence,
             global::Vectara.UpdateFluidtopicsSourceConfiguration? fluidtopics,
+            global::Vectara.UpdateScimSourceConfiguration? scim,
             global::Vectara.UpdateWebSourceConfiguration? web
             )
         {
@@ -520,8 +642,10 @@ namespace Vectara
             GoogleDrive = googleDrive;
             Box = box;
             WolkenKb = wolkenKb;
+            WolkenForms = wolkenForms;
             Confluence = confluence;
             Fluidtopics = fluidtopics;
+            Scim = scim;
             Web = web;
         }
 
@@ -530,8 +654,10 @@ namespace Vectara
         /// </summary>
         public object? Object =>
             Web as object ??
+            Scim as object ??
             Fluidtopics as object ??
             Confluence as object ??
+            WolkenForms as object ??
             WolkenKb as object ??
             Box as object ??
             GoogleDrive as object ??
@@ -548,8 +674,10 @@ namespace Vectara
             GoogleDrive?.ToString() ??
             Box?.ToString() ??
             WolkenKb?.ToString() ??
+            WolkenForms?.ToString() ??
             Confluence?.ToString() ??
             Fluidtopics?.ToString() ??
+            Scim?.ToString() ??
             Web?.ToString() 
             ;
 
@@ -558,7 +686,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolkenKb && !IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && IsConfluence && !IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && IsFluidtopics && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsConfluence && !IsFluidtopics && IsWeb;
+            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && IsWeb;
         }
 
         /// <summary>
@@ -570,8 +698,10 @@ namespace Vectara
             global::System.Func<global::Vectara.UpdateGoogleDriveSourceConfiguration?, TResult>? googleDrive = null,
             global::System.Func<global::Vectara.UpdateBoxSourceConfiguration?, TResult>? box = null,
             global::System.Func<global::Vectara.UpdateWolkenKbSourceConfiguration?, TResult>? wolkenKb = null,
+            global::System.Func<global::Vectara.UpdateWolkenFormsSourceConfiguration?, TResult>? wolkenForms = null,
             global::System.Func<global::Vectara.UpdateConfluenceSourceConfiguration?, TResult>? confluence = null,
             global::System.Func<global::Vectara.UpdateFluidtopicsSourceConfiguration?, TResult>? fluidtopics = null,
+            global::System.Func<global::Vectara.UpdateScimSourceConfiguration?, TResult>? scim = null,
             global::System.Func<global::Vectara.UpdateWebSourceConfiguration?, TResult>? web = null,
             bool validate = true)
         {
@@ -600,6 +730,10 @@ namespace Vectara
             {
                 return wolkenKb(WolkenKb!);
             }
+            else if (IsWolkenForms && wolkenForms != null)
+            {
+                return wolkenForms(WolkenForms!);
+            }
             else if (IsConfluence && confluence != null)
             {
                 return confluence(Confluence!);
@@ -607,6 +741,10 @@ namespace Vectara
             else if (IsFluidtopics && fluidtopics != null)
             {
                 return fluidtopics(Fluidtopics!);
+            }
+            else if (IsScim && scim != null)
+            {
+                return scim(Scim!);
             }
             else if (IsWeb && web != null)
             {
@@ -630,9 +768,13 @@ namespace Vectara
 
             global::System.Action<global::Vectara.UpdateWolkenKbSourceConfiguration?>? wolkenKb = null,
 
+            global::System.Action<global::Vectara.UpdateWolkenFormsSourceConfiguration?>? wolkenForms = null,
+
             global::System.Action<global::Vectara.UpdateConfluenceSourceConfiguration?>? confluence = null,
 
             global::System.Action<global::Vectara.UpdateFluidtopicsSourceConfiguration?>? fluidtopics = null,
+
+            global::System.Action<global::Vectara.UpdateScimSourceConfiguration?>? scim = null,
 
             global::System.Action<global::Vectara.UpdateWebSourceConfiguration?>? web = null,
             bool validate = true)
@@ -662,6 +804,10 @@ namespace Vectara
             {
                 wolkenKb?.Invoke(WolkenKb!);
             }
+            else if (IsWolkenForms)
+            {
+                wolkenForms?.Invoke(WolkenForms!);
+            }
             else if (IsConfluence)
             {
                 confluence?.Invoke(Confluence!);
@@ -669,6 +815,10 @@ namespace Vectara
             else if (IsFluidtopics)
             {
                 fluidtopics?.Invoke(Fluidtopics!);
+            }
+            else if (IsScim)
+            {
+                scim?.Invoke(Scim!);
             }
             else if (IsWeb)
             {
@@ -685,8 +835,10 @@ namespace Vectara
             global::System.Action<global::Vectara.UpdateGoogleDriveSourceConfiguration?>? googleDrive = null,
             global::System.Action<global::Vectara.UpdateBoxSourceConfiguration?>? box = null,
             global::System.Action<global::Vectara.UpdateWolkenKbSourceConfiguration?>? wolkenKb = null,
+            global::System.Action<global::Vectara.UpdateWolkenFormsSourceConfiguration?>? wolkenForms = null,
             global::System.Action<global::Vectara.UpdateConfluenceSourceConfiguration?>? confluence = null,
             global::System.Action<global::Vectara.UpdateFluidtopicsSourceConfiguration?>? fluidtopics = null,
+            global::System.Action<global::Vectara.UpdateScimSourceConfiguration?>? scim = null,
             global::System.Action<global::Vectara.UpdateWebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -715,6 +867,10 @@ namespace Vectara
             {
                 wolkenKb?.Invoke(WolkenKb!);
             }
+            else if (IsWolkenForms)
+            {
+                wolkenForms?.Invoke(WolkenForms!);
+            }
             else if (IsConfluence)
             {
                 confluence?.Invoke(Confluence!);
@@ -722,6 +878,10 @@ namespace Vectara
             else if (IsFluidtopics)
             {
                 fluidtopics?.Invoke(Fluidtopics!);
+            }
+            else if (IsScim)
+            {
+                scim?.Invoke(Scim!);
             }
             else if (IsWeb)
             {
@@ -746,10 +906,14 @@ namespace Vectara
                 typeof(global::Vectara.UpdateBoxSourceConfiguration),
                 WolkenKb,
                 typeof(global::Vectara.UpdateWolkenKbSourceConfiguration),
+                WolkenForms,
+                typeof(global::Vectara.UpdateWolkenFormsSourceConfiguration),
                 Confluence,
                 typeof(global::Vectara.UpdateConfluenceSourceConfiguration),
                 Fluidtopics,
                 typeof(global::Vectara.UpdateFluidtopicsSourceConfiguration),
+                Scim,
+                typeof(global::Vectara.UpdateScimSourceConfiguration),
                 Web,
                 typeof(global::Vectara.UpdateWebSourceConfiguration),
             };
@@ -773,8 +937,10 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateGoogleDriveSourceConfiguration?>.Default.Equals(GoogleDrive, other.GoogleDrive) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateBoxSourceConfiguration?>.Default.Equals(Box, other.Box) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWolkenKbSourceConfiguration?>.Default.Equals(WolkenKb, other.WolkenKb) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWolkenFormsSourceConfiguration?>.Default.Equals(WolkenForms, other.WolkenForms) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateConfluenceSourceConfiguration?>.Default.Equals(Confluence, other.Confluence) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateFluidtopicsSourceConfiguration?>.Default.Equals(Fluidtopics, other.Fluidtopics) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateScimSourceConfiguration?>.Default.Equals(Scim, other.Scim) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWebSourceConfiguration?>.Default.Equals(Web, other.Web) 
                 ;
         }

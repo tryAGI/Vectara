@@ -31,7 +31,7 @@ namespace Vectara
         public global::Vectara.OneOf<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>? Headers { get; set; }
 
         /// <summary>
-        /// Request body for POST/PUT/PATCH requests.
+        /// Request body for POST/PUT/PATCH requests. Its UTF-8 byte length must not exceed `max_body_bytes`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("body")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>))]
@@ -80,6 +80,13 @@ namespace Vectara
         public global::Vectara.OneOf<long?, global::Vectara.EagerReference>? MaxContentBytes { get; set; }
 
         /// <summary>
+        /// Maximum UTF-8 byte length of `body`; a request whose body exceeds this is rejected without being sent. Must be between 1024 (1 KB) and 4194304 (4 MB). Defaults to 65536 (64 KB).
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("max_body_bytes")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<long?, global::Vectara.EagerReference>))]
+        public global::Vectara.OneOf<long?, global::Vectara.EagerReference>? MaxBodyBytes { get; set; }
+
+        /// <summary>
         /// How to return the response body. `content` (default) returns the body inline in `content`, truncated to `head_lines`/`tail_lines`/`max_content_bytes`. `artifact` streams the body into a session artifact and returns its id in `artifact_id`; `content` is then absent.<br/>
         /// Default Value: content
         /// </summary>
@@ -114,7 +121,7 @@ namespace Vectara
         /// Either a literal `{name: value}` map (where each value may itself be a string OR an EagerReference for per-header secret lookup), or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
         /// </param>
         /// <param name="body">
-        /// Request body for POST/PUT/PATCH requests.
+        /// Request body for POST/PUT/PATCH requests. Its UTF-8 byte length must not exceed `max_body_bytes`.
         /// </param>
         /// <param name="followRedirects">
         /// Whether to follow HTTP redirects.
@@ -133,6 +140,9 @@ namespace Vectara
         /// </param>
         /// <param name="maxContentBytes">
         /// Maximum response size in bytes before truncation.
+        /// </param>
+        /// <param name="maxBodyBytes">
+        /// Maximum UTF-8 byte length of `body`; a request whose body exceeds this is rejected without being sent. Must be between 1024 (1 KB) and 4194304 (4 MB). Defaults to 65536 (64 KB).
         /// </param>
         /// <param name="responseMode">
         /// How to return the response body. `content` (default) returns the body inline in `content`, truncated to `head_lines`/`tail_lines`/`max_content_bytes`. `artifact` streams the body into a session artifact and returns its id in `artifact_id`; `content` is then absent.<br/>
@@ -155,6 +165,7 @@ namespace Vectara
             global::Vectara.OneOf<int?, global::Vectara.EagerReference>? tailLines,
             global::Vectara.OneOf<bool?, global::Vectara.EagerReference>? sslVerify,
             global::Vectara.OneOf<long?, global::Vectara.EagerReference>? maxContentBytes,
+            global::Vectara.OneOf<long?, global::Vectara.EagerReference>? maxBodyBytes,
             global::Vectara.WebGetToolParametersResponseMode? responseMode,
             global::Vectara.WebGetAuth? auth)
         {
@@ -168,6 +179,7 @@ namespace Vectara
             this.TailLines = tailLines;
             this.SslVerify = sslVerify;
             this.MaxContentBytes = maxContentBytes;
+            this.MaxBodyBytes = maxBodyBytes;
             this.ResponseMode = responseMode;
             this.Auth = auth;
         }

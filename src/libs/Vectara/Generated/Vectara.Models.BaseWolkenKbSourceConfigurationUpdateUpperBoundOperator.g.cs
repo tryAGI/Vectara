@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// Operator used for the upper bound when filtering articles by when they were last updated.<br/>
-    /// `lt` is strict less-than and `lte` is less-than-or-equal.<br/>
+    /// `lt` is strict less-than and `lte` is less-than-or-equal. Applies to `data_api` only.<br/>
     /// Default Value: lte
     /// </summary>
     public enum BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator
