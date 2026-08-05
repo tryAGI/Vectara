@@ -29,7 +29,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.AgentInput>? Message { get; set; }
 
         /// <summary>
-        /// Configuration for when and how often the schedule should execute.
+        /// Configuration for when and how often the schedule executes.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("schedule")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter))]
@@ -86,7 +86,7 @@ namespace Vectara
         /// Updated input message to send to the agent on each scheduled execution.
         /// </param>
         /// <param name="schedule">
-        /// Configuration for when and how often the schedule should execute.
+        /// Configuration for when and how often the schedule executes.
         /// </param>
         /// <param name="enabled">
         /// Updated enabled status for the schedule.

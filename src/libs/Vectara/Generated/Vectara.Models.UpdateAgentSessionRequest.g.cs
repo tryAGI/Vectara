@@ -41,7 +41,7 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If set to 0, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If set to 0, the session does not expire.<br/>
         /// Example: 60
         /// </summary>
         /// <example>60</example>
@@ -83,7 +83,7 @@ namespace Vectara
         /// Example: false
         /// </param>
         /// <param name="ttiMinutes">
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If set to 0, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If set to 0, the session does not expire.<br/>
         /// Example: 60
         /// </param>
         /// <param name="secrets">

@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class DocumentStorageUsage
     {
         /// <summary>
-        /// Number of bytes used by document counting towards maximum corpus size, and towards any billing plans.
+        /// Number of bytes used by the document. These bytes count towards the maximum corpus size and towards any billing plans.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bytes_used")]
         public long? BytesUsed { get; set; }
@@ -30,7 +30,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="DocumentStorageUsage" /> class.
         /// </summary>
         /// <param name="bytesUsed">
-        /// Number of bytes used by document counting towards maximum corpus size, and towards any billing plans.
+        /// Number of bytes used by the document. These bytes count towards the maximum corpus size and towards any billing plans.
         /// </param>
         /// <param name="metadataBytesUsed">
         /// Number of metadata bytes used by a document.

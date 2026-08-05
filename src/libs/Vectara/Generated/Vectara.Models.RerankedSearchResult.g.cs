@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class RerankedSearchResult
     {
         /// <summary>
-        /// The document part altered by the context configuration that matches the query.
+        /// The document part that matches the query, altered by the context configuration.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("text")]
         public string? Text { get; set; }
@@ -36,7 +36,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="RerankedSearchResult" /> class.
         /// </summary>
         /// <param name="text">
-        /// The document part altered by the context configuration that matches the query.
+        /// The document part that matches the query, altered by the context configuration.
         /// </param>
         /// <param name="score">
         /// The score of the individual result.

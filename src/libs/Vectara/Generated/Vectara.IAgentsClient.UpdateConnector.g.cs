@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Update agent connector<br/>
-        /// Update an existing agent connector's configuration, status, or other properties.
+        /// Updates an agent connector's configuration, status, or other properties.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -32,7 +32,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent connector<br/>
-        /// Update an existing agent connector's configuration, status, or other properties.
+        /// Updates an agent connector's configuration, status, or other properties.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -58,7 +58,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent connector<br/>
-        /// Update an existing agent connector's configuration, status, or other properties.
+        /// Updates an agent connector's configuration, status, or other properties.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -88,10 +88,11 @@ namespace Vectara
         /// <param name="configuration">
         /// Write view of a connector's configuration. Used when creating a connector<br/>
         /// and reused when updating one. Carries the secrets and inputs the customer<br/>
-        /// must supply. Server-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view: Slack returns `webhook_path`, gchat returns<br/>
-        /// `audience_url` and `client_email`, and zoom returns the generated<br/>
-        /// `connector_token` and `webhook_path`.
+        /// must supply. Platform-derived display fields are not accepted here and instead<br/>
+        /// appear in the read view:<br/>
+        /// - Slack returns `webhook_path`<br/>
+        /// - gchat returns `audience_url` and `client_email`<br/>
+        /// - zoom returns the generated `connector_token` and `webhook_path`
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>

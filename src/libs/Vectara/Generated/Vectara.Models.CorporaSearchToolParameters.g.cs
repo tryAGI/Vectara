@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class CorporaSearchToolParameters
     {
         /// <summary>
-        /// The search query string, which is the question the user is asking. If not provided, will be filled in by the agent.<br/>
+        /// The search query string, which is the question the user is asking. If not provided, the agent fills it in.<br/>
         /// Example: Am I allowed to bring pets to work?
         /// </summary>
         /// <example>Am I allowed to bring pets to work?</example>
@@ -26,7 +26,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CorporaSearchToolParameters" /> class.
         /// </summary>
         /// <param name="query">
-        /// The search query string, which is the question the user is asking. If not provided, will be filled in by the agent.<br/>
+        /// The search query string, which is the question the user is asking. If not provided, the agent fills it in.<br/>
         /// Example: Am I allowed to bring pets to work?
         /// </param>
 #if NET7_0_OR_GREATER

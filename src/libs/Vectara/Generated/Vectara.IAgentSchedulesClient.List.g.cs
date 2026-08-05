@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List agent schedules<br/>
-        /// List all schedules for the specified agent. This endpoint returns high-level information about each schedule including execution status and next scheduled execution time.
+        /// Lists all schedules for the specified agent. Returns high-level information about each schedule, including execution status and next scheduled execution time.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -31,7 +31,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List agent schedules<br/>
-        /// List all schedules for the specified agent. This endpoint returns high-level information about each schedule including execution status and next scheduled execution time.
+        /// Lists all schedules for the specified agent. Returns high-level information about each schedule, including execution status and next scheduled execution time.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

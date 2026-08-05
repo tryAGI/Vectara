@@ -25,7 +25,7 @@ namespace Vectara
         public required global::Vectara.RunCompletedEventStatus Status { get; set; }
 
         /// <summary>
-        /// Total records fetched across the run. Present when the run reported counters; absent or partial for cancellation.
+        /// Total records fetched across the run. Present when the run reported counters. Absent or partial for cancellation.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("records_fetched")]
         public int? RecordsFetched { get; set; }
@@ -64,7 +64,7 @@ namespace Vectara
         /// Terminal status of a pipeline run.
         /// </param>
         /// <param name="recordsFetched">
-        /// Total records fetched across the run. Present when the run reported counters; absent or partial for cancellation.
+        /// Total records fetched across the run. Present when the run reported counters. Absent or partial for cancellation.
         /// </param>
         /// <param name="recordsProcessed"></param>
         /// <param name="recordsFailed"></param>

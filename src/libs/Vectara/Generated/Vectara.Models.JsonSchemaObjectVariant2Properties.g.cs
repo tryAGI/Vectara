@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Property definitions when type is 'object'. Each key maps to a nested schema.
+    /// The object's properties. Each key maps to a nested schema.
     /// </summary>
-    public sealed partial class JsonSchemaDefinitionProperties
+    public sealed partial class JsonSchemaObjectVariant2Properties
     {
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Update tool server<br/>
-        /// Update the configuration of a specific tool server.
+        /// Updates the configuration of a tool server.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -27,7 +27,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update tool server<br/>
-        /// Update the configuration of a specific tool server.
+        /// Updates the configuration of a tool server.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -48,7 +48,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update tool server<br/>
-        /// Update the configuration of a specific tool server.
+        /// Updates the configuration of a tool server.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

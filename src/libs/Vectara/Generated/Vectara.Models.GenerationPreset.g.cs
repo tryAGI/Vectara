@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Bundle of default values used when calling generation. All values except model name can be overridden at generation time.
+    /// A bundle of default values for generation. You can override any of these values at generation time. Set `model_parameters.llm_name` to override the model that the preset selects.
     /// </summary>
     public sealed partial class GenerationPreset
     {
@@ -17,7 +17,7 @@ namespace Vectara
         public string? Id { get; set; }
 
         /// <summary>
-        /// Name of the generation preset to be used with configuring generation.<br/>
+        /// The name of the generation preset. Use this name to configure generation.<br/>
         /// Example: Mockingbird 2.0
         /// </summary>
         /// <example>Mockingbird 2.0</example>
@@ -34,7 +34,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Name of the model that these presets are used with. The list of available names can be fetched by the `GET /v2/llms` endpoint.<br/>
+        /// The name of the model that this preset is used with. The `GET /v2/llms` endpoint lists the available names.<br/>
         /// Example: mockingbird-2.0
         /// </summary>
         /// <example>mockingbird-2.0</example>
@@ -42,13 +42,13 @@ namespace Vectara
         public string? LlmName { get; set; }
 
         /// <summary>
-        /// Preset template used to render the prompt sent to generation.
+        /// The preset template that renders the prompt sent to generation.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_template")]
         public string? PromptTemplate { get; set; }
 
         /// <summary>
-        /// Preset maximum number of search results that will be available to the prompt.<br/>
+        /// The preset maximum number of search results available to the prompt.<br/>
         /// Example: 50
         /// </summary>
         /// <example>50</example>
@@ -56,7 +56,7 @@ namespace Vectara
         public int? MaxUsedSearchResults { get; set; }
 
         /// <summary>
-        /// Preset maximum number of tokens to be returned by the generation.<br/>
+        /// The preset maximum number of tokens that generation returns.<br/>
         /// Example: 500
         /// </summary>
         /// <example>500</example>
@@ -94,13 +94,13 @@ namespace Vectara
         public object? AdditionalModelParams { get; set; }
 
         /// <summary>
-        /// Indicates whether the prompt is enabled.
+        /// Indicates whether the generation preset is enabled.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Indicates if this prompt is the default prompt used with the LLM.
+        /// Indicates whether this is the default generation preset for the LLM.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("default")]
         public bool? Default { get; set; }
@@ -124,7 +124,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="GenerationPreset" /> class.
         /// </summary>
         /// <param name="name">
-        /// Name of the generation preset to be used with configuring generation.<br/>
+        /// The name of the generation preset. Use this name to configure generation.<br/>
         /// Example: Mockingbird 2.0
         /// </param>
         /// <param name="id">
@@ -136,18 +136,18 @@ namespace Vectara
         /// Example: Mockingbird LLM 2.0 prompt for summarizing query results as an answer. Designed for RAG.
         /// </param>
         /// <param name="llmName">
-        /// Name of the model that these presets are used with. The list of available names can be fetched by the `GET /v2/llms` endpoint.<br/>
+        /// The name of the model that this preset is used with. The `GET /v2/llms` endpoint lists the available names.<br/>
         /// Example: mockingbird-2.0
         /// </param>
         /// <param name="promptTemplate">
-        /// Preset template used to render the prompt sent to generation.
+        /// The preset template that renders the prompt sent to generation.
         /// </param>
         /// <param name="maxUsedSearchResults">
-        /// Preset maximum number of search results that will be available to the prompt.<br/>
+        /// The preset maximum number of search results available to the prompt.<br/>
         /// Example: 50
         /// </param>
         /// <param name="maxTokens">
-        /// Preset maximum number of tokens to be returned by the generation.<br/>
+        /// The preset maximum number of tokens that generation returns.<br/>
         /// Example: 500
         /// </param>
         /// <param name="temperature">
@@ -166,10 +166,10 @@ namespace Vectara
         /// Additional model parameters beyond the standard fields above.
         /// </param>
         /// <param name="enabled">
-        /// Indicates whether the prompt is enabled.
+        /// Indicates whether the generation preset is enabled.
         /// </param>
         /// <param name="default">
-        /// Indicates if this prompt is the default prompt used with the LLM.
+        /// Indicates whether this is the default generation preset for the LLM.
         /// </param>
         /// <param name="ownership">
         /// Indicates whether the generation preset is provided by the platform or created by the customer. Platform presets are pre-configured and cannot be modified or deleted. Customer presets are created and managed by the customer.<br/>

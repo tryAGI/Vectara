@@ -32,8 +32,9 @@ namespace Vectara
         public required string SourceRecordId { get; set; }
 
         /// <summary>
-        /// The agent session created to process this record. Always present on `completed`;<br/>
-        /// may be present on `failed` if a session was created before the failure; null on `started`.
+        /// The agent session created to process this record. Always present on `completed`.<br/>
+        /// May be present on `failed` if a session was created before the failure. Null on<br/>
+        /// `started`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("session_key")]
         public string? SessionKey { get; set; }
@@ -57,9 +58,9 @@ namespace Vectara
         public bool? DeadLettered { get; set; }
 
         /// <summary>
-        /// Which processing attempt produced this event, starting at 1. A record that fails is retried, so the same<br/>
-        /// record can emit `started` and `failed` events for several attempts before it finally `completed` or is<br/>
-        /// dead-lettered.
+        /// Which processing attempt produced this event, starting at 1. A record that fails is<br/>
+        /// retried. The same record can emit `started` and `failed` events for several attempts<br/>
+        /// before it finally emits `completed` or is dead-lettered.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("attempt")]
         public int? Attempt { get; set; }
@@ -83,8 +84,9 @@ namespace Vectara
         /// The identifier of the source record.
         /// </param>
         /// <param name="sessionKey">
-        /// The agent session created to process this record. Always present on `completed`;<br/>
-        /// may be present on `failed` if a session was created before the failure; null on `started`.
+        /// The agent session created to process this record. Always present on `completed`.<br/>
+        /// May be present on `failed` if a session was created before the failure. Null on<br/>
+        /// `started`.
         /// </param>
         /// <param name="skipped">
         /// True if a `completed` record was skipped because a prior successful session already exists at the same watermark. Only meaningful when `status` is `completed`.
@@ -96,9 +98,9 @@ namespace Vectara
         /// Whether a `failed` record resulted in a dead-letter write or update. Only meaningful when `status` is `failed`.
         /// </param>
         /// <param name="attempt">
-        /// Which processing attempt produced this event, starting at 1. A record that fails is retried, so the same<br/>
-        /// record can emit `started` and `failed` events for several attempts before it finally `completed` or is<br/>
-        /// dead-lettered.
+        /// Which processing attempt produced this event, starting at 1. A record that fails is<br/>
+        /// retried. The same record can emit `started` and `failed` events for several attempts<br/>
+        /// before it finally emits `completed` or is dead-lettered.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

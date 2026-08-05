@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Verify the worker agent's output using a separate judge agent. The judge agent receives<br/>
+    /// Verifies the worker agent's output using a separate judge agent. The judge agent receives<br/>
     /// a summary of the worker agent's session and must produce a structured output with<br/>
     /// `{ "success": boolean, "reason": string }`. The judge agent must be configured with a<br/>
     /// structured output parser matching this schema.

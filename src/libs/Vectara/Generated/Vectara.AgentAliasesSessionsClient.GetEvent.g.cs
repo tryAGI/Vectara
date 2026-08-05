@@ -67,12 +67,12 @@ namespace Vectara
 
         /// <summary>
         /// Get event on alias-routed session<br/>
-        /// Get a single event of a session originally created via this alias.
+        /// Returns a single event of a session originally created via this alias.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="sessionKey">
@@ -106,12 +106,12 @@ namespace Vectara
         }
         /// <summary>
         /// Get event on alias-routed session<br/>
-        /// Get a single event of a session originally created via this alias.
+        /// Returns a single event of a session originally created via this alias.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="sessionKey">

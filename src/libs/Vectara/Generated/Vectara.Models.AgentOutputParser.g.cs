@@ -5,8 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configuration for how the agent's output should be parsed and formatted.<br/>
-    /// The output parser determines how the agent's responses are processed before being returned to the user.
+    /// Configuration for how the agent's output is parsed and formatted before it returns to the user.
     /// </summary>
     public readonly partial struct AgentOutputParser : global::System.IEquatable<AgentOutputParser>
     {
@@ -16,7 +15,7 @@ namespace Vectara
         public global::Vectara.AgentOutputParserDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Uses native tool calling capabilities and returns output directly to the user. This parser leverages the underlying model's built-in tool calling functionality and passes responses through without additional processing.
+        /// Returns the agent's output directly to the user without additional processing. Uses the model's built-in tool calling.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.DefaultOutputParser? Default { get; init; }
@@ -62,8 +61,7 @@ namespace Vectara
         /// along with the schema name for identification.<br/>
         /// Note: When using structured outputs, the agent can still use tools normally.<br/>
         /// The schema constraint only applies to the agent's final text response.<br/>
-        /// When streaming, the structured output is delivered as a single complete event<br/>
-        /// rather than being streamed in chunks.
+        /// When streaming, the structured output arrives as a single complete event, not in chunks.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StructuredOutputParser? Structured { get; init; }

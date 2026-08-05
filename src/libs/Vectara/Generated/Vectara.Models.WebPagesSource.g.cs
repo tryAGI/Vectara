@@ -5,9 +5,10 @@
 namespace Vectara
 {
     /// <summary>
-    /// How a `web` source discovers URLs. Discriminated by `type`:<br/>
-    /// `sitemap` reads sitemap.xml only; `crawl` does BFS link-following from seed URLs;<br/>
-    /// `sitemap_crawl` reads a sitemap and crawls outward from its entries.
+    /// How a `web` source discovers URLs, discriminated by `type`:<br/>
+    /// - `sitemap`: reads sitemap.xml only.<br/>
+    /// - `crawl`: does BFS link-following from seed URLs.<br/>
+    /// - `sitemap_crawl`: reads a sitemap and crawls outward from its entries.
     /// </summary>
     public readonly partial struct WebPagesSource : global::System.IEquatable<WebPagesSource>
     {
@@ -17,8 +18,9 @@ namespace Vectara
         public global::Vectara.WebPagesSourceDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Read pages enumerated by one or more sitemaps (`sitemap.xml`, `sitemap-index.xml`, or gzipped<br/>
-        /// variants). Per-URL change detection uses the sitemap's `&lt;lastmod&gt;`. No link-following.
+        /// Reads pages enumerated by one or more sitemaps (`sitemap.xml`, `sitemap-index.xml`, or gzipped<br/>
+        /// variants). Per-URL change detection uses the sitemap's `&lt;lastmod&gt;`. The crawler does not<br/>
+        /// follow links.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SitemapPagesSource? Sitemap { get; init; }
@@ -55,8 +57,8 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Sitemap' but the value was {ToString()}.");
 
         /// <summary>
-        /// Discover pages by breadth-first link-following starting from one or more seed URLs.<br/>
-        /// Per-URL change detection uses conditional GET (added in a follow-up PR).
+        /// Discovers pages by breadth-first link-following starting from one or more seed URLs.<br/>
+        /// Change detection re-fetches each page on every run.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CrawlPagesSource? Crawl { get; init; }
@@ -93,8 +95,8 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Crawl' but the value was {ToString()}.");
 
         /// <summary>
-        /// Read pages from sitemaps AND crawl outward via link-following. Sitemap entries themselves<br/>
-        /// serve as crawl seeds; `urls` is optional and provides additional explicit seeds.
+        /// Reads pages from sitemaps and crawls outward via link-following. Sitemap entries themselves<br/>
+        /// serve as crawl seeds. `urls` is optional and provides additional explicit seeds.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SitemapCrawlPagesSource? SitemapCrawl { get; init; }

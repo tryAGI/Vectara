@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Ingest from a single user's My Drive via Google Workspace domain-wide delegation. Requires<br/>
+    /// Ingests from a single user's My Drive via Google Workspace domain-wide delegation. Requires<br/>
     /// the Workspace admin to authorize the service account's client ID with the `drive.readonly`<br/>
     /// OAuth scope.
     /// </summary>

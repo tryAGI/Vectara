@@ -67,7 +67,7 @@ namespace Vectara
 
         /// <summary>
         /// Get session artifact raw bytes<br/>
-        /// Retrieve the raw bytes of an artifact. Unlike `getSessionArtifact`, which returns a JSON wrapper with base64-encoded data, this endpoint returns the file content as the response body with the artifact's own `Content-Type`. Used by A2A `FilePart.fileWithUri` and any other consumer that needs to dereference an artifact URL as a binary download.
+        /// Returns the raw bytes of an artifact. Unlike `getSessionArtifact`, which returns a JSON wrapper with base64-encoded data, this endpoint returns the file content as the response body. The response uses the artifact's own `Content-Type`. Use this endpoint to dereference an artifact URL as a binary download, for example with A2A `FilePart.fileWithUri`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -108,7 +108,7 @@ namespace Vectara
         }
         /// <summary>
         /// Get session artifact raw bytes<br/>
-        /// Retrieve the raw bytes of an artifact. Unlike `getSessionArtifact`, which returns a JSON wrapper with base64-encoded data, this endpoint returns the file content as the response body with the artifact's own `Content-Type`. Used by A2A `FilePart.fileWithUri` and any other consumer that needs to dereference an artifact URL as a binary download.
+        /// Returns the raw bytes of an artifact. Unlike `getSessionArtifact`, which returns a JSON wrapper with base64-encoded data, this endpoint returns the file content as the response body. The response uses the artifact's own `Content-Type`. Use this endpoint to dereference an artifact URL as a binary download, for example with A2A `FilePart.fileWithUri`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -534,7 +534,7 @@ namespace Vectara
         }
         /// <summary>
         /// Get session artifact raw bytes<br/>
-        /// Retrieve the raw bytes of an artifact. Unlike `getSessionArtifact`, which returns a JSON wrapper with base64-encoded data, this endpoint returns the file content as the response body with the artifact's own `Content-Type`. Used by A2A `FilePart.fileWithUri` and any other consumer that needs to dereference an artifact URL as a binary download.
+        /// Returns the raw bytes of an artifact. Unlike `getSessionArtifact`, which returns a JSON wrapper with base64-encoded data, this endpoint returns the file content as the response body. The response uses the artifact's own `Content-Type`. Use this endpoint to dereference an artifact URL as a binary download, for example with A2A `FilePart.fileWithUri`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

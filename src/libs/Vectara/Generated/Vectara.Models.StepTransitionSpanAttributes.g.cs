@@ -9,13 +9,13 @@ namespace Vectara
     public sealed partial class StepTransitionSpanAttributes
     {
         /// <summary>
-        /// The name of the step being transitioned from.
+        /// The name of the step the agent transitions from.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("from_step")]
         public string? FromStep { get; set; }
 
         /// <summary>
-        /// The name of the step being transitioned to.
+        /// The name of the step the agent transitions to.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("to_step")]
         public string? ToStep { get; set; }
@@ -30,10 +30,10 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="StepTransitionSpanAttributes" /> class.
         /// </summary>
         /// <param name="fromStep">
-        /// The name of the step being transitioned from.
+        /// The name of the step the agent transitions from.
         /// </param>
         /// <param name="toStep">
-        /// The name of the step being transitioned to.
+        /// The name of the step the agent transitions to.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

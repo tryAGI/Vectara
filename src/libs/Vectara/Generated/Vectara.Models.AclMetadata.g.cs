@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// Access-control grants recorded on each ingested record — extracted from the source system or<br/>
-    /// supplied via a source's `source_record_metadata.acl_metadata` (a supplied value always takes<br/>
-    /// priority over extraction).<br/>
+    /// Access-control grants recorded on each ingested record. Grants are extracted from the source<br/>
+    /// system or supplied via a source's `source_record_metadata.acl_metadata`. A supplied value<br/>
+    /// always takes priority over extraction.<br/>
     /// Grants are independent and additive: the effective audience is the union of the user lists, the<br/>
     /// group lists, `public_access`, and `org_wide_access`. An omitted list means the source does not<br/>
-    /// track that concept for the record; an empty list means it was tracked and nobody holds the grant.<br/>
-    /// User and group identifiers are stored verbatim — use the identifier form your query-time access<br/>
-    /// filter presents (e.g. email addresses for users), and supply the querying user's groups at query<br/>
-    /// time since the platform does not expand group membership. Grants are recorded at ingestion;<br/>
-    /// enforcing them at query time is up to the query's access filtering.
+    /// track that concept for the record. An empty list means it was tracked and nobody holds the grant.<br/>
+    /// User and group identifiers are stored verbatim. Use the identifier form your query-time access<br/>
+    /// filter presents (e.g. email addresses for users). Supply the querying user's groups at query<br/>
+    /// time, because the platform does not expand group membership. Grants are recorded at ingestion.<br/>
+    /// Enforcing them at query time is up to the query's access filtering.
     /// </summary>
     public sealed partial class AclMetadata
     {
@@ -60,16 +60,18 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? GroupReaders { get; set; }
 
         /// <summary>
-        /// Access level a grant confers on a record. `none` means the access concept applies to the record but<br/>
-        /// no grant was made. New levels may be added over time; clients should treat unknown values as opaque.
+        /// Access level a grant confers on a record. `none` means the access concept applies to the<br/>
+        /// record but no grant was made. New levels may be added over time. Clients should treat<br/>
+        /// unknown values as opaque.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("public_access")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AclAccessLevelJsonConverter))]
         public global::Vectara.AclAccessLevel? PublicAccess { get; set; }
 
         /// <summary>
-        /// Access level a grant confers on a record. `none` means the access concept applies to the record but<br/>
-        /// no grant was made. New levels may be added over time; clients should treat unknown values as opaque.
+        /// Access level a grant confers on a record. `none` means the access concept applies to the<br/>
+        /// record but no grant was made. New levels may be added over time. Clients should treat<br/>
+        /// unknown values as opaque.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("org_wide_access")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AclAccessLevelJsonConverter))]
@@ -106,12 +108,14 @@ namespace Vectara
         /// Group identifiers granted read access.
         /// </param>
         /// <param name="publicAccess">
-        /// Access level a grant confers on a record. `none` means the access concept applies to the record but<br/>
-        /// no grant was made. New levels may be added over time; clients should treat unknown values as opaque.
+        /// Access level a grant confers on a record. `none` means the access concept applies to the<br/>
+        /// record but no grant was made. New levels may be added over time. Clients should treat<br/>
+        /// unknown values as opaque.
         /// </param>
         /// <param name="orgWideAccess">
-        /// Access level a grant confers on a record. `none` means the access concept applies to the record but<br/>
-        /// no grant was made. New levels may be added over time; clients should treat unknown values as opaque.
+        /// Access level a grant confers on a record. `none` means the access concept applies to the<br/>
+        /// record but no grant was made. New levels may be added over time. Clients should treat<br/>
+        /// unknown values as opaque.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

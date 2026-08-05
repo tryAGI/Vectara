@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get session artifact<br/>
-        /// Retrieve a specific artifact by its unique `artifact_id`, including metadata and base64-encoded file content.
+        /// Returns a specific artifact by its unique `artifact_id`, including metadata and base64-encoded file content.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -34,7 +34,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get session artifact<br/>
-        /// Retrieve a specific artifact by its unique `artifact_id`, including metadata and base64-encoded file content.
+        /// Returns a specific artifact by its unique `artifact_id`, including metadata and base64-encoded file content.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

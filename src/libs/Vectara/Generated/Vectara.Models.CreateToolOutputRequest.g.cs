@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.CreateToolOutputRequestDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// A successful client tool output to be returned to the agent.
+        /// A successful client tool output to deliver to the agent.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateToolOutputSuccess? Success { get; init; }

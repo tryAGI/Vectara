@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class UpdateCorpusRequest
     {
         /// <summary>
-        /// Set whether or not the corpus is enabled. If unset then the corpus will remain in the same state.<br/>
+        /// Whether the corpus is enabled. If unset, the corpus remains in its current state.<br/>
         /// Example: false
         /// </summary>
         /// <example>false</example>
@@ -17,7 +17,7 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// The name for the corpus. If unset or null, then the corpus will remain in the same state.<br/>
+        /// The name for the corpus. If unset or null, the name remains unchanged.<br/>
         /// Example: new-corpus-name
         /// </summary>
         /// <example>new-corpus-name</example>
@@ -25,7 +25,7 @@ namespace Vectara
         public string? Name { get; set; }
 
         /// <summary>
-        /// Description of the corpus. If unset or null, then the corpus will remain in the same state.<br/>
+        /// Description of the corpus. If unset or null, the description remains unchanged.<br/>
         /// Example: New description of the corpus.
         /// </summary>
         /// <example>New description of the corpus.</example>
@@ -48,15 +48,15 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="UpdateCorpusRequest" /> class.
         /// </summary>
         /// <param name="enabled">
-        /// Set whether or not the corpus is enabled. If unset then the corpus will remain in the same state.<br/>
+        /// Whether the corpus is enabled. If unset, the corpus remains in its current state.<br/>
         /// Example: false
         /// </param>
         /// <param name="name">
-        /// The name for the corpus. If unset or null, then the corpus will remain in the same state.<br/>
+        /// The name for the corpus. If unset or null, the name remains unchanged.<br/>
         /// Example: new-corpus-name
         /// </param>
         /// <param name="description">
-        /// Description of the corpus. If unset or null, then the corpus will remain in the same state.<br/>
+        /// Description of the corpus. If unset or null, the description remains unchanged.<br/>
         /// Example: New description of the corpus.
         /// </param>
         /// <param name="saveHistory">

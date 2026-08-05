@@ -349,7 +349,7 @@ namespace Vectara
 
         /// <summary>
         /// Configuration for ingesting pages from a website. Politeness, limits, and auth are configured<br/>
-        /// here; the `pages_source` field selects how URLs are discovered (sitemap, crawl, or both).
+        /// here. The `pages_source` field selects how URLs are discovered (sitemap, crawl, or both).
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebSourceConfiguration? Web { get; init; }

@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class AgentKeyedSearchCorpus
     {
         /// <summary>
-        /// The corpus to search. Can be either a static string (e.g. "my-corpus") or an EagerReference object (e.g. {"$ref": "session.metadata.corpus"}). When an EagerReference is provided, the $ref path is resolved from the session context at the start of each turn, before LLM processing begins.
+        /// The corpus to search. Can be either a static string (e.g. "my-corpus") or an EagerReference object (e.g. {"$ref": "session.metadata.corpus"}). When you provide an EagerReference, the $ref path resolves from the session context at the start of each turn, before LLM processing begins.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("corpus_key")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>))]
@@ -23,7 +23,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, double>? CustomDimensions { get; set; }
 
         /// <summary>
-        /// The filter to narrow search results. Can be either a static string (e.g. "doc.department = 'engineering'") or an EagerReference object (e.g. {"$ref": "session.metadata.filters.user"}). When an EagerReference is provided, the $ref path is resolved from the session context at the start of each turn, before LLM processing begins.
+        /// The filter to narrow search results. Can be either a static string (e.g. "doc.department = 'engineering'") or an EagerReference object (e.g. {"$ref": "session.metadata.filters.user"}). When you provide an EagerReference, the $ref path resolves from the session context at the start of each turn, before LLM processing begins.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata_filter")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>))]
@@ -44,7 +44,7 @@ namespace Vectara
         public global::Vectara.SearchSemantics? Semantics { get; set; }
 
         /// <summary>
-        /// Query override for this specific corpus.
+        /// The query override for this specific corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("query")]
         public string? Query { get; set; }
@@ -59,13 +59,13 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AgentKeyedSearchCorpus" /> class.
         /// </summary>
         /// <param name="corpusKey">
-        /// The corpus to search. Can be either a static string (e.g. "my-corpus") or an EagerReference object (e.g. {"$ref": "session.metadata.corpus"}). When an EagerReference is provided, the $ref path is resolved from the session context at the start of each turn, before LLM processing begins.
+        /// The corpus to search. Can be either a static string (e.g. "my-corpus") or an EagerReference object (e.g. {"$ref": "session.metadata.corpus"}). When you provide an EagerReference, the $ref path resolves from the session context at the start of each turn, before LLM processing begins.
         /// </param>
         /// <param name="customDimensions">
         /// Default Value: openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464
         /// </param>
         /// <param name="metadataFilter">
-        /// The filter to narrow search results. Can be either a static string (e.g. "doc.department = 'engineering'") or an EagerReference object (e.g. {"$ref": "session.metadata.filters.user"}). When an EagerReference is provided, the $ref path is resolved from the session context at the start of each turn, before LLM processing begins.
+        /// The filter to narrow search results. Can be either a static string (e.g. "doc.department = 'engineering'") or an EagerReference object (e.g. {"$ref": "session.metadata.filters.user"}). When you provide an EagerReference, the $ref path resolves from the session context at the start of each turn, before LLM processing begins.
         /// </param>
         /// <param name="lexicalInterpolation">
         /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
@@ -75,7 +75,7 @@ namespace Vectara
         /// Default Value: default
         /// </param>
         /// <param name="query">
-        /// Query override for this specific corpus.
+        /// The query override for this specific corpus.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

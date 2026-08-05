@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get span in a trace<br/>
-        /// Retrieve the details of a specific span within a trace.
+        /// Returns the details of a specific span within a trace.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -28,7 +28,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get span in a trace<br/>
-        /// Retrieve the details of a specific span within a trace.
+        /// Returns the details of a specific span within a trace.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

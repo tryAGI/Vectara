@@ -65,8 +65,8 @@ namespace Vectara
 
         /// <summary>
         /// List outstanding client tool calls for an agent session<br/>
-        /// List the client tool calls the session is currently waiting on the caller to fulfill. Each entry carries the originating `tool_input` event ID, the tool name, and the fully materialized arguments to invoke the tool with. Secret-derived values are returned unmasked because the caller needs them to execute the tool, so this endpoint is restricted to the same roles permitted to submit input to the session.<br/>
-        /// Returns an empty list when the session is not parked on a client tool. The corresponding `client_tool_pending` event is delivered only on the live event stream and is not returned by `listAgentEvents`; this endpoint is the durable way to recover the pending calls after a reconnect. Submit one `tool_output` per returned `event_id` (via the create-input endpoint) to resume the session.
+        /// Lists the client tool calls the session is waiting for the caller to fulfill. Each entry carries the originating `tool_input` event ID, the tool name, and the fully materialized arguments to invoke the tool with. The response returns secret-derived values unmasked because the caller needs them to execute the tool. For this reason, this endpoint is restricted to the same roles permitted to submit input to the session.<br/>
+        /// Returns an empty list when the session is not waiting on a client tool. The corresponding `client_tool_pending` event appears only on the live event stream. The `listAgentEvents` endpoint does not return it. Use this endpoint to recover the pending calls after a reconnect. Submit one `tool_output` per returned `event_id` (via the create-input endpoint) to resume the session.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -102,8 +102,8 @@ namespace Vectara
         }
         /// <summary>
         /// List outstanding client tool calls for an agent session<br/>
-        /// List the client tool calls the session is currently waiting on the caller to fulfill. Each entry carries the originating `tool_input` event ID, the tool name, and the fully materialized arguments to invoke the tool with. Secret-derived values are returned unmasked because the caller needs them to execute the tool, so this endpoint is restricted to the same roles permitted to submit input to the session.<br/>
-        /// Returns an empty list when the session is not parked on a client tool. The corresponding `client_tool_pending` event is delivered only on the live event stream and is not returned by `listAgentEvents`; this endpoint is the durable way to recover the pending calls after a reconnect. Submit one `tool_output` per returned `event_id` (via the create-input endpoint) to resume the session.
+        /// Lists the client tool calls the session is waiting for the caller to fulfill. Each entry carries the originating `tool_input` event ID, the tool name, and the fully materialized arguments to invoke the tool with. The response returns secret-derived values unmasked because the caller needs them to execute the tool. For this reason, this endpoint is restricted to the same roles permitted to submit input to the session.<br/>
+        /// Returns an empty list when the session is not waiting on a client tool. The corresponding `client_tool_pending` event appears only on the live event stream. The `listAgentEvents` endpoint does not return it. Use this endpoint to recover the pending calls after a reconnect. Submit one `tool_output` per returned `event_id` (via the create-input endpoint) to resume the session.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

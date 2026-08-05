@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// An object containing an image's binary data and format information. The image data is provided as a Base64-encoded string along with its MIME type.
+    /// An object that contains an image's binary data and format information. The image data is a Base64-encoded string with its MIME type.
     /// </summary>
     public sealed partial class ImageData
     {
         /// <summary>
-        /// Base64-encoded representation of the image data.<br/>
+        /// The Base64-encoded representation of the image data.<br/>
         /// Example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
         /// </summary>
         /// <example>iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC</example>
@@ -36,7 +36,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ImageData" /> class.
         /// </summary>
         /// <param name="data">
-        /// Base64-encoded representation of the image data.<br/>
+        /// The Base64-encoded representation of the image data.<br/>
         /// Example: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4//8/AAX+Av4N70a4AAAAAElFTkSuQmCC
         /// </param>
         /// <param name="mimeType">

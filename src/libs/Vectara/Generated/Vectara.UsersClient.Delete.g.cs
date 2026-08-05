@@ -58,7 +58,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete a user<br/>
-        /// Delete a user from the account.
+        /// Deletes a user from the account.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -83,7 +83,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete a user<br/>
-        /// Delete a user from the account.
+        /// Deletes a user from the account.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

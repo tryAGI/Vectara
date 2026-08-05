@@ -25,7 +25,7 @@ namespace Vectara
         public float? Score { get; set; }
 
         /// <summary>
-        /// Document metadata object containing all document metadata fields.
+        /// An object that contains all document metadata fields.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
@@ -48,7 +48,7 @@ namespace Vectara
         /// Example: 0.92
         /// </param>
         /// <param name="metadata">
-        /// Document metadata object containing all document metadata fields.
+        /// An object that contains all document metadata fields.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

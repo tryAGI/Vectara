@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Context data to use when rendering the instruction template. This will be merged into `$session.metadata` for template access.<br/>
+    /// Context data to use when rendering the instruction template. The platform merges this data into `$session.metadata` for template access.<br/>
     /// Example: If you provide `{"currentDate": "2024-01-15"}`, you can access it in the template as `$session.metadata.currentDate`.<br/>
     /// Example: {"currentDate":"2024-01-15","companyName":"Acme Corp"}
     /// </summary>

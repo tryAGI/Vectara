@@ -13,8 +13,8 @@ namespace Vectara
         /// Uses the `get()` function with JSONPath to access the context.<br/>
         /// See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker for the UserFn language reference.<br/>
         /// Omit for a catch-all rule.<br/>
-        /// Missing paths return `null`; comparing against `null` is falsy, so the rule falls through to the next one in the policy. Use `get('$.path', default)` for an explicit fallback.<br/>
-        /// Context shape — note that at resolution time the underlying agent has NOT been picked yet, so the `agent.*` fields reflect the *alias's* metadata (name, description, metadata), with the alias's URL key in `agent.key`. Use these for alias-level context (e.g. `$.agent.metadata.region`); use `session.*` for per-call routing inputs (tenant, user_id, etc.) which is what most rules dispatch on.<br/>
+        /// Missing paths return `null`. Comparing against `null` is falsy, so the rule falls through to the next one in the policy. Use `get('$.path', default)` for an explicit fallback.<br/>
+        /// Context shape — at resolution time the underlying agent is not yet selected. The `agent.*` fields therefore reflect the *alias's* metadata (name, description, metadata), with the alias's URL key in `agent.key`. Use these for alias-level context (e.g. `$.agent.metadata.region`). Use `session.*` for per-call routing inputs (tenant, user_id, etc.). Most rules dispatch on `session.*`.<br/>
         /// ```<br/>
         /// {<br/>
         ///   "agent":   { "name", "key", "description", "metadata": { ... } },   // alias's metadata at resolution time<br/>
@@ -36,7 +36,7 @@ namespace Vectara
         /// <summary>
         /// The shape of a rule's targets. The `type` discriminator selects which fields apply:<br/>
         /// * `single` — a direct route to one agent. No weight, no partition function.<br/>
-        /// * `weighted` — a weighted selection among several agents. Requires a `partition_by` userfn expression naming what to hash on; different rules can use different partition functions.
+        /// * `weighted` — a weighted selection among several agents. Requires a `partition_by` userfn expression that names what to hash on. Different rules can use different partition functions.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("targets")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RuleTargetsJsonConverter))]
@@ -55,15 +55,15 @@ namespace Vectara
         /// <param name="targets">
         /// The shape of a rule's targets. The `type` discriminator selects which fields apply:<br/>
         /// * `single` — a direct route to one agent. No weight, no partition function.<br/>
-        /// * `weighted` — a weighted selection among several agents. Requires a `partition_by` userfn expression naming what to hash on; different rules can use different partition functions.
+        /// * `weighted` — a weighted selection among several agents. Requires a `partition_by` userfn expression that names what to hash on. Different rules can use different partition functions.
         /// </param>
         /// <param name="match">
         /// UserFn expression evaluating to boolean.<br/>
         /// Uses the `get()` function with JSONPath to access the context.<br/>
         /// See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker for the UserFn language reference.<br/>
         /// Omit for a catch-all rule.<br/>
-        /// Missing paths return `null`; comparing against `null` is falsy, so the rule falls through to the next one in the policy. Use `get('$.path', default)` for an explicit fallback.<br/>
-        /// Context shape — note that at resolution time the underlying agent has NOT been picked yet, so the `agent.*` fields reflect the *alias's* metadata (name, description, metadata), with the alias's URL key in `agent.key`. Use these for alias-level context (e.g. `$.agent.metadata.region`); use `session.*` for per-call routing inputs (tenant, user_id, etc.) which is what most rules dispatch on.<br/>
+        /// Missing paths return `null`. Comparing against `null` is falsy, so the rule falls through to the next one in the policy. Use `get('$.path', default)` for an explicit fallback.<br/>
+        /// Context shape — at resolution time the underlying agent is not yet selected. The `agent.*` fields therefore reflect the *alias's* metadata (name, description, metadata), with the alias's URL key in `agent.key`. Use these for alias-level context (e.g. `$.agent.metadata.region`). Use `session.*` for per-call routing inputs (tenant, user_id, etc.). Most rules dispatch on `session.*`.<br/>
         /// ```<br/>
         /// {<br/>
         ///   "agent":   { "name", "key", "description", "metadata": { ... } },   // alias's metadata at resolution time<br/>

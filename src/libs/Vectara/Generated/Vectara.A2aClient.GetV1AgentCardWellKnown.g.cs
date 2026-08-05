@@ -63,7 +63,7 @@ namespace Vectara
 
         /// <summary>
         /// Get A2A v1 agent card (well-known)<br/>
-        /// Returns the v1 [Agent Card](https://a2a-protocol.org) at the well-known discovery URL `/.well-known/a2a/v1/agent-card.json`. The card lists every supported transport in `supportedInterfaces` (the first entry is preferred); v1 clients discover this URL and pick a binding from the list.
+        /// Returns the v1 [Agent Card](https://a2a-protocol.org) at the well-known discovery URL `/.well-known/a2a/v1/agent-card.json`. The card lists every supported transport in `supportedInterfaces` (the first entry is preferred). v1 clients discover this URL and pick a binding from the list.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -93,7 +93,7 @@ namespace Vectara
         }
         /// <summary>
         /// Get A2A v1 agent card (well-known)<br/>
-        /// Returns the v1 [Agent Card](https://a2a-protocol.org) at the well-known discovery URL `/.well-known/a2a/v1/agent-card.json`. The card lists every supported transport in `supportedInterfaces` (the first entry is preferred); v1 clients discover this URL and pick a binding from the list.
+        /// Returns the v1 [Agent Card](https://a2a-protocol.org) at the well-known discovery URL `/.well-known/a2a/v1/agent-card.json`. The card lists every supported transport in `supportedInterfaces` (the first entry is preferred). v1 clients discover this URL and pick a binding from the list.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

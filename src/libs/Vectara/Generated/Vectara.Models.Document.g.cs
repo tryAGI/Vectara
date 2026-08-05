@@ -39,7 +39,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.ImageMetadata>? Images { get; set; }
 
         /// <summary>
-        /// Parts of the document that make up the document. However, parts are not available when retrieving a list of documents or when creating a document. This property is only available when retrieving a document by ID.
+        /// The parts that make up the document. Parts are not returned when you list documents or create a document. This property is only returned when you retrieve a document by ID.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("parts")]
         public global::System.Collections.Generic.IList<global::Vectara.DocumentPart>? Parts { get; set; }
@@ -80,7 +80,7 @@ namespace Vectara
         /// The images that this document contains.
         /// </param>
         /// <param name="parts">
-        /// Parts of the document that make up the document. However, parts are not available when retrieving a list of documents or when creating a document. This property is only available when retrieving a document by ID.
+        /// The parts that make up the document. Parts are not returned when you list documents or create a document. This property is only returned when you retrieve a document by ID.
         /// </param>
         /// <param name="storageUsage">
         /// How much storage the document used. This information is currently not returned when retrieving the document, and only returned when indexing a document.

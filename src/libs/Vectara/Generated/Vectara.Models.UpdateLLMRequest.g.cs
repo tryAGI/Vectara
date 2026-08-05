@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to update a Large Language Model connection. All fields are optional - only provide fields you want to change. Only the name field is immutable.
+    /// Request to update a Large Language Model connection. All fields are optional. Provide only the fields you want to change. Only the name field is immutable.
     /// </summary>
     public readonly partial struct UpdateLLMRequest : global::System.IEquatable<UpdateLLMRequest>
     {

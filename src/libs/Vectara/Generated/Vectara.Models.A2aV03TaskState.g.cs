@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A2A v0.3 task lifecycle state. Note `TASK_STATE_CANCELLED` uses the UK spelling per the v0.3 proto.
+    /// The A2A v0.3 task lifecycle state. `TASK_STATE_CANCELLED` uses the UK spelling, as defined in the A2A v0.3 specification.
     /// </summary>
     public enum A2aV03TaskState
     {

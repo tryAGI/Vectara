@@ -23,7 +23,7 @@ namespace Vectara
         public required global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>> Labels { get; set; }
 
         /// <summary>
-        /// Width of each time bin in the returned series, in seconds. The server chooses this based on the requested time range and `max_bins`.
+        /// The width of each time bin in the returned series, in seconds. The platform chooses it from the requested time range and `max_bins`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bin_size_seconds")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -45,7 +45,7 @@ namespace Vectara
         /// The labels matched for this series. Echoes the filter values supplied in the request.
         /// </param>
         /// <param name="binSizeSeconds">
-        /// Width of each time bin in the returned series, in seconds. The server chooses this based on the requested time range and `max_bins`.
+        /// The width of each time bin in the returned series, in seconds. The platform chooses it from the requested time range and `max_bins`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

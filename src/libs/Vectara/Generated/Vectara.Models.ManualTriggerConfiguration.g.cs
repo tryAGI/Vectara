@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Pipeline is only triggered manually via the trigger endpoint. No automatic scheduling.
+    /// Runs the pipeline only when triggered manually via the trigger endpoint. There is no automatic scheduling.
     /// </summary>
     public sealed partial class ManualTriggerConfiguration
     {

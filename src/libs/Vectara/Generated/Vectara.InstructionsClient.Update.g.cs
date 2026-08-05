@@ -65,12 +65,12 @@ namespace Vectara
 
         /// <summary>
         /// Update instruction<br/>
-        /// Update an existing instruction's template, metadata, and configuration. Updated templates may include Velocity variables such as `$tools` or metadata references. Each update creates a new version, allowing agents to continue using existing versions until explicitly changed.<br/>
-        /// ::info Version Management<br/>
+        /// Updates an existing instruction's template, metadata, and configuration. Updated templates may include Velocity variables such as `$tools` or metadata references. Each update creates a new version. Agents continue to use existing versions until you change them explicitly.<br/>
+        /// :::info Version Management<br/>
         /// Agents referencing a specific version continue to use it until updated. Agents without a pinned version always use the latest.<br/>
         /// :::<br/>
         /// ## Disable an instruction<br/>
-        /// This endpoint can also be used to disable an instruction without deleting it.<br/>
+        /// Use this endpoint to disable an instruction without deleting it.<br/>
         /// :::warning<br/>
         /// Disabling an instruction prevents it from being added to new agents, but agents already using it continue to operate normally.<br/>
         /// :::
@@ -108,12 +108,12 @@ namespace Vectara
         }
         /// <summary>
         /// Update instruction<br/>
-        /// Update an existing instruction's template, metadata, and configuration. Updated templates may include Velocity variables such as `$tools` or metadata references. Each update creates a new version, allowing agents to continue using existing versions until explicitly changed.<br/>
-        /// ::info Version Management<br/>
+        /// Updates an existing instruction's template, metadata, and configuration. Updated templates may include Velocity variables such as `$tools` or metadata references. Each update creates a new version. Agents continue to use existing versions until you change them explicitly.<br/>
+        /// :::info Version Management<br/>
         /// Agents referencing a specific version continue to use it until updated. Agents without a pinned version always use the latest.<br/>
         /// :::<br/>
         /// ## Disable an instruction<br/>
-        /// This endpoint can also be used to disable an instruction without deleting it.<br/>
+        /// Use this endpoint to disable an instruction without deleting it.<br/>
         /// :::warning<br/>
         /// Disabling an instruction prevents it from being added to new agents, but agents already using it continue to operate normally.<br/>
         /// :::

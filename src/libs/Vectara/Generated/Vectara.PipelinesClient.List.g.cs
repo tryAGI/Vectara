@@ -73,7 +73,7 @@ namespace Vectara
 
         /// <summary>
         /// List pipelines<br/>
-        /// List all pipelines with optional filtering by source type, status, or enabled state.
+        /// Lists all pipelines with optional filtering by source type, status, or enabled state.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -119,7 +119,7 @@ namespace Vectara
         }
         /// <summary>
         /// List pipelines<br/>
-        /// List all pipelines with optional filtering by source type, status, or enabled state.
+        /// Lists all pipelines with optional filtering by source type, status, or enabled state.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

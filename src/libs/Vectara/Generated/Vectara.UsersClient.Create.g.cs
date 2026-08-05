@@ -62,8 +62,8 @@ namespace Vectara
             ref string content);
 
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account. For example, a company wants to onboard new team members efficiently and this endpoint lets you streamline the process by adding new users programmatically, assigning appropriate roles, and setting up access permissions.
+        /// Create a user<br/>
+        /// Creates a user in the current customer account. Use this endpoint to add users programmatically, assign roles, and set up access permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -91,8 +91,8 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account. For example, a company wants to onboard new team members efficiently and this endpoint lets you streamline the process by adding new users programmatically, assigning appropriate roles, and setting up access permissions.
+        /// Create a user<br/>
+        /// Creates a user in the current customer account. Use this endpoint to add users programmatically, assign roles, and set up access permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -421,7 +421,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow retrieving a user.
+                            // Permissions do not allow creating a user.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -555,8 +555,8 @@ namespace Vectara
             }
         }
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account. For example, a company wants to onboard new team members efficiently and this endpoint lets you streamline the process by adding new users programmatically, assigning appropriate roles, and setting up access permissions.
+        /// Create a user<br/>
+        /// Creates a user in the current customer account. Use this endpoint to add users programmatically, assign roles, and set up access permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

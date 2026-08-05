@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Rerank results of the search. Rerankers are very powerful tools to improve the order of search results. By default the search will use the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.
+    /// Reranks the results of the search. Rerankers improve the order of search results. By default, the search uses the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.
     /// </summary>
     public readonly partial struct SearchReranker : global::System.IEquatable<SearchReranker>
     {

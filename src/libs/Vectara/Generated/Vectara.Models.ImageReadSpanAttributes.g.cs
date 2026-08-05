@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ImageReadSpanAttributes
     {
         /// <summary>
-        /// The ID of the image artifact being loaded.
+        /// The ID of the loaded image artifact.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("artifact_id")]
         public string? ArtifactId { get; set; }
@@ -30,7 +30,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ImageReadSpanAttributes" /> class.
         /// </summary>
         /// <param name="artifactId">
-        /// The ID of the image artifact being loaded.
+        /// The ID of the loaded image artifact.
         /// </param>
         /// <param name="detail">
         /// The detail level used for image processing.

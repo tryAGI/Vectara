@@ -64,7 +64,7 @@ namespace Vectara
         /// **Required**: Must define a `process()` entry point function. Use type annotations on parameters for automatic schema discovery.<br/>
         /// **Parameters**: Passed as keyword arguments matched to the function signature.<br/>
         /// **Return types**: Can return any JSON-serializable type (strings, numbers, booleans, lists, or objects).<br/>
-        /// **Parameter Descriptions**: Use docstrings to provide descriptions for parameters (Google, NumPy, ReST, and Epydoc styles are supported). These descriptions are automatically extracted and included in the input schema, giving agents better context about how to use each parameter.<br/>
+        /// **Parameter Descriptions**: Use docstrings to provide descriptions for parameters (Google, NumPy, ReST, and Epydoc styles are supported). The platform extracts these descriptions and includes them in the input schema. This gives agents better context about how to use each parameter.<br/>
         /// **Example with Google-style docstring:**<br/>
         /// ```python<br/>
         /// def process(order_count: int, total_revenue: float, days_active: int = 1) -&gt; dict:<br/>
@@ -133,7 +133,7 @@ namespace Vectara
         /// def process(items: List[str], count: int) -&gt; dict:<br/>
         ///     return {'total': len(items) * count}<br/>
         /// ```<br/>
-        /// **Object parameters must use TypedDict**: Bare `dict` and `Dict[K, V]` parameters are not supported and will be rejected during validation. All object-typed parameters must use `TypedDict` to define explicit fields. This ensures the agent receives a clear schema for each parameter.<br/>
+        /// **Object parameters must use TypedDict**: Validation rejects bare `dict` and `Dict[K, V]` parameters. All object-typed parameters must use `TypedDict` to define explicit fields. This ensures the agent receives a clear schema for each parameter.<br/>
         /// ```python<br/>
         /// from typing import TypedDict, Optional<br/>
         /// class Adjustment(TypedDict, total=False):<br/>
@@ -213,7 +213,7 @@ namespace Vectara
         /// **Required**: Must define a `process()` entry point function. Use type annotations on parameters for automatic schema discovery.<br/>
         /// **Parameters**: Passed as keyword arguments matched to the function signature.<br/>
         /// **Return types**: Can return any JSON-serializable type (strings, numbers, booleans, lists, or objects).<br/>
-        /// **Parameter Descriptions**: Use docstrings to provide descriptions for parameters (Google, NumPy, ReST, and Epydoc styles are supported). These descriptions are automatically extracted and included in the input schema, giving agents better context about how to use each parameter.<br/>
+        /// **Parameter Descriptions**: Use docstrings to provide descriptions for parameters (Google, NumPy, ReST, and Epydoc styles are supported). The platform extracts these descriptions and includes them in the input schema. This gives agents better context about how to use each parameter.<br/>
         /// **Example with Google-style docstring:**<br/>
         /// ```python<br/>
         /// def process(order_count: int, total_revenue: float, days_active: int = 1) -&gt; dict:<br/>
@@ -282,7 +282,7 @@ namespace Vectara
         /// def process(items: List[str], count: int) -&gt; dict:<br/>
         ///     return {'total': len(items) * count}<br/>
         /// ```<br/>
-        /// **Object parameters must use TypedDict**: Bare `dict` and `Dict[K, V]` parameters are not supported and will be rejected during validation. All object-typed parameters must use `TypedDict` to define explicit fields. This ensures the agent receives a clear schema for each parameter.<br/>
+        /// **Object parameters must use TypedDict**: Validation rejects bare `dict` and `Dict[K, V]` parameters. All object-typed parameters must use `TypedDict` to define explicit fields. This ensures the agent receives a clear schema for each parameter.<br/>
         /// ```python<br/>
         /// from typing import TypedDict, Optional<br/>
         /// class Adjustment(TypedDict, total=False):<br/>

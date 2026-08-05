@@ -8,8 +8,11 @@ namespace Vectara
     {
         /// <summary>
         /// Create an API key<br/>
-        /// The Create API Key API lets you create new API keys, which you can bind to one or multiple corpora. You can also decide whether to designate each key for specific access like personal API keys, only querying (read-only) or both querying and indexing (read-write).<br/>
-        /// This capability is useful in scenarios where you have applications that require different levels of access to corpora data. For example, you might create a read-only API key for an application that only needs to query data.<br/>
+        /// Creates an API key. You can bind the key to one or more corpora. Each key has one of these access levels:<br/>
+        /// - Personal: the key has the same permissions as your user account.<br/>
+        /// - Query only (read-only).<br/>
+        /// - Query and index (read-write).<br/>
+        /// For example, create a read-only key for an application that only queries data.<br/>
         /// :::note<br/>
         /// For more information about the different types of API keys, see [API Key Management](/docs/deploy-and-scale/authentication/api-key-management).<br/>
         /// :::
@@ -29,8 +32,11 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an API key<br/>
-        /// The Create API Key API lets you create new API keys, which you can bind to one or multiple corpora. You can also decide whether to designate each key for specific access like personal API keys, only querying (read-only) or both querying and indexing (read-write).<br/>
-        /// This capability is useful in scenarios where you have applications that require different levels of access to corpora data. For example, you might create a read-only API key for an application that only needs to query data.<br/>
+        /// Creates an API key. You can bind the key to one or more corpora. Each key has one of these access levels:<br/>
+        /// - Personal: the key has the same permissions as your user account.<br/>
+        /// - Query only (read-only).<br/>
+        /// - Query and index (read-write).<br/>
+        /// For example, create a read-only key for an application that only queries data.<br/>
         /// :::note<br/>
         /// For more information about the different types of API keys, see [API Key Management](/docs/deploy-and-scale/authentication/api-key-management).<br/>
         /// :::
@@ -50,8 +56,11 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an API key<br/>
-        /// The Create API Key API lets you create new API keys, which you can bind to one or multiple corpora. You can also decide whether to designate each key for specific access like personal API keys, only querying (read-only) or both querying and indexing (read-write).<br/>
-        /// This capability is useful in scenarios where you have applications that require different levels of access to corpora data. For example, you might create a read-only API key for an application that only needs to query data.<br/>
+        /// Creates an API key. You can bind the key to one or more corpora. Each key has one of these access levels:<br/>
+        /// - Personal: the key has the same permissions as your user account.<br/>
+        /// - Query only (read-only).<br/>
+        /// - Query and index (read-write).<br/>
+        /// For example, create a read-only key for an application that only queries data.<br/>
         /// :::note<br/>
         /// For more information about the different types of API keys, see [API Key Management](/docs/deploy-and-scale/authentication/api-key-management).<br/>
         /// :::

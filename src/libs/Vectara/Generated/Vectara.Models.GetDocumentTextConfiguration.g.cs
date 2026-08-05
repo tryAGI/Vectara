@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// User-configurable settings for the get document text tool. These parameters are never exposed to the agent.
+    /// User-configurable settings for the get document text tool. The agent never sees these parameters.
     /// </summary>
     public sealed partial class GetDocumentTextConfiguration
     {

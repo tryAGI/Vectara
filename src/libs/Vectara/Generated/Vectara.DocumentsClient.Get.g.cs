@@ -65,8 +65,8 @@ namespace Vectara
 
         /// <summary>
         /// Retrieve a document<br/>
-        /// The Retrieve Document API enables you to fetch the content and metadata of a specific document from a corpus, identified by its unique `document_id` from a specific corpus. Use this endpoint to view the full details of a document, including its text, metadata, and associated tables, if table extraction is enabled.<br/>
-        /// This information is particularly useful when you need to analyze the details of a specific document or integrate document content into your application workflows.
+        /// Returns the content and metadata of a specific document in a corpus. The unique `document_id` identifies the document. The response includes the full details of the document, including its text, metadata, and associated tables, if table extraction is enabled.<br/>
+        /// Use this endpoint to analyze the details of a specific document or to integrate document content into your application workflows.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -99,8 +99,8 @@ namespace Vectara
         }
         /// <summary>
         /// Retrieve a document<br/>
-        /// The Retrieve Document API enables you to fetch the content and metadata of a specific document from a corpus, identified by its unique `document_id` from a specific corpus. Use this endpoint to view the full details of a document, including its text, metadata, and associated tables, if table extraction is enabled.<br/>
-        /// This information is particularly useful when you need to analyze the details of a specific document or integrate document content into your application workflows.
+        /// Returns the content and metadata of a specific document in a corpus. The unique `document_id` identifies the document. The response includes the full details of the document, including its text, metadata, and associated tables, if table extraction is enabled.<br/>
+        /// Use this endpoint to analyze the details of a specific document or to integrate document content into your application workflows.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

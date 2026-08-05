@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get agent trace<br/>
-        /// Retrieve the summary of a specific agent trace by its trace ID.
+        /// Returns the summary of a specific agent trace by its trace ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -24,7 +24,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get agent trace<br/>
-        /// Retrieve the summary of a specific agent trace by its trace ID.
+        /// Returns the summary of a specific agent trace by its trace ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

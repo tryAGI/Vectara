@@ -77,7 +77,7 @@ namespace Vectara
 
         /// <summary>
         /// List A2A v1 tasks<br/>
-        /// List the agent's tasks, with pagination and optional filtering by conversation context and lifecycle state.
+        /// Lists the agent's tasks. Results are paginated. Optional query parameters filter by conversation context and lifecycle state.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -87,7 +87,7 @@ namespace Vectara
         /// </param>
         /// <param name="contextId"></param>
         /// <param name="status">
-        /// A2A v1 task lifecycle state. Note `TASK_STATE_CANCELED` uses the US spelling per the v1 proto (one L).
+        /// The A2A v1 task lifecycle state. `TASK_STATE_CANCELED` uses the US spelling (one L), as defined in the A2A v1 specification.
         /// </param>
         /// <param name="pageSize">
         /// Default Value: 50
@@ -136,7 +136,7 @@ namespace Vectara
         }
         /// <summary>
         /// List A2A v1 tasks<br/>
-        /// List the agent's tasks, with pagination and optional filtering by conversation context and lifecycle state.
+        /// Lists the agent's tasks. Results are paginated. Optional query parameters filter by conversation context and lifecycle state.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -146,7 +146,7 @@ namespace Vectara
         /// </param>
         /// <param name="contextId"></param>
         /// <param name="status">
-        /// A2A v1 task lifecycle state. Note `TASK_STATE_CANCELED` uses the US spelling per the v1 proto (one L).
+        /// The A2A v1 task lifecycle state. `TASK_STATE_CANCELED` uses the US spelling (one L), as defined in the A2A v1 specification.
         /// </param>
         /// <param name="pageSize">
         /// Default Value: 50

@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Retrieve an image from a document<br/>
-        /// Returns a specific image that is embedded within a document. The `image_id` uniquely identifies the image within the document. Use this endpoint to fetch the raw image data and associated metadata.
+        /// Returns a specific image that is embedded within a document. The `image_id` uniquely identifies the image within the document. Use this endpoint to retrieve the raw image data and associated metadata.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,7 +29,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Retrieve an image from a document<br/>
-        /// Returns a specific image that is embedded within a document. The `image_id` uniquely identifies the image within the document. Use this endpoint to fetch the raw image data and associated metadata.
+        /// Returns a specific image that is embedded within a document. The `image_id` uniquely identifies the image within the document. Use this endpoint to retrieve the raw image data and associated metadata.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

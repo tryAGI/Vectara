@@ -52,7 +52,7 @@ namespace Vectara
         public required global::Vectara.AgentTraceSpanStatus Status { get; set; }
 
         /// <summary>
-        /// Error message if the span status is error.
+        /// The error message when the span status is error.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("error_message")]
         public string? ErrorMessage { get; set; }
@@ -102,7 +102,7 @@ namespace Vectara
         /// Duration of this span in milliseconds.
         /// </param>
         /// <param name="errorMessage">
-        /// Error message if the span status is error.
+        /// The error message when the span status is error.
         /// </param>
         /// <param name="stepName">
         /// The name of the agent step active when this span was created.

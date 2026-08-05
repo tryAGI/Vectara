@@ -6,8 +6,8 @@ namespace Vectara
     {
         /// <summary>
         /// Update agent<br/>
-        /// The Update Agent API enables you to modify an existing agent configuration, including tool assignments, behavioral instructions, model parameters, and operational metadata.<br/>
-        /// Use this API to evolve agent capabilities over time, adding new tools as they become available, refining behavioral instructions based on user feedback, adjusting model parameters for optimal performance, and updating metadata for better organization across your agent ecosystem.
+        /// Updates part of an agent's configuration, including its tools, instructions, model parameters, and metadata.<br/>
+        /// Fields omitted from the request keep their current values.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,8 +29,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent<br/>
-        /// The Update Agent API enables you to modify an existing agent configuration, including tool assignments, behavioral instructions, model parameters, and operational metadata.<br/>
-        /// Use this API to evolve agent capabilities over time, adding new tools as they become available, refining behavioral instructions based on user feedback, adjusting model parameters for optimal performance, and updating metadata for better organization across your agent ecosystem.
+        /// Updates part of an agent's configuration, including its tools, instructions, model parameters, and metadata.<br/>
+        /// Fields omitted from the request keep their current values.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -52,8 +52,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent<br/>
-        /// The Update Agent API enables you to modify an existing agent configuration, including tool assignments, behavioral instructions, model parameters, and operational metadata.<br/>
-        /// Use this API to evolve agent capabilities over time, adding new tools as they become available, refining behavioral instructions based on user feedback, adjusting model parameters for optimal performance, and updating metadata for better organization across your agent ecosystem.
+        /// Updates part of an agent's configuration, including its tools, instructions, model parameters, and metadata.<br/>
+        /// Fields omitted from the request keep their current values.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -71,12 +71,12 @@ namespace Vectara
         /// </param>
         /// <param name="toolConfigurations">
         /// A map of tool configurations available to the agent. Set to null to clear all tools.<br/>
-        /// Individual map values set to null will delete that tool configuration.<br/>
+        /// A map value set to null deletes that tool configuration.<br/>
         /// Example: {"customer_search":{"type":"corpora_search","argument_override":{"query":"customer support documentation"}}}
         /// </param>
         /// <param name="skills">
         /// A map of skills available to the agent. Set to null to clear all skills.<br/>
-        /// Individual map values set to null will delete that skill.
+        /// A map value set to null deletes that skill.
         /// </param>
         /// <param name="model">
         /// Configuration for the model used in this step, including the model name and arbitrary parameters.
@@ -101,7 +101,7 @@ namespace Vectara
         /// Configuration for automatic context compaction.
         /// </param>
         /// <param name="sessionEnrichment">
-        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata, so the agent, run conditions, and routing can read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
+        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata. The agent, run conditions, and routing can then read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
         /// </param>
         /// <param name="toolOutputOffloading">
         /// Controls how large tool outputs are kept from overwhelming the agent context window.<br/>

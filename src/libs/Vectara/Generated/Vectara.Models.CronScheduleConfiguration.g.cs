@@ -18,7 +18,7 @@ namespace Vectara
         public global::Vectara.CronScheduleConfigurationType Type { get; set; }
 
         /// <summary>
-        /// Cron expression specifying when the schedule should execute.<br/>
+        /// Cron expression that specifies when the schedule executes.<br/>
         /// Uses standard 5-field cron format:<br/>
         /// ┌───────────── minute (0-59)<br/>
         /// │ ┌───────────── hour (0-23)<br/>
@@ -32,10 +32,11 @@ namespace Vectara
         /// - , : List (e.g., "1,15" for 1st and 15th)<br/>
         /// - - : Range (e.g., "1-5" for Monday-Friday)<br/>
         /// - / : Step (e.g., "*/15" for every 15 units)<br/>
+        /// The schedule must not fire more frequently than once per hour (PT1H).<br/>
         /// Common examples:<br/>
         /// - "0 9 * * *": Every day at 9:00 AM<br/>
         /// - "0 9 * * 1-5": Weekdays at 9:00 AM<br/>
-        /// - "*/15 * * * *": Every 15 minutes<br/>
+        /// - "0 * * * *": Every hour<br/>
         /// - "0 */6 * * *": Every 6 hours<br/>
         /// - "0 0 1 * *": First day of every month at midnight<br/>
         /// - "0 0 * * 0": Every Sunday at midnight<br/>
@@ -57,7 +58,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CronScheduleConfiguration" /> class.
         /// </summary>
         /// <param name="cronExpression">
-        /// Cron expression specifying when the schedule should execute.<br/>
+        /// Cron expression that specifies when the schedule executes.<br/>
         /// Uses standard 5-field cron format:<br/>
         /// ┌───────────── minute (0-59)<br/>
         /// │ ┌───────────── hour (0-23)<br/>
@@ -71,10 +72,11 @@ namespace Vectara
         /// - , : List (e.g., "1,15" for 1st and 15th)<br/>
         /// - - : Range (e.g., "1-5" for Monday-Friday)<br/>
         /// - / : Step (e.g., "*/15" for every 15 units)<br/>
+        /// The schedule must not fire more frequently than once per hour (PT1H).<br/>
         /// Common examples:<br/>
         /// - "0 9 * * *": Every day at 9:00 AM<br/>
         /// - "0 9 * * 1-5": Weekdays at 9:00 AM<br/>
-        /// - "*/15 * * * *": Every 15 minutes<br/>
+        /// - "0 * * * *": Every hour<br/>
         /// - "0 */6 * * *": Every 6 hours<br/>
         /// - "0 0 1 * *": First day of every month at midnight<br/>
         /// - "0 0 * * 0": Every Sunday at midnight<br/>

@@ -67,8 +67,8 @@ namespace Vectara
 
         /// <summary>
         /// Update agent session<br/>
-        /// Update the configuration of an existing agent session. This endpoint enables you to modify fields such as the name, description, or metadata.<br/>
-        /// Updated metadata immediately influences agent behavior and becomes available to instructions and tools for the remainder of the session. For more details about configuring the agent session, see [Create agent session](https://docs.vectara.com/docs/rest-api/create-agent-session).
+        /// Updates the configuration of an existing agent session. You can modify fields such as the name, description, or metadata.<br/>
+        /// Updated metadata immediately influences agent behavior. It becomes available to instructions and tools for the remainder of the session. For more details about configuring the agent session, see [Create agent session](https://docs.vectara.com/docs/rest-api/create-agent-session).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -109,8 +109,8 @@ namespace Vectara
         }
         /// <summary>
         /// Update agent session<br/>
-        /// Update the configuration of an existing agent session. This endpoint enables you to modify fields such as the name, description, or metadata.<br/>
-        /// Updated metadata immediately influences agent behavior and becomes available to instructions and tools for the remainder of the session. For more details about configuring the agent session, see [Create agent session](https://docs.vectara.com/docs/rest-api/create-agent-session).
+        /// Updates the configuration of an existing agent session. You can modify fields such as the name, description, or metadata.<br/>
+        /// Updated metadata immediately influences agent behavior. It becomes available to instructions and tools for the remainder of the session. For more details about configuring the agent session, see [Create agent session](https://docs.vectara.com/docs/rest-api/create-agent-session).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -416,7 +416,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Session update request was malformed.
+                            // The request to update the session is malformed.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -625,8 +625,8 @@ namespace Vectara
         }
         /// <summary>
         /// Update agent session<br/>
-        /// Update the configuration of an existing agent session. This endpoint enables you to modify fields such as the name, description, or metadata.<br/>
-        /// Updated metadata immediately influences agent behavior and becomes available to instructions and tools for the remainder of the session. For more details about configuring the agent session, see [Create agent session](https://docs.vectara.com/docs/rest-api/create-agent-session).
+        /// Updates the configuration of an existing agent session. You can modify fields such as the name, description, or metadata.<br/>
+        /// Updated metadata immediately influences agent behavior. It becomes available to instructions and tools for the remainder of the session. For more details about configuring the agent session, see [Create agent session](https://docs.vectara.com/docs/rest-api/create-agent-session).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -655,7 +655,7 @@ namespace Vectara
         /// Example: false
         /// </param>
         /// <param name="ttiMinutes">
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If set to 0, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If set to 0, the session does not expire.<br/>
         /// Example: 60
         /// </param>
         /// <param name="secrets">

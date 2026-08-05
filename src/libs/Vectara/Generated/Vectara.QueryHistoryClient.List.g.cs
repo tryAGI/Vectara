@@ -74,9 +74,9 @@ namespace Vectara
             ref string content);
 
         /// <summary>
-        /// List the history of previous queries<br/>
-        /// The List Query Histories API allows you to retrieve, update, and manage query history for a specific corpus. This API is particularly useful for tracking query performance, debugging individual queries, and retrieving detailed information such as the call stack of a query execution.<br/>
-        /// You can specify the `corpus_key`, `chat_id`, and the `limit` which is the maximum number of historical queries to list.
+        /// List query histories<br/>
+        /// Lists the history of previous queries. Use this API to track query performance and to debug individual queries.<br/>
+        /// Filter the results with `corpus_key` or `chat_id`. Set `limit` to the maximum number of query histories to list.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -122,9 +122,9 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// List the history of previous queries<br/>
-        /// The List Query Histories API allows you to retrieve, update, and manage query history for a specific corpus. This API is particularly useful for tracking query performance, debugging individual queries, and retrieving detailed information such as the call stack of a query execution.<br/>
-        /// You can specify the `corpus_key`, `chat_id`, and the `limit` which is the maximum number of historical queries to list.
+        /// List query histories<br/>
+        /// Lists the history of previous queries. Use this API to track query performance and to debug individual queries.<br/>
+        /// Filter the results with `corpus_key` or `chat_id`. Set `limit` to the maximum number of query histories to list.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

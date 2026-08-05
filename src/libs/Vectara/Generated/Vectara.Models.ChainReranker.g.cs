@@ -9,14 +9,14 @@ namespace Vectara
     public sealed partial class ChainReranker
     {
         /// <summary>
-        /// When the type is `chain`, you can then chain re-rankers together.<br/>
+        /// When the type is `chain`, you can chain rerankers together.<br/>
         /// Default Value: chain
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         public string? Type { get; set; }
 
         /// <summary>
-        /// Specify an array of rerankers to apply to search results consecutively.
+        /// An array of rerankers to apply to the search results in sequence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rerankers")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -32,10 +32,10 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ChainReranker" /> class.
         /// </summary>
         /// <param name="rerankers">
-        /// Specify an array of rerankers to apply to search results consecutively.
+        /// An array of rerankers to apply to the search results in sequence.
         /// </param>
         /// <param name="type">
-        /// When the type is `chain`, you can then chain re-rankers together.<br/>
+        /// When the type is `chain`, you can chain rerankers together.<br/>
         /// Default Value: chain
         /// </param>
 #if NET7_0_OR_GREATER

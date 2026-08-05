@@ -69,7 +69,7 @@ namespace Vectara
 
         /// <summary>
         /// List API keys<br/>
-        /// The List API Keys API lists all existing API keys for a customer ID. It also shows what corpora are accessed by these keys and with what permissions. This capability can provide insights into key usage and status and help you manage the lifecycle and security of your API keys.
+        /// Lists all API keys for the customer account. The response shows the corpora each key can access and with what permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -113,7 +113,7 @@ namespace Vectara
         }
         /// <summary>
         /// List API keys<br/>
-        /// The List API Keys API lists all existing API keys for a customer ID. It also shows what corpora are accessed by these keys and with what permissions. This capability can provide insights into key usage and status and help you manage the lifecycle and security of your API keys.
+        /// Lists all API keys for the customer account. The response shows the corpora each key can access and with what permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

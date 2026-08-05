@@ -4,8 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Box server-to-server authentication via the Client Credentials Grant. The app must be<br/>
-    /// authorized for the enterprise in the Box Admin Console.
+    /// Box server-to-server authentication via the Client Credentials Grant. Authorize the app<br/>
+    /// for the enterprise in the Box Admin Console.
     /// </summary>
     public sealed partial class BoxCcgAuth
     {

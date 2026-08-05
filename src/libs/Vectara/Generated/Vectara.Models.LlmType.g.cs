@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Provider type identifying which authentication and configuration apply. Required on responses; the server fails closed (HTTP 500) for any stored LLM whose connection spec it cannot map to one of these values.
+    /// The provider type. It determines which authentication and configuration apply. Responses always include this field. If a stored LLM cannot be mapped to one of these values, the request fails with HTTP 500.
     /// </summary>
     public enum LlmType
     {

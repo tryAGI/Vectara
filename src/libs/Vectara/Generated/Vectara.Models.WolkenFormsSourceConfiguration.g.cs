@@ -12,11 +12,11 @@ namespace Vectara
         /// <summary>
         /// Base Wolken ServiceDesk forms source configuration. Ingests the end-user-facing service catalog<br/>
         /// forms of a Wolken ServiceDesk instance, covering both incident forms and service request forms.<br/>
-        /// Each form becomes one document carrying the form's title, description, and category, and, when<br/>
-        /// `include_form_details` is true, its FAQs, field definitions, and option values. Requires Wolken<br/>
-        /// credentials with read access to the service catalog listing endpoint, and, when<br/>
-        /// `include_form_details` is true, to the form metadata, special instructions, and lookup value<br/>
-        /// endpoints.
+        /// Each form becomes one document carrying the form's title, description, and category. When<br/>
+        /// `include_form_details` is true, the document also carries the form's FAQs, field definitions,<br/>
+        /// and option values. Requires Wolken credentials with read access to the service catalog listing<br/>
+        /// endpoint. When `include_form_details` is true, the credentials also need read access to the<br/>
+        /// form metadata, special instructions, and lookup value endpoints.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseWolkenFormsSourceConfiguration? Base { get; init; }

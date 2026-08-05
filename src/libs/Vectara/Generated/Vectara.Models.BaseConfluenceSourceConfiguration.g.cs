@@ -22,8 +22,8 @@ namespace Vectara
 
         /// <summary>
         /// Base URL of your Confluence instance, e.g. `https://your-domain.atlassian.net` for Cloud or<br/>
-        /// `https://confluence.example.com` for Data Center. The Cloud `/wiki` context path is added<br/>
-        /// automatically, so it does not need to be included.<br/>
+        /// `https://confluence.example.com` for Data Center. The Cloud `/wiki` context path may be<br/>
+        /// included or omitted; the platform adds it when omitted.<br/>
         /// Example: https://your-domain.atlassian.net
         /// </summary>
         /// <example>https://your-domain.atlassian.net</example>
@@ -69,8 +69,8 @@ namespace Vectara
         /// </param>
         /// <param name="baseUrl">
         /// Base URL of your Confluence instance, e.g. `https://your-domain.atlassian.net` for Cloud or<br/>
-        /// `https://confluence.example.com` for Data Center. The Cloud `/wiki` context path is added<br/>
-        /// automatically, so it does not need to be included.<br/>
+        /// `https://confluence.example.com` for Data Center. The Cloud `/wiki` context path may be<br/>
+        /// included or omitted; the platform adds it when omitted.<br/>
         /// Example: https://your-domain.atlassian.net
         /// </param>
         /// <param name="deployment">

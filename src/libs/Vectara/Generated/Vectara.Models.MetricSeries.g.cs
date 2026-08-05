@@ -89,7 +89,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Gauge' but the value was {ToString()}.");
 
         /// <summary>
-        /// A series of percentile aggregates over a t-digest state.
+        /// A series of percentile aggregates.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.PercentilesMetricSeries? Percentiles { get; init; }

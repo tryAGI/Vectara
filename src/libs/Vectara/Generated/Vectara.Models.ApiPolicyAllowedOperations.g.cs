@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Operations that are allowed by the API role. Each operation may only allow certain resources that are described by a resource path to resource value map. If the value is null, then the operation is allowed on any resource.
+    /// The operations the API role allows. Each operation may allow only certain resources, described by a map of resource path to resource values. If the value is null, the operation allows any resource.
     /// </summary>
     public sealed partial class ApiPolicyAllowedOperations
     {

@@ -62,8 +62,8 @@ namespace Vectara
             ref string content);
 
         /// <summary>
-        /// Reset the password for a user<br/>
-        /// Reset the password for a user.
+        /// Reset a user password<br/>
+        /// Resets the password for a user.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -89,8 +89,8 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// Reset the password for a user<br/>
-        /// Reset the password for a user.
+        /// Reset a user password<br/>
+        /// Resets the password for a user.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

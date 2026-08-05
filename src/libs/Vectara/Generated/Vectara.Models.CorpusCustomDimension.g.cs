@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Custom dimensions attached to all document parts in a corpus. Allows arbitrary modification of the score for many purposes.
+    /// A custom dimension attached to all document parts in a corpus. Custom dimensions allow arbitrary modification of the search score.
     /// </summary>
     public sealed partial class CorpusCustomDimension
     {
@@ -26,7 +26,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Default value of a custom dimension on a document part if the custom dimension value is not specified when the document part is indexed. A value of 0 means that custom dimension is not considered.<br/>
+        /// The default value of a custom dimension on a document part. This value applies when the custom dimension value is not specified at indexing time. A value of 0 means that the custom dimension is not considered.<br/>
         /// Default Value: 0<br/>
         /// Example: 0
         /// </summary>
@@ -35,7 +35,7 @@ namespace Vectara
         public double? IndexingDefault { get; set; }
 
         /// <summary>
-        /// Default value of a custom dimension for a query if the value of the custom dimension is not specified when querying the corpus. A value of 0 means that custom dimension is not considered.<br/>
+        /// The default value of a custom dimension for a query. This value applies when the custom dimension value is not specified in the query. A value of 0 means that the custom dimension is not considered.<br/>
         /// Default Value: 0<br/>
         /// Example: 0
         /// </summary>
@@ -61,12 +61,12 @@ namespace Vectara
         /// Example: Product importance.
         /// </param>
         /// <param name="indexingDefault">
-        /// Default value of a custom dimension on a document part if the custom dimension value is not specified when the document part is indexed. A value of 0 means that custom dimension is not considered.<br/>
+        /// The default value of a custom dimension on a document part. This value applies when the custom dimension value is not specified at indexing time. A value of 0 means that the custom dimension is not considered.<br/>
         /// Default Value: 0<br/>
         /// Example: 0
         /// </param>
         /// <param name="queryingDefault">
-        /// Default value of a custom dimension for a query if the value of the custom dimension is not specified when querying the corpus. A value of 0 means that custom dimension is not considered.<br/>
+        /// The default value of a custom dimension for a query. This value applies when the custom dimension value is not specified in the query. A value of 0 means that the custom dimension is not considered.<br/>
         /// Default Value: 0<br/>
         /// Example: 0
         /// </param>

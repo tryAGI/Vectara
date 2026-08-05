@@ -6,11 +6,11 @@ namespace Vectara
     /// <summary>
     /// Base Wolken ServiceDesk forms source configuration. Ingests the end-user-facing service catalog<br/>
     /// forms of a Wolken ServiceDesk instance, covering both incident forms and service request forms.<br/>
-    /// Each form becomes one document carrying the form's title, description, and category, and, when<br/>
-    /// `include_form_details` is true, its FAQs, field definitions, and option values. Requires Wolken<br/>
-    /// credentials with read access to the service catalog listing endpoint, and, when<br/>
-    /// `include_form_details` is true, to the form metadata, special instructions, and lookup value<br/>
-    /// endpoints.
+    /// Each form becomes one document carrying the form's title, description, and category. When<br/>
+    /// `include_form_details` is true, the document also carries the form's FAQs, field definitions,<br/>
+    /// and option values. Requires Wolken credentials with read access to the service catalog listing<br/>
+    /// endpoint. When `include_form_details` is true, the credentials also need read access to the<br/>
+    /// form metadata, special instructions, and lookup value endpoints.
     /// </summary>
     public sealed partial class BaseWolkenFormsSourceConfiguration
     {
@@ -34,7 +34,7 @@ namespace Vectara
         public string? BaseUrl { get; set; }
 
         /// <summary>
-        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname, so use the exact value from your credential handoff.<br/>
+        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname. Use the exact value from your credential handoff.<br/>
         /// Example: example.wolkenservicedesk.com
         /// </summary>
         /// <example>example.wolkenservicedesk.com</example>
@@ -109,7 +109,7 @@ namespace Vectara
         /// Example: https://example-api.wolkenservicedesk.com
         /// </param>
         /// <param name="domain">
-        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname, so use the exact value from your credential handoff.<br/>
+        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname. Use the exact value from your credential handoff.<br/>
         /// Example: example.wolkenservicedesk.com
         /// </param>
         /// <param name="includeFormDetails">

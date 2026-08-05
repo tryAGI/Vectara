@@ -6,10 +6,10 @@ namespace Vectara
     {
         /// <summary>
         /// Create an LLM<br/>
-        /// Integrate external Large Language Models (LLMs) into Vectara for Retrieval Augmented Generation (RAG) and chat. Connect OpenAI API-compatible models from providers like Anthropic, Azure, Google, or custom-hosted endpoints. Once created, reference your custom LLM by name in query generation parameters.<br/>
-        /// - Connect external LLMs using OpenAI-compatible API format<br/>
+        /// Creates a connection to an external Large Language Model (LLM) for Retrieval Augmented Generation (RAG) and chat. You can connect OpenAI API-compatible models from providers like Anthropic, Azure, Google, or custom-hosted endpoints. After creation, reference your custom LLM by name in query generation parameters.<br/>
+        /// - Connect external LLMs that use the OpenAI-compatible API format<br/>
         /// - Configure multiple LLM providers for different use cases<br/>
-        /// - Override Vectara's built-in LLMs with your own models<br/>
+        /// - Override the platform's built-in LLMs with your own models<br/>
         /// - Use custom models for RAG, chat, and document summarization<br/>
         /// **Example providers:**<br/>
         /// ### OpenAI<br/>
@@ -114,7 +114,7 @@ namespace Vectara
         /// }<br/>
         /// ```<br/>
         /// The `uri` field is flexible — you can provide a base URI or a full URL copied from Google docs<br/>
-        /// (including model path and `:generateContent` suffix). The system normalizes it automatically.<br/>
+        /// (including model path and `:generateContent` suffix). The platform normalizes it automatically.<br/>
         /// ### Custom OpenAI-Compatible<br/>
         /// **Type:** `openai-compatible`<br/>
         /// **Models:** Any self-hosted or custom LLM, such as OpenRouter.<br/>
@@ -147,10 +147,10 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an LLM<br/>
-        /// Integrate external Large Language Models (LLMs) into Vectara for Retrieval Augmented Generation (RAG) and chat. Connect OpenAI API-compatible models from providers like Anthropic, Azure, Google, or custom-hosted endpoints. Once created, reference your custom LLM by name in query generation parameters.<br/>
-        /// - Connect external LLMs using OpenAI-compatible API format<br/>
+        /// Creates a connection to an external Large Language Model (LLM) for Retrieval Augmented Generation (RAG) and chat. You can connect OpenAI API-compatible models from providers like Anthropic, Azure, Google, or custom-hosted endpoints. After creation, reference your custom LLM by name in query generation parameters.<br/>
+        /// - Connect external LLMs that use the OpenAI-compatible API format<br/>
         /// - Configure multiple LLM providers for different use cases<br/>
-        /// - Override Vectara's built-in LLMs with your own models<br/>
+        /// - Override the platform's built-in LLMs with your own models<br/>
         /// - Use custom models for RAG, chat, and document summarization<br/>
         /// **Example providers:**<br/>
         /// ### OpenAI<br/>
@@ -255,7 +255,7 @@ namespace Vectara
         /// }<br/>
         /// ```<br/>
         /// The `uri` field is flexible — you can provide a base URI or a full URL copied from Google docs<br/>
-        /// (including model path and `:generateContent` suffix). The system normalizes it automatically.<br/>
+        /// (including model path and `:generateContent` suffix). The platform normalizes it automatically.<br/>
         /// ### Custom OpenAI-Compatible<br/>
         /// **Type:** `openai-compatible`<br/>
         /// **Models:** Any self-hosted or custom LLM, such as OpenRouter.<br/>

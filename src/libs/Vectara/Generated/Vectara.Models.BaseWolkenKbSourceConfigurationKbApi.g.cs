@@ -6,9 +6,9 @@ namespace Vectara
     /// <summary>
     /// The Wolken API family used to read the knowledge base. `data_api` reads through the<br/>
     /// provisioned data API endpoint and supports server-side update-time filters. `kb_module`<br/>
-    /// reads through the Knowledge Base module REST API, which lists articles by category and<br/>
-    /// offers no server-side filters, so update detection happens after listing. Which family a<br/>
-    /// Wolken deployment provisions is determined by the Wolken administrator.<br/>
+    /// reads through the Knowledge Base module REST API. That API lists articles by category<br/>
+    /// and offers no server-side filters, so update detection happens after listing. The<br/>
+    /// Wolken administrator determines which family a deployment provisions.<br/>
     /// Default Value: data_api
     /// </summary>
     public enum BaseWolkenKbSourceConfigurationKbApi

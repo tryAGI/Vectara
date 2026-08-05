@@ -10,7 +10,7 @@ namespace Vectara
     public sealed partial class UploadFileRequest
     {
         /// <summary>
-        /// Arbitrary object that will be attached as document metadata to the extracted document.<br/>
+        /// Arbitrary object that is attached as document metadata to the extracted document.<br/>
         /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
         /// </summary>
         /// <example>{"department":"engineering","doc_type\u0022":"architecture_diagram"}</example>
@@ -18,14 +18,14 @@ namespace Vectara
         public object? Metadata { get; set; }
 
         /// <summary>
-        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ChunkingStrategyJsonConverter))]
         public global::Vectara.ChunkingStrategy? ChunkingStrategy { get; set; }
 
         /// <summary>
-        /// Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.
+        /// Configuration for table extraction from the document. This configuration is optional. If omitted, the platform does not extract tables from PDF files.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("table_extraction_config")]
         public global::Vectara.TableExtractionConfig? TableExtractionConfig { get; set; }
@@ -39,7 +39,7 @@ namespace Vectara
         public string? Filename { get; set; }
 
         /// <summary>
-        /// Binary file contents. The file name of the file will be used as the document ID.
+        /// Binary file contents. The filename of the file becomes the document ID.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("file")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -55,17 +55,17 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="UploadFileRequest" /> class.
         /// </summary>
         /// <param name="file">
-        /// Binary file contents. The file name of the file will be used as the document ID.
+        /// Binary file contents. The filename of the file becomes the document ID.
         /// </param>
         /// <param name="metadata">
-        /// Arbitrary object that will be attached as document metadata to the extracted document.<br/>
+        /// Arbitrary object that is attached as document metadata to the extracted document.<br/>
         /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
         /// </param>
         /// <param name="chunkingStrategy">
-        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.
         /// </param>
         /// <param name="tableExtractionConfig">
-        /// Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.
+        /// Configuration for table extraction from the document. This configuration is optional. If omitted, the platform does not extract tables from PDF files.
         /// </param>
         /// <param name="filename">
         /// Optional multipart section to override the filename.<br/>

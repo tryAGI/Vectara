@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// Response containing the job ID for the filter attributes replacement operation.
+    /// Response that contains the job ID for the replacement of filter attributes.
     /// </summary>
     public sealed partial class ReplaceFilterAttributesResponse
     {
         /// <summary>
-        /// Job that was created in order to replace filter attributes.
+        /// The ID of the job that replaces the filter attributes.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("job_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -25,7 +25,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ReplaceFilterAttributesResponse" /> class.
         /// </summary>
         /// <param name="jobId">
-        /// Job that was created in order to replace filter attributes.
+        /// The ID of the job that replaces the filter attributes.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

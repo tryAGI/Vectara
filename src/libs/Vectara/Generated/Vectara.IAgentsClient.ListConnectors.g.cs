@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List agent connectors<br/>
-        /// List all connectors for a specific agent, with optional filtering and pagination.
+        /// Lists all connectors for an agent, with optional filtering and pagination.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -39,7 +39,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List agent connectors<br/>
-        /// List all connectors for a specific agent, with optional filtering and pagination.
+        /// Lists all connectors for an agent, with optional filtering and pagination.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -6,14 +6,14 @@ namespace Vectara
     {
         /// <summary>
         /// Test Lambda tool without creation<br/>
-        /// Test a Lambda tool without creating it first. This endpoint allows you to validate code, discover schemas, and test execution before committing to tool creation.<br/>
+        /// Tests a Lambda tool without creating it.<br/>
         /// Use this to:<br/>
         /// - Validate Python code syntax and security constraints<br/>
         /// - Discover input/output schemas from type annotations<br/>
         /// - Test execution with sample input<br/>
         /// - Verify schema compatibility<br/>
         /// - Exercise the lambda tool's `tool_configurations` with a stand-in `test_context` that supplies the agent metadata, secrets, and session metadata its `$ref`s resolve against<br/>
-        /// The function is executed in the same secure sandbox environment as production tools.
+        /// The function runs in the same secure sandbox environment as production tools.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -30,14 +30,14 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Test Lambda tool without creation<br/>
-        /// Test a Lambda tool without creating it first. This endpoint allows you to validate code, discover schemas, and test execution before committing to tool creation.<br/>
+        /// Tests a Lambda tool without creating it.<br/>
         /// Use this to:<br/>
         /// - Validate Python code syntax and security constraints<br/>
         /// - Discover input/output schemas from type annotations<br/>
         /// - Test execution with sample input<br/>
         /// - Verify schema compatibility<br/>
         /// - Exercise the lambda tool's `tool_configurations` with a stand-in `test_context` that supplies the agent metadata, secrets, and session metadata its `$ref`s resolve against<br/>
-        /// The function is executed in the same secure sandbox environment as production tools.
+        /// The function runs in the same secure sandbox environment as production tools.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -54,14 +54,14 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Test Lambda tool without creation<br/>
-        /// Test a Lambda tool without creating it first. This endpoint allows you to validate code, discover schemas, and test execution before committing to tool creation.<br/>
+        /// Tests a Lambda tool without creating it.<br/>
         /// Use this to:<br/>
         /// - Validate Python code syntax and security constraints<br/>
         /// - Discover input/output schemas from type annotations<br/>
         /// - Test execution with sample input<br/>
         /// - Verify schema compatibility<br/>
         /// - Exercise the lambda tool's `tool_configurations` with a stand-in `test_context` that supplies the agent metadata, secrets, and session metadata its `$ref`s resolve against<br/>
-        /// The function is executed in the same secure sandbox environment as production tools.
+        /// The function runs in the same secure sandbox environment as production tools.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -72,7 +72,7 @@ namespace Vectara
         /// </param>
         /// <param name="code">
         /// The Python 3.12 code for the function. Must define a `process()` entry point.<br/>
-        /// Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters are rejected.<br/>
+        /// Object parameters must use `TypedDict`; validation rejects bare `dict` and `Dict[K, V]` parameters.<br/>
         /// See the `code` field on `CreateLambdaToolRequest` for full details and examples.<br/>
         /// Example: def process(order_count: int, total_revenue: float) -&gt; dict:<br/>
         ///     score = order_count * 10 + total_revenue * 0.1<br/>
@@ -82,7 +82,7 @@ namespace Vectara
         /// Execution configuration for the function.
         /// </param>
         /// <param name="testInput">
-        /// The input parameters to test the function with. Will be validated against the discovered input schema.<br/>
+        /// The input parameters to test the function with. The platform validates them against the discovered input schema.<br/>
         /// Example: {"order_count":10,"total_revenue":500}
         /// </param>
         /// <param name="timeoutSeconds">

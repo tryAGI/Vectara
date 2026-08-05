@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List glossary entries<br/>
-        /// List the entries in a glossary.
+        /// Lists the entries in a glossary.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -31,7 +31,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List glossary entries<br/>
-        /// List the entries in a glossary.
+        /// Lists the entries in a glossary.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

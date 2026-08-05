@@ -45,12 +45,14 @@ namespace Vectara
         /// Updated JSON Schema for the arguments the LLM produces when invoking this tool.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("input_schema")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionJsonConverter))]
         public global::Vectara.JsonSchemaDefinition? InputSchema { get; set; }
 
         /// <summary>
         /// Updated JSON Schema for the structure the client must submit as the tool output. Pass an empty object to clear the schema and accept any output.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_schema")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionJsonConverter))]
         public global::Vectara.JsonSchemaDefinition? OutputSchema { get; set; }
 
         /// <summary>

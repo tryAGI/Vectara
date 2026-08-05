@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Base Box source configuration. Ingests files from a Box enterprise starting at `folder_id`,<br/>
-    /// walking every descendant subfolder and inheriting each item's Box collaborations as<br/>
-    /// document-level ACL.
+    /// Base Box source configuration. Ingests files from a Box enterprise starting at `folder_id`.<br/>
+    /// The connector walks every descendant subfolder. It inherits each item's Box collaborations<br/>
+    /// as document-level ACL.
     /// </summary>
     public sealed partial class BaseBoxSourceConfiguration
     {

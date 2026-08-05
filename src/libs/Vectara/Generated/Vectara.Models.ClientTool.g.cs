@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A tool whose execution is performed by the calling client. When invoked, the platform emits a `tool_input` event with the tool call arguments. The client submits the result as a `tool_output` input via `createAgentInput`.
+    /// A tool that the calling client executes. When invoked, the platform emits a `tool_input` event with the tool call arguments. The client submits the result as a `tool_output` input via `createAgentInput`.
     /// </summary>
     public readonly partial struct ClientTool : global::System.IEquatable<ClientTool>
     {

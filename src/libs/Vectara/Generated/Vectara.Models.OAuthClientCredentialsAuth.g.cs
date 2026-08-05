@@ -34,7 +34,7 @@ namespace Vectara
         public required string ClientSecret { get; set; }
 
         /// <summary>
-        /// The OAuth2 token endpoint URL where the platform will exchange credentials for an access token.<br/>
+        /// The OAuth2 token endpoint URL where the platform exchanges credentials for an access token.<br/>
         /// Example: https://auth.example.com/oauth2/token
         /// </summary>
         /// <example>https://auth.example.com/oauth2/token</example>
@@ -71,7 +71,7 @@ namespace Vectara
         /// The OAuth2 client secret.
         /// </param>
         /// <param name="tokenEndpoint">
-        /// The OAuth2 token endpoint URL where the platform will exchange credentials for an access token.<br/>
+        /// The OAuth2 token endpoint URL where the platform exchanges credentials for an access token.<br/>
         /// Example: https://auth.example.com/oauth2/token
         /// </param>
         /// <param name="scopes">

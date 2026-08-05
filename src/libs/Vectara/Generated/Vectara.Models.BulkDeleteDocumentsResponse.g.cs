@@ -5,20 +5,20 @@
 namespace Vectara
 {
     /// <summary>
-    /// Response for bulk delete operations. Structure varies based on async/sync mode.<br/>
+    /// Response for bulk delete operations. The structure varies based on async or sync mode.<br/>
     /// **Async mode (async=true)**: Returns HTTP 202 immediately with job_id to track progress<br/>
     /// **Sync mode (async=false)**: Returns HTTP 200 after completion with deletion counts<br/>
     /// **Important: Best-Effort Operation**<br/>
     /// This is a best-effort deletion operation. The behavior differs based on which parameter you use:<br/>
     /// **Using `document_ids` (Recommended for precision)**<br/>
     /// - Deletes only the exact documents specified by ID<br/>
-    /// - Most reliable option - documents are deleted from the primary storage directly<br/>
+    /// - Most reliable option. The platform deletes the specified documents directly<br/>
     /// - Use this when you know exactly which documents to delete<br/>
     /// **Using `metadata_filter` (Subject to indexing lag)**<br/>
-    /// - Filters are applied against the search index, not the primary document store<br/>
-    /// - Documents that have been recently indexed may not yet appear in search results due to indexing pipeline lag<br/>
-    /// - This means recently added documents matching your filter may be missed<br/>
-    /// - A timestamp cutoff is captured at operation start; only documents created/updated before this time are deleted<br/>
+    /// - The platform evaluates the filter against the search index<br/>
+    /// - Recently indexed documents may not yet appear in search results because of indexing lag<br/>
+    /// - Recently added documents that match your filter can be missed<br/>
+    /// - The platform captures a timestamp cutoff at operation start. Only documents created or updated before this time are deleted<br/>
     /// - Due to distributed system timing, documents added very close to the operation start may still be deleted if timestamps are not perfectly synchronized<br/>
     /// For mission-critical deletions where completeness is required, use `document_ids` or run the filter-based deletion multiple times after indexing has caught up.
     /// </summary>

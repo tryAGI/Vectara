@@ -5,11 +5,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// Read view of a connector's configuration as returned by GET and list<br/>
+    /// Read view of a connector's configuration, as returned by GET and list<br/>
     /// endpoints. Contains the secrets supplied at create time alongside<br/>
-    /// server-derived display fields: Slack exposes `webhook_path`, gchat<br/>
-    /// exposes `audience_url` and `client_email`, and zoom exposes the<br/>
-    /// generated `connector_token` and `webhook_path`.
+    /// platform-derived display fields:<br/>
+    /// - Slack exposes `webhook_path`<br/>
+    /// - gchat exposes `audience_url` and `client_email`<br/>
+    /// - zoom exposes the generated `connector_token` and `webhook_path`
     /// </summary>
     public readonly partial struct ConnectorConfiguration : global::System.IEquatable<ConnectorConfiguration>
     {
@@ -57,9 +58,9 @@ namespace Vectara
 
         /// <summary>
         /// Read view of a Google Chat connector's configuration. Includes the display<br/>
-        /// fields `client_email` and `project_id` parsed out of the service account key,<br/>
-        /// and the audience URL used to verify inbound events. The service account key is<br/>
-        /// never returned.
+        /// fields `client_email` and `project_id`, parsed out of the service account<br/>
+        /// key. Also includes the audience URL used to verify inbound events. The<br/>
+        /// service account key is never returned.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GchatConnectorConfiguration? Gchat { get; init; }
@@ -97,11 +98,12 @@ namespace Vectara
 
         /// <summary>
         /// Read view of a Zoom Contact Center connector's configuration. Includes the<br/>
-        /// server-generated `connector_token` to configure as the `x-zoom-connector-token` header on the<br/>
-        /// Zoom Contact Center bot connector, and the `webhook_path` to configure as<br/>
-        /// the bot endpoint URL. The agent's reply is always delivered asynchronously.<br/>
-        /// The webhook returns a typing indicator and the reply is POSTed to<br/>
-        /// `callback_url` when the agent finishes.
+        /// platform-generated `connector_token` to configure as the<br/>
+        /// `x-zoom-connector-token` header on the Zoom Contact Center bot connector.<br/>
+        /// Also includes the `webhook_path` to configure as the bot endpoint URL. The<br/>
+        /// agent's reply is always delivered asynchronously. The webhook returns a<br/>
+        /// typing indicator and the reply is POSTed to `callback_url` when the agent<br/>
+        /// finishes.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ZoomConnectorConfiguration? Zoom { get; init; }

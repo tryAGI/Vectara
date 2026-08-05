@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class AgentRole
     {
         /// <summary>
-        /// The ID of the agent this role applies to.
+        /// The key of the agent this role applies to.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("agent_key")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -20,7 +20,8 @@ namespace Vectara
         /// * `agent_administrator` - Full administrative access to the agent including deletion and configuration.<br/>
         /// * `agent_viewer` - Read-only access to view agent configuration, sessions, events, instructions, and tools.<br/>
         /// * `agent_developer` - Can modify agent configuration, create/manage sessions, update tools and instructions.<br/>
-        /// * `agent_user` - Limited access to interact with the agent by creating sessions and sending inputs. Cannot view agent configuration or modify settings.
+        /// * `agent_user` - Limited access to interact with the agent by creating sessions and sending inputs. Cannot view agent configuration or modify settings.<br/>
+        /// * `agent_end_user` - Granted on an alias, lets a user create sessions and send messages through it. They see only their own sessions, and within them only their own messages and the agent's replies. This must be the only role the user holds. The platform rejects assigning it alongside any other role.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("role")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentRoleRoleJsonConverter))]
@@ -37,14 +38,15 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AgentRole" /> class.
         /// </summary>
         /// <param name="agentKey">
-        /// The ID of the agent this role applies to.
+        /// The key of the agent this role applies to.
         /// </param>
         /// <param name="role">
         /// The role assigned for this specific agent.<br/>
         /// * `agent_administrator` - Full administrative access to the agent including deletion and configuration.<br/>
         /// * `agent_viewer` - Read-only access to view agent configuration, sessions, events, instructions, and tools.<br/>
         /// * `agent_developer` - Can modify agent configuration, create/manage sessions, update tools and instructions.<br/>
-        /// * `agent_user` - Limited access to interact with the agent by creating sessions and sending inputs. Cannot view agent configuration or modify settings.
+        /// * `agent_user` - Limited access to interact with the agent by creating sessions and sending inputs. Cannot view agent configuration or modify settings.<br/>
+        /// * `agent_end_user` - Granted on an alias, lets a user create sessions and send messages through it. They see only their own sessions, and within them only their own messages and the agent's replies. This must be the only role the user holds. The platform rejects assigning it alongside any other role.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

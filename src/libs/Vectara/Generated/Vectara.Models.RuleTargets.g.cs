@@ -7,7 +7,7 @@ namespace Vectara
     /// <summary>
     /// The shape of a rule's targets. The `type` discriminator selects which fields apply:<br/>
     /// * `single` — a direct route to one agent. No weight, no partition function.<br/>
-    /// * `weighted` — a weighted selection among several agents. Requires a `partition_by` userfn expression naming what to hash on; different rules can use different partition functions.
+    /// * `weighted` — a weighted selection among several agents. Requires a `partition_by` userfn expression that names what to hash on. Different rules can use different partition functions.
     /// </summary>
     public readonly partial struct RuleTargets : global::System.IEquatable<RuleTargets>
     {
@@ -54,7 +54,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Single' but the value was {ToString()}.");
 
         /// <summary>
-        /// Weighted selection among several agents. The `partition_by` userfn expression is evaluated and hashed; the result picks which `options` entry serves this session. Different rules in the same policy can declare different `partition_by` expressions (US rules canary by user_id, EU rules by tenant_id, etc.).
+        /// Weighted selection among several agents. The policy evaluates and hashes the `partition_by` userfn expression. The result picks which `options` entry serves the session. Different rules in the same policy can declare different `partition_by` expressions (US rules canary by user_id, EU rules by tenant_id, etc.).
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WeightedRuleTargets? Weighted { get; init; }

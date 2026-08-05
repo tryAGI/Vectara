@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A successful client tool output to be returned to the agent.
+    /// A successful client tool output to deliver to the agent.
     /// </summary>
     public readonly partial struct CreateToolOutputSuccess : global::System.IEquatable<CreateToolOutputSuccess>
     {

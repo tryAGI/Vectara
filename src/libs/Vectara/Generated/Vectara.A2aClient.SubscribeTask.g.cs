@@ -60,7 +60,7 @@ namespace Vectara
 
         /// <summary>
         /// Subscribe to A2A v0.3 task updates<br/>
-        /// Attach to a running task and stream subsequent lifecycle updates as Server-Sent Events. If the task is already terminal, streams the final task and closes.
+        /// Attaches to a running task and streams subsequent lifecycle updates as Server-Sent Events. If the task is already terminal, streams the final task and closes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

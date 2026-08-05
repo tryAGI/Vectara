@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Uses native tool calling capabilities and returns output directly to the user. This parser leverages the underlying model's built-in tool calling functionality and passes responses through without additional processing.
+    /// Returns the agent's output directly to the user without additional processing. Uses the model's built-in tool calling.
     /// </summary>
     public sealed partial class DefaultOutputParser
     {

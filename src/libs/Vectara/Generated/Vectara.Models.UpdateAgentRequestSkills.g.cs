@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// A map of skills available to the agent. Set to null to clear all skills.<br/>
-    /// Individual map values set to null will delete that skill.
+    /// A map value set to null deletes that skill.
     /// </summary>
     public sealed partial class UpdateAgentRequestSkills
     {

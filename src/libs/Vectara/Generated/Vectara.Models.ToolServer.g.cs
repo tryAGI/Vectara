@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Represents a tool server that can provide various functionalities.
+    /// A tool server that exposes tools for use by agents.
     /// </summary>
     public sealed partial class ToolServer
     {

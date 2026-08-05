@@ -4,15 +4,17 @@
 namespace Vectara
 {
     /// <summary>
-    /// Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl). Politeness, limits, auth.<br/>
-    /// Mode-specific fields (urls, sitemap_urls, BFS knobs, page count cap) live on the concrete subtypes.
+    /// Shared configuration for all web-based sources (sitemap, crawl, sitemap+crawl). Contains<br/>
+    /// politeness settings, limits including the `max_pages` page count cap, and authentication.<br/>
+    /// Mode-specific fields (urls, sitemap_urls, BFS settings) live on the page source types<br/>
+    /// under `pages_source`.
     /// </summary>
     public sealed partial class BaseWebSource
     {
         /// <summary>
-        /// If true (default and strongly recommended), `robots.txt` rules and `Crawl-delay` directives are honored.<br/>
-        /// Set to false only if you have explicit authorization to crawl the target site without robots.txt<br/>
-        /// restrictions (e.g., your own domain).<br/>
+        /// If true (default and strongly recommended), the crawler honors `robots.txt` rules and<br/>
+        /// `Crawl-delay` directives. Set to false only if you have explicit authorization to crawl<br/>
+        /// the target site without robots.txt restrictions (e.g., your own domain).<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("respect_robots_txt")]
@@ -34,17 +36,18 @@ namespace Vectara
 
         /// <summary>
         /// Hard cap on the number of pages fetched per run. The default is a safety rail to prevent<br/>
-        /// unbounded crawls — both in BFS mode (high-branching-factor sites like wikis where `max_depth`<br/>
-        /// alone is not a meaningful bound) and in sitemap mode (a `&lt;sitemap-index&gt;` can chain<br/>
-        /// 50,000 child sitemaps × 50,000 URLs each per the sitemaps.org limits).<br/>
+        /// unbounded crawls. In BFS mode, `max_depth` alone is not a meaningful bound on<br/>
+        /// high-branching-factor sites like wikis. In sitemap mode, a `&lt;sitemap-index&gt;` can chain<br/>
+        /// 50,000 child sitemaps × 50,000 URLs each per the sitemaps.org limits.<br/>
         /// Default Value: 10000
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_pages")]
         public int? MaxPages { get; set; }
 
         /// <summary>
-        /// If true, pages are rendered with a headless browser (slower, but required for JavaScript-heavy SPAs).<br/>
-        /// Defaults to false; turn on if pages return empty content without rendering.<br/>
+        /// If true, a headless browser renders each page. This is slower, but required for<br/>
+        /// JavaScript-heavy SPAs. Defaults to false. Turn it on if pages return empty content<br/>
+        /// without rendering.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("js_rendering")]
@@ -59,8 +62,8 @@ namespace Vectara
 
         /// <summary>
         /// Maximum page body bytes to download. Larger pages are truncated. The 64 KB floor<br/>
-        /// prevents accidentally capping every page below the size of a typical HTML document;<br/>
-        /// the 100 MiB ceiling is far above any plausible single-page payload.<br/>
+        /// prevents accidentally capping every page below the size of a typical HTML document.<br/>
+        /// The 100 MiB ceiling is far above any plausible single-page payload.<br/>
         /// Default Value: 10485760
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_page_bytes")]
@@ -84,9 +87,9 @@ namespace Vectara
         /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
         /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
         /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
-        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
-        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
-        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// user-provided values take precedence over connector-derived ones. `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key. Derived keys not named are kept.<br/>
+        /// A provided `acl_metadata` replaces ACL extraction entirely.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source_record_metadata")]
         public global::Vectara.SourceRecordMetadata? SourceRecordMetadata { get; set; }
@@ -101,9 +104,9 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="BaseWebSource" /> class.
         /// </summary>
         /// <param name="respectRobotsTxt">
-        /// If true (default and strongly recommended), `robots.txt` rules and `Crawl-delay` directives are honored.<br/>
-        /// Set to false only if you have explicit authorization to crawl the target site without robots.txt<br/>
-        /// restrictions (e.g., your own domain).<br/>
+        /// If true (default and strongly recommended), the crawler honors `robots.txt` rules and<br/>
+        /// `Crawl-delay` directives. Set to false only if you have explicit authorization to crawl<br/>
+        /// the target site without robots.txt restrictions (e.g., your own domain).<br/>
         /// Default Value: true
         /// </param>
         /// <param name="requestsPerSecond">
@@ -116,14 +119,15 @@ namespace Vectara
         /// </param>
         /// <param name="maxPages">
         /// Hard cap on the number of pages fetched per run. The default is a safety rail to prevent<br/>
-        /// unbounded crawls — both in BFS mode (high-branching-factor sites like wikis where `max_depth`<br/>
-        /// alone is not a meaningful bound) and in sitemap mode (a `&lt;sitemap-index&gt;` can chain<br/>
-        /// 50,000 child sitemaps × 50,000 URLs each per the sitemaps.org limits).<br/>
+        /// unbounded crawls. In BFS mode, `max_depth` alone is not a meaningful bound on<br/>
+        /// high-branching-factor sites like wikis. In sitemap mode, a `&lt;sitemap-index&gt;` can chain<br/>
+        /// 50,000 child sitemaps × 50,000 URLs each per the sitemaps.org limits.<br/>
         /// Default Value: 10000
         /// </param>
         /// <param name="jsRendering">
-        /// If true, pages are rendered with a headless browser (slower, but required for JavaScript-heavy SPAs).<br/>
-        /// Defaults to false; turn on if pages return empty content without rendering.<br/>
+        /// If true, a headless browser renders each page. This is slower, but required for<br/>
+        /// JavaScript-heavy SPAs. Defaults to false. Turn it on if pages return empty content<br/>
+        /// without rendering.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="userAgent">
@@ -132,8 +136,8 @@ namespace Vectara
         /// </param>
         /// <param name="maxPageBytes">
         /// Maximum page body bytes to download. Larger pages are truncated. The 64 KB floor<br/>
-        /// prevents accidentally capping every page below the size of a typical HTML document;<br/>
-        /// the 100 MiB ceiling is far above any plausible single-page payload.<br/>
+        /// prevents accidentally capping every page below the size of a typical HTML document.<br/>
+        /// The 100 MiB ceiling is far above any plausible single-page payload.<br/>
         /// Default Value: 10485760
         /// </param>
         /// <param name="excludedContentTypes">
@@ -147,9 +151,9 @@ namespace Vectara
         /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
         /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
         /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
-        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
-        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
-        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// user-provided values take precedence over connector-derived ones. `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key. Derived keys not named are kept.<br/>
+        /// A provided `acl_metadata` replaces ACL extraction entirely.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

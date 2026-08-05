@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Run the pipeline at a fixed interval.
+    /// Runs the pipeline at a fixed interval.
     /// </summary>
     public sealed partial class IntervalTriggerConfiguration
     {

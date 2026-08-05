@@ -4,17 +4,17 @@
 namespace Vectara
 {
     /// <summary>
-    /// The Vectara Platform to context engineer Enterprise Agents. The REST API gives you server-side control with enterprise-grade RBAC, multi-tenancy, and full observability. Build agents that combine Vectara's multimodal retrieval with tool use, structured instructions, and managed sessions — all through simple REST endpoints.<br/>
+    /// Vectara is a platform for building and operating enterprise agents. The REST API gives you server-side control with enterprise-grade RBAC, multi-tenancy, and full observability. Build agents that combine Vectara's multimodal retrieval with tool use, structured instructions, and managed sessions — all through simple REST endpoints.<br/>
     /// All endpoints live at `https://api.vectara.io/v2/&lt;resource&gt;` using lowercase paths with underscores for multi-word segments (e.g. `/corpora/:corpus_key/documents`, `/tool_servers`).<br/>
     /// ## API conventions<br/>
     /// We follow standard REST conventions: `GET` to read, `POST` to create, `PATCH` to partially update, `PUT` to replace, and `DELETE` to remove. Most resources use `PATCH` for updates; a few use `PUT` for full replacement. Actions that don't map to CRUD verbs use a separate `POST /&lt;resource&gt;/&lt;action&gt;` path (e.g. `POST /corpora/:corpus_key/reset`).<br/>
-    /// **Backward compatibility** — New fields may be added to any response at any time. Fields are never removed, only deprecated. Clients should ignore unknown fields. We aim for strong backward compatibility, though the agentic AI space is evolving rapidly and agent-related APIs may see more frequent additions.<br/>
+    /// **Backward compatibility** — New fields may be added to any response at any time. Fields are deprecated rather than removed, and clients should ignore unknown fields. Agent-related endpoints may see more frequent additions than the rest of the API.<br/>
     /// ## Authentication methods<br/>
-    /// Every API request must be authenticated using one of these methods:<br/>
-    /// **API Key** — Pass your key in the `x-api-key` header. Create API keys with precise roles for least-privilege access, or use personal API keys that inherit the same roles as your user account.<br/>
-    /// **OAuth 2.0** — Use the client credentials flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`, then pass it in the `Authorization: Bearer &lt;token&gt;` header. Tokens expire after 30 minutes.<br/>
+    /// Authenticate every API request with one of these methods:<br/>
+    /// **API Key** — Pass your key in the `x-api-key` header. Create API keys with precise roles for least-privilege access. Or use personal API keys that inherit the same roles as your user account.<br/>
+    /// **OAuth 2.0** — Use the client credentials flow to obtain a JWT token from `https://auth.vectara.io/oauth2/token`. Pass the token in the `Authorization: Bearer &lt;token&gt;` header. Tokens expire after 30 minutes.<br/>
     /// ## Role-based access control<br/>
-    /// Each endpoint requires specific roles. The role badges on each endpoint page show which roles grant access. Vectara uses three role types:<br/>
+    /// Each endpoint requires specific roles. The role badges on each endpoint page show which roles grant access. The platform uses three role types:<br/>
     /// **API Roles** (account-wide, assigned to users): Roles like `owner`, `administrator`, `corpus_administrator`, `corpus_developer`, `corpus_viewer`, `agent_administrator`, `agent_developer`, `agent_viewer`, `agent_user`, `pipeline_administrator`, `pipeline_viewer`, and `viewer`. These grant access across all resources of that type.<br/>
     /// **Corpus Roles** (per-corpus, assigned on specific corpora): `owner`, `administrator`, `editor`, `viewer`. These grant access to a specific corpus only.<br/>
     /// **Agent Roles** (per-agent, assigned on specific agents): `agent_administrator`, `agent_developer`, `agent_viewer`, `agent_user`. These grant access to a specific agent only.<br/>
@@ -148,6 +148,16 @@ namespace Vectara
         /// 
         /// </summary>
         public EncodersClient Encoders { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public EndUserEventsClient EndUserEvents { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public EndUserSessionsClient EndUserSessions { get; }
 
         /// <summary>
         /// 

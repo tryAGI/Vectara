@@ -69,7 +69,7 @@ namespace Vectara
         public required global::Vectara.FirstAgentStep FirstStep { get; set; }
 
         /// <summary>
-        /// The name of the first step. Matches first_step.name.<br/>
+        /// The name of the agent's entry point step. References a key in the steps map. Matches first_step.name.<br/>
         /// Example: classifier
         /// </summary>
         /// <example>classifier</example>
@@ -77,8 +77,9 @@ namespace Vectara
         public string? FirstStepName { get; set; }
 
         /// <summary>
-        /// A map of additional named steps keyed by step name.<br/>
-        /// The first_step can transition to steps defined here via next_steps.<br/>
+        /// A map of named steps keyed by step name.<br/>
+        /// Steps can transition to other steps defined here via next_steps.<br/>
+        /// The entry point is the step named by first_step_name.<br/>
         /// Example: {"sales_handler":{"instructions":[{"type":"inline","template":"Handle sales inquiries"}],"output_parser":{"type":"default"}},"support_handler":{"instructions":[{"type":"inline","template":"Handle support requests"}],"output_parser":{"type":"default"}}}
         /// </summary>
         /// <example>{"sales_handler":{"instructions":[{"type":"inline","template":"Handle sales inquiries"}],"output_parser":{"type":"default"}},"support_handler":{"instructions":[{"type":"inline","template":"Handle support requests"}],"output_parser":{"type":"default"}}}</example>
@@ -110,7 +111,7 @@ namespace Vectara
         public global::Vectara.CompactionConfig? Compaction { get; set; }
 
         /// <summary>
-        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata, so the agent, run conditions, and routing can read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
+        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata. The agent, run conditions, and routing can then read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("session_enrichment")]
         public global::Vectara.SessionEnrichmentConfig? SessionEnrichment { get; set; }
@@ -183,12 +184,13 @@ namespace Vectara
         /// Example: {"code_review":{"description":"Reviews code for best practices and security issues.","content":"When reviewing code, focus on..."}}
         /// </param>
         /// <param name="firstStepName">
-        /// The name of the first step. Matches first_step.name.<br/>
+        /// The name of the agent's entry point step. References a key in the steps map. Matches first_step.name.<br/>
         /// Example: classifier
         /// </param>
         /// <param name="steps">
-        /// A map of additional named steps keyed by step name.<br/>
-        /// The first_step can transition to steps defined here via next_steps.<br/>
+        /// A map of named steps keyed by step name.<br/>
+        /// Steps can transition to other steps defined here via next_steps.<br/>
+        /// The entry point is the step named by first_step_name.<br/>
         /// Example: {"sales_handler":{"instructions":[{"type":"inline","template":"Handle sales inquiries"}],"output_parser":{"type":"default"}},"support_handler":{"instructions":[{"type":"inline","template":"Handle support requests"}],"output_parser":{"type":"default"}}}
         /// </param>
         /// <param name="metadata">
@@ -199,7 +201,7 @@ namespace Vectara
         /// Configuration for automatic context compaction.
         /// </param>
         /// <param name="sessionEnrichment">
-        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata, so the agent, run conditions, and routing can read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
+        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata. The agent, run conditions, and routing can then read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
         /// </param>
         /// <param name="toolOutputOffloading">
         /// Controls how large tool outputs are kept from overwhelming the agent context window.<br/>

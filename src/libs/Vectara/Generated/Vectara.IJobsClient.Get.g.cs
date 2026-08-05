@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get a job by ID<br/>
-        /// Get a job by a specific `job_id`. Jobs are background processes like replacing the filterable metadata attributes.
+        /// Returns the job with the specified `job_id`. Jobs are background processes, such as replacing the filterable metadata attributes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -22,7 +22,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get a job by ID<br/>
-        /// Get a job by a specific `job_id`. Jobs are background processes like replacing the filterable metadata attributes.
+        /// Returns the job with the specified `job_id`. Jobs are background processes, such as replacing the filterable metadata attributes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

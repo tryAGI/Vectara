@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Update a user<br/>
-        /// Update details about a user such as role names.
+        /// Updates details of a user such as role names.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -97,7 +97,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update a user<br/>
-        /// Update details about a user such as role names.
+        /// Updates details of a user such as role names.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -565,7 +565,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update a user<br/>
-        /// Update details about a user such as role names.
+        /// Updates details of a user such as role names.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List App Clients<br/>
-        /// Retrieve a list of application clients configured for the customer account.
+        /// Lists the App Clients configured for the customer account.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -28,7 +28,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List App Clients<br/>
-        /// Retrieve a list of application clients configured for the customer account.
+        /// Lists the App Clients configured for the customer account.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

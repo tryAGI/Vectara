@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// A record that failed processing during a pipeline run. Dead letters are pipeline-scoped:<br/>
-    /// if the same source record fails across multiple runs, it is upserted (not duplicated).<br/>
-    /// Resolved dead letters are deleted from the table.
+    /// A record that failed processing during a pipeline run. Dead letters are pipeline-scoped.<br/>
+    /// If the same source record fails across multiple runs, the existing entry is updated, not<br/>
+    /// duplicated. Resolved dead letters are deleted.
     /// </summary>
     public sealed partial class PipelineDeadLetterEntry
     {

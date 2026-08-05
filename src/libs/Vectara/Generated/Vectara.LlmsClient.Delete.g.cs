@@ -58,9 +58,8 @@ namespace Vectara
 
         /// <summary>
         /// Delete an LLM<br/>
-        /// The Delete LLM API enables users to remove a previously configured custom Large Language Model (LLM) from their Vectara account. This functionality is essential for managing active LLM configurations and ensuring that only relevant models are available for use. Built-in LLMs cannot be deleted, ensuring that core system models remain accessible.<br/>
-        /// By providing an LLM identifier, users can permanently delete a model configuration, freeing up resources and maintaining an organized list of available LLMs.<br/>
-        /// If successful, the API responds with `HTTP 204 No Content` status, confirming the LLM deletion.
+        /// Deletes a custom Large Language Model (LLM) configuration from the account. The deletion is permanent. Built-in LLMs cannot be deleted, so core system models remain accessible.<br/>
+        /// On success, the platform responds with `HTTP 204 No Content` status.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -85,9 +84,8 @@ namespace Vectara
         }
         /// <summary>
         /// Delete an LLM<br/>
-        /// The Delete LLM API enables users to remove a previously configured custom Large Language Model (LLM) from their Vectara account. This functionality is essential for managing active LLM configurations and ensuring that only relevant models are available for use. Built-in LLMs cannot be deleted, ensuring that core system models remain accessible.<br/>
-        /// By providing an LLM identifier, users can permanently delete a model configuration, freeing up resources and maintaining an organized list of available LLMs.<br/>
-        /// If successful, the API responds with `HTTP 204 No Content` status, confirming the LLM deletion.
+        /// Deletes a custom Large Language Model (LLM) configuration from the account. The deletion is permanent. Built-in LLMs cannot be deleted, so core system models remain accessible.<br/>
+        /// On success, the platform responds with `HTTP 204 No Content` status.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

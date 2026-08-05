@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Languages that the Vectara platform supports.<br/>
+    /// Languages that the platform supports.<br/>
     /// Default Value: auto
     /// </summary>
     public enum Language

@@ -18,7 +18,7 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// Top-level grouping for this metric.<br/>
+        /// The top-level grouping for this metric.<br/>
         /// Example: agent
         /// </summary>
         /// <example>agent</example>
@@ -27,14 +27,14 @@ namespace Vectara
         public required string Category { get; set; }
 
         /// <summary>
-        /// Human-readable description of what the metric measures.
+        /// A human-readable description of what the metric measures.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Description { get; set; }
 
         /// <summary>
-        /// Unit of measure for the metric values, when applicable.<br/>
+        /// The unit of measure for the metric values, when applicable.<br/>
         /// Example: ms
         /// </summary>
         /// <example>ms</example>
@@ -42,17 +42,17 @@ namespace Vectara
         public string? Unit { get; set; }
 
         /// <summary>
-        /// Short human-readable name for this metric, suitable as a chart title or list<br/>
+        /// A short human-readable name for this metric, suitable as a chart title or list<br/>
         /// label.<br/>
-        /// Example: Trace duration percentiles
+        /// Example: Agent turn duration percentiles
         /// </summary>
-        /// <example>Trace duration percentiles</example>
+        /// <example>Agent turn duration percentiles</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("display_name")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string DisplayName { get; set; }
 
         /// <summary>
-        /// Names of labels that can be used to filter this metric.<br/>
+        /// The names of labels you can use to filter this metric.<br/>
         /// Example: [agent_keys]
         /// </summary>
         /// <example>[agent_keys]</example>
@@ -74,23 +74,23 @@ namespace Vectara
         /// Example: agent.trace.duration_ms
         /// </param>
         /// <param name="category">
-        /// Top-level grouping for this metric.<br/>
+        /// The top-level grouping for this metric.<br/>
         /// Example: agent
         /// </param>
         /// <param name="description">
-        /// Human-readable description of what the metric measures.
+        /// A human-readable description of what the metric measures.
         /// </param>
         /// <param name="displayName">
-        /// Short human-readable name for this metric, suitable as a chart title or list<br/>
+        /// A short human-readable name for this metric, suitable as a chart title or list<br/>
         /// label.<br/>
-        /// Example: Trace duration percentiles
+        /// Example: Agent turn duration percentiles
         /// </param>
         /// <param name="labels">
-        /// Names of labels that can be used to filter this metric.<br/>
+        /// The names of labels you can use to filter this metric.<br/>
         /// Example: [agent_keys]
         /// </param>
         /// <param name="unit">
-        /// Unit of measure for the metric values, when applicable.<br/>
+        /// The unit of measure for the metric values, when applicable.<br/>
         /// Example: ms
         /// </param>
 #if NET7_0_OR_GREATER

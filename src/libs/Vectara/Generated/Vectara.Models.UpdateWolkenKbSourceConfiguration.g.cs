@@ -11,13 +11,13 @@ namespace Vectara
     {
         /// <summary>
         /// Base Wolken ServiceDesk knowledge-base source configuration. Ingests knowledge-base articles<br/>
-        /// through the API family selected by `kb_api`, with each article's audience attributes carried<br/>
+        /// through the API family selected by `kb_api`. Each article's audience attributes are carried<br/>
         /// as document metadata for attribute-based filtering. Requires Wolken credentials with read<br/>
         /// access to the knowledge-base listing and article-detail endpoints of the selected family.<br/>
-        /// With `data_api`, articles are filtered server side by the configured status, validation, and<br/>
-        /// level filters, and incremental sync additionally requires the listing to support update-time<br/>
-        /// filters. With `kb_module`, articles are listed per category and update-time bounds are<br/>
-        /// applied after listing. Supported filters vary by Wolken deployment.
+        /// With `data_api`, the Wolken server filters articles by the configured status, validation, and level<br/>
+        /// filters. Incremental sync with `data_api` also requires the listing to support update-time<br/>
+        /// filters. With `kb_module`, articles are listed per category. Update-time bounds are applied<br/>
+        /// after listing. Supported filters vary by Wolken deployment.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseWolkenKbSourceConfiguration? Base { get; init; }

@@ -6,15 +6,17 @@ namespace Vectara
 {
     /// <summary>
     /// Partial update for a `web` source configuration. Top-level fields are merged into the existing<br/>
-    /// record; if `pages_source` or `source_record_metadata` is provided, that entire object is<br/>
-    /// replaced. Switching modes or changing per-mode fields requires a complete `pages_source` object,<br/>
-    /// and a `source_record_metadata` must carry every value you want to keep.
+    /// configuration. A provided `pages_source` or `source_record_metadata` replaces that entire<br/>
+    /// object. Switching modes or changing per-mode fields requires a complete `pages_source` object.<br/>
+    /// A provided `source_record_metadata` must carry every value you want to keep.
     /// </summary>
     public readonly partial struct UpdateWebSourceConfiguration : global::System.IEquatable<UpdateWebSourceConfiguration>
     {
         /// <summary>
-        /// Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl). Politeness, limits, auth.<br/>
-        /// Mode-specific fields (urls, sitemap_urls, BFS knobs, page count cap) live on the concrete subtypes.
+        /// Shared configuration for all web-based sources (sitemap, crawl, sitemap+crawl). Contains<br/>
+        /// politeness settings, limits including the `max_pages` page count cap, and authentication.<br/>
+        /// Mode-specific fields (urls, sitemap_urls, BFS settings) live on the page source types<br/>
+        /// under `pages_source`.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseWebSource? Base { get; init; }

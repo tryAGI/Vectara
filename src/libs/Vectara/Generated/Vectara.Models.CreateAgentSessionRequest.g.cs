@@ -25,7 +25,7 @@ namespace Vectara
         public string? Name { get; set; }
 
         /// <summary>
-        /// A short description of the session's purpose. If omitted, one is auto-generated once the session has produced events. Pass an empty string to suppress auto-generation.<br/>
+        /// A short description of the session's purpose. If omitted, the platform generates one after the session produces events. Pass an empty string to suppress auto-generation.<br/>
         /// Example: Helping customer troubleshoot issues
         /// </summary>
         /// <example>Helping customer troubleshoot issues</example>
@@ -51,7 +51,7 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If set to 0, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If set to 0, the session does not expire.<br/>
         /// Default Value: 0<br/>
         /// Example: 60
         /// </summary>
@@ -96,7 +96,7 @@ namespace Vectara
         /// Example: Customer Support Session
         /// </param>
         /// <param name="description">
-        /// A short description of the session's purpose. If omitted, one is auto-generated once the session has produced events. Pass an empty string to suppress auto-generation.<br/>
+        /// A short description of the session's purpose. If omitted, the platform generates one after the session produces events. Pass an empty string to suppress auto-generation.<br/>
         /// Example: Helping customer troubleshoot issues
         /// </param>
         /// <param name="metadata">
@@ -110,7 +110,7 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="ttiMinutes">
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If set to 0, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If set to 0, the session does not expire.<br/>
         /// Default Value: 0<br/>
         /// Example: 60
         /// </param>

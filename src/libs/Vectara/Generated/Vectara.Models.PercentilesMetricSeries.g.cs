@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A series of percentile aggregates over a t-digest state.
+    /// A series of percentile aggregates.
     /// </summary>
     public readonly partial struct PercentilesMetricSeries : global::System.IEquatable<PercentilesMetricSeries>
     {

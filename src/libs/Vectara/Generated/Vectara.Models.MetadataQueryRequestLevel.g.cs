@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Whether to search document-level or part-level metadata. Document-level returns unique documents, part-level can return multiple parts from the same document.<br/>
+    /// Whether to search document-level or part-level metadata. Document-level search returns unique documents. Part-level search can return multiple parts from the same document.<br/>
     /// Default Value: document
     /// </summary>
     public enum MetadataQueryRequestLevel

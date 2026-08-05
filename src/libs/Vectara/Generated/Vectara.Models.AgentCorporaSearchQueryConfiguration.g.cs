@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when turn-start resolution is needed.
+    /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when you need turn-start resolution.
     /// </summary>
     public sealed partial class AgentCorporaSearchQueryConfiguration
     {

@@ -58,8 +58,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete agent<br/>
-        /// The Delete Agent API enables you to permanently remove an AI agent and its configuration from the Vectara platform, supporting agent lifecycle management and resource cleanup in enterprise environments.<br/>
-        /// Use this API for decommissioning outdated agents, cleaning up development and testing environments, removing agents that are no longer needed, and maintaining organized agent inventories as your AI deployments evolve. The permanent nature of deletion makes this API critical for environments where data governance and resource management are essential.
+        /// Deletes an agent and its configuration. Deletion is permanent. If active sessions or other constraints block the deletion, the request returns an error instead.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -87,8 +86,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete agent<br/>
-        /// The Delete Agent API enables you to permanently remove an AI agent and its configuration from the Vectara platform, supporting agent lifecycle management and resource cleanup in enterprise environments.<br/>
-        /// Use this API for decommissioning outdated agents, cleaning up development and testing environments, removing agents that are no longer needed, and maintaining organized agent inventories as your AI deployments evolve. The permanent nature of deletion makes this API critical for environments where data governance and resource management are essential.
+        /// Deletes an agent and its configuration. Deletion is permanent. If active sessions or other constraints block the deletion, the request returns an error instead.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

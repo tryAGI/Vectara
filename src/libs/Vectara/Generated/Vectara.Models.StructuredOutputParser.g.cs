@@ -13,8 +13,7 @@ namespace Vectara
     /// along with the schema name for identification.<br/>
     /// Note: When using structured outputs, the agent can still use tools normally.<br/>
     /// The schema constraint only applies to the agent's final text response.<br/>
-    /// When streaming, the structured output is delivered as a single complete event<br/>
-    /// rather than being streamed in chunks.
+    /// When streaming, the structured output arrives as a single complete event, not in chunks.
     /// </summary>
     public sealed partial class StructuredOutputParser
     {
@@ -30,7 +29,7 @@ namespace Vectara
         public required string Type { get; set; } = "structured";
 
         /// <summary>
-        /// Specification wrapper for a named JSON schema.
+        /// A specification wrapper for a named JSON schema.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("json_schema")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -51,7 +50,7 @@ namespace Vectara
         /// Example: structured
         /// </param>
         /// <param name="jsonSchema">
-        /// Specification wrapper for a named JSON schema.
+        /// A specification wrapper for a named JSON schema.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

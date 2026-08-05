@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.CreateAppClientRequestDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Create an App Client which allows you to call Vectara APIs using OAuth 2.0 client credentials.
+        /// Request to create an App Client that calls Vectara APIs with OAuth 2.0 client credentials.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateClientCredentialsRequest? ClientCredentials { get; init; }

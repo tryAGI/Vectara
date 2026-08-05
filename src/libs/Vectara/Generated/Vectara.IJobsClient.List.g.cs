@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List jobs<br/>
-        /// List jobs for the account. Jobs are background processes like replacing the filterable metadata attributes.
+        /// Lists jobs for the account. Jobs are background processes, such as replacing the filterable metadata attributes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -32,7 +32,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List jobs<br/>
-        /// List jobs for the account. Jobs are background processes like replacing the filterable metadata attributes.
+        /// Lists jobs for the account. Jobs are background processes, such as replacing the filterable metadata attributes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

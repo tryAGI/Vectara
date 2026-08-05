@@ -9,8 +9,7 @@ namespace Vectara
     public sealed partial class AgentSchedule
     {
         /// <summary>
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </summary>
         /// <example>daily-report</example>
@@ -54,7 +53,7 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.AgentInput> Message { get; set; }
 
         /// <summary>
-        /// Configuration for when and how often the schedule should execute.
+        /// Configuration for when and how often the schedule executes.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("schedule")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ScheduleConfigurationJsonConverter))]
@@ -81,11 +80,11 @@ namespace Vectara
         public object? SessionMetadata { get; set; }
 
         /// <summary>
-        /// A UserFn boolean expression that gates execution. On each scheduled execution the agent's enrichment runs first, then this expression is evaluated against the enriched session context. The scheduled session is created and the agent runs only when the expression evaluates to true. When it evaluates to false the execution is skipped and no session is created.<br/>
+        /// A UserFn boolean expression that gates execution. On each scheduled execution the agent's enrichment runs first. The schedule then evaluates this expression against the enriched session context. When the expression evaluates to true, the schedule creates the session and the agent runs. When it evaluates to false, the schedule skips the execution and creates no session.<br/>
         /// The expression uses the `get()` function with JSONPath to read the enriched context:<br/>
         /// * `$.session.metadata.*` for values written by the agent's enrichment<br/>
         /// * `$.agent.metadata.*` for the owning agent's metadata<br/>
-        /// An enrichment tool call's output is visible to the condition only when the call writes it to metadata via metadata_target_path. Missing paths return null, and comparing against null is falsy, so an unresolved path skips the execution. Use `get('$.path', default)` for an explicit fallback. Omit this field to run on every execution.<br/>
+        /// An enrichment tool call's output is visible to the condition only when the call writes it to metadata via metadata_target_path. Missing paths return null. Comparing against null is falsy, so an unresolved path skips the execution. Use `get('$.path', default)` for an explicit fallback. Omit this field to run on every execution.<br/>
         /// See https://docs.vectara.com/docs/reference/userfn-language for the UserFn language reference.<br/>
         /// Example: get('$.session.metadata.open_incidents') &gt; 0
         /// </summary>
@@ -103,9 +102,9 @@ namespace Vectara
         public int? MaxExecutionsToKeep { get; set; }
 
         /// <summary>
-        /// Number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
-        /// or other progress events) before it is considered stalled and retried. Set this above the longest<br/>
-        /// silent operation the agent is expected to perform so an in-flight run is not retried mid-operation.<br/>
+        /// The number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
+        /// or other progress events). After this period, the run is considered stalled and is retried. Set this<br/>
+        /// above the longest silent operation the agent performs, so an in-flight run is not retried mid-operation.<br/>
         /// Default Value: 3600<br/>
         /// Example: 1800
         /// </summary>
@@ -114,8 +113,8 @@ namespace Vectara
         public int? StallTimeoutSeconds { get; set; }
 
         /// <summary>
-        /// Timestamp of the most recent execution. Tracked by Temporal and updated automatically<br/>
-        /// after each execution. Null if the schedule has never executed.<br/>
+        /// Timestamp of the most recent execution. Updated automatically after each execution.<br/>
+        /// Null until the schedule executes for the first time.<br/>
         /// Example: 2024-01-15T10:30:00Z
         /// </summary>
         /// <example>2024-01-15T10:30:00Z</example>
@@ -123,8 +122,8 @@ namespace Vectara
         public global::System.DateTime? LastExecutionAt { get; set; }
 
         /// <summary>
-        /// Timestamp when the schedule was created. Note: This is a placeholder value as Temporal<br/>
-        /// does not store creation timestamps. Use for API compatibility only.<br/>
+        /// Timestamp when the schedule was created. Create and update responses return the current<br/>
+        /// time. Later reads return `1970-01-01T00:00:00Z`.<br/>
         /// Example: 1970-01-01T00:00:00Z
         /// </summary>
         /// <example>1970-01-01T00:00:00Z</example>
@@ -142,8 +141,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AgentSchedule" /> class.
         /// </summary>
         /// <param name="key">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="agentKey">
@@ -159,7 +157,7 @@ namespace Vectara
         /// Example: [{"type":"text","content":"Generate a summary of today\u0027s activities"}]
         /// </param>
         /// <param name="schedule">
-        /// Configuration for when and how often the schedule should execute.
+        /// Configuration for when and how often the schedule executes.
         /// </param>
         /// <param name="enabled">
         /// Whether the schedule is currently active and executing.<br/>
@@ -167,8 +165,8 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="createdAt">
-        /// Timestamp when the schedule was created. Note: This is a placeholder value as Temporal<br/>
-        /// does not store creation timestamps. Use for API compatibility only.<br/>
+        /// Timestamp when the schedule was created. Create and update responses return the current<br/>
+        /// time. Later reads return `1970-01-01T00:00:00Z`.<br/>
         /// Example: 1970-01-01T00:00:00Z
         /// </param>
         /// <param name="description">
@@ -181,11 +179,11 @@ namespace Vectara
         /// Example: {"report_type":"daily","format":"markdown"}
         /// </param>
         /// <param name="runCondition">
-        /// A UserFn boolean expression that gates execution. On each scheduled execution the agent's enrichment runs first, then this expression is evaluated against the enriched session context. The scheduled session is created and the agent runs only when the expression evaluates to true. When it evaluates to false the execution is skipped and no session is created.<br/>
+        /// A UserFn boolean expression that gates execution. On each scheduled execution the agent's enrichment runs first. The schedule then evaluates this expression against the enriched session context. When the expression evaluates to true, the schedule creates the session and the agent runs. When it evaluates to false, the schedule skips the execution and creates no session.<br/>
         /// The expression uses the `get()` function with JSONPath to read the enriched context:<br/>
         /// * `$.session.metadata.*` for values written by the agent's enrichment<br/>
         /// * `$.agent.metadata.*` for the owning agent's metadata<br/>
-        /// An enrichment tool call's output is visible to the condition only when the call writes it to metadata via metadata_target_path. Missing paths return null, and comparing against null is falsy, so an unresolved path skips the execution. Use `get('$.path', default)` for an explicit fallback. Omit this field to run on every execution.<br/>
+        /// An enrichment tool call's output is visible to the condition only when the call writes it to metadata via metadata_target_path. Missing paths return null. Comparing against null is falsy, so an unresolved path skips the execution. Use `get('$.path', default)` for an explicit fallback. Omit this field to run on every execution.<br/>
         /// See https://docs.vectara.com/docs/reference/userfn-language for the UserFn language reference.<br/>
         /// Example: get('$.session.metadata.open_incidents') &gt; 0
         /// </param>
@@ -195,15 +193,15 @@ namespace Vectara
         /// Example: 10
         /// </param>
         /// <param name="stallTimeoutSeconds">
-        /// Number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
-        /// or other progress events) before it is considered stalled and retried. Set this above the longest<br/>
-        /// silent operation the agent is expected to perform so an in-flight run is not retried mid-operation.<br/>
+        /// The number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
+        /// or other progress events). After this period, the run is considered stalled and is retried. Set this<br/>
+        /// above the longest silent operation the agent performs, so an in-flight run is not retried mid-operation.<br/>
         /// Default Value: 3600<br/>
         /// Example: 1800
         /// </param>
         /// <param name="lastExecutionAt">
-        /// Timestamp of the most recent execution. Tracked by Temporal and updated automatically<br/>
-        /// after each execution. Null if the schedule has never executed.<br/>
+        /// Timestamp of the most recent execution. Updated automatically after each execution.<br/>
+        /// Null until the schedule executes for the first time.<br/>
         /// Example: 2024-01-15T10:30:00Z
         /// </param>
 #if NET7_0_OR_GREATER

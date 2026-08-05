@@ -4,25 +4,25 @@
 namespace Vectara
 {
     /// <summary>
-    /// Event containing information on how the generation was accomplished.
+    /// An event with information about how the platform performed the generation.
     /// </summary>
     public sealed partial class GenerationInfo
     {
         /// <summary>
-        /// When the streaming event contains the generation information type will be `generation_info`.<br/>
+        /// This value is always `generation_info` for this event.<br/>
         /// Default Value: generation_info
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         public string? Type { get; set; }
 
         /// <summary>
-        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.
+        /// The rendered prompt sent to the LLM. Useful when you create custom `prompt_template` templates.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rendered_prompt")]
         public string? RenderedPrompt { get; set; }
 
         /// <summary>
-        /// View the actual query made to backend that was rephrased by the LLM from the input query.
+        /// The query that the platform ran, after the LLM rephrased the input query.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rephrased_query")]
         public string? RephrasedQuery { get; set; }
@@ -37,14 +37,14 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="GenerationInfo" /> class.
         /// </summary>
         /// <param name="type">
-        /// When the streaming event contains the generation information type will be `generation_info`.<br/>
+        /// This value is always `generation_info` for this event.<br/>
         /// Default Value: generation_info
         /// </param>
         /// <param name="renderedPrompt">
-        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.
+        /// The rendered prompt sent to the LLM. Useful when you create custom `prompt_template` templates.
         /// </param>
         /// <param name="rephrasedQuery">
-        /// View the actual query made to backend that was rephrased by the LLM from the input query.
+        /// The query that the platform ran, after the LLM rephrased the input query.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

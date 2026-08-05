@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ScalarMetricPoint
     {
         /// <summary>
-        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
+        /// The start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bin_start")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -32,7 +32,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ScalarMetricPoint" /> class.
         /// </summary>
         /// <param name="binStart">
-        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
+        /// The start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </param>
         /// <param name="value">
         /// The aggregated value for this time bin.

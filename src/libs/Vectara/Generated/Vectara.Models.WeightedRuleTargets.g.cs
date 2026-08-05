@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Weighted selection among several agents. The `partition_by` userfn expression is evaluated and hashed; the result picks which `options` entry serves this session. Different rules in the same policy can declare different `partition_by` expressions (US rules canary by user_id, EU rules by tenant_id, etc.).
+    /// Weighted selection among several agents. The policy evaluates and hashes the `partition_by` userfn expression. The result picks which `options` entry serves the session. Different rules in the same policy can declare different `partition_by` expressions (US rules canary by user_id, EU rules by tenant_id, etc.).
     /// </summary>
     public sealed partial class WeightedRuleTargets
     {
@@ -20,7 +20,7 @@ namespace Vectara
         /// UserFn expression whose result is stringified and hashed to pick among `options`. Required: no implicit default.<br/>
         /// Uses the `get()` function with JSONPath to access the context.<br/>
         /// See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker for the UserFn language reference.<br/>
-        /// Use `get('$.session.key')` for per-session canary, `get('$.session.metadata.user_id', '')` for per-user canary. If the expression evaluates to `null` at resolution time, the request is rejected with a 400; wrap optional fields with a default via `get('$.path', '')`.<br/>
+        /// Use `get('$.session.key')` for per-session canary, `get('$.session.metadata.user_id', '')` for per-user canary. If the expression evaluates to `null` at resolution time, the request fails with a 400. Wrap optional fields with a default via `get('$.path', '')`.<br/>
         /// Example: get('$.session.metadata.user_id', '')
         /// </summary>
         /// <example>get('$.session.metadata.user_id', '')</example>
@@ -29,7 +29,7 @@ namespace Vectara
         public required string PartitionBy { get; set; }
 
         /// <summary>
-        /// Weighted target options. One is selected by hashing the result of `partition_by`; weights are normalized at evaluation time.
+        /// Weighted target options. The hash of the `partition_by` result selects one option. Weights are normalized at evaluation time.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("options")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -51,11 +51,11 @@ namespace Vectara
         /// UserFn expression whose result is stringified and hashed to pick among `options`. Required: no implicit default.<br/>
         /// Uses the `get()` function with JSONPath to access the context.<br/>
         /// See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker for the UserFn language reference.<br/>
-        /// Use `get('$.session.key')` for per-session canary, `get('$.session.metadata.user_id', '')` for per-user canary. If the expression evaluates to `null` at resolution time, the request is rejected with a 400; wrap optional fields with a default via `get('$.path', '')`.<br/>
+        /// Use `get('$.session.key')` for per-session canary, `get('$.session.metadata.user_id', '')` for per-user canary. If the expression evaluates to `null` at resolution time, the request fails with a 400. Wrap optional fields with a default via `get('$.path', '')`.<br/>
         /// Example: get('$.session.metadata.user_id', '')
         /// </param>
         /// <param name="options">
-        /// Weighted target options. One is selected by hashing the result of `partition_by`; weights are normalized at evaluation time.
+        /// Weighted target options. The hash of the `partition_by` result selects one option. Weights are normalized at evaluation time.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

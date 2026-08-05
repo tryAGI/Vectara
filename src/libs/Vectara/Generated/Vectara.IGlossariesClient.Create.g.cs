@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Create glossary<br/>
-        /// Create a new glossary. A glossary is a reusable mapping of terms to expanded forms that agents use to expand abbreviations and acronyms in user messages.
+        /// Creates a new glossary. A glossary is a reusable mapping of abbreviations, acronyms, and shorthand to their expansions. When terms in a user input event match glossary entries, the platform appends the matched terms and their expansions to the event as a hint.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -23,7 +23,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create glossary<br/>
-        /// Create a new glossary. A glossary is a reusable mapping of terms to expanded forms that agents use to expand abbreviations and acronyms in user messages.
+        /// Creates a new glossary. A glossary is a reusable mapping of abbreviations, acronyms, and shorthand to their expansions. When terms in a user input event match glossary entries, the platform appends the matched terms and their expansions to the event as a hint.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -40,7 +40,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create glossary<br/>
-        /// Create a new glossary. A glossary is a reusable mapping of terms to expanded forms that agents use to expand abbreviations and acronyms in user messages.
+        /// Creates a new glossary. A glossary is a reusable mapping of abbreviations, acronyms, and shorthand to their expansions. When terms in a user input event match glossary entries, the platform appends the matched terms and their expansions to the event as a hint.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

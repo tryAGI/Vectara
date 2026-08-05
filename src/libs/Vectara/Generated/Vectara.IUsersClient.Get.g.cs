@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get a user<br/>
-        /// Get a user and view details like the email, username, and associated roles.
+        /// Returns a user with details such as the email, username, and associated roles.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -22,7 +22,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get a user<br/>
-        /// Get a user and view details like the email, username, and associated roles.
+        /// Returns a user with details such as the email, username, and associated roles.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

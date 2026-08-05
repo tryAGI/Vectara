@@ -91,10 +91,12 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'RunCompleted' but the value was {ToString()}.");
 
         /// <summary>
-        /// A single source record progressed through a processing lifecycle stage. `status` is `started`<br/>
-        /// when processing begins, `completed` when the record was successfully processed (or skipped),<br/>
-        /// and `failed` when processing failed. In a normal run, a `failed` record is also written to the<br/>
-        /// dead letter queue; in a retry run, the existing dead letter is marked still-failing.
+        /// A single source record progressed through a processing lifecycle stage. `status` is:<br/>
+        /// - `started`: processing began.<br/>
+        /// - `completed`: the record was successfully processed (or skipped).<br/>
+        /// - `failed`: processing failed.<br/>
+        /// In a normal run, a `failed` record is also written to the dead letter queue. In a retry<br/>
+        /// run, the existing dead letter is marked still-failing.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.RecordProcessingEvent? RecordProcessing { get; init; }

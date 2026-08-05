@@ -7,7 +7,7 @@ namespace Vectara
     /// Definition of a function to be executed as a tool in a sandboxed environment.<br/>
     /// **Python Environment:**<br/>
     /// - Python version: 3.12<br/>
-    /// - Execution: Sandboxed using gVisor for security isolation<br/>
+    /// - Execution: Sandboxed for security isolation<br/>
     /// - **Allowed modules**: `json`, `math`, `datetime`, `collections`, `itertools`, `functools`, `re`, `time`, `typing`<br/>
     /// - Memory limit: 100MB (configurable up to 1GB)<br/>
     /// - Execution timeout: 30 seconds (configurable up to 300 seconds)<br/>
@@ -20,7 +20,7 @@ namespace Vectara
     /// - Import from `typing` module when using complex types<br/>
     /// **Docstring Parameter Descriptions:**<br/>
     /// - Use docstrings to provide descriptions for parameters (Google, NumPy, ReST, and Epydoc styles are supported)<br/>
-    /// - Parameter descriptions are extracted and included in the input schema<br/>
+    /// - The platform extracts parameter descriptions and includes them in the input schema<br/>
     /// - This gives agents better context about how to use each parameter
     /// </summary>
     public sealed partial class FunctionDefinition

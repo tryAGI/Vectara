@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Update an App Client<br/>
-        /// Update the configuration or settings of an existing application client.
+        /// Updates the configuration of an existing App Client.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -97,7 +97,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update an App Client<br/>
-        /// Update the configuration or settings of an existing application client.
+        /// Updates the configuration of an existing App Client.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -528,7 +528,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update an App Client<br/>
-        /// Update the configuration or settings of an existing application client.
+        /// Updates the configuration of an existing App Client.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -537,13 +537,13 @@ namespace Vectara
         /// The new App Client description.
         /// </param>
         /// <param name="apiRoles">
-        /// The new roles attached to the App Client. These roles will replace the current roles.
+        /// The new roles attached to the App Client. These roles replace the current roles.
         /// </param>
         /// <param name="corpusRoles">
-        /// The new corpus role assignments. These will replace the current corpus roles.
+        /// The new corpus role assignments. These replace the current corpus roles.
         /// </param>
         /// <param name="agentRoles">
-        /// The new agent role assignments. These will replace the current agent roles.
+        /// The new agent role assignments. These replace the current agent roles.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>

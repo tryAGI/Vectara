@@ -71,7 +71,7 @@ namespace Vectara
 
         /// <summary>
         /// List aliases<br/>
-        /// List aliases.
+        /// Lists aliases. Results are paginated.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -119,7 +119,7 @@ namespace Vectara
         }
         /// <summary>
         /// List aliases<br/>
-        /// List aliases.
+        /// Lists aliases. Results are paginated.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

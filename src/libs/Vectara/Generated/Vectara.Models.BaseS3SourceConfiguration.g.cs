@@ -65,13 +65,13 @@ namespace Vectara
         public string? SecretAccessKey { get; set; }
 
         /// <summary>
-        /// Regex patterns matched against the full object key; a key must fully match at least one to be ingested. Empty list = no positive filter.
+        /// Regex patterns matched against the full object key. A key must fully match at least one pattern to be ingested. An empty list applies no positive filter.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pos_regex")]
         public global::System.Collections.Generic.IList<string>? PosRegex { get; set; }
 
         /// <summary>
-        /// Regex patterns matched against the full object key; keys fully matching any are skipped.
+        /// Regex patterns matched against the full object key. A key that fully matches any pattern is skipped.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("neg_regex")]
         public global::System.Collections.Generic.IList<string>? NegRegex { get; set; }
@@ -80,9 +80,9 @@ namespace Vectara
         /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
         /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
         /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
-        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
-        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
-        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// user-provided values take precedence over connector-derived ones. `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key. Derived keys not named are kept.<br/>
+        /// A provided `acl_metadata` replaces ACL extraction entirely.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source_record_metadata")]
         public global::Vectara.SourceRecordMetadata? SourceRecordMetadata { get; set; }
@@ -125,18 +125,18 @@ namespace Vectara
         /// Included only in requests
         /// </param>
         /// <param name="posRegex">
-        /// Regex patterns matched against the full object key; a key must fully match at least one to be ingested. Empty list = no positive filter.
+        /// Regex patterns matched against the full object key. A key must fully match at least one pattern to be ingested. An empty list applies no positive filter.
         /// </param>
         /// <param name="negRegex">
-        /// Regex patterns matched against the full object key; keys fully matching any are skipped.
+        /// Regex patterns matched against the full object key. A key that fully matches any pattern is skipped.
         /// </param>
         /// <param name="sourceRecordMetadata">
         /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
         /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
         /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
-        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
-        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
-        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// user-provided values take precedence over connector-derived ones. `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key. Derived keys not named are kept.<br/>
+        /// A provided `acl_metadata` replaces ACL extraction entirely.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

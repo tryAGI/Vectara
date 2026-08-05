@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class FactualConsistencyScore
     {
         /// <summary>
-        /// When the streaming event contains the factual consistency score, the type will be `factual_consistency_score`.<br/>
+        /// When the streaming event contains the factual consistency score, the type is `factual_consistency_score`.<br/>
         /// Default Value: factual_consistency_score
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
@@ -31,7 +31,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="FactualConsistencyScore" /> class.
         /// </summary>
         /// <param name="type">
-        /// When the streaming event contains the factual consistency score, the type will be `factual_consistency_score`.<br/>
+        /// When the streaming event contains the factual consistency score, the type is `factual_consistency_score`.<br/>
         /// Default Value: factual_consistency_score
         /// </param>
         /// <param name="factualConsistencyScore1">

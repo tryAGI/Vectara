@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Request an access token<br/>
-        /// Obtain an OAuth2 access token using client credentials
+        /// Exchanges client credentials for an OAuth 2.0 access token.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -19,7 +19,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Request an access token<br/>
-        /// Obtain an OAuth2 access token using client credentials
+        /// Exchanges client credentials for an OAuth 2.0 access token.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -32,7 +32,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Request an access token<br/>
-        /// Obtain an OAuth2 access token using client credentials
+        /// Exchanges client credentials for an OAuth 2.0 access token.
         /// </summary>
         /// <param name="clientId">
         /// The client ID of the application

@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Update agent secrets<br/>
-        /// Patch the agent's secrets. Names present in the map are added or replaced; names absent from the map are left unchanged.<br/>
+        /// Updates the agent's secrets. Names present in the map are added or replaced. Names absent from the map are left unchanged.<br/>
         /// A name mapped to `null` is removed.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -29,7 +29,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent secrets<br/>
-        /// Patch the agent's secrets. Names present in the map are added or replaced; names absent from the map are left unchanged.<br/>
+        /// Updates the agent's secrets. Names present in the map are added or replaced. Names absent from the map are left unchanged.<br/>
         /// A name mapped to `null` is removed.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -52,7 +52,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent secrets<br/>
-        /// Patch the agent's secrets. Names present in the map are added or replaced; names absent from the map are left unchanged.<br/>
+        /// Updates the agent's secrets. Names present in the map are added or replaced. Names absent from the map are left unchanged.<br/>
         /// A name mapped to `null` is removed.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -62,7 +62,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="secrets">
-        /// Map of secret name to plaintext value (or `null` to remove). Names not in the map are not touched.<br/>
+        /// Map of secret name to plaintext value (or `null` to remove). Names not in the map are left unchanged.<br/>
         /// Example: {"jira_api_token":"ATATT3xFf...","old_token_to_remove":"openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464"}
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

@@ -65,13 +65,13 @@ namespace Vectara
 
         /// <summary>
         /// Replace an alias's routing policy<br/>
-        /// Atomically replace the alias's routing policy and stickiness configuration. Replacement is whole-object; partial merging is not supported.<br/>
-        /// Use this endpoint to flip canary weights, change tenant routing, etc. The change is atomic: in-flight sessions resolved before the change keep their resolved agent (resolution is once-at-creation).
+        /// Replaces the alias's routing policy and stickiness configuration in one atomic operation. The replacement is whole-object. Partial merging is not supported.<br/>
+        /// Use this endpoint to change canary weights, tenant routing, and similar settings. The change is atomic: in-flight sessions resolved before the change keep their resolved agent. Resolution happens once, when the session is created.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="request"></param>
@@ -101,13 +101,13 @@ namespace Vectara
         }
         /// <summary>
         /// Replace an alias's routing policy<br/>
-        /// Atomically replace the alias's routing policy and stickiness configuration. Replacement is whole-object; partial merging is not supported.<br/>
-        /// Use this endpoint to flip canary weights, change tenant routing, etc. The change is atomic: in-flight sessions resolved before the change keep their resolved agent (resolution is once-at-creation).
+        /// Replaces the alias's routing policy and stickiness configuration in one atomic operation. The replacement is whole-object. Partial merging is not supported.<br/>
+        /// Use this endpoint to change canary weights, tenant routing, and similar settings. The change is atomic: in-flight sessions resolved before the change keep their resolved agent. Resolution happens once, when the session is created.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="request"></param>
@@ -475,7 +475,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The alias was not found.
+                            // Alias not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -610,18 +610,18 @@ namespace Vectara
         }
         /// <summary>
         /// Replace an alias's routing policy<br/>
-        /// Atomically replace the alias's routing policy and stickiness configuration. Replacement is whole-object; partial merging is not supported.<br/>
-        /// Use this endpoint to flip canary weights, change tenant routing, etc. The change is atomic: in-flight sessions resolved before the change keep their resolved agent (resolution is once-at-creation).
+        /// Replaces the alias's routing policy and stickiness configuration in one atomic operation. The replacement is whole-object. Partial merging is not supported.<br/>
+        /// Use this endpoint to change canary weights, tenant routing, and similar settings. The change is atomic: in-flight sessions resolved before the change keep their resolved agent. Resolution happens once, when the session is created.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="policy">
         /// A routing policy. The `type` discriminator determines which fields apply:<br/>
-        /// * `routed` — evaluate ordered rules; the first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` are then used (one agent for `single`, hashed by `partition_by` for `weighted`). A rule with omitted `match` is a catch-all that always matches; it must be the last rule, and any rule placed after it is rejected as unreachable.<br/>
+        /// * `routed` — evaluates ordered rules. The policy selects the first rule whose `match` expression evaluates to true. The selected rule's `targets` are then used (one agent for `single`, hashed by `partition_by` for `weighted`). A rule with omitted `match` is a catch-all that always matches. It must be the last rule. The platform rejects any rule placed after a catch-all as unreachable.<br/>
         /// Most use cases (direct, weighted/canary, conditional, conditional+canary) collapse into `routed`.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

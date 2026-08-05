@@ -69,8 +69,8 @@ namespace Vectara
 
         /// <summary>
         /// List corpora<br/>
-        /// The List Corpora API lets you retrieve a list of corpora in your account. This endpoint returns a paginated list of corpora objects, which contain basic information about each corpus. The returned corpus objects contain less detail compared to those retrieved the direct corpus retrieval operation.<br/>
-        /// You can specify optional parameters to control the pagination and filtering of the results. The limit parameter determines the maximum number of corpora to return, with a default value of 10 and a maximum value of 100.
+        /// Lists the corpora in your account. Results are paginated. Each corpus object contains basic information about the corpus. These objects contain less detail than the corpus returned by the Get Corpus API.<br/>
+        /// Optional parameters control the pagination and filtering of the results. The limit parameter sets the maximum number of corpora to return. It defaults to 10 and has a maximum value of 100.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -108,8 +108,8 @@ namespace Vectara
         }
         /// <summary>
         /// List corpora<br/>
-        /// The List Corpora API lets you retrieve a list of corpora in your account. This endpoint returns a paginated list of corpora objects, which contain basic information about each corpus. The returned corpus objects contain less detail compared to those retrieved the direct corpus retrieval operation.<br/>
-        /// You can specify optional parameters to control the pagination and filtering of the results. The limit parameter determines the maximum number of corpora to return, with a default value of 10 and a maximum value of 100.
+        /// Lists the corpora in your account. Results are paginated. Each corpus object contains basic information about the corpus. These objects contain less detail than the corpus returned by the Get Corpus API.<br/>
+        /// Optional parameters control the pagination and filtering of the results. The limit parameter sets the maximum number of corpora to return. It defaults to 10 and has a maximum value of 100.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

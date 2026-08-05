@@ -19,7 +19,7 @@ namespace Vectara
 
         /// <summary>
         /// A unique key that identifies a reusable tool configuration within a customer account.<br/>
-        /// Customer-provided; if omitted when creating a configuration, one is generated from the name.<br/>
+        /// The customer provides this key. If omitted when creating a configuration, the platform generates one from the name.<br/>
         /// Example: customer_support_search
         /// </summary>
         /// <example>customer_support_search</example>
@@ -42,7 +42,7 @@ namespace Vectara
         /// </param>
         /// <param name="toolConfigurationKey">
         /// A unique key that identifies a reusable tool configuration within a customer account.<br/>
-        /// Customer-provided; if omitted when creating a configuration, one is generated from the name.<br/>
+        /// The customer provides this key. If omitted when creating a configuration, the platform generates one from the name.<br/>
         /// Example: customer_support_search
         /// </param>
 #if NET7_0_OR_GREATER

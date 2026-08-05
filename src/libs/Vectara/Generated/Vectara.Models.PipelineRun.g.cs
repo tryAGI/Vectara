@@ -19,7 +19,7 @@ namespace Vectara
         public required string Id { get; set; }
 
         /// <summary>
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </summary>
         /// <example>sharepoint-legal-ingest</example>
@@ -115,7 +115,7 @@ namespace Vectara
         /// Example: run_pip_abc_manual_550e8400
         /// </param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="agentKey">

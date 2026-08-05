@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The A2A v0.3 Agent Card. Returned from `GET /v2/agents/{agent_key}/.well-known/agent-card.json` and `GET /v2/agents/{agent_key}/v1/card`. The card's `url` advertises the JSON-RPC, gRPC, or HTTP+JSON RPC endpoint per `preferredTransport`; `additionalInterfaces` lists other supported transports.
+    /// The A2A v0.3 Agent Card. Returned from `GET /v2/agents/{agent_key}/.well-known/agent-card.json` and `GET /v2/agents/{agent_key}/v1/card`. The card's `url` advertises the JSON-RPC, gRPC, or HTTP+JSON RPC endpoint per `preferredTransport`. `additionalInterfaces` lists other supported transports.
     /// </summary>
     public sealed partial class A2aV03AgentCard
     {
@@ -80,7 +80,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, global::Vectara.A2aV03SecurityScheme>? SecuritySchemes { get; set; }
 
         /// <summary>
-        /// List of OR'd security requirements; each entry is a map of scheme name → scope list.
+        /// Security requirements for the agent. Each entry maps scheme names to scope lists. Entries are alternatives. All schemes in one entry apply together.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("security")]
         public global::System.Collections.Generic.IList<global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>>? Security { get; set; }
@@ -171,7 +171,7 @@ namespace Vectara
         /// Security schemes the agent supports, keyed by scheme name.
         /// </param>
         /// <param name="security">
-        /// List of OR'd security requirements; each entry is a map of scheme name → scope list.
+        /// Security requirements for the agent. Each entry maps scheme names to scope lists. Entries are alternatives. All schemes in one entry apply together.
         /// </param>
         /// <param name="supportsAuthenticatedExtendedCard">
         /// True if the agent serves an extended card requiring authentication.<br/>

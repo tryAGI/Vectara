@@ -63,8 +63,7 @@ namespace Vectara
 
         /// <summary>
         /// Get an API key<br/>
-        /// The Get API Key API lists all existing API keys for a customer ID. It also shows what corpora are accessed by these keys and with what permissions.<br/>
-        /// This capability can provide insights into key usage and status and help you manage the lifecycle and security of your API keys.
+        /// Returns an API key. The response shows the corpora the key can access and with what permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -91,8 +90,7 @@ namespace Vectara
         }
         /// <summary>
         /// Get an API key<br/>
-        /// The Get API Key API lists all existing API keys for a customer ID. It also shows what corpora are accessed by these keys and with what permissions.<br/>
-        /// This capability can provide insights into key usage and status and help you manage the lifecycle and security of your API keys.
+        /// Returns an API key. The response shows the corpora the key can access and with what permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

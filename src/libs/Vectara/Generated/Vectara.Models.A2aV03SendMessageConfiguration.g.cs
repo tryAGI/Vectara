@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Optional knobs that influence how the agent processes and responds to a v0.3 message.
+    /// Optional settings that control how the agent processes and responds to a v0.3 message.
     /// </summary>
     public sealed partial class A2aV03SendMessageConfiguration
     {

@@ -93,7 +93,7 @@ namespace Vectara
         public bool? SaveHistory { get; set; }
 
         /// <summary>
-        /// The new filter attributes of the corpus.
+        /// The filter attributes of the corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("filter_attributes")]
         public global::System.Collections.Generic.IList<global::Vectara.FilterAttribute>? FilterAttributes { get; set; }
@@ -163,7 +163,7 @@ namespace Vectara
         /// Indicates whether to save corpus queries to query history by default.
         /// </param>
         /// <param name="filterAttributes">
-        /// The new filter attributes of the corpus.
+        /// The filter attributes of the corpus.
         /// </param>
         /// <param name="customDimensions">
         /// The custom dimensions of all document parts inside the corpus.

@@ -18,12 +18,12 @@ namespace Vectara
         public required string Id { get; set; }
 
         /// <summary>
-        /// When the type of the indexed document is `structured` the rest of the object is expected to follow this schema. It allows you to create a document that follows normal document conventions. The Vectara platform will then create document parts using its internal algorithm.<br/>
+        /// When the type of the indexed document is `structured`, the rest of the object follows this schema. A structured document follows normal document conventions. The platform creates the document parts automatically.<br/>
         /// Default Value: structured<br/>
-        /// Example: 2024 ESG Annual Report
+        /// Example: structured
         /// </summary>
         /// <default>"structured"</default>
-        /// <example>2024 ESG Annual Report</example>
+        /// <example>structured</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Type { get; set; } = "structured";
@@ -57,14 +57,14 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, double>? CustomDimensions { get; set; }
 
         /// <summary>
-        /// The subsection of the document.
+        /// The sections of the document.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sections")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.Collections.Generic.IList<global::Vectara.StructuredDocumentSection> Sections { get; set; }
 
         /// <summary>
-        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("chunking_strategy")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ChunkingStrategyJsonConverter))]
@@ -84,12 +84,12 @@ namespace Vectara
         /// Example: esg_report_2024
         /// </param>
         /// <param name="type">
-        /// When the type of the indexed document is `structured` the rest of the object is expected to follow this schema. It allows you to create a document that follows normal document conventions. The Vectara platform will then create document parts using its internal algorithm.<br/>
+        /// When the type of the indexed document is `structured`, the rest of the object follows this schema. A structured document follows normal document conventions. The platform creates the document parts automatically.<br/>
         /// Default Value: structured<br/>
-        /// Example: 2024 ESG Annual Report
+        /// Example: structured
         /// </param>
         /// <param name="sections">
-        /// The subsection of the document.
+        /// The sections of the document.
         /// </param>
         /// <param name="title">
         /// The title of the document.
@@ -106,7 +106,7 @@ namespace Vectara
         /// The custom dimensions as additional weights.
         /// </param>
         /// <param name="chunkingStrategy">
-        /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
+        /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

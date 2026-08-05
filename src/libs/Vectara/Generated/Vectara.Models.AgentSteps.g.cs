@@ -4,8 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// A map of additional named steps keyed by step name.<br/>
-    /// The first_step can transition to steps defined here via next_steps.<br/>
+    /// A map of named steps keyed by step name.<br/>
+    /// Steps can transition to other steps defined here via next_steps.<br/>
+    /// The entry point is the step named by first_step_name.<br/>
     /// Example: {"sales_handler":{"instructions":[{"type":"inline","template":"Handle sales inquiries"}],"output_parser":{"type":"default"}},"support_handler":{"instructions":[{"type":"inline","template":"Handle support requests"}],"output_parser":{"type":"default"}}}
     /// </summary>
     public sealed partial class AgentSteps

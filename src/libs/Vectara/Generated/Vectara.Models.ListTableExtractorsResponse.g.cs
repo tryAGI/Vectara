@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Response containing a list of available table extractors for document processing
+    /// Response containing a list of available table extractors for document processing.
     /// </summary>
     public sealed partial class ListTableExtractorsResponse
     {

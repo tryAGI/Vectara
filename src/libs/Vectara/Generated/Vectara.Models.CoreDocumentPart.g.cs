@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A part of a document. This section gets converted into an embedding and directly maps to a search result. Usually this is a sentence.
+    /// A part of a document. The platform converts this section into an embedding, and it maps directly to a search result. A part is usually a sentence.
     /// </summary>
     public sealed partial class CoreDocumentPart
     {

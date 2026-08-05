@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Response from testing a Lambda tool before creation. Contains comprehensive validation, schema discovery, and execution results to help users create tools successfully.
+    /// Response from testing a Lambda tool before creation. Contains validation, schema discovery, and execution results.
     /// </summary>
     public sealed partial class TestLambdaToolResponse
     {
@@ -16,7 +16,7 @@ namespace Vectara
         public required global::Vectara.TestLambdaToolResponseValidation Validation { get; set; }
 
         /// <summary>
-        /// The discovered input schema from type annotations. May be null if validation failed or no type hints provided.<br/>
+        /// The discovered input schema from type annotations. May be null if validation failed or the code has no type hints.<br/>
         /// Example: {"type":"object","properties":{"order_count":{"type":"integer"},"total_revenue":{"type":"number"}},"required":["order_count","total_revenue"]}
         /// </summary>
         /// <example>{"type":"object","properties":{"order_count":{"type":"integer"},"total_revenue":{"type":"number"}},"required":["order_count","total_revenue"]}</example>
@@ -24,7 +24,7 @@ namespace Vectara
         public object? InputSchema { get; set; }
 
         /// <summary>
-        /// The discovered output schema from type annotations. May be null if validation failed or no type hints provided.<br/>
+        /// The discovered output schema from type annotations. May be null if validation failed or the code has no type hints.<br/>
         /// Example: {"type":"object","properties":{"score":{"type":"number"}}}
         /// </summary>
         /// <example>{"type":"object","properties":{"score":{"type":"number"}}}</example>
@@ -50,11 +50,11 @@ namespace Vectara
         /// Results of code validation (static and sandbox).
         /// </param>
         /// <param name="inputSchema">
-        /// The discovered input schema from type annotations. May be null if validation failed or no type hints provided.<br/>
+        /// The discovered input schema from type annotations. May be null if validation failed or the code has no type hints.<br/>
         /// Example: {"type":"object","properties":{"order_count":{"type":"integer"},"total_revenue":{"type":"number"}},"required":["order_count","total_revenue"]}
         /// </param>
         /// <param name="outputSchema">
-        /// The discovered output schema from type annotations. May be null if validation failed or no type hints provided.<br/>
+        /// The discovered output schema from type annotations. May be null if validation failed or the code has no type hints.<br/>
         /// Example: {"type":"object","properties":{"score":{"type":"number"}}}
         /// </param>
         /// <param name="execution">

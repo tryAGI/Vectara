@@ -9,14 +9,14 @@ namespace Vectara
     public sealed partial class PercentileEntry
     {
         /// <summary>
-        /// Stable identifier for this percentile (e.g. `p50`, `p99`).
+        /// The stable identifier for this percentile (e.g. `p50`, `p99`).
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("label")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Label { get; set; }
 
         /// <summary>
-        /// Numeric value — the percentile rank on the descriptor, the aggregated value on a response point.
+        /// The numeric value — the percentile rank on the descriptor, the aggregated value on a response point.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("value")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -32,10 +32,10 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="PercentileEntry" /> class.
         /// </summary>
         /// <param name="label">
-        /// Stable identifier for this percentile (e.g. `p50`, `p99`).
+        /// The stable identifier for this percentile (e.g. `p50`, `p99`).
         /// </param>
         /// <param name="value">
-        /// Numeric value — the percentile rank on the descriptor, the aggregated value on a response point.
+        /// The numeric value — the percentile rank on the descriptor, the aggregated value on a response point.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -4,8 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Access level a grant confers on a record. `none` means the access concept applies to the record but<br/>
-    /// no grant was made. New levels may be added over time; clients should treat unknown values as opaque.
+    /// Access level a grant confers on a record. `none` means the access concept applies to the<br/>
+    /// record but no grant was made. New levels may be added over time. Clients should treat<br/>
+    /// unknown values as opaque.
     /// </summary>
     public enum AclAccessLevel
     {

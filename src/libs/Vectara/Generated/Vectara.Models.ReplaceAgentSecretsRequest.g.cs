@@ -4,8 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Replace the agent's secrets set. The submitted map fully replaces what was previously stored — names not in the request are removed.<br/>
-    /// Stored encrypted at rest using the agent's encryption key.
+    /// Request body that replaces the agent's secrets. The submitted map fully replaces the stored set. Names not in the request are removed.<br/>
+    /// Secrets are stored encrypted at rest.
     /// </summary>
     public sealed partial class ReplaceAgentSecretsRequest
     {

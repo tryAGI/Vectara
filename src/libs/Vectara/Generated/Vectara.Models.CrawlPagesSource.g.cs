@@ -5,14 +5,15 @@
 namespace Vectara
 {
     /// <summary>
-    /// Discover pages by breadth-first link-following starting from one or more seed URLs.<br/>
-    /// Per-URL change detection uses conditional GET (added in a follow-up PR).
+    /// Discovers pages by breadth-first link-following starting from one or more seed URLs.<br/>
+    /// Change detection re-fetches each page on every run.
     /// </summary>
     public readonly partial struct CrawlPagesSource : global::System.IEquatable<CrawlPagesSource>
     {
         /// <summary>
-        /// Shared BFS knobs for crawl-mode page-source variants (CrawlPagesSource, SitemapCrawlPagesSource).<br/>
-        /// Depth and URL filters; seed lists differ per variant and live on the leaf types.
+        /// Shared BFS settings for crawl-mode page-source variants (CrawlPagesSource,<br/>
+        /// SitemapCrawlPagesSource). Contains depth and URL filters. Seed lists differ per variant<br/>
+        /// and live on the leaf types.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseCrawlPagesSource? Base { get; init; }

@@ -5,14 +5,15 @@
 namespace Vectara
 {
     /// <summary>
-    /// Read pages from sitemaps AND crawl outward via link-following. Sitemap entries themselves<br/>
-    /// serve as crawl seeds; `urls` is optional and provides additional explicit seeds.
+    /// Reads pages from sitemaps and crawls outward via link-following. Sitemap entries themselves<br/>
+    /// serve as crawl seeds. `urls` is optional and provides additional explicit seeds.
     /// </summary>
     public readonly partial struct SitemapCrawlPagesSource : global::System.IEquatable<SitemapCrawlPagesSource>
     {
         /// <summary>
-        /// Shared BFS knobs for crawl-mode page-source variants (CrawlPagesSource, SitemapCrawlPagesSource).<br/>
-        /// Depth and URL filters; seed lists differ per variant and live on the leaf types.
+        /// Shared BFS settings for crawl-mode page-source variants (CrawlPagesSource,<br/>
+        /// SitemapCrawlPagesSource). Contains depth and URL filters. Seed lists differ per variant<br/>
+        /// and live on the leaf types.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseCrawlPagesSource? Base { get; init; }

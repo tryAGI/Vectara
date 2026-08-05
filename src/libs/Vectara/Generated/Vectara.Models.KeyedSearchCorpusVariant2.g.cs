@@ -17,7 +17,7 @@ namespace Vectara
         public string? CorpusKey { get; set; }
 
         /// <summary>
-        /// Query for a particular corpus that will override the overall query if present.<br/>
+        /// The query for a particular corpus. If present, it overrides the overall query.<br/>
         /// Example: What are some important facts in my-corpus?
         /// </summary>
         /// <example>What are some important facts in my-corpus?</example>
@@ -38,7 +38,7 @@ namespace Vectara
         /// Example: my-corpus
         /// </param>
         /// <param name="query">
-        /// Query for a particular corpus that will override the overall query if present.<br/>
+        /// The query for a particular corpus. If present, it overrides the overall query.<br/>
         /// Example: What are some important facts in my-corpus?
         /// </param>
 #if NET7_0_OR_GREATER

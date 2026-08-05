@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get an App Client<br/>
-        /// Retrieve details of a specific application client by its ID.
+        /// Returns the App Client with the specified ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -22,7 +22,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get an App Client<br/>
-        /// Retrieve details of a specific application client by its ID.
+        /// Returns the App Client with the specified ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

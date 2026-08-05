@@ -58,7 +58,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete tool<br/>
-        /// Permanently delete a tool and its configuration. This action cannot be undone. Agents attempting to use a deleted tool will fail, so ensure that agent configurations are updated before removing a tool.
+        /// Deletes a tool and its configuration permanently. This action cannot be undone. Agent calls to a deleted tool fail. Update agent configurations before you delete a tool.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -85,7 +85,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete tool<br/>
-        /// Permanently delete a tool and its configuration. This action cannot be undone. Agents attempting to use a deleted tool will fail, so ensure that agent configurations are updated before removing a tool.
+        /// Deletes a tool and its configuration permanently. This action cannot be undone. Agent calls to a deleted tool fail. Update agent configurations before you delete a tool.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

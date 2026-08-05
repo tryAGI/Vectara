@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to create a tool. Supports lambda tools for user-defined functions and client tools whose execution is performed by the calling client.
+    /// Request to create a tool. Supports lambda tools for user-defined functions and client tools that the calling client executes.
     /// </summary>
     public readonly partial struct CreateToolRequest : global::System.IEquatable<CreateToolRequest>
     {

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Decrypted content of an execute_tool span.
+    /// The content of an execute_tool span.
     /// </summary>
     public sealed partial class ExecuteToolSpanContent
     {

@@ -4,19 +4,27 @@
 namespace Vectara
 {
     /// <summary>
-    /// Which Fluid Topics content layer to ingest. `documents` enumerates standalone documents;<br/>
-    /// `topics` enumerates the topics within publications, iterating map by map so each topic carries<br/>
-    /// its parent map's identity and classification.<br/>
+    /// Which Fluid Topics content layer to ingest:<br/>
+    /// - `documents`: enumerates standalone documents.<br/>
+    /// - `topics`: enumerates the topics within maps, iterating map by map so each topic carries<br/>
+    ///   its parent map's identity and classification.<br/>
+    /// - `maps`: enumerates maps, emitting one record each.<br/>
+    /// Under `maps`, `query` is ignored. `filters`, `locale`, `include_sources`, and<br/>
+    /// `exclude_sources` apply, matched against each map's metadata.<br/>
     /// Default Value: documents
     /// </summary>
     public enum BaseFluidtopicsSourceConfigurationContentScope
     {
         /// <summary>
-        /// 
+        /// enumerates standalone documents.
         /// </summary>
         Documents,
         /// <summary>
-        /// 
+        /// enumerates the topics within maps, iterating map by map so each topic carries
+        /// </summary>
+        Maps,
+        /// <summary>
+        /// enumerates the topics within maps, iterating map by map so each topic carries
         /// </summary>
         Topics,
     }
@@ -34,6 +42,7 @@ namespace Vectara
             return value switch
             {
                 BaseFluidtopicsSourceConfigurationContentScope.Documents => "documents",
+                BaseFluidtopicsSourceConfigurationContentScope.Maps => "maps",
                 BaseFluidtopicsSourceConfigurationContentScope.Topics => "topics",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -46,6 +55,7 @@ namespace Vectara
             return value switch
             {
                 "documents" => BaseFluidtopicsSourceConfigurationContentScope.Documents,
+                "maps" => BaseFluidtopicsSourceConfigurationContentScope.Maps,
                 "topics" => BaseFluidtopicsSourceConfigurationContentScope.Topics,
                 _ => null,
             };

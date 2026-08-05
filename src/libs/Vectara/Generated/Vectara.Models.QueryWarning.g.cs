@@ -5,14 +5,14 @@ namespace Vectara
 {
     /// <summary>
     /// Non-fatal warnings that occurred during query processing.<br/>
-    ///  *  `exceeded_max_input_length_fcs`: The input to the Factual Consistency Score model exceeded the maximum allowed length, so no score is being returned<br/>
+    ///  *  `exceeded_max_input_length_fcs`: The input to the Factual Consistency Score model exceeded the maximum allowed length, so the response includes no score<br/>
     ///  *  `intelligent_query_rewriting_failed`: Intelligent query rewriting failed due to an internal error<br/>
     ///  *  `fcs_language_not_supported`: The summary language is not supported by the Factual Consistency Score model
     /// </summary>
     public enum QueryWarning
     {
         /// <summary>
-        /// The input to the Factual Consistency Score model exceeded the maximum allowed length, so no score is being returned
+        /// The input to the Factual Consistency Score model exceeded the maximum allowed length, so the response includes no score
         /// </summary>
         ExceededMaxInputLengthFcs,
         /// <summary>

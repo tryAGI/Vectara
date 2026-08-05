@@ -18,7 +18,7 @@ namespace Vectara
         public required string Term { get; set; }
 
         /// <summary>
-        /// The expanded form to substitute when the term is matched.<br/>
+        /// The expanded form of the term. When the term is matched, the platform includes it in the hint appended to the event.<br/>
         /// Example: Kubernetes
         /// </summary>
         /// <example>Kubernetes</example>
@@ -40,7 +40,7 @@ namespace Vectara
         /// Example: k8s
         /// </param>
         /// <param name="expansion">
-        /// The expanded form to substitute when the term is matched.<br/>
+        /// The expanded form of the term. When the term is matched, the platform includes it in the hint appended to the event.<br/>
         /// Example: Kubernetes
         /// </param>
 #if NET7_0_OR_GREATER

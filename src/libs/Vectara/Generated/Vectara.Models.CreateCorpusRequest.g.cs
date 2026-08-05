@@ -74,7 +74,7 @@ namespace Vectara
         public string? EncoderName { get; set; }
 
         /// <summary>
-        /// The new filter attributes of the corpus. If unset then the corpus will not have filter attributes.<br/>
+        /// The filter attributes of the corpus. If unset, the corpus does not have filter attributes.<br/>
         /// Default Value: []
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("filter_attributes")]
@@ -125,7 +125,7 @@ namespace Vectara
         /// Example: boomerang-2023-q3
         /// </param>
         /// <param name="filterAttributes">
-        /// The new filter attributes of the corpus. If unset then the corpus will not have filter attributes.<br/>
+        /// The filter attributes of the corpus. If unset, the corpus does not have filter attributes.<br/>
         /// Default Value: []
         /// </param>
         /// <param name="customDimensions">

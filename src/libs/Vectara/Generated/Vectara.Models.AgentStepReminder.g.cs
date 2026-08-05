@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.AgentStepReminderDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// A reminder whose template is rendered at session start according to its template_type (Velocity by default, or text for verbatim content) and injected into messages matching the specified hooks.
+        /// A reminder whose rendered template is appended to messages that match the specified hooks. The template renders at session start according to its template_type (Velocity by default, or text for verbatim content).
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.TemplatedReminder? Templated { get; init; }
@@ -52,9 +52,9 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Templated' but the value was {ToString()}.");
 
         /// <summary>
-        /// A reminder that expands terms, acronyms, and abbreviations in user messages using a glossary.<br/>
-        /// When attached to a step, user input is run through the glossary's lookup index and matching<br/>
-        /// terms are expanded before the message reaches the agent.
+        /// A reminder that maps terms, acronyms, and abbreviations to their expansions using a glossary.<br/>
+        /// When attached to a step, the platform appends the matched terms and their expansions to the event as a hint.<br/>
+        /// The agent decides how to use them.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GlossaryExpansionReminder? GlossaryExpansion { get; init; }

@@ -64,19 +64,20 @@ namespace Vectara
         /// <summary>
         /// Create agent<br/>
         /// Creates an agent. An agent is defined by three things: the **instructions** it follows, the **steps** it executes when it receives an input, and the **tools** it can call. Instructions are attached to each step and determine the agent's behavior on that step.<br/>
-        /// Only a single step is currently supported. Set `first_step` to that step; additional step types will be added later.<br/>
+        /// Define the steps in the `steps` map. Set `first_step_name` to the name of the entry step. A step transitions to other steps through its `next_steps` conditions. The `first_step` field also accepts an inline entry step, but it is deprecated.<br/>
         /// To invoke an agent, create a session and send events to it. Each event produces a response from the agent.<br/>
         /// ## LLM configuration<br/>
-        /// Each agent is bound to one LLM, configured under `llm`:<br/>
-        /// - `llm_name`: the LLM resource to use (see `GET /v2/llms`).<br/>
-        /// - model parameters such as temperature and max tokens.<br/>
-        /// - retry configuration applied to LLM calls.<br/>
+        /// Each agent is bound to one LLM, configured under `model`:<br/>
+        /// - `name`: the LLM to use (see `GET /v2/llms`).<br/>
+        /// - `parameters`: LLM parameters such as temperature and max tokens.<br/>
+        /// - `retry_configuration`: retry behavior applied to failed LLM calls.<br/>
         /// ## Retry configuration<br/>
-        /// The agent retries failed LLM calls using exponential backoff:<br/>
-        /// - `max_retries`: maximum number of retries after the initial call.<br/>
-        /// - `initial_backoff_ms`: delay in milliseconds before the first retry.<br/>
-        /// - `backoff_factor`: multiplier applied to the delay after each retry.<br/>
-        /// - `max_backoff_ms`: upper bound on the delay between retries.
+        /// The agent retries failed LLM calls with exponential backoff:<br/>
+        /// - `max_retries`: maximum number of retries after the initial call. Defaults to 3.<br/>
+        /// - `initial_backoff_ms`: delay in milliseconds before the first retry. Defaults to 1000.<br/>
+        /// - `backoff_factor`: multiplier applied to the delay after each retry. Defaults to 2.0.<br/>
+        /// - `max_backoff_ms`: upper bound on the delay between retries. Defaults to 30000.<br/>
+        /// When `retry_configuration` is not set, the agent retries with the default configuration. Set `enabled` to `false` to disable retries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -106,19 +107,20 @@ namespace Vectara
         /// <summary>
         /// Create agent<br/>
         /// Creates an agent. An agent is defined by three things: the **instructions** it follows, the **steps** it executes when it receives an input, and the **tools** it can call. Instructions are attached to each step and determine the agent's behavior on that step.<br/>
-        /// Only a single step is currently supported. Set `first_step` to that step; additional step types will be added later.<br/>
+        /// Define the steps in the `steps` map. Set `first_step_name` to the name of the entry step. A step transitions to other steps through its `next_steps` conditions. The `first_step` field also accepts an inline entry step, but it is deprecated.<br/>
         /// To invoke an agent, create a session and send events to it. Each event produces a response from the agent.<br/>
         /// ## LLM configuration<br/>
-        /// Each agent is bound to one LLM, configured under `llm`:<br/>
-        /// - `llm_name`: the LLM resource to use (see `GET /v2/llms`).<br/>
-        /// - model parameters such as temperature and max tokens.<br/>
-        /// - retry configuration applied to LLM calls.<br/>
+        /// Each agent is bound to one LLM, configured under `model`:<br/>
+        /// - `name`: the LLM to use (see `GET /v2/llms`).<br/>
+        /// - `parameters`: LLM parameters such as temperature and max tokens.<br/>
+        /// - `retry_configuration`: retry behavior applied to failed LLM calls.<br/>
         /// ## Retry configuration<br/>
-        /// The agent retries failed LLM calls using exponential backoff:<br/>
-        /// - `max_retries`: maximum number of retries after the initial call.<br/>
-        /// - `initial_backoff_ms`: delay in milliseconds before the first retry.<br/>
-        /// - `backoff_factor`: multiplier applied to the delay after each retry.<br/>
-        /// - `max_backoff_ms`: upper bound on the delay between retries.
+        /// The agent retries failed LLM calls with exponential backoff:<br/>
+        /// - `max_retries`: maximum number of retries after the initial call. Defaults to 3.<br/>
+        /// - `initial_backoff_ms`: delay in milliseconds before the first retry. Defaults to 1000.<br/>
+        /// - `backoff_factor`: multiplier applied to the delay after each retry. Defaults to 2.0.<br/>
+        /// - `max_backoff_ms`: upper bound on the delay between retries. Defaults to 30000.<br/>
+        /// When `retry_configuration` is not set, the agent retries with the default configuration. Set `enabled` to `false` to disable retries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -410,7 +412,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Agent creation request was malformed or contains invalid references.
+                            // The agent creation request is malformed or contains invalid references.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -583,19 +585,20 @@ namespace Vectara
         /// <summary>
         /// Create agent<br/>
         /// Creates an agent. An agent is defined by three things: the **instructions** it follows, the **steps** it executes when it receives an input, and the **tools** it can call. Instructions are attached to each step and determine the agent's behavior on that step.<br/>
-        /// Only a single step is currently supported. Set `first_step` to that step; additional step types will be added later.<br/>
+        /// Define the steps in the `steps` map. Set `first_step_name` to the name of the entry step. A step transitions to other steps through its `next_steps` conditions. The `first_step` field also accepts an inline entry step, but it is deprecated.<br/>
         /// To invoke an agent, create a session and send events to it. Each event produces a response from the agent.<br/>
         /// ## LLM configuration<br/>
-        /// Each agent is bound to one LLM, configured under `llm`:<br/>
-        /// - `llm_name`: the LLM resource to use (see `GET /v2/llms`).<br/>
-        /// - model parameters such as temperature and max tokens.<br/>
-        /// - retry configuration applied to LLM calls.<br/>
+        /// Each agent is bound to one LLM, configured under `model`:<br/>
+        /// - `name`: the LLM to use (see `GET /v2/llms`).<br/>
+        /// - `parameters`: LLM parameters such as temperature and max tokens.<br/>
+        /// - `retry_configuration`: retry behavior applied to failed LLM calls.<br/>
         /// ## Retry configuration<br/>
-        /// The agent retries failed LLM calls using exponential backoff:<br/>
-        /// - `max_retries`: maximum number of retries after the initial call.<br/>
-        /// - `initial_backoff_ms`: delay in milliseconds before the first retry.<br/>
-        /// - `backoff_factor`: multiplier applied to the delay after each retry.<br/>
-        /// - `max_backoff_ms`: upper bound on the delay between retries.
+        /// The agent retries failed LLM calls with exponential backoff:<br/>
+        /// - `max_retries`: maximum number of retries after the initial call. Defaults to 3.<br/>
+        /// - `initial_backoff_ms`: delay in milliseconds before the first retry. Defaults to 1000.<br/>
+        /// - `backoff_factor`: multiplier applied to the delay after each retry. Defaults to 2.0.<br/>
+        /// - `max_backoff_ms`: upper bound on the delay between retries. Defaults to 30000.<br/>
+        /// When `retry_configuration` is not set, the agent retries with the default configuration. Set `enabled` to `false` to disable retries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -652,7 +655,7 @@ namespace Vectara
         /// Configuration for automatic context compaction.
         /// </param>
         /// <param name="sessionEnrichment">
-        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata, so the agent, run conditions, and routing can read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
+        /// Tool calls run at session creation to populate the new session's metadata before the agent's first turn. Each call invokes one of the agent's enrichment-only tool configurations and writes its output into the session metadata. The agent, run conditions, and routing can then read values fetched or computed at session start. Enrichment tools are ordinary entries in the agent's tool_configurations marked enrichment_only, so they are never exposed to the agent's model. Enrichment runs for every session the agent creates regardless of trigger, including the API, chat connectors, and schedules. Independent calls run in parallel and a call may consume an earlier call's output. Enrichment is fail-closed: unless a call sets continue_on_error, a failed call aborts session creation and no session is created.
         /// </param>
         /// <param name="toolOutputOffloading">
         /// Controls how large tool outputs are kept from overwhelming the agent context window.<br/>

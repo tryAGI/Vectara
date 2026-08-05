@@ -5,8 +5,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Which Drive content to ingest. Discriminated by `type`: `shared` ingests from a Google<br/>
-    /// Workspace shared drive the service account has been added to; `my_drive` ingests from a<br/>
+    /// Which Drive content to ingest, discriminated by `type`. `shared` ingests from a Google<br/>
+    /// Workspace shared drive where the service account is a member. `my_drive` ingests from a<br/>
     /// single user's My Drive via domain-wide delegation.
     /// </summary>
     public readonly partial struct GoogleDriveScope : global::System.IEquatable<GoogleDriveScope>
@@ -17,9 +17,9 @@ namespace Vectara
         public global::Vectara.GoogleDriveScopeDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Ingest from a Google Workspace shared drive. The service account (`client_email`) must<br/>
-        /// be added as a member of the shared drive — or of the linked folder — with at least Viewer<br/>
-        /// access. No domain-wide delegation is required.
+        /// Ingests from a Google Workspace shared drive. Add the service account (`client_email`) as<br/>
+        /// a member of the shared drive, or of the linked folder, with at least Viewer access. This<br/>
+        /// scope does not require domain-wide delegation.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SharedGoogleDriveScope? Shared { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Shared' but the value was {ToString()}.");
 
         /// <summary>
-        /// Ingest from a single user's My Drive via Google Workspace domain-wide delegation. Requires<br/>
+        /// Ingests from a single user's My Drive via Google Workspace domain-wide delegation. Requires<br/>
         /// the Workspace admin to authorize the service account's client ID with the `drive.readonly`<br/>
         /// OAuth scope.
         /// </summary>

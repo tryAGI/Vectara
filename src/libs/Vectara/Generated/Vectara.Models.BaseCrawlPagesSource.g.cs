@@ -4,8 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Shared BFS knobs for crawl-mode page-source variants (CrawlPagesSource, SitemapCrawlPagesSource).<br/>
-    /// Depth and URL filters; seed lists differ per variant and live on the leaf types.
+    /// Shared BFS settings for crawl-mode page-source variants (CrawlPagesSource,<br/>
+    /// SitemapCrawlPagesSource). Contains depth and URL filters. Seed lists differ per variant<br/>
+    /// and live on the leaf types.
     /// </summary>
     public sealed partial class BaseCrawlPagesSource
     {
@@ -24,13 +25,13 @@ namespace Vectara
         public bool? SameDomainOnly { get; set; }
 
         /// <summary>
-        /// Regex patterns matched against the full URL; a URL must fully match at least one to be crawled. Empty list = no positive filter.
+        /// Regex patterns matched against the full URL. A URL must fully match at least one pattern to be crawled. An empty list applies no positive filter.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pos_regex")]
         public global::System.Collections.Generic.IList<string>? PosRegex { get; set; }
 
         /// <summary>
-        /// Regex patterns matched against the full URL; URLs fully matching any are skipped.
+        /// Regex patterns matched against the full URL. A URL that fully matches any pattern is skipped.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("neg_regex")]
         public global::System.Collections.Generic.IList<string>? NegRegex { get; set; }
@@ -53,10 +54,10 @@ namespace Vectara
         /// Default Value: true
         /// </param>
         /// <param name="posRegex">
-        /// Regex patterns matched against the full URL; a URL must fully match at least one to be crawled. Empty list = no positive filter.
+        /// Regex patterns matched against the full URL. A URL must fully match at least one pattern to be crawled. An empty list applies no positive filter.
         /// </param>
         /// <param name="negRegex">
-        /// Regex patterns matched against the full URL; URLs fully matching any are skipped.
+        /// Regex patterns matched against the full URL. A URL that fully matches any pattern is skipped.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

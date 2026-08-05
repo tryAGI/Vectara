@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List agent traces<br/>
-        /// List agent traces with optional filtering by agent, session, status, and time range.
+        /// Lists agent traces with optional filtering by agent, session, status, and time range.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -48,7 +48,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List agent traces<br/>
-        /// List agent traces with optional filtering by agent, session, status, and time range.
+        /// Lists agent traces with optional filtering by agent, session, status, and time range.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

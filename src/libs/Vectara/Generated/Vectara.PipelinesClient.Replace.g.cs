@@ -65,12 +65,12 @@ namespace Vectara
 
         /// <summary>
         /// Replace pipeline<br/>
-        /// Replace a pipeline's configuration. The full pipeline definition must be provided.
+        /// Replaces a pipeline's configuration. Provide the full pipeline definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -100,12 +100,12 @@ namespace Vectara
         }
         /// <summary>
         /// Replace pipeline<br/>
-        /// Replace a pipeline's configuration. The full pipeline definition must be provided.
+        /// Replaces a pipeline's configuration. Provide the full pipeline definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -399,7 +399,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Pipeline replace request was malformed or contains invalid configuration.
+                            // The pipeline replace request is malformed or contains an invalid configuration.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -608,16 +608,16 @@ namespace Vectara
         }
         /// <summary>
         /// Replace pipeline<br/>
-        /// Replace a pipeline's configuration. The full pipeline definition must be provided.
+        /// Replaces a pipeline's configuration. Provide the full pipeline definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="key">
-        /// A user-provided key for the pipeline. If omitted, one is auto-generated.
+        /// A user-provided key for the pipeline. If omitted, the platform generates one.
         /// </param>
         /// <param name="name">
         /// The human-readable name of the pipeline.<br/>

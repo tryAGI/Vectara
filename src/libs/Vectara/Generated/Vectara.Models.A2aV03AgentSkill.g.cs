@@ -54,7 +54,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? OutputModes { get; set; }
 
         /// <summary>
-        /// Security requirements for the skill — list of OR'd AND-combined scheme/scope sets.
+        /// Security requirements for the skill. Each entry maps scheme names to scope lists. Entries are alternatives. All schemes in one entry apply together.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("security")]
         public global::System.Collections.Generic.IList<global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>>? Security { get; set; }
@@ -90,7 +90,7 @@ namespace Vectara
         /// Media types the skill produces as output.
         /// </param>
         /// <param name="security">
-        /// Security requirements for the skill — list of OR'd AND-combined scheme/scope sets.
+        /// Security requirements for the skill. Each entry maps scheme names to scope lists. Entries are alternatives. All schemes in one entry apply together.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

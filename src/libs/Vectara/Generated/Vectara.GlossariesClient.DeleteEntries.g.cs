@@ -60,7 +60,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete glossary entries<br/>
-        /// Bulk delete entries from a glossary by term. The glossary index blob is rebuilt after deletion.
+        /// Deletes entries from a glossary by term in bulk. The platform rebuilds the glossary index after the delete. Agents use the updated glossary after the rebuild completes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -93,7 +93,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete glossary entries<br/>
-        /// Bulk delete entries from a glossary by term. The glossary index blob is rebuilt after deletion.
+        /// Deletes entries from a glossary by term in bulk. The platform rebuilds the glossary index after the delete. Agents use the updated glossary after the rebuild completes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -548,7 +548,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete glossary entries<br/>
-        /// Bulk delete entries from a glossary by term. The glossary index blob is rebuilt after deletion.
+        /// Deletes entries from a glossary by term in bulk. The platform rebuilds the glossary index after the delete. Agents use the updated glossary after the rebuild completes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

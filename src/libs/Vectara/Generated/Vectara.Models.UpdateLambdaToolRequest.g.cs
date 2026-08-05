@@ -4,8 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to update a lambda tool, allowing modifications to code, configuration, and metadata.<br/>
-    /// When code is updated, input and output schemas are automatically re-discovered from function parameter type annotations.
+    /// Request to update a lambda tool's code, configuration, and metadata.<br/>
+    /// When you update the code, the platform re-discovers input and output schemas from function parameter type annotations.
     /// </summary>
     public sealed partial class UpdateLambdaToolRequest
     {
@@ -46,7 +46,7 @@ namespace Vectara
 
         /// <summary>
         /// Updated code for the lambda function. Use function parameter type annotations for automatic schema discovery.<br/>
-        /// Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters are rejected.<br/>
+        /// Object parameters must use `TypedDict`; validation rejects bare `dict` and `Dict[K, V]` parameters.<br/>
         /// See the `code` field on `CreateLambdaToolRequest` for full details and examples.<br/>
         /// Example: def process(value: float) -&gt; dict:<br/>
         ///     return {"result": value * 2}
@@ -101,7 +101,7 @@ namespace Vectara
         /// </param>
         /// <param name="code">
         /// Updated code for the lambda function. Use function parameter type annotations for automatic schema discovery.<br/>
-        /// Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters are rejected.<br/>
+        /// Object parameters must use `TypedDict`; validation rejects bare `dict` and `Dict[K, V]` parameters.<br/>
         /// See the `code` field on `CreateLambdaToolRequest` for full details and examples.<br/>
         /// Example: def process(value: float) -&gt; dict:<br/>
         ///     return {"result": value * 2}

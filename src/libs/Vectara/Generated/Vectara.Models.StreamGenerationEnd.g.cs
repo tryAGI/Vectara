@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// The end of generation. There may still be more information such as the factual consistency score, but generation has stopped.
+    /// Marks the end of generation. Later events, such as the factual consistency score, may still follow.
     /// </summary>
     public sealed partial class StreamGenerationEnd
     {
         /// <summary>
-        /// Then end of generation will be denoted with an object with the type `generation_end`.<br/>
+        /// An object with type `generation_end` marks the end of generation.<br/>
         /// Default Value: generation_end
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
@@ -25,7 +25,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="StreamGenerationEnd" /> class.
         /// </summary>
         /// <param name="type">
-        /// Then end of generation will be denoted with an object with the type `generation_end`.<br/>
+        /// An object with type `generation_end` marks the end of generation.<br/>
         /// Default Value: generation_end
         /// </param>
 #if NET7_0_OR_GREATER

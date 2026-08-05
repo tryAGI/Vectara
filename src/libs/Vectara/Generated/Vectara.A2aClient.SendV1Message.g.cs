@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Send A2A v1 message<br/>
-        /// Send a message to the agent using the A2A v1 wire format. Blocks until the agent reaches a terminal or interrupted state and returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
+        /// Sends a message to the agent using the A2A v1 wire format. Blocks until the agent reaches a terminal or interrupted state. Returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
         /// To continue an existing conversation, set `message.contextId` to the prior task's id.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -101,7 +101,7 @@ namespace Vectara
         }
         /// <summary>
         /// Send A2A v1 message<br/>
-        /// Send a message to the agent using the A2A v1 wire format. Blocks until the agent reaches a terminal or interrupted state and returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
+        /// Sends a message to the agent using the A2A v1 wire format. Blocks until the agent reaches a terminal or interrupted state. Returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
         /// To continue an existing conversation, set `message.contextId` to the prior task's id.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -573,7 +573,7 @@ namespace Vectara
         }
         /// <summary>
         /// Send A2A v1 message<br/>
-        /// Send a message to the agent using the A2A v1 wire format. Blocks until the agent reaches a terminal or interrupted state and returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
+        /// Sends a message to the agent using the A2A v1 wire format. Blocks until the agent reaches a terminal or interrupted state. Returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
         /// To continue an existing conversation, set `message.contextId` to the prior task's id.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -589,7 +589,7 @@ namespace Vectara
         /// A v1 unit of communication between client and agent. The `parts` field carries the message parts.
         /// </param>
         /// <param name="configuration">
-        /// Optional knobs that influence how the agent processes and responds to a v1 message.
+        /// Optional settings that control how the agent processes and responds to a v1 message.
         /// </param>
         /// <param name="metadata">
         /// Arbitrary client-supplied metadata for the request.

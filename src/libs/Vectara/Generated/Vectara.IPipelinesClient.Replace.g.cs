@@ -6,12 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// Replace pipeline<br/>
-        /// Replace a pipeline's configuration. The full pipeline definition must be provided.
+        /// Replaces a pipeline's configuration. Provide the full pipeline definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -28,12 +28,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Replace pipeline<br/>
-        /// Replace a pipeline's configuration. The full pipeline definition must be provided.
+        /// Replaces a pipeline's configuration. Provide the full pipeline definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -50,16 +50,16 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Replace pipeline<br/>
-        /// Replace a pipeline's configuration. The full pipeline definition must be provided.
+        /// Replaces a pipeline's configuration. Provide the full pipeline definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="key">
-        /// A user-provided key for the pipeline. If omitted, one is auto-generated.
+        /// A user-provided key for the pipeline. If omitted, the platform generates one.
         /// </param>
         /// <param name="name">
         /// The human-readable name of the pipeline.<br/>

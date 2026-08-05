@@ -6,12 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// Cancel pipeline run<br/>
-        /// Request cancellation of an in-progress pipeline run. The run is asked to stop at the next checkpoint; it may take a moment to transition to the cancelled state. Runs that have already completed, failed, or been cancelled cannot be cancelled again.
+        /// Requests cancellation of an in-progress pipeline run. The run stops at the next checkpoint. It may take a moment to transition to the cancelled state. Runs that already completed, failed, or were cancelled cannot be cancelled again.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="runId">
@@ -30,12 +30,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Cancel pipeline run<br/>
-        /// Request cancellation of an in-progress pipeline run. The run is asked to stop at the next checkpoint; it may take a moment to transition to the cancelled state. Runs that have already completed, failed, or been cancelled cannot be cancelled again.
+        /// Requests cancellation of an in-progress pipeline run. The run stops at the next checkpoint. It may take a moment to transition to the cancelled state. Runs that already completed, failed, or were cancelled cannot be cancelled again.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="runId">

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A reference to a value resolved from the session context at the start of each turn. Resolution occurs when a new message is submitted to the agent session, before any LLM processing begins. The resolved value remains constant throughout the turn and is not re-evaluated during the agent's response or subsequent tool calls within the same turn.
+    /// A reference to a value resolved from the session context at the start of each turn. Resolution occurs when the session receives a new message, before any LLM processing begins. The resolved value remains constant throughout the turn. The agent does not re-evaluate it during its response or subsequent tool calls within the same turn.
     /// </summary>
     public sealed partial class EagerReference
     {

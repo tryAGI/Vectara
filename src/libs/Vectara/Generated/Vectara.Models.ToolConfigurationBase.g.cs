@@ -11,7 +11,7 @@ namespace Vectara
     {
         /// <summary>
         /// A unique key that identifies a reusable tool configuration within a customer account.<br/>
-        /// Customer-provided; if omitted when creating a configuration, one is generated from the name.<br/>
+        /// The customer provides this key. If omitted when creating a configuration, the platform generates one from the name.<br/>
         /// Example: customer_support_search
         /// </summary>
         /// <example>customer_support_search</example>
@@ -36,7 +36,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
+        /// Velocity template for generating dynamic tool descriptions. When set, the template renders at runtime to produce the tool description.<br/>
         /// Available Velocity variables:<br/>
         /// - `$agent.name` - Agent name<br/>
         /// - `$agent.metadata` - Agent metadata map<br/>
@@ -79,10 +79,10 @@ namespace Vectara
         public global::System.DateTime? UpdatedAt { get; set; }
 
         /// <summary>
-        /// An optional jq expression applied to the tool's JSON output before it is returned to the agent.<br/>
+        /// An optional jq expression applied to the tool's JSON output before the agent receives it.<br/>
         /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
         /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
-        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent as an error so the agent can react.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call returns an error to the agent so the agent can react.<br/>
         /// Examples:<br/>
         ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
         ///   - `.items[0:5]` — first 5 items<br/>
@@ -94,12 +94,12 @@ namespace Vectara
         public string? OutputTransform { get; set; }
 
         /// <summary>
-        /// An optional jq expression applied to the tool's input after argument overrides have been merged with the agent's arguments and before the tool is invoked.<br/>
+        /// An optional jq expression applied to the tool's input after argument overrides merge with the agent's arguments and before the tool runs.<br/>
         /// Use this to inject server-side context (session metadata, agent secrets) into the tool input, or to reshape the agent's arguments.<br/>
-        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`), plus an `args` field containing the merged tool input.<br/>
+        /// The expression receives the standard runtime context: the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s. It also receives an `args` field that contains the merged tool input.<br/>
         /// The output of the expression replaces `args` as the tool input.<br/>
         /// The pre-transform `args` is what appears in audit events (with secrets masked); the post-transform value goes only to the tool.<br/>
-        /// If the expression fails to compile or evaluate, the tool call is reported to the agent as an error.<br/>
+        /// If the expression fails to compile or evaluate, the tool call returns an error to the agent.<br/>
         /// Examples:<br/>
         ///   - `.args + { auth: ("Bearer " + .agent.secrets.token) }` — inject a bearer header<br/>
         ///   - `.args | .corpus_key = .session.metadata.corpus_key` — pull a corpus key from session metadata<br/>
@@ -111,7 +111,7 @@ namespace Vectara
         public string? InputTransform { get; set; }
 
         /// <summary>
-        /// Maximum wall-clock time, in seconds, before a call to this tool is aborted. For `sandbox_exec`, this also bounds the command running inside the sandbox pod; it does not change the pod's session lifetime. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout is applied and the tool's own limits, if any, govern how long a call may run.<br/>
+        /// Maximum wall-clock time, in seconds, before the platform aborts a call to this tool. For `sandbox_exec`, this also bounds the command running in the session sandbox; it does not change the session's lifetime. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout applies and the tool's own limits, if any, govern how long a call may run.<br/>
         /// Example: 180
         /// </summary>
         /// <example>180</example>
@@ -125,7 +125,7 @@ namespace Vectara
         public global::Vectara.ToolOutputOffloadingConfiguration? ToolOutputOffloading { get; set; }
 
         /// <summary>
-        /// When true, this tool configuration is used only during session-creation enrichment and is never exposed to the agent's model. Enrichment tool calls in session_enrichment.tool_calls reference these configurations by name.<br/>
+        /// When true, this tool configuration applies only during session-creation enrichment. The agent's model never sees it. Enrichment tool calls in session_enrichment.tool_calls reference these configurations by name.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enrichment_only")]
@@ -142,7 +142,7 @@ namespace Vectara
         /// </summary>
         /// <param name="key">
         /// A unique key that identifies a reusable tool configuration within a customer account.<br/>
-        /// Customer-provided; if omitted when creating a configuration, one is generated from the name.<br/>
+        /// The customer provides this key. If omitted when creating a configuration, the platform generates one from the name.<br/>
         /// Example: customer_support_search
         /// </param>
         /// <param name="name">
@@ -155,7 +155,7 @@ namespace Vectara
         /// Example: Configuration for searching customer support documentation with optimized parameters
         /// </param>
         /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
+        /// Velocity template for generating dynamic tool descriptions. When set, the template renders at runtime to produce the tool description.<br/>
         /// Available Velocity variables:<br/>
         /// - `$agent.name` - Agent name<br/>
         /// - `$agent.metadata` - Agent metadata map<br/>
@@ -182,10 +182,10 @@ namespace Vectara
         /// Included only in responses
         /// </param>
         /// <param name="outputTransform">
-        /// An optional jq expression applied to the tool's JSON output before it is returned to the agent.<br/>
+        /// An optional jq expression applied to the tool's JSON output before the agent receives it.<br/>
         /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
         /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
-        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent as an error so the agent can react.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call returns an error to the agent so the agent can react.<br/>
         /// Examples:<br/>
         ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
         ///   - `.items[0:5]` — first 5 items<br/>
@@ -193,12 +193,12 @@ namespace Vectara
         /// Example: .results | map({title, url})
         /// </param>
         /// <param name="inputTransform">
-        /// An optional jq expression applied to the tool's input after argument overrides have been merged with the agent's arguments and before the tool is invoked.<br/>
+        /// An optional jq expression applied to the tool's input after argument overrides merge with the agent's arguments and before the tool runs.<br/>
         /// Use this to inject server-side context (session metadata, agent secrets) into the tool input, or to reshape the agent's arguments.<br/>
-        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`), plus an `args` field containing the merged tool input.<br/>
+        /// The expression receives the standard runtime context: the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s. It also receives an `args` field that contains the merged tool input.<br/>
         /// The output of the expression replaces `args` as the tool input.<br/>
         /// The pre-transform `args` is what appears in audit events (with secrets masked); the post-transform value goes only to the tool.<br/>
-        /// If the expression fails to compile or evaluate, the tool call is reported to the agent as an error.<br/>
+        /// If the expression fails to compile or evaluate, the tool call returns an error to the agent.<br/>
         /// Examples:<br/>
         ///   - `.args + { auth: ("Bearer " + .agent.secrets.token) }` — inject a bearer header<br/>
         ///   - `.args | .corpus_key = .session.metadata.corpus_key` — pull a corpus key from session metadata<br/>
@@ -206,14 +206,14 @@ namespace Vectara
         /// Example: .args + { auth: ("Bearer " + .agent.secrets.token) }
         /// </param>
         /// <param name="maxExecutionTimeSeconds">
-        /// Maximum wall-clock time, in seconds, before a call to this tool is aborted. For `sandbox_exec`, this also bounds the command running inside the sandbox pod; it does not change the pod's session lifetime. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout is applied and the tool's own limits, if any, govern how long a call may run.<br/>
+        /// Maximum wall-clock time, in seconds, before the platform aborts a call to this tool. For `sandbox_exec`, this also bounds the command running in the session sandbox; it does not change the session's lifetime. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout applies and the tool's own limits, if any, govern how long a call may run.<br/>
         /// Example: 180
         /// </param>
         /// <param name="toolOutputOffloading">
         /// Overrides the agent's `tool_output_offloading` for outputs of this tool. Fields left unset inherit their value from the agent's configuration. When unset, the agent's configuration applies unchanged.
         /// </param>
         /// <param name="enrichmentOnly">
-        /// When true, this tool configuration is used only during session-creation enrichment and is never exposed to the agent's model. Enrichment tool calls in session_enrichment.tool_calls reference these configurations by name.<br/>
+        /// When true, this tool configuration applies only during session-creation enrichment. The agent's model never sees it. Enrichment tool calls in session_enrichment.tool_calls reference these configurations by name.<br/>
         /// Default Value: false
         /// </param>
 #if NET7_0_OR_GREATER

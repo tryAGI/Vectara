@@ -4,39 +4,45 @@
 namespace Vectara
 {
     /// <summary>
-    /// Specification wrapper for a named JSON schema.
+    /// A specification wrapper for a named JSON schema.
     /// </summary>
     public sealed partial class JsonSchemaSpec
     {
         /// <summary>
-        /// A description of what the response format is for, used by the model to determine how to respond in the format.
+        /// A description of the purpose of the response format. The model uses this description to determine how to respond in the format.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
 
         /// <summary>
-        /// A unique name identifier for this schema.
+        /// A unique name for this schema.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Name { get; set; }
 
         /// <summary>
-        /// When true, enforces strict schema adherence. The model will always follow the exact schema structure.<br/>
-        /// When strict mode is enabled, the schema must follow these rules:<br/>
-        /// - `additionalProperties: false` must be set on all object types<br/>
-        /// - All properties must be listed in the `required` array<br/>
+        /// When true, enforces strict schema adherence. The model always follows the exact schema structure.<br/>
+        /// In strict mode, the schema must follow these rules:<br/>
+        /// - Set `additionalProperties: false` on all object types<br/>
+        /// - List all properties in the `required` array<br/>
         /// - Maximum 100 properties total, with max 5 levels of nesting<br/>
         /// - Unsupported keywords: minLength, maxLength, pattern, minimum, maximum, minItems, maxItems<br/>
-        /// - Root schema cannot use `anyOf` type
+        /// - The root schema cannot use the `anyOf` type
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("strict")]
         public bool? Strict { get; set; }
 
         /// <summary>
-        /// A JSON Schema definition for describing data structure. Defines the minimum subset generally supported across LLM providers. Unknown keywords are passed through for forward compatibility.
+        /// A JSON Schema definition that describes a data structure. Covers the smallest subset of<br/>
+        /// JSON Schema that all LLM providers support. Unknown keywords are kept and passed through<br/>
+        /// to the provider.<br/>
+        /// `properties`, `required`, and `additionalProperties` are valid only when `type` is<br/>
+        /// `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other `type`, and<br/>
+        /// for an element with no `type`, such as one that only combines schemas with `anyOf`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("schema")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionJsonConverter))]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::Vectara.JsonSchemaDefinition Schema { get; set; }
 
@@ -50,22 +56,27 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="JsonSchemaSpec" /> class.
         /// </summary>
         /// <param name="name">
-        /// A unique name identifier for this schema.
+        /// A unique name for this schema.
         /// </param>
         /// <param name="schema">
-        /// A JSON Schema definition for describing data structure. Defines the minimum subset generally supported across LLM providers. Unknown keywords are passed through for forward compatibility.
+        /// A JSON Schema definition that describes a data structure. Covers the smallest subset of<br/>
+        /// JSON Schema that all LLM providers support. Unknown keywords are kept and passed through<br/>
+        /// to the provider.<br/>
+        /// `properties`, `required`, and `additionalProperties` are valid only when `type` is<br/>
+        /// `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other `type`, and<br/>
+        /// for an element with no `type`, such as one that only combines schemas with `anyOf`.
         /// </param>
         /// <param name="description">
-        /// A description of what the response format is for, used by the model to determine how to respond in the format.
+        /// A description of the purpose of the response format. The model uses this description to determine how to respond in the format.
         /// </param>
         /// <param name="strict">
-        /// When true, enforces strict schema adherence. The model will always follow the exact schema structure.<br/>
-        /// When strict mode is enabled, the schema must follow these rules:<br/>
-        /// - `additionalProperties: false` must be set on all object types<br/>
-        /// - All properties must be listed in the `required` array<br/>
+        /// When true, enforces strict schema adherence. The model always follows the exact schema structure.<br/>
+        /// In strict mode, the schema must follow these rules:<br/>
+        /// - Set `additionalProperties: false` on all object types<br/>
+        /// - List all properties in the `required` array<br/>
         /// - Maximum 100 properties total, with max 5 levels of nesting<br/>
         /// - Unsupported keywords: minLength, maxLength, pattern, minimum, maximum, minItems, maxItems<br/>
-        /// - Root schema cannot use `anyOf` type
+        /// - The root schema cannot use the `anyOf` type
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -79,7 +90,7 @@ namespace Vectara
             this.Description = description;
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Strict = strict;
-            this.Schema = schema ?? throw new global::System.ArgumentNullException(nameof(schema));
+            this.Schema = schema;
         }
 
         /// <summary>

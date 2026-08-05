@@ -5,8 +5,8 @@ namespace Vectara
     public partial interface IToolServersClient
     {
         /// <summary>
-        /// Get tool Server<br/>
-        /// Retrieve details about a specific tool server by its Id.
+        /// Get tool server<br/>
+        /// Returns a tool server by its ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -23,8 +23,8 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Get tool Server<br/>
-        /// Retrieve details about a specific tool server by its Id.
+        /// Get tool server<br/>
+        /// Returns a tool server by its ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

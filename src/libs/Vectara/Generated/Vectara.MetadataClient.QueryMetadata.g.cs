@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Query across metadata fields in a corpus<br/>
-        /// Query for documents in a specific corpus using fuzzy matching across specified metadata fields. The search first applies any exact metadata filters to narrow the results, then performs fuzzy matching on the remaining documents using the specified field queries.
+        /// Queries documents in a corpus with fuzzy matching across the specified metadata fields. The search first applies any exact metadata filters to narrow the results. It then performs fuzzy matching on the remaining documents with the specified field queries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -100,7 +100,7 @@ namespace Vectara
         }
         /// <summary>
         /// Query across metadata fields in a corpus<br/>
-        /// Query for documents in a specific corpus using fuzzy matching across specified metadata fields. The search first applies any exact metadata filters to narrow the results, then performs fuzzy matching on the remaining documents using the specified field queries.
+        /// Queries documents in a corpus with fuzzy matching across the specified metadata fields. The search first applies any exact metadata filters to narrow the results. It then performs fuzzy matching on the remaining documents with the specified field queries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -608,7 +608,7 @@ namespace Vectara
         }
         /// <summary>
         /// Query across metadata fields in a corpus<br/>
-        /// Query for documents in a specific corpus using fuzzy matching across specified metadata fields. The search first applies any exact metadata filters to narrow the results, then performs fuzzy matching on the remaining documents using the specified field queries.
+        /// Queries documents in a corpus with fuzzy matching across the specified metadata fields. The search first applies any exact metadata filters to narrow the results. It then performs fuzzy matching on the remaining documents with the specified field queries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -617,24 +617,24 @@ namespace Vectara
         /// Example: my-corpus
         /// </param>
         /// <param name="level">
-        /// Whether to search document-level or part-level metadata. Document-level returns unique documents, part-level can return multiple parts from the same document.<br/>
+        /// Whether to search document-level or part-level metadata. Document-level search returns unique documents. Part-level search can return multiple parts from the same document.<br/>
         /// Default Value: document
         /// </param>
         /// <param name="queries">
-        /// List of field-specific queries to apply fuzzy matching.<br/>
+        /// The list of field-specific queries for fuzzy matching.<br/>
         /// Example: [{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]
         /// </param>
         /// <param name="metadataFilter">
-        /// Optional filter expression to narrow down results before fuzzy matching is applied. <br/>
-        /// This uses the same expression format as document listing filters and applies exact matching.<br/>
+        /// An optional filter expression that narrows results before fuzzy matching. <br/>
+        /// The expression uses the same format as document listing filters. The filter applies exact matching.<br/>
         /// Example: doc.Status = 'Active'
         /// </param>
         /// <param name="limit">
-        /// Sets the maximum number of documents to return.<br/>
+        /// The maximum number of documents to return.<br/>
         /// Default Value: 10
         /// </param>
         /// <param name="offset">
-        /// Starting position for pagination.<br/>
+        /// The starting position for pagination.<br/>
         /// Default Value: 0
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

@@ -60,7 +60,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete instruction version<br/>
-        /// Permanently delete the specified version of the instruction. This action cannot be undone.
+        /// Deletes the specified version of the instruction permanently. This action cannot be undone.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -93,7 +93,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete instruction version<br/>
-        /// Permanently delete the specified version of the instruction. This action cannot be undone.
+        /// Deletes the specified version of the instruction permanently. This action cannot be undone.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -459,7 +459,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The specified version cannot be deleted as it's used in an agent.
+                            // The specified version cannot be deleted because an agent uses it.
                             if ((int)__response.StatusCode == 409)
                             {
                                 string? __content_409 = null;

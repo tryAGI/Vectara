@@ -71,7 +71,7 @@ namespace Vectara
 
         /// <summary>
         /// List instructions<br/>
-        /// List all instructions available to the authenticated user, with optional filtering and pagination. This endpoint returns high-level information about each instruction, including name, status, and version details.
+        /// Lists all instructions available to the authenticated user, with optional filtering and pagination. The response includes high-level information about each instruction: the name, status, and version details.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -118,7 +118,7 @@ namespace Vectara
         }
         /// <summary>
         /// List instructions<br/>
-        /// List all instructions available to the authenticated user, with optional filtering and pagination. This endpoint returns high-level information about each instruction, including name, status, and version details.
+        /// Lists all instructions available to the authenticated user, with optional filtering and pagination. The response includes high-level information about each instruction: the name, status, and version details.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

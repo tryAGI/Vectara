@@ -46,19 +46,21 @@ namespace Vectara
         public required string Description { get; set; }
 
         /// <summary>
-        /// JSON Schema describing the arguments the LLM should produce when invoking this tool. These arguments are forwarded verbatim to the client in the `tool_input` event.<br/>
+        /// JSON Schema describing the arguments the LLM should produce when invoking this tool. The platform forwards these arguments verbatim to the client in the `tool_input` event.<br/>
         /// Example: {"type":"object","properties":{"document_url":{"type":"string","description":"URL of the document to be signed."}},"required":["document_url"]}
         /// </summary>
         /// <example>{"type":"object","properties":{"document_url":{"type":"string","description":"URL of the document to be signed."}},"required":["document_url"]}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("input_schema")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionJsonConverter))]
         public global::Vectara.JsonSchemaDefinition? InputSchema { get; set; }
 
         /// <summary>
-        /// Optional JSON Schema describing the structure the client must submit as the tool output. When set, submitted outputs are validated against this schema before being returned to the agent.<br/>
+        /// Optional JSON Schema describing the structure the client must submit as the tool output. When set, the platform validates submitted outputs against this schema before returning them to the agent.<br/>
         /// Example: {"type":"object","properties":{"signed_document_url":{"type":"string"}},"required":["signed_document_url"]}
         /// </summary>
         /// <example>{"type":"object","properties":{"signed_document_url":{"type":"string"}},"required":["signed_document_url"]}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_schema")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionJsonConverter))]
         public global::Vectara.JsonSchemaDefinition? OutputSchema { get; set; }
 
         /// <summary>
@@ -88,11 +90,11 @@ namespace Vectara
         /// Example: Collect Customer Signature
         /// </param>
         /// <param name="inputSchema">
-        /// JSON Schema describing the arguments the LLM should produce when invoking this tool. These arguments are forwarded verbatim to the client in the `tool_input` event.<br/>
+        /// JSON Schema describing the arguments the LLM should produce when invoking this tool. The platform forwards these arguments verbatim to the client in the `tool_input` event.<br/>
         /// Example: {"type":"object","properties":{"document_url":{"type":"string","description":"URL of the document to be signed."}},"required":["document_url"]}
         /// </param>
         /// <param name="outputSchema">
-        /// Optional JSON Schema describing the structure the client must submit as the tool output. When set, submitted outputs are validated against this schema before being returned to the agent.<br/>
+        /// Optional JSON Schema describing the structure the client must submit as the tool output. When set, the platform validates submitted outputs against this schema before returning them to the agent.<br/>
         /// Example: {"type":"object","properties":{"signed_document_url":{"type":"string"}},"required":["signed_document_url"]}
         /// </param>
 #if NET7_0_OR_GREATER

@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Response from testing a Lambda tool. Uses type field to discriminate between success and error responses.
+    /// Response from testing a Lambda tool. The `type` field discriminates between success and error responses.
     /// </summary>
     public readonly partial struct TestToolResponse : global::System.IEquatable<TestToolResponse>
     {

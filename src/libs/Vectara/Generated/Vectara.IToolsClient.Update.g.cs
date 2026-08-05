@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Update tool<br/>
-        /// Update an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool modifies how agents can invoke it during conversation.
+        /// Updates an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool changes how agents invoke it during a session.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -27,7 +27,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update tool<br/>
-        /// Update an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool modifies how agents can invoke it during conversation.
+        /// Updates an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool changes how agents invoke it during a session.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

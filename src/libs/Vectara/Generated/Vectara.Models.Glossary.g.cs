@@ -4,9 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// A glossary is a reusable mapping of terms to their expanded forms. Agents are reminded by<br/>
-    /// glossaries to automatically expand abbreviations, acronyms, and domain-specific<br/>
-    /// shorthand in user messages before they reach the agent.
+    /// A reusable mapping of terms to their expanded forms. When abbreviations, acronyms, or domain-specific shorthand in a user input event match glossary terms, the platform appends the matched terms and their expansions to the event as a hint.<br/>
+    /// The agent decides how to use them.
     /// </summary>
     public sealed partial class Glossary
     {

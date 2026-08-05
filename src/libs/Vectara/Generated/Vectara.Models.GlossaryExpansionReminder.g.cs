@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// A reminder that expands terms, acronyms, and abbreviations in user messages using a glossary.<br/>
-    /// When attached to a step, user input is run through the glossary's lookup index and matching<br/>
-    /// terms are expanded before the message reaches the agent.
+    /// A reminder that maps terms, acronyms, and abbreviations to their expansions using a glossary.<br/>
+    /// When attached to a step, the platform appends the matched terms and their expansions to the event as a hint.<br/>
+    /// The agent decides how to use them.
     /// </summary>
     public sealed partial class GlossaryExpansionReminder
     {

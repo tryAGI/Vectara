@@ -90,9 +90,9 @@ namespace Vectara
 
         /// <summary>
         /// Event representing files uploaded to the agent workspace as artifacts.<br/>
-        /// This event is created when users upload one or more files to an agent session using multipart requests. The event becomes part of the session's conversation history and contains references to all artifacts that were uploaded in the request. Each uploaded file is assigned a unique artifact identifier and stored in the session's workspace.<br/>
-        /// When an agent processes this event, it becomes aware that new files are available in the session and can use various tools to read, analyze, or transform these artifacts. For example, after receiving an artifact upload event with a PDF, the agent might use the document conversion tool to extract and analyze the document's contents.<br/>
-        /// See the `ArtifactReference` schema for comprehensive details about what artifacts are, how they are stored, their lifecycle, and how agents interact with them.
+        /// This event is created when a user uploads one or more files to an agent session using a multipart request. The event becomes part of the session's event history. It contains references to all artifacts uploaded in the request. Each uploaded file receives a unique artifact identifier and is stored in the session's workspace.<br/>
+        /// When an agent processes this event, it learns that new files are available in the session. The agent can then use its tools to read, analyze, or transform these artifacts. For example, after an upload that contains a PDF, the agent might use the document conversion tool to extract and analyze the document's contents.<br/>
+        /// See the `ArtifactReference` schema for details about what artifacts are, how they are stored, their lifecycle, and how agents interact with them.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ArtifactUploadEvent? ArtifactUpload { get; init; }
@@ -426,8 +426,8 @@ namespace Vectara
 
         /// <summary>
         /// An event representing a complete agent response with structured JSON content conforming to a schema.<br/>
-        /// This event is published instead of AgentOutputEvent when the agent's output_parser is configured<br/>
-        /// with type "structured". It contains the agent's final response parsed as validated JSON that<br/>
+        /// The agent emits this event instead of AgentOutputEvent when its output_parser type is<br/>
+        /// "structured". It contains the agent's final response parsed as validated JSON that<br/>
         /// conforms to the schema specified in the StructuredOutputParser configuration.<br/>
         /// When streaming is enabled, this event appears as a single complete event (not streamed in chunks)<br/>
         /// after any tool interactions are complete. The content field contains the parsed JSON,<br/>
@@ -816,9 +816,9 @@ namespace Vectara
         /// A turn-ending event emitted when the turn failed because of an unexpected error — for example a<br/>
         /// model configuration problem, a blocked LLM endpoint, or an internal failure. It is a `StreamError`<br/>
         /// carrying the same `messages`, plus the event id, session key, and timestamp. It is streamed as the<br/>
-        /// `error` frame and, when the failure happened inside a running turn, also recorded on the session so<br/>
-        /// the reason the turn failed stays visible when inspecting the session later. A new turn can be<br/>
-        /// started with the next input.
+        /// `error` frame. When the failure happens while the agent is running, it is also recorded on the session,<br/>
+        /// so the reason the agent stopped stays visible when inspecting the session later. The next input<br/>
+        /// starts the agent again.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.AgentErrorEvent? Error { get; init; }

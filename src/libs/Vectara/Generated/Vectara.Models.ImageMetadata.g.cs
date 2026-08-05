@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// An image element within a document, containing its identifying information and optional metadata.
+    /// An image element within a document. It contains identifying information and optional metadata.
     /// </summary>
     public sealed partial class ImageMetadata
     {
         /// <summary>
-        /// The unique identifier of the image within the document, used to reference it in related content.<br/>
+        /// The unique identifier of the image within the document. Related content uses this identifier to reference the image.<br/>
         /// Example: chart_1
         /// </summary>
         /// <example>chart_1</example>
@@ -18,7 +18,7 @@ namespace Vectara
         public required string Id { get; set; }
 
         /// <summary>
-        /// A short, human-readable title for the image, often displayed above or alongside it.<br/>
+        /// A short, human-readable title for the image. The title often appears above or alongside the image.<br/>
         /// Example: Quarterly Sales Performance
         /// </summary>
         /// <example>Quarterly Sales Performance</example>
@@ -26,7 +26,7 @@ namespace Vectara
         public string? Title { get; set; }
 
         /// <summary>
-        /// A brief caption providing context or an explanation for the image, typically displayed below it.<br/>
+        /// A brief caption that gives context or an explanation for the image. The caption typically appears below the image.<br/>
         /// Example: Sales growth trends for Q1 to Q4 of 2024
         /// </summary>
         /// <example>Sales growth trends for Q1 to Q4 of 2024</example>
@@ -34,7 +34,7 @@ namespace Vectara
         public string? Caption { get; set; }
 
         /// <summary>
-        /// A longer, detailed description of the image. On image-capable corpora this field is indexed as the image's text body for keyword search.<br/>
+        /// A longer, detailed description of the image. On image-capable corpora, the platform indexes this field as the image's text body for keyword search.<br/>
         /// Example: A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%
         /// </summary>
         /// <example>A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%</example>
@@ -60,7 +60,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ImageMetadata" /> class.
         /// </summary>
         /// <param name="id">
-        /// The unique identifier of the image within the document, used to reference it in related content.<br/>
+        /// The unique identifier of the image within the document. Related content uses this identifier to reference the image.<br/>
         /// Example: chart_1
         /// </param>
         /// <param name="mimeType">
@@ -68,15 +68,15 @@ namespace Vectara
         /// Example: image/jpeg
         /// </param>
         /// <param name="title">
-        /// A short, human-readable title for the image, often displayed above or alongside it.<br/>
+        /// A short, human-readable title for the image. The title often appears above or alongside the image.<br/>
         /// Example: Quarterly Sales Performance
         /// </param>
         /// <param name="caption">
-        /// A brief caption providing context or an explanation for the image, typically displayed below it.<br/>
+        /// A brief caption that gives context or an explanation for the image. The caption typically appears below the image.<br/>
         /// Example: Sales growth trends for Q1 to Q4 of 2024
         /// </param>
         /// <param name="description">
-        /// A longer, detailed description of the image. On image-capable corpora this field is indexed as the image's text body for keyword search.<br/>
+        /// A longer, detailed description of the image. On image-capable corpora, the platform indexes this field as the image's text body for keyword search.<br/>
         /// Example: A bar chart showing quarterly sales growth, with Q4 outperforming all previous quarters by 15%
         /// </param>
 #if NET7_0_OR_GREATER

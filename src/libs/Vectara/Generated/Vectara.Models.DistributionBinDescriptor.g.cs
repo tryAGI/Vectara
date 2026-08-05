@@ -9,21 +9,21 @@ namespace Vectara
     public sealed partial class DistributionBinDescriptor
     {
         /// <summary>
-        /// Stable identifier for this bin. Referenced from response points by `HistogramBin.label`.
+        /// The stable identifier for this bin. Response points reference it by `HistogramBin.label`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("label")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Label { get; set; }
 
         /// <summary>
-        /// Inclusive lower bound of this bin's numeric range, in the metric's `unit`.
+        /// The inclusive lower bound of this bin's numeric range, in the metric's `unit`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("range_min")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required double RangeMin { get; set; }
 
         /// <summary>
-        /// Exclusive upper bound of this bin's numeric range, in the metric's `unit`. Omitted for the overflow bin.
+        /// The exclusive upper bound of this bin's numeric range, in the metric's `unit`. Omitted for the overflow bin.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("range_max")]
         public double? RangeMax { get; set; }
@@ -38,13 +38,13 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="DistributionBinDescriptor" /> class.
         /// </summary>
         /// <param name="label">
-        /// Stable identifier for this bin. Referenced from response points by `HistogramBin.label`.
+        /// The stable identifier for this bin. Response points reference it by `HistogramBin.label`.
         /// </param>
         /// <param name="rangeMin">
-        /// Inclusive lower bound of this bin's numeric range, in the metric's `unit`.
+        /// The inclusive lower bound of this bin's numeric range, in the metric's `unit`.
         /// </param>
         /// <param name="rangeMax">
-        /// Exclusive upper bound of this bin's numeric range, in the metric's `unit`. Omitted for the overflow bin.
+        /// The exclusive upper bound of this bin's numeric range, in the metric's `unit`. Omitted for the overflow bin.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

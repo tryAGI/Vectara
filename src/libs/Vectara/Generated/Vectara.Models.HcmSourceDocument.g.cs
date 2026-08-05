@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// An array of source documents used to verify the factual accuracy of the generated text. Each document should reflect the context used to generate the original text.
+    /// A source document used to verify the factual accuracy of the generated text. Each document should reflect the context used to generate the original text.
     /// </summary>
     public sealed partial class HcmSourceDocument
     {

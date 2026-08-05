@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Process source data using an agent. Each run creates one or more agent sessions<br/>
+    /// Processes source data using an agent. Each run creates one or more agent sessions<br/>
     /// and sends source records as input for the agent to act on per its instructions.
     /// </summary>
     public sealed partial class AgentTransformConfiguration

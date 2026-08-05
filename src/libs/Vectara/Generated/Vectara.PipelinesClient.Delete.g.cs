@@ -58,12 +58,12 @@ namespace Vectara
 
         /// <summary>
         /// Delete pipeline<br/>
-        /// Permanently delete a pipeline and its run history. This cancels any in-progress runs. Agent sessions created by this pipeline are not deleted.
+        /// Permanently deletes a pipeline and its run history. This cancels any in-progress runs. This does not delete agent sessions created by the pipeline.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -86,12 +86,12 @@ namespace Vectara
         }
         /// <summary>
         /// Delete pipeline<br/>
-        /// Permanently delete a pipeline and its run history. This cancels any in-progress runs. Agent sessions created by this pipeline are not deleted.
+        /// Permanently deletes a pipeline and its run history. This cancels any in-progress runs. This does not delete agent sessions created by the pipeline.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

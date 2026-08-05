@@ -10,7 +10,7 @@ namespace Vectara
     public sealed partial class SearchParameters
     {
         /// <summary>
-        /// Specifies how many results into the result to skip. This is useful for pagination.<br/>
+        /// The number of results to skip. Use this for pagination.<br/>
         /// Default Value: 0
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("offset")]
@@ -24,7 +24,7 @@ namespace Vectara
         public int? Limit { get; set; }
 
         /// <summary>
-        /// Configuration on the presentation of each document part in the result set. Use either `characters_before`/`characters_after` or `sentences_before`/`sentences_after`; if both are set, `sentences_*` takes precedence. Setting `full_document_context: true` overrides both and returns the entire matching document as context.<br/>
+        /// Configuration for the presentation of each document part in the result set. Use either `characters_before`/`characters_after` or `sentences_before`/`sentences_after`; if both are set, `sentences_*` takes precedence. Setting `full_document_context: true` overrides both and returns the entire matching document as context.<br/>
         /// Example: {"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"}
         /// </summary>
         /// <example>{"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"}</example>
@@ -32,14 +32,14 @@ namespace Vectara
         public global::Vectara.ContextConfiguration? ContextConfiguration { get; set; }
 
         /// <summary>
-        /// Rerank results of the search. Rerankers are very powerful tools to improve the order of search results. By default the search will use the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.
+        /// Reranks the results of the search. Rerankers improve the order of search results. By default, the search uses the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("reranker")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.SearchRerankerJsonConverter))]
         public global::Vectara.SearchReranker? Reranker { get; set; }
 
         /// <summary>
-        /// Collapses the result set so that at most one result is returned per document, keeping the highest-scoring part of each. Applied to the retrieved results before reranking and pagination, so the number of results returned may be smaller than `limit`.<br/>
+        /// Collapses the result set to return at most one result per document. Keeps the highest-scoring part of each document. Applies to the retrieved results before reranking and pagination, so the number of results returned can be smaller than `limit`.<br/>
         /// Example: doc.id
         /// </summary>
         /// <example>doc.id</example>
@@ -57,7 +57,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="SearchParameters" /> class.
         /// </summary>
         /// <param name="offset">
-        /// Specifies how many results into the result to skip. This is useful for pagination.<br/>
+        /// The number of results to skip. Use this for pagination.<br/>
         /// Default Value: 0
         /// </param>
         /// <param name="limit">
@@ -65,14 +65,14 @@ namespace Vectara
         /// Default Value: 10
         /// </param>
         /// <param name="contextConfiguration">
-        /// Configuration on the presentation of each document part in the result set. Use either `characters_before`/`characters_after` or `sentences_before`/`sentences_after`; if both are set, `sentences_*` takes precedence. Setting `full_document_context: true` overrides both and returns the entire matching document as context.<br/>
+        /// Configuration for the presentation of each document part in the result set. Use either `characters_before`/`characters_after` or `sentences_before`/`sentences_after`; if both are set, `sentences_*` takes precedence. Setting `full_document_context: true` overrides both and returns the entire matching document as context.<br/>
         /// Example: {"sentences_before":2,"sentences_after":2,"start_tag":"\u003Cem\u003E","end_tag":"\u003C/em\u003E"}
         /// </param>
         /// <param name="reranker">
-        /// Rerank results of the search. Rerankers are very powerful tools to improve the order of search results. By default the search will use the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.
+        /// Reranks the results of the search. Rerankers improve the order of search results. By default, the search uses the most powerful reranker available to the customer's plan. To disable reranking, set the reranker `type` to `"none"`.
         /// </param>
         /// <param name="maxBy">
-        /// Collapses the result set so that at most one result is returned per document, keeping the highest-scoring part of each. Applied to the retrieved results before reranking and pagination, so the number of results returned may be smaller than `limit`.<br/>
+        /// Collapses the result set to return at most one result per document. Keeps the highest-scoring part of each document. Applies to the retrieved results before reranking and pagination, so the number of results returned can be smaller than `limit`.<br/>
         /// Example: doc.id
         /// </param>
 #if NET7_0_OR_GREATER

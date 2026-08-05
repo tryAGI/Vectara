@@ -4,8 +4,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Bulk upsert entries into a glossary. Entries with existing terms are updated;<br/>
-    /// new terms are inserted. After the upsert, the glossary index is rebuilt.
+    /// Request to upsert entries into a glossary in bulk. Entries with existing terms are updated; new terms are inserted.<br/>
+    /// The platform rebuilds the glossary index after the upsert. Agents use the updated glossary after the rebuild completes.
     /// </summary>
     public sealed partial class UpsertGlossaryEntriesRequest
     {

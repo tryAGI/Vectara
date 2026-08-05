@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CreateGenerationPresetRequest : global::System.IEquatable<CreateGenerationPresetRequest>
     {
         /// <summary>
-        /// Bundle of default values used when calling generation. All values except model name can be overridden at generation time.
+        /// A bundle of default values for generation. You can override any of these values at generation time. Set `model_parameters.llm_name` to override the model that the preset selects.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GenerationPreset? GenerationPreset { get; init; }

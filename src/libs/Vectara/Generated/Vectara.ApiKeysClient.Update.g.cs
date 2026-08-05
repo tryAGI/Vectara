@@ -65,8 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Update an API key<br/>
-        /// The Update API Key API lets you enable or disable specific API keys. You can use this endpoint to temporarily disable access without deleting the key.<br/>
-        /// This capability is useful for scenarios like maintenance windows, or when your team no longer requires access to a specific corpus.
+        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -98,8 +97,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update an API key<br/>
-        /// The Update API Key API lets you enable or disable specific API keys. You can use this endpoint to temporarily disable access without deleting the key.<br/>
-        /// This capability is useful for scenarios like maintenance windows, or when your team no longer requires access to a specific corpus.
+        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -395,7 +393,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Permissions do not allow getting this API key.
+                            // Permissions do not allow updating this API key.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -530,8 +528,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update an API key<br/>
-        /// The Update API Key API lets you enable or disable specific API keys. You can use this endpoint to temporarily disable access without deleting the key.<br/>
-        /// This capability is useful for scenarios like maintenance windows, or when your team no longer requires access to a specific corpus.
+        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

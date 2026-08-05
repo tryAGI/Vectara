@@ -8,7 +8,7 @@ namespace Vectara
     /// window into the SCIM filter query parameter as a `meta.lastModified` range.<br/>
     /// `client_side` enumerates every user on each run and evaluates the change window<br/>
     /// locally. Support for the filter query parameter is optional in the SCIM 2.0<br/>
-    /// specification, so set `client_side` when the service provider does not support<br/>
+    /// specification. Set `client_side` when the service provider does not support<br/>
     /// filtering on `meta.lastModified`.<br/>
     /// Default Value: last_modified_filter
     /// </summary>

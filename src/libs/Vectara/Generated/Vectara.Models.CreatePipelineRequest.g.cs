@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class CreatePipelineRequest
     {
         /// <summary>
-        /// A user-provided key for the pipeline. If omitted, one is auto-generated.
+        /// A user-provided key for the pipeline. If omitted, the platform generates one.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("key")]
         public string? Key { get; set; }
@@ -97,7 +97,7 @@ namespace Vectara
         /// Defines how source data is processed. Currently only agent transforms are supported.
         /// </param>
         /// <param name="key">
-        /// A user-provided key for the pipeline. If omitted, one is auto-generated.
+        /// A user-provided key for the pipeline. If omitted, the platform generates one.
         /// </param>
         /// <param name="description"></param>
         /// <param name="syncMode">

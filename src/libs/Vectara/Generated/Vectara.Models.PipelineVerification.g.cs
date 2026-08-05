@@ -17,7 +17,7 @@ namespace Vectara
         public global::Vectara.PipelineVerificationDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Verify the worker agent's output using a UserFn condition expression. The expression<br/>
+        /// Verifies the worker agent's output using a UserFn condition expression. The expression<br/>
         /// is evaluated against the worker agent's session context (output, tools, session metadata).<br/>
         /// If the expression evaluates to true, the record is considered successfully processed.
         /// </summary>
@@ -56,7 +56,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Condition' but the value was {ToString()}.");
 
         /// <summary>
-        /// Verify the worker agent's output using a separate judge agent. The judge agent receives<br/>
+        /// Verifies the worker agent's output using a separate judge agent. The judge agent receives<br/>
         /// a summary of the worker agent's session and must produce a structured output with<br/>
         /// `{ "success": boolean, "reason": string }`. The judge agent must be configured with a<br/>
         /// structured output parser matching this schema.

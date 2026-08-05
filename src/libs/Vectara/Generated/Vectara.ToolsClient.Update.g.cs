@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Update tool<br/>
-        /// Update an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool modifies how agents can invoke it during conversation.
+        /// Updates an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool changes how agents invoke it during a session.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -99,7 +99,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update tool<br/>
-        /// Update an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool modifies how agents can invoke it during conversation.
+        /// Updates an existing tool’s configuration, including its metadata, enabled status, or other properties. Updating a tool changes how agents invoke it during a session.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -395,7 +395,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Tool update request was malformed or contains invalid references.
+                            // The request is malformed or contains invalid references.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;

@@ -30,7 +30,7 @@ namespace Vectara
         public required global::Vectara.A2aV1TaskStatus Status { get; set; }
 
         /// <summary>
-        /// True when this is the terminal status update for the task; v1 SSE clients use it as the signal to stop reading the stream.
+        /// True when this is the terminal status update for the task. The platform sends no further status updates for the task after this one.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("final")]
         public bool? Final { get; set; }
@@ -60,7 +60,7 @@ namespace Vectara
         /// Current status of a v1 task.
         /// </param>
         /// <param name="final">
-        /// True when this is the terminal status update for the task; v1 SSE clients use it as the signal to stop reading the stream.
+        /// True when this is the terminal status update for the task. The platform sends no further status updates for the task after this one.
         /// </param>
         /// <param name="metadata">
         /// Arbitrary agent-supplied metadata for the event.

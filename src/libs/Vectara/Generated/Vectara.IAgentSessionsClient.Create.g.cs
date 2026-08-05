@@ -6,9 +6,9 @@ namespace Vectara
     {
         /// <summary>
         /// Create agent session<br/>
-        /// Create a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
-        /// This endpoint initializes the session and enables you to configure its initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
-        /// A session also serves as the workspace for artifacts, enabling file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
+        /// Creates a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
+        /// You can set the session's initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
+        /// A session also serves as the workspace for artifacts. This supports file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
         /// ## Example request<br/>
         /// ```json<br/>
         /// \$ curl -X POST https://api.vectara.io/v2/agents/support-agent/sessions \<br/>
@@ -45,9 +45,9 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent session<br/>
-        /// Create a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
-        /// This endpoint initializes the session and enables you to configure its initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
-        /// A session also serves as the workspace for artifacts, enabling file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
+        /// Creates a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
+        /// You can set the session's initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
+        /// A session also serves as the workspace for artifacts. This supports file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
         /// ## Example request<br/>
         /// ```json<br/>
         /// \$ curl -X POST https://api.vectara.io/v2/agents/support-agent/sessions \<br/>
@@ -84,9 +84,9 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create agent session<br/>
-        /// Create a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
-        /// This endpoint initializes the session and enables you to configure its initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
-        /// A session also serves as the workspace for artifacts, enabling file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
+        /// Creates a new session for interacting with an agent. A session maintains state across all events, tool use, and agent responses produced during the interaction.<br/>
+        /// You can set the session's initial properties, including optional metadata. Metadata can influence agent behavior, personalize responses, or apply access controls. Instructions and tools can also reference metadata using `${\session.metadata.field}` or `$\ref` syntax.<br/>
+        /// A session also serves as the workspace for artifacts. This supports file uploads and multi-step workflows. For more information, see [Working with artifacts in sessions](https://docs.vectara.com/docs/agent-os/sessions#working-with-artifacts-in-sessions).<br/>
         /// ## Example request<br/>
         /// ```json<br/>
         /// \$ curl -X POST https://api.vectara.io/v2/agents/support-agent/sessions \<br/>
@@ -118,7 +118,7 @@ namespace Vectara
         /// Example: Customer Support Session
         /// </param>
         /// <param name="description">
-        /// A short description of the session's purpose. If omitted, one is auto-generated once the session has produced events. Pass an empty string to suppress auto-generation.<br/>
+        /// A short description of the session's purpose. If omitted, the platform generates one after the session produces events. Pass an empty string to suppress auto-generation.<br/>
         /// Example: Helping customer troubleshoot issues
         /// </param>
         /// <param name="metadata">
@@ -132,7 +132,7 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="ttiMinutes">
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If set to 0, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If set to 0, the session does not expire.<br/>
         /// Default Value: 0<br/>
         /// Example: 60
         /// </param>

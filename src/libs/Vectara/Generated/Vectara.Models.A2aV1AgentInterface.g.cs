@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A single transport binding endpoint advertised by the v1 agent card. The card lists every supported transport in `supportedInterfaces`; the first entry is the preferred binding.
+    /// A single transport binding endpoint advertised by the v1 agent card. The card lists every supported transport in `supportedInterfaces`. The first entry is the preferred binding.
     /// </summary>
     public sealed partial class A2aV1AgentInterface
     {

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Run the pipeline on a cron schedule.
+    /// Runs the pipeline on a cron schedule.
     /// </summary>
     public sealed partial class CronTriggerConfiguration
     {

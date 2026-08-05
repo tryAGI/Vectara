@@ -89,7 +89,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationChunk' but the value was {ToString()}.");
 
         /// <summary>
-        /// The end of generation. There may still be more information such as the factual consistency score, but generation has stopped.
+        /// Marks the end of generation. Later events, such as the factual consistency score, may still follow.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StreamGenerationEnd? GenerationEnd { get; init; }
@@ -200,7 +200,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'FactualConsistencyScore' but the value was {ToString()}.");
 
         /// <summary>
-        /// Event containing information on how the generation was accomplished.
+        /// An event with information about how the platform performed the generation.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GenerationInfo? GenerationInfo { get; init; }

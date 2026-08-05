@@ -67,7 +67,7 @@ namespace Vectara
 
         /// <summary>
         /// Get A2A v0.3 task<br/>
-        /// Fetch the current state of an A2A task — including its status, conversation history, and any produced artifacts.
+        /// Returns the current state of an A2A task, including its status, conversation history, and any produced artifacts.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -105,7 +105,7 @@ namespace Vectara
         }
         /// <summary>
         /// Get A2A v0.3 task<br/>
-        /// Fetch the current state of an A2A task — including its status, conversation history, and any produced artifacts.
+        /// Returns the current state of an A2A task, including its status, conversation history, and any produced artifacts.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -5,11 +5,11 @@ namespace Vectara
 {
     /// <summary>
     /// Reference to an artifact stored in the agent session workspace.<br/>
-    /// Artifacts are files or documents that belong to a specific agent session, providing a persistent workspace where agents and users can share files throughout a conversation. When users upload files (such as PDFs, Word documents, PowerPoint presentations, or images) to an agent session, these files are stored as artifacts that remain available for the duration of the session.<br/>
-    /// **Session Binding**: Each artifact is scoped to a specific agent session and cannot be accessed from other sessions, ensuring data privacy and security.<br/>
-    /// **Lifecycle**: Artifacts are created when users upload files via multipart requests or when agent tools generate new files (such as converting a PDF to markdown). Artifacts have a configurable time-to-live and are automatically removed when they expire or when the session is deleted. A per-artifact size limit applies to each upload.<br/>
-    /// **How Agents Use Artifacts**: Agent tools can read artifacts, process them, and create new derived artifacts. For example, the document conversion tool can take a PDF artifact, convert it to markdown, and store the result as a new artifact. This enables multi-step document processing workflows within a single session.<br/>
-    /// **Common Use Cases**: Upload a document for the agent to analyze, provide multiple reference files for context, enable the agent to convert between formats, or allow the agent to generate and store processed files for later retrieval.
+    /// Artifacts are files or documents that belong to a specific agent session. They provide a persistent workspace where agents and users share files for the duration of the session. When a user uploads files (such as PDFs, Word documents, PowerPoint presentations, or images) to a session, each file is stored as an artifact. The artifact remains available for the duration of the session.<br/>
+    /// **Session Binding**: Each artifact is scoped to a specific agent session. Other sessions cannot access it.<br/>
+    /// **Lifecycle**: Artifacts are created when users upload files via multipart requests, or when agent tools generate new files (such as converting a PDF to markdown). Artifacts have a configurable time-to-live. They are removed automatically when they expire or when the session is deleted. A per-artifact size limit applies to each upload.<br/>
+    /// **How Agents Use Artifacts**: Agent tools can read artifacts, process them, and create new derived artifacts. For example, the document conversion tool can take a PDF artifact, convert it to markdown, and store the result as a new artifact. This enables multi-step document processing in a single session.<br/>
+    /// **Common Use Cases**: Upload a document for the agent to analyze, provide multiple reference files for context, convert between formats, or let the agent generate and store processed files for later retrieval.
     /// </summary>
     public sealed partial class ArtifactReference
     {

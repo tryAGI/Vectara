@@ -30,7 +30,7 @@ namespace Vectara
         public global::Vectara.GenerationParameters? Generation { get; set; }
 
         /// <summary>
-        /// Indicates whether the response should be streamed or not.<br/>
+        /// Indicates whether to stream the response.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream_response")]
@@ -43,7 +43,7 @@ namespace Vectara
         public bool? SaveHistory { get; set; }
 
         /// <summary>
-        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to extract metadata filter and rewrite the query to improve search results. Read [here](https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting) for more details.<br/>
+        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform attempts to extract metadata filters and rewrite the query to improve search results. See [intelligent query rewriting](https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting) for more details.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("intelligent_query_rewriting")]
@@ -68,14 +68,14 @@ namespace Vectara
         /// The parameters to control generation.
         /// </param>
         /// <param name="streamResponse">
-        /// Indicates whether the response should be streamed or not.<br/>
+        /// Indicates whether to stream the response.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="saveHistory">
         /// Indicates whether to save the query to query history.
         /// </param>
         /// <param name="intelligentQueryRewriting">
-        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to extract metadata filter and rewrite the query to improve search results. Read [here](https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting) for more details.<br/>
+        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform attempts to extract metadata filters and rewrite the query to improve search results. See [intelligent query rewriting](https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting) for more details.<br/>
         /// Default Value: false
         /// </param>
 #if NET7_0_OR_GREATER

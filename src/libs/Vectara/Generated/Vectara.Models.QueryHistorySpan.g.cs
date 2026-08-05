@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.QueryHistorySpanDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// During the query pipeline, the query may be rephrased to better suit the corpus.
+        /// The rephrase stage of the query pipeline. The platform can rephrase the query to better suit the corpus.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.RephraseSpan? Rephrase { get; init; }

@@ -5,18 +5,18 @@ namespace Vectara
 {
     /// <summary>
     /// The role management mode of the agent's identity.<br/>
-    /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, roles are automatically recomputed.<br/>
-    /// - `manual`: Roles are user-managed. The platform will not modify roles when the agent is updated.<br/>
+    /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, the platform recomputes roles automatically.<br/>
+    /// - `manual`: The caller manages the roles. The platform does not modify roles when the agent is updated.<br/>
     /// Example: auto
     /// </summary>
     public enum AgentIdentityMode
     {
         /// <summary>
-        /// The platform keeps roles in sync with the agent's tool configuration. When tools change, roles are automatically recomputed.
+        /// The platform keeps roles in sync with the agent's tool configuration. When tools change, the platform recomputes roles automatically.
         /// </summary>
         Auto,
         /// <summary>
-        /// Roles are user-managed. The platform will not modify roles when the agent is updated.
+        /// The caller manages the roles. The platform does not modify roles when the agent is updated.
         /// </summary>
         Manual,
     }

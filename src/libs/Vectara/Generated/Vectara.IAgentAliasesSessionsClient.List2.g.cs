@@ -6,12 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// List sessions routed via this alias<br/>
-        /// List sessions that were originally created via this alias (sessions whose `alias_key` matches). Sessions are also reachable under their resolved agent's URL; this endpoint is the alias-scoped view.
+        /// Lists sessions originally created via this alias (sessions whose `alias_key` matches). Sessions are also reachable under their resolved agent's URL. This endpoint is the alias-scoped view.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="filter"></param>
@@ -33,12 +33,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List sessions routed via this alias<br/>
-        /// List sessions that were originally created via this alias (sessions whose `alias_key` matches). Sessions are also reachable under their resolved agent's URL; this endpoint is the alias-scoped view.
+        /// Lists sessions originally created via this alias (sessions whose `alias_key` matches). Sessions are also reachable under their resolved agent's URL. This endpoint is the alias-scoped view.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="filter"></param>

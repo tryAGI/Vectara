@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class AppClient
     {
         /// <summary>
-        /// The Vectara App Client ID. This ID is not used during an OAuth flow.  However, the ID used within the Vectara API.
+        /// The Vectara App Client ID. This ID is not used during an OAuth flow. Use this ID within the Vectara API.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -36,7 +36,7 @@ namespace Vectara
         public required string ClientId { get; set; }
 
         /// <summary>
-        /// The client secret used in API requests.  The secret should be kept secure.
+        /// The client secret used in API requests. Keep the secret secure.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("client_secret")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -61,7 +61,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
 
         /// <summary>
-        /// What actions a principal can take on the Vectara platform.
+        /// The actions a principal can take on the Vectara platform.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_policy")]
         public global::Vectara.ApiPolicy? ApiPolicy { get; set; }
@@ -76,7 +76,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AppClient" /> class.
         /// </summary>
         /// <param name="id">
-        /// The Vectara App Client ID. This ID is not used during an OAuth flow.  However, the ID used within the Vectara API.
+        /// The Vectara App Client ID. This ID is not used during an OAuth flow. Use this ID within the Vectara API.
         /// </param>
         /// <param name="name">
         /// The human-readable name of the App Client.
@@ -85,7 +85,7 @@ namespace Vectara
         /// The client ID used with the OAuth flow.
         /// </param>
         /// <param name="clientSecret">
-        /// The client secret used in API requests.  The secret should be kept secure.
+        /// The client secret used in API requests. Keep the secret secure.
         /// </param>
         /// <param name="description">
         /// Description of the App Client.
@@ -100,7 +100,7 @@ namespace Vectara
         /// Agent-specific role assignments for this App Client.
         /// </param>
         /// <param name="apiPolicy">
-        /// What actions a principal can take on the Vectara platform.
+        /// The actions a principal can take on the Vectara platform.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

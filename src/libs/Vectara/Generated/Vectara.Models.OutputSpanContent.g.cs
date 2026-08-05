@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Decrypted content of an output span.
+    /// The content of an output span.
     /// </summary>
     public sealed partial class OutputSpanContent
     {

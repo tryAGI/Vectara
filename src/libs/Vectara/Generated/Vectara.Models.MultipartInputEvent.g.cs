@@ -37,7 +37,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<byte[]>? Files { get; set; }
 
         /// <summary>
-        /// Indicates whether the response should be streamed or not.<br/>
+        /// Whether to stream the response.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream_response")]
@@ -50,7 +50,7 @@ namespace Vectara
         public global::Vectara.SurfaceDescription? SurfaceDescription { get; set; }
 
         /// <summary>
-        /// Event ID to return all events created after queueing the new input. When provided and the session is currently running, the response will include all events created after this event ID, and the new input will be processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
+        /// An event ID cursor. When provided and the session is currently running, the response includes all events created after this event ID. The new input is queued and processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
         /// Example: start
         /// </summary>
         /// <example>start</example>
@@ -94,14 +94,14 @@ namespace Vectara
         /// What the agent can do with the file depends on the tools available to it.
         /// </param>
         /// <param name="streamResponse">
-        /// Indicates whether the response should be streamed or not.<br/>
+        /// Whether to stream the response.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="surfaceDescription">
         /// Identifies the surface submitting this input, such as a connector. The `(type, id)` pair identifies the surface within the session; repeat submissions from the same pair are treated as one surface. All fields are optional; a caller that omits `type` is treated as an `api` surface.
         /// </param>
         /// <param name="since">
-        /// Event ID to return all events created after queueing the new input. When provided and the session is currently running, the response will include all events created after this event ID, and the new input will be processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
+        /// An event ID cursor. When provided and the session is currently running, the response includes all events created after this event ID. The new input is queued and processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
         /// Example: start
         /// </param>
         /// <param name="behavior">

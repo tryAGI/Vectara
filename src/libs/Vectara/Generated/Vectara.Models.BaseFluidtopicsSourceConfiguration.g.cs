@@ -5,11 +5,13 @@ namespace Vectara
 {
     /// <summary>
     /// Base Fluid Topics source configuration. Ingests content from a Fluid Topics tenant via the<br/>
-    /// Knowledge Hub REST API. `content_scope` selects which layer to ingest — `documents` (standalone<br/>
-    /// items) or `topics` (the sections inside publications, each carrying its parent map's identity and<br/>
-    /// classification). Every record carries its full Fluid Topics metadata, including classification and<br/>
-    /// entitlement fields, as document metadata for attribute-based filtering and access control. Requires<br/>
-    /// a Fluid Topics API key with read access to the configured content.
+    /// Knowledge Hub REST API. `content_scope` selects which layer to ingest:<br/>
+    /// - `documents`: standalone items.<br/>
+    /// - `topics`: the sections inside maps, each carrying its parent map's identity and classification.<br/>
+    /// - `maps`: whole maps, one record each.<br/>
+    /// Every record carries its full Fluid Topics metadata, including classification and entitlement<br/>
+    /// fields, as document metadata for attribute-based filtering and access control. Requires a<br/>
+    /// Fluid Topics API key with read access to the configured content.
     /// </summary>
     public sealed partial class BaseFluidtopicsSourceConfiguration
     {
@@ -40,9 +42,13 @@ namespace Vectara
         public string? ApiKey { get; set; }
 
         /// <summary>
-        /// Which Fluid Topics content layer to ingest. `documents` enumerates standalone documents;<br/>
-        /// `topics` enumerates the topics within publications, iterating map by map so each topic carries<br/>
-        /// its parent map's identity and classification.<br/>
+        /// Which Fluid Topics content layer to ingest:<br/>
+        /// - `documents`: enumerates standalone documents.<br/>
+        /// - `topics`: enumerates the topics within maps, iterating map by map so each topic carries<br/>
+        ///   its parent map's identity and classification.<br/>
+        /// - `maps`: enumerates maps, emitting one record each.<br/>
+        /// Under `maps`, `query` is ignored. `filters`, `locale`, `include_sources`, and<br/>
+        /// `exclude_sources` apply, matched against each map's metadata.<br/>
         /// Default Value: documents
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("content_scope")]
@@ -69,7 +75,9 @@ namespace Vectara
         /// <summary>
         /// Restricts ingestion to records matching the given Fluid Topics metadata, as a map of metadata<br/>
         /// key to the list of accepted values. For example `{"Disclosure": ["Public"]}` ingests only<br/>
-        /// public content. When unset, no metadata filter is applied.<br/>
+        /// public content. When unset, no metadata filter is applied. Under `content_scope: maps` the<br/>
+        /// reserved key `id` matches the map's own identifier, so `{"id": ["&lt;map_id&gt;"]}` restricts a run<br/>
+        /// to a single map.<br/>
         /// Example: {"Disclosure":["Public"]}
         /// </summary>
         /// <example>{"Disclosure":["Public"]}</example>
@@ -77,7 +85,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? Filters { get; set; }
 
         /// <summary>
-        /// Fluid Topics source ids (`ft:sourceId`) to ingest; a record whose source is not listed is<br/>
+        /// Fluid Topics source ids (`ft:sourceId`) to ingest. A record whose source is not listed is<br/>
         /// skipped. Applied to every ingestion path regardless of `query` or `filters`. Empty (the<br/>
         /// default) ingests every source.<br/>
         /// Example: [ud]
@@ -133,9 +141,13 @@ namespace Vectara
         /// Included only in requests
         /// </param>
         /// <param name="contentScope">
-        /// Which Fluid Topics content layer to ingest. `documents` enumerates standalone documents;<br/>
-        /// `topics` enumerates the topics within publications, iterating map by map so each topic carries<br/>
-        /// its parent map's identity and classification.<br/>
+        /// Which Fluid Topics content layer to ingest:<br/>
+        /// - `documents`: enumerates standalone documents.<br/>
+        /// - `topics`: enumerates the topics within maps, iterating map by map so each topic carries<br/>
+        ///   its parent map's identity and classification.<br/>
+        /// - `maps`: enumerates maps, emitting one record each.<br/>
+        /// Under `maps`, `query` is ignored. `filters`, `locale`, `include_sources`, and<br/>
+        /// `exclude_sources` apply, matched against each map's metadata.<br/>
         /// Default Value: documents
         /// </param>
         /// <param name="query">
@@ -150,11 +162,13 @@ namespace Vectara
         /// <param name="filters">
         /// Restricts ingestion to records matching the given Fluid Topics metadata, as a map of metadata<br/>
         /// key to the list of accepted values. For example `{"Disclosure": ["Public"]}` ingests only<br/>
-        /// public content. When unset, no metadata filter is applied.<br/>
+        /// public content. When unset, no metadata filter is applied. Under `content_scope: maps` the<br/>
+        /// reserved key `id` matches the map's own identifier, so `{"id": ["&lt;map_id&gt;"]}` restricts a run<br/>
+        /// to a single map.<br/>
         /// Example: {"Disclosure":["Public"]}
         /// </param>
         /// <param name="includeSources">
-        /// Fluid Topics source ids (`ft:sourceId`) to ingest; a record whose source is not listed is<br/>
+        /// Fluid Topics source ids (`ft:sourceId`) to ingest. A record whose source is not listed is<br/>
         /// skipped. Applied to every ingestion path regardless of `query` or `filters`. Empty (the<br/>
         /// default) ingests every source.<br/>
         /// Example: [ud]

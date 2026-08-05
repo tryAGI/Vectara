@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Authentication configuration for an LLM. Union over every variant any LLM provider accepts. When returned on `GET`, secret fields contain the literal string `****`.
+    /// The authentication configuration for an LLM. It is a union over every variant any LLM provider accepts. In `GET` responses, secret fields contain the literal string `****`.
     /// </summary>
     public readonly partial struct LLMAuth : global::System.IEquatable<LLMAuth>
     {

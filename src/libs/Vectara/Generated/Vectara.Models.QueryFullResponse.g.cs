@@ -17,7 +17,7 @@ namespace Vectara
         public string? Summary { get; set; }
 
         /// <summary>
-        /// Languages that the Vectara platform supports.<br/>
+        /// Languages that the platform supports.<br/>
         /// Default Value: auto
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("response_language")]
@@ -31,13 +31,13 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.IndividualSearchResult>? SearchResults { get; set; }
 
         /// <summary>
-        /// Indicates the probability that the summary is factually consistent with the results. The system excludes this property if it encounters excessively large outputs or search results.
+        /// Indicates the probability that the summary is factually consistent with the results. The platform excludes this property if it encounters excessively large outputs or search results.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("factual_consistency_score")]
         public float? FactualConsistencyScore { get; set; }
 
         /// <summary>
-        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.<br/>
+        /// The rendered prompt sent to the LLM. Useful when creating custom `prompt_template` templates.<br/>
         /// Example: [{"role": "system", "content": "You are an ESG analyst."}, {"role": "user", "content": "What are the carbon reduction initiatives by EU banks in 2023?"}, {"role": "assistant", "content": "${vectaraQueryResults[0].getText()}"}]
         /// </summary>
         /// <example>[{"role": "system", "content": "You are an ESG analyst."}, {"role": "user", "content": "What are the carbon reduction initiatives by EU banks in 2023?"}, {"role": "assistant", "content": "${vectaraQueryResults[0].getText()}"}]</example>
@@ -72,17 +72,17 @@ namespace Vectara
         /// Example: The carbon reduction efforts by EU banks in 2023 show...
         /// </param>
         /// <param name="responseLanguage">
-        /// Languages that the Vectara platform supports.<br/>
+        /// Languages that the platform supports.<br/>
         /// Default Value: auto
         /// </param>
         /// <param name="searchResults">
         /// The ranked search results.
         /// </param>
         /// <param name="factualConsistencyScore">
-        /// Indicates the probability that the summary is factually consistent with the results. The system excludes this property if it encounters excessively large outputs or search results.
+        /// Indicates the probability that the summary is factually consistent with the results. The platform excludes this property if it encounters excessively large outputs or search results.
         /// </param>
         /// <param name="renderedPrompt">
-        /// The rendered prompt sent to the LLM. Useful when creating customer `prompt_template` templates.<br/>
+        /// The rendered prompt sent to the LLM. Useful when creating custom `prompt_template` templates.<br/>
         /// Example: [{"role": "system", "content": "You are an ESG analyst."}, {"role": "user", "content": "What are the carbon reduction initiatives by EU banks in 2023?"}, {"role": "assistant", "content": "${vectaraQueryResults[0].getText()}"}]
         /// </param>
         /// <param name="warnings">

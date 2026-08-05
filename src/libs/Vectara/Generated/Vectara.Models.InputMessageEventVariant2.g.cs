@@ -27,8 +27,10 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.AgentInput> Messages { get; set; }
 
         /// <summary>
-        /// Per-produced-agent-message opaque platform-specific diff against the raw event payload, capturing the exact text sent to the model at emission time.<br/>
-        /// When present, the array length MUST equal `messages.length`; the platform throws on mismatch. When absent the platform reconstructs the rendering on read.
+        /// Opaque diffs against the raw event payload, one per produced agent message.<br/>
+        /// Each diff captures the exact text sent to the model at emission time.<br/>
+        /// When present, the array length MUST equal `messages.length`; a mismatched length is rejected.<br/>
+        /// When absent, the platform reconstructs the rendering on read.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("message_diffs")]
         public global::System.Collections.Generic.IList<string>? MessageDiffs { get; set; }
@@ -51,8 +53,10 @@ namespace Vectara
         /// Example: [{"type":"text","content":"I need help with my widget installation"}]
         /// </param>
         /// <param name="messageDiffs">
-        /// Per-produced-agent-message opaque platform-specific diff against the raw event payload, capturing the exact text sent to the model at emission time.<br/>
-        /// When present, the array length MUST equal `messages.length`; the platform throws on mismatch. When absent the platform reconstructs the rendering on read.
+        /// Opaque diffs against the raw event payload, one per produced agent message.<br/>
+        /// Each diff captures the exact text sent to the model at emission time.<br/>
+        /// When present, the array length MUST equal `messages.length`; a mismatched length is rejected.<br/>
+        /// When absent, the platform reconstructs the rendering on read.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

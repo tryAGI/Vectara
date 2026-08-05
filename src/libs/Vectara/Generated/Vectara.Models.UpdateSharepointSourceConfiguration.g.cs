@@ -5,8 +5,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Partial update for SharePoint source configuration. Only provided fields are merged; a provided<br/>
-    /// `source_record_metadata` is replaced as a whole.
+    /// Partial update for SharePoint source configuration. Only provided fields are merged. A<br/>
+    /// provided `source_record_metadata` is replaced as a whole.
     /// </summary>
     public readonly partial struct UpdateSharepointSourceConfiguration : global::System.IEquatable<UpdateSharepointSourceConfiguration>
     {

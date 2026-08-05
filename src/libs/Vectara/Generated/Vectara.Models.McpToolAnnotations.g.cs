@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Optional hints about tool behaviour/metadata.
+    /// Optional hints about tool behavior and metadata.
     /// </summary>
     public sealed partial class McpToolAnnotations
     {

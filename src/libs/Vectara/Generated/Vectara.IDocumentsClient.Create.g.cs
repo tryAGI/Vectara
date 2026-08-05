@@ -6,25 +6,25 @@ namespace Vectara
     {
         /// <summary>
         /// Add a document to a corpus<br/>
-        /// Add a document to a corpus for indexing, making its content available for search, retrieval, and generation. This endpoint supports two ingestion modes: **structured** documents and **core** documents. These modes offer different levels of control over document structure and chunking.<br/>
+        /// Adds a document to a corpus for indexing. Indexing makes the document content available for search, retrieval, and generation. This endpoint supports two ingestion modes: **structured** documents and **core** documents. These modes offer different levels of control over document structure and chunking.<br/>
         /// Each document becomes part of a corpus. You can use this API directly or with [Vectara Ingest](https://github.com/vectara/vectara-ingest) or the [File Upload API](/docs/rest-api/upload-file).<br/>
         /// ## Structured documents<br/>
-        /// Structured documents provide a natural hierarchy where Vectar handles chunking and metadata automatically. Structured documents are ideal when you want to index documents that have logical organization (titles, sections, paragraphs, and optionally tables or images) but prefer Vectara to manage how the content is split into search-optimized units.<br/>
+        /// Structured documents provide a natural hierarchy, and the platform handles chunking and metadata automatically. Use structured documents when your content has a logical organization (titles, sections, paragraphs, and optionally tables or images) and you prefer the platform to split the content into search-optimized units.<br/>
         /// Each structured document contains:<br/>
         /// - A unique `id` and optional `title`, `description`, and `metadata`.<br/>
         /// - An array of `sections`, each with its own title, text, and optional nested sections, tables, or images.<br/>
         /// - Optional `custom_dimensions` that can influence ranking during search.<br/>
-        /// When indexed, Vectara partitions the text into document parts automatically using an intelligent sentence- or character-based chunking strategy. This lets you ingest data with minimal pre-processing while maintaining semantic integrity across context boundaries.<br/>
+        /// At indexing time, the platform automatically partitions the text into document parts with a sentence-based or character-based chunking strategy. This lets you ingest data with minimal pre-processing while maintaining semantic integrity across context boundaries.<br/>
         /// Structured documents are recommended for content with well-defined sections such as reports, articles, FAQs, or documentation.<br/>
         /// ## Core documents<br/>
-        /// Core documents offer fine-grained, explicit control of every part of a document that becomes searchable. Instead of providing a hierarchical structure, you specify each **document part** directly as unit that maps 1:1 to a search result or embedding.<br/>
+        /// Core documents offer fine-grained, explicit control of every part of a document that becomes searchable. Instead of a hierarchical structure, you specify each **document part** directly as a unit that maps 1:1 to a search result or embedding.<br/>
         /// A core document includes:<br/>
         /// - A unique `id` and optional `metadata`.<br/>
         /// - A list of `document_parts`, where each part includes `text`, optional `context`, `metadata`, and `custom_dimensions`.<br/>
         /// - Optional `tables` and `images`, allowing you to represent complex structured data like spreadsheets or charts.<br/>
-        /// Core documents are designed for advanced use cases such as precise chunk-level optimization or experimental corpus structures, and applications where metadata-driven retrieval or ranking must be explicitly controlled.<br/>
+        /// Core documents are designed for advanced use cases, such as precise chunk-level optimization or experimental corpus structures. They also suit applications where you must explicitly control metadata-driven retrieval or ranking.<br/>
         /// ## Chunking strategies    <br/>
-        /// By default, Vectara uses **sentence-based chunking**, which provides optimal retrieval accuracy for most datasets.<br/>
+        /// By default, the platform uses **sentence-based chunking**, which provides optimal retrieval accuracy for most datasets.<br/>
         /// For larger documents or performance-tuned ingestion, you can explicitly set a `chunking_strategy`:<br/>
         /// - `sentence_chunking_strategy` — creates one chunk per sentence (default).<br/>
         /// - `max_chars_chunking_strategy` — creates larger chunks up to a specified character limit (`max_chars_per_chunk`), balancing retrieval speed with contextual coherence.
@@ -53,25 +53,25 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Add a document to a corpus<br/>
-        /// Add a document to a corpus for indexing, making its content available for search, retrieval, and generation. This endpoint supports two ingestion modes: **structured** documents and **core** documents. These modes offer different levels of control over document structure and chunking.<br/>
+        /// Adds a document to a corpus for indexing. Indexing makes the document content available for search, retrieval, and generation. This endpoint supports two ingestion modes: **structured** documents and **core** documents. These modes offer different levels of control over document structure and chunking.<br/>
         /// Each document becomes part of a corpus. You can use this API directly or with [Vectara Ingest](https://github.com/vectara/vectara-ingest) or the [File Upload API](/docs/rest-api/upload-file).<br/>
         /// ## Structured documents<br/>
-        /// Structured documents provide a natural hierarchy where Vectar handles chunking and metadata automatically. Structured documents are ideal when you want to index documents that have logical organization (titles, sections, paragraphs, and optionally tables or images) but prefer Vectara to manage how the content is split into search-optimized units.<br/>
+        /// Structured documents provide a natural hierarchy, and the platform handles chunking and metadata automatically. Use structured documents when your content has a logical organization (titles, sections, paragraphs, and optionally tables or images) and you prefer the platform to split the content into search-optimized units.<br/>
         /// Each structured document contains:<br/>
         /// - A unique `id` and optional `title`, `description`, and `metadata`.<br/>
         /// - An array of `sections`, each with its own title, text, and optional nested sections, tables, or images.<br/>
         /// - Optional `custom_dimensions` that can influence ranking during search.<br/>
-        /// When indexed, Vectara partitions the text into document parts automatically using an intelligent sentence- or character-based chunking strategy. This lets you ingest data with minimal pre-processing while maintaining semantic integrity across context boundaries.<br/>
+        /// At indexing time, the platform automatically partitions the text into document parts with a sentence-based or character-based chunking strategy. This lets you ingest data with minimal pre-processing while maintaining semantic integrity across context boundaries.<br/>
         /// Structured documents are recommended for content with well-defined sections such as reports, articles, FAQs, or documentation.<br/>
         /// ## Core documents<br/>
-        /// Core documents offer fine-grained, explicit control of every part of a document that becomes searchable. Instead of providing a hierarchical structure, you specify each **document part** directly as unit that maps 1:1 to a search result or embedding.<br/>
+        /// Core documents offer fine-grained, explicit control of every part of a document that becomes searchable. Instead of a hierarchical structure, you specify each **document part** directly as a unit that maps 1:1 to a search result or embedding.<br/>
         /// A core document includes:<br/>
         /// - A unique `id` and optional `metadata`.<br/>
         /// - A list of `document_parts`, where each part includes `text`, optional `context`, `metadata`, and `custom_dimensions`.<br/>
         /// - Optional `tables` and `images`, allowing you to represent complex structured data like spreadsheets or charts.<br/>
-        /// Core documents are designed for advanced use cases such as precise chunk-level optimization or experimental corpus structures, and applications where metadata-driven retrieval or ranking must be explicitly controlled.<br/>
+        /// Core documents are designed for advanced use cases, such as precise chunk-level optimization or experimental corpus structures. They also suit applications where you must explicitly control metadata-driven retrieval or ranking.<br/>
         /// ## Chunking strategies    <br/>
-        /// By default, Vectara uses **sentence-based chunking**, which provides optimal retrieval accuracy for most datasets.<br/>
+        /// By default, the platform uses **sentence-based chunking**, which provides optimal retrieval accuracy for most datasets.<br/>
         /// For larger documents or performance-tuned ingestion, you can explicitly set a `chunking_strategy`:<br/>
         /// - `sentence_chunking_strategy` — creates one chunk per sentence (default).<br/>
         /// - `max_chars_chunking_strategy` — creates larger chunks up to a specified character limit (`max_chars_per_chunk`), balancing retrieval speed with contextual coherence.

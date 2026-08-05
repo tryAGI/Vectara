@@ -22,7 +22,7 @@ namespace Vectara
         public required global::Vectara.ResponseFormatType Type { get; set; } = global::Vectara.ResponseFormatType.Text;
 
         /// <summary>
-        /// Specification wrapper for a named JSON schema.
+        /// A specification wrapper for a named JSON schema.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("json_schema")]
         public global::Vectara.JsonSchemaSpec? JsonSchema { get; set; }
@@ -41,7 +41,7 @@ namespace Vectara
         /// Default Value: text
         /// </param>
         /// <param name="jsonSchema">
-        /// Specification wrapper for a named JSON schema.
+        /// A specification wrapper for a named JSON schema.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

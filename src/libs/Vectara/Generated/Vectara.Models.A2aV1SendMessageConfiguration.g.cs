@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Optional knobs that influence how the agent processes and responds to a v1 message.
+    /// Optional settings that control how the agent processes and responds to a v1 message.
     /// </summary>
     public sealed partial class A2aV1SendMessageConfiguration
     {
@@ -27,7 +27,7 @@ namespace Vectara
         public int? HistoryLength { get; set; }
 
         /// <summary>
-        /// When true (the default), the call blocks until the task reaches a terminal or interrupted state and returns the resulting task. Set to false to return as soon as the task is accepted and poll `getTask` or subscribe to the task stream instead. `returnImmediately` is accepted as an inverse-semantics alias; if both are sent, `blocking` wins.
+        /// When true (the default), the call blocks until the task reaches a terminal or interrupted state. The response contains the resulting task. Set to false to return as soon as the task is accepted. Then poll `getTask` or subscribe to the task stream. `returnImmediately` is an inverse-semantics alias. If both are sent, `blocking` wins.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("blocking")]
         public bool? Blocking { get; set; }
@@ -57,7 +57,7 @@ namespace Vectara
         /// Maximum number of recent history messages to include in the response.
         /// </param>
         /// <param name="blocking">
-        /// When true (the default), the call blocks until the task reaches a terminal or interrupted state and returns the resulting task. Set to false to return as soon as the task is accepted and poll `getTask` or subscribe to the task stream instead. `returnImmediately` is accepted as an inverse-semantics alias; if both are sent, `blocking` wins.
+        /// When true (the default), the call blocks until the task reaches a terminal or interrupted state. The response contains the resulting task. Set to false to return as soon as the task is accepted. Then poll `getTask` or subscribe to the task stream. `returnImmediately` is an inverse-semantics alias. If both are sent, `blocking` wins.
         /// </param>
         /// <param name="returnImmediately">
         /// Inverse-semantics alias for `blocking`. When `returnImmediately=true` the call returns as soon as the task is accepted (equivalent to `blocking=false`). If both are provided, `blocking` wins.

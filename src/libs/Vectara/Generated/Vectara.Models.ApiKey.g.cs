@@ -23,14 +23,14 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// The key used in API requests. The key should be kept secure.
+        /// The key used in API requests. Keep the key secure.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("secret_key")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string SecretKey { get; set; }
 
         /// <summary>
-        /// If this API key is enabled.
+        /// Indicates whether the API key is enabled.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
         public bool? Enabled { get; set; }
@@ -62,7 +62,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
 
         /// <summary>
-        /// What actions a principal can take on the Vectara platform.
+        /// The actions a principal can take on the Vectara platform.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_policy")]
         public global::Vectara.ApiPolicy? ApiPolicy { get; set; }
@@ -83,10 +83,10 @@ namespace Vectara
         /// The human-readable name of the API key.
         /// </param>
         /// <param name="secretKey">
-        /// The key used in API requests. The key should be kept secure.
+        /// The key used in API requests. Keep the key secure.
         /// </param>
         /// <param name="enabled">
-        /// If this API key is enabled.
+        /// Indicates whether the API key is enabled.
         /// </param>
         /// <param name="apiRoles">
         /// Customer-level roles for this API key.
@@ -102,7 +102,7 @@ namespace Vectara
         /// Agent-specific role assignments for this API key.
         /// </param>
         /// <param name="apiPolicy">
-        /// What actions a principal can take on the Vectara platform.
+        /// The actions a principal can take on the Vectara platform.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

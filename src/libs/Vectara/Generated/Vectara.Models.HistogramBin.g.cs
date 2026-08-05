@@ -4,19 +4,19 @@
 namespace Vectara
 {
     /// <summary>
-    /// A single bin's count within a distribution response point. The bin's numeric range is declared on the metric's descriptor under `bins[].range_min` / `bins[].range_max`, keyed by `label`. Only bins with non-zero counts are included; descriptor bins absent from a response point have a count of zero.
+    /// A single bin's count within a distribution response point. The metric's descriptor declares the bin's numeric range under `bins[].range_min` / `bins[].range_max`, keyed by `label`. The response includes only bins with non-zero counts; descriptor bins absent from a response point have a count of zero.
     /// </summary>
     public sealed partial class HistogramBin
     {
         /// <summary>
-        /// Bin label matching one of the labels declared on the metric's descriptor.
+        /// The bin label matching one of the labels declared on the metric's descriptor.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("label")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Label { get; set; }
 
         /// <summary>
-        /// Count of observations whose value fell in this bin for this time window.
+        /// The count of observations whose value fell in this bin for this time window.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("value")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -32,10 +32,10 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="HistogramBin" /> class.
         /// </summary>
         /// <param name="label">
-        /// Bin label matching one of the labels declared on the metric's descriptor.
+        /// The bin label matching one of the labels declared on the metric's descriptor.
         /// </param>
         /// <param name="value">
-        /// Count of observations whose value fell in this bin for this time window.
+        /// The count of observations whose value fell in this bin for this time window.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

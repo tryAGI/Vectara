@@ -26,8 +26,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.AgentStepInstruction>? Instructions { get; set; }
 
         /// <summary>
-        /// Configuration for how the agent's output should be parsed and formatted.<br/>
-        /// The output parser determines how the agent's responses are processed before being returned to the user.
+        /// Configuration for how the agent's output is parsed and formatted before it returns to the user.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_parser")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentOutputParserJsonConverter))]
@@ -77,8 +76,7 @@ namespace Vectara
         /// List of instructions that guide the agent's behavior. Set to null to clear all instructions.
         /// </param>
         /// <param name="outputParser">
-        /// Configuration for how the agent's output should be parsed and formatted.<br/>
-        /// The output parser determines how the agent's responses are processed before being returned to the user.
+        /// Configuration for how the agent's output is parsed and formatted before it returns to the user.
         /// </param>
         /// <param name="reminders">
         /// Reminders injected into the session as the agent runs. Set to null to clear all reminders.

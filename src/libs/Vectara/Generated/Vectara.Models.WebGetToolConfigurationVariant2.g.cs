@@ -20,7 +20,7 @@ namespace Vectara
         public required string Type { get; set; } = "web_get";
 
         /// <summary>
-        /// Configurable parameters for the web get tool. If not provided, will be filled in by the agent.
+        /// Configurable parameters for the web get tool. If not provided, the agent fills them in.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
         public global::Vectara.WebGetToolParameters? ArgumentOverride { get; set; }
@@ -40,7 +40,7 @@ namespace Vectara
         /// Example: web_get
         /// </param>
         /// <param name="argumentOverride">
-        /// Configurable parameters for the web get tool. If not provided, will be filled in by the agent.
+        /// Configurable parameters for the web get tool. If not provided, the agent fills them in.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

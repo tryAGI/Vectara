@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get A2A agent card (well-known)<br/>
-        /// Returns the A2A v0.3 [Agent Card](https://a2a-protocol.org) for the specified agent at the canonical `.well-known/agent-card.json` discovery URL. Stock A2A clients fetch this URL, then use the card's `url` and `preferredTransport` to drive subsequent calls.
+        /// Returns the A2A v0.3 [Agent Card](https://a2a-protocol.org) for the specified agent at the canonical `.well-known/agent-card.json` discovery URL. Standard A2A clients fetch this URL, then use the card's `url` and `preferredTransport` to drive subsequent calls.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -25,7 +25,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get A2A agent card (well-known)<br/>
-        /// Returns the A2A v0.3 [Agent Card](https://a2a-protocol.org) for the specified agent at the canonical `.well-known/agent-card.json` discovery URL. Stock A2A clients fetch this URL, then use the card's `url` and `preferredTransport` to drive subsequent calls.
+        /// Returns the A2A v0.3 [Agent Card](https://a2a-protocol.org) for the specified agent at the canonical `.well-known/agent-card.json` discovery URL. Standard A2A clients fetch this URL, then use the card's `url` and `preferredTransport` to drive subsequent calls.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

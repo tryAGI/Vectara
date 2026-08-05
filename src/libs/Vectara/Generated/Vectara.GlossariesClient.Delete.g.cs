@@ -58,7 +58,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete glossary<br/>
-        /// Delete a glossary and all its entries.
+        /// Deletes a glossary and all its entries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -86,7 +86,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete glossary<br/>
-        /// Delete a glossary and all its entries.
+        /// Deletes a glossary and all its entries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

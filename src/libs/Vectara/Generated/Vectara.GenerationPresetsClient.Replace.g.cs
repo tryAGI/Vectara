@@ -65,8 +65,8 @@ namespace Vectara
 
         /// <summary>
         /// Replace a generation preset<br/>
-        /// Replace an existing custom generation preset. This performs a full replacement of the preset configuration.<br/>
-        /// The preset must have been created by the customer (platform presets cannot be replaced).
+        /// Replaces an existing custom generation preset. This is a full replacement of the preset configuration.<br/>
+        /// The preset must be a customer-created preset (platform presets cannot be replaced).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -98,8 +98,8 @@ namespace Vectara
         }
         /// <summary>
         /// Replace a generation preset<br/>
-        /// Replace an existing custom generation preset. This performs a full replacement of the preset configuration.<br/>
-        /// The preset must have been created by the customer (platform presets cannot be replaced).
+        /// Replaces an existing custom generation preset. This is a full replacement of the preset configuration.<br/>
+        /// The preset must be a customer-created preset (platform presets cannot be replaced).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -602,8 +602,8 @@ namespace Vectara
         }
         /// <summary>
         /// Replace a generation preset<br/>
-        /// Replace an existing custom generation preset. This performs a full replacement of the preset configuration.<br/>
-        /// The preset must have been created by the customer (platform presets cannot be replaced).
+        /// Replaces an existing custom generation preset. This is a full replacement of the preset configuration.<br/>
+        /// The preset must be a customer-created preset (platform presets cannot be replaced).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -613,7 +613,7 @@ namespace Vectara
         /// Example: gnp_123
         /// </param>
         /// <param name="name">
-        /// Name of the generation preset to be used with configuring generation.<br/>
+        /// The name of the generation preset. Use this name to configure generation.<br/>
         /// Example: Mockingbird 2.0
         /// </param>
         /// <param name="description">
@@ -621,18 +621,18 @@ namespace Vectara
         /// Example: Mockingbird LLM 2.0 prompt for summarizing query results as an answer. Designed for RAG.
         /// </param>
         /// <param name="llmName">
-        /// Name of the model that these presets are used with. The list of available names can be fetched by the `GET /v2/llms` endpoint.<br/>
+        /// The name of the model that this preset is used with. The `GET /v2/llms` endpoint lists the available names.<br/>
         /// Example: mockingbird-2.0
         /// </param>
         /// <param name="promptTemplate">
-        /// Preset template used to render the prompt sent to generation.
+        /// The preset template that renders the prompt sent to generation.
         /// </param>
         /// <param name="maxUsedSearchResults">
-        /// Preset maximum number of search results that will be available to the prompt.<br/>
+        /// The preset maximum number of search results available to the prompt.<br/>
         /// Example: 50
         /// </param>
         /// <param name="maxTokens">
-        /// Preset maximum number of tokens to be returned by the generation.<br/>
+        /// The preset maximum number of tokens that generation returns.<br/>
         /// Example: 500
         /// </param>
         /// <param name="temperature">
@@ -651,10 +651,10 @@ namespace Vectara
         /// Additional model parameters beyond the standard fields above.
         /// </param>
         /// <param name="enabled">
-        /// Indicates whether the prompt is enabled.
+        /// Indicates whether the generation preset is enabled.
         /// </param>
         /// <param name="default">
-        /// Indicates if this prompt is the default prompt used with the LLM.
+        /// Indicates whether this is the default generation preset for the LLM.
         /// </param>
         /// <param name="ownership">
         /// Indicates whether the generation preset is provided by the platform or created by the customer. Platform presets are pre-configured and cannot be modified or deleted. Customer presets are created and managed by the customer.<br/>

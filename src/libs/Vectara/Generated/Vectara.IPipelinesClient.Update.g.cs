@@ -6,12 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// Update pipeline<br/>
-        /// Partially update a pipeline's configuration. Omitted fields are preserved.
+        /// Partially updates a pipeline's configuration. Omitted fields keep their current values.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -28,12 +28,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update pipeline<br/>
-        /// Partially update a pipeline's configuration. Omitted fields are preserved.
+        /// Partially updates a pipeline's configuration. Omitted fields keep their current values.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -50,12 +50,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update pipeline<br/>
-        /// Partially update a pipeline's configuration. Omitted fields are preserved.
+        /// Partially updates a pipeline's configuration. Omitted fields keep their current values.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="name">
@@ -64,7 +64,7 @@ namespace Vectara
         /// </param>
         /// <param name="description"></param>
         /// <param name="source">
-        /// Source configuration for partial updates. Only provided fields are changed; credentials are optional.
+        /// Source configuration for partial updates. Only provided fields are changed. Credentials are optional.
         /// </param>
         /// <param name="trigger">
         /// Defines when the pipeline runs.

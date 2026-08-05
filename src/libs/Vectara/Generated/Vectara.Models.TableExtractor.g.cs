@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A table extractor can be used to extract tabular data from documents during indexing.
+    /// A table extractor extracts tabular data from documents during indexing.
     /// </summary>
     public sealed partial class TableExtractor
     {
@@ -17,7 +17,7 @@ namespace Vectara
         public string? Name { get; set; }
 
         /// <summary>
-        /// Indicates whether it is the default extractor when not specified during indexing.
+        /// Indicates whether this is the default extractor. The platform uses the default extractor when the indexing request does not specify one.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("is_default")]
         public bool? IsDefault { get; set; }
@@ -31,7 +31,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.
+        /// Specification for the generation settings for table summarization. If not specified, the platform uses the default summarizer. All parameters are optional. Specified parameters override the default values.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("generation")]
         public global::Vectara.TableGenerationSpec? Generation { get; set; }
@@ -50,14 +50,14 @@ namespace Vectara
         /// Example: textract
         /// </param>
         /// <param name="isDefault">
-        /// Indicates whether it is the default extractor when not specified during indexing.
+        /// Indicates whether this is the default extractor. The platform uses the default extractor when the indexing request does not specify one.
         /// </param>
         /// <param name="description">
         /// The description of the table extractor.<br/>
         /// Example: Uses the AWS Textract service to extract tables.
         /// </param>
         /// <param name="generation">
-        /// Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.
+        /// Specification for the generation settings for table summarization. If not specified, the platform uses the default summarizer. All parameters are optional. Specified parameters override the default values.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

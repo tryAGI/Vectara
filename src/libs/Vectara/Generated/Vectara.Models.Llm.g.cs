@@ -6,7 +6,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A LLM can be used to enhance query results with a response, and be used as the responder during a chat.
+    /// A Large Language Model. An LLM enhances query results with a generated response and acts as the responder during a chat.
     /// </summary>
     public sealed partial class Llm
     {
@@ -43,13 +43,13 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// If this is the default LLM, it is used in queries when the generator is not specified.
+        /// Whether this is the default LLM. Queries use the default LLM when they do not specify a generator.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("default")]
         public bool? Default { get; set; }
 
         /// <summary>
-        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
+        /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
         public global::Vectara.LLMCapabilities? Capabilities { get; set; }
@@ -64,7 +64,7 @@ namespace Vectara
         public global::Vectara.LLMOwnership? Ownership { get; set; }
 
         /// <summary>
-        /// Provider type identifying which authentication and configuration apply. Required on responses; the server fails closed (HTTP 500) for any stored LLM whose connection spec it cannot map to one of these values.
+        /// The provider type. It determines which authentication and configuration apply. Responses always include this field. If a stored LLM cannot be mapped to one of these values, the request fails with HTTP 500.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.LlmTypeJsonConverter))]
@@ -78,7 +78,7 @@ namespace Vectara
         public string? Model { get; set; }
 
         /// <summary>
-        /// API endpoint URI configured for this LLM.
+        /// The API endpoint URI configured for this LLM.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("uri")]
         public string? Uri { get; set; }
@@ -90,7 +90,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, string>? Headers { get; set; }
 
         /// <summary>
-        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. During streaming this is the SSE idle timeout — if no new server-sent events arrive within this window the stream is closed with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// The maximum time in seconds that the platform waits for the model to send data before it closes the stale connection. During streaming, this is the SSE idle timeout. If no new server-sent events arrive within this window, the stream closes with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform uses its default read timeout for the provider. On update, omit the field to keep the configured value, or send an explicit null to clear it.<br/>
         /// Example: 300
         /// </summary>
         /// <example>300</example>
@@ -98,7 +98,13 @@ namespace Vectara
         public int? IdleTimeoutSeconds { get; set; }
 
         /// <summary>
-        /// Authentication configuration for an LLM. Union over every variant any LLM provider accepts. When returned on `GET`, secret fields contain the literal string `****`.
+        /// The maximum number of requests per second for this LLM. The platform omits this field when the LLM has no limit.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("requests_per_second")]
+        public long? RequestsPerSecond { get; set; }
+
+        /// <summary>
+        /// The authentication configuration for an LLM. It is a union over every variant any LLM provider accepts. In `GET` responses, secret fields contain the literal string `****`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.LLMAuthJsonConverter))]
@@ -129,7 +135,7 @@ namespace Vectara
         /// Example: Claude 3.7 Sonnet
         /// </param>
         /// <param name="type">
-        /// Provider type identifying which authentication and configuration apply. Required on responses; the server fails closed (HTTP 500) for any stored LLM whose connection spec it cannot map to one of these values.
+        /// The provider type. It determines which authentication and configuration apply. Responses always include this field. If a stored LLM cannot be mapped to one of these values, the request fails with HTTP 500.
         /// </param>
         /// <param name="description">
         /// The description of the LLM.<br/>
@@ -139,10 +145,10 @@ namespace Vectara
         /// Indicates whether the LLM is enabled.
         /// </param>
         /// <param name="default">
-        /// If this is the default LLM, it is used in queries when the generator is not specified.
+        /// Whether this is the default LLM. Queries use the default LLM when they do not specify a generator.
         /// </param>
         /// <param name="capabilities">
-        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
+        /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
         /// </param>
         /// <param name="ownership">
         /// Indicates whether the LLM is provided by the platform or created by the customer. Platform LLMs are pre-configured and cannot be modified or deleted. Customer LLMs are created and managed by the customer.<br/>
@@ -152,17 +158,20 @@ namespace Vectara
         /// Provider-specific model identifier (e.g. `gpt-4o`, `claude-3-5-sonnet-20241022`, `gemini-2.5-flash`).
         /// </param>
         /// <param name="uri">
-        /// API endpoint URI configured for this LLM.
+        /// The API endpoint URI configured for this LLM.
         /// </param>
         /// <param name="headers">
         /// Additional HTTP headers configured for requests to the LLM API. Not applicable to `vertex-ai`.
         /// </param>
         /// <param name="idleTimeoutSeconds">
-        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. During streaming this is the SSE idle timeout — if no new server-sent events arrive within this window the stream is closed with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// The maximum time in seconds that the platform waits for the model to send data before it closes the stale connection. During streaming, this is the SSE idle timeout. If no new server-sent events arrive within this window, the stream closes with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform uses its default read timeout for the provider. On update, omit the field to keep the configured value, or send an explicit null to clear it.<br/>
         /// Example: 300
         /// </param>
+        /// <param name="requestsPerSecond">
+        /// The maximum number of requests per second for this LLM. The platform omits this field when the LLM has no limit.
+        /// </param>
         /// <param name="auth">
-        /// Authentication configuration for an LLM. Union over every variant any LLM provider accepts. When returned on `GET`, secret fields contain the literal string `****`.
+        /// The authentication configuration for an LLM. It is a union over every variant any LLM provider accepts. In `GET` responses, secret fields contain the literal string `****`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -180,6 +189,7 @@ namespace Vectara
             string? uri,
             global::System.Collections.Generic.Dictionary<string, string>? headers,
             int? idleTimeoutSeconds,
+            long? requestsPerSecond,
             global::Vectara.LLMAuth? auth)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
@@ -194,6 +204,7 @@ namespace Vectara
             this.Uri = uri;
             this.Headers = headers;
             this.IdleTimeoutSeconds = idleTimeoutSeconds;
+            this.RequestsPerSecond = requestsPerSecond;
             this.Auth = auth;
         }
 

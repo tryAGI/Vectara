@@ -6,13 +6,15 @@ namespace Vectara
 {
     /// <summary>
     /// Configuration for ingesting pages from a website. Politeness, limits, and auth are configured<br/>
-    /// here; the `pages_source` field selects how URLs are discovered (sitemap, crawl, or both).
+    /// here. The `pages_source` field selects how URLs are discovered (sitemap, crawl, or both).
     /// </summary>
     public readonly partial struct WebSourceConfiguration : global::System.IEquatable<WebSourceConfiguration>
     {
         /// <summary>
-        /// Shared knobs for all web-based sources (sitemap, crawl, sitemap+crawl). Politeness, limits, auth.<br/>
-        /// Mode-specific fields (urls, sitemap_urls, BFS knobs, page count cap) live on the concrete subtypes.
+        /// Shared configuration for all web-based sources (sitemap, crawl, sitemap+crawl). Contains<br/>
+        /// politeness settings, limits including the `max_pages` page count cap, and authentication.<br/>
+        /// Mode-specific fields (urls, sitemap_urls, BFS settings) live on the page source types<br/>
+        /// under `pages_source`.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseWebSource? Base { get; init; }

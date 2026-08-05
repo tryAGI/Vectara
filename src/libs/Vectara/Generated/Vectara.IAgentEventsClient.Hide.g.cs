@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Hide event<br/>
-        /// Manually hide an event in a session. Sets hide_reason to 'manual'.
+        /// Hides an event in a session. Sets hide_reason to 'manual'.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -32,7 +32,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Hide event<br/>
-        /// Manually hide an event in a session. Sets hide_reason to 'manual'.
+        /// Hides an event in a session. Sets hide_reason to 'manual'.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

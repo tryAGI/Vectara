@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Choose how to split documents into chunks during indexing. This is optional - if you do not set a chunking strategy, the platform uses the default strategy which creates one chunk (docpart) per sentence.
+    /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.
     /// </summary>
     public readonly partial struct ChunkingStrategy : global::System.IEquatable<ChunkingStrategy>
     {
