@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Cancel A2A v1 task<br/>
-        /// Cancel a running task and return its state after cancellation in the v1 wire format. Returns `409` if the task is not currently running.
+        /// Cancels a running task. Returns its state after cancellation in the v1 wire format. Returns `409` if the task is not currently running.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -27,7 +27,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Cancel A2A v1 task<br/>
-        /// Cancel a running task and return its state after cancellation in the v1 wire format. Returns `409` if the task is not currently running.
+        /// Cancels a running task. Returns its state after cancellation in the v1 wire format. Returns `409` if the task is not currently running.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

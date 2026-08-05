@@ -9,13 +9,13 @@ namespace Vectara
     public sealed partial class ResetUserPasswordResponse
     {
         /// <summary>
-        /// A one time code that can be used to reset the password. This is optional, and is only populated for some Vectara deployments.
+        /// A one-time code to reset the password. This is optional, and is only populated for some platform deployments.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("one_time_code")]
         public string? OneTimeCode { get; set; }
 
         /// <summary>
-        /// The link where to enter the `one_time_code`. This is optional, and is only populated for some Vectara deployments.
+        /// The link where the user enters the `one_time_code`. This is optional, and is only populated for some platform deployments.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("one_time_code_link")]
         public string? OneTimeCodeLink { get; set; }
@@ -30,10 +30,10 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ResetUserPasswordResponse" /> class.
         /// </summary>
         /// <param name="oneTimeCode">
-        /// A one time code that can be used to reset the password. This is optional, and is only populated for some Vectara deployments.
+        /// A one-time code to reset the password. This is optional, and is only populated for some platform deployments.
         /// </param>
         /// <param name="oneTimeCodeLink">
-        /// The link where to enter the `one_time_code`. This is optional, and is only populated for some Vectara deployments.
+        /// The link where the user enters the `one_time_code`. This is optional, and is only populated for some platform deployments.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

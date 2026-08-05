@@ -75,12 +75,12 @@ namespace Vectara
 
         /// <summary>
         /// List dead letters<br/>
-        /// List dead letters for a pipeline, with optional filtering by status or run.
+        /// Lists dead letters for a pipeline, with optional filtering by status or run.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="status">
@@ -132,12 +132,12 @@ namespace Vectara
         }
         /// <summary>
         /// List dead letters<br/>
-        /// List dead letters for a pipeline, with optional filtering by status or run.
+        /// Lists dead letters for a pipeline, with optional filtering by status or run.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="status">

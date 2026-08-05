@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Decrypted content of an invoke_agent span.
+    /// The content of an invoke_agent span.
     /// </summary>
     public sealed partial class InvokeAgentSpanContent
     {

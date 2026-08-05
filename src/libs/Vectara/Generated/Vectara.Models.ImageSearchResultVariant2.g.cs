@@ -18,7 +18,7 @@ namespace Vectara
         public required string ResultType { get; set; } = "image";
 
         /// <summary>
-        /// An image element within a document, containing its identifying information and optional metadata.
+        /// An image element within a document. It contains identifying information and optional metadata.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("image")]
         public global::Vectara.ImageMetadata? Image { get; set; }
@@ -37,7 +37,7 @@ namespace Vectara
         /// Default Value: image
         /// </param>
         /// <param name="image">
-        /// An image element within a document, containing its identifying information and optional metadata.
+        /// An image element within a document. It contains identifying information and optional metadata.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Update glossary<br/>
-        /// Update the metadata of a glossary.
+        /// Updates the metadata of a glossary.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -100,7 +100,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update glossary<br/>
-        /// Update the metadata of a glossary.
+        /// Updates the metadata of a glossary.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -608,7 +608,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update glossary<br/>
-        /// Update the metadata of a glossary.
+        /// Updates the metadata of a glossary.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

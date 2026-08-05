@@ -6,12 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// Get pipeline run<br/>
-        /// Retrieve details of a specific pipeline run including record counts, session keys, and status.
+        /// Returns details of a pipeline run, including record counts, session keys, and status.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="runId">
@@ -30,12 +30,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get pipeline run<br/>
-        /// Retrieve details of a specific pipeline run including record counts, session keys, and status.
+        /// Returns details of a pipeline run, including record counts, session keys, and status.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="runId">

@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// Update the agent's identity. All fields are optional — only provided fields are changed.<br/>
-    /// Setting `mode` to `manual` freezes roles. The platform will no longer recompute roles when the agent's tool configuration changes.<br/>
-    /// Setting `mode` to `auto` resumes platform-managed roles. The platform will immediately resync roles to match the current tool configuration. Any provided role fields are ignored in auto mode.
+    /// Updates the agent's identity. All fields are optional — only provided fields change.<br/>
+    /// Setting `mode` to `manual` freezes roles. The platform no longer recomputes roles when the agent's tool configuration changes.<br/>
+    /// Setting `mode` to `auto` resumes platform-managed roles. The platform immediately resyncs roles to match the current tool configuration. The platform ignores any provided role fields in `auto` mode.
     /// </summary>
     public sealed partial class UpdateAgentIdentityRequest
     {
         /// <summary>
         /// The role management mode of the agent's identity.<br/>
-        /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, roles are automatically recomputed.<br/>
-        /// - `manual`: Roles are user-managed. The platform will not modify roles when the agent is updated.<br/>
+        /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, the platform recomputes roles automatically.<br/>
+        /// - `manual`: The caller manages the roles. The platform does not modify roles when the agent is updated.<br/>
         /// Example: auto
         /// </summary>
         /// <example>auto</example>
@@ -50,8 +50,8 @@ namespace Vectara
         /// </summary>
         /// <param name="mode">
         /// The role management mode of the agent's identity.<br/>
-        /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, roles are automatically recomputed.<br/>
-        /// - `manual`: Roles are user-managed. The platform will not modify roles when the agent is updated.<br/>
+        /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, the platform recomputes roles automatically.<br/>
+        /// - `manual`: The caller manages the roles. The platform does not modify roles when the agent is updated.<br/>
         /// Example: auto
         /// </param>
         /// <param name="apiRoles">

@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Cancel A2A v0.3 task<br/>
-        /// Cancel a running task. Returns the canonical state of the task after cancellation. If the task is already terminal, returns `409`.
+        /// Cancels a running task. Returns the canonical state of the task after cancellation. If the task is already terminal, returns `409`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -98,7 +98,7 @@ namespace Vectara
         }
         /// <summary>
         /// Cancel A2A v0.3 task<br/>
-        /// Cancel a running task. Returns the canonical state of the task after cancellation. If the task is already terminal, returns `409`.
+        /// Cancels a running task. Returns the canonical state of the task after cancellation. If the task is already terminal, returns `409`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

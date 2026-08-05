@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// Policy to allow operations if only using the specified resource.
+    /// Policy that allows an operation only on the specified resources.
     /// </summary>
     public sealed partial class ApiOperationPolicy
     {
         /// <summary>
-        /// If any resource is allowed for the operation.<br/>
+        /// Indicates whether the operation allows any resource.<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("allow_any_resource")]
@@ -17,7 +17,7 @@ namespace Vectara
         public required bool AllowAnyResource { get; set; }
 
         /// <summary>
-        /// Object with keys of resource paths to a list of allowed resources. A resource path starts with either body, path, or implicit. A body or path resource is within the operation body, and an implicit resource is a resource implied by the request.
+        /// A map from resource path to a list of allowed resources. A resource path starts with either `body`, `path`, or `implicit`. A `body` or `path` resource is within the operation body. An `implicit` resource is a resource implied by the request.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("allowed_resources")]
         public global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? AllowedResources { get; set; }
@@ -32,11 +32,11 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ApiOperationPolicy" /> class.
         /// </summary>
         /// <param name="allowAnyResource">
-        /// If any resource is allowed for the operation.<br/>
+        /// Indicates whether the operation allows any resource.<br/>
         /// Default Value: true
         /// </param>
         /// <param name="allowedResources">
-        /// Object with keys of resource paths to a list of allowed resources. A resource path starts with either body, path, or implicit. A body or path resource is within the operation body, and an implicit resource is a resource implied by the request.
+        /// A map from resource path to a list of allowed resources. A resource path starts with either `body`, `path`, or `implicit`. A `body` or `path` resource is within the operation body. An `implicit` resource is a resource implied by the request.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

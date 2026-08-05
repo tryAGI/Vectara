@@ -5,13 +5,13 @@ namespace Vectara
 {
     /// <summary>
     /// Base Wolken ServiceDesk knowledge-base source configuration. Ingests knowledge-base articles<br/>
-    /// through the API family selected by `kb_api`, with each article's audience attributes carried<br/>
+    /// through the API family selected by `kb_api`. Each article's audience attributes are carried<br/>
     /// as document metadata for attribute-based filtering. Requires Wolken credentials with read<br/>
     /// access to the knowledge-base listing and article-detail endpoints of the selected family.<br/>
-    /// With `data_api`, articles are filtered server side by the configured status, validation, and<br/>
-    /// level filters, and incremental sync additionally requires the listing to support update-time<br/>
-    /// filters. With `kb_module`, articles are listed per category and update-time bounds are<br/>
-    /// applied after listing. Supported filters vary by Wolken deployment.
+    /// With `data_api`, the Wolken server filters articles by the configured status, validation, and level<br/>
+    /// filters. Incremental sync with `data_api` also requires the listing to support update-time<br/>
+    /// filters. With `kb_module`, articles are listed per category. Update-time bounds are applied<br/>
+    /// after listing. Supported filters vary by Wolken deployment.
     /// </summary>
     public sealed partial class BaseWolkenKbSourceConfiguration
     {
@@ -34,7 +34,7 @@ namespace Vectara
         public string? ApiEndpoint { get; set; }
 
         /// <summary>
-        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname, so use the exact value from your credential handoff.<br/>
+        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname. Use the exact value from your credential handoff.<br/>
         /// Example: example.wolkenservicedesk.com
         /// </summary>
         /// <example>example.wolkenservicedesk.com</example>
@@ -44,9 +44,9 @@ namespace Vectara
         /// <summary>
         /// The Wolken API family used to read the knowledge base. `data_api` reads through the<br/>
         /// provisioned data API endpoint and supports server-side update-time filters. `kb_module`<br/>
-        /// reads through the Knowledge Base module REST API, which lists articles by category and<br/>
-        /// offers no server-side filters, so update detection happens after listing. Which family a<br/>
-        /// Wolken deployment provisions is determined by the Wolken administrator.<br/>
+        /// reads through the Knowledge Base module REST API. That API lists articles by category<br/>
+        /// and offers no server-side filters, so update detection happens after listing. The<br/>
+        /// Wolken administrator determines which family a deployment provisions.<br/>
         /// Default Value: data_api
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("kb_api")]
@@ -177,15 +177,15 @@ namespace Vectara
         /// Example: https://example-api.wolkenservicedesk.com
         /// </param>
         /// <param name="domain">
-        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname, so use the exact value from your credential handoff.<br/>
+        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname. Use the exact value from your credential handoff.<br/>
         /// Example: example.wolkenservicedesk.com
         /// </param>
         /// <param name="kbApi">
         /// The Wolken API family used to read the knowledge base. `data_api` reads through the<br/>
         /// provisioned data API endpoint and supports server-side update-time filters. `kb_module`<br/>
-        /// reads through the Knowledge Base module REST API, which lists articles by category and<br/>
-        /// offers no server-side filters, so update detection happens after listing. Which family a<br/>
-        /// Wolken deployment provisions is determined by the Wolken administrator.<br/>
+        /// reads through the Knowledge Base module REST API. That API lists articles by category<br/>
+        /// and offers no server-side filters, so update detection happens after listing. The<br/>
+        /// Wolken administrator determines which family a deployment provisions.<br/>
         /// Default Value: data_api
         /// </param>
         /// <param name="categoryIds">

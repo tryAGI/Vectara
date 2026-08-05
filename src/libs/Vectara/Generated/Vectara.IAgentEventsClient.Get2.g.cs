@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get event in agent session<br/>
-        /// Retrieve the details of a specific event within an agent session.
+        /// Returns the details of a specific event in an agent session.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -34,7 +34,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get event in agent session<br/>
-        /// Retrieve the details of a specific event within an agent session.
+        /// Returns the details of a specific event in an agent session.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

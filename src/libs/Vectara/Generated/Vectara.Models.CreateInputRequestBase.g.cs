@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class CreateInputRequestBase
     {
         /// <summary>
-        /// Indicates whether the response should be streamed or not.<br/>
+        /// Whether to stream the response.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream_response")]
@@ -31,7 +31,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CreateInputRequestBase" /> class.
         /// </summary>
         /// <param name="streamResponse">
-        /// Indicates whether the response should be streamed or not.<br/>
+        /// Whether to stream the response.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="surfaceDescription">

@@ -65,8 +65,8 @@ namespace Vectara
 
         /// <summary>
         /// Replace agent secrets<br/>
-        /// Replace the agent's secrets. The submitted map fully replaces the previous set (names not in the request are removed).<br/>
-        /// Stored encrypted at rest.
+        /// Replaces the agent's secrets. The submitted map fully replaces the previous set. Names not in the request are removed.<br/>
+        /// Secrets are stored encrypted at rest.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -101,8 +101,8 @@ namespace Vectara
         }
         /// <summary>
         /// Replace agent secrets<br/>
-        /// Replace the agent's secrets. The submitted map fully replaces the previous set (names not in the request are removed).<br/>
-        /// Stored encrypted at rest.
+        /// Replaces the agent's secrets. The submitted map fully replaces the previous set. Names not in the request are removed.<br/>
+        /// Secrets are stored encrypted at rest.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -610,8 +610,8 @@ namespace Vectara
         }
         /// <summary>
         /// Replace agent secrets<br/>
-        /// Replace the agent's secrets. The submitted map fully replaces the previous set (names not in the request are removed).<br/>
-        /// Stored encrypted at rest.
+        /// Replaces the agent's secrets. The submitted map fully replaces the previous set. Names not in the request are removed.<br/>
+        /// Secrets are stored encrypted at rest.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

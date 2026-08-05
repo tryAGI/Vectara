@@ -6,8 +6,8 @@ namespace Vectara
     {
         /// <summary>
         /// Replace the filter attributes of a corpus<br/>
-        /// Replace the filter attributes of a corpus. This does not happen immediately, as this operation creates a job that completes asynchronously. These new filter attributes will not work until the job completes.<br/>
-        /// You can monitor the status of the filter change using the returned job ID. The `corpus_key` uniquely identifies the corpus.
+        /// Replaces the filter attributes of a corpus. The replacement does not happen immediately. This operation creates a job that completes asynchronously. The new filter attributes do not work until the job completes.<br/>
+        /// Monitor the status of the filter change with the returned job ID. The `corpus_key` uniquely identifies the corpus.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,8 +29,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Replace the filter attributes of a corpus<br/>
-        /// Replace the filter attributes of a corpus. This does not happen immediately, as this operation creates a job that completes asynchronously. These new filter attributes will not work until the job completes.<br/>
-        /// You can monitor the status of the filter change using the returned job ID. The `corpus_key` uniquely identifies the corpus.
+        /// Replaces the filter attributes of a corpus. The replacement does not happen immediately. This operation creates a job that completes asynchronously. The new filter attributes do not work until the job completes.<br/>
+        /// Monitor the status of the filter change with the returned job ID. The `corpus_key` uniquely identifies the corpus.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -52,8 +52,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Replace the filter attributes of a corpus<br/>
-        /// Replace the filter attributes of a corpus. This does not happen immediately, as this operation creates a job that completes asynchronously. These new filter attributes will not work until the job completes.<br/>
-        /// You can monitor the status of the filter change using the returned job ID. The `corpus_key` uniquely identifies the corpus.
+        /// Replaces the filter attributes of a corpus. The replacement does not happen immediately. This operation creates a job that completes asynchronously. The new filter attributes do not work until the job completes.<br/>
+        /// Monitor the status of the filter change with the returned job ID. The `corpus_key` uniquely identifies the corpus.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

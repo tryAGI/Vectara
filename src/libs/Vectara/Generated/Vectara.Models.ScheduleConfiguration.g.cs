@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configuration for when and how often the schedule should execute.
+    /// Configuration for when and how often the schedule executes.
     /// </summary>
     public readonly partial struct ScheduleConfiguration : global::System.IEquatable<ScheduleConfiguration>
     {

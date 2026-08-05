@@ -67,7 +67,7 @@ namespace Vectara
 
         /// <summary>
         /// List LLMs<br/>
-        /// List LLMs that can be used with query and chat endpoints. The LLM is not directly specified in a query, but instead a `generation_preset_name` is used. The `generation_preset_name` property in generation parameters can be found as the `name` property on the Generations Presets retrieved from `/v2/generation_presets`.
+        /// Lists LLMs that you can use with query and chat endpoints. A query does not specify the LLM directly. Instead, it uses a `generation_preset_name`. The `generation_preset_name` in generation parameters corresponds to the `name` property of the generation presets that `/v2/generation_presets` lists.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -102,7 +102,7 @@ namespace Vectara
         }
         /// <summary>
         /// List LLMs<br/>
-        /// List LLMs that can be used with query and chat endpoints. The LLM is not directly specified in a query, but instead a `generation_preset_name` is used. The `generation_preset_name` property in generation parameters can be found as the `name` property on the Generations Presets retrieved from `/v2/generation_presets`.
+        /// Lists LLMs that you can use with query and chat endpoints. A query does not specify the LLM directly. Instead, it uses a `generation_preset_name`. The `generation_preset_name` in generation parameters corresponds to the `name` property of the generation presets that `/v2/generation_presets` lists.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -400,7 +400,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Permissions do not allow listing summarizers.
+                            // Permissions do not allow listing LLMs.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;

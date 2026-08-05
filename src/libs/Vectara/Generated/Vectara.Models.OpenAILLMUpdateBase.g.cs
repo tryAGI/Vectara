@@ -40,7 +40,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, string>? Headers { get; set; }
 
         /// <summary>
-        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. During streaming this is the SSE idle timeout — if no new server-sent events arrive within this window the stream is closed with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// The maximum time in seconds that the platform waits for the model to send data before it closes the stale connection. During streaming, this is the SSE idle timeout. If no new server-sent events arrive within this window, the stream closes with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform uses its default read timeout for the provider. On update, omit the field to keep the configured value, or send an explicit null to clear it.<br/>
         /// Example: 300
         /// </summary>
         /// <example>300</example>
@@ -62,10 +62,20 @@ namespace Vectara
         public object? TestModelParameters { get; set; }
 
         /// <summary>
-        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
+        /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
         public global::Vectara.LLMCapabilities? Capabilities { get; set; }
+
+        /// <summary>
+        /// The maximum number of requests per second for this LLM.<br/>
+        /// - Set a value to apply that limit.<br/>
+        /// - Set the field to null to remove the limit.<br/>
+        /// - Omit the field to keep the current limit.<br/>
+        /// The platform rejects requests above the limit with HTTP 429.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("requests_per_second")]
+        public long? RequestsPerSecond { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -92,7 +102,7 @@ namespace Vectara
         /// Additional HTTP headers to include with requests to the LLM API.
         /// </param>
         /// <param name="idleTimeoutSeconds">
-        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. During streaming this is the SSE idle timeout — if no new server-sent events arrive within this window the stream is closed with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// The maximum time in seconds that the platform waits for the model to send data before it closes the stale connection. During streaming, this is the SSE idle timeout. If no new server-sent events arrive within this window, the stream closes with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform uses its default read timeout for the provider. On update, omit the field to keep the configured value, or send an explicit null to clear it.<br/>
         /// Example: 300
         /// </param>
         /// <param name="enabled">
@@ -103,7 +113,14 @@ namespace Vectara
         /// Example: {"max_tokens":512}
         /// </param>
         /// <param name="capabilities">
-        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
+        /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
+        /// </param>
+        /// <param name="requestsPerSecond">
+        /// The maximum number of requests per second for this LLM.<br/>
+        /// - Set a value to apply that limit.<br/>
+        /// - Set the field to null to remove the limit.<br/>
+        /// - Omit the field to keep the current limit.<br/>
+        /// The platform rejects requests above the limit with HTTP 429.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -117,7 +134,8 @@ namespace Vectara
             int? idleTimeoutSeconds,
             bool? enabled,
             object? testModelParameters,
-            global::Vectara.LLMCapabilities? capabilities)
+            global::Vectara.LLMCapabilities? capabilities,
+            long? requestsPerSecond)
         {
             this.Model = model;
             this.Uri = uri;
@@ -128,6 +146,7 @@ namespace Vectara
             this.Enabled = enabled;
             this.TestModelParameters = testModelParameters;
             this.Capabilities = capabilities;
+            this.RequestsPerSecond = requestsPerSecond;
         }
 
         /// <summary>

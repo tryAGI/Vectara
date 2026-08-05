@@ -6,15 +6,15 @@ namespace Vectara
     {
         /// <summary>
         /// Get filter attribute statistics for corpus metadata<br/>
-        /// Retrieve statistics and value distributions for filter attributes in a corpus. This endpoint provides insights into the metadata structure and content distribution, enabling users to understand available filter values and build effective metadata queries.<br/>
+        /// Returns statistics and value distributions for the filter attributes in a corpus. Use these statistics to understand the available filter values and to build effective metadata queries.<br/>
         /// This endpoint analyzes document and part metadata fields defined as filter attributes and returns:<br/>
         /// - **Value distributions**: Top occurring values with their counts<br/>
         /// - **Statistics**: Min, max, average, and sum for numeric fields<br/>
-        /// By default, statistics are computed across all filter attributes at both document and part levels. You can optionally:<br/>
+        /// By default, the platform computes statistics across all filter attributes at both the document and part levels. You can optionally:<br/>
         /// - Request statistics for specific fields only<br/>
         /// - Apply metadata filters to analyze a subset of the corpus<br/>
         /// - Limit the number of distinct values returned per field<br/>
-        /// **Performance and Caching**: Results may be cached for improved performance, with cache duration varying by corpus size. Cached results can take up to 1 hour to refresh for large corpora. Smaller corpora with faster query times have shorter cache durations (2-15 minutes) to ensure fresher data.<br/>
+        /// **Performance and caching**: The platform can cache results to improve performance. The cache duration varies by corpus size. Cached results can take up to 1 hour to refresh for large corpora. Smaller corpora with faster query times have shorter cache durations (2-15 minutes) to keep data fresher.<br/>
         /// The `corpus_key` uniquely identifies the corpus. For more information, see [Create a corpus](https://docs.vectara.com/docs/rest-api/create-corpus).
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -44,15 +44,15 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get filter attribute statistics for corpus metadata<br/>
-        /// Retrieve statistics and value distributions for filter attributes in a corpus. This endpoint provides insights into the metadata structure and content distribution, enabling users to understand available filter values and build effective metadata queries.<br/>
+        /// Returns statistics and value distributions for the filter attributes in a corpus. Use these statistics to understand the available filter values and to build effective metadata queries.<br/>
         /// This endpoint analyzes document and part metadata fields defined as filter attributes and returns:<br/>
         /// - **Value distributions**: Top occurring values with their counts<br/>
         /// - **Statistics**: Min, max, average, and sum for numeric fields<br/>
-        /// By default, statistics are computed across all filter attributes at both document and part levels. You can optionally:<br/>
+        /// By default, the platform computes statistics across all filter attributes at both the document and part levels. You can optionally:<br/>
         /// - Request statistics for specific fields only<br/>
         /// - Apply metadata filters to analyze a subset of the corpus<br/>
         /// - Limit the number of distinct values returned per field<br/>
-        /// **Performance and Caching**: Results may be cached for improved performance, with cache duration varying by corpus size. Cached results can take up to 1 hour to refresh for large corpora. Smaller corpora with faster query times have shorter cache durations (2-15 minutes) to ensure fresher data.<br/>
+        /// **Performance and caching**: The platform can cache results to improve performance. The cache duration varies by corpus size. Cached results can take up to 1 hour to refresh for large corpora. Smaller corpora with faster query times have shorter cache durations (2-15 minutes) to keep data fresher.<br/>
         /// The `corpus_key` uniquely identifies the corpus. For more information, see [Create a corpus](https://docs.vectara.com/docs/rest-api/create-corpus).
         /// </summary>
         /// <param name="requestTimeout"></param>

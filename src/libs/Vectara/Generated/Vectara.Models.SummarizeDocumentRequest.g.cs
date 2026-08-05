@@ -18,7 +18,7 @@ namespace Vectara
         public required string LlmName { get; set; }
 
         /// <summary>
-        /// The prompt template to use when generating the summary. Vectara manages both system and user roles and prompts for the generative LLM out of the box by default. However, users can override the `prompt_template` via this variable. The `prompt_template` is in the form of an Apache Velocity template. For more details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
+        /// The prompt template to use when generating the summary. By default, the platform manages the system and user roles and prompts for the generative LLM. Set this field to override the default prompts. The `prompt_template` is an Apache Velocity template. For details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
         /// Example: Provide a concise summary of the document.
         /// </summary>
         /// <example>Provide a concise summary of the document.</example>
@@ -52,7 +52,7 @@ namespace Vectara
         /// Example: mockingbird-2.0
         /// </param>
         /// <param name="promptTemplate">
-        /// The prompt template to use when generating the summary. Vectara manages both system and user roles and prompts for the generative LLM out of the box by default. However, users can override the `prompt_template` via this variable. The `prompt_template` is in the form of an Apache Velocity template. For more details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
+        /// The prompt template to use when generating the summary. By default, the platform manages the system and user roles and prompts for the generative LLM. Set this field to override the default prompts. The `prompt_template` is an Apache Velocity template. For details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
         /// Example: Provide a concise summary of the document.
         /// </param>
         /// <param name="modelParameters">

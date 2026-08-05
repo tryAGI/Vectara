@@ -75,7 +75,7 @@ namespace Vectara
 
         /// <summary>
         /// List session artifacts<br/>
-        /// List all artifacts stored in a specific agent session, with cursor-based pagination. Artifacts are files either uploaded by the user, or generated within a session. This endpoint shows you what files exist in a session, but does not include the file content.
+        /// Lists all artifacts stored in a specific agent session, with cursor-based pagination. Artifacts are files that the user uploads or that the agent generates within a session. The response lists the files in a session but does not include the file content.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -134,7 +134,7 @@ namespace Vectara
         }
         /// <summary>
         /// List session artifacts<br/>
-        /// List all artifacts stored in a specific agent session, with cursor-based pagination. Artifacts are files either uploaded by the user, or generated within a session. This endpoint shows you what files exist in a session, but does not include the file content.
+        /// Lists all artifacts stored in a specific agent session, with cursor-based pagination. Artifacts are files that the user uploads or that the agent generates within a session. The response lists the files in a session but does not include the file content.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

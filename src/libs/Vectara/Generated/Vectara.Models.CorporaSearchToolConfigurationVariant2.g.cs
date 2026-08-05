@@ -26,7 +26,7 @@ namespace Vectara
         public global::Vectara.CorporaSearchToolParameters? ArgumentOverride { get; set; }
 
         /// <summary>
-        /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when turn-start resolution is needed.
+        /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when you need turn-start resolution.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("query_configuration")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -47,7 +47,7 @@ namespace Vectara
         /// Example: corpora_search
         /// </param>
         /// <param name="queryConfiguration">
-        /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when turn-start resolution is needed.
+        /// Agent-specific query configuration that supports eager references. Use this in agent tool configurations when you need turn-start resolution.
         /// </param>
         /// <param name="argumentOverride">
         /// Agent-exposed parameters for the corpora search tool that can be filled in during execution.

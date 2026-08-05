@@ -60,12 +60,12 @@ namespace Vectara
 
         /// <summary>
         /// Delete dead letter<br/>
-        /// Remove a dead letter from the queue. Use this to dismiss a known failure that does not need retrying.
+        /// Deletes a dead letter from the queue. Use this to dismiss a known failure that does not need retrying.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="deadLetterId"></param>
@@ -91,12 +91,12 @@ namespace Vectara
         }
         /// <summary>
         /// Delete dead letter<br/>
-        /// Remove a dead letter from the queue. Use this to dismiss a known failure that does not need retrying.
+        /// Deletes a dead letter from the queue. Use this to dismiss a known failure that does not need retrying.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="deadLetterId"></param>

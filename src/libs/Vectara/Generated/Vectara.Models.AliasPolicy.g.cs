@@ -6,7 +6,7 @@ namespace Vectara
 {
     /// <summary>
     /// A routing policy. The `type` discriminator determines which fields apply:<br/>
-    /// * `routed` — evaluate ordered rules; the first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` are then used (one agent for `single`, hashed by `partition_by` for `weighted`). A rule with omitted `match` is a catch-all that always matches; it must be the last rule, and any rule placed after it is rejected as unreachable.<br/>
+    /// * `routed` — evaluates ordered rules. The policy selects the first rule whose `match` expression evaluates to true. The selected rule's `targets` are then used (one agent for `single`, hashed by `partition_by` for `weighted`). A rule with omitted `match` is a catch-all that always matches. It must be the last rule. The platform rejects any rule placed after a catch-all as unreachable.<br/>
     /// Most use cases (direct, weighted/canary, conditional, conditional+canary) collapse into `routed`.
     /// </summary>
     public readonly partial struct AliasPolicy : global::System.IEquatable<AliasPolicy>
@@ -17,8 +17,12 @@ namespace Vectara
         public global::Vectara.AliasPolicyDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Evaluates ordered rules against the session context. The first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` shape determines what runs: `single` routes directly to one agent, `weighted` picks one of several agents by hashing the rule's `partition_by` expression. A rule with no `match` always matches (catch-all). It must be the last rule; any rule placed after it is rejected as unreachable.<br/>
-        /// This single shape covers direct routing (one rule, single target), weighted/canary rollouts (one rule, weighted targets), conditional routing (multiple rules with matches), and conditional+canary combinations (multiple rules, each independently single or weighted).
+        /// Evaluates ordered rules against the session context. The policy selects the first rule whose `match` expression evaluates to true. The selected rule's `targets` shape determines what runs. `single` routes directly to one agent. `weighted` picks one of several agents by hashing the rule's `partition_by` expression. A rule with no `match` always matches (catch-all). It must be the last rule. The platform rejects any rule placed after a catch-all as unreachable.<br/>
+        /// This single shape covers:<br/>
+        /// - Direct routing — one rule, single target.<br/>
+        /// - Weighted or canary rollouts — one rule, weighted targets.<br/>
+        /// - Conditional routing — multiple rules with matches.<br/>
+        /// - Conditional plus canary — multiple rules, each independently single or weighted.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.RoutedAliasPolicy? Routed { get; init; }

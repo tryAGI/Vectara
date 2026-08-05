@@ -34,7 +34,7 @@ namespace Vectara
         public required string Description { get; set; }
 
         /// <summary>
-        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation, the response will be truncated to this number of dimensions.
+        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation, the response is truncated to this number of dimensions.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_dimensions")]
         public int? OutputDimensions { get; set; }
@@ -101,7 +101,7 @@ namespace Vectara
         /// Default Value: vllm-compatible
         /// </param>
         /// <param name="outputDimensions">
-        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation, the response will be truncated to this number of dimensions.
+        /// The number of dimensions in the output embedding vector. If provided and the model supports truncation, the response is truncated to this number of dimensions.
         /// </param>
         /// <param name="auth">
         /// Authentication configuration for connecting to a remote service.

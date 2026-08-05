@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class FilterExtraction
     {
         /// <summary>
-        /// The query rephrased from the input query and executed.
+        /// The rephrased form of the input query. The search executes this query.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("query")]
         public string? Query { get; set; }
@@ -30,7 +30,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="FilterExtraction" /> class.
         /// </summary>
         /// <param name="query">
-        /// The query rephrased from the input query and executed.
+        /// The rephrased form of the input query. The search executes this query.
         /// </param>
         /// <param name="metadataFilter">
         /// The metadata filter extracted from the input query.

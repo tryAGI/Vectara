@@ -11,19 +11,20 @@ namespace Vectara
     public sealed partial class GenerationParameters
     {
         /// <summary>
-        /// Whether generation is enabled for this query. This field is ignored if using chat.<br/>
+        /// Whether generation is enabled for this query. Chat requests ignore this field.<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// The preset values to use to feed the query results and other context to the model.  <br/>
-        /// A `generation_preset` is an object with a bundle of properties that specifies: <br/>
-        /// * The `prompt_template` that is rendered and then sent to the LLM. <br/>
-        /// * The LLM used. * `model_parameter`s such as temperature.<br/>
-        /// All of these properties except the model can be overridden by setting them in this object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set the model used. See `model_parameters.model` if you want to set the model explicitly.<br/>
-        /// If `generation_preset_name` is not set, the Vectara platform will use the default model and prompt.'<br/>
+        /// The name of the generation preset that supplies default values for generation.<br/>
+        /// A `generation_preset` is an object with a bundle of properties that specifies:<br/>
+        /// * The `prompt_template` that is rendered and then sent to the LLM.<br/>
+        /// * The LLM to use.<br/>
+        /// * `model_parameter`s such as temperature.<br/>
+        /// You can override any of these properties by setting them in this object. Set `model_parameters.llm_name` to override the model that `generation_preset_name` selects.<br/>
+        /// If `generation_preset_name` is not set, the platform uses the default model and prompt.<br/>
         /// Example: mockingbird-2.0
         /// </summary>
         /// <example>mockingbird-2.0</example>
@@ -40,14 +41,14 @@ namespace Vectara
         public string? PromptName { get; set; }
 
         /// <summary>
-        /// The maximum number of search results to be available to the prompt.<br/>
+        /// The maximum number of search results available to the prompt.<br/>
         /// Default Value: 5
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_used_search_results")]
         public int? MaxUsedSearchResults { get; set; }
 
         /// <summary>
-        /// Vectara manages both system and user roles and prompts for the generative LLM out of the box by default. However, users can override the `prompt_template` via this variable. The `prompt_template` is in the form of an Apache Velocity template. For more details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
+        /// The template that renders the prompt sent to the generative LLM. By default, the platform manages the system and user roles and prompts for the generative LLM. Set this field to override the default prompts. The `prompt_template` is an Apache Velocity template. For details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
         /// Example: [<br/>
         ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>
         ///   #foreach ($qResult in $vectaraQueryResults)<br/>
@@ -71,7 +72,7 @@ namespace Vectara
         public string? PromptTemplate { get; set; }
 
         /// <summary>
-        /// This property is deprecated in favor of clearer naming. Use `prompt_template`. This property will be ignored if `prompt_template` is set.<br/>
+        /// Deprecated. Use `prompt_template` instead. If `prompt_template` is set, the platform ignores this property.<br/>
         /// Example: [<br/>
         ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>
         ///   #foreach ($qResult in $vectaraQueryResults)<br/>
@@ -96,7 +97,7 @@ namespace Vectara
         public string? PromptText { get; set; }
 
         /// <summary>
-        /// Controls the length of the generated output. This is a rough estimate and not a hard limit: the end output can be longer or shorter than this value. This is generally implemented by including the `max_response_characters` in the prompt, and the LLM's instruction following capability dictates how closely the generated output is limited.<br/>
+        /// Controls the length of the generated output. This is a rough estimate and not a hard limit: the end output can be longer or shorter than this value. The platform includes `max_response_characters` in the prompt, so the LLM's instruction-following capability dictates how closely the output stays within the limit.<br/>
         /// Example: 300
         /// </summary>
         /// <example>300</example>
@@ -104,7 +105,7 @@ namespace Vectara
         public int? MaxResponseCharacters { get; set; }
 
         /// <summary>
-        /// Languages that the Vectara platform supports.<br/>
+        /// Languages that the platform supports.<br/>
         /// Default Value: auto
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("response_language")]
@@ -112,7 +113,7 @@ namespace Vectara
         public global::Vectara.Language? ResponseLanguage { get; set; }
 
         /// <summary>
-        /// The parameters for the model. WARNING: This is an experimental feature, and breakable at any point with virtually no notice. It is meant for experimentation to converge on optimal parameters that can then be set in the prompt definitions.
+        /// The parameters for the model. WARNING: This is an experimental feature that can change at any point with virtually no notice. Use it to converge on optimal parameters, then set them in the prompt definitions.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("model_parameters")]
         public global::Vectara.GenerationParametersModelParameters? ModelParameters { get; set; }
@@ -124,7 +125,7 @@ namespace Vectara
         public global::Vectara.CitationParameters? Citations { get; set; }
 
         /// <summary>
-        /// Enable returning the factual consistency score with query results.<br/>
+        /// Whether to return the factual consistency score with query results.<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enable_factual_consistency_score")]
@@ -140,24 +141,25 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="GenerationParameters" /> class.
         /// </summary>
         /// <param name="enabled">
-        /// Whether generation is enabled for this query. This field is ignored if using chat.<br/>
+        /// Whether generation is enabled for this query. Chat requests ignore this field.<br/>
         /// Default Value: true
         /// </param>
         /// <param name="generationPresetName">
-        /// The preset values to use to feed the query results and other context to the model.  <br/>
-        /// A `generation_preset` is an object with a bundle of properties that specifies: <br/>
-        /// * The `prompt_template` that is rendered and then sent to the LLM. <br/>
-        /// * The LLM used. * `model_parameter`s such as temperature.<br/>
-        /// All of these properties except the model can be overridden by setting them in this object. Even when a `prompt_template` is set, the `generation_preset_name` is used to set the model used. See `model_parameters.model` if you want to set the model explicitly.<br/>
-        /// If `generation_preset_name` is not set, the Vectara platform will use the default model and prompt.'<br/>
+        /// The name of the generation preset that supplies default values for generation.<br/>
+        /// A `generation_preset` is an object with a bundle of properties that specifies:<br/>
+        /// * The `prompt_template` that is rendered and then sent to the LLM.<br/>
+        /// * The LLM to use.<br/>
+        /// * `model_parameter`s such as temperature.<br/>
+        /// You can override any of these properties by setting them in this object. Set `model_parameters.llm_name` to override the model that `generation_preset_name` selects.<br/>
+        /// If `generation_preset_name` is not set, the platform uses the default model and prompt.<br/>
         /// Example: mockingbird-2.0
         /// </param>
         /// <param name="maxUsedSearchResults">
-        /// The maximum number of search results to be available to the prompt.<br/>
+        /// The maximum number of search results available to the prompt.<br/>
         /// Default Value: 5
         /// </param>
         /// <param name="promptTemplate">
-        /// Vectara manages both system and user roles and prompts for the generative LLM out of the box by default. However, users can override the `prompt_template` via this variable. The `prompt_template` is in the form of an Apache Velocity template. For more details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
+        /// The template that renders the prompt sent to the generative LLM. By default, the platform manages the system and user roles and prompts for the generative LLM. Set this field to override the default prompts. The `prompt_template` is an Apache Velocity template. For details on how to configure the `prompt_template`, see the [long-form documentation](https://docs.vectara.com/docs/prompts/vectara-prompt-engine).<br/>
         /// Example: [<br/>
         ///   {"role": "system", "content": "You are a helpful search assistant."},<br/>
         ///   #foreach ($qResult in $vectaraQueryResults)<br/>
@@ -168,21 +170,21 @@ namespace Vectara
         /// ]
         /// </param>
         /// <param name="maxResponseCharacters">
-        /// Controls the length of the generated output. This is a rough estimate and not a hard limit: the end output can be longer or shorter than this value. This is generally implemented by including the `max_response_characters` in the prompt, and the LLM's instruction following capability dictates how closely the generated output is limited.<br/>
+        /// Controls the length of the generated output. This is a rough estimate and not a hard limit: the end output can be longer or shorter than this value. The platform includes `max_response_characters` in the prompt, so the LLM's instruction-following capability dictates how closely the output stays within the limit.<br/>
         /// Example: 300
         /// </param>
         /// <param name="responseLanguage">
-        /// Languages that the Vectara platform supports.<br/>
+        /// Languages that the platform supports.<br/>
         /// Default Value: auto
         /// </param>
         /// <param name="modelParameters">
-        /// The parameters for the model. WARNING: This is an experimental feature, and breakable at any point with virtually no notice. It is meant for experimentation to converge on optimal parameters that can then be set in the prompt definitions.
+        /// The parameters for the model. WARNING: This is an experimental feature that can change at any point with virtually no notice. Use it to converge on optimal parameters, then set them in the prompt definitions.
         /// </param>
         /// <param name="citations">
         /// Style the generator should use when making citations.
         /// </param>
         /// <param name="enableFactualConsistencyScore">
-        /// Enable returning the factual consistency score with query results.<br/>
+        /// Whether to return the factual consistency score with query results.<br/>
         /// Default Value: true
         /// </param>
 #if NET7_0_OR_GREATER

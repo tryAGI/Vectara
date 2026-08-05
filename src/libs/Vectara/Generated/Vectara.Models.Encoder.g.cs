@@ -18,7 +18,7 @@ namespace Vectara
         public required string Id { get; set; }
 
         /// <summary>
-        /// The encoder name, `boomerang-2023-q3`.<br/>
+        /// The encoder name, for example `boomerang-2023-q3`.<br/>
         /// Example: openai-text-encoder
         /// </summary>
         /// <example>openai-text-encoder</example>
@@ -36,7 +36,7 @@ namespace Vectara
         public string? Type { get; set; }
 
         /// <summary>
-        /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding. A high dimensionality will consume more storage space, but it allows for an increase in the quality of the embedding.<br/>
+        /// The number of dimensions in the output embedding. A high dimensionality consumes more storage space but can increase the quality of the embedding.<br/>
         /// Example: 1536
         /// </summary>
         /// <example>1536</example>
@@ -50,7 +50,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Indicates whether the default encoder is used when creating a corpus.<br/>
+        /// Indicates whether this is the default encoder used when you create a corpus.<br/>
         /// Example: true
         /// </summary>
         /// <example>true</example>
@@ -87,7 +87,7 @@ namespace Vectara
         /// Example: enc_1
         /// </param>
         /// <param name="name">
-        /// The encoder name, `boomerang-2023-q3`.<br/>
+        /// The encoder name, for example `boomerang-2023-q3`.<br/>
         /// Example: openai-text-encoder
         /// </param>
         /// <param name="type">
@@ -96,14 +96,14 @@ namespace Vectara
         /// Example: openai-compatible
         /// </param>
         /// <param name="outputDimensions">
-        /// When this encoder is used to create an embedding, it shows the count of dimensions for the output embedding. A high dimensionality will consume more storage space, but it allows for an increase in the quality of the embedding.<br/>
+        /// The number of dimensions in the output embedding. A high dimensionality consumes more storage space but can increase the quality of the embedding.<br/>
         /// Example: 1536
         /// </param>
         /// <param name="description">
         /// The encoder description.
         /// </param>
         /// <param name="default">
-        /// Indicates whether the default encoder is used when creating a corpus.<br/>
+        /// Indicates whether this is the default encoder used when you create a corpus.<br/>
         /// Example: true
         /// </param>
         /// <param name="enabled">

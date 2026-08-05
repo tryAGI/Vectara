@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.PipelineTriggerDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Run the pipeline on a cron schedule.
+        /// Runs the pipeline on a cron schedule.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CronTriggerConfiguration? Cron { get; init; }
@@ -52,7 +52,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Cron' but the value was {ToString()}.");
 
         /// <summary>
-        /// Run the pipeline at a fixed interval.
+        /// Runs the pipeline at a fixed interval.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.IntervalTriggerConfiguration? Interval { get; init; }
@@ -89,7 +89,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Interval' but the value was {ToString()}.");
 
         /// <summary>
-        /// Pipeline is only triggered manually via the trigger endpoint. No automatic scheduling.
+        /// Runs the pipeline only when triggered manually via the trigger endpoint. There is no automatic scheduling.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ManualTriggerConfiguration? Manual { get; init; }

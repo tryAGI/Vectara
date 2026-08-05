@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ReplaceAgentRequestVariant2
     {
         /// <summary>
-        /// Timestamp when the agent was created. Set by the server; any value provided in the request body is ignored.<br/>
+        /// Timestamp when the agent was created. Set by the platform; any value provided in the request body is ignored.<br/>
         /// Example: 2024-01-15T10:30:00Z
         /// </summary>
         /// <example>2024-01-15T10:30:00Z</example>
@@ -17,7 +17,7 @@ namespace Vectara
         public global::System.DateTime? CreatedAt { get; set; }
 
         /// <summary>
-        /// Timestamp when the agent was last updated. Set by the server on every write; any value provided in the request body is ignored.<br/>
+        /// Timestamp when the agent was last updated. Set by the platform on every write; any value provided in the request body is ignored.<br/>
         /// Example: 2024-01-16T14:45:00Z
         /// </summary>
         /// <example>2024-01-16T14:45:00Z</example>
@@ -34,11 +34,11 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ReplaceAgentRequestVariant2" /> class.
         /// </summary>
         /// <param name="createdAt">
-        /// Timestamp when the agent was created. Set by the server; any value provided in the request body is ignored.<br/>
+        /// Timestamp when the agent was created. Set by the platform; any value provided in the request body is ignored.<br/>
         /// Example: 2024-01-15T10:30:00Z
         /// </param>
         /// <param name="updatedAt">
-        /// Timestamp when the agent was last updated. Set by the server on every write; any value provided in the request body is ignored.<br/>
+        /// Timestamp when the agent was last updated. Set by the platform on every write; any value provided in the request body is ignored.<br/>
         /// Example: 2024-01-16T14:45:00Z
         /// </param>
 #if NET7_0_OR_GREATER

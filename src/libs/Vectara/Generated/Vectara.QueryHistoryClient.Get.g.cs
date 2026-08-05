@@ -63,8 +63,8 @@ namespace Vectara
 
         /// <summary>
         /// Get a query history<br/>
-        /// The Get Query History API allows you to retrieve detailed history about a specific query that was made against a corpus. The response includes detailed information about the query, such as latency, the time it was executed, and the various stages in the query pipeline.<br/>
-        /// You specify the `query_id` and the response includes the `id` of the query, the `query` object, the `chat_id`, the time information about the query, and the `spans` object.
+        /// Returns the detailed history of a specific query made against a corpus. The response includes the query latency, the execution time, and the stages of the query pipeline.<br/>
+        /// Set the `query_id` path parameter. The response includes the `id` of the query, the `query` object, the `chat_id`, timing information, and the `spans` object.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -91,8 +91,8 @@ namespace Vectara
         }
         /// <summary>
         /// Get a query history<br/>
-        /// The Get Query History API allows you to retrieve detailed history about a specific query that was made against a corpus. The response includes detailed information about the query, such as latency, the time it was executed, and the various stages in the query pipeline.<br/>
-        /// You specify the `query_id` and the response includes the `id` of the query, the `query` object, the `chat_id`, the time information about the query, and the `spans` object.
+        /// Returns the detailed history of a specific query made against a corpus. The response includes the query latency, the execution time, and the stages of the query pipeline.<br/>
+        /// Set the `query_id` path parameter. The response includes the `id` of the query, the `query` object, the `chat_id`, timing information, and the `spans` object.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Get agent connector<br/>
-        /// Retrieve the details of a specific agent connector by its ID, including its configuration and status.
+        /// Returns an agent connector by its ID, including its configuration and status.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -100,7 +100,7 @@ namespace Vectara
         }
         /// <summary>
         /// Get agent connector<br/>
-        /// Retrieve the details of a specific agent connector by its ID, including its configuration and status.
+        /// Returns an agent connector by its ID, including its configuration and status.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

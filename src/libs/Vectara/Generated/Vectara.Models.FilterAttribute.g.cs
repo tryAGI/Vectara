@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Defines a filter attribute that can be used to filter search results based on document metadata for precise retrieval.
+    /// A filter attribute that filters search results based on document metadata for precise retrieval.
     /// </summary>
     public sealed partial class FilterAttribute
     {
@@ -28,7 +28,7 @@ namespace Vectara
         public required global::Vectara.FilterAttributeLevel Level { get; set; }
 
         /// <summary>
-        /// Description of the filter. May be omitted.<br/>
+        /// A description of the filter. This property can be omitted.<br/>
         /// Example: The title of the document.
         /// </summary>
         /// <example>The title of the document.</example>
@@ -36,7 +36,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Indicates whether an index should be created for the filter. Creating an index will improve query latency when using the filter.<br/>
+        /// Whether to create an index for the filter. An index improves query latency for queries that use the filter.<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("indexed")]
@@ -74,11 +74,11 @@ namespace Vectara
         /// Example: text
         /// </param>
         /// <param name="description">
-        /// Description of the filter. May be omitted.<br/>
+        /// A description of the filter. This property can be omitted.<br/>
         /// Example: The title of the document.
         /// </param>
         /// <param name="indexed">
-        /// Indicates whether an index should be created for the filter. Creating an index will improve query latency when using the filter.<br/>
+        /// Whether to create an index for the filter. An index improves query latency for queries that use the filter.<br/>
         /// Default Value: true
         /// </param>
 #if NET7_0_OR_GREATER

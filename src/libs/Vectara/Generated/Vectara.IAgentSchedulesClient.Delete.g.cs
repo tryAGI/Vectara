@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Delete agent schedule<br/>
-        /// Delete an agent schedule. This stops all future executions of the schedule.<br/>
+        /// Deletes an agent schedule. This stops all future executions of the schedule.<br/>
         /// Sessions that were previously created by this schedule are not deleted and remain accessible.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -16,8 +16,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -32,7 +31,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete agent schedule<br/>
-        /// Delete an agent schedule. This stops all future executions of the schedule.<br/>
+        /// Deletes an agent schedule. This stops all future executions of the schedule.<br/>
         /// Sessions that were previously created by this schedule are not deleted and remain accessible.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -42,8 +41,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

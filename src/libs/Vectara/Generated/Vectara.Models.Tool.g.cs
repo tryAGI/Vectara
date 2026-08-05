@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A tool that can be used by agents to perform specific actions or operations.
+    /// A tool that agents use to perform specific actions or operations.
     /// </summary>
     public readonly partial struct Tool : global::System.IEquatable<Tool>
     {
@@ -15,7 +15,7 @@ namespace Vectara
         public global::Vectara.ToolDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// A tool type for built-in Vectara tools that have implementations within the platform but do not have a dedicated tool type schema. Examples include tools like `sub_agent`, `corpora_search`, `web_search`, and similar platform-provided capabilities. Use the List Tools endpoint to discover available tools and obtain the `tool_id` required for configuration.
+        /// A tool type for built-in Vectara tools that do not have a dedicated tool type schema. Examples include tools like `sub_agent`, `corpora_search`, `web_search`, and similar platform-provided capabilities. Use the List Tools endpoint to discover available tools and obtain the `tool_id` required for configuration.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.DynamicVectaraTool? DynamicVectara { get; init; }
@@ -240,7 +240,7 @@ namespace Vectara
 
         /// <summary>
         /// A tool that spawns a specialized sub-agent to handle complex, multi-step tasks autonomously.<br/>
-        /// Sub-agents maintain separate context from the main agent and can be specialized for specific types of tasks like code review, general research, or output styling.
+        /// Sub-agents maintain separate context from the main agent. They can specialize in tasks like code review, general research, or output styling.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SubAgentTool? SubAgent { get; init; }
@@ -499,7 +499,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'GetDocumentText' but the value was {ToString()}.");
 
         /// <summary>
-        /// A tool whose execution is performed by the calling client. When invoked, the platform emits a `tool_input` event with the tool call arguments. The client submits the result as a `tool_output` input via `createAgentInput`.
+        /// A tool that the calling client executes. When invoked, the platform emits a `tool_input` event with the tool call arguments. The client submits the result as a `tool_output` input via `createAgentInput`.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ClientTool? Client { get; init; }

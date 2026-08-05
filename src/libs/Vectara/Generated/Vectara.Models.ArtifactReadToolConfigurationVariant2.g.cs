@@ -20,7 +20,7 @@ namespace Vectara
         public required string Type { get; set; } = "artifact_read";
 
         /// <summary>
-        /// Configurable parameters for the artifact read tool. If not overridden, they will be required by the agent to fill in.
+        /// Configurable parameters for the artifact read tool. If not overridden, the agent must fill them in.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
         public global::Vectara.ArtifactReadToolParameters? ArgumentOverride { get; set; }
@@ -46,7 +46,7 @@ namespace Vectara
         /// Example: artifact_read
         /// </param>
         /// <param name="argumentOverride">
-        /// Configurable parameters for the artifact read tool. If not overridden, they will be required by the agent to fill in.
+        /// Configurable parameters for the artifact read tool. If not overridden, the agent must fill them in.
         /// </param>
         /// <param name="toolConfiguration">
         /// User-configurable settings for the artifact read tool.

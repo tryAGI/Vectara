@@ -6,9 +6,9 @@ namespace Vectara
 {
     /// <summary>
     /// Event representing files uploaded to the agent workspace as artifacts.<br/>
-    /// This event is created when users upload one or more files to an agent session using multipart requests. The event becomes part of the session's conversation history and contains references to all artifacts that were uploaded in the request. Each uploaded file is assigned a unique artifact identifier and stored in the session's workspace.<br/>
-    /// When an agent processes this event, it becomes aware that new files are available in the session and can use various tools to read, analyze, or transform these artifacts. For example, after receiving an artifact upload event with a PDF, the agent might use the document conversion tool to extract and analyze the document's contents.<br/>
-    /// See the `ArtifactReference` schema for comprehensive details about what artifacts are, how they are stored, their lifecycle, and how agents interact with them.
+    /// This event is created when a user uploads one or more files to an agent session using a multipart request. The event becomes part of the session's event history. It contains references to all artifacts uploaded in the request. Each uploaded file receives a unique artifact identifier and is stored in the session's workspace.<br/>
+    /// When an agent processes this event, it learns that new files are available in the session. The agent can then use its tools to read, analyze, or transform these artifacts. For example, after an upload that contains a PDF, the agent might use the document conversion tool to extract and analyze the document's contents.<br/>
+    /// See the `ArtifactReference` schema for details about what artifacts are, how they are stored, their lifecycle, and how agents interact with them.
     /// </summary>
     public readonly partial struct ArtifactUploadEvent : global::System.IEquatable<ArtifactUploadEvent>
     {

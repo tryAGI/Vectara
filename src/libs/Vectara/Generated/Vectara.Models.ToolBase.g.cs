@@ -39,7 +39,7 @@ namespace Vectara
         public required string Description { get; set; }
 
         /// <summary>
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
+        /// Velocity template for generating dynamic tool descriptions. When set, the template renders at runtime to produce the tool description.<br/>
         /// Available Velocity variables:<br/>
         /// - `$agent.name` - Agent name<br/>
         /// - `$agent.metadata` - Agent metadata map<br/>
@@ -94,17 +94,17 @@ namespace Vectara
         public required object InputSchema { get; set; }
 
         /// <summary>
-        /// The JSON schema that describes the structure of the tool's output. May be used by clients to<br/>
+        /// The JSON schema that describes the structure of the tool's output. Clients may use it to<br/>
         /// understand the shape of tool responses and to author `default_output_transform` jq expressions.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_schema")]
         public object? OutputSchema { get; set; }
 
         /// <summary>
-        /// An optional jq expression applied to the tool's JSON output before it is returned to the agent.<br/>
+        /// An optional jq expression applied to the tool's JSON output before the agent receives it.<br/>
         /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
         /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
-        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent as an error so the agent can react.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call returns an error to the agent so the agent can react.<br/>
         /// Examples:<br/>
         ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
         ///   - `.items[0:5]` — first 5 items<br/>
@@ -116,12 +116,12 @@ namespace Vectara
         public string? DefaultOutputTransform { get; set; }
 
         /// <summary>
-        /// An optional jq expression applied to the tool's input after argument overrides have been merged with the agent's arguments and before the tool is invoked.<br/>
+        /// An optional jq expression applied to the tool's input after argument overrides merge with the agent's arguments and before the tool runs.<br/>
         /// Use this to inject server-side context (session metadata, agent secrets) into the tool input, or to reshape the agent's arguments.<br/>
-        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`), plus an `args` field containing the merged tool input.<br/>
+        /// The expression receives the standard runtime context: the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s. It also receives an `args` field that contains the merged tool input.<br/>
         /// The output of the expression replaces `args` as the tool input.<br/>
         /// The pre-transform `args` is what appears in audit events (with secrets masked); the post-transform value goes only to the tool.<br/>
-        /// If the expression fails to compile or evaluate, the tool call is reported to the agent as an error.<br/>
+        /// If the expression fails to compile or evaluate, the tool call returns an error to the agent.<br/>
         /// Examples:<br/>
         ///   - `.args + { auth: ("Bearer " + .agent.secrets.token) }` — inject a bearer header<br/>
         ///   - `.args | .corpus_key = .session.metadata.corpus_key` — pull a corpus key from session metadata<br/>
@@ -133,22 +133,22 @@ namespace Vectara
         public string? DefaultInputTransform { get; set; }
 
         /// <summary>
-        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The agent will not be able to change the parameters, nor know those values exist within the tool.<br/>
+        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to override. The value specifies what to override with. The agent cannot change these parameters and does not know these values exist.<br/>
         /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
         /// - Static value: "fixed_value" or 123<br/>
         /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
-        /// References are resolved at runtime from context:<br/>
+        /// References resolve at runtime from context:<br/>
         /// - session.metadata.* - Access session metadata fields<br/>
         /// - agent.metadata.* - Access agent metadata fields<br/>
         /// - agent.secrets.* - Access agent secrets (masked in audit events)<br/>
         /// - tools.* - Access prior tool outputs (resolved after the dependent tool runs)<br/>
         /// - currentDate - The current date/time in ISO 8601 format<br/>
-        /// A bracket index may reference another context value, whose resolved value is used as the lookup key. The inner path may optionally carry a leading $ root marker:<br/>
+        /// A bracket index may reference another context value. The resolved value becomes the lookup key. The inner path may optionally carry a leading $ root marker:<br/>
         /// - Indirect reference: `{"$ref": "agent.secrets[session.metadata.user_id]"}` looks up the per-user secret named by `session.metadata.user_id`<br/>
         /// - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`<br/>
         /// Example:<br/>
         ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
-        /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>
+        /// To use a literal `"$ref"` value, write `"$$ref"`. The $$ escapes the first $.<br/>
         /// Example: {"max_results":10}
         /// </summary>
         /// <example>{"max_results":10}</example>
@@ -216,7 +216,7 @@ namespace Vectara
         /// Human-readable title of the tool.
         /// </param>
         /// <param name="descriptionTemplate">
-        /// Velocity template for generating dynamic tool descriptions. When set, this template is rendered at runtime to produce the tool description.<br/>
+        /// Velocity template for generating dynamic tool descriptions. When set, the template renders at runtime to produce the tool description.<br/>
         /// Available Velocity variables:<br/>
         /// - `$agent.name` - Agent name<br/>
         /// - `$agent.metadata` - Agent metadata map<br/>
@@ -241,14 +241,14 @@ namespace Vectara
         /// Timestamp when the tool was last updated.
         /// </param>
         /// <param name="outputSchema">
-        /// The JSON schema that describes the structure of the tool's output. May be used by clients to<br/>
+        /// The JSON schema that describes the structure of the tool's output. Clients may use it to<br/>
         /// understand the shape of tool responses and to author `default_output_transform` jq expressions.
         /// </param>
         /// <param name="defaultOutputTransform">
-        /// An optional jq expression applied to the tool's JSON output before it is returned to the agent.<br/>
+        /// An optional jq expression applied to the tool's JSON output before the agent receives it.<br/>
         /// Use this to project, filter, or summarize tool output to keep responses concise and on-topic.<br/>
         /// The expression operates on the tool's response JSON and the result replaces the original output.<br/>
-        /// If the expression fails to compile or evaluate at runtime, the tool call is reported to the agent as an error so the agent can react.<br/>
+        /// If the expression fails to compile or evaluate at runtime, the tool call returns an error to the agent so the agent can react.<br/>
         /// Examples:<br/>
         ///   - `.results | map({title, url})` — keep only title/url for each result<br/>
         ///   - `.items[0:5]` — first 5 items<br/>
@@ -256,12 +256,12 @@ namespace Vectara
         /// Example: .results | map({title, url})
         /// </param>
         /// <param name="defaultInputTransform">
-        /// An optional jq expression applied to the tool's input after argument overrides have been merged with the agent's arguments and before the tool is invoked.<br/>
+        /// An optional jq expression applied to the tool's input after argument overrides merge with the agent's arguments and before the tool runs.<br/>
         /// Use this to inject server-side context (session metadata, agent secrets) into the tool input, or to reshape the agent's arguments.<br/>
-        /// The expression receives the standard runtime context — the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s (see `ArgumentOverrideDescription`), plus an `args` field containing the merged tool input.<br/>
+        /// The expression receives the standard runtime context: the same `agent`, `session`, `tools`, and `currentDate` values exposed to `argument_override` `$ref`s. It also receives an `args` field that contains the merged tool input.<br/>
         /// The output of the expression replaces `args` as the tool input.<br/>
         /// The pre-transform `args` is what appears in audit events (with secrets masked); the post-transform value goes only to the tool.<br/>
-        /// If the expression fails to compile or evaluate, the tool call is reported to the agent as an error.<br/>
+        /// If the expression fails to compile or evaluate, the tool call returns an error to the agent.<br/>
         /// Examples:<br/>
         ///   - `.args + { auth: ("Bearer " + .agent.secrets.token) }` — inject a bearer header<br/>
         ///   - `.args | .corpus_key = .session.metadata.corpus_key` — pull a corpus key from session metadata<br/>
@@ -269,22 +269,22 @@ namespace Vectara
         /// Example: .args + { auth: ("Bearer " + .agent.secrets.token) }
         /// </param>
         /// <param name="defaultArgumentOverride">
-        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to overide, and the value specifies what to override with. The agent will not be able to change the parameters, nor know those values exist within the tool.<br/>
+        /// Optional hardcoded arguments for tool calls. The key specifies the location in the tool arguments to override. The value specifies what to override with. The agent cannot change these parameters and does not know these values exist.<br/>
         /// The values can also be dynamic references to context values using $ref with dot notation path syntax:<br/>
         /// - Static value: "fixed_value" or 123<br/>
         /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
-        /// References are resolved at runtime from context:<br/>
+        /// References resolve at runtime from context:<br/>
         /// - session.metadata.* - Access session metadata fields<br/>
         /// - agent.metadata.* - Access agent metadata fields<br/>
         /// - agent.secrets.* - Access agent secrets (masked in audit events)<br/>
         /// - tools.* - Access prior tool outputs (resolved after the dependent tool runs)<br/>
         /// - currentDate - The current date/time in ISO 8601 format<br/>
-        /// A bracket index may reference another context value, whose resolved value is used as the lookup key. The inner path may optionally carry a leading $ root marker:<br/>
+        /// A bracket index may reference another context value. The resolved value becomes the lookup key. The inner path may optionally carry a leading $ root marker:<br/>
         /// - Indirect reference: `{"$ref": "agent.secrets[session.metadata.user_id]"}` looks up the per-user secret named by `session.metadata.user_id`<br/>
         /// - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`<br/>
         /// Example:<br/>
         ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
-        /// If you want to have a real value `"$ref"` use `"$$ref"`, that is you can escape the first $ by using $$.<br/>
+        /// To use a literal `"$ref"` value, write `"$$ref"`. The $$ escapes the first $.<br/>
         /// Example: {"max_results":10}
         /// </param>
         /// <param name="category">

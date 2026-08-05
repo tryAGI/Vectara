@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List agent schedule executions<br/>
-        /// List all execution attempts for a schedule, ordered by most recent first.
+        /// Lists all execution attempts for a schedule, ordered by most recent first.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -15,8 +15,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="limit">
@@ -37,7 +36,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List agent schedule executions<br/>
-        /// List all execution attempts for a schedule, ordered by most recent first.
+        /// Lists all execution attempts for a schedule, ordered by most recent first.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -46,8 +45,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="limit">

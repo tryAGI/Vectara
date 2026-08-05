@@ -75,7 +75,7 @@ namespace Vectara
 
         /// <summary>
         /// List spans in a trace<br/>
-        /// Retrieve the flat list of spans for a given trace, each with its parent_span_id for reconstructing the tree.
+        /// Returns the flat list of spans for a given trace. Each span includes its parent_span_id so you can reconstruct the tree.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -126,7 +126,7 @@ namespace Vectara
         }
         /// <summary>
         /// List spans in a trace<br/>
-        /// Retrieve the flat list of spans for a given trace, each with its parent_span_id for reconstructing the tree.
+        /// Returns the flat list of spans for a given trace. Each span includes its parent_span_id so you can reconstruct the tree.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

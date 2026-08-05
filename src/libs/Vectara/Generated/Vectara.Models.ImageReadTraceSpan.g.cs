@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A span representing an image being loaded into conversation context.
+    /// A span representing an image load into the session context.
     /// </summary>
     public readonly partial struct ImageReadTraceSpan : global::System.IEquatable<ImageReadTraceSpan>
     {

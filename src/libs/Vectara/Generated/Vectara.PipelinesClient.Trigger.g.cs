@@ -63,12 +63,12 @@ namespace Vectara
 
         /// <summary>
         /// Trigger pipeline<br/>
-        /// Manually trigger a pipeline run outside of the normal schedule. The pipeline will fetch new data from the source and process it through the agent. Returns the created run.
+        /// Triggers a pipeline run manually, outside of the normal schedule. The pipeline fetches new data from the source and processes it through the agent. Returns the created run.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -93,12 +93,12 @@ namespace Vectara
         }
         /// <summary>
         /// Trigger pipeline<br/>
-        /// Manually trigger a pipeline run outside of the normal schedule. The pipeline will fetch new data from the source and process it through the agent. Returns the created run.
+        /// Triggers a pipeline run manually, outside of the normal schedule. The pipeline fetches new data from the source and processes it through the agent. Returns the created run.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

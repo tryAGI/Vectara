@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to test a Lambda tool before creating it. This allows users to validate their code, schemas, and execution before committing to tool creation.<br/>
+    /// Request to test a Lambda tool before creating it.<br/>
     /// Use this endpoint to:<br/>
     /// - Validate Python code syntax and security constraints<br/>
     /// - Discover input/output schemas from type annotations<br/>
@@ -25,7 +25,7 @@ namespace Vectara
 
         /// <summary>
         /// The Python 3.12 code for the function. Must define a `process()` entry point.<br/>
-        /// Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters are rejected.<br/>
+        /// Object parameters must use `TypedDict`; validation rejects bare `dict` and `Dict[K, V]` parameters.<br/>
         /// See the `code` field on `CreateLambdaToolRequest` for full details and examples.<br/>
         /// Example: def process(order_count: int, total_revenue: float) -&gt; dict:<br/>
         ///     score = order_count * 10 + total_revenue * 0.1<br/>
@@ -47,7 +47,7 @@ namespace Vectara
         public global::Vectara.ExecutionConfiguration? ExecutionConfiguration { get; set; }
 
         /// <summary>
-        /// The input parameters to test the function with. Will be validated against the discovered input schema.<br/>
+        /// The input parameters to test the function with. The platform validates them against the discovered input schema.<br/>
         /// Example: {"order_count":10,"total_revenue":500}
         /// </summary>
         /// <example>{"order_count":10,"total_revenue":500}</example>
@@ -89,14 +89,14 @@ namespace Vectara
         /// </summary>
         /// <param name="code">
         /// The Python 3.12 code for the function. Must define a `process()` entry point.<br/>
-        /// Object parameters must use `TypedDict`; bare `dict` and `Dict[K, V]` parameters are rejected.<br/>
+        /// Object parameters must use `TypedDict`; validation rejects bare `dict` and `Dict[K, V]` parameters.<br/>
         /// See the `code` field on `CreateLambdaToolRequest` for full details and examples.<br/>
         /// Example: def process(order_count: int, total_revenue: float) -&gt; dict:<br/>
         ///     score = order_count * 10 + total_revenue * 0.1<br/>
         ///     return {'score': round(score, 2)}
         /// </param>
         /// <param name="testInput">
-        /// The input parameters to test the function with. Will be validated against the discovered input schema.<br/>
+        /// The input parameters to test the function with. The platform validates them against the discovered input schema.<br/>
         /// Example: {"order_count":10,"total_revenue":500}
         /// </param>
         /// <param name="language">

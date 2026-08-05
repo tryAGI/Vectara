@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Agent-scoped secrets for the agent. On read, values are masked (`****`) — plaintext is never returned.<br/>
+    /// Agent-scoped secrets for the agent. On read, values are masked (`****`). Plaintext is never returned.<br/>
     /// Reference values from a tool's `argument_override` via `{"$ref": "agent.secrets.&lt;name&gt;"}`.
     /// </summary>
     public sealed partial class AgentSecrets

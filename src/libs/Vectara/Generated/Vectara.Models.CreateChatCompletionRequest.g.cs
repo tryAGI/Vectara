@@ -23,7 +23,7 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.ChatCompletionRequestMessage> Messages { get; set; }
 
         /// <summary>
-        /// Optional. When set to `true`, the API streams partial message deltas as they become available, similar to ChatGPT's streaming mode.<br/>
+        /// Optional. When set to `true`, the platform streams partial message deltas as they become available instead of returning the full message at once.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
@@ -54,7 +54,7 @@ namespace Vectara
         /// An ordered array of messages that represent the full context of the conversation to date. Each message includes a `role` and `content`.
         /// </param>
         /// <param name="stream">
-        /// Optional. When set to `true`, the API streams partial message deltas as they become available, similar to ChatGPT's streaming mode.<br/>
+        /// Optional. When set to `true`, the platform streams partial message deltas as they become available instead of returning the full message at once.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="responseFormat">

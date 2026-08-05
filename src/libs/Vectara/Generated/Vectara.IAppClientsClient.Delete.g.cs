@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Delete an App Client<br/>
-        /// Remove an application client configuration from the customer account.
+        /// Deletes an App Client from the customer account.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -22,7 +22,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete an App Client<br/>
-        /// Remove an application client configuration from the customer account.
+        /// Deletes an App Client from the customer account.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -66,8 +66,8 @@ namespace Vectara
             ref string content);
 
         /// <summary>
-        /// Update document, merging the metadata.<br/>
-        /// Updates document identified by its unique `document_id` from a specific corpus. The request body metadata is merged with the existing metadata, adding or modifying only the specified fields.
+        /// Update a document, merging its metadata<br/>
+        /// Updates a document in a corpus. The unique `document_id` identifies the document. The platform merges the request body metadata with the existing metadata, adding or modifying only the specified fields.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -104,8 +104,8 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// Update document, merging the metadata.<br/>
-        /// Updates document identified by its unique `document_id` from a specific corpus. The request body metadata is merged with the existing metadata, adding or modifying only the specified fields.
+        /// Update a document, merging its metadata<br/>
+        /// Updates a document in a corpus. The unique `document_id` identifies the document. The platform merges the request body metadata with the existing metadata, adding or modifying only the specified fields.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -616,8 +616,8 @@ namespace Vectara
             }
         }
         /// <summary>
-        /// Update document, merging the metadata.<br/>
-        /// Updates document identified by its unique `document_id` from a specific corpus. The request body metadata is merged with the existing metadata, adding or modifying only the specified fields.
+        /// Update a document, merging its metadata<br/>
+        /// Updates a document in a corpus. The unique `document_id` identifies the document. The platform merges the request body metadata with the existing metadata, adding or modifying only the specified fields.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

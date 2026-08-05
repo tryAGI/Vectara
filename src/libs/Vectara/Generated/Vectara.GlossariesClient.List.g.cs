@@ -67,7 +67,7 @@ namespace Vectara
 
         /// <summary>
         /// List glossaries<br/>
-        /// List all glossaries available to the authenticated user.
+        /// Lists all glossaries available to the authenticated user.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -104,7 +104,7 @@ namespace Vectara
         }
         /// <summary>
         /// List glossaries<br/>
-        /// List all glossaries available to the authenticated user.
+        /// Lists all glossaries available to the authenticated user.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

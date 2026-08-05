@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class A2aV03TaskStatus
     {
         /// <summary>
-        /// A2A v0.3 task lifecycle state. Note `TASK_STATE_CANCELLED` uses the UK spelling per the v0.3 proto.
+        /// The A2A v0.3 task lifecycle state. `TASK_STATE_CANCELLED` uses the UK spelling, as defined in the A2A v0.3 specification.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("state")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.A2aV03TaskStateJsonConverter))]
@@ -38,7 +38,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="A2aV03TaskStatus" /> class.
         /// </summary>
         /// <param name="state">
-        /// A2A v0.3 task lifecycle state. Note `TASK_STATE_CANCELLED` uses the UK spelling per the v0.3 proto.
+        /// The A2A v0.3 task lifecycle state. `TASK_STATE_CANCELLED` uses the UK spelling, as defined in the A2A v0.3 specification.
         /// </param>
         /// <param name="message">
         /// A v0.3 unit of communication between client and agent. The `content` field carries the message parts.

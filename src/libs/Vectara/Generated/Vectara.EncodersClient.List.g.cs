@@ -67,7 +67,7 @@ namespace Vectara
 
         /// <summary>
         /// List encoders<br/>
-        /// The List Encoders API retrieves a list of available encoders used for embedding documents and queries.
+        /// Lists the available encoders used to embed documents and queries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -104,7 +104,7 @@ namespace Vectara
         }
         /// <summary>
         /// List encoders<br/>
-        /// The List Encoders API retrieves a list of available encoders used for embedding documents and queries.
+        /// Lists the available encoders used to embed documents and queries.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

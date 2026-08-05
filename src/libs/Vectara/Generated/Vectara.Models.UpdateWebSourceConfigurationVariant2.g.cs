@@ -19,9 +19,10 @@ namespace Vectara
         public required string Type { get; set; } = "web";
 
         /// <summary>
-        /// How a `web` source discovers URLs. Discriminated by `type`:<br/>
-        /// `sitemap` reads sitemap.xml only; `crawl` does BFS link-following from seed URLs;<br/>
-        /// `sitemap_crawl` reads a sitemap and crawls outward from its entries.
+        /// How a `web` source discovers URLs, discriminated by `type`:<br/>
+        /// - `sitemap`: reads sitemap.xml only.<br/>
+        /// - `crawl`: does BFS link-following from seed URLs.<br/>
+        /// - `sitemap_crawl`: reads a sitemap and crawls outward from its entries.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pages_source")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.WebPagesSourceJsonConverter))]
@@ -41,9 +42,10 @@ namespace Vectara
         /// Example: web
         /// </param>
         /// <param name="pagesSource">
-        /// How a `web` source discovers URLs. Discriminated by `type`:<br/>
-        /// `sitemap` reads sitemap.xml only; `crawl` does BFS link-following from seed URLs;<br/>
-        /// `sitemap_crawl` reads a sitemap and crawls outward from its entries.
+        /// How a `web` source discovers URLs, discriminated by `type`:<br/>
+        /// - `sitemap`: reads sitemap.xml only.<br/>
+        /// - `crawl`: does BFS link-following from seed URLs.<br/>
+        /// - `sitemap_crawl`: reads a sitemap and crawls outward from its entries.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

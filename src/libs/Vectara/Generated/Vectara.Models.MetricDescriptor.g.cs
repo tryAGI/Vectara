@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Metadata about a registered metric. The concrete variant is selected by `type`.
+    /// Metadata about a registered metric. `type` selects the concrete variant.
     /// </summary>
     public readonly partial struct MetricDescriptor : global::System.IEquatable<MetricDescriptor>
     {

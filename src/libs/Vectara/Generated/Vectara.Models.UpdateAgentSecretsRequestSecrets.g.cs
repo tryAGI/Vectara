@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Map of secret name to plaintext value (or `null` to remove). Names not in the map are not touched.<br/>
+    /// Map of secret name to plaintext value (or `null` to remove). Names not in the map are left unchanged.<br/>
     /// Example: {"jira_api_token":"ATATT3xFf...","old_token_to_remove":"openapi-json-null-sentinel-value-2BF93600-0FE4-4250-987A-E5DDB203E464"}
     /// </summary>
     public sealed partial class UpdateAgentSecretsRequestSecrets

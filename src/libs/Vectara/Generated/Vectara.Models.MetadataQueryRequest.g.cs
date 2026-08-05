@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class MetadataQueryRequest
     {
         /// <summary>
-        /// Whether to search document-level or part-level metadata. Document-level returns unique documents, part-level can return multiple parts from the same document.<br/>
+        /// Whether to search document-level or part-level metadata. Document-level search returns unique documents. Part-level search can return multiple parts from the same document.<br/>
         /// Default Value: document
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("level")]
@@ -17,7 +17,7 @@ namespace Vectara
         public global::Vectara.MetadataQueryRequestLevel? Level { get; set; }
 
         /// <summary>
-        /// List of field-specific queries to apply fuzzy matching.<br/>
+        /// The list of field-specific queries for fuzzy matching.<br/>
         /// Example: [{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]
         /// </summary>
         /// <example>[{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]</example>
@@ -26,8 +26,8 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.FieldQuery> Queries { get; set; }
 
         /// <summary>
-        /// Optional filter expression to narrow down results before fuzzy matching is applied. <br/>
-        /// This uses the same expression format as document listing filters and applies exact matching.<br/>
+        /// An optional filter expression that narrows results before fuzzy matching. <br/>
+        /// The expression uses the same format as document listing filters. The filter applies exact matching.<br/>
         /// Example: doc.Status = 'Active'
         /// </summary>
         /// <example>doc.Status = 'Active'</example>
@@ -35,14 +35,14 @@ namespace Vectara
         public string? MetadataFilter { get; set; }
 
         /// <summary>
-        /// Sets the maximum number of documents to return.<br/>
+        /// The maximum number of documents to return.<br/>
         /// Default Value: 10
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("limit")]
         public int? Limit { get; set; }
 
         /// <summary>
-        /// Starting position for pagination.<br/>
+        /// The starting position for pagination.<br/>
         /// Default Value: 0
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("offset")]
@@ -58,24 +58,24 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="MetadataQueryRequest" /> class.
         /// </summary>
         /// <param name="queries">
-        /// List of field-specific queries to apply fuzzy matching.<br/>
+        /// The list of field-specific queries for fuzzy matching.<br/>
         /// Example: [{"field":"title","query":"lease agreement","weight":2}, {"field":"category","query":"contract","weight":1}]
         /// </param>
         /// <param name="level">
-        /// Whether to search document-level or part-level metadata. Document-level returns unique documents, part-level can return multiple parts from the same document.<br/>
+        /// Whether to search document-level or part-level metadata. Document-level search returns unique documents. Part-level search can return multiple parts from the same document.<br/>
         /// Default Value: document
         /// </param>
         /// <param name="metadataFilter">
-        /// Optional filter expression to narrow down results before fuzzy matching is applied. <br/>
-        /// This uses the same expression format as document listing filters and applies exact matching.<br/>
+        /// An optional filter expression that narrows results before fuzzy matching. <br/>
+        /// The expression uses the same format as document listing filters. The filter applies exact matching.<br/>
         /// Example: doc.Status = 'Active'
         /// </param>
         /// <param name="limit">
-        /// Sets the maximum number of documents to return.<br/>
+        /// The maximum number of documents to return.<br/>
         /// Default Value: 10
         /// </param>
         /// <param name="offset">
-        /// Starting position for pagination.<br/>
+        /// The starting position for pagination.<br/>
         /// Default Value: 0
         /// </param>
 #if NET7_0_OR_GREATER

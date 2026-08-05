@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get agent session<br/>
-        /// Retrieve the full details of a specific agent session using its unique session key. The response includes the session's configuration, metadata, timestamps, and other stored properties. Use this endpoint to inspect the current state of a session or verify its configuration.
+        /// Returns the full details of a specific agent session, identified by its unique session key. The response includes the session's configuration, metadata, timestamps, and other stored properties. Use this endpoint to inspect the current state of a session or to verify its configuration.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -30,7 +30,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get agent session<br/>
-        /// Retrieve the full details of a specific agent session using its unique session key. The response includes the session's configuration, metadata, timestamps, and other stored properties. Use this endpoint to inspect the current state of a session or verify its configuration.
+        /// Returns the full details of a specific agent session, identified by its unique session key. The response includes the session's configuration, metadata, timestamps, and other stored properties. Use this endpoint to inspect the current state of a session or to verify its configuration.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

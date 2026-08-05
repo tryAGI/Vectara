@@ -52,8 +52,8 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Mcp' but the value was {ToString()}.");
 
         /// <summary>
-        /// Request to update a lambda tool, allowing modifications to code, configuration, and metadata.<br/>
-        /// When code is updated, input and output schemas are automatically re-discovered from function parameter type annotations.
+        /// Request to update a lambda tool's code, configuration, and metadata.<br/>
+        /// When you update the code, the platform re-discovers input and output schemas from function parameter type annotations.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateLambdaToolRequest? Lambda { get; init; }

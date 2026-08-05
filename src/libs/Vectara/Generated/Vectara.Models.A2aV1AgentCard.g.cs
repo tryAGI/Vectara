@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The A2A v1 Agent Card. The card lists every transport endpoint in `supportedInterfaces`; the first entry is the preferred binding.
+    /// The A2A v1 Agent Card. The card lists every transport endpoint in `supportedInterfaces`. The first entry is the preferred binding.
     /// </summary>
     public sealed partial class A2aV1AgentCard
     {
@@ -62,7 +62,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, global::Vectara.A2aV03SecurityScheme>? SecuritySchemes { get; set; }
 
         /// <summary>
-        /// List of OR'd security requirements; each entry is a map of scheme name → scope list.
+        /// Security requirements for the agent. Each entry maps scheme names to scope lists. Entries are alternatives. All schemes in one entry apply together.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("securityRequirements")]
         public global::System.Collections.Generic.IList<global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>>? SecurityRequirements { get; set; }
@@ -143,7 +143,7 @@ namespace Vectara
         /// Security schemes the agent supports, keyed by scheme name.
         /// </param>
         /// <param name="securityRequirements">
-        /// List of OR'd security requirements; each entry is a map of scheme name → scope list.
+        /// Security requirements for the agent. Each entry maps scheme names to scope lists. Entries are alternatives. All schemes in one entry apply together.
         /// </param>
         /// <param name="signatures">
         /// JWS signatures over the agent card.

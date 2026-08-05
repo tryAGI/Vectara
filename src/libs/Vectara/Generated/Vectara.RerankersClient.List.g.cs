@@ -67,7 +67,7 @@ namespace Vectara
 
         /// <summary>
         /// List rerankers<br/>
-        /// The List Rerankers API retrieves a list of available rerankers used to improve the ranking and ordering of search results.<br/>
+        /// Lists the available rerankers. Rerankers improve the ranking and ordering of search results.<br/>
         /// For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/rerankers/reranking-overview).
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -105,7 +105,7 @@ namespace Vectara
         }
         /// <summary>
         /// List rerankers<br/>
-        /// The List Rerankers API retrieves a list of available rerankers used to improve the ranking and ordering of search results.<br/>
+        /// Lists the available rerankers. Rerankers improve the ranking and ordering of search results.<br/>
         /// For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/rerankers/reranking-overview).
         /// </summary>
         /// <param name="requestTimeout"></param>

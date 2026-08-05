@@ -58,7 +58,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete instruction<br/>
-        /// Permanently delete an instruction and all its associated configuration.<br/>
+        /// Deletes an instruction and all its associated configuration permanently.<br/>
         /// :::warning<br/>
         /// This action cannot be undone. Agents currently using this instruction may fail or behave unexpectedly. Update agents to use different instructions before deleting.<br/>
         /// :::
@@ -89,7 +89,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete instruction<br/>
-        /// Permanently delete an instruction and all its associated configuration.<br/>
+        /// Deletes an instruction and all its associated configuration permanently.<br/>
         /// :::warning<br/>
         /// This action cannot be undone. Agents currently using this instruction may fail or behave unexpectedly. Update agents to use different instructions before deleting.<br/>
         /// :::

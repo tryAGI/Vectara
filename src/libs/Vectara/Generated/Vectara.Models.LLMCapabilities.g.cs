@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
+    /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
     /// </summary>
     public sealed partial class LLMCapabilities
     {
@@ -33,7 +33,7 @@ namespace Vectara
         public bool? StructuredOutputs { get; set; }
 
         /// <summary>
-        /// Whether the model requires strict role alternation in conversations. When true, consecutive messages of the same role will be grouped together.
+        /// Whether the model requires strict role alternation in conversations. When true, the platform groups consecutive messages of the same role together.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("requires_role_alternation")]
         public bool? RequiresRoleAlternation { get; set; }
@@ -60,7 +60,7 @@ namespace Vectara
         /// Whether the model supports structured output generation.
         /// </param>
         /// <param name="requiresRoleAlternation">
-        /// Whether the model requires strict role alternation in conversations. When true, consecutive messages of the same role will be grouped together.
+        /// Whether the model requires strict role alternation in conversations. When true, the platform groups consecutive messages of the same role together.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

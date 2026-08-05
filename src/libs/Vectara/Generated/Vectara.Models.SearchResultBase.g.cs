@@ -33,7 +33,7 @@ namespace Vectara
         public string? DocumentId { get; set; }
 
         /// <summary>
-        /// A query request can search over multiple corpora at a time. This property is set to the index in the list of corpora in the original search request that this search result originated from. If the query request is only over one corpus, this property is 0.<br/>
+        /// The index in the request's list of corpora that this search result originated from. A query request can search multiple corpora at a time. If the query request searches only one corpus, this property is 0.<br/>
         /// Example: 0
         /// </summary>
         /// <example>0</example>
@@ -86,7 +86,7 @@ namespace Vectara
         /// Example: financial-report-2023
         /// </param>
         /// <param name="requestCorporaIndex">
-        /// A query request can search over multiple corpora at a time. This property is set to the index in the list of corpora in the original search request that this search result originated from. If the query request is only over one corpus, this property is 0.<br/>
+        /// The index in the request's list of corpora that this search result originated from. A query request can search multiple corpora at a time. If the query request searches only one corpus, this property is 0.<br/>
         /// Example: 0
         /// </param>
         /// <param name="corpusKey">

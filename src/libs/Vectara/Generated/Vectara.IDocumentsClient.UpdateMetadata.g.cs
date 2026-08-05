@@ -5,8 +5,8 @@ namespace Vectara
     public partial interface IDocumentsClient
     {
         /// <summary>
-        /// Replace the document metadata.<br/>
-        /// Replaces metadata of a document identified by its unique `document_id` from a specific corpus.
+        /// Replace the document metadata<br/>
+        /// Replaces the metadata of a document in a corpus. The unique `document_id` identifies the document.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,8 +29,8 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Replace the document metadata.<br/>
-        /// Replaces metadata of a document identified by its unique `document_id` from a specific corpus.
+        /// Replace the document metadata<br/>
+        /// Replaces the metadata of a document in a corpus. The unique `document_id` identifies the document.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -53,8 +53,8 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Replace the document metadata.<br/>
-        /// Replaces metadata of a document identified by its unique `document_id` from a specific corpus.
+        /// Replace the document metadata<br/>
+        /// Replaces the metadata of a document in a corpus. The unique `document_id` identifies the document.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

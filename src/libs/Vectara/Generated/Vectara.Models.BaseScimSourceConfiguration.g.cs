@@ -52,12 +52,12 @@ namespace Vectara
         /// query parameter. The meta attribute is always requested so that incremental sync can<br/>
         /// read each user's meta.lastModified timestamp. When unset, the service provider<br/>
         /// returns its default attribute set. Returned attributes land in two places on each<br/>
-        /// record. They are rendered into the user's profile document, which is what the agent<br/>
-        /// converts and indexes, and they populate the record's source_record_metadata in the<br/>
-        /// agent session metadata, where they are available for attribute based filtering and<br/>
-        /// for tool argument overrides. Narrowing this list therefore narrows both what is<br/>
-        /// indexed and what is available as metadata. An attribute the service provider marks<br/>
-        /// as returned only on request is included only when named here.<br/>
+        /// record. They are rendered into the user's profile document, which the agent converts<br/>
+        /// and indexes. They also populate the record's source_record_metadata in the agent<br/>
+        /// session metadata, where they are available for attribute-based filtering and for<br/>
+        /// tool argument overrides. Narrowing this list therefore narrows both what is indexed<br/>
+        /// and what is available as metadata. An attribute the service provider marks as<br/>
+        /// returned only on request is included only when named here.<br/>
         /// Example: [userName, name, emails, groups, active]
         /// </summary>
         /// <example>[userName, name, emails, groups, active]</example>
@@ -69,7 +69,7 @@ namespace Vectara
         /// window into the SCIM filter query parameter as a `meta.lastModified` range.<br/>
         /// `client_side` enumerates every user on each run and evaluates the change window<br/>
         /// locally. Support for the filter query parameter is optional in the SCIM 2.0<br/>
-        /// specification, so set `client_side` when the service provider does not support<br/>
+        /// specification. Set `client_side` when the service provider does not support<br/>
         /// filtering on `meta.lastModified`.<br/>
         /// Default Value: last_modified_filter
         /// </summary>
@@ -110,12 +110,12 @@ namespace Vectara
         /// query parameter. The meta attribute is always requested so that incremental sync can<br/>
         /// read each user's meta.lastModified timestamp. When unset, the service provider<br/>
         /// returns its default attribute set. Returned attributes land in two places on each<br/>
-        /// record. They are rendered into the user's profile document, which is what the agent<br/>
-        /// converts and indexes, and they populate the record's source_record_metadata in the<br/>
-        /// agent session metadata, where they are available for attribute based filtering and<br/>
-        /// for tool argument overrides. Narrowing this list therefore narrows both what is<br/>
-        /// indexed and what is available as metadata. An attribute the service provider marks<br/>
-        /// as returned only on request is included only when named here.<br/>
+        /// record. They are rendered into the user's profile document, which the agent converts<br/>
+        /// and indexes. They also populate the record's source_record_metadata in the agent<br/>
+        /// session metadata, where they are available for attribute-based filtering and for<br/>
+        /// tool argument overrides. Narrowing this list therefore narrows both what is indexed<br/>
+        /// and what is available as metadata. An attribute the service provider marks as<br/>
+        /// returned only on request is included only when named here.<br/>
         /// Example: [userName, name, emails, groups, active]
         /// </param>
         /// <param name="incrementalStrategy">
@@ -123,7 +123,7 @@ namespace Vectara
         /// window into the SCIM filter query parameter as a `meta.lastModified` range.<br/>
         /// `client_side` enumerates every user on each run and evaluates the change window<br/>
         /// locally. Support for the filter query parameter is optional in the SCIM 2.0<br/>
-        /// specification, so set `client_side` when the service provider does not support<br/>
+        /// specification. Set `client_side` when the service provider does not support<br/>
         /// filtering on `meta.lastModified`.<br/>
         /// Default Value: last_modified_filter
         /// </param>

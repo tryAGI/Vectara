@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Source configuration for partial updates. Only provided fields are changed; credentials are optional.
+    /// Source configuration for partial updates. Only provided fields are changed. Credentials are optional.
     /// </summary>
     public readonly partial struct UpdatePipelineSource : global::System.IEquatable<UpdatePipelineSource>
     {
@@ -15,8 +15,8 @@ namespace Vectara
         public global::Vectara.UpdatePipelineSourceDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Partial update for SharePoint source configuration. Only provided fields are merged; a provided<br/>
-        /// `source_record_metadata` is replaced as a whole.
+        /// Partial update for SharePoint source configuration. Only provided fields are merged. A<br/>
+        /// provided `source_record_metadata` is replaced as a whole.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateSharepointSourceConfiguration? Sharepoint { get; init; }
@@ -53,7 +53,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Sharepoint' but the value was {ToString()}.");
 
         /// <summary>
-        /// Partial update for S3 source configuration. Only provided fields are merged; a provided<br/>
+        /// Partial update for S3 source configuration. Only provided fields are merged. A provided<br/>
         /// `source_record_metadata` is replaced as a whole.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -351,9 +351,9 @@ namespace Vectara
 
         /// <summary>
         /// Partial update for a `web` source configuration. Top-level fields are merged into the existing<br/>
-        /// record; if `pages_source` or `source_record_metadata` is provided, that entire object is<br/>
-        /// replaced. Switching modes or changing per-mode fields requires a complete `pages_source` object,<br/>
-        /// and a `source_record_metadata` must carry every value you want to keep.
+        /// configuration. A provided `pages_source` or `source_record_metadata` replaces that entire<br/>
+        /// object. Switching modes or changing per-mode fields requires a complete `pages_source` object.<br/>
+        /// A provided `source_record_metadata` must carry every value you want to keep.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateWebSourceConfiguration? Web { get; init; }

@@ -10,7 +10,7 @@ namespace Vectara
     public sealed partial class StructuredDocumentSection
     {
         /// <summary>
-        /// The section ID. This gets converted to a metadata field automatically.<br/>
+        /// The section ID. The platform converts the ID to a metadata field automatically.<br/>
         /// Example: 10
         /// </summary>
         /// <example>10</example>
@@ -74,7 +74,7 @@ namespace Vectara
         /// Example: This section summarizes the billing details for Acme Corp for Q1 2025.
         /// </param>
         /// <param name="id">
-        /// The section ID. This gets converted to a metadata field automatically.<br/>
+        /// The section ID. The platform converts the ID to a metadata field automatically.<br/>
         /// Example: 10
         /// </param>
         /// <param name="title">

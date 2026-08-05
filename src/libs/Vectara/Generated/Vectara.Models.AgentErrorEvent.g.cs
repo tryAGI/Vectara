@@ -8,9 +8,9 @@ namespace Vectara
     /// A turn-ending event emitted when the turn failed because of an unexpected error — for example a<br/>
     /// model configuration problem, a blocked LLM endpoint, or an internal failure. It is a `StreamError`<br/>
     /// carrying the same `messages`, plus the event id, session key, and timestamp. It is streamed as the<br/>
-    /// `error` frame and, when the failure happened inside a running turn, also recorded on the session so<br/>
-    /// the reason the turn failed stays visible when inspecting the session later. A new turn can be<br/>
-    /// started with the next input.
+    /// `error` frame. When the failure happens while the agent is running, it is also recorded on the session,<br/>
+    /// so the reason the agent stopped stays visible when inspecting the session later. The next input<br/>
+    /// starts the agent again.
     /// </summary>
     public readonly partial struct AgentErrorEvent : global::System.IEquatable<AgentErrorEvent>
     {

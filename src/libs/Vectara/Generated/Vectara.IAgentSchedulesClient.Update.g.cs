@@ -6,8 +6,8 @@ namespace Vectara
     {
         /// <summary>
         /// Update agent schedule<br/>
-        /// Update an existing agent schedule. All fields are optional - only provided fields will be updated (PATCH semantics).<br/>
-        /// You can pause/resume a schedule by setting the `enabled` field to `false`/`true`. Updating the schedule configuration (interval or cron) will reschedule future executions but will not affect executions currently in progress.
+        /// Updates an existing agent schedule. All fields are optional. The update changes only the provided fields (PATCH semantics).<br/>
+        /// To pause or resume a schedule, set the `enabled` field to `false` or `true`. Updating the schedule configuration (interval or cron) reschedules future executions. Executions currently in progress are not affected.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -16,8 +16,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="request"></param>
@@ -35,8 +34,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent schedule<br/>
-        /// Update an existing agent schedule. All fields are optional - only provided fields will be updated (PATCH semantics).<br/>
-        /// You can pause/resume a schedule by setting the `enabled` field to `false`/`true`. Updating the schedule configuration (interval or cron) will reschedule future executions but will not affect executions currently in progress.
+        /// Updates an existing agent schedule. All fields are optional. The update changes only the provided fields (PATCH semantics).<br/>
+        /// To pause or resume a schedule, set the `enabled` field to `false` or `true`. Updating the schedule configuration (interval or cron) reschedules future executions. Executions currently in progress are not affected.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -45,8 +44,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="request"></param>
@@ -64,8 +62,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent schedule<br/>
-        /// Update an existing agent schedule. All fields are optional - only provided fields will be updated (PATCH semantics).<br/>
-        /// You can pause/resume a schedule by setting the `enabled` field to `false`/`true`. Updating the schedule configuration (interval or cron) will reschedule future executions but will not affect executions currently in progress.
+        /// Updates an existing agent schedule. All fields are optional. The update changes only the provided fields (PATCH semantics).<br/>
+        /// To pause or resume a schedule, set the `enabled` field to `false` or `true`. Updating the schedule configuration (interval or cron) reschedules future executions. Executions currently in progress are not affected.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -74,8 +72,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="name">
@@ -89,7 +86,7 @@ namespace Vectara
         /// Updated input message to send to the agent on each scheduled execution.
         /// </param>
         /// <param name="schedule">
-        /// Configuration for when and how often the schedule should execute.
+        /// Configuration for when and how often the schedule executes.
         /// </param>
         /// <param name="enabled">
         /// Updated enabled status for the schedule.

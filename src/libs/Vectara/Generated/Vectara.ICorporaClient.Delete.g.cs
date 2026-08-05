@@ -6,10 +6,10 @@ namespace Vectara
     {
         /// <summary>
         /// Delete a corpus and all its data<br/>
-        /// Permanently delete a corpus and all its associated data. The `corpus_key` uniquely identifies the corpus. <br/>
-        /// Upon successful completion, space quota consumed by the corpus will be freed, and the corpus will no longer be useable for future indexing or querying.<br/>
+        /// Permanently deletes a corpus and all its associated data. The `corpus_key` uniquely identifies the corpus.<br/>
+        /// On successful completion, the space quota consumed by the corpus is freed. The corpus is no longer usable for indexing or querying.<br/>
         /// :::note<br/>
-        /// The corpus_key assigned to the corpus will be released and can be reused.<br/>
+        /// The corpus_key assigned to the corpus is released and can be reused.<br/>
         /// :::
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -29,10 +29,10 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete a corpus and all its data<br/>
-        /// Permanently delete a corpus and all its associated data. The `corpus_key` uniquely identifies the corpus. <br/>
-        /// Upon successful completion, space quota consumed by the corpus will be freed, and the corpus will no longer be useable for future indexing or querying.<br/>
+        /// Permanently deletes a corpus and all its associated data. The `corpus_key` uniquely identifies the corpus.<br/>
+        /// On successful completion, the space quota consumed by the corpus is freed. The corpus is no longer usable for indexing or querying.<br/>
         /// :::note<br/>
-        /// The corpus_key assigned to the corpus will be released and can be reused.<br/>
+        /// The corpus_key assigned to the corpus is released and can be reused.<br/>
         /// :::
         /// </summary>
         /// <param name="requestTimeout"></param>

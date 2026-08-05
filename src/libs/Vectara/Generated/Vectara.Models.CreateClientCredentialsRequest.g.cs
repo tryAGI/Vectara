@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Create an App Client which allows you to call Vectara APIs using OAuth 2.0 client credentials.
+    /// Request to create an App Client that calls Vectara APIs with OAuth 2.0 client credentials.
     /// </summary>
     public sealed partial class CreateClientCredentialsRequest
     {
@@ -22,7 +22,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// This will always be the value `client_credentials`.<br/>
+        /// Always the value `client_credentials`.<br/>
         /// Default Value: client_credentials
         /// </summary>
         /// <default>"client_credentials"</default>
@@ -31,7 +31,7 @@ namespace Vectara
         public required string Type { get; set; } = "client_credentials";
 
         /// <summary>
-        /// API roles that the client credentials will have.
+        /// The API roles assigned to the client credentials.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_roles")]
         public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? ApiRoles { get; set; }
@@ -61,14 +61,14 @@ namespace Vectara
         /// Name of the client credentials.
         /// </param>
         /// <param name="type">
-        /// This will always be the value `client_credentials`.<br/>
+        /// Always the value `client_credentials`.<br/>
         /// Default Value: client_credentials
         /// </param>
         /// <param name="description">
         /// Description of the client credentials.
         /// </param>
         /// <param name="apiRoles">
-        /// API roles that the client credentials will have.
+        /// The API roles assigned to the client credentials.
         /// </param>
         /// <param name="corpusRoles">
         /// Corpus-specific role assignments for this App Client.

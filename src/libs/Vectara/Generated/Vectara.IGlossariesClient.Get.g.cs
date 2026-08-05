@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get glossary<br/>
-        /// Get the metadata of a specific glossary.
+        /// Returns the metadata of a glossary.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -25,7 +25,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get glossary<br/>
-        /// Get the metadata of a specific glossary.
+        /// Returns the metadata of a glossary.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

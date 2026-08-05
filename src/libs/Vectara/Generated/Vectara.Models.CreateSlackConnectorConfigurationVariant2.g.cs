@@ -38,7 +38,7 @@ namespace Vectara
         public required string SigningSecret { get; set; }
 
         /// <summary>
-        /// Slack App ID for customer lookup in webhooks.<br/>
+        /// The Slack App ID that matches inbound webhook events to this connector.<br/>
         /// Example: A1234567890
         /// </summary>
         /// <example>A1234567890</example>
@@ -76,7 +76,7 @@ namespace Vectara
         /// Example: abcdef1234567890abcdef1234567890abcdef12
         /// </param>
         /// <param name="apiAppId">
-        /// Slack App ID for customer lookup in webhooks.<br/>
+        /// The Slack App ID that matches inbound webhook events to this connector.<br/>
         /// Example: A1234567890
         /// </param>
         /// <param name="respondToThreadReplies">

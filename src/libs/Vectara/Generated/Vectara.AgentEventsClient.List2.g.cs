@@ -71,7 +71,7 @@ namespace Vectara
 
         /// <summary>
         /// List events in agent session<br/>
-        /// List all events in a specific agent session, with optional pagination.
+        /// Lists all events in a specific agent session, with optional pagination.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -120,7 +120,7 @@ namespace Vectara
         }
         /// <summary>
         /// List events in agent session<br/>
-        /// List all events in a specific agent session, with optional pagination.
+        /// Lists all events in a specific agent session, with optional pagination.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

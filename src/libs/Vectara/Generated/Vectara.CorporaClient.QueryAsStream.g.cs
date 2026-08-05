@@ -59,9 +59,9 @@ namespace Vectara
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
         /// <summary>
-        /// Advanced Single Corpus Query<br/>
-        /// Perform an advanced query on a specific corpus to find relevant results, generate summaries, highlight relevant snippets, and use Retrieval Augmented Generation.<br/>
-        /// This endpoint expands on the simple GET version by allowing full customization of:<br/>
+        /// Query a corpus with advanced options<br/>
+        /// Queries a specific corpus with full control over retrieval and generation. Returns relevant results, generated summaries, and highlighted snippets. Supports Retrieval Augmented Generation (RAG).<br/>
+        /// This endpoint expands on the simple GET version with full customization of:<br/>
         /// - **Search parameters**: Control pagination (`offset`, `limit`), apply metadata filters, and specify lexical interpolation to balance neural and keyword-based retrieval.<br/>
         /// - **Hybrid search**: Adjust the `lexical_interpolation` value between `0.0` (purely neural) and `1.0` (purely lexical). Typical best results are between `0.01` and `0.1`.<br/>
         /// - **Reranking**: Apply advanced rerankers such as Multilingual, MMR, Chain, or User Defined Function rerankers to improve result relevance.<br/>
@@ -70,7 +70,7 @@ namespace Vectara
         /// Each query must include the `corpus_key` path parameter that identifies the target corpus. The response contains one or more subdocuments representing the most relevant passages, along with any generated summaries or citations.<br/>
         /// **Typical use cases**<br/>
         /// - Perform a semantically rich search over a large, domain-specific corpus.<br/>
-        /// - Retrieve relevant text passages and apply reranking for better result diversity.<br/>
+        /// - Return relevant text passages and apply reranking for better result diversity.<br/>
         /// - Generate contextually grounded answers or summaries using Retrieval Augmented Generation.<br/>
         /// ## Basic query<br/>
         /// This basic query example has a minimal configuration:<br/>
@@ -80,7 +80,7 @@ namespace Vectara
         ///   "search": {<br/>
         ///     "corpora": [{<br/>
         ///       "corpus_key": "my-corpus" <br/>
-        ///     }],<br/>
+        ///     }]<br/>
         ///   },<br/>
         ///   "generation": {<br/>
         ///     "generation_preset_name": "mockingbird-2.0",<br/>
@@ -89,10 +89,10 @@ namespace Vectara
         /// }<br/>
         /// ```<br/>
         /// ## Request body parameters<br/>
-        /// The request body is a JSON object containing the `query`, `search`, and optional `generation` objects.<br/>
-        /// `query` (string, required) - (Required) The search query text.<br/>
-        /// `search` (string, required) - (Required) An object that controls the retrieval and reranking process.<br/>
-        /// `search.corpora` - An array specifying which corpus to search. For this endpoint, the array will contain a single object.<br/>
+        /// The request body is a JSON object that contains the `query`, `search`, and optional `generation` objects.<br/>
+        /// `query` (string, required) - The search query text.<br/>
+        /// `search` (object, required) - An object that controls the retrieval and reranking process.<br/>
+        /// `search.corpora` - An array that specifies which corpus to search. For this endpoint, the array contains a single object.<br/>
         /// * `corpus_key` (string, required): The unique ID of the corpus to search.<br/>
         /// * `metadata_filter` (string, optional): A SQL-like filter to narrow results. For syntax and examples, see the Filters guide.<br/>
         /// * `lexical_interpolation` (float, optional): A value between 0.0 (pure neural search) and 1.0 (pure keyword search) to enable hybrid search. A recommended starting point is 0.025.<br/>
@@ -100,10 +100,10 @@ namespace Vectara
         /// `search.limit` (integer, optional) - The maximum number of results to retrieve before reranking. **Default**: 10<br/>
         /// `search.offset` (integer, optional) - The number of results to skip for pagination. **Default**: 0<br/>
         /// `search.context_configuration` (object, optional) - Configuration for surrounding context to include with each search result.<br/>
-        /// * `sentences_before` (integer): Number of sentences to include before the matching text.<br/>
-        /// * `sentences_after` (integer): Number of sentences to include after the matching text.<br/>
-        /// * `characters_before` (integer): Number of characters to include before the matching text.<br/>
-        /// * `characters_after` (integer): Number of characters to include after the matching text.<br/>
+        /// * `sentences_before` (integer): The number of sentences to include before the matching text.<br/>
+        /// * `sentences_after` (integer): The number of sentences to include after the matching text.<br/>
+        /// * `characters_before` (integer): The number of characters to include before the matching text.<br/>
+        /// * `characters_after` (integer): The number of characters to include after the matching text.<br/>
         /// * `start_tag` (string): HTML-style tag to wrap the beginning of the retrieved context (e.g., `&lt;b&gt;`).<br/>
         /// * `end_tag` (string): HTML-style tag to wrap the end of the retrieved context (e.g., `&lt;/b&gt;`).<br/>
         /// :::note<br/>
@@ -123,38 +123,38 @@ namespace Vectara
         /// `search.reranker` (object, optional) - Configures a reranker to improve result quality by reordering search results to place the most relevant content first. For more details, see [Reranking overview](/docs/search-and-retrieval/rerankers/reranking-overview).<br/>
         /// * `type` (string): The reranker type. Options include customer_reranker (default multilingual reranker), mmr (for result diversity), or none.<br/>
         /// * `reranker_name` (string): The specific reranker model to use (e.g., Rerank_Multilingual_v1).<br/>
-        /// * `limit` (integer): Maximum number of results to return after reranking.<br/>
-        /// * `cutoff` (float): Minimum relevance score (between 0.0 and 1.0) for a result to be included. A typical range is 0.3-0.7.<br/>
-        /// * `include_context` (boolean): If true, uses surrounding context text for more accurate reranking.<br/>
+        /// * `limit` (integer): The maximum number of results to return after reranking.<br/>
+        /// * `cutoff` (float): The minimum relevance score (between 0.0 and 1.0) for a result to be included. A typical range is 0.3-0.7.<br/>
+        /// * `include_context` (boolean): If true, the reranker uses surrounding context text for more accurate reranking.<br/>
         /// **Example:**<br/>
         /// ```json<br/>
         /// {<br/>
         ///   "reranker": {<br/>
         ///     "type": "customer_reranker",<br/>
         ///     "reranker_name": "Rerank_Multilingual_v1",<br/>
-        ///     "limit": 50,<br/>
+        ///     "limit": 50<br/>
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `generation` (object, optional) - An object that controls how the agent creates natural language responses. If this object is excluded, summarization is disabled.<br/>
+        /// `generation` (object, optional) - An object that controls how the platform generates natural language responses. If you exclude this object, summarization is disabled.<br/>
         /// `generation.generation_preset_name` (string, optional) - The name of the pre-configured prompt and LLM bundle.<br/>
         /// **Recommended Presets:**<br/>
-        /// * `mockingbird-2.0`: Vectara's cutting-edge LLM for RAG.<br/>
+        /// * `mockingbird-2.0`: Vectara's LLM for RAG.<br/>
         /// * `vectara-summary-ext-24-05-med-omni`: (gpt-4o, optimized for citations)<br/>
         /// * `vectara-summary-ext-24-05-large`: (gpt-4.0-turbo, optimized for citations)<br/>
         /// * `vectara-summary-ext-24-05-sml`: (gpt-3.5-turbo, optimized for citations)<br/>
         /// **For Tabular data:**<br/>
         /// `vectara-summary-table-query-ext-dec-2024-gpt-4o`<br/>
         /// `generation.prompt_template` (string, optional) - A custom prompt template in JSON format that defines the system and user messages for the LLM. Use this to customize the behavior of the model beyond the preset. The template can include Velocity templates with variables such as `$vectaraQueryResults` to reference retrieved search results. For more information, see [Custom prompts](/docs/prompts/vectara-prompt-engine).<br/>
-        /// `generation.max_used_search_results` (integer, optional) - The maximum number of top search results to send for summarization. The number of top search results to send to the LLM for summarization. Increasing this can create a more comprehensive summary but may increase response time. **Default limit**: 25.<br/>
+        /// `generation.max_used_search_results` (integer, optional) - The maximum number of top search results to send to the LLM for summarization. A higher value can create a more comprehensive summary but can increase response time. **Default**: 5.<br/>
         /// :::caution<br/>
-        /// Setting this value too high may prevent the model from generating a response.<br/>
+        /// A value that is too high can prevent the model from generating a response.<br/>
         /// :::<br/>
-        /// `generation.response_language` (string, optional) - The language code for the response (e.g. `eng`, `spa`, `deu`). Set this to `auto` to have Vectara guess the language, but we recommend specifying your preferred language for best results.<br/>
+        /// `generation.response_language` (string, optional) - The language code for the response (e.g. `eng`, `spa`, `deu`). Set this to `auto` to have the platform detect the language. For best results, specify your preferred language.<br/>
         /// `generation.citations` (object, optional) - Configuration for including citations in the generated summary.<br/>
         /// * `style` (string): Citation style. Options are `markdown`, `html`, or `none`.<br/>
-        /// * `url_pattern` (string): A URL template for citation links, where `{doc.id}` will be replaced with the document ID.<br/>
-        /// * `text_pattern` (string): A text template for citation display, where `{doc.title}` will be replaced with the document title.<br/>
+        /// * `url_pattern` (string): A URL template for citation links. The platform replaces `{doc.id}` with the document ID.<br/>
+        /// * `text_pattern` (string): A text template for citation display. The platform replaces `{doc.title}` with the document title.<br/>
         /// **Example:**<br/>
         /// ```json<br/>
         /// {<br/>
@@ -165,11 +165,11 @@ namespace Vectara
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `generation.model_parameters` (object, optional) - Custom parameters for the underlying LLM that overwrites the defaults of `generation_preset_name`.<br/>
-        /// * `temperature` (float): Controls randomness in the output. Higher values (e.g., 0.8) produce more creative results, while lower values (e.g., 0.2) yield more focused and deterministic outputs.<br/>
+        /// `generation.model_parameters` (object, optional) - Custom parameters for the underlying LLM that override the defaults of `generation_preset_name`.<br/>
+        /// * `temperature` (float): Controls randomness in the output. Higher values (e.g., 0.8) produce more creative results. Lower values (e.g., 0.2) produce more focused and deterministic outputs.<br/>
         /// * `max_tokens` (integer): The maximum number of tokens to generate in the response.<br/>
-        /// * `frequency_penalty` (float): Decreases the use of repeating words, reducing repetition. **Default**: `0.0` to `1.0`.<br/>
-        /// * `presence_penalty` (float): Increases the chance for the model to introduce new topics. **Default**: `0.0` to `1.0`.<br/>
+        /// * `frequency_penalty` (float): Decreases the use of repeated words. Range: `0.0` to `1.0`.<br/>
+        /// * `presence_penalty` (float): Increases the chance that the model introduces new topics. Range: `0.0` to `1.0`.<br/>
         /// **Example:**<br/>
         /// ```json<br/>
         /// {<br/>
@@ -181,7 +181,7 @@ namespace Vectara
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `generation.enable_factual_consistency_score` (boolean): If true, includes a factual consistency score in the response to indicate how well the generated summary aligns with the retrieved documents.
+        /// `generation.enable_factual_consistency_score` (boolean): If true, the response includes a factual consistency score. The score indicates how well the generated summary aligns with the retrieved documents.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -548,9 +548,9 @@ namespace Vectara
             }
         }
         /// <summary>
-        /// Advanced Single Corpus Query<br/>
-        /// Perform an advanced query on a specific corpus to find relevant results, generate summaries, highlight relevant snippets, and use Retrieval Augmented Generation.<br/>
-        /// This endpoint expands on the simple GET version by allowing full customization of:<br/>
+        /// Query a corpus with advanced options<br/>
+        /// Queries a specific corpus with full control over retrieval and generation. Returns relevant results, generated summaries, and highlighted snippets. Supports Retrieval Augmented Generation (RAG).<br/>
+        /// This endpoint expands on the simple GET version with full customization of:<br/>
         /// - **Search parameters**: Control pagination (`offset`, `limit`), apply metadata filters, and specify lexical interpolation to balance neural and keyword-based retrieval.<br/>
         /// - **Hybrid search**: Adjust the `lexical_interpolation` value between `0.0` (purely neural) and `1.0` (purely lexical). Typical best results are between `0.01` and `0.1`.<br/>
         /// - **Reranking**: Apply advanced rerankers such as Multilingual, MMR, Chain, or User Defined Function rerankers to improve result relevance.<br/>
@@ -559,7 +559,7 @@ namespace Vectara
         /// Each query must include the `corpus_key` path parameter that identifies the target corpus. The response contains one or more subdocuments representing the most relevant passages, along with any generated summaries or citations.<br/>
         /// **Typical use cases**<br/>
         /// - Perform a semantically rich search over a large, domain-specific corpus.<br/>
-        /// - Retrieve relevant text passages and apply reranking for better result diversity.<br/>
+        /// - Return relevant text passages and apply reranking for better result diversity.<br/>
         /// - Generate contextually grounded answers or summaries using Retrieval Augmented Generation.<br/>
         /// ## Basic query<br/>
         /// This basic query example has a minimal configuration:<br/>
@@ -569,7 +569,7 @@ namespace Vectara
         ///   "search": {<br/>
         ///     "corpora": [{<br/>
         ///       "corpus_key": "my-corpus" <br/>
-        ///     }],<br/>
+        ///     }]<br/>
         ///   },<br/>
         ///   "generation": {<br/>
         ///     "generation_preset_name": "mockingbird-2.0",<br/>
@@ -578,10 +578,10 @@ namespace Vectara
         /// }<br/>
         /// ```<br/>
         /// ## Request body parameters<br/>
-        /// The request body is a JSON object containing the `query`, `search`, and optional `generation` objects.<br/>
-        /// `query` (string, required) - (Required) The search query text.<br/>
-        /// `search` (string, required) - (Required) An object that controls the retrieval and reranking process.<br/>
-        /// `search.corpora` - An array specifying which corpus to search. For this endpoint, the array will contain a single object.<br/>
+        /// The request body is a JSON object that contains the `query`, `search`, and optional `generation` objects.<br/>
+        /// `query` (string, required) - The search query text.<br/>
+        /// `search` (object, required) - An object that controls the retrieval and reranking process.<br/>
+        /// `search.corpora` - An array that specifies which corpus to search. For this endpoint, the array contains a single object.<br/>
         /// * `corpus_key` (string, required): The unique ID of the corpus to search.<br/>
         /// * `metadata_filter` (string, optional): A SQL-like filter to narrow results. For syntax and examples, see the Filters guide.<br/>
         /// * `lexical_interpolation` (float, optional): A value between 0.0 (pure neural search) and 1.0 (pure keyword search) to enable hybrid search. A recommended starting point is 0.025.<br/>
@@ -589,10 +589,10 @@ namespace Vectara
         /// `search.limit` (integer, optional) - The maximum number of results to retrieve before reranking. **Default**: 10<br/>
         /// `search.offset` (integer, optional) - The number of results to skip for pagination. **Default**: 0<br/>
         /// `search.context_configuration` (object, optional) - Configuration for surrounding context to include with each search result.<br/>
-        /// * `sentences_before` (integer): Number of sentences to include before the matching text.<br/>
-        /// * `sentences_after` (integer): Number of sentences to include after the matching text.<br/>
-        /// * `characters_before` (integer): Number of characters to include before the matching text.<br/>
-        /// * `characters_after` (integer): Number of characters to include after the matching text.<br/>
+        /// * `sentences_before` (integer): The number of sentences to include before the matching text.<br/>
+        /// * `sentences_after` (integer): The number of sentences to include after the matching text.<br/>
+        /// * `characters_before` (integer): The number of characters to include before the matching text.<br/>
+        /// * `characters_after` (integer): The number of characters to include after the matching text.<br/>
         /// * `start_tag` (string): HTML-style tag to wrap the beginning of the retrieved context (e.g., `&lt;b&gt;`).<br/>
         /// * `end_tag` (string): HTML-style tag to wrap the end of the retrieved context (e.g., `&lt;/b&gt;`).<br/>
         /// :::note<br/>
@@ -612,38 +612,38 @@ namespace Vectara
         /// `search.reranker` (object, optional) - Configures a reranker to improve result quality by reordering search results to place the most relevant content first. For more details, see [Reranking overview](/docs/search-and-retrieval/rerankers/reranking-overview).<br/>
         /// * `type` (string): The reranker type. Options include customer_reranker (default multilingual reranker), mmr (for result diversity), or none.<br/>
         /// * `reranker_name` (string): The specific reranker model to use (e.g., Rerank_Multilingual_v1).<br/>
-        /// * `limit` (integer): Maximum number of results to return after reranking.<br/>
-        /// * `cutoff` (float): Minimum relevance score (between 0.0 and 1.0) for a result to be included. A typical range is 0.3-0.7.<br/>
-        /// * `include_context` (boolean): If true, uses surrounding context text for more accurate reranking.<br/>
+        /// * `limit` (integer): The maximum number of results to return after reranking.<br/>
+        /// * `cutoff` (float): The minimum relevance score (between 0.0 and 1.0) for a result to be included. A typical range is 0.3-0.7.<br/>
+        /// * `include_context` (boolean): If true, the reranker uses surrounding context text for more accurate reranking.<br/>
         /// **Example:**<br/>
         /// ```json<br/>
         /// {<br/>
         ///   "reranker": {<br/>
         ///     "type": "customer_reranker",<br/>
         ///     "reranker_name": "Rerank_Multilingual_v1",<br/>
-        ///     "limit": 50,<br/>
+        ///     "limit": 50<br/>
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `generation` (object, optional) - An object that controls how the agent creates natural language responses. If this object is excluded, summarization is disabled.<br/>
+        /// `generation` (object, optional) - An object that controls how the platform generates natural language responses. If you exclude this object, summarization is disabled.<br/>
         /// `generation.generation_preset_name` (string, optional) - The name of the pre-configured prompt and LLM bundle.<br/>
         /// **Recommended Presets:**<br/>
-        /// * `mockingbird-2.0`: Vectara's cutting-edge LLM for RAG.<br/>
+        /// * `mockingbird-2.0`: Vectara's LLM for RAG.<br/>
         /// * `vectara-summary-ext-24-05-med-omni`: (gpt-4o, optimized for citations)<br/>
         /// * `vectara-summary-ext-24-05-large`: (gpt-4.0-turbo, optimized for citations)<br/>
         /// * `vectara-summary-ext-24-05-sml`: (gpt-3.5-turbo, optimized for citations)<br/>
         /// **For Tabular data:**<br/>
         /// `vectara-summary-table-query-ext-dec-2024-gpt-4o`<br/>
         /// `generation.prompt_template` (string, optional) - A custom prompt template in JSON format that defines the system and user messages for the LLM. Use this to customize the behavior of the model beyond the preset. The template can include Velocity templates with variables such as `$vectaraQueryResults` to reference retrieved search results. For more information, see [Custom prompts](/docs/prompts/vectara-prompt-engine).<br/>
-        /// `generation.max_used_search_results` (integer, optional) - The maximum number of top search results to send for summarization. The number of top search results to send to the LLM for summarization. Increasing this can create a more comprehensive summary but may increase response time. **Default limit**: 25.<br/>
+        /// `generation.max_used_search_results` (integer, optional) - The maximum number of top search results to send to the LLM for summarization. A higher value can create a more comprehensive summary but can increase response time. **Default**: 5.<br/>
         /// :::caution<br/>
-        /// Setting this value too high may prevent the model from generating a response.<br/>
+        /// A value that is too high can prevent the model from generating a response.<br/>
         /// :::<br/>
-        /// `generation.response_language` (string, optional) - The language code for the response (e.g. `eng`, `spa`, `deu`). Set this to `auto` to have Vectara guess the language, but we recommend specifying your preferred language for best results.<br/>
+        /// `generation.response_language` (string, optional) - The language code for the response (e.g. `eng`, `spa`, `deu`). Set this to `auto` to have the platform detect the language. For best results, specify your preferred language.<br/>
         /// `generation.citations` (object, optional) - Configuration for including citations in the generated summary.<br/>
         /// * `style` (string): Citation style. Options are `markdown`, `html`, or `none`.<br/>
-        /// * `url_pattern` (string): A URL template for citation links, where `{doc.id}` will be replaced with the document ID.<br/>
-        /// * `text_pattern` (string): A text template for citation display, where `{doc.title}` will be replaced with the document title.<br/>
+        /// * `url_pattern` (string): A URL template for citation links. The platform replaces `{doc.id}` with the document ID.<br/>
+        /// * `text_pattern` (string): A text template for citation display. The platform replaces `{doc.title}` with the document title.<br/>
         /// **Example:**<br/>
         /// ```json<br/>
         /// {<br/>
@@ -654,11 +654,11 @@ namespace Vectara
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `generation.model_parameters` (object, optional) - Custom parameters for the underlying LLM that overwrites the defaults of `generation_preset_name`.<br/>
-        /// * `temperature` (float): Controls randomness in the output. Higher values (e.g., 0.8) produce more creative results, while lower values (e.g., 0.2) yield more focused and deterministic outputs.<br/>
+        /// `generation.model_parameters` (object, optional) - Custom parameters for the underlying LLM that override the defaults of `generation_preset_name`.<br/>
+        /// * `temperature` (float): Controls randomness in the output. Higher values (e.g., 0.8) produce more creative results. Lower values (e.g., 0.2) produce more focused and deterministic outputs.<br/>
         /// * `max_tokens` (integer): The maximum number of tokens to generate in the response.<br/>
-        /// * `frequency_penalty` (float): Decreases the use of repeating words, reducing repetition. **Default**: `0.0` to `1.0`.<br/>
-        /// * `presence_penalty` (float): Increases the chance for the model to introduce new topics. **Default**: `0.0` to `1.0`.<br/>
+        /// * `frequency_penalty` (float): Decreases the use of repeated words. Range: `0.0` to `1.0`.<br/>
+        /// * `presence_penalty` (float): Increases the chance that the model introduces new topics. Range: `0.0` to `1.0`.<br/>
         /// **Example:**<br/>
         /// ```json<br/>
         /// {<br/>
@@ -670,7 +670,7 @@ namespace Vectara
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `generation.enable_factual_consistency_score` (boolean): If true, includes a factual consistency score in the response to indicate how well the generated summary aligns with the retrieved documents.
+        /// `generation.enable_factual_consistency_score` (boolean): If true, the response includes a factual consistency score. The score indicates how well the generated summary aligns with the retrieved documents.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -688,14 +688,14 @@ namespace Vectara
         /// The parameters to control generation.
         /// </param>
         /// <param name="streamResponse">
-        /// Indicates whether the response should be streamed or not.<br/>
+        /// Indicates whether to stream the response.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="saveHistory">
         /// Indicates whether to save the query to query history.
         /// </param>
         /// <param name="intelligentQueryRewriting">
-        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform will attempt to extract metadata filter and rewrite the query to improve search results. Read [here](https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting) for more details.<br/>
+        /// [Tech Preview] Indicates whether to enable intelligent query rewriting. When enabled, the platform attempts to extract metadata filters and rewrite the query to improve search results. See [intelligent query rewriting](https://docs.vectara.com/docs/search-and-retrieval/intelligent-query-rewriting) for more details.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

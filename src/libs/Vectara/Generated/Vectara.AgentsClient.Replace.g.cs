@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Replace agent<br/>
-        /// The Replace Agent API enables you to completely replace an existing agent configuration, including its corpora, tools, and generation presets. This endpoint performs a full replacement of the agent definition, unlike the Update Agent API which only modifies specified fields.
+        /// Replaces the complete configuration of an existing agent, including its steps, instructions, tool configurations, and model. Unlike Update agent, which changes only the fields in the request, this operation replaces the whole agent definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -100,7 +100,7 @@ namespace Vectara
         }
         /// <summary>
         /// Replace agent<br/>
-        /// The Replace Agent API enables you to completely replace an existing agent configuration, including its corpora, tools, and generation presets. This endpoint performs a full replacement of the agent definition, unlike the Update Agent API which only modifies specified fields.
+        /// Replaces the complete configuration of an existing agent, including its steps, instructions, tool configurations, and model. Unlike Update agent, which changes only the fields in the request, this operation replaces the whole agent definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -397,7 +397,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Agent replacement request was malformed or contains invalid references.
+                            // The agent replacement request is malformed or contains invalid references.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -606,7 +606,7 @@ namespace Vectara
         }
         /// <summary>
         /// Replace agent<br/>
-        /// The Replace Agent API enables you to completely replace an existing agent configuration, including its corpora, tools, and generation presets. This endpoint performs a full replacement of the agent definition, unlike the Update Agent API which only modifies specified fields.
+        /// Replaces the complete configuration of an existing agent, including its steps, instructions, tool configurations, and model. Unlike Update agent, which changes only the fields in the request, this operation replaces the whole agent definition.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

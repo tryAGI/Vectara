@@ -17,7 +17,7 @@ namespace Vectara
         public required string Type { get; set; }
 
         /// <summary>
-        /// Percentile entries returned by this metric, in canonical order. Each entry's `label` matches a corresponding entry in every response point's `percentiles` array; `value` is the percentile rank (e.g. `0.5` for p50).<br/>
+        /// The percentile entries this metric returns, in canonical order. Each entry's `label` matches a corresponding entry in every response point's `percentiles` array; `value` is the percentile rank (e.g. `0.5` for p50).<br/>
         /// Example: [{"label":"p50","value":0.5}, {"label":"p90","value":0.9}, {"label":"p95","value":0.95}, {"label":"p99","value":0.99}]
         /// </summary>
         /// <example>[{"label":"p50","value":0.5}, {"label":"p90","value":0.9}, {"label":"p95","value":0.95}, {"label":"p99","value":0.99}]</example>
@@ -38,7 +38,7 @@ namespace Vectara
         /// Example: percentiles
         /// </param>
         /// <param name="percentiles">
-        /// Percentile entries returned by this metric, in canonical order. Each entry's `label` matches a corresponding entry in every response point's `percentiles` array; `value` is the percentile rank (e.g. `0.5` for p50).<br/>
+        /// The percentile entries this metric returns, in canonical order. Each entry's `label` matches a corresponding entry in every response point's `percentiles` array; `value` is the percentile rank (e.g. `0.5` for p50).<br/>
         /// Example: [{"label":"p50","value":0.5}, {"label":"p90","value":0.9}, {"label":"p95","value":0.95}, {"label":"p99","value":0.99}]
         /// </param>
 #if NET7_0_OR_GREATER

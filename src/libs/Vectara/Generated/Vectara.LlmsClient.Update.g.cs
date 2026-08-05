@@ -65,8 +65,8 @@ namespace Vectara
 
         /// <summary>
         /// Update an LLM<br/>
-        /// Update an existing LLM's configuration. This endpoint allows partial updates - only provide fields you want to change. Only the name field is immutable.<br/>
-        /// The updated LLM will be tested before saving to ensure credentials are valid.<br/>
+        /// Updates an existing LLM's configuration. This endpoint supports partial updates. Provide only the fields you want to change. Only the name field is immutable.<br/>
+        /// The platform tests the updated LLM before saving it to ensure the credentials are valid.<br/>
         /// **Updatable fields:**<br/>
         /// - `description` - LLM description<br/>
         /// - `type` - LLM type (openai-compatible, vertex-ai, etc.)<br/>
@@ -111,8 +111,8 @@ namespace Vectara
         }
         /// <summary>
         /// Update an LLM<br/>
-        /// Update an existing LLM's configuration. This endpoint allows partial updates - only provide fields you want to change. Only the name field is immutable.<br/>
-        /// The updated LLM will be tested before saving to ensure credentials are valid.<br/>
+        /// Updates an existing LLM's configuration. This endpoint supports partial updates. Provide only the fields you want to change. Only the name field is immutable.<br/>
+        /// The platform tests the updated LLM before saving it to ensure the credentials are valid.<br/>
         /// **Updatable fields:**<br/>
         /// - `description` - LLM description<br/>
         /// - `type` - LLM type (openai-compatible, vertex-ai, etc.)<br/>

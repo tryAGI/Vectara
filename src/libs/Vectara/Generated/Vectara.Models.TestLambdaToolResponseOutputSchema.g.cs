@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The discovered output schema from type annotations. May be null if validation failed or no type hints provided.<br/>
+    /// The discovered output schema from type annotations. May be null if validation failed or the code has no type hints.<br/>
     /// Example: {"type":"object","properties":{"score":{"type":"number"}}}
     /// </summary>
     public sealed partial class TestLambdaToolResponseOutputSchema

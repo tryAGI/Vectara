@@ -63,8 +63,8 @@ namespace Vectara
 
         /// <summary>
         /// Get agent<br/>
-        /// The Get Agent API enables you to retrieve the complete configuration and operational details of a specific AI agent, providing comprehensive visibility into agent capabilities, tool integrations, behavioral instructions, and metadata.<br/>
-        /// Use this API to inspect agent configurations before creating sessions, troubleshoot agent behavior issues, clone agent configurations for new deployments, and maintain documentation of agent capabilities across your enterprise AI infrastructure.
+        /// Returns the complete configuration of an agent, including its tools, instructions, model parameters, and metadata.<br/>
+        /// Use this operation to inspect an agent before creating sessions, to troubleshoot agent behavior, or to clone an agent configuration.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -94,8 +94,8 @@ namespace Vectara
         }
         /// <summary>
         /// Get agent<br/>
-        /// The Get Agent API enables you to retrieve the complete configuration and operational details of a specific AI agent, providing comprehensive visibility into agent capabilities, tool integrations, behavioral instructions, and metadata.<br/>
-        /// Use this API to inspect agent configurations before creating sessions, troubleshoot agent behavior issues, clone agent configurations for new deployments, and maintain documentation of agent capabilities across your enterprise AI infrastructure.
+        /// Returns the complete configuration of an agent, including its tools, instructions, model parameters, and metadata.<br/>
+        /// Use this operation to inspect an agent before creating sessions, to troubleshoot agent behavior, or to clone an agent configuration.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

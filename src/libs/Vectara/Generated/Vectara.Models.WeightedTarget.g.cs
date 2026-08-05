@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A single option inside a weighted rule. Weight is required and must be a non-negative integer; the resolver normalizes weights across the rule's options at evaluation time.
+    /// A single option inside a weighted rule. Weight is required and must be a non-negative integer. Weights are normalized across the rule's options at evaluation time.
     /// </summary>
     public sealed partial class WeightedTarget
     {

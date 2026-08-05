@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// The parameters for the model. WARNING: This is an experimental feature, and breakable at any point with virtually no notice. It is meant for experimentation to converge on optimal parameters that can then be set in the prompt definitions.
+    /// The parameters for the model. WARNING: This is an experimental feature that can change at any point with virtually no notice. Use it to converge on optimal parameters, then set them in the prompt definitions.
     /// </summary>
     public sealed partial class GenerationParametersModelParameters
     {
         /// <summary>
-        /// The model (e.g., `gpt-4`) to use for summarization. If specified, it will override the model behind `generation_preset_name`.<br/>
+        /// The model (e.g., `gpt-4`) to use for summarization. If set, it overrides the model that `generation_preset_name` selects.<br/>
         /// Example: gpt4
         /// </summary>
         /// <example>gpt4</example>
@@ -17,7 +17,7 @@ namespace Vectara
         public string? LlmName { get; set; }
 
         /// <summary>
-        /// The maximum number of tokens to be returned by the model.
+        /// The maximum number of tokens that the model returns.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_tokens")]
         public int? MaxTokens { get; set; }
@@ -50,11 +50,11 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="GenerationParametersModelParameters" /> class.
         /// </summary>
         /// <param name="llmName">
-        /// The model (e.g., `gpt-4`) to use for summarization. If specified, it will override the model behind `generation_preset_name`.<br/>
+        /// The model (e.g., `gpt-4`) to use for summarization. If set, it overrides the model that `generation_preset_name` selects.<br/>
         /// Example: gpt4
         /// </param>
         /// <param name="maxTokens">
-        /// The maximum number of tokens to be returned by the model.
+        /// The maximum number of tokens that the model returns.
         /// </param>
         /// <param name="temperature">
         /// The sampling temperature to use. Higher values make the output more random, while lower values make it more focused and deterministic.

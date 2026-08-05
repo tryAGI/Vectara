@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Collapses the result set so that at most one result is returned per document, keeping the highest-scoring part of each. Applied to the retrieved results before reranking and pagination, so the number of results returned may be smaller than `limit`.<br/>
+    /// Collapses the result set to return at most one result per document. Keeps the highest-scoring part of each document. Applies to the retrieved results before reranking and pagination, so the number of results returned can be smaller than `limit`.<br/>
     /// Example: doc.id
     /// </summary>
     public enum SearchParametersMaxBy

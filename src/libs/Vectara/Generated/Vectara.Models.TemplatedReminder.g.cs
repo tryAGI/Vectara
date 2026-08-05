@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A reminder whose template is rendered at session start according to its template_type (Velocity by default, or text for verbatim content) and injected into messages matching the specified hooks.
+    /// A reminder whose rendered template is appended to messages that match the specified hooks. The template renders at session start according to its template_type (Velocity by default, or text for verbatim content).
     /// </summary>
     public sealed partial class TemplatedReminder
     {

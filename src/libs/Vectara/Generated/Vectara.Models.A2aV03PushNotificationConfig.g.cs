@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class A2aV03PushNotificationConfig
     {
         /// <summary>
-        /// Server-assigned identifier for this push notification config.
+        /// Server-assigned identifier for this push notification configuration.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
@@ -46,7 +46,7 @@ namespace Vectara
         /// Webhook URL the agent posts task updates to.
         /// </param>
         /// <param name="id">
-        /// Server-assigned identifier for this push notification config.
+        /// Server-assigned identifier for this push notification configuration.
         /// </param>
         /// <param name="token">
         /// Optional token included in update requests so the receiver can validate the caller.

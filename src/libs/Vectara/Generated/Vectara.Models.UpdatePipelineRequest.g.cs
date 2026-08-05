@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to partially update an existing pipeline. Omitted fields are preserved.
+    /// Request to partially update an existing pipeline. Omitted fields keep their current values.
     /// </summary>
     public sealed partial class UpdatePipelineRequest
     {
@@ -23,7 +23,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Source configuration for partial updates. Only provided fields are changed; credentials are optional.
+        /// Source configuration for partial updates. Only provided fields are changed. Credentials are optional.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.UpdatePipelineSourceJsonConverter))]
@@ -79,7 +79,7 @@ namespace Vectara
         /// </param>
         /// <param name="description"></param>
         /// <param name="source">
-        /// Source configuration for partial updates. Only provided fields are changed; credentials are optional.
+        /// Source configuration for partial updates. Only provided fields are changed. Credentials are optional.
         /// </param>
         /// <param name="trigger">
         /// Defines when the pipeline runs.

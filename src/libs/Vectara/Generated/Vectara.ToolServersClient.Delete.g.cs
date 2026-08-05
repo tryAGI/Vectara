@@ -58,7 +58,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete tool server<br/>
-        /// Permanently delete a tool server and all its associated configuration and tools. This action cannot be undone.
+        /// Deletes a tool server and all of its configuration and tools. The deletion is permanent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -85,7 +85,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete tool server<br/>
-        /// Permanently delete a tool server and all its associated configuration and tools. This action cannot be undone.
+        /// Deletes a tool server and all of its configuration and tools. The deletion is permanent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -407,7 +407,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Tool Server not found.
+                            // Tool server not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;

@@ -26,7 +26,7 @@ namespace Vectara
         public global::Vectara.ExecuteToolSpanAttributes? Attributes { get; set; }
 
         /// <summary>
-        /// Span content, only included when include_content=true is requested.
+        /// The span content. The response includes it only when the request sets include_content=true.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("content")]
         public global::Vectara.ExecuteToolSpanContent? Content { get; set; }
@@ -49,7 +49,7 @@ namespace Vectara
         /// Attributes for an execute_tool span.
         /// </param>
         /// <param name="content">
-        /// Span content, only included when include_content=true is requested.
+        /// The span content. The response includes it only when the request sets include_content=true.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

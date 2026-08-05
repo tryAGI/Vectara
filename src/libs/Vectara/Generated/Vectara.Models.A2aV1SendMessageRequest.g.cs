@@ -22,7 +22,7 @@ namespace Vectara
         public required global::Vectara.A2aV1Message Message { get; set; }
 
         /// <summary>
-        /// Optional knobs that influence how the agent processes and responds to a v1 message.
+        /// Optional settings that control how the agent processes and responds to a v1 message.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
         public global::Vectara.A2aV1SendMessageConfiguration? Configuration { get; set; }
@@ -49,7 +49,7 @@ namespace Vectara
         /// Tenant identifier the message is sent to.
         /// </param>
         /// <param name="configuration">
-        /// Optional knobs that influence how the agent processes and responds to a v1 message.
+        /// Optional settings that control how the agent processes and responds to a v1 message.
         /// </param>
         /// <param name="metadata">
         /// Arbitrary client-supplied metadata for the request.

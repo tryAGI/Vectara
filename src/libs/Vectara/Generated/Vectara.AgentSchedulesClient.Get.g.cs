@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Get agent schedule<br/>
-        /// Retrieve the full details of a specific agent schedule using its unique schedule key. The response includes the schedule's configuration, execution history, and timestamps.
+        /// Returns the full details of a specific agent schedule using its unique schedule key. The response includes the schedule's configuration, execution history, and timestamps.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -74,8 +74,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -102,7 +101,7 @@ namespace Vectara
         }
         /// <summary>
         /// Get agent schedule<br/>
-        /// Retrieve the full details of a specific agent schedule using its unique schedule key. The response includes the schedule's configuration, execution history, and timestamps.
+        /// Returns the full details of a specific agent schedule using its unique schedule key. The response includes the schedule's configuration, execution history, and timestamps.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -111,8 +110,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

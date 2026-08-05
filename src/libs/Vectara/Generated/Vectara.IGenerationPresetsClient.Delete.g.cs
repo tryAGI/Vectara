@@ -6,8 +6,8 @@ namespace Vectara
     {
         /// <summary>
         /// Delete a generation preset<br/>
-        /// Delete an existing custom generation preset.<br/>
-        /// The preset must have been created by the customer (platform presets cannot be deleted).
+        /// Deletes an existing custom generation preset.<br/>
+        /// The preset must be a customer-created preset (platform presets cannot be deleted).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -23,8 +23,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete a generation preset<br/>
-        /// Delete an existing custom generation preset.<br/>
-        /// The preset must have been created by the customer (platform presets cannot be deleted).
+        /// Deletes an existing custom generation preset.<br/>
+        /// The preset must be a customer-created preset (platform presets cannot be deleted).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

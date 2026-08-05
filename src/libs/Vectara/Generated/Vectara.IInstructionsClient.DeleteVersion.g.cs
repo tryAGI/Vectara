@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Delete instruction version<br/>
-        /// Permanently delete the specified version of the instruction. This action cannot be undone.
+        /// Deletes the specified version of the instruction permanently. This action cannot be undone.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,7 +29,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete instruction version<br/>
-        /// Permanently delete the specified version of the instruction. This action cannot be undone.
+        /// Deletes the specified version of the instruction permanently. This action cannot be undone.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

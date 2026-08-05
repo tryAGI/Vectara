@@ -15,7 +15,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? Messages { get; set; }
 
         /// <summary>
-        /// The ID of the request that can be used to help Vectara support debug what went wrong.
+        /// The ID of the request. Provide this ID to Vectara support to help debug the request.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("request_id")]
         public string? RequestId { get; set; }
@@ -33,7 +33,7 @@ namespace Vectara
         /// The messages describing why the error occurred.
         /// </param>
         /// <param name="requestId">
-        /// The ID of the request that can be used to help Vectara support debug what went wrong.
+        /// The ID of the request. Provide this ID to Vectara support to help debug the request.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

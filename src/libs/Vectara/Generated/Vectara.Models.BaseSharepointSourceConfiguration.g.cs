@@ -67,9 +67,9 @@ namespace Vectara
         /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
         /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
         /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
-        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
-        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
-        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// user-provided values take precedence over connector-derived ones. `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key. Derived keys not named are kept.<br/>
+        /// A provided `acl_metadata` replaces ACL extraction entirely.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("source_record_metadata")]
         public global::Vectara.SourceRecordMetadata? SourceRecordMetadata { get; set; }
@@ -114,9 +114,9 @@ namespace Vectara
         /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
         /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
         /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
-        /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
-        /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
-        /// a provided `acl_metadata` replaces ACL extraction entirely.
+        /// user-provided values take precedence over connector-derived ones. `system_metadata` and<br/>
+        /// `user_metadata` entries override derived entries key by key. Derived keys not named are kept.<br/>
+        /// A provided `acl_metadata` replaces ACL extraction entirely.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

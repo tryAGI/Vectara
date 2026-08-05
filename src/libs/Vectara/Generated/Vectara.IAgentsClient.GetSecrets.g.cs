@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get agent secrets<br/>
-        /// Retrieve the agent's secrets. Values are always masked (`****`); plaintext is never exposed on read.
+        /// Returns the agent's secrets. Values are always masked (`****`). Plaintext is never exposed on read.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -25,7 +25,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get agent secrets<br/>
-        /// Retrieve the agent's secrets. Values are always masked (`****`); plaintext is never exposed on read.
+        /// Returns the agent's secrets. Values are always masked (`****`). Plaintext is never exposed on read.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

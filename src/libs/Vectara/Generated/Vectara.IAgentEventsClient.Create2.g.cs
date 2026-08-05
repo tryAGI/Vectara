@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Interact with an agent<br/>
-        /// Create a new input to an agent to interact with it.
+        /// Creates a new input event in the session to interact with the agent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -33,7 +33,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Interact with an agent<br/>
-        /// Create a new input to an agent to interact with it.
+        /// Creates a new input event in the session to interact with the agent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

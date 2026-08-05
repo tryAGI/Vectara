@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request body for updating an alias's metadata fields. Use `PUT /v2/agent_aliases/{alias_key}/policy` to replace the routing policy itself — policies are atomic and not partially updateable.
+    /// Request body for updating an alias's metadata fields. Use `PUT /v2/agent_aliases/{alias_key}/policy` to replace the routing policy itself. Policies are atomic and do not support partial updates.
     /// </summary>
     public sealed partial class UpdateAgentAliasRequest
     {

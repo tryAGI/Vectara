@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Delete tool server<br/>
-        /// Permanently delete a tool server and all its associated configuration and tools. This action cannot be undone.
+        /// Deletes a tool server and all of its configuration and tools. The deletion is permanent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -24,7 +24,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete tool server<br/>
-        /// Permanently delete a tool server and all its associated configuration and tools. This action cannot be undone.
+        /// Deletes a tool server and all of its configuration and tools. The deletion is permanent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

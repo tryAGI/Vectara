@@ -77,7 +77,7 @@ namespace Vectara
         public required string Template { get; set; }
 
         /// <summary>
-        /// The version identifier for this instruction. This is automatically incremented when the instruction is updated.<br/>
+        /// The version identifier for this instruction. The version increments automatically when the instruction is updated.<br/>
         /// Example: 1
         /// </summary>
         /// <example>1</example>
@@ -155,7 +155,7 @@ namespace Vectara
         /// Example: You are an expert customer support agent for $agent.name. Available tools: #foreach($tool in $tools)${tool.name}#if($foreach.hasNext), #end#end
         /// </param>
         /// <param name="version">
-        /// The version identifier for this instruction. This is automatically incremented when the instruction is updated.<br/>
+        /// The version identifier for this instruction. The version increments automatically when the instruction is updated.<br/>
         /// Example: 1
         /// </param>
         /// <param name="enabled">

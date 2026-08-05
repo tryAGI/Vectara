@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Decrypted content of a thinking span.
+    /// The content of a thinking span.
     /// </summary>
     public sealed partial class ThinkingSpanContent
     {

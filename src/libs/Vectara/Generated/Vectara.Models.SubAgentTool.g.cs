@@ -6,7 +6,7 @@ namespace Vectara
 {
     /// <summary>
     /// A tool that spawns a specialized sub-agent to handle complex, multi-step tasks autonomously.<br/>
-    /// Sub-agents maintain separate context from the main agent and can be specialized for specific types of tasks like code review, general research, or output styling.
+    /// Sub-agents maintain separate context from the main agent. They can specialize in tasks like code review, general research, or output styling.
     /// </summary>
     public readonly partial struct SubAgentTool : global::System.IEquatable<SubAgentTool>
     {

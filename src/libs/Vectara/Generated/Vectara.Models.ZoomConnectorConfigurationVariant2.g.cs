@@ -20,7 +20,7 @@ namespace Vectara
         public required string Type { get; set; } = "zoom";
 
         /// <summary>
-        /// Server-generated shared secret that authenticates inbound webhook<br/>
+        /// Platform-generated shared secret that authenticates inbound webhook<br/>
         /// requests. Zoom Contact Center must send this value in the<br/>
         /// `x-zoom-connector-token` header. Generated at create time, preserved<br/>
         /// across configuration updates, and encrypted at rest.<br/>
@@ -88,7 +88,7 @@ namespace Vectara
         /// Example: zoom
         /// </param>
         /// <param name="connectorToken">
-        /// Server-generated shared secret that authenticates inbound webhook<br/>
+        /// Platform-generated shared secret that authenticates inbound webhook<br/>
         /// requests. Zoom Contact Center must send this value in the<br/>
         /// `x-zoom-connector-token` header. Generated at create time, preserved<br/>
         /// across configuration updates, and encrypted at rest.<br/>

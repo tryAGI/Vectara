@@ -3,10 +3,10 @@
 namespace Vectara.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class JsonSchemaDefinitionTypeNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.JsonSchemaDefinitionType?>
+    public sealed class CreateEndUserInputRequestDiscriminatorTypeNullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::Vectara.CreateEndUserInputRequestDiscriminatorType?>
     {
         /// <inheritdoc />
-        public override global::Vectara.JsonSchemaDefinitionType? Read(
+        public override global::Vectara.CreateEndUserInputRequestDiscriminatorType? Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace Vectara.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::Vectara.JsonSchemaDefinitionTypeExtensions.ToEnum(stringValue);
+                        return global::Vectara.CreateEndUserInputRequestDiscriminatorTypeExtensions.ToEnum(stringValue);
                     }
                     
                     break;
@@ -26,11 +26,11 @@ namespace Vectara.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::Vectara.JsonSchemaDefinitionType)numValue;
+                    return (global::Vectara.CreateEndUserInputRequestDiscriminatorType)numValue;
                 }
                 case global::System.Text.Json.JsonTokenType.Null:
                 {
-                    return default(global::Vectara.JsonSchemaDefinitionType?);
+                    return default(global::Vectara.CreateEndUserInputRequestDiscriminatorType?);
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -42,7 +42,7 @@ namespace Vectara.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::Vectara.JsonSchemaDefinitionType? value,
+            global::Vectara.CreateEndUserInputRequestDiscriminatorType? value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
@@ -53,7 +53,7 @@ namespace Vectara.JsonConverters
             }
             else
             {
-                writer.WriteStringValue(global::Vectara.JsonSchemaDefinitionTypeExtensions.ToValueString(value.Value));
+                writer.WriteStringValue(global::Vectara.CreateEndUserInputRequestDiscriminatorTypeExtensions.ToValueString(value.Value));
             }
         }
     }

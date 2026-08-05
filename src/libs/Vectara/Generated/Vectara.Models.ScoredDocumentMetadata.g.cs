@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Document metadata object containing all document metadata fields.
+    /// An object that contains all document metadata fields.
     /// </summary>
     public sealed partial class ScoredDocumentMetadata
     {

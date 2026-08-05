@@ -63,9 +63,9 @@ namespace Vectara
 
         /// <summary>
         /// Get agent identity<br/>
-        /// Retrieve the identity associated with an agent. The identity is the service account the agent uses when executing tools.<br/>
+        /// Returns the identity associated with an agent. The identity is the service account the agent uses when executing tools.<br/>
         /// In `auto` mode (the default), the platform keeps the identity's roles in sync with the agent's tool configuration.<br/>
-        /// In `manual` mode, the roles are frozen and the platform will not modify them when the agent is updated.
+        /// In `manual` mode, the roles are frozen. The platform does not modify them when the agent is updated.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -95,9 +95,9 @@ namespace Vectara
         }
         /// <summary>
         /// Get agent identity<br/>
-        /// Retrieve the identity associated with an agent. The identity is the service account the agent uses when executing tools.<br/>
+        /// Returns the identity associated with an agent. The identity is the service account the agent uses when executing tools.<br/>
         /// In `auto` mode (the default), the platform keeps the identity's roles in sync with the agent's tool configuration.<br/>
-        /// In `manual` mode, the roles are frozen and the platform will not modify them when the agent is updated.
+        /// In `manual` mode, the roles are frozen. The platform does not modify them when the agent is updated.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

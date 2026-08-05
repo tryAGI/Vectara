@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List agents<br/>
-        /// The List Agents API enables you to retrieve a paginated list of all agents available to the authenticated user. This is useful for managing and monitoring agent deployments across use cases and environments.
+        /// Lists all agents available to the authenticated user. Results are paginated.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -34,7 +34,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List agents<br/>
-        /// The List Agents API enables you to retrieve a paginated list of all agents available to the authenticated user. This is useful for managing and monitoring agent deployments across use cases and environments.
+        /// Lists all agents available to the authenticated user. Results are paginated.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -17,7 +17,7 @@ namespace Vectara
         public required string Type { get; set; }
 
         /// <summary>
-        /// Bins that this distribution may emit, in canonical order. Each bin has a stable label, an inclusive lower bound, and an exclusive upper bound (omitted for the overflow bin).
+        /// The bins this distribution may emit, in canonical order. Each bin has a stable label, an inclusive lower bound, and an exclusive upper bound (omitted for the overflow bin).
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bins")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -36,7 +36,7 @@ namespace Vectara
         /// Example: distribution
         /// </param>
         /// <param name="bins">
-        /// Bins that this distribution may emit, in canonical order. Each bin has a stable label, an inclusive lower bound, and an exclusive upper bound (omitted for the overflow bin).
+        /// The bins this distribution may emit, in canonical order. Each bin has a stable label, an inclusive lower bound, and an exclusive upper bound (omitted for the overflow bin).
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

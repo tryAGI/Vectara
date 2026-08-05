@@ -5,8 +5,8 @@ namespace Vectara
     public partial interface IUsersClient
     {
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account. For example, a company wants to onboard new team members efficiently and this endpoint lets you streamline the process by adding new users programmatically, assigning appropriate roles, and setting up access permissions.
+        /// Create a user<br/>
+        /// Creates a user in the current customer account. Use this endpoint to add users programmatically, assign roles, and set up access permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -22,8 +22,8 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account. For example, a company wants to onboard new team members efficiently and this endpoint lets you streamline the process by adding new users programmatically, assigning appropriate roles, and setting up access permissions.
+        /// Create a user<br/>
+        /// Creates a user in the current customer account. Use this endpoint to add users programmatically, assign roles, and set up access permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -39,8 +39,8 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Create a user in the current customer account<br/>
-        /// Create a user for the current customer account. For example, a company wants to onboard new team members efficiently and this endpoint lets you streamline the process by adding new users programmatically, assigning appropriate roles, and setting up access permissions.
+        /// Create a user<br/>
+        /// Creates a user in the current customer account. Use this endpoint to add users programmatically, assign roles, and set up access permissions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

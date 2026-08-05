@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A tool type for built-in Vectara tools that have implementations within the platform but do not have a dedicated tool type schema. Examples include tools like `sub_agent`, `corpora_search`, `web_search`, and similar platform-provided capabilities. Use the List Tools endpoint to discover available tools and obtain the `tool_id` required for configuration.
+    /// A tool type for built-in Vectara tools that do not have a dedicated tool type schema. Examples include tools like `sub_agent`, `corpora_search`, `web_search`, and similar platform-provided capabilities. Use the List Tools endpoint to discover available tools and obtain the `tool_id` required for configuration.
     /// </summary>
     public readonly partial struct DynamicVectaraTool : global::System.IEquatable<DynamicVectaraTool>
     {

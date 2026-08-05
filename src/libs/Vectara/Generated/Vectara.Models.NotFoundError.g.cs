@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class NotFoundError
     {
         /// <summary>
-        /// The ID cannot be found.
+        /// The ID that cannot be found.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
@@ -21,7 +21,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? Messages { get; set; }
 
         /// <summary>
-        /// The ID of the request that can be used to help Vectara support debug what went wrong.
+        /// The ID of the request. Provide this ID to Vectara support to help debug the request.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("request_id")]
         public string? RequestId { get; set; }
@@ -36,11 +36,11 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="NotFoundError" /> class.
         /// </summary>
         /// <param name="id">
-        /// The ID cannot be found.
+        /// The ID that cannot be found.
         /// </param>
         /// <param name="messages"></param>
         /// <param name="requestId">
-        /// The ID of the request that can be used to help Vectara support debug what went wrong.
+        /// The ID of the request. Provide this ID to Vectara support to help debug the request.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

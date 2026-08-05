@@ -15,7 +15,7 @@ namespace Vectara
         public string? Tenant { get; set; }
 
         /// <summary>
-        /// Server-assigned identifier for this push notification config.
+        /// Server-assigned identifier for this push notification configuration.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         public string? Id { get; set; }
@@ -61,7 +61,7 @@ namespace Vectara
         /// Tenant identifier the config applies to.
         /// </param>
         /// <param name="id">
-        /// Server-assigned identifier for this push notification config.
+        /// Server-assigned identifier for this push notification configuration.
         /// </param>
         /// <param name="taskId">
         /// Identifier of the task this config applies to.

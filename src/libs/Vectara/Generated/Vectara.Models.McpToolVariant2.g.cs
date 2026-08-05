@@ -28,7 +28,7 @@ namespace Vectara
         public string? ServerId { get; set; }
 
         /// <summary>
-        /// Optional hints about tool behaviour/metadata.
+        /// Optional hints about tool behavior and metadata.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("annotations")]
         public global::Vectara.McpToolAnnotations? Annotations { get; set; }
@@ -52,7 +52,7 @@ namespace Vectara
         /// Example: tsr_rag_search
         /// </param>
         /// <param name="annotations">
-        /// Optional hints about tool behaviour/metadata.
+        /// Optional hints about tool behavior and metadata.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

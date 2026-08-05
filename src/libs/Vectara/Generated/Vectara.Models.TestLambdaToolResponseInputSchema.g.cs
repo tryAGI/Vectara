@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The discovered input schema from type annotations. May be null if validation failed or no type hints provided.<br/>
+    /// The discovered input schema from type annotations. May be null if validation failed or the code has no type hints.<br/>
     /// Example: {"type":"object","properties":{"order_count":{"type":"integer"},"total_revenue":{"type":"number"}},"required":["order_count","total_revenue"]}
     /// </summary>
     public sealed partial class TestLambdaToolResponseInputSchema

@@ -71,7 +71,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
 
         /// <summary>
-        /// What actions a principal can take on the Vectara platform.
+        /// The actions a principal can take on the Vectara platform.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_policy")]
         public global::Vectara.ApiPolicy? ApiPolicy { get; set; }
@@ -116,7 +116,7 @@ namespace Vectara
         /// Agent-specific role assignments for the user.
         /// </param>
         /// <param name="apiPolicy">
-        /// What actions a principal can take on the Vectara platform.
+        /// The actions a principal can take on the Vectara platform.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

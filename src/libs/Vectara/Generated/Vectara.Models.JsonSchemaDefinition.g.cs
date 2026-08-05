@@ -1,159 +1,308 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
 namespace Vectara
 {
     /// <summary>
-    /// A JSON Schema definition for describing data structure. Defines the minimum subset generally supported across LLM providers. Unknown keywords are passed through for forward compatibility.
+    /// A JSON Schema definition that describes a data structure. Covers the smallest subset of<br/>
+    /// JSON Schema that all LLM providers support. Unknown keywords are kept and passed through<br/>
+    /// to the provider.<br/>
+    /// `properties`, `required`, and `additionalProperties` are valid only when `type` is<br/>
+    /// `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other `type`, and<br/>
+    /// for an element with no `type`, such as one that only combines schemas with `anyOf`.
     /// </summary>
-    public sealed partial class JsonSchemaDefinition
+    public readonly partial struct JsonSchemaDefinition : global::System.IEquatable<JsonSchemaDefinition>
     {
         /// <summary>
-        /// The JSON type for this schema element.
+        /// 
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionTypeJsonConverter))]
-        public global::Vectara.JsonSchemaDefinitionType? Type { get; set; }
+        public global::Vectara.JsonSchemaDefinitionDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// Short human-readable label for this schema element.
+        /// A JSON Schema element with type `object`. This is the only form that can have `properties`, `required`, and `additionalProperties`.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("title")]
-        public string? Title { get; set; }
-
-        /// <summary>
-        /// Human-readable description of this schema element.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; }
-
-        /// <summary>
-        /// Default value when none is provided.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("default")]
-        public object? Default { get; set; }
-
-        /// <summary>
-        /// Allowed values for this schema element.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("enum")]
-        public byte[]? Enum { get; set; }
-
-        /// <summary>
-        /// Semantic format hint (e.g. date-time, date, email, uri, uuid). Provider support varies.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("format")]
-        public string? Format { get; set; }
-
-        /// <summary>
-        /// Property definitions when type is 'object'. Each key maps to a nested schema.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("properties")]
-        public global::System.Collections.Generic.Dictionary<string, global::Vectara.JsonSchemaDefinition>? Properties { get; set; }
-
-        /// <summary>
-        /// List of required property names when type is 'object'.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("required")]
-        public global::System.Collections.Generic.IList<string>? Required { get; set; }
-
-        /// <summary>
-        /// Whether to allow additional properties beyond those defined.<br/>
-        /// Default Value: false
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("additionalProperties")]
-        public bool? AdditionalProperties { get; set; }
-
-        /// <summary>
-        /// A JSON Schema definition for describing data structure. Defines the minimum subset generally supported across LLM providers. Unknown keywords are passed through for forward compatibility.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("items")]
-        public global::Vectara.JsonSchemaDefinition? Items { get; set; }
-
-        /// <summary>
-        /// Value must match at least one of the listed schemas.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("anyOf")]
-        public global::System.Collections.Generic.IList<global::Vectara.JsonSchemaDefinition>? AnyOf { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties2 { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonSchemaDefinition" /> class.
-        /// </summary>
-        /// <param name="type">
-        /// The JSON type for this schema element.
-        /// </param>
-        /// <param name="title">
-        /// Short human-readable label for this schema element.
-        /// </param>
-        /// <param name="description">
-        /// Human-readable description of this schema element.
-        /// </param>
-        /// <param name="default">
-        /// Default value when none is provided.
-        /// </param>
-        /// <param name="enum">
-        /// Allowed values for this schema element.
-        /// </param>
-        /// <param name="format">
-        /// Semantic format hint (e.g. date-time, date, email, uri, uuid). Provider support varies.
-        /// </param>
-        /// <param name="properties">
-        /// Property definitions when type is 'object'. Each key maps to a nested schema.
-        /// </param>
-        /// <param name="required">
-        /// List of required property names when type is 'object'.
-        /// </param>
-        /// <param name="additionalProperties">
-        /// Whether to allow additional properties beyond those defined.<br/>
-        /// Default Value: false
-        /// </param>
-        /// <param name="items">
-        /// A JSON Schema definition for describing data structure. Defines the minimum subset generally supported across LLM providers. Unknown keywords are passed through for forward compatibility.
-        /// </param>
-        /// <param name="anyOf">
-        /// Value must match at least one of the listed schemas.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.JsonSchemaObject? ObjectValue { get; init; }
+#else
+        public global::Vectara.JsonSchemaObject? ObjectValue { get; }
 #endif
-        public JsonSchemaDefinition(
-            global::Vectara.JsonSchemaDefinitionType? type,
-            string? title,
-            string? description,
-            object? @default,
-            byte[]? @enum,
-            string? format,
-            global::System.Collections.Generic.Dictionary<string, global::Vectara.JsonSchemaDefinition>? properties,
-            global::System.Collections.Generic.IList<string>? required,
-            bool? additionalProperties,
-            global::Vectara.JsonSchemaDefinition? items,
-            global::System.Collections.Generic.IList<global::Vectara.JsonSchemaDefinition>? anyOf)
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ObjectValue))]
+#endif
+        public bool IsObjectValue => ObjectValue != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickObjectValue(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.JsonSchemaObject? value)
         {
-            this.Type = type;
-            this.Title = title;
-            this.Description = description;
-            this.Default = @default;
-            this.Enum = @enum;
-            this.Format = format;
-            this.Properties = properties;
-            this.Required = required;
-            this.AdditionalProperties = additionalProperties;
-            this.Items = items;
-            this.AnyOf = anyOf;
+            value = ObjectValue;
+            return IsObjectValue;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonSchemaDefinition" /> class.
+        /// 
         /// </summary>
-        public JsonSchemaDefinition()
+        public global::Vectara.JsonSchemaObject PickObjectValue() => IsObjectValue
+            ? ObjectValue!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ObjectValue' but the value was {ToString()}.");
+
+        /// <summary>
+        /// A JSON Schema element for any type except `object`. Also used for an element with no `type`, such as an `anyOf` union. This form cannot have object keywords like `properties` or `additionalProperties`.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.JsonSchemaValue? Array { get; init; }
+#else
+        public global::Vectara.JsonSchemaValue? Array { get; }
+#endif
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Array))]
+#endif
+        public bool IsArray => Array != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickArray(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.JsonSchemaValue? value)
         {
+            value = Array;
+            return IsArray;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::Vectara.JsonSchemaValue PickArray() => IsArray
+            ? Array!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Array' but the value was {ToString()}.");
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator JsonSchemaDefinition(global::Vectara.JsonSchemaObject value) => new JsonSchemaDefinition((global::Vectara.JsonSchemaObject?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.JsonSchemaObject?(JsonSchemaDefinition @this) => @this.ObjectValue;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public JsonSchemaDefinition(global::Vectara.JsonSchemaObject? value)
+        {
+            ObjectValue = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static JsonSchemaDefinition FromObjectValue(global::Vectara.JsonSchemaObject? value) => new JsonSchemaDefinition(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator JsonSchemaDefinition(global::Vectara.JsonSchemaValue value) => new JsonSchemaDefinition((global::Vectara.JsonSchemaValue?)value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static implicit operator global::Vectara.JsonSchemaValue?(JsonSchemaDefinition @this) => @this.Array;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public JsonSchemaDefinition(global::Vectara.JsonSchemaValue? value)
+        {
+            Array = value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static JsonSchemaDefinition FromArray(global::Vectara.JsonSchemaValue? value) => new JsonSchemaDefinition(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public JsonSchemaDefinition(
+            global::Vectara.JsonSchemaDefinitionDiscriminatorType? type,
+            global::Vectara.JsonSchemaObject? objectValue,
+            global::Vectara.JsonSchemaValue? array
+            )
+        {
+            Type = type;
+
+            ObjectValue = objectValue;
+            Array = array;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object? Object =>
+            Array as object ??
+            ObjectValue as object 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override string? ToString() =>
+            ObjectValue?.ToString() ??
+            Array?.ToString() 
+            ;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Validate()
+        {
+            return IsObjectValue && !IsArray || !IsObjectValue && IsArray;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.JsonSchemaObject?, TResult>? objectValue = null,
+            global::System.Func<global::Vectara.JsonSchemaValue?, TResult>? array = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsObjectValue && objectValue != null)
+            {
+                return objectValue(ObjectValue!);
+            }
+            else if (IsArray && array != null)
+            {
+                return array(Array!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.JsonSchemaObject?>? objectValue = null,
+
+            global::System.Action<global::Vectara.JsonSchemaValue?>? array = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsObjectValue)
+            {
+                objectValue?.Invoke(ObjectValue!);
+            }
+            else if (IsArray)
+            {
+                array?.Invoke(Array!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.JsonSchemaObject?>? objectValue = null,
+            global::System.Action<global::Vectara.JsonSchemaValue?>? array = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsObjectValue)
+            {
+                objectValue?.Invoke(ObjectValue!);
+            }
+            else if (IsArray)
+            {
+                array?.Invoke(Array!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                ObjectValue,
+                typeof(global::Vectara.JsonSchemaObject),
+                Array,
+                typeof(global::Vectara.JsonSchemaValue),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Equals(JsonSchemaDefinition other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.JsonSchemaObject?>.Default.Equals(ObjectValue, other.ObjectValue) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.JsonSchemaValue?>.Default.Equals(Array, other.Array) 
+                ;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(JsonSchemaDefinition obj1, JsonSchemaDefinition obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<JsonSchemaDefinition>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(JsonSchemaDefinition obj1, JsonSchemaDefinition obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is JsonSchemaDefinition o && Equals(o);
+        }
     }
 }

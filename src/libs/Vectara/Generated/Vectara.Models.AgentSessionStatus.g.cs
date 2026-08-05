@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Lifecycle status of the session. `unstarted` before any event has been submitted, `running` while the agent is producing events, and `stopped` when the session is idle with no event in flight. `stopped` implies no terminating action — the session returns to `running` on the next request.<br/>
+    /// Lifecycle status of the session. `unstarted` before the session receives any event, `running` while the agent is producing events, and `stopped` when the session is idle with no event in flight. `stopped` implies no terminating action — the session returns to `running` on the next request.<br/>
     /// Included only in responses<br/>
     /// Example: stopped
     /// </summary>

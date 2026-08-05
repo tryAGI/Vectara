@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// During the query pipeline, the query may be rephrased to better suit the corpus.
+    /// The rephrase stage of the query pipeline. The platform can rephrase the query to better suit the corpus.
     /// </summary>
     public sealed partial class RephraseSpan
     {

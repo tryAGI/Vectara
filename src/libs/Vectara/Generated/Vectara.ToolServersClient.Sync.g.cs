@@ -58,7 +58,7 @@ namespace Vectara
 
         /// <summary>
         /// Synchronize tool server<br/>
-        /// Trigger a synchronization of the tool server to ensure it is up-to-date with the latest tools.
+        /// Synchronizes the tool server to refresh its list of tools.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -85,7 +85,7 @@ namespace Vectara
         }
         /// <summary>
         /// Synchronize tool server<br/>
-        /// Trigger a synchronization of the tool server to ensure it is up-to-date with the latest tools.
+        /// Synchronizes the tool server to refresh its list of tools.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -407,7 +407,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Tool Server not found.
+                            // Tool server not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;

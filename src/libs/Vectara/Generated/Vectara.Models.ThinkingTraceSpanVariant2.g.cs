@@ -20,7 +20,7 @@ namespace Vectara
         public required string Operation { get; set; } = "thinking";
 
         /// <summary>
-        /// Span content, only included when include_content=true is requested.
+        /// The span content. The response includes it only when the request sets include_content=true.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("content")]
         public global::Vectara.ThinkingSpanContent? Content { get; set; }
@@ -40,7 +40,7 @@ namespace Vectara
         /// Example: thinking
         /// </param>
         /// <param name="content">
-        /// Span content, only included when include_content=true is requested.
+        /// The span content. The response includes it only when the request sets include_content=true.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

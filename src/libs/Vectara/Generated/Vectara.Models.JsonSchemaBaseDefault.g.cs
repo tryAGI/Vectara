@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Default value when none is provided.
+    /// The default value to use when none is provided.
     /// </summary>
-    public sealed partial class JsonSchemaDefinitionDefault
+    public sealed partial class JsonSchemaBaseDefault
     {
 
         /// <summary>

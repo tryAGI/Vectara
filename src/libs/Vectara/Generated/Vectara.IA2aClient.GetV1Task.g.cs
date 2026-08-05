@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get A2A v1 task<br/>
-        /// Fetch the current state of an A2A task in the v1 wire format — including its status, conversation history, and any produced artifacts.
+        /// Returns the current state of an A2A task in the v1 wire format, including its status, conversation history, and any produced artifacts.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -31,7 +31,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get A2A v1 task<br/>
-        /// Fetch the current state of an A2A task in the v1 wire format — including its status, conversation history, and any produced artifacts.
+        /// Returns the current state of an A2A task in the v1 wire format, including its status, conversation history, and any produced artifacts.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

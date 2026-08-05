@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The JSON schema that describes the structure of the tool's output. May be used by clients to<br/>
+    /// The JSON schema that describes the structure of the tool's output. Clients may use it to<br/>
     /// understand the shape of tool responses and to author `default_output_transform` jq expressions.
     /// </summary>
     public sealed partial class ToolBaseOutputSchema

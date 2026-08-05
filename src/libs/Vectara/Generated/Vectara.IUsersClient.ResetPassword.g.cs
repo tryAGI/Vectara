@@ -5,8 +5,8 @@ namespace Vectara
     public partial interface IUsersClient
     {
         /// <summary>
-        /// Reset the password for a user<br/>
-        /// Reset the password for a user.
+        /// Reset a user password<br/>
+        /// Resets the password for a user.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -21,8 +21,8 @@ namespace Vectara
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Reset the password for a user<br/>
-        /// Reset the password for a user.
+        /// Reset a user password<br/>
+        /// Resets the password for a user.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

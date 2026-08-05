@@ -4,13 +4,13 @@
 namespace Vectara
 {
     /// <summary>
-    /// A pipeline is an automated data flow that sends all data from a source system to an agent<br/>
-    /// for the agent to act on per its instructions. A new agent session is created for each source<br/>
-    /// record, giving the agent full autonomy to decide what to do with each piece of data — index it<br/>
-    /// into a corpus, extract structured information, route it, or discard it.<br/>
+    /// A pipeline is an automated data flow. It sends all data from a source system to an agent<br/>
+    /// for the agent to act on per its instructions. Each source record creates a new agent<br/>
+    /// session. The agent has full autonomy to decide what to do with each piece of data — index<br/>
+    /// it into a corpus, extract structured information, route it, or discard it.<br/>
     /// This is distinct from an **agent schedule**, which is a recurring single execution of an<br/>
-    /// agent with a fixed message. A schedule creates one session per trigger; a pipeline creates<br/>
-    /// a session per source record.<br/>
+    /// agent with a fixed message. A schedule creates one session per trigger. A pipeline creates<br/>
+    /// one session per source record.<br/>
     /// This is also distinct from an **agent connector** (e.g. Slack), which is a bidirectional<br/>
     /// integration for interactive chat with an agent. A pipeline is a one-directional automated<br/>
     /// flow of all data through an agent.
@@ -18,7 +18,7 @@ namespace Vectara
     public sealed partial class Pipeline
     {
         /// <summary>
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </summary>
         /// <example>sharepoint-legal-ingest</example>
@@ -135,7 +135,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="Pipeline" /> class.
         /// </summary>
         /// <param name="key">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="name">

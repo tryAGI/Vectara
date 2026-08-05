@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// A map of tool configurations available to the agent. Set to null to clear all tools.<br/>
-    /// Individual map values set to null will delete that tool configuration.<br/>
+    /// A map value set to null deletes that tool configuration.<br/>
     /// Example: {"customer_search":{"type":"corpora_search","argument_override":{"query":"customer support documentation"}}}
     /// </summary>
     public sealed partial class UpdateAgentRequestToolConfigurations

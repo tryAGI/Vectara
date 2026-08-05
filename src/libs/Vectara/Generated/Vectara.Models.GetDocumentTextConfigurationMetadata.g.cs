@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class GetDocumentTextConfigurationMetadata
     {
         /// <summary>
-        /// Whether to include document metadata in the response. If false, metadata artifact will not be created.<br/>
+        /// Whether to include document metadata in the response. If false, the tool does not create a metadata artifact.<br/>
         /// Default Value: true
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("include")]
@@ -34,7 +34,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="GetDocumentTextConfigurationMetadata" /> class.
         /// </summary>
         /// <param name="include">
-        /// Whether to include document metadata in the response. If false, metadata artifact will not be created.<br/>
+        /// Whether to include document metadata in the response. If false, the tool does not create a metadata artifact.<br/>
         /// Default Value: true
         /// </param>
         /// <param name="excludePaths">

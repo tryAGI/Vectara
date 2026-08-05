@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A session for interacting with an agent, allowing conversation context.
+    /// A session for interacting with an agent. The session holds the agent's context.
     /// </summary>
     public sealed partial class AgentSession
     {
@@ -36,7 +36,7 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// A short description of the session's purpose. If omitted at creation, one is auto-generated once the agent has produced events. An empty string indicates auto-generation is disabled for this session.<br/>
+        /// A short description of the session's purpose. If omitted at creation, the platform generates one after the agent produces events. An empty string indicates auto-generation is disabled for this session.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </summary>
         /// <example>Helping customer troubleshoot widget installation issues</example>
@@ -71,7 +71,7 @@ namespace Vectara
         public required bool Enabled { get; set; }
 
         /// <summary>
-        /// Lifecycle status of the session. `unstarted` before any event has been submitted, `running` while the agent is producing events, and `stopped` when the session is idle with no event in flight. `stopped` implies no terminating action — the session returns to `running` on the next request.<br/>
+        /// Lifecycle status of the session. `unstarted` before the session receives any event, `running` while the agent is producing events, and `stopped` when the session is idle with no event in flight. `stopped` implies no terminating action — the session returns to `running` on the next request.<br/>
         /// Included only in responses<br/>
         /// Example: stopped
         /// </summary>
@@ -95,7 +95,7 @@ namespace Vectara
         public string? CreatedBySessionKey { get; set; }
 
         /// <summary>
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If not specified, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If not specified, the session does not expire.<br/>
         /// Default Value: 0<br/>
         /// Example: 60
         /// </summary>
@@ -173,7 +173,7 @@ namespace Vectara
         /// Example: 2024-01-15T10:30:00Z
         /// </param>
         /// <param name="description">
-        /// A short description of the session's purpose. If omitted at creation, one is auto-generated once the agent has produced events. An empty string indicates auto-generation is disabled for this session.<br/>
+        /// A short description of the session's purpose. If omitted at creation, the platform generates one after the agent produces events. An empty string indicates auto-generation is disabled for this session.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </param>
         /// <param name="metadata">
@@ -186,7 +186,7 @@ namespace Vectara
         /// Example: billing
         /// </param>
         /// <param name="status">
-        /// Lifecycle status of the session. `unstarted` before any event has been submitted, `running` while the agent is producing events, and `stopped` when the session is idle with no event in flight. `stopped` implies no terminating action — the session returns to `running` on the next request.<br/>
+        /// Lifecycle status of the session. `unstarted` before the session receives any event, `running` while the agent is producing events, and `stopped` when the session is idle with no event in flight. `stopped` implies no terminating action — the session returns to `running` on the next request.<br/>
         /// Included only in responses<br/>
         /// Example: stopped
         /// </param>
@@ -199,7 +199,7 @@ namespace Vectara
         /// Included only in responses
         /// </param>
         /// <param name="ttiMinutes">
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If not specified, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If not specified, the session does not expire.<br/>
         /// Default Value: 0<br/>
         /// Example: 60
         /// </param>

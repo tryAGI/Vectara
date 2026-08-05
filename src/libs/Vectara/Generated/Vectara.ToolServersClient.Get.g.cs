@@ -62,8 +62,8 @@ namespace Vectara
             ref string content);
 
         /// <summary>
-        /// Get tool Server<br/>
-        /// Retrieve details about a specific tool server by its Id.
+        /// Get tool server<br/>
+        /// Returns a tool server by its ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -91,8 +91,8 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// Get tool Server<br/>
-        /// Retrieve details about a specific tool server by its Id.
+        /// Get tool server<br/>
+        /// Returns a tool server by its ID.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -377,7 +377,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Permissions do not allow accessing this tool.
+                            // Permissions do not allow accessing this tool server.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -414,7 +414,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Tool Server not found.
+                            // Tool server not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;

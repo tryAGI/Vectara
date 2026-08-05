@@ -63,7 +63,7 @@ namespace Vectara
 
         /// <summary>
         /// Create an encoder<br/>
-        /// Create a new encoder.
+        /// Creates a new encoder.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -92,7 +92,7 @@ namespace Vectara
         }
         /// <summary>
         /// Create an encoder<br/>
-        /// Create a new encoder.
+        /// Creates a new encoder.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

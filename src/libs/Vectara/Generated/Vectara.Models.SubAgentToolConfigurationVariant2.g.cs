@@ -20,13 +20,13 @@ namespace Vectara
         public required string Type { get; set; } = "sub_agent";
 
         /// <summary>
-        /// Configurable parameters for the sub-agent tool. If not overridden, they will be required by the agent to fill in.
+        /// Configurable parameters for the sub-agent tool. If not overridden, the agent must fill them in.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
         public global::Vectara.SubAgentToolParameters? ArgumentOverride { get; set; }
 
         /// <summary>
-        /// User-configurable settings for the sub-agent tool. These parameters are never exposed to the agent.
+        /// User-configurable settings for the sub-agent tool. The agent never sees these parameters.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sub_agent_configuration")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -47,10 +47,10 @@ namespace Vectara
         /// Example: sub_agent
         /// </param>
         /// <param name="subAgentConfiguration">
-        /// User-configurable settings for the sub-agent tool. These parameters are never exposed to the agent.
+        /// User-configurable settings for the sub-agent tool. The agent never sees these parameters.
         /// </param>
         /// <param name="argumentOverride">
-        /// Configurable parameters for the sub-agent tool. If not overridden, they will be required by the agent to fill in.
+        /// Configurable parameters for the sub-agent tool. If not overridden, the agent must fill them in.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -65,10 +65,10 @@ namespace Vectara
 
         /// <summary>
         /// Test Lambda tool<br/>
-        /// Execute a Lambda tool with test inputs to verify it works correctly.<br/>
-        /// This endpoint allows users to test their functions before using them with agents.<br/>
-        /// Optionally supply a `test_context` to provide stand-in agent metadata, secrets, and session metadata that the `$ref`s in the tool's stored `tool_configurations` resolve against.<br/>
-        /// The function is executed in a secure sandbox environment with the same constraints as production.
+        /// Tests an existing Lambda tool by executing it with test inputs.<br/>
+        /// Use this to verify a function works correctly before agents use it.<br/>
+        /// Optionally supply a `test_context` with stand-in agent metadata, secrets, and session metadata. The `$ref`s in the tool's stored `tool_configurations` resolve against these values.<br/>
+        /// The function runs in a secure sandbox environment with the same constraints as production.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -102,10 +102,10 @@ namespace Vectara
         }
         /// <summary>
         /// Test Lambda tool<br/>
-        /// Execute a Lambda tool with test inputs to verify it works correctly.<br/>
-        /// This endpoint allows users to test their functions before using them with agents.<br/>
-        /// Optionally supply a `test_context` to provide stand-in agent metadata, secrets, and session metadata that the `$ref`s in the tool's stored `tool_configurations` resolve against.<br/>
-        /// The function is executed in a secure sandbox environment with the same constraints as production.
+        /// Tests an existing Lambda tool by executing it with test inputs.<br/>
+        /// Use this to verify a function works correctly before agents use it.<br/>
+        /// Optionally supply a `test_context` with stand-in agent metadata, secrets, and session metadata. The `$ref`s in the tool's stored `tool_configurations` resolve against these values.<br/>
+        /// The function runs in a secure sandbox environment with the same constraints as production.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -514,7 +514,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Execution failed due to execution errors or resource limits.
+                            // The execution failed due to errors or resource limits.
                             if ((int)__response.StatusCode == 500)
                             {
                                 string? __content_500 = null;
@@ -649,10 +649,10 @@ namespace Vectara
         }
         /// <summary>
         /// Test Lambda tool<br/>
-        /// Execute a Lambda tool with test inputs to verify it works correctly.<br/>
-        /// This endpoint allows users to test their functions before using them with agents.<br/>
-        /// Optionally supply a `test_context` to provide stand-in agent metadata, secrets, and session metadata that the `$ref`s in the tool's stored `tool_configurations` resolve against.<br/>
-        /// The function is executed in a secure sandbox environment with the same constraints as production.
+        /// Tests an existing Lambda tool by executing it with test inputs.<br/>
+        /// Use this to verify a function works correctly before agents use it.<br/>
+        /// Optionally supply a `test_context` with stand-in agent metadata, secrets, and session metadata. The `$ref`s in the tool's stored `tool_configurations` resolve against these values.<br/>
+        /// The function runs in a secure sandbox environment with the same constraints as production.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

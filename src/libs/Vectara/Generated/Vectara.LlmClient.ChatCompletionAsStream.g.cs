@@ -57,14 +57,14 @@ namespace Vectara
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
         /// <summary>
-        /// Creates a model response for the given chat conversation<br/>
-        /// The Chat Completions API provides an OpenAI-compatible interface for generating model responses in multi-turn chat conversations. This API enables you to integrate our language models directly into applications designed to work with the OpenAI Chat Completions format, making it easy to leverage Vectara capabilities with minimal changes to existing tools or code.<br/>
-        /// Use this API to enable interactive chat experiences that support context-aware responses, streaming output, and token usage tracking.<br/>
-        /// The request includes a series of chat messages and optional parameters that control the behavior and structure of the model response. The request body must include the `messages` parameter, an array of message objects (role, content) representing the full conversation so far.<br/>
+        /// Create a chat completion<br/>
+        /// Creates a chat completion for a multi-turn chat through an OpenAI-compatible interface. Applications built for the OpenAI Chat Completions format can use the platform's language models with minimal changes to existing tools or code.<br/>
+        /// Use this endpoint for interactive chat experiences with context-aware responses, streaming output, and token usage tracking.<br/>
+        /// The request includes a series of chat messages and optional parameters that control the behavior and structure of the model response. The request body must include the `messages` parameter. This is an array of message objects (role, content) that represents the full conversation so far.<br/>
         /// ### Streaming responses<br/>
-        /// If the `stream` parameter is set to `true`, the response appears as a series of text/event-stream parts (also known as chunks). Each chunk includes a `delta` field showing the incremental message update.<br/>
+        /// If the `stream` parameter is set to `true`, the response arrives as a series of text/event-stream parts (also known as chunks). Each chunk includes a `delta` field with the incremental message update.<br/>
         /// ### Example request<br/>
-        /// This example sends a simple chat conversation to the API, asking the assistant for the capital of France. The request includes a system prompt, a user message, and a temperature setting for response variability.<br/>
+        /// This example sends a simple chat conversation to the API, asking the model for the capital of France. The request includes a `system` message, a `user` message, and a temperature setting for response variability.<br/>
         /// ```json<br/>
         /// {<br/>
         ///   "model": "chat-model-001","messages": [{ "role": "system", "content": "You are a helpful assistant." },<br/>
@@ -75,10 +75,10 @@ namespace Vectara
         /// }<br/>
         /// ```<br/>
         /// ### Example response<br/>
-        /// The response includes a generated reply from the assistant, along with token usage statistics. In this example, the model returns a direct answer to a user question.<br/>
+        /// The response includes the model's `assistant` reply, along with token usage statistics. In this example, the model returns a direct answer to a user question.<br/>
         /// ```json<br/>
         /// {<br/>
-        /// "id": "chatcmpl-abc123",}<br/>
+        /// "id": "chatcmpl-abc123",<br/>
         /// "object": "chat.completion",<br/>
         /// "created": 1712454830,<br/>
         /// "model": "chat-model-001",<br/>
@@ -98,8 +98,7 @@ namespace Vectara
         ///   "total_tokens": 30<br/>
         ///   } <br/>
         /// } <br/>
-        /// ```<br/>
-        /// If the input summary is accurate, the `corrected_summary` matches the `original_summary`.
+        /// ```
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -466,14 +465,14 @@ namespace Vectara
             }
         }
         /// <summary>
-        /// Creates a model response for the given chat conversation<br/>
-        /// The Chat Completions API provides an OpenAI-compatible interface for generating model responses in multi-turn chat conversations. This API enables you to integrate our language models directly into applications designed to work with the OpenAI Chat Completions format, making it easy to leverage Vectara capabilities with minimal changes to existing tools or code.<br/>
-        /// Use this API to enable interactive chat experiences that support context-aware responses, streaming output, and token usage tracking.<br/>
-        /// The request includes a series of chat messages and optional parameters that control the behavior and structure of the model response. The request body must include the `messages` parameter, an array of message objects (role, content) representing the full conversation so far.<br/>
+        /// Create a chat completion<br/>
+        /// Creates a chat completion for a multi-turn chat through an OpenAI-compatible interface. Applications built for the OpenAI Chat Completions format can use the platform's language models with minimal changes to existing tools or code.<br/>
+        /// Use this endpoint for interactive chat experiences with context-aware responses, streaming output, and token usage tracking.<br/>
+        /// The request includes a series of chat messages and optional parameters that control the behavior and structure of the model response. The request body must include the `messages` parameter. This is an array of message objects (role, content) that represents the full conversation so far.<br/>
         /// ### Streaming responses<br/>
-        /// If the `stream` parameter is set to `true`, the response appears as a series of text/event-stream parts (also known as chunks). Each chunk includes a `delta` field showing the incremental message update.<br/>
+        /// If the `stream` parameter is set to `true`, the response arrives as a series of text/event-stream parts (also known as chunks). Each chunk includes a `delta` field with the incremental message update.<br/>
         /// ### Example request<br/>
-        /// This example sends a simple chat conversation to the API, asking the assistant for the capital of France. The request includes a system prompt, a user message, and a temperature setting for response variability.<br/>
+        /// This example sends a simple chat conversation to the API, asking the model for the capital of France. The request includes a `system` message, a `user` message, and a temperature setting for response variability.<br/>
         /// ```json<br/>
         /// {<br/>
         ///   "model": "chat-model-001","messages": [{ "role": "system", "content": "You are a helpful assistant." },<br/>
@@ -484,10 +483,10 @@ namespace Vectara
         /// }<br/>
         /// ```<br/>
         /// ### Example response<br/>
-        /// The response includes a generated reply from the assistant, along with token usage statistics. In this example, the model returns a direct answer to a user question.<br/>
+        /// The response includes the model's `assistant` reply, along with token usage statistics. In this example, the model returns a direct answer to a user question.<br/>
         /// ```json<br/>
         /// {<br/>
-        /// "id": "chatcmpl-abc123",}<br/>
+        /// "id": "chatcmpl-abc123",<br/>
         /// "object": "chat.completion",<br/>
         /// "created": 1712454830,<br/>
         /// "model": "chat-model-001",<br/>
@@ -507,8 +506,7 @@ namespace Vectara
         ///   "total_tokens": 30<br/>
         ///   } <br/>
         /// } <br/>
-        /// ```<br/>
-        /// If the input summary is accurate, the `corrected_summary` matches the `original_summary`.
+        /// ```
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -4,18 +4,18 @@
 namespace Vectara
 {
     /// <summary>
-    /// Returns document search results with relevance scores.
+    /// Document search results with relevance scores.
     /// </summary>
     public sealed partial class MetadataQueryResponse
     {
         /// <summary>
-        /// Matched documents ordered by relevance score (highest first).
+        /// The matched documents, ordered by relevance score from highest to lowest.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("documents")]
         public global::System.Collections.Generic.IList<global::Vectara.ScoredDocument>? Documents { get; set; }
 
         /// <summary>
-        /// Total number of matching documents (for pagination).<br/>
+        /// The total number of matching documents. Use this value for pagination.<br/>
         /// Example: 42
         /// </summary>
         /// <example>42</example>
@@ -32,10 +32,10 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="MetadataQueryResponse" /> class.
         /// </summary>
         /// <param name="documents">
-        /// Matched documents ordered by relevance score (highest first).
+        /// The matched documents, ordered by relevance score from highest to lowest.
         /// </param>
         /// <param name="totalCount">
-        /// Total number of matching documents (for pagination).<br/>
+        /// The total number of matching documents. Use this value for pagination.<br/>
         /// Example: 42
         /// </param>
 #if NET7_0_OR_GREATER

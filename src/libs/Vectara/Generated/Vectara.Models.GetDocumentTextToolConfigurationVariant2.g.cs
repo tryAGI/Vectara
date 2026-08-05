@@ -20,13 +20,13 @@ namespace Vectara
         public required string Type { get; set; } = "get_document_text";
 
         /// <summary>
-        /// Configurable parameters for the get document text tool. If not overridden, they will be required by the agent to fill in.
+        /// Configurable parameters for the get document text tool. If not overridden, the agent must fill them in.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("argument_override")]
         public global::Vectara.GetDocumentTextParameters? ArgumentOverride { get; set; }
 
         /// <summary>
-        /// User-configurable settings for the get document text tool. These parameters are never exposed to the agent.
+        /// User-configurable settings for the get document text tool. The agent never sees these parameters.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("tool_configuration")]
         public global::Vectara.GetDocumentTextConfiguration? ToolConfiguration { get; set; }
@@ -46,10 +46,10 @@ namespace Vectara
         /// Example: get_document_text
         /// </param>
         /// <param name="argumentOverride">
-        /// Configurable parameters for the get document text tool. If not overridden, they will be required by the agent to fill in.
+        /// Configurable parameters for the get document text tool. If not overridden, the agent must fill them in.
         /// </param>
         /// <param name="toolConfiguration">
-        /// User-configurable settings for the get document text tool. These parameters are never exposed to the agent.
+        /// User-configurable settings for the get document text tool. The agent never sees these parameters.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -92,11 +92,12 @@ namespace Vectara
         public required bool Enabled { get; set; }
 
         /// <summary>
-        /// Read view of a connector's configuration as returned by GET and list<br/>
+        /// Read view of a connector's configuration, as returned by GET and list<br/>
         /// endpoints. Contains the secrets supplied at create time alongside<br/>
-        /// server-derived display fields: Slack exposes `webhook_path`, gchat<br/>
-        /// exposes `audience_url` and `client_email`, and zoom exposes the<br/>
-        /// generated `connector_token` and `webhook_path`.
+        /// platform-derived display fields:<br/>
+        /// - Slack exposes `webhook_path`<br/>
+        /// - gchat exposes `audience_url` and `client_email`<br/>
+        /// - zoom exposes the generated `connector_token` and `webhook_path`
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter))]
@@ -185,11 +186,12 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="configuration">
-        /// Read view of a connector's configuration as returned by GET and list<br/>
+        /// Read view of a connector's configuration, as returned by GET and list<br/>
         /// endpoints. Contains the secrets supplied at create time alongside<br/>
-        /// server-derived display fields: Slack exposes `webhook_path`, gchat<br/>
-        /// exposes `audience_url` and `client_email`, and zoom exposes the<br/>
-        /// generated `connector_token` and `webhook_path`.
+        /// platform-derived display fields:<br/>
+        /// - Slack exposes `webhook_path`<br/>
+        /// - gchat exposes `audience_url` and `client_email`<br/>
+        /// - zoom exposes the generated `connector_token` and `webhook_path`
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the connector was created.<br/>

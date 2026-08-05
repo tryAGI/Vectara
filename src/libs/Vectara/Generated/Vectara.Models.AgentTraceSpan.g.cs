@@ -237,7 +237,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransition' but the value was {ToString()}.");
 
         /// <summary>
-        /// A span representing an image being loaded into conversation context.
+        /// A span representing an image load into the session context.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ImageReadTraceSpan? ImageRead { get; init; }

@@ -63,7 +63,7 @@ namespace Vectara
 
         /// <summary>
         /// Create an App Client<br/>
-        /// An App Client is used for OAuth 2.0 authentication when calling Vectara APIs.
+        /// Creates an App Client. An App Client is used for OAuth 2.0 authentication when calling Vectara APIs.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -92,7 +92,7 @@ namespace Vectara
         }
         /// <summary>
         /// Create an App Client<br/>
-        /// An App Client is used for OAuth 2.0 authentication when calling Vectara APIs.
+        /// Creates an App Client. An App Client is used for OAuth 2.0 authentication when calling Vectara APIs.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

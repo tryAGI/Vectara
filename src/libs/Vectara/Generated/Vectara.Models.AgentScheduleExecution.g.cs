@@ -9,8 +9,7 @@ namespace Vectara
     public sealed partial class AgentScheduleExecution
     {
         /// <summary>
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </summary>
         /// <example>daily-report</example>
@@ -19,7 +18,7 @@ namespace Vectara
         public required string ScheduleKey { get; set; }
 
         /// <summary>
-        /// Temporal run ID grouping all retry attempts of the same trigger.
+        /// Run ID that groups all retry attempts of the same trigger.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("workflow_run_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -73,12 +72,11 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AgentScheduleExecution" /> class.
         /// </summary>
         /// <param name="scheduleKey">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="workflowRunId">
-        /// Temporal run ID grouping all retry attempts of the same trigger.
+        /// Run ID that groups all retry attempts of the same trigger.
         /// </param>
         /// <param name="attempt">
         /// 1-based attempt number within the workflow run.

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A reranker can be used in query or chat endpoints to reorder the search results.
+    /// A reranker reorders search results in query or chat endpoints.
     /// </summary>
     public sealed partial class Reranker
     {

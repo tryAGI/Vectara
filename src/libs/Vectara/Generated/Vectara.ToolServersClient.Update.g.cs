@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Update tool server<br/>
-        /// Update the configuration of a specific tool server.
+        /// Updates the configuration of a tool server.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -99,7 +99,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update tool server<br/>
-        /// Update the configuration of a specific tool server.
+        /// Updates the configuration of a tool server.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -471,7 +471,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Tool Server not found.
+                            // Tool server not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -606,7 +606,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update tool server<br/>
-        /// Update the configuration of a specific tool server.
+        /// Updates the configuration of a tool server.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

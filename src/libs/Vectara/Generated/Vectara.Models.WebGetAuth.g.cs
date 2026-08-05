@@ -204,7 +204,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthRefreshToken' but the value was {ToString()}.");
 
         /// <summary>
-        /// Two-legged OAuth token exchange. The platform first mints a subject token via the client-credentials grant at `token_endpoint` (scoped to `subject_audience`), then exchanges it at `exchange_endpoint` for the token sent to the target service. Configurable to cover both RFC 8693 and non-standard STS endpoints that present the subject token or parameters differently. Both tokens are cached until they expire.
+        /// Two-legged OAuth token exchange. The platform first mints a subject token via the client-credentials grant at `token_endpoint`, scoped to `subject_audience`. It then exchanges the subject token at `exchange_endpoint` for the token sent to the target service. Configurable to cover both RFC 8693 and non-standard STS endpoints that present the subject token or parameters differently. The platform caches both tokens until they expire.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetOAuthTokenExchangeAuth? OauthTokenExchange { get; init; }
@@ -241,7 +241,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthTokenExchange' but the value was {ToString()}.");
 
         /// <summary>
-        /// AWS Signature Version 4 request signing, e.g. for reading an S3 bucket directly. The platform signs the final request (method, URL, query parameters, and body) with the supplied credentials; user-supplied headers ride along unsigned. Redirects are never followed on signed requests. When `role_arn` is set, the platform first calls sts:AssumeRole with the static credentials and signs with the assumed-role credentials.
+        /// AWS Signature Version 4 request signing, e.g. for reading an S3 bucket directly. The platform signs the final request (method, URL, query parameters, and body) with the supplied credentials. User-supplied headers ride along unsigned. The platform never follows redirects on signed requests. When `role_arn` is set, the platform first calls sts:AssumeRole with the static credentials and signs with the assumed-role credentials.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetAwsSigV4Auth? AwsSigv4 { get; init; }

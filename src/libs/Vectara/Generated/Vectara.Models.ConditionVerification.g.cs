@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Verify the worker agent's output using a UserFn condition expression. The expression<br/>
+    /// Verifies the worker agent's output using a UserFn condition expression. The expression<br/>
     /// is evaluated against the worker agent's session context (output, tools, session metadata).<br/>
     /// If the expression evaluates to true, the record is considered successfully processed.
     /// </summary>

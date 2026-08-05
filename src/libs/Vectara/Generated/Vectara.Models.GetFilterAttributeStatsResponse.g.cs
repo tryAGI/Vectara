@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Response containing statistics and value distributions for filter attributes in a corpus, providing insights into metadata distributions and values.
+    /// Response containing statistics and value distributions for the filter attributes in a corpus.
     /// </summary>
     public sealed partial class GetFilterAttributeStatsResponse
     {

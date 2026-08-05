@@ -35,7 +35,7 @@ namespace Vectara
         public bool? BoolValue { get; set; }
 
         /// <summary>
-        /// The number of columns the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.<br/>
+        /// The number of columns the cell spans. This field is optional. Defaults to 1. Must be greater than 0.<br/>
         /// Example: 1
         /// </summary>
         /// <example>1</example>
@@ -43,7 +43,7 @@ namespace Vectara
         public int? Colspan { get; set; }
 
         /// <summary>
-        /// The number of rows the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.<br/>
+        /// The number of rows the cell spans. This field is optional. Defaults to 1. Must be greater than 0.<br/>
         /// Example: 1
         /// </summary>
         /// <example>1</example>
@@ -73,11 +73,11 @@ namespace Vectara
         /// A boolean value.
         /// </param>
         /// <param name="colspan">
-        /// The number of columns the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.<br/>
+        /// The number of columns the cell spans. This field is optional. Defaults to 1. Must be greater than 0.<br/>
         /// Example: 1
         /// </param>
         /// <param name="rowspan">
-        /// The number of rows the cell spans. This field is optional; if not specified, default is 1. Must be greater than 0.<br/>
+        /// The number of rows the cell spans. This field is optional. Defaults to 1. Must be greater than 0.<br/>
         /// Example: 1
         /// </param>
 #if NET7_0_OR_GREATER

@@ -7,9 +7,9 @@ namespace Vectara
     /// Metadata recorded on each ingested record: source-system fields, owner-attached fields, and<br/>
     /// access-control grants. It is set as the `source_record_metadata` field in each record's session<br/>
     /// metadata, where the pipeline agent can access it. When supplied on a source configuration,<br/>
-    /// user-provided values take precedence over connector-derived ones — `system_metadata` and<br/>
-    /// `user_metadata` entries override derived entries key by key (derived keys not named are kept), and<br/>
-    /// a provided `acl_metadata` replaces ACL extraction entirely.
+    /// user-provided values take precedence over connector-derived ones. `system_metadata` and<br/>
+    /// `user_metadata` entries override derived entries key by key. Derived keys not named are kept.<br/>
+    /// A provided `acl_metadata` replaces ACL extraction entirely.
     /// </summary>
     public sealed partial class SourceRecordMetadata
     {
@@ -26,16 +26,16 @@ namespace Vectara
         public object? UserMetadata { get; set; }
 
         /// <summary>
-        /// Access-control grants recorded on each ingested record — extracted from the source system or<br/>
-        /// supplied via a source's `source_record_metadata.acl_metadata` (a supplied value always takes<br/>
-        /// priority over extraction).<br/>
+        /// Access-control grants recorded on each ingested record. Grants are extracted from the source<br/>
+        /// system or supplied via a source's `source_record_metadata.acl_metadata`. A supplied value<br/>
+        /// always takes priority over extraction.<br/>
         /// Grants are independent and additive: the effective audience is the union of the user lists, the<br/>
         /// group lists, `public_access`, and `org_wide_access`. An omitted list means the source does not<br/>
-        /// track that concept for the record; an empty list means it was tracked and nobody holds the grant.<br/>
-        /// User and group identifiers are stored verbatim — use the identifier form your query-time access<br/>
-        /// filter presents (e.g. email addresses for users), and supply the querying user's groups at query<br/>
-        /// time since the platform does not expand group membership. Grants are recorded at ingestion;<br/>
-        /// enforcing them at query time is up to the query's access filtering.
+        /// track that concept for the record. An empty list means it was tracked and nobody holds the grant.<br/>
+        /// User and group identifiers are stored verbatim. Use the identifier form your query-time access<br/>
+        /// filter presents (e.g. email addresses for users). Supply the querying user's groups at query<br/>
+        /// time, because the platform does not expand group membership. Grants are recorded at ingestion.<br/>
+        /// Enforcing them at query time is up to the query's access filtering.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("acl_metadata")]
         public global::Vectara.AclMetadata? AclMetadata { get; set; }
@@ -56,16 +56,16 @@ namespace Vectara
         /// Metadata the owner of the source object attached, such as S3 object tags or SharePoint custom columns.
         /// </param>
         /// <param name="aclMetadata">
-        /// Access-control grants recorded on each ingested record — extracted from the source system or<br/>
-        /// supplied via a source's `source_record_metadata.acl_metadata` (a supplied value always takes<br/>
-        /// priority over extraction).<br/>
+        /// Access-control grants recorded on each ingested record. Grants are extracted from the source<br/>
+        /// system or supplied via a source's `source_record_metadata.acl_metadata`. A supplied value<br/>
+        /// always takes priority over extraction.<br/>
         /// Grants are independent and additive: the effective audience is the union of the user lists, the<br/>
         /// group lists, `public_access`, and `org_wide_access`. An omitted list means the source does not<br/>
-        /// track that concept for the record; an empty list means it was tracked and nobody holds the grant.<br/>
-        /// User and group identifiers are stored verbatim — use the identifier form your query-time access<br/>
-        /// filter presents (e.g. email addresses for users), and supply the querying user's groups at query<br/>
-        /// time since the platform does not expand group membership. Grants are recorded at ingestion;<br/>
-        /// enforcing them at query time is up to the query's access filtering.
+        /// track that concept for the record. An empty list means it was tracked and nobody holds the grant.<br/>
+        /// User and group identifiers are stored verbatim. Use the identifier form your query-time access<br/>
+        /// filter presents (e.g. email addresses for users). Supply the querying user's groups at query<br/>
+        /// time, because the platform does not expand group membership. Grants are recorded at ingestion.<br/>
+        /// Enforcing them at query time is up to the query's access filtering.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

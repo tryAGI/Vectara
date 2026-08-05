@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Two-legged OAuth token exchange. The platform first mints a subject token via the client-credentials grant at `token_endpoint` (scoped to `subject_audience`), then exchanges it at `exchange_endpoint` for the token sent to the target service. Configurable to cover both RFC 8693 and non-standard STS endpoints that present the subject token or parameters differently. Both tokens are cached until they expire.
+    /// Two-legged OAuth token exchange. The platform first mints a subject token via the client-credentials grant at `token_endpoint`, scoped to `subject_audience`. It then exchanges the subject token at `exchange_endpoint` for the token sent to the target service. Configurable to cover both RFC 8693 and non-standard STS endpoints that present the subject token or parameters differently. The platform caches both tokens until they expire.
     /// </summary>
     public sealed partial class WebGetOAuthTokenExchangeAuth
     {

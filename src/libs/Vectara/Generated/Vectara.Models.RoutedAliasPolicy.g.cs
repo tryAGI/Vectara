@@ -4,8 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// Evaluates ordered rules against the session context. The first rule whose `match` expression evaluates to true is selected. The selected rule's `targets` shape determines what runs: `single` routes directly to one agent, `weighted` picks one of several agents by hashing the rule's `partition_by` expression. A rule with no `match` always matches (catch-all). It must be the last rule; any rule placed after it is rejected as unreachable.<br/>
-    /// This single shape covers direct routing (one rule, single target), weighted/canary rollouts (one rule, weighted targets), conditional routing (multiple rules with matches), and conditional+canary combinations (multiple rules, each independently single or weighted).
+    /// Evaluates ordered rules against the session context. The policy selects the first rule whose `match` expression evaluates to true. The selected rule's `targets` shape determines what runs. `single` routes directly to one agent. `weighted` picks one of several agents by hashing the rule's `partition_by` expression. A rule with no `match` always matches (catch-all). It must be the last rule. The platform rejects any rule placed after a catch-all as unreachable.<br/>
+    /// This single shape covers:<br/>
+    /// - Direct routing — one rule, single target.<br/>
+    /// - Weighted or canary rollouts — one rule, weighted targets.<br/>
+    /// - Conditional routing — multiple rules with matches.<br/>
+    /// - Conditional plus canary — multiple rules, each independently single or weighted.
     /// </summary>
     public sealed partial class RoutedAliasPolicy
     {
@@ -18,7 +22,7 @@ namespace Vectara
         public required string Type { get; set; } = "routed";
 
         /// <summary>
-        /// Ordered routing rules. Evaluated top-to-bottom; the first rule whose match expression evaluates to true is selected. At least one rule with no `match` (a catch-all) is recommended to guarantee a fallback target.
+        /// Ordered routing rules. The policy evaluates rules top-to-bottom and selects the first rule whose `match` expression evaluates to true. Include at least one rule with no `match` (a catch-all) to guarantee a fallback target.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("rules")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -37,7 +41,7 @@ namespace Vectara
         /// Default Value: routed
         /// </param>
         /// <param name="rules">
-        /// Ordered routing rules. Evaluated top-to-bottom; the first rule whose match expression evaluates to true is selected. At least one rule with no `match` (a catch-all) is recommended to guarantee a fallback target.
+        /// Ordered routing rules. The policy evaluates rules top-to-bottom and selects the first rule whose `match` expression evaluates to true. Include at least one rule with no `match` (a catch-all) to guarantee a fallback target.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

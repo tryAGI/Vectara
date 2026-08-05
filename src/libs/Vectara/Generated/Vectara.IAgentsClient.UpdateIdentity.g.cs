@@ -6,9 +6,9 @@ namespace Vectara
     {
         /// <summary>
         /// Update agent identity<br/>
-        /// Update the agent's identity role management mode and/or roles.<br/>
-        /// Setting mode to `manual` freezes the current roles. The platform will no longer recompute roles when the agent's tool configuration changes. This is useful when you need to grant the agent additional permissions beyond what its tools require.<br/>
-        /// Setting mode to `auto` resumes platform-managed roles. The platform will immediately resync the roles to match the current tool configuration.
+        /// Updates the agent's identity. You can change the role management mode, the roles, or both.<br/>
+        /// Setting `mode` to `manual` freezes the current roles. The platform no longer recomputes roles when the agent's tool configuration changes. This is useful when you need to grant the agent additional permissions beyond what its tools require.<br/>
+        /// Setting `mode` to `auto` resumes platform-managed roles. The platform immediately resyncs the roles to match the current tool configuration.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -30,9 +30,9 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent identity<br/>
-        /// Update the agent's identity role management mode and/or roles.<br/>
-        /// Setting mode to `manual` freezes the current roles. The platform will no longer recompute roles when the agent's tool configuration changes. This is useful when you need to grant the agent additional permissions beyond what its tools require.<br/>
-        /// Setting mode to `auto` resumes platform-managed roles. The platform will immediately resync the roles to match the current tool configuration.
+        /// Updates the agent's identity. You can change the role management mode, the roles, or both.<br/>
+        /// Setting `mode` to `manual` freezes the current roles. The platform no longer recomputes roles when the agent's tool configuration changes. This is useful when you need to grant the agent additional permissions beyond what its tools require.<br/>
+        /// Setting `mode` to `auto` resumes platform-managed roles. The platform immediately resyncs the roles to match the current tool configuration.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -54,9 +54,9 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update agent identity<br/>
-        /// Update the agent's identity role management mode and/or roles.<br/>
-        /// Setting mode to `manual` freezes the current roles. The platform will no longer recompute roles when the agent's tool configuration changes. This is useful when you need to grant the agent additional permissions beyond what its tools require.<br/>
-        /// Setting mode to `auto` resumes platform-managed roles. The platform will immediately resync the roles to match the current tool configuration.
+        /// Updates the agent's identity. You can change the role management mode, the roles, or both.<br/>
+        /// Setting `mode` to `manual` freezes the current roles. The platform no longer recomputes roles when the agent's tool configuration changes. This is useful when you need to grant the agent additional permissions beyond what its tools require.<br/>
+        /// Setting `mode` to `auto` resumes platform-managed roles. The platform immediately resyncs the roles to match the current tool configuration.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -66,8 +66,8 @@ namespace Vectara
         /// </param>
         /// <param name="mode">
         /// The role management mode of the agent's identity.<br/>
-        /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, roles are automatically recomputed.<br/>
-        /// - `manual`: Roles are user-managed. The platform will not modify roles when the agent is updated.<br/>
+        /// - `auto`: The platform keeps roles in sync with the agent's tool configuration. When tools change, the platform recomputes roles automatically.<br/>
+        /// - `manual`: The caller manages the roles. The platform does not modify roles when the agent is updated.<br/>
         /// Example: auto
         /// </param>
         /// <param name="apiRoles">

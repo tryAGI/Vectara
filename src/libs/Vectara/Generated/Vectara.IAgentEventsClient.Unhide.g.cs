@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Unhide event<br/>
-        /// Unhide a hidden event in a session. Clears the hide_reason.
+        /// Unhides a hidden event in a session. Clears the hide_reason.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -32,7 +32,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Unhide event<br/>
-        /// Unhide a hidden event in a session. Clears the hide_reason.
+        /// Unhides a hidden event in a session. Clears the hide_reason.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

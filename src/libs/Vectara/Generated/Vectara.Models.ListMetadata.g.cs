@@ -10,7 +10,7 @@ namespace Vectara
     public sealed partial class ListMetadata
     {
         /// <summary>
-        /// When requesting the next page of this list, this is needed as a query parameter.
+        /// The page key for the next page of results. Pass it as a query parameter to request the next page.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("page_key")]
         public string? PageKey { get; set; }
@@ -25,7 +25,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ListMetadata" /> class.
         /// </summary>
         /// <param name="pageKey">
-        /// When requesting the next page of this list, this is needed as a query parameter.
+        /// The page key for the next page of results. Pass it as a query parameter to request the next page.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

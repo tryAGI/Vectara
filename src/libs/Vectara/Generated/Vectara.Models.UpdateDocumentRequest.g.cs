@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Schema for updating the document. For PUT requests, the request body metadata replaces the existing metadata. For PATCH requests, the request body metadata is merged with the existing metadata, adding or modifying only the specified fields.
+    /// Request to update a document. A PUT request replaces the existing metadata with the request body metadata. A PATCH request merges the request body metadata into the existing metadata, adding or modifying only the specified fields.
     /// </summary>
     public sealed partial class UpdateDocumentRequest
     {

@@ -8,14 +8,14 @@ namespace Vectara
     /// <summary>
     /// A step in an agent's execution flow that defines how the agent processes and responds to input.<br/>
     /// The step name comes from the map key in the agent's steps map.<br/>
-    /// A step gets all previous session history in the agent session, including any prior agent steps,<br/>
-    /// then the agent decides what to do in this step based on the given instructions. Finally, the<br/>
-    /// agent either stops working if there is no next step defined or continues to the first next step<br/>
-    /// that matches the condition.<br/>
-    /// An agent always executes steps serially. If parallel behavior is desired, giving the agent<br/>
-    /// other agents as tools is usually the most correct approach.<br/>
-    /// Each step can only use tools defined by its `allowed_tools` list; if this list is not specified<br/>
-    /// then all tools known to the agent are allowed.
+    /// A step receives all previous session history, including any prior agent steps.<br/>
+    /// The agent then follows the step's instructions to decide what to do.<br/>
+    /// Finally, the agent stops if no next step is defined, or continues to the first<br/>
+    /// next step whose condition matches.<br/>
+    /// An agent always executes steps serially. For parallel behavior, give the agent<br/>
+    /// other agents as tools.<br/>
+    /// Each step can only use tools defined by its `allowed_tools` list. If this list is not<br/>
+    /// specified, all tools known to the agent are allowed.
     /// </summary>
     public sealed partial class AgentStep
     {
@@ -29,8 +29,8 @@ namespace Vectara
 
         /// <summary>
         /// List of instructions that guide the agent's behavior in this step.<br/>
-        /// If omitted, the agent may behave oddly as it has no system instructions and<br/>
-        /// will just attempt to respond to user input and previous session history.
+        /// If omitted, the agent has no system instructions. It then simply responds to the user<br/>
+        /// input and previous session history, which may produce odd behavior.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("instructions")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -105,8 +105,8 @@ namespace Vectara
         /// </summary>
         /// <param name="instructions">
         /// List of instructions that guide the agent's behavior in this step.<br/>
-        /// If omitted, the agent may behave oddly as it has no system instructions and<br/>
-        /// will just attempt to respond to user input and previous session history.
+        /// If omitted, the agent has no system instructions. It then simply responds to the user<br/>
+        /// input and previous session history, which may produce odd behavior.
         /// </param>
         /// <param name="outputParser">
         /// How to parse and format the agent's output.<br/>

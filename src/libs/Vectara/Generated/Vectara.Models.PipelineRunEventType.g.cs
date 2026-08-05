@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// The type of a pipeline run event. Used as the discriminator on<br/>
-    /// `PipelineRunEvent`. New types may be added over time; clients should<br/>
+    /// `PipelineRunEvent`. New types may be added over time. Clients should<br/>
     /// treat unknown types as informational and ignore them.
     /// </summary>
     public enum PipelineRunEventType

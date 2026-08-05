@@ -6,12 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// List outstanding client tool calls on alias-routed session<br/>
-        /// List the client tool calls a session originally created via this alias is currently waiting on the caller to fulfill. Each entry carries the fully materialized arguments to invoke the tool with; secret-derived values are returned unmasked because the caller needs them to execute the tool, so this endpoint is restricted to the same roles permitted to submit input to the session. Empty when the session is not parked on a client tool. See the agent-scoped endpoint for the full contract.
+        /// Lists the client tool calls that a session originally created via this alias waits on the caller to fulfill. Each entry carries the fully materialized arguments to invoke the tool with. Secret-derived values are returned unmasked because the caller needs them to execute the tool. This endpoint therefore requires the same roles permitted to submit input to the session. The list is empty when the session is not parked on a client tool. See the agent-scoped endpoint for the full contract.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="sessionKey">
@@ -30,12 +30,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List outstanding client tool calls on alias-routed session<br/>
-        /// List the client tool calls a session originally created via this alias is currently waiting on the caller to fulfill. Each entry carries the fully materialized arguments to invoke the tool with; secret-derived values are returned unmasked because the caller needs them to execute the tool, so this endpoint is restricted to the same roles permitted to submit input to the session. Empty when the session is not parked on a client tool. See the agent-scoped endpoint for the full contract.
+        /// Lists the client tool calls that a session originally created via this alias waits on the caller to fulfill. Each entry carries the fully materialized arguments to invoke the tool with. Secret-derived values are returned unmasked because the caller needs them to execute the tool. This endpoint therefore requires the same roles permitted to submit input to the session. The list is empty when the session is not parked on a client tool. See the agent-scoped endpoint for the full contract.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="sessionKey">

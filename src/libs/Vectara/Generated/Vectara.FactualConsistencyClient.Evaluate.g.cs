@@ -63,10 +63,10 @@ namespace Vectara
 
         /// <summary>
         /// Evaluate factual consistency<br/>
-        /// Evaluate the factual consistency of a generated text (like a summary) against source documents. This determines how accurately the generated text reflects the information in the source documents, helping identify potential hallucinations or misrepresentations.<br/>
-        /// Use this API to programmatically validate generated content against trusted source materials—an essential capability for applications in high-integrity environments such as legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
-        /// The request body must include the following parameters:<br/>
-        /// * `model_parameters:` Optionally specifies the evaluation model to use. Default is `hhem_v2.2`.<br/>
+        /// Evaluates the factual consistency of a generated text (like a summary) against source documents. The evaluation determines how accurately the generated text reflects the information in the source documents. This helps identify potential hallucinations or misrepresentations.<br/>
+        /// Use this endpoint to validate generated content against trusted source materials, such as in legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
+        /// The request body includes the following parameters:<br/>
+        /// * `model_parameters`: Optional. The evaluation model to use. Supported values are `hhem_v2.3` (the default) and `hhem_v2.2`.<br/>
         /// * `generated_text`: The output text you want to evaluate, such as a model-generated summary, answer, or response.<br/>
         /// * `source_texts`: An array of source documents or passages used to verify the accuracy of the generated text.<br/>
         /// * `language`: The ISO 639-3 code representing the language of the provided texts (`eng` for English, `fra` for French).<br/>
@@ -122,10 +122,10 @@ namespace Vectara
         }
         /// <summary>
         /// Evaluate factual consistency<br/>
-        /// Evaluate the factual consistency of a generated text (like a summary) against source documents. This determines how accurately the generated text reflects the information in the source documents, helping identify potential hallucinations or misrepresentations.<br/>
-        /// Use this API to programmatically validate generated content against trusted source materials—an essential capability for applications in high-integrity environments such as legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
-        /// The request body must include the following parameters:<br/>
-        /// * `model_parameters:` Optionally specifies the evaluation model to use. Default is `hhem_v2.2`.<br/>
+        /// Evaluates the factual consistency of a generated text (like a summary) against source documents. The evaluation determines how accurately the generated text reflects the information in the source documents. This helps identify potential hallucinations or misrepresentations.<br/>
+        /// Use this endpoint to validate generated content against trusted source materials, such as in legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
+        /// The request body includes the following parameters:<br/>
+        /// * `model_parameters`: Optional. The evaluation model to use. Supported values are `hhem_v2.3` (the default) and `hhem_v2.2`.<br/>
         /// * `generated_text`: The output text you want to evaluate, such as a model-generated summary, answer, or response.<br/>
         /// * `source_texts`: An array of source documents or passages used to verify the accuracy of the generated text.<br/>
         /// * `language`: The ISO 639-3 code representing the language of the provided texts (`eng` for English, `fra` for French).<br/>
@@ -653,10 +653,10 @@ namespace Vectara
         }
         /// <summary>
         /// Evaluate factual consistency<br/>
-        /// Evaluate the factual consistency of a generated text (like a summary) against source documents. This determines how accurately the generated text reflects the information in the source documents, helping identify potential hallucinations or misrepresentations.<br/>
-        /// Use this API to programmatically validate generated content against trusted source materials—an essential capability for applications in high-integrity environments such as legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
-        /// The request body must include the following parameters:<br/>
-        /// * `model_parameters:` Optionally specifies the evaluation model to use. Default is `hhem_v2.2`.<br/>
+        /// Evaluates the factual consistency of a generated text (like a summary) against source documents. The evaluation determines how accurately the generated text reflects the information in the source documents. This helps identify potential hallucinations or misrepresentations.<br/>
+        /// Use this endpoint to validate generated content against trusted source materials, such as in legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
+        /// The request body includes the following parameters:<br/>
+        /// * `model_parameters`: Optional. The evaluation model to use. Supported values are `hhem_v2.3` (the default) and `hhem_v2.2`.<br/>
         /// * `generated_text`: The output text you want to evaluate, such as a model-generated summary, answer, or response.<br/>
         /// * `source_texts`: An array of source documents or passages used to verify the accuracy of the generated text.<br/>
         /// * `language`: The ISO 639-3 code representing the language of the provided texts (`eng` for English, `fra` for French).<br/>

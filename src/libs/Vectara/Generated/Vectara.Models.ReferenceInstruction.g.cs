@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct ReferenceInstruction : global::System.IEquatable<ReferenceInstruction>
     {
         /// <summary>
-        /// A reference to an instruction that can be used by an agent. If version is not specified, the latest version will be used. Note that when the instruction is updated, agents using it will need to be updated to reference the new version explicitly.
+        /// A reference to an instruction that an agent can use. If version is not specified, the agent uses the latest version. When the instruction is updated, agents that use it must be updated to reference the new version explicitly.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InstructionReference? InstructionReference { get; init; }

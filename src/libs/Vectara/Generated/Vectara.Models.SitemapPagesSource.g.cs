@@ -4,8 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Read pages enumerated by one or more sitemaps (`sitemap.xml`, `sitemap-index.xml`, or gzipped<br/>
-    /// variants). Per-URL change detection uses the sitemap's `&lt;lastmod&gt;`. No link-following.
+    /// Reads pages enumerated by one or more sitemaps (`sitemap.xml`, `sitemap-index.xml`, or gzipped<br/>
+    /// variants). Per-URL change detection uses the sitemap's `&lt;lastmod&gt;`. The crawler does not<br/>
+    /// follow links.
     /// </summary>
     public sealed partial class SitemapPagesSource
     {

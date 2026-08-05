@@ -5,9 +5,9 @@ namespace Vectara
 {
     /// <summary>
     /// Base Google Drive source configuration. The `scopes` list enumerates one or more starting<br/>
-    /// points — each entry is either a shared drive (`shared`) or a single user's My Drive accessed<br/>
+    /// points. Each entry is either a shared drive (`shared`) or a single user's My Drive accessed<br/>
     /// via domain-wide delegation (`my_drive`). The service account configured here must have read<br/>
-    /// access to every listed drive and be authorized for each impersonated user.
+    /// access to every listed drive. It must also be authorized for each impersonated user.
     /// </summary>
     public sealed partial class BaseGoogleDriveSourceConfiguration
     {

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A reference to an instruction that can be used by an agent. If version is not specified, the latest version will be used. Note that when the instruction is updated, agents using it will need to be updated to reference the new version explicitly.
+    /// A reference to an instruction that an agent can use. If version is not specified, the agent uses the latest version. When the instruction is updated, agents that use it must be updated to reference the new version explicitly.
     /// </summary>
     public sealed partial class InstructionReference
     {
@@ -18,7 +18,7 @@ namespace Vectara
         public required string Id { get; set; }
 
         /// <summary>
-        /// The specific version of the instruction to use. If not specified, the latest version will be used.<br/>
+        /// The specific version of the instruction to use. If not specified, the agent uses the latest version.<br/>
         /// Example: 1
         /// </summary>
         /// <example>1</example>
@@ -39,7 +39,7 @@ namespace Vectara
         /// Example: ins_customer_support_init
         /// </param>
         /// <param name="version">
-        /// The specific version of the instruction to use. If not specified, the latest version will be used.<br/>
+        /// The specific version of the instruction to use. If not specified, the agent uses the latest version.<br/>
         /// Example: 1
         /// </param>
 #if NET7_0_OR_GREATER

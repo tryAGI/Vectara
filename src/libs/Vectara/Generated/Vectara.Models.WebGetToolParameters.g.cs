@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configurable parameters for the web get tool. If not provided, will be filled in by the agent.
+    /// Configurable parameters for the web get tool. If not provided, the agent fills them in.
     /// </summary>
     public sealed partial class WebGetToolParameters
     {
@@ -23,8 +23,9 @@ namespace Vectara
         public global::Vectara.WebGetToolParametersMethod? Method { get; set; }
 
         /// <summary>
-        /// HTTP headers to include in the request.<br/>
-        /// Either a literal `{name: value}` map (where each value may itself be a string OR an EagerReference for per-header secret lookup), or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
+        /// HTTP headers to include in the request. One of:<br/>
+        /// - A literal `{name: value}` map. Each value may be a string or an EagerReference for per-header secret lookup.<br/>
+        /// - An EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a `Map&lt;String, String&gt;`. Use this to source the whole header set from agent secrets.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("headers")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>))]
@@ -117,8 +118,9 @@ namespace Vectara
         /// HTTP method to use.
         /// </param>
         /// <param name="headers">
-        /// HTTP headers to include in the request.<br/>
-        /// Either a literal `{name: value}` map (where each value may itself be a string OR an EagerReference for per-header secret lookup), or an EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a `Map&lt;String, String&gt;` (handy for sourcing the whole header set from agent secrets).
+        /// HTTP headers to include in the request. One of:<br/>
+        /// - A literal `{name: value}` map. Each value may be a string or an EagerReference for per-header secret lookup.<br/>
+        /// - An EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a `Map&lt;String, String&gt;`. Use this to source the whole header set from agent secrets.
         /// </param>
         /// <param name="body">
         /// Request body for POST/PUT/PATCH requests. Its UTF-8 byte length must not exceed `max_body_bytes`.

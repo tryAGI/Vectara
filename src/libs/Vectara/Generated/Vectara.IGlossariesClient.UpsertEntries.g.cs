@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Upsert glossary entries<br/>
-        /// Bulk upsert entries into a glossary. Entries with existing terms are updated and new terms are inserted. The glossary index blob is rebuilt after the upsert.
+        /// Upserts entries into a glossary in bulk. Entries with existing terms are updated. New terms are inserted. The platform rebuilds the glossary index after the upsert. Agents use the updated glossary after the rebuild completes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -28,7 +28,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Upsert glossary entries<br/>
-        /// Bulk upsert entries into a glossary. Entries with existing terms are updated and new terms are inserted. The glossary index blob is rebuilt after the upsert.
+        /// Upserts entries into a glossary in bulk. Entries with existing terms are updated. New terms are inserted. The platform rebuilds the glossary index after the upsert. Agents use the updated glossary after the rebuild completes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -50,7 +50,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Upsert glossary entries<br/>
-        /// Bulk upsert entries into a glossary. Entries with existing terms are updated and new terms are inserted. The glossary index blob is rebuilt after the upsert.
+        /// Upserts entries into a glossary in bulk. Entries with existing terms are updated. New terms are inserted. The platform rebuilds the glossary index after the upsert. Agents use the updated glossary after the rebuild completes.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

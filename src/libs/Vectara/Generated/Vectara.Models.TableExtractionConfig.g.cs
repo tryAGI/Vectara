@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configuration for table extraction from the document. This is optional and if not provided, the platform does not extract tables from PDF files.
+    /// Configuration for table extraction from the document. This configuration is optional. If omitted, the platform does not extract tables from PDF files.
     /// </summary>
     public sealed partial class TableExtractionConfig
     {
         /// <summary>
-        /// If set to true, the platform will attempt to extract tables from the document. The tables will be indexed as separate document parts.
+        /// If set to true, the platform attempts to extract tables from the document. The platform indexes the tables as separate document parts.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("extract_tables")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -22,7 +22,7 @@ namespace Vectara
         public global::Vectara.TableExtractorSpec? Extractor { get; set; }
 
         /// <summary>
-        /// Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.
+        /// Specification for the generation settings for table summarization. If not specified, the platform uses the default summarizer. All parameters are optional. Specified parameters override the default values.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("generation")]
         public global::Vectara.TableGenerationSpec? Generation { get; set; }
@@ -37,13 +37,13 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="TableExtractionConfig" /> class.
         /// </summary>
         /// <param name="extractTables">
-        /// If set to true, the platform will attempt to extract tables from the document. The tables will be indexed as separate document parts.
+        /// If set to true, the platform attempts to extract tables from the document. The platform indexes the tables as separate document parts.
         /// </param>
         /// <param name="extractor">
         /// Specification for which table extractor to use. If not specified, the platform uses the default extractor.
         /// </param>
         /// <param name="generation">
-        /// Specification for which generation to use during table summarization. If not specified, the platform uses the default summarizer. All parameters are optional and overrides the default values.
+        /// Specification for the generation settings for table summarization. If not specified, the platform uses the default summarizer. All parameters are optional. Specified parameters override the default values.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

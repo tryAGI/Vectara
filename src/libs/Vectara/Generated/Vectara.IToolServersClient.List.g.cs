@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List tool servers<br/>
-        /// Retrieve a list of available tool servers that expose various tools.
+        /// Lists the tool servers in the account. A tool server exposes tools that agents can use.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -38,7 +38,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List tool servers<br/>
-        /// Retrieve a list of available tool servers that expose various tools.
+        /// Lists the tool servers in the account. A tool server exposes tools that agents can use.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

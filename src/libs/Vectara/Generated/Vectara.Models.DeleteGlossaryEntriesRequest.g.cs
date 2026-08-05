@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Bulk delete entries from a glossary by term.
+    /// Request to delete entries from a glossary by term in bulk.
     /// </summary>
     public sealed partial class DeleteGlossaryEntriesRequest
     {

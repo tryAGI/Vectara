@@ -9,21 +9,21 @@ namespace Vectara
     public sealed partial class FieldQuery
     {
         /// <summary>
-        /// Name of the metadata field to search (without doc/part prefix).
+        /// The name of the metadata field to search, without the doc or part prefix.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("field")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Field { get; set; }
 
         /// <summary>
-        /// The text to search for in this field. Fuzzy matching is applied automatically.
+        /// The text to search for in this field. The search applies fuzzy matching automatically.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("query")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Query { get; set; }
 
         /// <summary>
-        /// Weight to apply to this field during scoring (higher values increase importance of this field).<br/>
+        /// The weight of this field during scoring. Higher values increase the importance of this field.<br/>
         /// Default Value: 1
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("weight")]
@@ -37,7 +37,7 @@ namespace Vectara
         public bool? Fuzzy { get; set; }
 
         /// <summary>
-        /// Minimum query length to enable prefix matching. Set to null to disable prefix matching. Prefix matching allows finding documents where the field value starts with the query text.<br/>
+        /// The minimum query length that enables prefix matching. Set to null to disable prefix matching. Prefix matching finds documents where the field value starts with the query text.<br/>
         /// Default Value: 3
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prefix")]
@@ -53,13 +53,13 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="FieldQuery" /> class.
         /// </summary>
         /// <param name="field">
-        /// Name of the metadata field to search (without doc/part prefix).
+        /// The name of the metadata field to search, without the doc or part prefix.
         /// </param>
         /// <param name="query">
-        /// The text to search for in this field. Fuzzy matching is applied automatically.
+        /// The text to search for in this field. The search applies fuzzy matching automatically.
         /// </param>
         /// <param name="weight">
-        /// Weight to apply to this field during scoring (higher values increase importance of this field).<br/>
+        /// The weight of this field during scoring. Higher values increase the importance of this field.<br/>
         /// Default Value: 1
         /// </param>
         /// <param name="fuzzy">
@@ -67,7 +67,7 @@ namespace Vectara
         /// Default Value: true
         /// </param>
         /// <param name="prefix">
-        /// Minimum query length to enable prefix matching. Set to null to disable prefix matching. Prefix matching allows finding documents where the field value starts with the query text.<br/>
+        /// The minimum query length that enables prefix matching. Set to null to disable prefix matching. Prefix matching finds documents where the field value starts with the query text.<br/>
         /// Default Value: 3
         /// </param>
 #if NET7_0_OR_GREATER

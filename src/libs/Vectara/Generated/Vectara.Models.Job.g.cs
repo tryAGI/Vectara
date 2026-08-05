@@ -25,44 +25,44 @@ namespace Vectara
         public global::Vectara.JobType? Type { get; set; }
 
         /// <summary>
-        /// The corpora that this job belongs to. It may not belong to any corpora.
+        /// The corpora that this job belongs to. Some jobs do not belong to any corpus.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("corpus_keys")]
         public global::System.Collections.Generic.IList<string>? CorpusKeys { get; set; }
 
         /// <summary>
-        /// Enum representing the possible states of a background job.
+        /// The state of a background job.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("state")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JobStateJsonConverter))]
         public global::Vectara.JobState? State { get; set; }
 
         /// <summary>
-        /// Specifies when the job was created.
+        /// When the job was created.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
         public global::System.DateTime? CreatedAt { get; set; }
 
         /// <summary>
-        /// Specifies when the job was started.
+        /// When the job was started.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("started_at")]
         public global::System.DateTime? StartedAt { get; set; }
 
         /// <summary>
-        /// Specifies when the job was completed.
+        /// When the job was completed.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("completed_at")]
         public global::System.DateTime? CompletedAt { get; set; }
 
         /// <summary>
-        /// The username of the user who created the job. This property may be missing, e.g., if the job was created by the system, not a user.
+        /// The username of the user who created the job. This property can be absent, for example when the platform created the job.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_by_username")]
         public string? CreatedByUsername { get; set; }
 
         /// <summary>
-        /// A human-readable explanation of the job's current status. Format and content depend on the job type; on failure it carries the error message. May be absent.
+        /// A human-readable explanation of the job's current status. The format and content depend on the job type. On failure, this property contains the error message. This property can be absent.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("comment")]
         public string? Comment { get; set; }
@@ -84,25 +84,25 @@ namespace Vectara
         /// The type of job.
         /// </param>
         /// <param name="corpusKeys">
-        /// The corpora that this job belongs to. It may not belong to any corpora.
+        /// The corpora that this job belongs to. Some jobs do not belong to any corpus.
         /// </param>
         /// <param name="state">
-        /// Enum representing the possible states of a background job.
+        /// The state of a background job.
         /// </param>
         /// <param name="createdAt">
-        /// Specifies when the job was created.
+        /// When the job was created.
         /// </param>
         /// <param name="startedAt">
-        /// Specifies when the job was started.
+        /// When the job was started.
         /// </param>
         /// <param name="completedAt">
-        /// Specifies when the job was completed.
+        /// When the job was completed.
         /// </param>
         /// <param name="createdByUsername">
-        /// The username of the user who created the job. This property may be missing, e.g., if the job was created by the system, not a user.
+        /// The username of the user who created the job. This property can be absent, for example when the platform created the job.
         /// </param>
         /// <param name="comment">
-        /// A human-readable explanation of the job's current status. Format and content depend on the job type; on failure it carries the error message. May be absent.
+        /// A human-readable explanation of the job's current status. The format and content depend on the job type. On failure, this property contains the error message. This property can be absent.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -6,8 +6,8 @@ namespace Vectara
     {
         /// <summary>
         /// List hallucination correctors<br/>
-        /// The List Hallucination Correctors API enables users to list available hallucination correctors used for detecting and correcting hallucinations in AI-generated content. Vectara provides these models as part of its broader hallucination evaluation framework, and the Hallucination Correctors endpoint uses these models to propose factual corrections to summaries and other generative outputs.<br/>
-        /// Use this API to inspect available correctors, filter results, and determine which hallucination corrector to reference in downstream workflows or evaluation pipelines.
+        /// Lists the available hallucination correctors. These models detect and correct hallucinations in AI-generated content. The platform provides these models as part of its broader hallucination evaluation framework. The Hallucination Correctors endpoint uses these models to propose factual corrections to summaries and other generative outputs.<br/>
+        /// Use this endpoint to inspect available correctors, filter results, and choose which hallucination corrector to reference in downstream workflows or evaluation pipelines.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,8 +29,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List hallucination correctors<br/>
-        /// The List Hallucination Correctors API enables users to list available hallucination correctors used for detecting and correcting hallucinations in AI-generated content. Vectara provides these models as part of its broader hallucination evaluation framework, and the Hallucination Correctors endpoint uses these models to propose factual corrections to summaries and other generative outputs.<br/>
-        /// Use this API to inspect available correctors, filter results, and determine which hallucination corrector to reference in downstream workflows or evaluation pipelines.
+        /// Lists the available hallucination correctors. These models detect and correct hallucinations in AI-generated content. The platform provides these models as part of its broader hallucination evaluation framework. The Hallucination Correctors endpoint uses these models to propose factual corrections to summaries and other generative outputs.<br/>
+        /// Use this endpoint to inspect available correctors, filter results, and choose which hallucination corrector to reference in downstream workflows or evaluation pipelines.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

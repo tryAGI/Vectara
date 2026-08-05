@@ -65,12 +65,12 @@ namespace Vectara
 
         /// <summary>
         /// Create dead letter<br/>
-        /// Manually add a source record to the dead letter queue for reprocessing. Use this when you want to force a record through the pipeline again, for example when the agent or judge made an incorrect decision.
+        /// Manually adds a source record to the dead letter queue for reprocessing. Use this to force a record through the pipeline again, for example when the agent or judge made an incorrect decision.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -100,12 +100,12 @@ namespace Vectara
         }
         /// <summary>
         /// Create dead letter<br/>
-        /// Manually add a source record to the dead letter queue for reprocessing. Use this when you want to force a record through the pipeline again, for example when the agent or judge made an incorrect decision.
+        /// Manually adds a source record to the dead letter queue for reprocessing. Use this to force a record through the pipeline again, for example when the agent or judge made an incorrect decision.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -399,7 +399,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Request was malformed.
+                            // The request is malformed.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -645,12 +645,12 @@ namespace Vectara
         }
         /// <summary>
         /// Create dead letter<br/>
-        /// Manually add a source record to the dead letter queue for reprocessing. Use this when you want to force a record through the pipeline again, for example when the agent or judge made an incorrect decision.
+        /// Manually adds a source record to the dead letter queue for reprocessing. Use this to force a record through the pipeline again, for example when the agent or judge made an incorrect decision.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="sourceRecordId">

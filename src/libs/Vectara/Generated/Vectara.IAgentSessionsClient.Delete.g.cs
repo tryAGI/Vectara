@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Delete agent session<br/>
-        /// Permanently delete an agent session. This action cannot be undone.
+        /// Permanently deletes an agent session. This action cannot be undone.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -30,7 +30,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete agent session<br/>
-        /// Permanently delete an agent session. This action cannot be undone.
+        /// Permanently deletes an agent session. This action cannot be undone.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

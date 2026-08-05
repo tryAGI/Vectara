@@ -63,7 +63,7 @@ namespace Vectara
 
         /// <summary>
         /// Create instruction<br/>
-        /// Create a new instruction that defines how an agent should behave, reason, and respond. Instructions act as system-level guidelines that shape the agent's tone, style, constraints, and tool usage.<br/>
+        /// Creates an instruction that defines how an agent behaves, reasons, and responds. Instructions act as system-level guidelines that shape the agent's tone, style, constraints, and tool usage.<br/>
         /// Instructions support dynamic content using the Apache Velocity templating engine. Velocity variables allow instructions to reference runtime context:<br/>
         /// - `\$\tools`: The list of tools available to the agent.<br/>
         /// - `\$\{session.metadata.field}`: Session-level metadata (user context, permissions, preferences).<br/>
@@ -76,7 +76,11 @@ namespace Vectara
         /// #end<br/>
         /// ```<br/>
         /// :::tip Tips for effective instruction design<br/>
-        /// Instructions are one of the most critical parts of an agent's design. Best practices vary by model, but at a minimum you should provide clear guidance on what tools are available, what output format is desired, and what steps to follow for common queries. Instructions typically need to be iterated on and tested over time.<br/>
+        /// Instructions are one of the most critical parts of an agent's design. Best practices vary by model. At a minimum, provide clear guidance on:<br/>
+        /// - The tools that are available.<br/>
+        /// - The desired output format.<br/>
+        /// - The steps to follow for common queries.<br/>
+        /// Instructions typically need iteration and testing over time.<br/>
         /// For guidance on writing effective instructions, see:<br/>
         /// - [Claude Prompt Engineering](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview)<br/>
         /// - [OpenAI Prompt Engineering](https://platform.openai.com/docs/guides/prompt-engineering)<br/>
@@ -127,7 +131,7 @@ namespace Vectara
         }
         /// <summary>
         /// Create instruction<br/>
-        /// Create a new instruction that defines how an agent should behave, reason, and respond. Instructions act as system-level guidelines that shape the agent's tone, style, constraints, and tool usage.<br/>
+        /// Creates an instruction that defines how an agent behaves, reasons, and responds. Instructions act as system-level guidelines that shape the agent's tone, style, constraints, and tool usage.<br/>
         /// Instructions support dynamic content using the Apache Velocity templating engine. Velocity variables allow instructions to reference runtime context:<br/>
         /// - `\$\tools`: The list of tools available to the agent.<br/>
         /// - `\$\{session.metadata.field}`: Session-level metadata (user context, permissions, preferences).<br/>
@@ -140,7 +144,11 @@ namespace Vectara
         /// #end<br/>
         /// ```<br/>
         /// :::tip Tips for effective instruction design<br/>
-        /// Instructions are one of the most critical parts of an agent's design. Best practices vary by model, but at a minimum you should provide clear guidance on what tools are available, what output format is desired, and what steps to follow for common queries. Instructions typically need to be iterated on and tested over time.<br/>
+        /// Instructions are one of the most critical parts of an agent's design. Best practices vary by model. At a minimum, provide clear guidance on:<br/>
+        /// - The tools that are available.<br/>
+        /// - The desired output format.<br/>
+        /// - The steps to follow for common queries.<br/>
+        /// Instructions typically need iteration and testing over time.<br/>
         /// For guidance on writing effective instructions, see:<br/>
         /// - [Claude Prompt Engineering](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview)<br/>
         /// - [OpenAI Prompt Engineering](https://platform.openai.com/docs/guides/prompt-engineering)<br/>

@@ -6,8 +6,8 @@ namespace Vectara
     {
         /// <summary>
         /// Update a corpus<br/>
-        /// The Update Corpus API lets you enable, disable, or update the name and description of a corpus. This is useful to manage the availability of data within the system, such as when you need to take the corpus offline without having to delete the corpus.<br/>
-        /// This lets you utilize automated scripts to programmatically control the availability of corpora based on certain conditions. For example, quickly disable a corpus for maintenance updates or in response to security incidents.
+        /// Enables, disables, or updates the name and description of a corpus. Use this endpoint to manage the availability of data, such as taking a corpus offline without deleting it.<br/>
+        /// You can also use automated scripts to control the availability of corpora based on certain conditions. For example, quickly disable a corpus for maintenance updates or in response to security incidents.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,8 +29,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update a corpus<br/>
-        /// The Update Corpus API lets you enable, disable, or update the name and description of a corpus. This is useful to manage the availability of data within the system, such as when you need to take the corpus offline without having to delete the corpus.<br/>
-        /// This lets you utilize automated scripts to programmatically control the availability of corpora based on certain conditions. For example, quickly disable a corpus for maintenance updates or in response to security incidents.
+        /// Enables, disables, or updates the name and description of a corpus. Use this endpoint to manage the availability of data, such as taking a corpus offline without deleting it.<br/>
+        /// You can also use automated scripts to control the availability of corpora based on certain conditions. For example, quickly disable a corpus for maintenance updates or in response to security incidents.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -52,8 +52,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update a corpus<br/>
-        /// The Update Corpus API lets you enable, disable, or update the name and description of a corpus. This is useful to manage the availability of data within the system, such as when you need to take the corpus offline without having to delete the corpus.<br/>
-        /// This lets you utilize automated scripts to programmatically control the availability of corpora based on certain conditions. For example, quickly disable a corpus for maintenance updates or in response to security incidents.
+        /// Enables, disables, or updates the name and description of a corpus. Use this endpoint to manage the availability of data, such as taking a corpus offline without deleting it.<br/>
+        /// You can also use automated scripts to control the availability of corpora based on certain conditions. For example, quickly disable a corpus for maintenance updates or in response to security incidents.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -62,15 +62,15 @@ namespace Vectara
         /// Example: my-corpus
         /// </param>
         /// <param name="enabled">
-        /// Set whether or not the corpus is enabled. If unset then the corpus will remain in the same state.<br/>
+        /// Whether the corpus is enabled. If unset, the corpus remains in its current state.<br/>
         /// Example: false
         /// </param>
         /// <param name="name">
-        /// The name for the corpus. If unset or null, then the corpus will remain in the same state.<br/>
+        /// The name for the corpus. If unset or null, the name remains unchanged.<br/>
         /// Example: new-corpus-name
         /// </param>
         /// <param name="description">
-        /// Description of the corpus. If unset or null, then the corpus will remain in the same state.<br/>
+        /// Description of the corpus. If unset or null, the description remains unchanged.<br/>
         /// Example: New description of the corpus.
         /// </param>
         /// <param name="saveHistory">

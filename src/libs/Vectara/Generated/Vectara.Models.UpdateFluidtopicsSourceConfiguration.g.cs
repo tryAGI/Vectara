@@ -11,11 +11,13 @@ namespace Vectara
     {
         /// <summary>
         /// Base Fluid Topics source configuration. Ingests content from a Fluid Topics tenant via the<br/>
-        /// Knowledge Hub REST API. `content_scope` selects which layer to ingest — `documents` (standalone<br/>
-        /// items) or `topics` (the sections inside publications, each carrying its parent map's identity and<br/>
-        /// classification). Every record carries its full Fluid Topics metadata, including classification and<br/>
-        /// entitlement fields, as document metadata for attribute-based filtering and access control. Requires<br/>
-        /// a Fluid Topics API key with read access to the configured content.
+        /// Knowledge Hub REST API. `content_scope` selects which layer to ingest:<br/>
+        /// - `documents`: standalone items.<br/>
+        /// - `topics`: the sections inside maps, each carrying its parent map's identity and classification.<br/>
+        /// - `maps`: whole maps, one record each.<br/>
+        /// Every record carries its full Fluid Topics metadata, including classification and entitlement<br/>
+        /// fields, as document metadata for attribute-based filtering and access control. Requires a<br/>
+        /// Fluid Topics API key with read access to the configured content.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseFluidtopicsSourceConfiguration? Base { get; init; }

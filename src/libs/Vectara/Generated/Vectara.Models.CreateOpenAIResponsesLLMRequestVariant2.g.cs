@@ -18,7 +18,7 @@ namespace Vectara
         public required string Type { get; set; } = "openai-responses";
 
         /// <summary>
-        /// The model name to use with the Responses API (e.g. o1-preview, o1-mini). This is used in the API request to the remote LLM provider.
+        /// The model name to use with the Responses API (e.g. o1-preview, o1-mini). The platform sends this name to the remote LLM provider.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -38,7 +38,7 @@ namespace Vectara
         /// Default Value: openai-responses
         /// </param>
         /// <param name="model">
-        /// The model name to use with the Responses API (e.g. o1-preview, o1-mini). This is used in the API request to the remote LLM provider.
+        /// The model name to use with the Responses API (e.g. o1-preview, o1-mini). The platform sends this name to the remote LLM provider.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

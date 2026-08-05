@@ -65,12 +65,12 @@ namespace Vectara
 
         /// <summary>
         /// Create session via alias<br/>
-        /// Create a new session by routing through an alias. The alias's policy is evaluated to pick the underlying agent that will own the session. Subsequent operations on the session can be addressed via this alias or directly via `/v2/agents/{resolved_agent_key}/sessions/{session_key}`.
+        /// Creates a session by routing through an alias. The alias's policy selects the underlying agent that owns the session. Subsequent operations on the session can use this alias or the direct path `/v2/agents/{resolved_agent_key}/sessions/{session_key}`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="request"></param>
@@ -100,12 +100,12 @@ namespace Vectara
         }
         /// <summary>
         /// Create session via alias<br/>
-        /// Create a new session by routing through an alias. The alias's policy is evaluated to pick the underlying agent that will own the session. Subsequent operations on the session can be addressed via this alias or directly via `/v2/agents/{resolved_agent_key}/sessions/{session_key}`.
+        /// Creates a session by routing through an alias. The alias's policy selects the underlying agent that owns the session. Subsequent operations on the session can use this alias or the direct path `/v2/agents/{resolved_agent_key}/sessions/{session_key}`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="request"></param>
@@ -399,7 +399,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Session creation request was malformed, or the alias's policy could not resolve against the session context.
+                            // The request is malformed, or the alias's policy cannot resolve against the session context.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -608,12 +608,12 @@ namespace Vectara
         }
         /// <summary>
         /// Create session via alias<br/>
-        /// Create a new session by routing through an alias. The alias's policy is evaluated to pick the underlying agent that will own the session. Subsequent operations on the session can be addressed via this alias or directly via `/v2/agents/{resolved_agent_key}/sessions/{session_key}`.
+        /// Creates a session by routing through an alias. The alias's policy selects the underlying agent that owns the session. Subsequent operations on the session can use this alias or the direct path `/v2/agents/{resolved_agent_key}/sessions/{session_key}`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The unique key identifying an alias. Alias keys are independent of agent keys — the same string may exist as both an alias and an agent in a customer; calls to `/v2/agent_aliases/{key}/...` target the alias and calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
         /// </param>
         /// <param name="key">
@@ -625,7 +625,7 @@ namespace Vectara
         /// Example: Customer Support Session
         /// </param>
         /// <param name="description">
-        /// A short description of the session's purpose. If omitted, one is auto-generated once the session has produced events. Pass an empty string to suppress auto-generation.<br/>
+        /// A short description of the session's purpose. If omitted, the platform generates one after the session produces events. Pass an empty string to suppress auto-generation.<br/>
         /// Example: Helping customer troubleshoot issues
         /// </param>
         /// <param name="metadata">
@@ -639,7 +639,7 @@ namespace Vectara
         /// Example: true
         /// </param>
         /// <param name="ttiMinutes">
-        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session will be automatically deleted. If set to 0, the session will not expire.<br/>
+        /// Time-to-idle in minutes for the session. If no events occur in the session for this duration, the session is deleted automatically. If set to 0, the session does not expire.<br/>
         /// Default Value: 0<br/>
         /// Example: 60
         /// </param>

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Roles that a user or an app client can take on.
+    /// Roles that a user or an app client can take on, account-wide.
     /// </summary>
     public enum ApiRole
     {

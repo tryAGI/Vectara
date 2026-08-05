@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class PercentilesMetricPoint
     {
         /// <summary>
-        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
+        /// The start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bin_start")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -32,7 +32,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="PercentilesMetricPoint" /> class.
         /// </summary>
         /// <param name="binStart">
-        /// Start of the time bin in ISO 8601 (UTC). End-time aligned.
+        /// The start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </param>
         /// <param name="percentiles">
         /// Per-percentile aggregated values for this time bin. Each entry's `value` is the metric's aggregated value at the percentile identified by `label`.

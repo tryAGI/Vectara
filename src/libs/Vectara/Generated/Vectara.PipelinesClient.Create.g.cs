@@ -63,7 +63,7 @@ namespace Vectara
 
         /// <summary>
         /// Create pipeline<br/>
-        /// Create a new pipeline that continuously ingests data from a source system and sends each record to an agent for processing. A new agent session is created per source record. A pipeline is distinct from an agent schedule (which is a recurring single execution of an agent) and from a connector (which is a bidirectional chat integration like Slack). A pipeline is an automated, one-directional flow of all source data through an agent.
+        /// Creates a new pipeline that continuously ingests data from a source system and sends each record to an agent for processing. Each source record creates a new agent session. A pipeline is distinct from an agent schedule, which is a recurring single execution of an agent. It is also distinct from a connector, which is a bidirectional chat integration like Slack. A pipeline is an automated, one-directional flow of all source data through an agent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -92,7 +92,7 @@ namespace Vectara
         }
         /// <summary>
         /// Create pipeline<br/>
-        /// Create a new pipeline that continuously ingests data from a source system and sends each record to an agent for processing. A new agent session is created per source record. A pipeline is distinct from an agent schedule (which is a recurring single execution of an agent) and from a connector (which is a bidirectional chat integration like Slack). A pipeline is an automated, one-directional flow of all source data through an agent.
+        /// Creates a new pipeline that continuously ingests data from a source system and sends each record to an agent for processing. Each source record creates a new agent session. A pipeline is distinct from an agent schedule, which is a recurring single execution of an agent. It is also distinct from a connector, which is a bidirectional chat integration like Slack. A pipeline is an automated, one-directional flow of all source data through an agent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -384,7 +384,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Pipeline creation request was malformed or contains invalid configuration.
+                            // The pipeline creation request is malformed or contains an invalid configuration.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -593,12 +593,12 @@ namespace Vectara
         }
         /// <summary>
         /// Create pipeline<br/>
-        /// Create a new pipeline that continuously ingests data from a source system and sends each record to an agent for processing. A new agent session is created per source record. A pipeline is distinct from an agent schedule (which is a recurring single execution of an agent) and from a connector (which is a bidirectional chat integration like Slack). A pipeline is an automated, one-directional flow of all source data through an agent.
+        /// Creates a new pipeline that continuously ingests data from a source system and sends each record to an agent for processing. Each source record creates a new agent session. A pipeline is distinct from an agent schedule, which is a recurring single execution of an agent. It is also distinct from a connector, which is a bidirectional chat integration like Slack. A pipeline is an automated, one-directional flow of all source data through an agent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="key">
-        /// A user-provided key for the pipeline. If omitted, one is auto-generated.
+        /// A user-provided key for the pipeline. If omitted, the platform generates one.
         /// </param>
         /// <param name="name">
         /// The human-readable name of the pipeline.<br/>

@@ -18,7 +18,7 @@ namespace Vectara
         public required string Type { get; set; } = "anthropic";
 
         /// <summary>
-        /// Name to reference the LLM. This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is preconfigured with the Vectara platform), then it will override that LLM for all usages.
+        /// The name that references the LLM. Other endpoints (like query) use this name to select the LLM. If the name conflicts with a global LLM (an LLM that is preconfigured with the platform), this LLM overrides the global LLM for all usages.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -38,7 +38,7 @@ namespace Vectara
         public required string Model { get; set; }
 
         /// <summary>
-        /// Optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com if not specified when using direct Anthropic API (header auth with x-api-key). Not required when using Bedrock or Vertex authentication as the endpoint is determined from region/project configuration.<br/>
+        /// An optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com when you use the direct Anthropic API (header auth with x-api-key). Not required with Bedrock or Vertex authentication because the platform determines the endpoint from the region or project configuration.<br/>
         /// Default Value: https://api.anthropic.com<br/>
         /// Example: https://api.anthropic.com
         /// </summary>
@@ -61,7 +61,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, string>? Headers { get; set; }
 
         /// <summary>
-        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. During streaming this is the SSE idle timeout — if no new server-sent events arrive within this window the stream is closed with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// The maximum time in seconds that the platform waits for the model to send data before it closes the stale connection. During streaming, this is the SSE idle timeout. If no new server-sent events arrive within this window, the stream closes with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform uses its default read timeout for the provider. On update, omit the field to keep the configured value, or send an explicit null to clear it.<br/>
         /// Example: 300
         /// </summary>
         /// <example>300</example>
@@ -75,10 +75,16 @@ namespace Vectara
         public object? TestModelParameters { get; set; }
 
         /// <summary>
-        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
+        /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("capabilities")]
         public global::Vectara.LLMCapabilities? Capabilities { get; set; }
+
+        /// <summary>
+        /// The maximum number of requests per second for this LLM. Omit the field or set it to null to apply no limit. The platform rejects requests above the limit with HTTP 429.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("requests_per_second")]
+        public long? RequestsPerSecond { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -94,7 +100,7 @@ namespace Vectara
         /// Default Value: anthropic
         /// </param>
         /// <param name="name">
-        /// Name to reference the LLM. This will be used in other endpoints (like query) when using this LLM. If this name conflicts with a global LLM (a LLM that is preconfigured with the Vectara platform), then it will override that LLM for all usages.
+        /// The name that references the LLM. Other endpoints (like query) use this name to select the LLM. If the name conflicts with a global LLM (an LLM that is preconfigured with the platform), this LLM overrides the global LLM for all usages.
         /// </param>
         /// <param name="model">
         /// The Claude model name to use (e.g. claude-3-5-sonnet-20241022, claude-3-opus-20240229, etc).
@@ -106,7 +112,7 @@ namespace Vectara
         /// Description of the LLM.
         /// </param>
         /// <param name="uri">
-        /// Optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com if not specified when using direct Anthropic API (header auth with x-api-key). Not required when using Bedrock or Vertex authentication as the endpoint is determined from region/project configuration.<br/>
+        /// An optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com when you use the direct Anthropic API (header auth with x-api-key). Not required with Bedrock or Vertex authentication because the platform determines the endpoint from the region or project configuration.<br/>
         /// Default Value: https://api.anthropic.com<br/>
         /// Example: https://api.anthropic.com
         /// </param>
@@ -114,14 +120,17 @@ namespace Vectara
         /// Optional additional headers to send with the request
         /// </param>
         /// <param name="idleTimeoutSeconds">
-        /// Maximum time in seconds the platform will wait for the model to send data before considering the connection stale and terminating it. During streaming this is the SSE idle timeout — if no new server-sent events arrive within this window the stream is closed with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform falls back to its default read timeout for that provider (typically 60 seconds for OpenAI / Anthropic; provider SDK default for Vertex). On update, omit the field to leave the configured value unchanged or send an explicit null to clear it.<br/>
+        /// The maximum time in seconds that the platform waits for the model to send data before it closes the stale connection. During streaming, this is the SSE idle timeout. If no new server-sent events arrive within this window, the stream closes with an error. For non-streaming requests, where the model sends the entire response at once, this is the maximum time to wait for that response. If unset, the platform uses its default read timeout for the provider. On update, omit the field to keep the configured value, or send an explicit null to clear it.<br/>
         /// Example: 300
         /// </param>
         /// <param name="testModelParameters">
         /// Any additional parameters that are required for the LLM during the test call.
         /// </param>
         /// <param name="capabilities">
-        /// Capabilities of a Large Language Model. If not provided when creating an LLM, capabilities are automatically inferred from the model name and provider type. Any explicitly provided fields override the inferred defaults.
+        /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
+        /// </param>
+        /// <param name="requestsPerSecond">
+        /// The maximum number of requests per second for this LLM. Omit the field or set it to null to apply no limit. The platform rejects requests above the limit with HTTP 429.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -136,7 +145,8 @@ namespace Vectara
             global::System.Collections.Generic.Dictionary<string, string>? headers,
             int? idleTimeoutSeconds,
             object? testModelParameters,
-            global::Vectara.LLMCapabilities? capabilities)
+            global::Vectara.LLMCapabilities? capabilities,
+            long? requestsPerSecond)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -148,6 +158,7 @@ namespace Vectara
             this.IdleTimeoutSeconds = idleTimeoutSeconds;
             this.TestModelParameters = testModelParameters;
             this.Capabilities = capabilities;
+            this.RequestsPerSecond = requestsPerSecond;
         }
 
         /// <summary>

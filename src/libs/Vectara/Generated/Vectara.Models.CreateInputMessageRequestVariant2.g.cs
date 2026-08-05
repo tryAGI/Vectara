@@ -24,7 +24,7 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.AgentInput> Messages { get; set; }
 
         /// <summary>
-        /// Event ID to return all events created after queueing the new input. When provided and the session is currently running, the response will include all events created after this event ID, and the new input will be processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
+        /// An event ID cursor. When provided and the session is currently running, the response includes all events created after this event ID. The new input is queued and processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
         /// Example: start
         /// </summary>
         /// <example>start</example>
@@ -67,7 +67,7 @@ namespace Vectara
         /// Default Value: input_message
         /// </param>
         /// <param name="since">
-        /// Event ID to return all events created after queueing the new input. When provided and the session is currently running, the response will include all events created after this event ID, and the new input will be processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
+        /// An event ID cursor. When provided and the session is currently running, the response includes all events created after this event ID. The new input is queued and processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
         /// Example: start
         /// </param>
         /// <param name="behavior">

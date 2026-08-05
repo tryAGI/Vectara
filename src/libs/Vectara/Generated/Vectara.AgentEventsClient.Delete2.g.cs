@@ -62,7 +62,7 @@ namespace Vectara
 
         /// <summary>
         /// Delete event<br/>
-        /// Permanently delete an event from a session. Removes the event from both the metadata database and the encrypted event store.
+        /// Permanently deletes an event from a session. The event is erased and cannot be recovered. Unlike a hidden event, a deleted event cannot be restored.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -99,7 +99,7 @@ namespace Vectara
         }
         /// <summary>
         /// Delete event<br/>
-        /// Permanently delete an event from a session. Removes the event from both the metadata database and the encrypted event store.
+        /// Permanently deletes an event from a session. The event is erased and cannot be recovered. Unlike a hidden event, a deleted event cannot be restored.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

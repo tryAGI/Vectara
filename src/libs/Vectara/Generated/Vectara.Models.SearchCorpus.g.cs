@@ -15,7 +15,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, double>? CustomDimensions { get; set; }
 
         /// <summary>
-        /// The filter string used to narrow the search based on metadata attributes. The query against this corpus will be confined to document parts that match the `metadata_filter`. Only metadata fields set as `filter_attributes` on the corpus can be filtered. Filter syntax is similar to a SQL WHERE clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview) for more information.<br/>
+        /// The filter string that narrows the search based on metadata attributes. The query against this corpus returns only document parts that match the `metadata_filter`. You can filter only metadata fields set as `filter_attributes` on the corpus. Filter syntax is similar to a SQL WHERE clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview) for more information.<br/>
         /// Example: doc.title = 'Annual Report'
         /// </summary>
         /// <example>doc.title = 'Annual Report'</example>
@@ -23,7 +23,7 @@ namespace Vectara
         public string? MetadataFilter { get; set; }
 
         /// <summary>
-        /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
+        /// The weight of lexical scores compared to the embedding score. A value of 0 disables lexical search. A value of 1 uses only lexical search.<br/>
         /// Example: 0.005
         /// </summary>
         /// <example>0.005</example>
@@ -51,11 +51,11 @@ namespace Vectara
         /// The custom dimensions as additional weights.
         /// </param>
         /// <param name="metadataFilter">
-        /// The filter string used to narrow the search based on metadata attributes. The query against this corpus will be confined to document parts that match the `metadata_filter`. Only metadata fields set as `filter_attributes` on the corpus can be filtered. Filter syntax is similar to a SQL WHERE clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview) for more information.<br/>
+        /// The filter string that narrows the search based on metadata attributes. The query against this corpus returns only document parts that match the `metadata_filter`. You can filter only metadata fields set as `filter_attributes` on the corpus. Filter syntax is similar to a SQL WHERE clause. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview) for more information.<br/>
         /// Example: doc.title = 'Annual Report'
         /// </param>
         /// <param name="lexicalInterpolation">
-        /// How much to weigh lexical scores compared to the embedding score. 0 means lexical search is not used at all, and 1 means only lexical search is used.<br/>
+        /// The weight of lexical scores compared to the embedding score. A value of 0 disables lexical search. A value of 1 uses only lexical search.<br/>
         /// Example: 0.005
         /// </param>
         /// <param name="semantics">

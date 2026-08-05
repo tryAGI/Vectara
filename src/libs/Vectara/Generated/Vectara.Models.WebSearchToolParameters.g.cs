@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Configurable parameters for the web search tool. If not provided, will be filled in by the agent.
+    /// Configurable parameters for the web search tool. If not provided, the agent fills them in.
     /// </summary>
     public sealed partial class WebSearchToolParameters
     {
@@ -34,7 +34,7 @@ namespace Vectara
         public global::Vectara.WebSearchToolParametersProvider? Provider { get; set; }
 
         /// <summary>
-        /// List of domains to specifically include in search results. When specified, results will ONLY come from these domains. Supports exact domains (e.g., "github.com"), subdomains (e.g., "docs.github.com"), and wildcard patterns (e.g., "*.github.com"). Subpaths are not supported.<br/>
+        /// List of domains to specifically include in search results. When specified, results come only from these domains. Supports exact domains (e.g., "github.com"), subdomains (e.g., "docs.github.com"), and wildcard patterns (e.g., "*.github.com"). Subpaths are not supported.<br/>
         /// Example: [github.com, docs.github.com, *.stackoverflow.com]
         /// </summary>
         /// <example>[github.com, docs.github.com, *.stackoverflow.com]</example>
@@ -71,7 +71,7 @@ namespace Vectara
         /// Example: tavily
         /// </param>
         /// <param name="includeDomains">
-        /// List of domains to specifically include in search results. When specified, results will ONLY come from these domains. Supports exact domains (e.g., "github.com"), subdomains (e.g., "docs.github.com"), and wildcard patterns (e.g., "*.github.com"). Subpaths are not supported.<br/>
+        /// List of domains to specifically include in search results. When specified, results come only from these domains. Supports exact domains (e.g., "github.com"), subdomains (e.g., "docs.github.com"), and wildcard patterns (e.g., "*.github.com"). Subpaths are not supported.<br/>
         /// Example: [github.com, docs.github.com, *.stackoverflow.com]
         /// </param>
         /// <param name="excludeDomains">

@@ -60,7 +60,7 @@ namespace Vectara
 
         /// <summary>
         /// Send A2A v0.3 streaming message<br/>
-        /// Send a message to the agent and stream task lifecycle events as Server-Sent Events. Each SSE `data:` line is a JSON `A2aV03StreamResponse` carrying a `task`, `message`, `statusUpdate`, or `artifactUpdate`. The stream ends when the task reaches a terminal or interrupted state.
+        /// Sends a message to the agent and streams task lifecycle events as Server-Sent Events. Each SSE `data:` line is a JSON `A2aV03StreamResponse` carrying a `task`, `message`, `statusUpdate`, or `artifactUpdate`. The stream ends when the task reaches a terminal or interrupted state.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -428,7 +428,7 @@ namespace Vectara
         }
         /// <summary>
         /// Send A2A v0.3 streaming message<br/>
-        /// Send a message to the agent and stream task lifecycle events as Server-Sent Events. Each SSE `data:` line is a JSON `A2aV03StreamResponse` carrying a `task`, `message`, `statusUpdate`, or `artifactUpdate`. The stream ends when the task reaches a terminal or interrupted state.
+        /// Sends a message to the agent and streams task lifecycle events as Server-Sent Events. Each SSE `data:` line is a JSON `A2aV03StreamResponse` carrying a `task`, `message`, `statusUpdate`, or `artifactUpdate`. The stream ends when the task reaches a terminal or interrupted state.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -440,7 +440,7 @@ namespace Vectara
         /// A v0.3 unit of communication between client and agent. The `content` field carries the message parts.
         /// </param>
         /// <param name="configuration">
-        /// Optional knobs that influence how the agent processes and responds to a v0.3 message.
+        /// Optional settings that control how the agent processes and responds to a v0.3 message.
         /// </param>
         /// <param name="metadata">
         /// Arbitrary client-supplied metadata for the request.

@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Get agent connector<br/>
-        /// Retrieve the details of a specific agent connector by its ID, including its configuration and status.
+        /// Returns an agent connector by its ID, including its configuration and status.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,7 +29,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get agent connector<br/>
-        /// Retrieve the details of a specific agent connector by its ID, including its configuration and status.
+        /// Returns an agent connector by its ID, including its configuration and status.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

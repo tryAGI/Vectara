@@ -65,8 +65,8 @@ namespace Vectara
 
         /// <summary>
         /// Create agent schedule<br/>
-        /// Create a new schedule for automatically executing an agent at specified intervals. Each execution creates a new session with the configured message and metadata.<br/>
-        /// Schedules enable automated agent workflows such as daily reports, periodic monitoring, or regular data processing. The schedule will create sessions tagged with metadata to identify them as scheduled executions.<br/>
+        /// Creates a schedule that runs an agent automatically at specified intervals. Each execution creates a new session with the configured message and metadata.<br/>
+        /// Use schedules for automated agent workflows such as daily reports, periodic monitoring, or regular data processing. The schedule tags each created session with metadata that identifies it as a scheduled execution.<br/>
         /// ## Example request<br/>
         /// ```json<br/>
         /// \$ curl -X POST https://api.vectara.io/v2/agents/support-agent/schedules \<br/>
@@ -120,8 +120,8 @@ namespace Vectara
         }
         /// <summary>
         /// Create agent schedule<br/>
-        /// Create a new schedule for automatically executing an agent at specified intervals. Each execution creates a new session with the configured message and metadata.<br/>
-        /// Schedules enable automated agent workflows such as daily reports, periodic monitoring, or regular data processing. The schedule will create sessions tagged with metadata to identify them as scheduled executions.<br/>
+        /// Creates a schedule that runs an agent automatically at specified intervals. Each execution creates a new session with the configured message and metadata.<br/>
+        /// Use schedules for automated agent workflows such as daily reports, periodic monitoring, or regular data processing. The schedule tags each created session with metadata that identifies it as a scheduled execution.<br/>
         /// ## Example request<br/>
         /// ```json<br/>
         /// \$ curl -X POST https://api.vectara.io/v2/agents/support-agent/schedules \<br/>
@@ -439,7 +439,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Schedule creation request was malformed or invalid.
+                            // The request is malformed or invalid.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -685,8 +685,8 @@ namespace Vectara
         }
         /// <summary>
         /// Create agent schedule<br/>
-        /// Create a new schedule for automatically executing an agent at specified intervals. Each execution creates a new session with the configured message and metadata.<br/>
-        /// Schedules enable automated agent workflows such as daily reports, periodic monitoring, or regular data processing. The schedule will create sessions tagged with metadata to identify them as scheduled executions.<br/>
+        /// Creates a schedule that runs an agent automatically at specified intervals. Each execution creates a new session with the configured message and metadata.<br/>
+        /// Use schedules for automated agent workflows such as daily reports, periodic monitoring, or regular data processing. The schedule tags each created session with metadata that identifies it as a scheduled execution.<br/>
         /// ## Example request<br/>
         /// ```json<br/>
         /// \$ curl -X POST https://api.vectara.io/v2/agents/support-agent/schedules \<br/>
@@ -714,8 +714,7 @@ namespace Vectara
         /// Example: customer_support
         /// </param>
         /// <param name="key">
-        /// A unique key that identifies an agent schedule. Uses "key" terminology (instead of "id")<br/>
-        /// for consistency with other Vectara API resources (AgentKey, SessionKey, CorpusKey, etc.).<br/>
+        /// A unique key that identifies an agent schedule.<br/>
         /// Example: daily-report
         /// </param>
         /// <param name="name">
@@ -729,10 +728,10 @@ namespace Vectara
         /// The input message to send to the agent on each scheduled execution.
         /// </param>
         /// <param name="schedule">
-        /// Configuration for when and how often the schedule should execute.
+        /// Configuration for when and how often the schedule executes.
         /// </param>
         /// <param name="enabled">
-        /// Whether the schedule should be active upon creation.<br/>
+        /// Whether the schedule is active upon creation.<br/>
         /// Default Value: true
         /// </param>
         /// <param name="sessionMetadata">
@@ -740,11 +739,11 @@ namespace Vectara
         /// Default Value: {}
         /// </param>
         /// <param name="runCondition">
-        /// A UserFn boolean expression that gates execution. On each scheduled execution the agent's enrichment runs first, then this expression is evaluated against the enriched session context. The scheduled session is created and the agent runs only when the expression evaluates to true. When it evaluates to false the execution is skipped and no session is created.<br/>
+        /// A UserFn boolean expression that gates execution. On each scheduled execution the agent's enrichment runs first. The schedule then evaluates this expression against the enriched session context. When the expression evaluates to true, the schedule creates the session and the agent runs. When it evaluates to false, the schedule skips the execution and creates no session.<br/>
         /// The expression uses the `get()` function with JSONPath to read the enriched context:<br/>
         /// * `$.session.metadata.*` for values written by the agent's enrichment<br/>
         /// * `$.agent.metadata.*` for the owning agent's metadata<br/>
-        /// An enrichment tool call's output is visible to the condition only when the call writes it to metadata via metadata_target_path. Missing paths return null, and comparing against null is falsy, so an unresolved path skips the execution. Use `get('$.path', default)` for an explicit fallback. Omit this field to run on every execution.<br/>
+        /// An enrichment tool call's output is visible to the condition only when the call writes it to metadata via metadata_target_path. Missing paths return null. Comparing against null is falsy, so an unresolved path skips the execution. Use `get('$.path', default)` for an explicit fallback. Omit this field to run on every execution.<br/>
         /// See https://docs.vectara.com/docs/reference/userfn-language for the UserFn language reference.<br/>
         /// Example: get('$.session.metadata.open_incidents') &gt; 0
         /// </param>
@@ -753,9 +752,9 @@ namespace Vectara
         /// Default Value: 10
         /// </param>
         /// <param name="stallTimeoutSeconds">
-        /// Number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
-        /// or other progress events) before it is considered stalled and retried. Set this above the longest<br/>
-        /// silent operation the agent is expected to perform so an in-flight run is not retried mid-operation.<br/>
+        /// The number of seconds a scheduled run may go without producing output (streamed tokens, tool calls,<br/>
+        /// or other progress events). After this period, the run is considered stalled and is retried. Set this<br/>
+        /// above the longest silent operation the agent performs, so an in-flight run is not retried mid-operation.<br/>
         /// Default Value: 3600<br/>
         /// Example: 1800
         /// </param>

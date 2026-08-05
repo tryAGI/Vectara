@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Create tool server<br/>
-        /// Create a new tool server to expose tools for use by agents.
+        /// Creates a tool server that exposes tools for use by agents.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -23,7 +23,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create tool server<br/>
-        /// Create a new tool server to expose tools for use by agents.
+        /// Creates a tool server that exposes tools for use by agents.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -40,7 +40,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create tool server<br/>
-        /// Create a new tool server to expose tools for use by agents.
+        /// Creates a tool server that exposes tools for use by agents.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

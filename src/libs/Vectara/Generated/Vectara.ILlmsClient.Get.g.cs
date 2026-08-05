@@ -6,10 +6,10 @@ namespace Vectara
     {
         /// <summary>
         /// Get an LLM<br/>
-        /// The Get LLM API allows users to retrieve details about a specific Large Language Model (LLM) that has been configured within the Vectara platform. This API provides metadata about the LLM, including its name, description, model type, API endpoint, and authentication method.<br/>
-        /// Use this API to verify model configurations, confirm connectivity details, and ensure that the correct LLM is being utilized within their workflows.<br/>
+        /// Returns the details of a Large Language Model (LLM) configured within the platform. The details include the name, description, model type, API endpoint, and authentication method.<br/>
+        /// Use this endpoint to verify model configurations and confirm connectivity details.<br/>
         /// ## Authentication methods<br/>
-        /// The request requires authentication details, and you can provide them either as a Bearer token or custom header-based authentication.
+        /// The LLM's authentication is configured either as a Bearer token or as custom header-based authentication.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -25,10 +25,10 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Get an LLM<br/>
-        /// The Get LLM API allows users to retrieve details about a specific Large Language Model (LLM) that has been configured within the Vectara platform. This API provides metadata about the LLM, including its name, description, model type, API endpoint, and authentication method.<br/>
-        /// Use this API to verify model configurations, confirm connectivity details, and ensure that the correct LLM is being utilized within their workflows.<br/>
+        /// Returns the details of a Large Language Model (LLM) configured within the platform. The details include the name, description, model type, API endpoint, and authentication method.<br/>
+        /// Use this endpoint to verify model configurations and confirm connectivity details.<br/>
         /// ## Authentication methods<br/>
-        /// The request requires authentication details, and you can provide them either as a Bearer token or custom header-based authentication.
+        /// The LLM's authentication is configured either as a Bearer token or as custom header-based authentication.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

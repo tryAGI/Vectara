@@ -67,7 +67,7 @@ namespace Vectara
 
         /// <summary>
         /// Interact with an agent<br/>
-        /// Create a new input to an agent to interact with it.
+        /// Creates a new input event in the session to interact with the agent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -108,7 +108,7 @@ namespace Vectara
         }
         /// <summary>
         /// Interact with an agent<br/>
-        /// Create a new input to an agent to interact with it.
+        /// Creates a new input event in the session to interact with the agent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -412,7 +412,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Input event creation request was malformed.
+                            // The request to create an input event is malformed.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -523,7 +523,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Session is already running. Use the `since` field in the request body to queue input.
+                            // The session is already running. Use the `since` field in the request body to queue input.
                             if ((int)__response.StatusCode == 409)
                             {
                                 string? __content_409 = null;
@@ -560,7 +560,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Could not process due to an invalid agent configuration (such as invalid instruction or tool description templates).
+                            // The agent configuration is invalid (for example, invalid instruction or tool description templates).
                             if ((int)__response.StatusCode == 422)
                             {
                                 string? __content_422 = null;
@@ -597,7 +597,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Failed to communicate with the pod handling this session.
+                            // Communication with the session failed.
                             if ((int)__response.StatusCode == 502)
                             {
                                 string? __content_502 = null;

@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class SentenceChunkingStrategy
     {
         /// <summary>
-        /// When setting the type to sentence_chunking_strategy, the platform will create one chunk per sentence.<br/>
+        /// When setting the type to sentence_chunking_strategy, the platform creates one chunk per sentence.<br/>
         /// Default Value: sentence_chunking_strategy
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
@@ -25,7 +25,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="SentenceChunkingStrategy" /> class.
         /// </summary>
         /// <param name="type">
-        /// When setting the type to sentence_chunking_strategy, the platform will create one chunk per sentence.<br/>
+        /// When setting the type to sentence_chunking_strategy, the platform creates one chunk per sentence.<br/>
         /// Default Value: sentence_chunking_strategy
         /// </param>
 #if NET7_0_OR_GREATER

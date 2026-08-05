@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// User-configurable settings for the sub-agent tool. These parameters are never exposed to the agent.
+    /// User-configurable settings for the sub-agent tool. The agent never sees these parameters.
     /// </summary>
     public sealed partial class SubAgentConfiguration
     {
@@ -21,8 +21,8 @@ namespace Vectara
         /// Controls session behavior for sub-agent invocations:<br/>
         /// - `ephemeral`: Creates a new session on every invocation. Never resumes.<br/>
         /// - `persistent`: Reuses one session per (parent session, tool configuration) pair, created on first invocation. Two `persistent` configurations on the same agent keep separate sessions.<br/>
-        /// - `session_scoped`: Resumes the session named by `session_key`, if provided; otherwise creates a new one. Only the parent session that originally created the named session may resume it. Scope is enforced by parent session and target sub-agent, not by tool configuration.<br/>
-        /// - `agent_scoped`: Like `session_scoped`, but any session of the creating agent may resume the named session. Scope is enforced by creating agent and target sub-agent.<br/>
+        /// - `session_scoped`: Resumes the session named by `session_key`, if provided; otherwise creates a new one. Only the parent session that originally created the named session may resume it. The parent session and target sub-agent enforce the scope, not the tool configuration.<br/>
+        /// - `agent_scoped`: Like `session_scoped`, but any session of the creating agent may resume the named session. The creating agent and target sub-agent enforce the scope.<br/>
         /// - `llm_controlled`: Deprecated alias for `session_scoped`. Use `session_scoped` for new agents.<br/>
         /// Default Value: ephemeral<br/>
         /// Example: ephemeral
@@ -58,8 +58,8 @@ namespace Vectara
         /// Controls session behavior for sub-agent invocations:<br/>
         /// - `ephemeral`: Creates a new session on every invocation. Never resumes.<br/>
         /// - `persistent`: Reuses one session per (parent session, tool configuration) pair, created on first invocation. Two `persistent` configurations on the same agent keep separate sessions.<br/>
-        /// - `session_scoped`: Resumes the session named by `session_key`, if provided; otherwise creates a new one. Only the parent session that originally created the named session may resume it. Scope is enforced by parent session and target sub-agent, not by tool configuration.<br/>
-        /// - `agent_scoped`: Like `session_scoped`, but any session of the creating agent may resume the named session. Scope is enforced by creating agent and target sub-agent.<br/>
+        /// - `session_scoped`: Resumes the session named by `session_key`, if provided; otherwise creates a new one. Only the parent session that originally created the named session may resume it. The parent session and target sub-agent enforce the scope, not the tool configuration.<br/>
+        /// - `agent_scoped`: Like `session_scoped`, but any session of the creating agent may resume the named session. The creating agent and target sub-agent enforce the scope.<br/>
         /// - `llm_controlled`: Deprecated alias for `session_scoped`. Use `session_scoped` for new agents.<br/>
         /// Default Value: ephemeral<br/>
         /// Example: ephemeral

@@ -6,12 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// Process dead letters<br/>
-        /// Process dead letters by creating a new pipeline run that re-fetches the specified records from source and sends them through the agent. If no filters are provided, all pending dead letters are processed.
+        /// Processes dead letters by creating a new pipeline run. The run re-fetches the specified records from the source and sends them through the agent. A request without filters processes all pending dead letters.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -28,12 +28,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Process dead letters<br/>
-        /// Process dead letters by creating a new pipeline run that re-fetches the specified records from source and sends them through the agent. If no filters are provided, all pending dead letters are processed.
+        /// Processes dead letters by creating a new pipeline run. The run re-fetches the specified records from the source and sends them through the agent. A request without filters processes all pending dead letters.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="request"></param>
@@ -50,12 +50,12 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Process dead letters<br/>
-        /// Process dead letters by creating a new pipeline run that re-fetches the specified records from source and sends them through the agent. If no filters are provided, all pending dead letters are processed.
+        /// Processes dead letters by creating a new pipeline run. The run re-fetches the specified records from the source and sends them through the agent. A request without filters processes all pending dead letters.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="pipelineKey">
-        /// The unique key for the pipeline. Can be user-provided or auto-generated.<br/>
+        /// The unique key for the pipeline. You can provide the key, or the platform generates one.<br/>
         /// Example: sharepoint-legal-ingest
         /// </param>
         /// <param name="sourceRecordIds">

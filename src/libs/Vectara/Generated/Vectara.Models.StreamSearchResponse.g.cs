@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class StreamSearchResponse
     {
         /// <summary>
-        /// When the streaming event has the search results, the type will be `search_results`.<br/>
+        /// When the streaming event contains the search results, the type is `search_results`.<br/>
         /// Default Value: search_results
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
@@ -39,7 +39,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="StreamSearchResponse" /> class.
         /// </summary>
         /// <param name="type">
-        /// When the streaming event has the search results, the type will be `search_results`.<br/>
+        /// When the streaming event contains the search results, the type is `search_results`.<br/>
         /// Default Value: search_results
         /// </param>
         /// <param name="searchResults">

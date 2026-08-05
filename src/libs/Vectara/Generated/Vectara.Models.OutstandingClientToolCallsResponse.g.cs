@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The client tool calls a session is currently waiting on the caller to fulfill, re-materialized from persisted history. Empty when the session is not parked on a client tool.
+    /// The client tool calls a session is currently waiting on the caller to fulfill. Available at any time, including after the original response stream ends. Empty when the session is not waiting on a client tool.
     /// </summary>
     public sealed partial class OutstandingClientToolCallsResponse
     {

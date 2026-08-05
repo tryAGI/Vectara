@@ -6,11 +6,12 @@ namespace Vectara
 {
     /// <summary>
     /// Read view of a Zoom Contact Center connector's configuration. Includes the<br/>
-    /// server-generated `connector_token` to configure as the `x-zoom-connector-token` header on the<br/>
-    /// Zoom Contact Center bot connector, and the `webhook_path` to configure as<br/>
-    /// the bot endpoint URL. The agent's reply is always delivered asynchronously.<br/>
-    /// The webhook returns a typing indicator and the reply is POSTed to<br/>
-    /// `callback_url` when the agent finishes.
+    /// platform-generated `connector_token` to configure as the<br/>
+    /// `x-zoom-connector-token` header on the Zoom Contact Center bot connector.<br/>
+    /// Also includes the `webhook_path` to configure as the bot endpoint URL. The<br/>
+    /// agent's reply is always delivered asynchronously. The webhook returns a<br/>
+    /// typing indicator and the reply is POSTed to `callback_url` when the agent<br/>
+    /// finishes.
     /// </summary>
     public readonly partial struct ZoomConnectorConfiguration : global::System.IEquatable<ZoomConnectorConfiguration>
     {

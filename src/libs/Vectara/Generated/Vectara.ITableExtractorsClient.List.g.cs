@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List supported table extractors<br/>
-        /// Table extractors are used to extract tabular data from documents during indexing.
+        /// Lists the table extractors that are available for indexing. Table extractors extract tabular data from documents during indexing.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -20,7 +20,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List supported table extractors<br/>
-        /// Table extractors are used to extract tabular data from documents during indexing.
+        /// Lists the table extractors that are available for indexing. Table extractors extract tabular data from documents during indexing.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
