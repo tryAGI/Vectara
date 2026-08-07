@@ -6,7 +6,8 @@ namespace Vectara
     {
         /// <summary>
         /// List API keys<br/>
-        /// Lists all API keys for the customer account. The response shows the corpora each key can access and with what permissions.
+        /// Lists the API keys the caller can access. The response shows the corpora each key can access and with what permissions.<br/>
+        /// Callers with the `corpus_administrator`, `administrator`, or `owner` role list every API key in the account. Users holding only other roles must set `api_key_role` to `personal` and receive only their own personal key; machine credentials — API keys, app clients, and service accounts — without one of those three roles cannot list keys at all.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -19,8 +20,7 @@ namespace Vectara
         /// Example: my-corpus
         /// </param>
         /// <param name="apiKeyRole">
-        /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
-        /// A personal API key has all the same permissions as the creator of the API key.
+        /// The role of the API key. A `personal` key has the same permissions as its owner. A `serving` API key can only perform query type requests on its corpora, and a `serving_and_indexing` key can perform both indexing and query type requests; these two roles are deprecated for creation — assign roles with `api_roles` instead.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -36,7 +36,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List API keys<br/>
-        /// Lists all API keys for the customer account. The response shows the corpora each key can access and with what permissions.
+        /// Lists the API keys the caller can access. The response shows the corpora each key can access and with what permissions.<br/>
+        /// Callers with the `corpus_administrator`, `administrator`, or `owner` role list every API key in the account. Users holding only other roles must set `api_key_role` to `personal` and receive only their own personal key; machine credentials — API keys, app clients, and service accounts — without one of those three roles cannot list keys at all.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -49,8 +50,7 @@ namespace Vectara
         /// Example: my-corpus
         /// </param>
         /// <param name="apiKeyRole">
-        /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
-        /// A personal API key has all the same permissions as the creator of the API key.
+        /// The role of the API key. A `personal` key has the same permissions as its owner. A `serving` API key can only perform query type requests on its corpora, and a `serving_and_indexing` key can perform both indexing and query type requests; these two roles are deprecated for creation — assign roles with `api_roles` instead.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>

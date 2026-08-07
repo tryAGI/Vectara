@@ -6,7 +6,8 @@ namespace Vectara
     {
         /// <summary>
         /// Update an API key<br/>
-        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.
+        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.<br/>
+        /// Users that hold none of the `corpus_administrator`, `administrator`, or `owner` roles can only update their own personal API key; a key that exists but belongs to another user returns a `404` error. Machine credentials — API keys, app clients, and service accounts — without one of those three roles cannot call this operation.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -25,7 +26,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update an API key<br/>
-        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.
+        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.<br/>
+        /// Users that hold none of the `corpus_administrator`, `administrator`, or `owner` roles can only update their own personal API key; a key that exists but belongs to another user returns a `404` error. Machine credentials — API keys, app clients, and service accounts — without one of those three roles cannot call this operation.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -44,7 +46,8 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update an API key<br/>
-        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.
+        /// Updates an API key. Enable or disable the key to temporarily remove access without deleting the key. This is useful for maintenance windows, or when your team no longer requires access to a specific corpus.<br/>
+        /// Users that hold none of the `corpus_administrator`, `administrator`, or `owner` roles can only update their own personal API key; a key that exists but belongs to another user returns a `404` error. Machine credentials — API keys, app clients, and service accounts — without one of those three roles cannot call this operation.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

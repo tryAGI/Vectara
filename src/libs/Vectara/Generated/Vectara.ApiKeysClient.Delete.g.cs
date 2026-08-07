@@ -58,7 +58,8 @@ namespace Vectara
 
         /// <summary>
         /// Delete an API key<br/>
-        /// Deletes an API key. Delete a key when it is no longer needed or when it is compromised.
+        /// Deletes an API key. Delete a key when it is no longer needed or when it is compromised.<br/>
+        /// Users that hold none of the `corpus_administrator`, `administrator`, or `owner` roles can only delete their own personal API key; a key that exists but belongs to another user returns a `404` error. Machine credentials — API keys, app clients, and service accounts — without one of those three roles cannot call this operation.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -83,7 +84,8 @@ namespace Vectara
         }
         /// <summary>
         /// Delete an API key<br/>
-        /// Deletes an API key. Delete a key when it is no longer needed or when it is compromised.
+        /// Deletes an API key. Delete a key when it is no longer needed or when it is compromised.<br/>
+        /// Users that hold none of the `corpus_administrator`, `administrator`, or `owner` roles can only delete their own personal API key; a key that exists but belongs to another user returns a `404` error. Machine credentials — API keys, app clients, and service accounts — without one of those three roles cannot call this operation.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -366,7 +368,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Permissions do not allow deleting this API key.
+                            // The caller's roles do not allow deleting API keys. A machine credential — an API key, app client, or service account — that holds none of the `corpus_administrator`, `administrator`, or `owner` roles is always refused.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -398,6 +400,43 @@ namespace Vectara
                                     innerException: __exception_403,
                                     responseBody: __content_403,
                                     responseObject: __value_403,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // No API key with this ID is visible to the caller.
+                            if ((int)__response.StatusCode == 404)
+                            {
+                                string? __content_404 = null;
+                                global::System.Exception? __exception_404 = null;
+                                global::Vectara.Error? __value_404 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_404 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_404 = global::Vectara.Error.FromJson(__content_404, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_404 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_404 = global::Vectara.Error.FromJson(__content_404, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_404 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_404 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_404,
+                                    responseBody: __content_404,
+                                    responseObject: __value_404,
                                     responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,

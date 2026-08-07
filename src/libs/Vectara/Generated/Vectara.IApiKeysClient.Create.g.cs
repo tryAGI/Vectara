@@ -8,13 +8,10 @@ namespace Vectara
     {
         /// <summary>
         /// Create an API key<br/>
-        /// Creates an API key. You can bind the key to one or more corpora. Each key has one of these access levels:<br/>
-        /// - Personal: the key has the same permissions as your user account.<br/>
-        /// - Query only (read-only).<br/>
-        /// - Query and index (read-write).<br/>
-        /// For example, create a read-only key for an application that only queries data.<br/>
+        /// Creates an API key. You can bind the key to one or more corpora. A `personal` key has the same permissions as its owner; any other key carries exactly the roles assigned to it with `api_roles`, `corpus_roles`, and `agent_roles`.<br/>
+        /// Callers with the `corpus_administrator`, `administrator`, or `owner` role create any API key. Callers holding only other roles must set `api_key_role` to `personal`. Only a user can create a personal API key; a request authenticated with a machine credential — an API key, app client, or service account — receives a `403` error.<br/>
         /// :::note<br/>
-        /// For more information about the different types of API keys, see [API Key Management](/docs/deploy-and-scale/authentication/api-key-management).<br/>
+        /// For more information about the different types of API keys, see [API Key Management](/docs/security/authentication/api-key-management).<br/>
         /// :::
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -32,13 +29,10 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an API key<br/>
-        /// Creates an API key. You can bind the key to one or more corpora. Each key has one of these access levels:<br/>
-        /// - Personal: the key has the same permissions as your user account.<br/>
-        /// - Query only (read-only).<br/>
-        /// - Query and index (read-write).<br/>
-        /// For example, create a read-only key for an application that only queries data.<br/>
+        /// Creates an API key. You can bind the key to one or more corpora. A `personal` key has the same permissions as its owner; any other key carries exactly the roles assigned to it with `api_roles`, `corpus_roles`, and `agent_roles`.<br/>
+        /// Callers with the `corpus_administrator`, `administrator`, or `owner` role create any API key. Callers holding only other roles must set `api_key_role` to `personal`. Only a user can create a personal API key; a request authenticated with a machine credential — an API key, app client, or service account — receives a `403` error.<br/>
         /// :::note<br/>
-        /// For more information about the different types of API keys, see [API Key Management](/docs/deploy-and-scale/authentication/api-key-management).<br/>
+        /// For more information about the different types of API keys, see [API Key Management](/docs/security/authentication/api-key-management).<br/>
         /// :::
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -56,13 +50,10 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create an API key<br/>
-        /// Creates an API key. You can bind the key to one or more corpora. Each key has one of these access levels:<br/>
-        /// - Personal: the key has the same permissions as your user account.<br/>
-        /// - Query only (read-only).<br/>
-        /// - Query and index (read-write).<br/>
-        /// For example, create a read-only key for an application that only queries data.<br/>
+        /// Creates an API key. You can bind the key to one or more corpora. A `personal` key has the same permissions as its owner; any other key carries exactly the roles assigned to it with `api_roles`, `corpus_roles`, and `agent_roles`.<br/>
+        /// Callers with the `corpus_administrator`, `administrator`, or `owner` role create any API key. Callers holding only other roles must set `api_key_role` to `personal`. Only a user can create a personal API key; a request authenticated with a machine credential — an API key, app client, or service account — receives a `403` error.<br/>
         /// :::note<br/>
-        /// For more information about the different types of API keys, see [API Key Management](/docs/deploy-and-scale/authentication/api-key-management).<br/>
+        /// For more information about the different types of API keys, see [API Key Management](/docs/security/authentication/api-key-management).<br/>
         /// :::
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -74,8 +65,7 @@ namespace Vectara
         /// Customer-level roles for this API key.
         /// </param>
         /// <param name="apiKeyRole">
-        /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
-        /// A personal API key has all the same permissions as the creator of the API key.
+        /// Set to `personal` to create a personal API key. The `serving` and `serving_and_indexing` values are deprecated: use `api_roles` instead.
         /// </param>
         /// <param name="corpusRoles">
         /// Corpus-specific role assignments for this API key.

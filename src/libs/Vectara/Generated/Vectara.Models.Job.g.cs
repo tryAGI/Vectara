@@ -68,6 +68,14 @@ namespace Vectara
         public string? Comment { get; set; }
 
         /// <summary>
+        /// Live progress of a running job.<br/>
+        /// Present only while the job is running, and only when retrieving a single job by ID; `listJobs` never populates it. Absence does not indicate failure — read `state` for job health. The counters describe the corpus rebuild the job runs, so a job that drives no rebuild reports nothing here.<br/>
+        /// `pages_pending_import`, `imports_in_flight` and `import_batches_submitted` describe incremental import, which is not enabled for every rebuild. When it is not in use all three report 0 for the whole rebuild, which means "not applicable" rather than "nothing left to do".
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("progress")]
+        public global::Vectara.JobProgress? Progress { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -104,6 +112,11 @@ namespace Vectara
         /// <param name="comment">
         /// A human-readable explanation of the job's current status. The format and content depend on the job type. On failure, this property contains the error message. This property can be absent.
         /// </param>
+        /// <param name="progress">
+        /// Live progress of a running job.<br/>
+        /// Present only while the job is running, and only when retrieving a single job by ID; `listJobs` never populates it. Absence does not indicate failure — read `state` for job health. The counters describe the corpus rebuild the job runs, so a job that drives no rebuild reports nothing here.<br/>
+        /// `pages_pending_import`, `imports_in_flight` and `import_batches_submitted` describe incremental import, which is not enabled for every rebuild. When it is not in use all three report 0 for the whole rebuild, which means "not applicable" rather than "nothing left to do".
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -116,7 +129,8 @@ namespace Vectara
             global::System.DateTime? startedAt,
             global::System.DateTime? completedAt,
             string? createdByUsername,
-            string? comment)
+            string? comment,
+            global::Vectara.JobProgress? progress)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Type = type;
@@ -127,6 +141,7 @@ namespace Vectara
             this.CompletedAt = completedAt;
             this.CreatedByUsername = createdByUsername;
             this.Comment = comment;
+            this.Progress = progress;
         }
 
         /// <summary>

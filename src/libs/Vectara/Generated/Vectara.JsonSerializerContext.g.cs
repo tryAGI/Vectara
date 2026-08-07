@@ -169,6 +169,10 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.JobStateNullableJsonConverter),
 
+            typeof(global::Vectara.JsonConverters.JobProgressPhaseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobProgressPhaseNullableJsonConverter),
+
             typeof(global::Vectara.JsonConverters.JobTypeJsonConverter),
 
             typeof(global::Vectara.JsonConverters.JobTypeNullableJsonConverter),
@@ -1339,6 +1343,8 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.HallucinationCorrectionResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.CorrectionItem>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JobState), TypeInfoPropertyName = "JobState2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JobProgress))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JobProgressPhase), TypeInfoPropertyName = "JobProgressPhase2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Job))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JobType), TypeInfoPropertyName = "JobType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListJobsResponse))]
@@ -1539,8 +1545,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListInstructionsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Instruction>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InstructionRequestBase))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateInitialInstructionRequest), TypeInfoPropertyName = "CreateInitialInstructionRequest2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateInitialInstructionRequestVariant2))]
     internal sealed partial class SourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1707,6 +1711,10 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.JobStateJsonConverter),
 
             typeof(global::Vectara.JsonConverters.JobStateNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobProgressPhaseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobProgressPhaseNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.JobTypeJsonConverter),
 
@@ -2580,6 +2588,8 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateInitialInstructionRequest), TypeInfoPropertyName = "CreateInitialInstructionRequest2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateInitialInstructionRequestVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateInstructionRequest), TypeInfoPropertyName = "CreateInstructionRequest2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateInstructionRequestDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateInstructionRequestDiscriminatorType), TypeInfoPropertyName = "CreateInstructionRequestDiscriminatorType2")]
@@ -3078,8 +3088,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListAgentTracesResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentTrace>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTraceSpanStatus), TypeInfoPropertyName = "AgentTraceSpanStatus2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTraceSpanBase))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTraceInputFile))]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -3246,6 +3254,10 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.JobStateJsonConverter),
 
             typeof(global::Vectara.JsonConverters.JobStateNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobProgressPhaseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobProgressPhaseNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.JobTypeJsonConverter),
 
@@ -4119,6 +4131,8 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTraceSpanBase))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.AgentTraceInputFile))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InvokeAgentSpanAttributes))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.InvokeAgentSpanAttributesOutputType), TypeInfoPropertyName = "InvokeAgentSpanAttributesOutputType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.AgentTraceInputFile>))]
@@ -4261,6 +4275,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateEncoderRequest?), TypeInfoPropertyName = "NullableCreateEncoderRequest2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateEncoderRequestDiscriminatorType?), TypeInfoPropertyName = "NullableCreateEncoderRequestDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JobState?), TypeInfoPropertyName = "NullableJobState2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JobProgressPhase?), TypeInfoPropertyName = "NullableJobProgressPhase2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JobType?), TypeInfoPropertyName = "NullableJobType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ApiRole?), TypeInfoPropertyName = "NullableApiRole2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CorpusRoleRole?), TypeInfoPropertyName = "NullableCorpusRoleRole2")]
@@ -4616,9 +4631,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.A2aV1Part>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.A2aV1Artifact>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.A2aV1Message>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.A2aV1Task>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.WeightedTarget>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AliasRule>))]
     internal sealed partial class SourceGenerationContextChunk2 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -4785,6 +4797,10 @@ namespace Vectara
             typeof(global::Vectara.JsonConverters.JobStateJsonConverter),
 
             typeof(global::Vectara.JsonConverters.JobStateNullableJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobProgressPhaseJsonConverter),
+
+            typeof(global::Vectara.JsonConverters.JobProgressPhaseNullableJsonConverter),
 
             typeof(global::Vectara.JsonConverters.JobTypeJsonConverter),
 
@@ -5658,6 +5674,9 @@ namespace Vectara
 
             typeof(global::Vectara.JsonConverters.UnixTimestampJsonConverter),
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.A2aV1Task>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.WeightedTarget>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AliasRule>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.AgentAlias>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.EndUserSession>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.EndUserEvent>))]
@@ -5805,6 +5824,8 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.CreateEncoderRequestDiscriminatorTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.JobStateJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.JobStateNullableJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.JobProgressPhaseJsonConverter());
+            options.Converters.Add(new global::Vectara.JsonConverters.JobProgressPhaseNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.JobTypeJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.JobTypeNullableJsonConverter());
             options.Converters.Add(new global::Vectara.JsonConverters.ApiRoleJsonConverter());
