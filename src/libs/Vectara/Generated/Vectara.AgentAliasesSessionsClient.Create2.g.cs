@@ -510,6 +510,117 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
+                            // A session_enrichment tool call on the resolved agent has an invalid configuration or its transform raised an error, so no session was created. `messages` names the failing tool call and the reason, such as a `$ref` to a secret that is not on the resolved agent or in the request, or a jq error raised by the called tool configuration's `input_transform` or `output_transform`.
+                            if ((int)__response.StatusCode == 422)
+                            {
+                                string? __content_422 = null;
+                                global::System.Exception? __exception_422 = null;
+                                global::Vectara.Error? __value_422 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_422 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_422 = global::Vectara.Error.FromJson(__content_422, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_422 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_422 = global::Vectara.Error.FromJson(__content_422, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_422 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_422 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_422,
+                                    responseBody: __content_422,
+                                    responseObject: __value_422,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // A session_enrichment tool call on the resolved agent failed upstream, so no session was created. The failure may be transient; retrying the request may succeed.
+                            if ((int)__response.StatusCode == 502)
+                            {
+                                string? __content_502 = null;
+                                global::System.Exception? __exception_502 = null;
+                                global::Vectara.Error? __value_502 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_502 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_502 = global::Vectara.Error.FromJson(__content_502, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_502 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_502 = global::Vectara.Error.FromJson(__content_502, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_502 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_502 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_502,
+                                    responseBody: __content_502,
+                                    responseObject: __value_502,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // A session_enrichment tool call on the resolved agent did not complete within its timeout_seconds, so no session was created.
+                            if ((int)__response.StatusCode == 504)
+                            {
+                                string? __content_504 = null;
+                                global::System.Exception? __exception_504 = null;
+                                global::Vectara.Error? __value_504 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_504 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_504 = global::Vectara.Error.FromJson(__content_504, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_504 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_504 = global::Vectara.Error.FromJson(__content_504, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_504 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_504 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_504,
+                                    responseBody: __content_504,
+                                    responseObject: __value_504,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
 
                             if (__effectiveReadResponseAsString)
                             {

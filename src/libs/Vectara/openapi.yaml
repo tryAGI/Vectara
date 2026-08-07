@@ -7116,63 +7116,58 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
-        - owner
-        - administrator
-        - billing_administrator
-        - corpus_administrator
-        - corpus_developer
-        - corpus_viewer
-        - agent_administrator
-        - agent_developer
-        - agent_viewer
-        - agent_user
-        - pipeline_administrator
-        - pipeline_viewer
         - viewer
+        - pipeline_viewer
+        - pipeline_administrator
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - corpus_viewer
+        - corpus_developer
+        - corpus_administrator
+        - billing_administrator
+        - administrator
+        - owner
         allowed_resources:
           body.api_key_role:
           - personal
+        user_only: true
       - type: CorpusRole
         roles:
-        - owner
-        - administrator
-        - editor
         - viewer
+        - editor
+        - administrator
+        - owner
         allowed_resources:
           body.api_key_role:
           - personal
+        user_only: true
       - type: AgentRole
         roles:
-        - agent_administrator
-        - agent_developer
-        - agent_viewer
         - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
         allowed_resources:
           body.api_key_role:
           - personal
+        user_only: true
       - type: ApiRole
         roles:
         - corpus_administrator
         - administrator
         - owner
-      description: 'Creates an API key. You can bind the key to one or more corpora.
-        Each key has one of these access levels:
-
-        - Personal: the key has the same permissions as your user account.
-
-        - Query only (read-only).
-
-        - Query and index (read-write).
-
-
-        For example, create a read-only key for an application that only queries data.
-
-
-        :::note
-
-        For more information about the different types of API keys, see [API Key Management](/docs/deploy-and-scale/authentication/api-key-management).
-
-        :::'
+      description: "Creates an API key. You can bind the key to one or more corpora.\
+        \ A `personal` key has the same permissions as its owner; any other key carries\
+        \ exactly the roles assigned to it with `api_roles`, `corpus_roles`, and `agent_roles`.\n\
+        \nCallers with the `corpus_administrator`, `administrator`, or `owner` role\
+        \ create any API key. Callers holding only other roles must set `api_key_role`\
+        \ to `personal`. Only a user can create a personal API key; a request authenticated\
+        \ with a machine credential \u2014 an API key, app client, or service account\
+        \ \u2014 receives a `403` error.\n\n:::note\nFor more information about the\
+        \ different types of API keys, see [API Key Management](/docs/security/authentication/api-key-management).\n\
+        :::"
       operationId: createApiKey
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -7197,7 +7192,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow creating the API key.
+          description: "The caller's roles do not allow creating this API key. Callers\
+            \ that hold none of the `corpus_administrator`, `administrator`, or `owner`\
+            \ roles may only create a personal key, and machine credentials \u2014\
+            \ API keys, app clients, and service accounts \u2014 may not create personal\
+            \ keys at all."
           content:
             application/json:
               schema:
@@ -7211,13 +7210,55 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
+        - viewer
+        - pipeline_viewer
+        - pipeline_administrator
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - corpus_viewer
+        - corpus_developer
+        - corpus_administrator
+        - billing_administrator
+        - administrator
+        - owner
+        allowed_resources:
+          query.api_key_role:
+          - personal
+        user_only: true
+      - type: CorpusRole
+        roles:
+        - viewer
+        - editor
+        - administrator
+        - owner
+        allowed_resources:
+          query.api_key_role:
+          - personal
+        user_only: true
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        allowed_resources:
+          query.api_key_role:
+          - personal
+        user_only: true
+      - type: ApiRole
+        roles:
         - corpus_administrator
         - administrator
         - owner
-      description: 'Lists all API keys for the customer account. The response shows
-        the corpora each key can access and with what permissions.
-
-        '
+      description: "Lists the API keys the caller can access. The response shows the\
+        \ corpora each key can access and with what permissions.\n\nCallers with the\
+        \ `corpus_administrator`, `administrator`, or `owner` role list every API\
+        \ key in the account. Users holding only other roles must set `api_key_role`\
+        \ to `personal` and receive only their own personal key; machine credentials\
+        \ \u2014 API keys, app clients, and service accounts \u2014 without one of\
+        \ those three roles cannot list keys at all.\n"
       operationId: listApiKeys
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -7248,7 +7289,10 @@ paths:
           $ref: '#/components/schemas/CorpusKey'
       - name: api_key_role
         in: query
-        description: Filter API keys by their role.
+        description: Filters API keys by their role. Callers that hold none of the
+          `corpus_administrator`, `administrator`, or `owner` roles must set this
+          parameter to `personal`; omitting it or setting any other value returns
+          a `403` error.
         required: false
         schema:
           $ref: '#/components/schemas/ApiKeyRole'
@@ -7269,7 +7313,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow listing API keys.
+          description: The caller's roles do not allow this listing. Users that hold
+            none of the `corpus_administrator`, `administrator`, or `owner` roles
+            may only request their own personal keys with `api_key_role` set to `personal`;
+            machine credentials without one of those three roles are refused regardless.
           content:
             application/json:
               schema:
@@ -7288,13 +7335,47 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
+        - viewer
+        - pipeline_viewer
+        - pipeline_administrator
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - corpus_viewer
+        - corpus_developer
+        - corpus_administrator
+        - billing_administrator
+        - administrator
+        - owner
+        user_only: true
+      - type: CorpusRole
+        roles:
+        - viewer
+        - editor
+        - administrator
+        - owner
+        allow_any_resource: true
+        user_only: true
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        allow_any_resource: true
+        user_only: true
+      - type: ApiRole
+        roles:
         - corpus_administrator
         - administrator
         - owner
-      description: 'Returns an API key. The response shows the corpora the key can
-        access and with what permissions.
-
-        '
+      description: "Returns an API key. The response shows the corpora the key can\
+        \ access and with what permissions.\n\nUsers that hold none of the `corpus_administrator`,\
+        \ `administrator`, or `owner` roles can only get their own personal API key;\
+        \ a key that exists but belongs to another user returns a `404` error. Machine\
+        \ credentials \u2014 API keys, app clients, and service accounts \u2014 without\
+        \ one of those three roles cannot call this operation.\n"
       operationId: getApiKey
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -7305,6 +7386,7 @@ paths:
         required: true
         schema:
           type: string
+        example: aky_54321
       responses:
         '200':
           description: The response includes the API key name, enabled status, API
@@ -7314,7 +7396,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiKey'
         '403':
-          description: Permissions do not allow getting this API key.
+          description: "The caller's roles do not allow getting API keys. A machine\
+            \ credential \u2014 an API key, app client, or service account \u2014\
+            \ that holds none of the `corpus_administrator`, `administrator`, or `owner`\
+            \ roles is always refused."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No API key with this ID is visible to the caller.
           content:
             application/json:
               schema:
@@ -7328,14 +7419,49 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
+        - viewer
+        - pipeline_viewer
+        - pipeline_administrator
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - corpus_viewer
+        - corpus_developer
+        - corpus_administrator
+        - billing_administrator
+        - administrator
+        - owner
+        user_only: true
+      - type: CorpusRole
+        roles:
+        - viewer
+        - editor
+        - administrator
+        - owner
+        allow_any_resource: true
+        user_only: true
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        allow_any_resource: true
+        user_only: true
+      - type: ApiRole
+        roles:
         - corpus_administrator
         - administrator
         - owner
-      description: 'Updates an API key. Enable or disable the key to temporarily remove
-        access without deleting the key. This is useful for maintenance windows, or
-        when your team no longer requires access to a specific corpus.
-
-        '
+      description: "Updates an API key. Enable or disable the key to temporarily remove\
+        \ access without deleting the key. This is useful for maintenance windows,\
+        \ or when your team no longer requires access to a specific corpus.\n\nUsers\
+        \ that hold none of the `corpus_administrator`, `administrator`, or `owner`\
+        \ roles can only update their own personal API key; a key that exists but\
+        \ belongs to another user returns a `404` error. Machine credentials \u2014\
+        \ API keys, app clients, and service accounts \u2014 without one of those\
+        \ three roles cannot call this operation.\n"
       operationId: updateApiKey
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -7346,6 +7472,7 @@ paths:
         required: true
         schema:
           type: string
+        example: aky_54321
       requestBody:
         content:
           application/json:
@@ -7359,7 +7486,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiKey'
         '403':
-          description: Permissions do not allow updating this API key.
+          description: "The caller's roles do not allow updating API keys. A machine\
+            \ credential \u2014 an API key, app client, or service account \u2014\
+            \ that holds none of the `corpus_administrator`, `administrator`, or `owner`\
+            \ roles is always refused."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No API key with this ID is visible to the caller.
           content:
             application/json:
               schema:
@@ -7373,13 +7509,47 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
+        - viewer
+        - pipeline_viewer
+        - pipeline_administrator
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - corpus_viewer
+        - corpus_developer
+        - corpus_administrator
+        - billing_administrator
+        - administrator
+        - owner
+        user_only: true
+      - type: CorpusRole
+        roles:
+        - viewer
+        - editor
+        - administrator
+        - owner
+        allow_any_resource: true
+        user_only: true
+      - type: AgentRole
+        roles:
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        allow_any_resource: true
+        user_only: true
+      - type: ApiRole
+        roles:
         - corpus_administrator
         - administrator
         - owner
-      description: 'Deletes an API key. Delete a key when it is no longer needed or
-        when it is compromised.
-
-        '
+      description: "Deletes an API key. Delete a key when it is no longer needed or\
+        \ when it is compromised.\n\nUsers that hold none of the `corpus_administrator`,\
+        \ `administrator`, or `owner` roles can only delete their own personal API\
+        \ key; a key that exists but belongs to another user returns a `404` error.\
+        \ Machine credentials \u2014 API keys, app clients, and service accounts \u2014\
+        \ without one of those three roles cannot call this operation.\n"
       operationId: deleteApiKey
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -7390,11 +7560,21 @@ paths:
         required: true
         schema:
           type: string
+        example: aky_54321
       responses:
         '204':
           description: The API key was deleted.
         '403':
-          description: Permissions do not allow deleting this API key.
+          description: "The caller's roles do not allow deleting API keys. A machine\
+            \ credential \u2014 an API key, app client, or service account \u2014\
+            \ that holds none of the `corpus_administrator`, `administrator`, or `owner`\
+            \ roles is always refused."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No API key with this ID is visible to the caller.
           content:
             application/json:
               schema:
@@ -9452,6 +9632,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '422':
+          description: A session_enrichment tool call has an invalid configuration
+            or its transform raised an error, so no session was created. `messages`
+            names the failing tool call and the reason, such as a `$ref` to a secret
+            that is not on the agent or in the request, or a jq error raised by the
+            called tool configuration's `input_transform` or `output_transform`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '502':
+          description: A session_enrichment tool call failed upstream, so no session
+            was created. The failure may be transient; retrying the request may succeed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: A session_enrichment tool call did not complete within its
+            timeout_seconds, so no session was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: agent_sessions
       x-fern-sdk-method-name: create
     get:
@@ -13108,6 +13312,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '422':
+          description: A session_enrichment tool call on the resolved agent has an
+            invalid configuration or its transform raised an error, so no session
+            was created. `messages` names the failing tool call and the reason, such
+            as a `$ref` to a secret that is not on the resolved agent or in the request,
+            or a jq error raised by the called tool configuration's `input_transform`
+            or `output_transform`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '502':
+          description: A session_enrichment tool call on the resolved agent failed
+            upstream, so no session was created. The failure may be transient; retrying
+            the request may succeed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: A session_enrichment tool call on the resolved agent did not
+            complete within its timeout_seconds, so no session was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: agent_aliases_sessions
       x-fern-sdk-method-name: create
     get:
@@ -20656,22 +20886,14 @@ components:
           description: The default value to use when none is provided.
     JsonSchemaDefinition:
       description: 'A JSON Schema definition that describes a data structure. Covers
-        the smallest subset of
-
-        JSON Schema that all LLM providers support. Unknown keywords are kept and
-        passed through
-
-        to the provider.
+        the smallest subset of JSON Schema that all LLM providers support. Unknown
+        keywords are kept and passed through to the provider.
 
 
         `properties`, `required`, and `additionalProperties` are valid only when `type`
-        is
-
-        `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other
-        `type`, and
-
-        for an element with no `type`, such as one that only combines schemas with
-        `anyOf`.
+        is `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other
+        `type`, and for an element with no `type`, such as one that only combines
+        schemas with `anyOf`.
 
         '
       x-vectara-base-schema: '#/JsonSchemaBase'
@@ -21447,6 +21669,85 @@ components:
       - failed
       - failed_will_retry
       - aborted
+    JobProgress:
+      description: "Live progress of a running job.\n\nPresent only while the job\
+        \ is running, and only when retrieving a single job by ID; `listJobs` never\
+        \ populates it. Absence does not indicate failure \u2014 read `state` for\
+        \ job health. The counters describe the corpus rebuild the job runs, so a\
+        \ job that drives no rebuild reports nothing here.\n\n`pages_pending_import`,\
+        \ `imports_in_flight` and `import_batches_submitted` describe incremental\
+        \ import, which is not enabled for every rebuild. When it is not in use all\
+        \ three report 0 for the whole rebuild, which means \"not applicable\" rather\
+        \ than \"nothing left to do\"."
+      type: object
+      properties:
+        phase:
+          description: The stage of the rebuild that is currently running. A rebuild
+            scans the corpus and imports it into the new indices, then cuts the corpus
+            over to them and replays everything written while it ran. New phases may
+            be added; treat unrecognized values as opaque.
+          type: string
+          enum:
+          - preparing
+          - scanning
+          - importing
+          - cutting_over
+          - replaying_journals
+          - completed
+        documents_indexed:
+          description: The number of documents the rebuild has processed out of the
+            corpus so far, counting towards `documents_expected`.
+          type: integer
+          format: int64
+        documents_expected:
+          description: The number of documents the corpus held when the rebuild started,
+            and the total that `documents_indexed` runs towards. Absent when the corpus
+            size could not be determined.
+          type: integer
+          format: int64
+        scan_shards:
+          description: The number of shards the corpus is being scanned in, all read
+            concurrently.
+          type: integer
+          format: int32
+        scan_shards_finished:
+          description: How many of the corpus's scan shards have been read to the
+            end.
+          type: integer
+          format: int32
+        pages_pending_import:
+          description: Staged scan batches waiting to be imported. Bounded by the
+            rebuild's own backpressure, so this does not grow with the size of the
+            corpus. Reports 0 when incremental import is not in use.
+          type: integer
+          format: int32
+        import_batches_submitted:
+          description: Import batches handed to the vector store over the rebuild's
+            lifetime. It only ever climbs. Reports 0 when incremental import is not
+            in use.
+          type: integer
+          format: int32
+        imports_in_flight:
+          description: Import batches submitted to the vector store and still being
+            waited on. Reports 0 when incremental import is not in use.
+          type: integer
+          format: int32
+        import_recovery_attempts:
+          description: How many times the rebuild has had to discard and replay a
+            failed import. A nonzero value means imports are being retried, not that
+            the rebuild has failed. Unlike `import_batches_submitted`, this counts
+            only the rebuild's current stretch of work and restarts at 0 if the rebuild
+            continues past an internal checkpoint.
+          type: integer
+          format: int32
+        started_at:
+          description: When the rebuild these counters describe began, and the instant
+            they are all measured from. It is reported by the rebuild itself, so it
+            is present whenever this object is and does not move for the rebuild's
+            lifetime, whereas `Job.started_at` is recorded on the job and may be absent
+            or differ.
+          type: string
+          format: date-time
     Job:
       description: A background job for processing long-running operations on the
         platform.
@@ -21495,6 +21796,8 @@ components:
             format and content depend on the job type. On failure, this property contains
             the error message. This property can be absent.
           type: string
+        progress:
+          $ref: '#/components/schemas/JobProgress'
       required:
       - id
     ListJobsResponse:
@@ -21743,12 +22046,11 @@ components:
           type: string
           maxLength: 255
     ApiKeyRole:
-      description: 'Role of the API key. A serving API key can only perform query
-        type requests on its corpora. A serving and indexing key can perform both
-        indexing and query type requests on its corpora.
-
-        A personal API key has all the same permissions as the creator of the API
-        key.'
+      description: "The role of the API key. A `personal` key has the same permissions\
+        \ as its owner. A `serving` API key can only perform query type requests on\
+        \ its corpora, and a `serving_and_indexing` key can perform both indexing\
+        \ and query type requests; these two roles are deprecated for creation \u2014\
+        \ assign roles with `api_roles` instead."
       type: string
       enum:
       - serving
@@ -21778,10 +22080,11 @@ components:
           items:
             $ref: '#/components/schemas/ApiRole'
         api_key_role:
-          deprecated: true
-          description: 'Deprecated: Use api_roles instead. Legacy role of the API
-            key.'
-          $ref: '#/components/schemas/ApiKeyRole'
+          allOf:
+          - $ref: '#/components/schemas/ApiKeyRole'
+          description: 'The role of the API key. A `personal` key has the same permissions
+            as its owner. The `serving` and `serving_and_indexing` values are deprecated
+            for creation: use `api_roles` instead.'
         corpus_roles:
           description: Corpus-specific role assignments for this API key.
           type: array
@@ -21822,10 +22125,10 @@ components:
           items:
             $ref: '#/components/schemas/ApiRole'
         api_key_role:
-          deprecated: true
-          description: 'Deprecated: Use api_roles instead. Legacy role of the API
-            key.'
-          $ref: '#/components/schemas/ApiKeyRole'
+          allOf:
+          - $ref: '#/components/schemas/ApiKeyRole'
+          description: 'Set to `personal` to create a personal API key. The `serving`
+            and `serving_and_indexing` values are deprecated: use `api_roles` instead.'
         corpus_keys:
           deprecated: true
           description: 'Deprecated: Use corpus_roles instead. Corpora this API key
@@ -22301,15 +22604,26 @@ components:
             \ references to context values using $ref with dot notation path syntax:\n\
             - Static value: \"fixed_value\" or 123\n- Dynamic reference: `{\"$ref\"\
             : \"session.metadata.field_name\"}`\n\nReferences resolve at runtime from\
-            \ context:\n- session.metadata.* - Access session metadata fields\n- agent.metadata.*\
-            \ - Access agent metadata fields\n- agent.secrets.* - Access agent secrets\
-            \ (masked in audit events)\n- tools.* - Access prior tool outputs (resolved\
-            \ after the dependent tool runs)\n- currentDate - The current date/time\
-            \ in ISO 8601 format\n\nA bracket index may reference another context\
-            \ value. The resolved value becomes the lookup key. The inner path may\
-            \ optionally carry a leading $ root marker:\n- Indirect reference: `{\"\
-            $ref\": \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
-            \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
+            \ context:\n- session.metadata.* - Access session metadata fields\n- session.caller.type\
+            \ / .id / .email - The platform-verified identity of the caller who created\
+            \ the session (`user`, `api_key`, or `agent`; `email` is present only\
+            \ for user callers). The platform derives it from the authenticated request.\
+            \ A client cannot set it or shadow it through session metadata. It resolves\
+            \ only during session-creation enrichment (`session_enrichment.tool_calls`\
+            \ and the `enrichment_only` tool configurations they name). A reference\
+            \ to it from a tool the agent calls mid-conversation stays unresolved\
+            \ and that call fails. An absent value (no email on the caller, or no\
+            \ authenticated identity) leaves the $ref unresolved and fails the call\
+            \ closed. In an `input_transform` jq expression the same absent value\
+            \ reads as `null` instead, so guard it there.\n- agent.metadata.* - Access\
+            \ agent metadata fields\n- agent.secrets.* - Access agent secrets (masked\
+            \ in audit events)\n- tools.* - Access prior tool outputs (resolved after\
+            \ the dependent tool runs)\n- currentDate - The current date/time in ISO\
+            \ 8601 format\n\nA bracket index may reference another context value.\
+            \ The resolved value becomes the lookup key. The inner path may optionally\
+            \ carry a leading $ root marker:\n- Indirect reference: `{\"$ref\": \"\
+            agent.secrets[session.metadata.user_id]\"}` looks up the per-user secret\
+            \ named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
             \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
             query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
             \ `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes the first $."
@@ -22812,7 +23126,18 @@ components:
               - Static value: \"fixed_value\" or 123\n- Dynamic reference: `{\"$ref\"\
               : \"session.metadata.field_name\"}`\n\nReferences resolve at runtime\
               \ from context:\n- session.metadata.* - Access session metadata fields\n\
-              - agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
+              - session.caller.type / .id / .email - The platform-verified identity\
+              \ of the caller who created the session (`user`, `api_key`, or `agent`;\
+              \ `email` is present only for user callers). The platform derives it\
+              \ from the authenticated request. A client cannot set it or shadow it\
+              \ through session metadata. It resolves only during session-creation\
+              \ enrichment (`session_enrichment.tool_calls` and the `enrichment_only`\
+              \ tool configurations they name). A reference to it from a tool the\
+              \ agent calls mid-conversation stays unresolved and that call fails.\
+              \ An absent value (no email on the caller, or no authenticated identity)\
+              \ leaves the $ref unresolved and fails the call closed. In an `input_transform`\
+              \ jq expression the same absent value reads as `null` instead, so guard\
+              \ it there.\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
               \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
               \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
               \ - The current date/time in ISO 8601 format\n\nA bracket index may\
@@ -22859,7 +23184,18 @@ components:
               - Static value: \"fixed_value\" or 123\n- Dynamic reference: `{\"$ref\"\
               : \"session.metadata.field_name\"}`\n\nReferences resolve at runtime\
               \ from context:\n- session.metadata.* - Access session metadata fields\n\
-              - agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
+              - session.caller.type / .id / .email - The platform-verified identity\
+              \ of the caller who created the session (`user`, `api_key`, or `agent`;\
+              \ `email` is present only for user callers). The platform derives it\
+              \ from the authenticated request. A client cannot set it or shadow it\
+              \ through session metadata. It resolves only during session-creation\
+              \ enrichment (`session_enrichment.tool_calls` and the `enrichment_only`\
+              \ tool configurations they name). A reference to it from a tool the\
+              \ agent calls mid-conversation stays unresolved and that call fails.\
+              \ An absent value (no email on the caller, or no authenticated identity)\
+              \ leaves the $ref unresolved and fails the call closed. In an `input_transform`\
+              \ jq expression the same absent value reads as `null` instead, so guard\
+              \ it there.\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
               \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
               \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
               \ - The current date/time in ISO 8601 format\n\nA bracket index may\
@@ -23584,7 +23920,18 @@ components:
               - Static value: \"fixed_value\" or 123\n- Dynamic reference: `{\"$ref\"\
               : \"session.metadata.field_name\"}`\n\nReferences resolve at runtime\
               \ from context:\n- session.metadata.* - Access session metadata fields\n\
-              - agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
+              - session.caller.type / .id / .email - The platform-verified identity\
+              \ of the caller who created the session (`user`, `api_key`, or `agent`;\
+              \ `email` is present only for user callers). The platform derives it\
+              \ from the authenticated request. A client cannot set it or shadow it\
+              \ through session metadata. It resolves only during session-creation\
+              \ enrichment (`session_enrichment.tool_calls` and the `enrichment_only`\
+              \ tool configurations they name). A reference to it from a tool the\
+              \ agent calls mid-conversation stays unresolved and that call fails.\
+              \ An absent value (no email on the caller, or no authenticated identity)\
+              \ leaves the $ref unresolved and fails the call closed. In an `input_transform`\
+              \ jq expression the same absent value reads as `null` instead, so guard\
+              \ it there.\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
               \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
               \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
               \ - The current date/time in ISO 8601 format\n\nA bracket index may\
@@ -26018,21 +26365,28 @@ components:
             that the tool definition does not already fix through its own configured
             argument_override. A parameter fixed by the tool cannot be set per call,
             so naming one here is rejected when the agent is created or updated. Enrichment
-            runs with no model to fill arguments in. These arguments, together with
+            runs with no LLM to fill arguments in. These arguments, together with
             the parameters fixed by the tool, must cover every required parameter
-            of the tool. Each value is either a literal or a $ref object that resolves
-            against session or agent metadata or an earlier call's output as tools.<name>.outputs.latest.
+            of the tool. Each value is either a literal or a `$ref` object that resolves
+            against session or agent metadata, the agent's secrets as `agent.secrets.<name>`,
+            the session secrets supplied on the create request as `session.secrets.<name>`,
+            or an earlier call's output as `tools.<tool>.outputs.latest`. Session
+            creation fails with 422 if a `$ref` names a secret that is not on the
+            agent or in the create request, unless the `$ref` supplies a `$default`,
+            in which case the default value is used instead.
           type: object
           additionalProperties: true
         metadata_target_path:
           type: string
           pattern: ^[^.]+(\.[^.]+)*$
-          description: Dotted metadata path the tool's output is written to, after
-            the tool's own configured output_transform is applied. Outputs are written
+          description: 'Dotted metadata path the tool''s output is written to, after
+            the tool''s own configured output_transform is applied. Outputs are written
             to the session metadata in call order. A later write to a path replaces
             any value written earlier at that path. A call without a target path is
             compute only, so later calls can reference its output but nothing is written
-            to the metadata.
+            to the metadata. Session metadata is returned unmasked on reads: a tool
+            output or transform that writes a resolved secret value makes that secret
+            readable in the session''s metadata.'
         timeout_seconds:
           description: Seconds the call may run before it is treated as a failed call.
           type: integer
@@ -26052,11 +26406,16 @@ components:
         metadata. The agent, run conditions, and routing can then read values fetched
         or computed at session start. Enrichment tools are ordinary entries in the
         agent''s tool_configurations marked enrichment_only, so they are never exposed
-        to the agent''s model. Enrichment runs for every session the agent creates
-        regardless of trigger, including the API, chat connectors, and schedules.
-        Independent calls run in parallel and a call may consume an earlier call''s
-        output. Enrichment is fail-closed: unless a call sets continue_on_error, a
-        failed call aborts session creation and no session is created.'
+        to the agent''s LLM. Enrichment runs for every session the agent creates regardless
+        of trigger, including the API, chat connectors, and schedules. Independent
+        calls run in parallel and a call may consume an earlier call''s output. Enrichment
+        is fail-closed: unless a call sets continue_on_error, a failed call aborts
+        session creation and no session is created. The abort status names the failure:
+        422 for an invalid configuration or a failed transform, 502 for a tool failure,
+        and 504 for a timeout. A jq error raised by the called tool configuration''s
+        input_transform or output_transform is a call failure like any other: continue_on_error
+        skips it, and otherwise its message is returned in the error response''s messages
+        array.'
       type: object
       properties:
         enabled:

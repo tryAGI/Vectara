@@ -42,8 +42,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.ApiRole>? ApiRoles { get; set; }
 
         /// <summary>
-        /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
-        /// A personal API key has all the same permissions as the creator of the API key.
+        /// The role of the API key. A `personal` key has the same permissions as its owner. The `serving` and `serving_and_indexing` values are deprecated for creation: use `api_roles` instead.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("api_key_role")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ApiKeyRoleJsonConverter))]
@@ -92,8 +91,7 @@ namespace Vectara
         /// Customer-level roles for this API key.
         /// </param>
         /// <param name="apiKeyRole">
-        /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
-        /// A personal API key has all the same permissions as the creator of the API key.
+        /// The role of the API key. A `personal` key has the same permissions as its owner. The `serving` and `serving_and_indexing` values are deprecated for creation: use `api_roles` instead.
         /// </param>
         /// <param name="corpusRoles">
         /// Corpus-specific role assignments for this API key.

@@ -34,12 +34,8 @@ namespace Vectara
         public bool? Strict { get; set; }
 
         /// <summary>
-        /// A JSON Schema definition that describes a data structure. Covers the smallest subset of<br/>
-        /// JSON Schema that all LLM providers support. Unknown keywords are kept and passed through<br/>
-        /// to the provider.<br/>
-        /// `properties`, `required`, and `additionalProperties` are valid only when `type` is<br/>
-        /// `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other `type`, and<br/>
-        /// for an element with no `type`, such as one that only combines schemas with `anyOf`.
+        /// A JSON Schema definition that describes a data structure. Covers the smallest subset of JSON Schema that all LLM providers support. Unknown keywords are kept and passed through to the provider.<br/>
+        /// `properties`, `required`, and `additionalProperties` are valid only when `type` is `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other `type`, and for an element with no `type`, such as one that only combines schemas with `anyOf`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("schema")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JsonSchemaDefinitionJsonConverter))]
@@ -59,12 +55,8 @@ namespace Vectara
         /// A unique name for this schema.
         /// </param>
         /// <param name="schema">
-        /// A JSON Schema definition that describes a data structure. Covers the smallest subset of<br/>
-        /// JSON Schema that all LLM providers support. Unknown keywords are kept and passed through<br/>
-        /// to the provider.<br/>
-        /// `properties`, `required`, and `additionalProperties` are valid only when `type` is<br/>
-        /// `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other `type`, and<br/>
-        /// for an element with no `type`, such as one that only combines schemas with `anyOf`.
+        /// A JSON Schema definition that describes a data structure. Covers the smallest subset of JSON Schema that all LLM providers support. Unknown keywords are kept and passed through to the provider.<br/>
+        /// `properties`, `required`, and `additionalProperties` are valid only when `type` is `object`. `enum`, `format`, `items`, and `anyOf` are valid for every other `type`, and for an element with no `type`, such as one that only combines schemas with `anyOf`.
         /// </param>
         /// <param name="description">
         /// A description of the purpose of the response format. The model uses this description to determine how to respond in the format.

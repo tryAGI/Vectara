@@ -139,6 +139,7 @@ namespace Vectara
         /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
         /// References resolve at runtime from context:<br/>
         /// - session.metadata.* - Access session metadata fields<br/>
+        /// - session.caller.type / .id / .email - The platform-verified identity of the caller who created the session (`user`, `api_key`, or `agent`; `email` is present only for user callers). The platform derives it from the authenticated request. A client cannot set it or shadow it through session metadata. It resolves only during session-creation enrichment (`session_enrichment.tool_calls` and the `enrichment_only` tool configurations they name). A reference to it from a tool the agent calls mid-conversation stays unresolved and that call fails. An absent value (no email on the caller, or no authenticated identity) leaves the $ref unresolved and fails the call closed. In an `input_transform` jq expression the same absent value reads as `null` instead, so guard it there.<br/>
         /// - agent.metadata.* - Access agent metadata fields<br/>
         /// - agent.secrets.* - Access agent secrets (masked in audit events)<br/>
         /// - tools.* - Access prior tool outputs (resolved after the dependent tool runs)<br/>
@@ -275,6 +276,7 @@ namespace Vectara
         /// - Dynamic reference: `{"$ref": "session.metadata.field_name"}`<br/>
         /// References resolve at runtime from context:<br/>
         /// - session.metadata.* - Access session metadata fields<br/>
+        /// - session.caller.type / .id / .email - The platform-verified identity of the caller who created the session (`user`, `api_key`, or `agent`; `email` is present only for user callers). The platform derives it from the authenticated request. A client cannot set it or shadow it through session metadata. It resolves only during session-creation enrichment (`session_enrichment.tool_calls` and the `enrichment_only` tool configurations they name). A reference to it from a tool the agent calls mid-conversation stays unresolved and that call fails. An absent value (no email on the caller, or no authenticated identity) leaves the $ref unresolved and fails the call closed. In an `input_transform` jq expression the same absent value reads as `null` instead, so guard it there.<br/>
         /// - agent.metadata.* - Access agent metadata fields<br/>
         /// - agent.secrets.* - Access agent secrets (masked in audit events)<br/>
         /// - tools.* - Access prior tool outputs (resolved after the dependent tool runs)<br/>

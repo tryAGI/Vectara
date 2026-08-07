@@ -4,8 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Role of the API key. A serving API key can only perform query type requests on its corpora. A serving and indexing key can perform both indexing and query type requests on its corpora.<br/>
-    /// A personal API key has all the same permissions as the creator of the API key.
+    /// The role of the API key. A `personal` key has the same permissions as its owner. A `serving` API key can only perform query type requests on its corpora, and a `serving_and_indexing` key can perform both indexing and query type requests; these two roles are deprecated for creation — assign roles with `api_roles` instead.
     /// </summary>
     public enum ApiKeyRole
     {
