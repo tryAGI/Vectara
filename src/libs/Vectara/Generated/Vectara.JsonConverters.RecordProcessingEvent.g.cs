@@ -33,7 +33,9 @@ namespace Vectara.JsonConverters
             var __score1 = 0;
             if (__jsonProps.Contains("attempt")) __score1++;
             if (__jsonProps.Contains("dead_lettered")) __score1++;
+            if (__jsonProps.Contains("duration_ms")) __score1++;
             if (__jsonProps.Contains("error")) __score1++;
+            if (__jsonProps.Contains("reason")) __score1++;
             if (__jsonProps.Contains("session_key")) __score1++;
             if (__jsonProps.Contains("skipped")) __score1++;
             if (__jsonProps.Contains("source_record_id")) __score1++;

@@ -5,12 +5,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// A single source record progressed through a processing lifecycle stage. `status` is:<br/>
-    /// - `started`: processing began.<br/>
-    /// - `completed`: the record was successfully processed (or skipped).<br/>
-    /// - `failed`: processing failed.<br/>
-    /// In a normal run, a `failed` record is also written to the dead letter queue. In a retry<br/>
-    /// run, the existing dead letter is marked still-failing.
+    /// A single source record progressed through a processing lifecycle stage. `status` is `started`<br/>
+    /// when processing begins, `completed` when the record was successfully processed (or skipped),<br/>
+    /// `failed` for each failed processing attempt, and `dead_lettered` when the record exhausted its<br/>
+    /// retries and was written to the dead letter queue (or, in a retry run, its existing dead letter<br/>
+    /// was marked still-failing). A record that is ultimately dead-lettered emits one or more `failed`<br/>
+    /// events (one per attempt) followed by a single terminal `dead_lettered` event.
     /// </summary>
     public readonly partial struct RecordProcessingEvent : global::System.IEquatable<RecordProcessingEvent>
     {

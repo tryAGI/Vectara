@@ -4,7 +4,10 @@
 namespace Vectara
 {
     /// <summary>
-    /// Lifecycle status of a single source record within a run.
+    /// Lifecycle status of a single source record within a run. `started` when processing begins,<br/>
+    /// `completed` when the record succeeded (or was skipped), `failed` for a failed processing<br/>
+    /// attempt, and `dead_lettered` when the record exhausted its retries and was written to (or, in a<br/>
+    /// retry run, updated in) the dead letter queue.
     /// </summary>
     public enum RecordProcessingEventStatus
     {
@@ -12,6 +15,10 @@ namespace Vectara
         /// 
         /// </summary>
         Completed,
+        /// <summary>
+        /// 
+        /// </summary>
+        DeadLettered,
         /// <summary>
         /// 
         /// </summary>
@@ -35,6 +42,7 @@ namespace Vectara
             return value switch
             {
                 RecordProcessingEventStatus.Completed => "completed",
+                RecordProcessingEventStatus.DeadLettered => "dead_lettered",
                 RecordProcessingEventStatus.Failed => "failed",
                 RecordProcessingEventStatus.Started => "started",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
@@ -48,6 +56,7 @@ namespace Vectara
             return value switch
             {
                 "completed" => RecordProcessingEventStatus.Completed,
+                "dead_lettered" => RecordProcessingEventStatus.DeadLettered,
                 "failed" => RecordProcessingEventStatus.Failed,
                 "started" => RecordProcessingEventStatus.Started,
                 _ => null,
