@@ -78,8 +78,8 @@ tags:
     and the alias''s policy picks the underlying agent that runs.
 
     '
-- name: Checkpoints
-  description: Create and manage checkpoints that inspect and steer the agent at defined
+- name: Hooks
+  description: Create and manage hooks that inspect and steer the agent at defined
     points during a session.
 - name: Instructions
   description: Create and manage instructions that guide agent behavior.
@@ -33950,6 +33950,24 @@ components:
             session context.
           type: string
           example: get('$.output.status') == 'success'
+        reason_expression:
+          description: 'Optional UserFn expression, evaluated against the same session
+            context as `expression`, whose
+
+            string result explains the outcome. Evaluated on both pass and fail and
+            surfaced as the record
+
+            event''s `reason` (see `AgentVerification` for the equivalent judge-agent
+            field). When the
+
+            condition fails and this is omitted or evaluates to empty, a default message
+            referencing the
+
+            expression is used.
+
+            '
+          type: string
+          example: '''Status was '' + get(''$.output.status'')'
       required:
       - type
       - expression
@@ -34701,27 +34719,41 @@ components:
         - type
         - status
     RecordProcessingEventStatus:
-      description: Lifecycle status of a single source record within a run.
+      description: 'Lifecycle status of a single source record within a run. `started`
+        when processing begins,
+
+        `completed` when the record succeeded (or was skipped), `failed` for a failed
+        processing
+
+        attempt, and `dead_lettered` when the record exhausted its retries and was
+        written to (or, in a
+
+        retry run, updated in) the dead letter queue.
+
+        '
       type: string
       enum:
       - started
       - completed
       - failed
+      - dead_lettered
     RecordProcessingEvent:
       description: 'A single source record progressed through a processing lifecycle
-        stage. `status` is:
+        stage. `status` is `started`
 
-        - `started`: processing began.
+        when processing begins, `completed` when the record was successfully processed
+        (or skipped),
 
-        - `completed`: the record was successfully processed (or skipped).
+        `failed` for each failed processing attempt, and `dead_lettered` when the
+        record exhausted its
 
-        - `failed`: processing failed.
+        retries and was written to the dead letter queue (or, in a retry run, its
+        existing dead letter
 
+        was marked still-failing). A record that is ultimately dead-lettered emits
+        one or more `failed`
 
-        In a normal run, a `failed` record is also written to the dead letter queue.
-        In a retry
-
-        run, the existing dead letter is marked still-failing.
+        events (one per attempt) followed by a single terminal `dead_lettered` event.
 
         '
       allOf:
@@ -34738,12 +34770,12 @@ components:
             type: string
           session_key:
             description: 'The agent session created to process this record. Always
-              present on `completed`.
+              present on `completed`;
 
-              May be present on `failed` if a session was created before the failure.
-              Null on
+              may be present on `failed` if a session was created before the failure;
+              null on `started`
 
-              `started`.
+              and `dead_lettered`.
 
               '
             type: string
@@ -34755,22 +34787,63 @@ components:
             type: boolean
             nullable: true
           error:
-            description: Failure message. Present when `status` is `failed`.
+            deprecated: true
+            description: 'Deprecated: superseded by `reason`. Populated with the failure
+              message on `failed` and
+
+              `dead_lettered` events; null on `started` and `completed`. Prefer `reason`,
+              which additionally
+
+              explains successful outcomes.
+
+              '
+            type: string
+            nullable: true
+          reason:
+            description: 'Human-readable explanation of the record''s outcome. On
+              `failed`/`dead_lettered` this is the
+
+              failure reason (the same text as the deprecated `error`); on `completed`
+              it is the verification
+
+              success reason when one is produced (the judge agent''s reason, or a
+              condition''s evaluated
+
+              `reason_expression`). Null on `started`, and may be null on any status
+              when no reason was recorded.
+
+              '
             type: string
             nullable: true
           dead_lettered:
-            description: Whether a `failed` record resulted in a dead-letter write
-              or update. Only meaningful when `status` is `failed`.
+            deprecated: true
+            description: 'Deprecated: use the `dead_lettered` status on `record_processing`
+              instead. Set to `true` when the
+
+              record was written to the dead letter queue; null otherwise.
+
+              '
             type: boolean
             nullable: true
           attempt:
             description: 'Which processing attempt produced this event, starting at
-              1. A record that fails is
+              1. A record that fails is retried, so
 
-              retried. The same record can emit `started` and `failed` events for
-              several attempts
+              the same record can emit `started` and `failed` events for several attempts
+              before it emits
 
-              before it finally emits `completed` or is dead-lettered.
+              `completed`. Null on `dead_lettered`, which is a terminal marker not
+              tied to a single attempt.
+
+              '
+            type: integer
+            format: int32
+            nullable: true
+          duration_ms:
+            description: 'Wall-clock time in milliseconds this processing attempt
+              took. Populated on `completed` and `failed`
+
+              events when the attempt was timed; null otherwise.
 
               '
             type: integer
@@ -35943,7 +36016,7 @@ x-tagGroups:
   - Agent Identity
   - Agent Aliases
   - Glossaries
-  - Checkpoints
+  - Hooks
   - Instructions
   - Tools
   - Tool Servers

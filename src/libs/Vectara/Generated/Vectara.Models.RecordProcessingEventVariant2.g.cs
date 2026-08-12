@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Vectara
@@ -17,7 +19,10 @@ namespace Vectara
         public required string Type { get; set; } = "record_processing";
 
         /// <summary>
-        /// Lifecycle status of a single source record within a run.
+        /// Lifecycle status of a single source record within a run. `started` when processing begins,<br/>
+        /// `completed` when the record succeeded (or was skipped), `failed` for a failed processing<br/>
+        /// attempt, and `dead_lettered` when the record exhausted its retries and was written to (or, in a<br/>
+        /// retry run, updated in) the dead letter queue.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RecordProcessingEventStatusJsonConverter))]
@@ -32,9 +37,9 @@ namespace Vectara
         public required string SourceRecordId { get; set; }
 
         /// <summary>
-        /// The agent session created to process this record. Always present on `completed`.<br/>
-        /// May be present on `failed` if a session was created before the failure. Null on<br/>
-        /// `started`.
+        /// The agent session created to process this record. Always present on `completed`;<br/>
+        /// may be present on `failed` if a session was created before the failure; null on `started`<br/>
+        /// and `dead_lettered`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("session_key")]
         public string? SessionKey { get; set; }
@@ -46,24 +51,45 @@ namespace Vectara
         public bool? Skipped { get; set; }
 
         /// <summary>
-        /// Failure message. Present when `status` is `failed`.
+        /// Deprecated: superseded by `reason`. Populated with the failure message on `failed` and<br/>
+        /// `dead_lettered` events; null on `started` and `completed`. Prefer `reason`, which additionally<br/>
+        /// explains successful outcomes.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("error")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public string? Error { get; set; }
 
         /// <summary>
-        /// Whether a `failed` record resulted in a dead-letter write or update. Only meaningful when `status` is `failed`.
+        /// Human-readable explanation of the record's outcome. On `failed`/`dead_lettered` this is the<br/>
+        /// failure reason (the same text as the deprecated `error`); on `completed` it is the verification<br/>
+        /// success reason when one is produced (the judge agent's reason, or a condition's evaluated<br/>
+        /// `reason_expression`). Null on `started`, and may be null on any status when no reason was recorded.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("reason")]
+        public string? Reason { get; set; }
+
+        /// <summary>
+        /// Deprecated: use the `dead_lettered` status on `record_processing` instead. Set to `true` when the<br/>
+        /// record was written to the dead letter queue; null otherwise.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("dead_lettered")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public bool? DeadLettered { get; set; }
 
         /// <summary>
-        /// Which processing attempt produced this event, starting at 1. A record that fails is<br/>
-        /// retried. The same record can emit `started` and `failed` events for several attempts<br/>
-        /// before it finally emits `completed` or is dead-lettered.
+        /// Which processing attempt produced this event, starting at 1. A record that fails is retried, so<br/>
+        /// the same record can emit `started` and `failed` events for several attempts before it emits<br/>
+        /// `completed`. Null on `dead_lettered`, which is a terminal marker not tied to a single attempt.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("attempt")]
         public int? Attempt { get; set; }
+
+        /// <summary>
+        /// Wall-clock time in milliseconds this processing attempt took. Populated on `completed` and `failed`<br/>
+        /// events when the attempt was timed; null otherwise.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("duration_ms")]
+        public int? DurationMs { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -78,29 +104,36 @@ namespace Vectara
         /// Default Value: record_processing
         /// </param>
         /// <param name="status">
-        /// Lifecycle status of a single source record within a run.
+        /// Lifecycle status of a single source record within a run. `started` when processing begins,<br/>
+        /// `completed` when the record succeeded (or was skipped), `failed` for a failed processing<br/>
+        /// attempt, and `dead_lettered` when the record exhausted its retries and was written to (or, in a<br/>
+        /// retry run, updated in) the dead letter queue.
         /// </param>
         /// <param name="sourceRecordId">
         /// The identifier of the source record.
         /// </param>
         /// <param name="sessionKey">
-        /// The agent session created to process this record. Always present on `completed`.<br/>
-        /// May be present on `failed` if a session was created before the failure. Null on<br/>
-        /// `started`.
+        /// The agent session created to process this record. Always present on `completed`;<br/>
+        /// may be present on `failed` if a session was created before the failure; null on `started`<br/>
+        /// and `dead_lettered`.
         /// </param>
         /// <param name="skipped">
         /// True if a `completed` record was skipped because a prior successful session already exists at the same watermark. Only meaningful when `status` is `completed`.
         /// </param>
-        /// <param name="error">
-        /// Failure message. Present when `status` is `failed`.
-        /// </param>
-        /// <param name="deadLettered">
-        /// Whether a `failed` record resulted in a dead-letter write or update. Only meaningful when `status` is `failed`.
+        /// <param name="reason">
+        /// Human-readable explanation of the record's outcome. On `failed`/`dead_lettered` this is the<br/>
+        /// failure reason (the same text as the deprecated `error`); on `completed` it is the verification<br/>
+        /// success reason when one is produced (the judge agent's reason, or a condition's evaluated<br/>
+        /// `reason_expression`). Null on `started`, and may be null on any status when no reason was recorded.
         /// </param>
         /// <param name="attempt">
-        /// Which processing attempt produced this event, starting at 1. A record that fails is<br/>
-        /// retried. The same record can emit `started` and `failed` events for several attempts<br/>
-        /// before it finally emits `completed` or is dead-lettered.
+        /// Which processing attempt produced this event, starting at 1. A record that fails is retried, so<br/>
+        /// the same record can emit `started` and `failed` events for several attempts before it emits<br/>
+        /// `completed`. Null on `dead_lettered`, which is a terminal marker not tied to a single attempt.
+        /// </param>
+        /// <param name="durationMs">
+        /// Wall-clock time in milliseconds this processing attempt took. Populated on `completed` and `failed`<br/>
+        /// events when the attempt was timed; null otherwise.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -111,18 +144,18 @@ namespace Vectara
             string sourceRecordId,
             string? sessionKey,
             bool? skipped,
-            string? error,
-            bool? deadLettered,
-            int? attempt)
+            string? reason,
+            int? attempt,
+            int? durationMs)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Status = status;
             this.SourceRecordId = sourceRecordId ?? throw new global::System.ArgumentNullException(nameof(sourceRecordId));
             this.SessionKey = sessionKey;
             this.Skipped = skipped;
-            this.Error = error;
-            this.DeadLettered = deadLettered;
+            this.Reason = reason;
             this.Attempt = attempt;
+            this.DurationMs = durationMs;
         }
 
         /// <summary>
