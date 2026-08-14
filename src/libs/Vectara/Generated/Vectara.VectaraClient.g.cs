@@ -51,10 +51,17 @@ namespace Vectara
 
 
         internal global::Vectara.VectaraClient.AutoSDKOAuth2Coordinator AutoSDKOAuth2State { get; set; } = new global::Vectara.VectaraClient.AutoSDKOAuth2Coordinator();
+
+        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::Vectara.SourceGenerationContext.Default);
+
         /// <summary>
         /// 
         /// </summary>
-        public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; } = global::Vectara.SourceGenerationContext.Default;
+        public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
+        {
+            get => JsonSerializerContextProvider.Value;
+            set => JsonSerializerContextProvider = new(() => value);
+        }
 
 
         /// <summary>
@@ -63,7 +70,7 @@ namespace Vectara
         public A2aClient A2a => new A2aClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -73,7 +80,7 @@ namespace Vectara
         public AgentAliasesClient AgentAliases => new AgentAliasesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -83,7 +90,7 @@ namespace Vectara
         public AgentAliasesArtifactsClient AgentAliasesArtifacts => new AgentAliasesArtifactsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -93,7 +100,7 @@ namespace Vectara
         public AgentAliasesEventsClient AgentAliasesEvents => new AgentAliasesEventsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -103,7 +110,7 @@ namespace Vectara
         public AgentAliasesSessionsClient AgentAliasesSessions => new AgentAliasesSessionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -113,7 +120,7 @@ namespace Vectara
         public AgentAnalyticsClient AgentAnalytics => new AgentAnalyticsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -123,7 +130,7 @@ namespace Vectara
         public AgentArtifactsClient AgentArtifacts => new AgentArtifactsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -133,7 +140,7 @@ namespace Vectara
         public AgentEventsClient AgentEvents => new AgentEventsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -143,7 +150,7 @@ namespace Vectara
         public AgentSchedulesClient AgentSchedules => new AgentSchedulesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -153,7 +160,7 @@ namespace Vectara
         public AgentSessionsClient AgentSessions => new AgentSessionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -163,7 +170,7 @@ namespace Vectara
         public AgentsClient Agents => new AgentsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -173,7 +180,7 @@ namespace Vectara
         public ApiKeysClient ApiKeys => new ApiKeysClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -183,7 +190,7 @@ namespace Vectara
         public AppClientsClient AppClients => new AppClientsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -193,7 +200,7 @@ namespace Vectara
         public AuthenticationClient Authentication => new AuthenticationClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -203,7 +210,7 @@ namespace Vectara
         public CorporaClient Corpora => new CorporaClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -213,7 +220,7 @@ namespace Vectara
         public CustomerMetricsClient CustomerMetrics => new CustomerMetricsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -223,7 +230,7 @@ namespace Vectara
         public DocumentsClient Documents => new DocumentsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -233,7 +240,7 @@ namespace Vectara
         public EncodersClient Encoders => new EncodersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -243,7 +250,7 @@ namespace Vectara
         public EndUserEventsClient EndUserEvents => new EndUserEventsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -253,7 +260,7 @@ namespace Vectara
         public EndUserSessionsClient EndUserSessions => new EndUserSessionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -263,7 +270,7 @@ namespace Vectara
         public FactualConsistencyClient FactualConsistency => new FactualConsistencyClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -273,7 +280,7 @@ namespace Vectara
         public GenerationPresetsClient GenerationPresets => new GenerationPresetsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -283,7 +290,7 @@ namespace Vectara
         public GlossariesClient Glossaries => new GlossariesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -293,7 +300,7 @@ namespace Vectara
         public HallucinationCorrectorsClient HallucinationCorrectors => new HallucinationCorrectorsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -303,7 +310,7 @@ namespace Vectara
         public InstructionsClient Instructions => new InstructionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -313,7 +320,7 @@ namespace Vectara
         public JobsClient Jobs => new JobsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -323,7 +330,7 @@ namespace Vectara
         public LlmClient Llm => new LlmClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -333,7 +340,7 @@ namespace Vectara
         public LlmsClient Llms => new LlmsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -343,7 +350,7 @@ namespace Vectara
         public MetadataClient Metadata => new MetadataClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -353,7 +360,7 @@ namespace Vectara
         public PipelineDeadLetterEntriesClient PipelineDeadLetterEntries => new PipelineDeadLetterEntriesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -363,7 +370,7 @@ namespace Vectara
         public PipelineRunsClient PipelineRuns => new PipelineRunsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -373,7 +380,7 @@ namespace Vectara
         public PipelinesClient Pipelines => new PipelinesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -383,7 +390,7 @@ namespace Vectara
         public QueriesClient Queries => new QueriesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -393,7 +400,7 @@ namespace Vectara
         public QueryHistoryClient QueryHistory => new QueryHistoryClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -403,7 +410,7 @@ namespace Vectara
         public RerankersClient Rerankers => new RerankersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -413,7 +420,7 @@ namespace Vectara
         public TableExtractorsClient TableExtractors => new TableExtractorsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -423,7 +430,7 @@ namespace Vectara
         public ToolServersClient ToolServers => new ToolServersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -433,7 +440,7 @@ namespace Vectara
         public ToolsClient Tools => new ToolsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -443,7 +450,7 @@ namespace Vectara
         public UploadClient Upload => new UploadClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
@@ -453,7 +460,7 @@ namespace Vectara
         public UsersClient Users => new UsersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
-            JsonSerializerContext = JsonSerializerContext,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
             AutoSDKOAuth2State = AutoSDKOAuth2State,
         };
 
