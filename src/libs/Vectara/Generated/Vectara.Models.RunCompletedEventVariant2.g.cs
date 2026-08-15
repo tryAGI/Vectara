@@ -37,6 +37,12 @@ namespace Vectara
         public int? RecordsProcessed { get; set; }
 
         /// <summary>
+        /// Records the run neither processed nor failed, because a `run_condition` on the agent or on the judge agent evaluated to false. Disjoint from `records_processed` and `records_failed`.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("records_skipped")]
+        public int? RecordsSkipped { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("records_failed")]
@@ -67,6 +73,9 @@ namespace Vectara
         /// Total records fetched across the run. Present when the run reported counters. Absent or partial for cancellation.
         /// </param>
         /// <param name="recordsProcessed"></param>
+        /// <param name="recordsSkipped">
+        /// Records the run neither processed nor failed, because a `run_condition` on the agent or on the judge agent evaluated to false. Disjoint from `records_processed` and `records_failed`.
+        /// </param>
         /// <param name="recordsFailed"></param>
         /// <param name="error">
         /// Failure message. Present when `status` is not `completed`.
@@ -79,6 +88,7 @@ namespace Vectara
             global::Vectara.RunCompletedEventStatus status,
             int? recordsFetched,
             int? recordsProcessed,
+            int? recordsSkipped,
             int? recordsFailed,
             string? error)
         {
@@ -86,6 +96,7 @@ namespace Vectara
             this.Status = status;
             this.RecordsFetched = recordsFetched;
             this.RecordsProcessed = recordsProcessed;
+            this.RecordsSkipped = recordsSkipped;
             this.RecordsFailed = recordsFailed;
             this.Error = error;
         }

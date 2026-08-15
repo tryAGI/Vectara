@@ -6,8 +6,8 @@ namespace Vectara
     /// <summary>
     /// Outcome of this attempt.<br/>
     /// * `success`: a session was created and the agent ran<br/>
-    /// * `error`: the attempt failed, either before a session could be created, for example from an invalid run_condition expression, or while the agent ran<br/>
-    /// * `skipped`: run_condition evaluated false, so no session was created<br/>
+    /// * `error`: the attempt failed, either before a session could be created, for example because the agent's `run_condition` returned a non-boolean, or while the agent ran<br/>
+    /// * `skipped`: the agent's `run_condition` evaluated false, so no session was created<br/>
     /// * `enrichment_failed`: session metadata enrichment failed, so no session was created
     /// </summary>
     public enum AgentScheduleExecutionStatus
@@ -17,11 +17,11 @@ namespace Vectara
         /// </summary>
         EnrichmentFailed,
         /// <summary>
-        /// the attempt failed, either before a session could be created, for example from an invalid run_condition expression, or while the agent ran
+        /// the attempt failed, either before a session could be created, for example because the agent's `run_condition` returned a non-boolean, or while the agent ran
         /// </summary>
         Error,
         /// <summary>
-        /// run_condition evaluated false, so no session was created
+        /// the agent's `run_condition` evaluated false, so no session was created
         /// </summary>
         Skipped,
         /// <summary>

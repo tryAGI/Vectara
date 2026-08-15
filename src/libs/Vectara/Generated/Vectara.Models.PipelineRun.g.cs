@@ -61,12 +61,20 @@ namespace Vectara
         public required int RecordsFetched { get; set; }
 
         /// <summary>
-        /// Number of records successfully processed by the agent.<br/>
+        /// Number of records successfully processed by the agent. Excludes records counted by `records_skipped`.<br/>
         /// Default Value: 0
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("records_processed")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required int RecordsProcessed { get; set; }
+
+        /// <summary>
+        /// Number of records the run neither processed nor failed. Either the agent's `run_condition` evaluated to false, so no session was created, or the judge agent's `run_condition` evaluated to false, so nothing verified the record. Disjoint from `records_processed` and `records_failed`.<br/>
+        /// Default Value: 0
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("records_skipped")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required int RecordsSkipped { get; set; }
 
         /// <summary>
         /// Number of records that failed processing.<br/>
@@ -133,7 +141,11 @@ namespace Vectara
         /// Default Value: 0
         /// </param>
         /// <param name="recordsProcessed">
-        /// Number of records successfully processed by the agent.<br/>
+        /// Number of records successfully processed by the agent. Excludes records counted by `records_skipped`.<br/>
+        /// Default Value: 0
+        /// </param>
+        /// <param name="recordsSkipped">
+        /// Number of records the run neither processed nor failed. Either the agent's `run_condition` evaluated to false, so no session was created, or the judge agent's `run_condition` evaluated to false, so nothing verified the record. Disjoint from `records_processed` and `records_failed`.<br/>
         /// Default Value: 0
         /// </param>
         /// <param name="recordsFailed">
@@ -163,6 +175,7 @@ namespace Vectara
             global::Vectara.PipelineRunTriggerType triggerType,
             int recordsFetched,
             int recordsProcessed,
+            int recordsSkipped,
             int recordsFailed,
             global::System.DateTime createdAt,
             string? error,
@@ -176,6 +189,7 @@ namespace Vectara
             this.TriggerType = triggerType;
             this.RecordsFetched = recordsFetched;
             this.RecordsProcessed = recordsProcessed;
+            this.RecordsSkipped = recordsSkipped;
             this.RecordsFailed = recordsFailed;
             this.Error = error;
             this.StartedAt = startedAt;

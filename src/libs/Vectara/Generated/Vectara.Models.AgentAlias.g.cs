@@ -9,7 +9,7 @@ namespace Vectara
     /// - Canary rollouts — weighted routing between two agents.<br/>
     /// - Tenant routing — different agents for different customers, based on your tenant metadata.<br/>
     /// - A stable handle in front of agents whose configuration evolves.<br/>
-    /// The resolved agent's session_enrichment applies to sessions created through the alias, after routing resolves. Routing runs before enrichment. Routing rules therefore read the request metadata, not enriched values.<br/>
+    /// The resolved agent's session_enrichment applies to sessions created through the alias, after routing resolves. Routing runs before enrichment. Routing rules therefore read the request metadata, not enriched values. The resolved agent's `run_condition` is evaluated last, after its enrichment. When it evaluates to false no session is created and the request returns 409.<br/>
     /// Routing rules use userfn expressions. See the `AliasRule.match` field for the context shape and example expressions.
     /// </summary>
     public sealed partial class AgentAlias

@@ -48,12 +48,6 @@ namespace Vectara
         public object? SessionMetadata { get; set; }
 
         /// <summary>
-        /// Updated UserFn boolean gate that determines whether each scheduled execution creates a session. Send null to clear the gate so the schedule runs on every execution.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("run_condition")]
-        public string? RunCondition { get; set; }
-
-        /// <summary>
         /// Updated maximum number of past execution records to keep.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_executions_to_keep")]
@@ -94,9 +88,6 @@ namespace Vectara
         /// <param name="sessionMetadata">
         /// Updated metadata to include in each session created by this schedule.
         /// </param>
-        /// <param name="runCondition">
-        /// Updated UserFn boolean gate that determines whether each scheduled execution creates a session. Send null to clear the gate so the schedule runs on every execution.
-        /// </param>
         /// <param name="maxExecutionsToKeep">
         /// Updated maximum number of past execution records to keep.
         /// </param>
@@ -114,7 +105,6 @@ namespace Vectara
             global::Vectara.ScheduleConfiguration? schedule,
             bool? enabled,
             object? sessionMetadata,
-            string? runCondition,
             int? maxExecutionsToKeep,
             int? stallTimeoutSeconds)
         {
@@ -124,7 +114,6 @@ namespace Vectara
             this.Schedule = schedule;
             this.Enabled = enabled;
             this.SessionMetadata = sessionMetadata;
-            this.RunCondition = runCondition;
             this.MaxExecutionsToKeep = maxExecutionsToKeep;
             this.StallTimeoutSeconds = stallTimeoutSeconds;
         }

@@ -35,6 +35,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("records_failed")) __score1++;
             if (__jsonProps.Contains("records_fetched")) __score1++;
             if (__jsonProps.Contains("records_processed")) __score1++;
+            if (__jsonProps.Contains("records_skipped")) __score1++;
             if (__jsonProps.Contains("status")) __score1++;
             if (__jsonProps.Contains("type")) __score1++;
             var __bestScore = 0;

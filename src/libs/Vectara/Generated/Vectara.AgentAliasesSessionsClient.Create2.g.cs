@@ -510,7 +510,44 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // A session_enrichment tool call on the resolved agent has an invalid configuration or its transform raised an error, so no session was created. `messages` names the failing tool call and the reason, such as a `$ref` to a secret that is not on the resolved agent or in the request, or a jq error raised by the called tool configuration's `input_transform` or `output_transform`.
+                            // No session was created. Either the requested session key or name is already taken, or the resolved agent's `run_condition` evaluated to false. `messages` names which. A collision needs a different key or name, while the same request succeeds after a `run_condition` refusal once the expression, or the metadata it reads, changes.
+                            if ((int)__response.StatusCode == 409)
+                            {
+                                string? __content_409 = null;
+                                global::System.Exception? __exception_409 = null;
+                                global::Vectara.Error? __value_409 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_409 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_409 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_409 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_409 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_409,
+                                    responseBody: __content_409,
+                                    responseObject: __value_409,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // No session was created. A `session_enrichment` tool call on the resolved agent has an invalid configuration or its transform raised an error, or the resolved agent's `run_condition` returned a non-boolean. `messages` names the cause. For an enrichment failure it names the failing tool call and the reason, such as a `$ref` to a secret that is not on the resolved agent or in the request, or a jq error raised by the called tool configuration's `input_transform` or `output_transform`.
                             if ((int)__response.StatusCode == 422)
                             {
                                 string? __content_422 = null;
