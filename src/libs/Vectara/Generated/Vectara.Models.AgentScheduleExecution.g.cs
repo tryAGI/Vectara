@@ -40,8 +40,8 @@ namespace Vectara
         /// <summary>
         /// Outcome of this attempt.<br/>
         /// * `success`: a session was created and the agent ran<br/>
-        /// * `error`: the attempt failed, either before a session could be created, for example from an invalid run_condition expression, or while the agent ran<br/>
-        /// * `skipped`: run_condition evaluated false, so no session was created<br/>
+        /// * `error`: the attempt failed, either before a session could be created, for example because the agent's `run_condition` returned a non-boolean, or while the agent ran<br/>
+        /// * `skipped`: the agent's `run_condition` evaluated false, so no session was created<br/>
         /// * `enrichment_failed`: session metadata enrichment failed, so no session was created
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
@@ -84,8 +84,8 @@ namespace Vectara
         /// <param name="status">
         /// Outcome of this attempt.<br/>
         /// * `success`: a session was created and the agent ran<br/>
-        /// * `error`: the attempt failed, either before a session could be created, for example from an invalid run_condition expression, or while the agent ran<br/>
-        /// * `skipped`: run_condition evaluated false, so no session was created<br/>
+        /// * `error`: the attempt failed, either before a session could be created, for example because the agent's `run_condition` returned a non-boolean, or while the agent ran<br/>
+        /// * `skipped`: the agent's `run_condition` evaluated false, so no session was created<br/>
         /// * `enrichment_failed`: session metadata enrichment failed, so no session was created
         /// </param>
         /// <param name="executedAt">

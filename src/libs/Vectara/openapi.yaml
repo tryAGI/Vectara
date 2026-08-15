@@ -9632,12 +9632,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: No session was created. Either the requested session key or
+            name is already taken, or the agent's `run_condition` evaluated to false.
+            `messages` names which. A collision needs a different key or name, while
+            the same request succeeds after a `run_condition` refusal once the expression,
+            or the metadata it reads, changes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '422':
-          description: A session_enrichment tool call has an invalid configuration
-            or its transform raised an error, so no session was created. `messages`
-            names the failing tool call and the reason, such as a `$ref` to a secret
-            that is not on the agent or in the request, or a jq error raised by the
-            called tool configuration's `input_transform` or `output_transform`.
+          description: No session was created. A `session_enrichment` tool call has
+            an invalid configuration or its transform raised an error, or the agent's
+            `run_condition` returned a non-boolean. `messages` names the cause. For
+            an enrichment failure it names the failing tool call and the reason, such
+            as a `$ref` to a secret that is not on the agent or in the request, or
+            a jq error raised by the called tool configuration's `input_transform`
+            or `output_transform`.
           content:
             application/json:
               schema:
@@ -11989,6 +12001,10 @@ paths:
         To continue an existing conversation, set `message.contextId` to the prior
         task''s id.
 
+
+        A message that opens a new session is subject to the agent''s `run_condition`.
+        When it evaluates to false no session is created and the call returns an `InvalidRequestError`.
+
         '
       operationId: sendA2aV03Message
       x-max-body-bytes: 104857600
@@ -12412,6 +12428,10 @@ paths:
 
         To continue an existing conversation, set `message.contextId` to the prior
         task''s id.
+
+
+        A message that opens a new session is subject to the agent''s `run_condition`.
+        When it evaluates to false no session is created and the call returns an `InvalidRequestError`.
 
         '
       operationId: sendA2aV1Message
@@ -13312,13 +13332,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: No session was created. Either the requested session key or
+            name is already taken, or the resolved agent's `run_condition` evaluated
+            to false. `messages` names which. A collision needs a different key or
+            name, while the same request succeeds after a `run_condition` refusal
+            once the expression, or the metadata it reads, changes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '422':
-          description: A session_enrichment tool call on the resolved agent has an
-            invalid configuration or its transform raised an error, so no session
-            was created. `messages` names the failing tool call and the reason, such
-            as a `$ref` to a secret that is not on the resolved agent or in the request,
-            or a jq error raised by the called tool configuration's `input_transform`
-            or `output_transform`.
+          description: No session was created. A `session_enrichment` tool call on
+            the resolved agent has an invalid configuration or its transform raised
+            an error, or the resolved agent's `run_condition` returned a non-boolean.
+            `messages` names the cause. For an enrichment failure it names the failing
+            tool call and the reason, such as a `$ref` to a secret that is not on
+            the resolved agent or in the request, or a jq error raised by the called
+            tool configuration's `input_transform` or `output_transform`.
           content:
             application/json:
               schema:
@@ -13598,6 +13629,31 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateInputRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MultipartInputEvent'
+            encoding:
+              message:
+                contentType: text/plain
+                style: form
+              messages:
+                contentType: application/json
+                style: form
+              files:
+                contentType: '*/*'
+                style: form
+              stream_response:
+                contentType: application/json, text/plain
+                style: form
+              surface_description:
+                contentType: application/json
+                style: form
+              since:
+                contentType: application/json
+                style: form
+              behavior:
+                contentType: application/json
+                style: form
       x-stream-based-on-body: streamResponse()
       responses:
         '201':
@@ -14203,6 +14259,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: No session was created. Either the requested session key or
+            name is already taken, or the resolved agent's `run_condition` evaluated
+            to false. A collision names itself in `messages` and needs a different
+            key or name. A `run_condition` refusal carries a generic message on this
+            surface, and the same request succeeds once the expression, or the metadata
+            it reads, changes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: No session was created. A `session_enrichment` tool call on
+            the resolved agent has an invalid configuration or its transform raised
+            an error, or the resolved agent's `run_condition` returned a non-boolean.
+            `messages` carries a generic failure message on this surface and does
+            not identify the cause. `createAgentSession` (`POST /v2/agents/{agent_key}/sessions`)
+            reports the specific cause.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '429':
           description: The request exceeds the caller's live-session or hourly session-creation
             cap.
@@ -29005,37 +29083,6 @@ components:
           example:
             report_type: daily
             format: markdown
-        run_condition:
-          description: 'A UserFn boolean expression that gates execution. On each
-            scheduled execution the agent''s enrichment runs first. The schedule then
-            evaluates this expression against the enriched session context. When the
-            expression evaluates to true, the schedule creates the session and the
-            agent runs. When it evaluates to false, the schedule skips the execution
-            and creates no session.
-
-
-            The expression uses the `get()` function with JSONPath to read the enriched
-            context:
-
-
-            * `$.session.metadata.*` for values written by the agent''s enrichment
-
-            * `$.agent.metadata.*` for the owning agent''s metadata
-
-
-            An enrichment tool call''s output is visible to the condition only when
-            the call writes it to metadata via metadata_target_path. Missing paths
-            return null. Comparing against null is falsy, so an unresolved path skips
-            the execution. Use `get(''$.path'', default)` for an explicit fallback.
-            Omit this field to run on every execution.
-
-
-            See https://docs.vectara.com/docs/reference/userfn-language for the UserFn
-            language reference.
-
-            '
-          type: string
-          example: get('$.session.metadata.open_incidents') > 0
         max_executions_to_keep:
           description: Maximum number of past execution records to keep. Older records
             are deleted automatically when a new execution is recorded.
@@ -29120,37 +29167,6 @@ components:
           type: object
           additionalProperties: true
           default: {}
-        run_condition:
-          description: 'A UserFn boolean expression that gates execution. On each
-            scheduled execution the agent''s enrichment runs first. The schedule then
-            evaluates this expression against the enriched session context. When the
-            expression evaluates to true, the schedule creates the session and the
-            agent runs. When it evaluates to false, the schedule skips the execution
-            and creates no session.
-
-
-            The expression uses the `get()` function with JSONPath to read the enriched
-            context:
-
-
-            * `$.session.metadata.*` for values written by the agent''s enrichment
-
-            * `$.agent.metadata.*` for the owning agent''s metadata
-
-
-            An enrichment tool call''s output is visible to the condition only when
-            the call writes it to metadata via metadata_target_path. Missing paths
-            return null. Comparing against null is falsy, so an unresolved path skips
-            the execution. Use `get(''$.path'', default)` for an explicit fallback.
-            Omit this field to run on every execution.
-
-
-            See https://docs.vectara.com/docs/reference/userfn-language for the UserFn
-            language reference.
-
-            '
-          type: string
-          example: get('$.session.metadata.open_incidents') > 0
         max_executions_to_keep:
           description: Maximum number of past execution records to keep. Defaults
             to 10.
@@ -29191,12 +29207,6 @@ components:
             schedule.
           type: object
           additionalProperties: true
-        run_condition:
-          description: Updated UserFn boolean gate that determines whether each scheduled
-            execution creates a session. Send null to clear the gate so the schedule
-            runs on every execution.
-          type: string
-          nullable: true
         max_executions_to_keep:
           description: Updated maximum number of past execution records to keep.
           type: integer
@@ -29238,10 +29248,11 @@ components:
             * `success`: a session was created and the agent ran
 
             * `error`: the attempt failed, either before a session could be created,
-            for example from an invalid run_condition expression, or while the agent
-            ran
+            for example because the agent''s `run_condition` returned a non-boolean,
+            or while the agent ran
 
-            * `skipped`: run_condition evaluated false, so no session was created
+            * `skipped`: the agent''s `run_condition` evaluated false, so no session
+            was created
 
             * `enrichment_failed`: session metadata enrichment failed, so no session
             was created
@@ -31793,20 +31804,21 @@ components:
           description: "UserFn expression evaluating to boolean.\nUses the `get()`\
             \ function with JSONPath to access the context.\nSee https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker\
             \ for the UserFn language reference.\nOmit for a catch-all rule.\n\nMissing\
-            \ paths return `null`. Comparing against `null` is falsy, so the rule\
-            \ falls through to the next one in the policy. Use `get('$.path', default)`\
-            \ for an explicit fallback.\n\nContext shape \u2014 at resolution time\
-            \ the underlying agent is not yet selected. The `agent.*` fields therefore\
-            \ reflect the *alias's* metadata (name, description, metadata), with the\
-            \ alias's URL key in `agent.key`. Use these for alias-level context (e.g.\
-            \ `$.agent.metadata.region`). Use `session.*` for per-call routing inputs\
-            \ (tenant, user_id, etc.). Most rules dispatch on `session.*`.\n\n```\n\
-            {\n  \"agent\":   { \"name\", \"key\", \"description\", \"metadata\":\
-            \ { ... } },   // alias's metadata at resolution time\n  \"session\":\
-            \ { \"key\", \"name\", \"description\", \"metadata\": { ... } },   //\
-            \ the session being created\n  \"currentDate\": \"2026-01-15T10:35:00Z\"\
-            \n}\n```\n\nExamples:\n\n* `get('$.session.metadata.tenant') == 'us'`\n\
-            * `(get('$.session.metadata.tenant') == 'us') and (get('$.session.metadata.tier')\
+            \ paths return `null`, which is falsy under equality, so the rule falls\
+            \ through to the next one in the policy. An ordered comparison such as\
+            \ `>` against a missing path raises an error and fails the resolution.\
+            \ Use `get('$.path', default)` where a value may be absent.\n\nContext\
+            \ shape \u2014 at resolution time the underlying agent is not yet selected.\
+            \ The `agent.*` fields therefore reflect the *alias's* metadata (name,\
+            \ description, metadata), with the alias's URL key in `agent.key`. Use\
+            \ these for alias-level context (e.g. `$.agent.metadata.region`). Use\
+            \ `session.*` for per-call routing inputs (tenant, user_id, etc.). Most\
+            \ rules dispatch on `session.*`.\n\n```\n{\n  \"agent\":   { \"name\"\
+            , \"key\", \"description\", \"metadata\": { ... } },   // alias's metadata\
+            \ at resolution time\n  \"session\": { \"key\", \"name\", \"description\"\
+            , \"metadata\": { ... } },   // the session being created\n  \"currentDate\"\
+            : \"2026-01-15T10:35:00Z\"\n}\n```\n\nExamples:\n\n* `get('$.session.metadata.tenant')\
+            \ == 'us'`\n* `(get('$.session.metadata.tenant') == 'us') and (get('$.session.metadata.tier')\
             \ == 'gold')`\n* `(get('$.session.metadata.region') == 'us-west') or (get('$.session.metadata.region')\
             \ == 'us-east')`\n* `get('$.session.metadata.tier', 'free') != 'free'`\n"
           type: string
@@ -31869,9 +31881,10 @@ components:
         - A stable handle in front of agents whose configuration evolves.\n\nThe resolved\
         \ agent's session_enrichment applies to sessions created through the alias,\
         \ after routing resolves. Routing runs before enrichment. Routing rules therefore\
-        \ read the request metadata, not enriched values.\n\nRouting rules use userfn\
-        \ expressions. See the `AliasRule.match` field for the context shape and example\
-        \ expressions.\n"
+        \ read the request metadata, not enriched values. The resolved agent's `run_condition`\
+        \ is evaluated last, after its enrichment. When it evaluates to false no session\
+        \ is created and the request returns 409.\n\nRouting rules use userfn expressions.\
+        \ See the `AliasRule.match` field for the context shape and example expressions.\n"
       type: object
       required:
       - key
@@ -33983,6 +33996,13 @@ components:
 
         structured output parser matching this schema.
 
+
+        When the judge agent''s own `run_condition` evaluates to false nothing verifies
+        the record.
+
+        The record completes with `skipped` true and a `reason` saying verification
+        did not run, and it counts toward `records_skipped` rather than `records_processed`.
+
         '
       type: object
       x-vectaraParents:
@@ -34407,7 +34427,16 @@ components:
           format: int32
           default: 0
         records_processed:
-          description: Number of records successfully processed by the agent.
+          description: Number of records successfully processed by the agent. Excludes
+            records counted by `records_skipped`.
+          type: integer
+          format: int32
+          default: 0
+        records_skipped:
+          description: Number of records the run neither processed nor failed. Either
+            the agent's `run_condition` evaluated to false, so no session was created,
+            or the judge agent's `run_condition` evaluated to false, so nothing verified
+            the record. Disjoint from `records_processed` and `records_failed`.
           type: integer
           format: int32
           default: 0
@@ -34442,6 +34471,7 @@ components:
       - trigger_type
       - records_fetched
       - records_processed
+      - records_skipped
       - records_failed
       - created_at
     DeadLetterStatus:
@@ -34707,6 +34737,13 @@ components:
             type: integer
             format: int32
             nullable: true
+          records_skipped:
+            description: Records the run neither processed nor failed, because a `run_condition`
+              on the agent or on the judge agent evaluated to false. Disjoint from
+              `records_processed` and `records_failed`.
+            type: integer
+            format: int32
+            nullable: true
           records_failed:
             type: integer
             format: int32
@@ -34719,18 +34756,11 @@ components:
         - type
         - status
     RecordProcessingEventStatus:
-      description: 'Lifecycle status of a single source record within a run. `started`
-        when processing begins,
-
-        `completed` when the record succeeded (or was skipped), `failed` for a failed
-        processing
-
-        attempt, and `dead_lettered` when the record exhausted its retries and was
-        written to (or, in a
-
-        retry run, updated in) the dead letter queue.
-
-        '
+      description: Lifecycle status of a single source record within a run. `started`
+        when processing begins, `completed` when the record succeeded or was skipped
+        without processing, `failed` for a failed processing attempt, and `dead_lettered`
+        when the record exhausted its retries and was written to, or in a retry run
+        updated in, the dead letter queue.
       type: string
       enum:
       - started
@@ -34742,7 +34772,7 @@ components:
         stage. `status` is `started`
 
         when processing begins, `completed` when the record was successfully processed
-        (or skipped),
+        or skipped without processing,
 
         `failed` for each failed processing attempt, and `dead_lettered` when the
         record exhausted its
@@ -34769,21 +34799,18 @@ components:
             description: The identifier of the source record.
             type: string
           session_key:
-            description: 'The agent session created to process this record. Always
-              present on `completed`;
-
-              may be present on `failed` if a session was created before the failure;
-              null on `started`
-
-              and `dead_lettered`.
-
-              '
+            description: The agent session created to process this record. Present
+              on `completed`, except for a record the agent's `run_condition` evaluated
+              to false for, which has no session. May be present on `failed` if a
+              session was created before the failure. Null on `started` and `dead_lettered`.
             type: string
             nullable: true
           skipped:
-            description: True if a `completed` record was skipped because a prior
-              successful session already exists at the same watermark. Only meaningful
-              when `status` is `completed`.
+            description: True if a `completed` record was skipped. A prior successful
+              session already exists at the same watermark, the agent's `run_condition`
+              evaluated to false, or the judge agent's `run_condition` evaluated to
+              false. `reason` distinguishes them. Only meaningful when `status` is
+              `completed`.
             type: boolean
             nullable: true
           error:
@@ -34800,19 +34827,15 @@ components:
             type: string
             nullable: true
           reason:
-            description: 'Human-readable explanation of the record''s outcome. On
-              `failed`/`dead_lettered` this is the
-
-              failure reason (the same text as the deprecated `error`); on `completed`
-              it is the verification
-
-              success reason when one is produced (the judge agent''s reason, or a
-              condition''s evaluated
-
-              `reason_expression`). Null on `started`, and may be null on any status
+            description: Human-readable explanation of the record's outcome. On `failed`
+              and `dead_lettered` this is the failure reason, the same text as the
+              deprecated `error`. On `completed` it is the verification reason, which
+              is the judge agent's reason, a condition's evaluated `reason_expression`,
+              or a statement that verification did not run because the judge agent's
+              own `run_condition` evaluated false. On a `completed` record with `skipped`
+              true it is the literal string `run_condition` when the agent's condition
+              evaluated to false. Null on `started`, and may be null on any status
               when no reason was recorded.
-
-              '
             type: string
             nullable: true
           dead_lettered:

@@ -6,7 +6,7 @@ namespace Vectara
 {
     /// <summary>
     /// A single source record progressed through a processing lifecycle stage. `status` is `started`<br/>
-    /// when processing begins, `completed` when the record was successfully processed (or skipped),<br/>
+    /// when processing begins, `completed` when the record was successfully processed or skipped without processing,<br/>
     /// `failed` for each failed processing attempt, and `dead_lettered` when the record exhausted its<br/>
     /// retries and was written to the dead letter queue (or, in a retry run, its existing dead letter<br/>
     /// was marked still-failing). A record that is ultimately dead-lettered emits one or more `failed`<br/>

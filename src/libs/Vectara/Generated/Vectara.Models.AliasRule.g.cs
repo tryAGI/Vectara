@@ -13,7 +13,7 @@ namespace Vectara
         /// Uses the `get()` function with JSONPath to access the context.<br/>
         /// See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker for the UserFn language reference.<br/>
         /// Omit for a catch-all rule.<br/>
-        /// Missing paths return `null`. Comparing against `null` is falsy, so the rule falls through to the next one in the policy. Use `get('$.path', default)` for an explicit fallback.<br/>
+        /// Missing paths return `null`, which is falsy under equality, so the rule falls through to the next one in the policy. An ordered comparison such as `&gt;` against a missing path raises an error and fails the resolution. Use `get('$.path', default)` where a value may be absent.<br/>
         /// Context shape — at resolution time the underlying agent is not yet selected. The `agent.*` fields therefore reflect the *alias's* metadata (name, description, metadata), with the alias's URL key in `agent.key`. Use these for alias-level context (e.g. `$.agent.metadata.region`). Use `session.*` for per-call routing inputs (tenant, user_id, etc.). Most rules dispatch on `session.*`.<br/>
         /// ```<br/>
         /// {<br/>
@@ -62,7 +62,7 @@ namespace Vectara
         /// Uses the `get()` function with JSONPath to access the context.<br/>
         /// See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker for the UserFn language reference.<br/>
         /// Omit for a catch-all rule.<br/>
-        /// Missing paths return `null`. Comparing against `null` is falsy, so the rule falls through to the next one in the policy. Use `get('$.path', default)` for an explicit fallback.<br/>
+        /// Missing paths return `null`, which is falsy under equality, so the rule falls through to the next one in the policy. An ordered comparison such as `&gt;` against a missing path raises an error and fails the resolution. Use `get('$.path', default)` where a value may be absent.<br/>
         /// Context shape — at resolution time the underlying agent is not yet selected. The `agent.*` fields therefore reflect the *alias's* metadata (name, description, metadata), with the alias's URL key in `agent.key`. Use these for alias-level context (e.g. `$.agent.metadata.region`). Use `session.*` for per-call routing inputs (tenant, user_id, etc.). Most rules dispatch on `session.*`.<br/>
         /// ```<br/>
         /// {<br/>

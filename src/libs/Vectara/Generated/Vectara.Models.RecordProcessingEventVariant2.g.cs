@@ -19,10 +19,7 @@ namespace Vectara
         public required string Type { get; set; } = "record_processing";
 
         /// <summary>
-        /// Lifecycle status of a single source record within a run. `started` when processing begins,<br/>
-        /// `completed` when the record succeeded (or was skipped), `failed` for a failed processing<br/>
-        /// attempt, and `dead_lettered` when the record exhausted its retries and was written to (or, in a<br/>
-        /// retry run, updated in) the dead letter queue.
+        /// Lifecycle status of a single source record within a run. `started` when processing begins, `completed` when the record succeeded or was skipped without processing, `failed` for a failed processing attempt, and `dead_lettered` when the record exhausted its retries and was written to, or in a retry run updated in, the dead letter queue.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RecordProcessingEventStatusJsonConverter))]
@@ -37,15 +34,13 @@ namespace Vectara
         public required string SourceRecordId { get; set; }
 
         /// <summary>
-        /// The agent session created to process this record. Always present on `completed`;<br/>
-        /// may be present on `failed` if a session was created before the failure; null on `started`<br/>
-        /// and `dead_lettered`.
+        /// The agent session created to process this record. Present on `completed`, except for a record the agent's `run_condition` evaluated to false for, which has no session. May be present on `failed` if a session was created before the failure. Null on `started` and `dead_lettered`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("session_key")]
         public string? SessionKey { get; set; }
 
         /// <summary>
-        /// True if a `completed` record was skipped because a prior successful session already exists at the same watermark. Only meaningful when `status` is `completed`.
+        /// True if a `completed` record was skipped. A prior successful session already exists at the same watermark, the agent's `run_condition` evaluated to false, or the judge agent's `run_condition` evaluated to false. `reason` distinguishes them. Only meaningful when `status` is `completed`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("skipped")]
         public bool? Skipped { get; set; }
@@ -60,10 +55,7 @@ namespace Vectara
         public string? Error { get; set; }
 
         /// <summary>
-        /// Human-readable explanation of the record's outcome. On `failed`/`dead_lettered` this is the<br/>
-        /// failure reason (the same text as the deprecated `error`); on `completed` it is the verification<br/>
-        /// success reason when one is produced (the judge agent's reason, or a condition's evaluated<br/>
-        /// `reason_expression`). Null on `started`, and may be null on any status when no reason was recorded.
+        /// Human-readable explanation of the record's outcome. On `failed` and `dead_lettered` this is the failure reason, the same text as the deprecated `error`. On `completed` it is the verification reason, which is the judge agent's reason, a condition's evaluated `reason_expression`, or a statement that verification did not run because the judge agent's own `run_condition` evaluated false. On a `completed` record with `skipped` true it is the literal string `run_condition` when the agent's condition evaluated to false. Null on `started`, and may be null on any status when no reason was recorded.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("reason")]
         public string? Reason { get; set; }
@@ -104,27 +96,19 @@ namespace Vectara
         /// Default Value: record_processing
         /// </param>
         /// <param name="status">
-        /// Lifecycle status of a single source record within a run. `started` when processing begins,<br/>
-        /// `completed` when the record succeeded (or was skipped), `failed` for a failed processing<br/>
-        /// attempt, and `dead_lettered` when the record exhausted its retries and was written to (or, in a<br/>
-        /// retry run, updated in) the dead letter queue.
+        /// Lifecycle status of a single source record within a run. `started` when processing begins, `completed` when the record succeeded or was skipped without processing, `failed` for a failed processing attempt, and `dead_lettered` when the record exhausted its retries and was written to, or in a retry run updated in, the dead letter queue.
         /// </param>
         /// <param name="sourceRecordId">
         /// The identifier of the source record.
         /// </param>
         /// <param name="sessionKey">
-        /// The agent session created to process this record. Always present on `completed`;<br/>
-        /// may be present on `failed` if a session was created before the failure; null on `started`<br/>
-        /// and `dead_lettered`.
+        /// The agent session created to process this record. Present on `completed`, except for a record the agent's `run_condition` evaluated to false for, which has no session. May be present on `failed` if a session was created before the failure. Null on `started` and `dead_lettered`.
         /// </param>
         /// <param name="skipped">
-        /// True if a `completed` record was skipped because a prior successful session already exists at the same watermark. Only meaningful when `status` is `completed`.
+        /// True if a `completed` record was skipped. A prior successful session already exists at the same watermark, the agent's `run_condition` evaluated to false, or the judge agent's `run_condition` evaluated to false. `reason` distinguishes them. Only meaningful when `status` is `completed`.
         /// </param>
         /// <param name="reason">
-        /// Human-readable explanation of the record's outcome. On `failed`/`dead_lettered` this is the<br/>
-        /// failure reason (the same text as the deprecated `error`); on `completed` it is the verification<br/>
-        /// success reason when one is produced (the judge agent's reason, or a condition's evaluated<br/>
-        /// `reason_expression`). Null on `started`, and may be null on any status when no reason was recorded.
+        /// Human-readable explanation of the record's outcome. On `failed` and `dead_lettered` this is the failure reason, the same text as the deprecated `error`. On `completed` it is the verification reason, which is the judge agent's reason, a condition's evaluated `reason_expression`, or a statement that verification did not run because the judge agent's own `run_condition` evaluated false. On a `completed` record with `skipped` true it is the literal string `run_condition` when the agent's condition evaluated to false. Null on `started`, and may be null on any status when no reason was recorded.
         /// </param>
         /// <param name="attempt">
         /// Which processing attempt produced this event, starting at 1. A record that fails is retried, so<br/>

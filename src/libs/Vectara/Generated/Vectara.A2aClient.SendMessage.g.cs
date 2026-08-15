@@ -66,7 +66,8 @@ namespace Vectara
         /// <summary>
         /// Send A2A v0.3 message<br/>
         /// Sends a message to the agent. Blocks until the agent reaches a terminal or interrupted state. Returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
-        /// To continue an existing conversation, set `message.contextId` to the prior task's id.
+        /// To continue an existing conversation, set `message.contextId` to the prior task's id.<br/>
+        /// A message that opens a new session is subject to the agent's `run_condition`. When it evaluates to false no session is created and the call returns an `InvalidRequestError`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -102,7 +103,8 @@ namespace Vectara
         /// <summary>
         /// Send A2A v0.3 message<br/>
         /// Sends a message to the agent. Blocks until the agent reaches a terminal or interrupted state. Returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
-        /// To continue an existing conversation, set `message.contextId` to the prior task's id.
+        /// To continue an existing conversation, set `message.contextId` to the prior task's id.<br/>
+        /// A message that opens a new session is subject to the agent's `run_condition`. When it evaluates to false no session is created and the call returns an `InvalidRequestError`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -574,7 +576,8 @@ namespace Vectara
         /// <summary>
         /// Send A2A v0.3 message<br/>
         /// Sends a message to the agent. Blocks until the agent reaches a terminal or interrupted state. Returns the resulting `task`, or a direct `message` reply for stateless interactions.<br/>
-        /// To continue an existing conversation, set `message.contextId` to the prior task's id.
+        /// To continue an existing conversation, set `message.contextId` to the prior task's id.<br/>
+        /// A message that opens a new session is subject to the agent's `run_condition`. When it evaluates to false no session is created and the call returns an `InvalidRequestError`.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

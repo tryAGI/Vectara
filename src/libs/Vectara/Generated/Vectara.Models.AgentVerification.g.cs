@@ -7,7 +7,9 @@ namespace Vectara
     /// Verifies the worker agent's output using a separate judge agent. The judge agent receives<br/>
     /// a summary of the worker agent's session and must produce a structured output with<br/>
     /// `{ "success": boolean, "reason": string }`. The judge agent must be configured with a<br/>
-    /// structured output parser matching this schema.
+    /// structured output parser matching this schema.<br/>
+    /// When the judge agent's own `run_condition` evaluates to false nothing verifies the record.<br/>
+    /// The record completes with `skipped` true and a `reason` saying verification did not run, and it counts toward `records_skipped` rather than `records_processed`.
     /// </summary>
     public sealed partial class AgentVerification
     {
