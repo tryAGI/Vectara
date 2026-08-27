@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListPipelineDeadLetterEntriesResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("dead_letters")]
         [global::System.Text.Json.Serialization.JsonRequired]

@@ -10,15 +10,15 @@ namespace Vectara
     public enum TestLambdaToolResponseValidationStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Invalid,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Pending,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Valid,
     }

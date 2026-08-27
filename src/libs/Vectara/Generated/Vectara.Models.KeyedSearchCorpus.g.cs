@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SearchCorpus))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsSearchCorpus => SearchCorpus != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSearchCorpus(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SearchCorpus PickSearchCorpus() => IsSearchCorpus
             ? SearchCorpus!
             : throw new global::System.InvalidOperationException($"Expected union variant 'SearchCorpus' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.KeyedSearchCorpusVariant2? KeyedSearchCorpusVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(KeyedSearchCorpusVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsKeyedSearchCorpusVariant2 => KeyedSearchCorpusVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickKeyedSearchCorpusVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.KeyedSearchCorpusVariant2 PickKeyedSearchCorpusVariant2() => IsKeyedSearchCorpusVariant2
             ? KeyedSearchCorpusVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'KeyedSearchCorpusVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator KeyedSearchCorpus(global::Vectara.SearchCorpus value) => new KeyedSearchCorpus((global::Vectara.SearchCorpus?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SearchCorpus?(KeyedSearchCorpus @this) => @this.SearchCorpus;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public KeyedSearchCorpus(global::Vectara.SearchCorpus? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static KeyedSearchCorpus FromSearchCorpus(global::Vectara.SearchCorpus? value) => new KeyedSearchCorpus(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator KeyedSearchCorpus(global::Vectara.KeyedSearchCorpusVariant2 value) => new KeyedSearchCorpus((global::Vectara.KeyedSearchCorpusVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.KeyedSearchCorpusVariant2?(KeyedSearchCorpus @this) => @this.KeyedSearchCorpusVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public KeyedSearchCorpus(global::Vectara.KeyedSearchCorpusVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static KeyedSearchCorpus FromKeyedSearchCorpusVariant2(global::Vectara.KeyedSearchCorpusVariant2? value) => new KeyedSearchCorpus(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public KeyedSearchCorpus(
             global::Vectara.SearchCorpus? searchCorpus,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             KeyedSearchCorpusVariant2 as object ??
-            SearchCorpus as object 
+            SearchCorpus as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             SearchCorpus?.ToString() ??
-            KeyedSearchCorpusVariant2?.ToString() 
+            KeyedSearchCorpusVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.SearchCorpus, TResult>? searchCorpus = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.SearchCorpus>? searchCorpus = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.SearchCorpus>? searchCorpus = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(KeyedSearchCorpus other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.SearchCorpus?>.Default.Equals(SearchCorpus, other.SearchCorpus) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.KeyedSearchCorpusVariant2?>.Default.Equals(KeyedSearchCorpusVariant2, other.KeyedSearchCorpusVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.KeyedSearchCorpusVariant2?>.Default.Equals(KeyedSearchCorpusVariant2, other.KeyedSearchCorpusVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(KeyedSearchCorpus obj1, KeyedSearchCorpus obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(KeyedSearchCorpus obj1, KeyedSearchCorpus obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

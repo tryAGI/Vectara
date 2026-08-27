@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct ChunkingStrategy : global::System.IEquatable<ChunkingStrategy>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ChunkingStrategyDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(MaxCharsChunkingStrategy))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsMaxCharsChunkingStrategy => MaxCharsChunkingStrategy != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickMaxCharsChunkingStrategy(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.MaxCharsChunkingStrategy PickMaxCharsChunkingStrategy() => IsMaxCharsChunkingStrategy
             ? MaxCharsChunkingStrategy!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SentenceChunkingStrategy))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsSentenceChunkingStrategy => SentenceChunkingStrategy != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSentenceChunkingStrategy(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SentenceChunkingStrategy PickSentenceChunkingStrategy() => IsSentenceChunkingStrategy
             ? SentenceChunkingStrategy!
             : throw new global::System.InvalidOperationException($"Expected union variant 'SentenceChunkingStrategy' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy value) => new ChunkingStrategy((global::Vectara.MaxCharsChunkingStrategy?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.MaxCharsChunkingStrategy?(ChunkingStrategy @this) => @this.MaxCharsChunkingStrategy;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ChunkingStrategy FromMaxCharsChunkingStrategy(global::Vectara.MaxCharsChunkingStrategy? value) => new ChunkingStrategy(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ChunkingStrategy(global::Vectara.SentenceChunkingStrategy value) => new ChunkingStrategy((global::Vectara.SentenceChunkingStrategy?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SentenceChunkingStrategy?(ChunkingStrategy @this) => @this.SentenceChunkingStrategy;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ChunkingStrategy(global::Vectara.SentenceChunkingStrategy? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ChunkingStrategy FromSentenceChunkingStrategy(global::Vectara.SentenceChunkingStrategy? value) => new ChunkingStrategy(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ChunkingStrategy(
             global::Vectara.ChunkingStrategyDiscriminatorType? type,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             SentenceChunkingStrategy as object ??
-            MaxCharsChunkingStrategy as object 
+            MaxCharsChunkingStrategy as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             MaxCharsChunkingStrategy?.ToString() ??
-            SentenceChunkingStrategy?.ToString() 
+            SentenceChunkingStrategy?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.MaxCharsChunkingStrategy, TResult>? maxCharsChunkingStrategy = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.MaxCharsChunkingStrategy>? maxCharsChunkingStrategy = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.MaxCharsChunkingStrategy>? maxCharsChunkingStrategy = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ChunkingStrategy other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.MaxCharsChunkingStrategy?>.Default.Equals(MaxCharsChunkingStrategy, other.MaxCharsChunkingStrategy) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SentenceChunkingStrategy?>.Default.Equals(SentenceChunkingStrategy, other.SentenceChunkingStrategy) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SentenceChunkingStrategy?>.Default.Equals(SentenceChunkingStrategy, other.SentenceChunkingStrategy)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ChunkingStrategy obj1, ChunkingStrategy obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ChunkingStrategy obj1, ChunkingStrategy obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

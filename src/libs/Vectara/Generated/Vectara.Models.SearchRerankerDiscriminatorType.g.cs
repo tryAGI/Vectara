@@ -4,28 +4,28 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum SearchRerankerDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Chain,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         CustomerReranker,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Mmr,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         None,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Userfn,
     }

@@ -8,10 +8,13 @@ namespace Vectara
         /// Create end user session for alias<br/>
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
-        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap.
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
+        /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>
+        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="xVisitorId"></param>
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
@@ -26,16 +29,20 @@ namespace Vectara
             global::Vectara.CreateEndUserSessionRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? xVisitorId = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create end user session for alias<br/>
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
-        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap.
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
+        /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>
+        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="xVisitorId"></param>
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
@@ -50,16 +57,20 @@ namespace Vectara
             global::Vectara.CreateEndUserSessionRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? xVisitorId = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create end user session for alias<br/>
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
-        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap.
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
+        /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>
+        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="xVisitorId"></param>
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
@@ -72,13 +83,21 @@ namespace Vectara
         /// A short description of the session's purpose. If omitted, the platform generates one after the agent produces events.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </param>
+        /// <param name="connectorId">
+        /// The widget connector this session belongs to — the one the widget client learned at bootstrap. Must name an enabled widget connector of the addressed alias, or the request is rejected with `400`.<br/>
+        /// It fixes the session's widget behavior for its lifetime: the widget's `session_tti_minutes` sets the idle lifetime, and event<br/>
+        /// reads through the session use the widget's `revealed_output_types`.<br/>
+        /// Example: con_9f3aQpVn2mZr8YbLc5TdWe
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::Vectara.EndUserSession> CreateAliasRoutedAsync(
             string aliasKey,
+            string connectorId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? xVisitorId = default,
             string? name = default,
             string? description = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

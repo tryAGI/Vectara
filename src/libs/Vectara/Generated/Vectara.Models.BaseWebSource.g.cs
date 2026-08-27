@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Vectara
@@ -21,18 +23,29 @@ namespace Vectara
         public bool? RespectRobotsTxt { get; set; }
 
         /// <summary>
-        /// Maximum sustained requests per second per host.<br/>
+        /// Maximum sustained requests per second, applied to each concurrent fetch<br/>
+        /// independently — the worst-case rate against a host is this value multiplied by<br/>
+        /// `max_concurrent_fetches`.<br/>
         /// Default Value: 2
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("requests_per_second")]
         public double? RequestsPerSecond { get; set; }
 
         /// <summary>
-        /// Maximum concurrent in-flight requests per host.<br/>
+        /// Ignored. Use `max_concurrent_fetches`.<br/>
         /// Default Value: 4
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_concurrent")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public int? MaxConcurrent { get; set; }
+
+        /// <summary>
+        /// Maximum number of pages fetched concurrently from a single host. Each concurrent<br/>
+        /// fetch is paced by `requests_per_second` independently.<br/>
+        /// Default Value: 2
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("max_concurrent_fetches")]
+        public int? MaxConcurrentFetches { get; set; }
 
         /// <summary>
         /// Hard cap on the number of pages fetched per run. The default is a safety rail to prevent<br/>
@@ -110,12 +123,15 @@ namespace Vectara
         /// Default Value: true
         /// </param>
         /// <param name="requestsPerSecond">
-        /// Maximum sustained requests per second per host.<br/>
+        /// Maximum sustained requests per second, applied to each concurrent fetch<br/>
+        /// independently — the worst-case rate against a host is this value multiplied by<br/>
+        /// `max_concurrent_fetches`.<br/>
         /// Default Value: 2
         /// </param>
-        /// <param name="maxConcurrent">
-        /// Maximum concurrent in-flight requests per host.<br/>
-        /// Default Value: 4
+        /// <param name="maxConcurrentFetches">
+        /// Maximum number of pages fetched concurrently from a single host. Each concurrent<br/>
+        /// fetch is paced by `requests_per_second` independently.<br/>
+        /// Default Value: 2
         /// </param>
         /// <param name="maxPages">
         /// Hard cap on the number of pages fetched per run. The default is a safety rail to prevent<br/>
@@ -161,7 +177,7 @@ namespace Vectara
         public BaseWebSource(
             bool? respectRobotsTxt,
             double? requestsPerSecond,
-            int? maxConcurrent,
+            int? maxConcurrentFetches,
             int? maxPages,
             bool? jsRendering,
             string? userAgent,
@@ -172,7 +188,7 @@ namespace Vectara
         {
             this.RespectRobotsTxt = respectRobotsTxt;
             this.RequestsPerSecond = requestsPerSecond;
-            this.MaxConcurrent = maxConcurrent;
+            this.MaxConcurrentFetches = maxConcurrentFetches;
             this.MaxPages = maxPages;
             this.JsRendering = jsRendering;
             this.UserAgent = userAgent;

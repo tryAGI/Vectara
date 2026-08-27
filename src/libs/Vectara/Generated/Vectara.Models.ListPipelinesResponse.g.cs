@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListPipelinesResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pipelines")]
         [global::System.Text.Json.Serialization.JsonRequired]

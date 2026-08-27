@@ -4,22 +4,38 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum EndUserEventDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentOutput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InputMessage,
+        /// <summary>
+        ///
+        /// </summary>
+        StructuredOutput,
+        /// <summary>
+        ///
+        /// </summary>
+        Thinking,
+        /// <summary>
+        ///
+        /// </summary>
+        ToolInput,
+        /// <summary>
+        ///
+        /// </summary>
+        ToolOutput,
     }
 
     /// <summary>
@@ -37,6 +53,10 @@ namespace Vectara
                 EndUserEventDiscriminatorType.AgentOutput => "agent_output",
                 EndUserEventDiscriminatorType.Error => "error",
                 EndUserEventDiscriminatorType.InputMessage => "input_message",
+                EndUserEventDiscriminatorType.StructuredOutput => "structured_output",
+                EndUserEventDiscriminatorType.Thinking => "thinking",
+                EndUserEventDiscriminatorType.ToolInput => "tool_input",
+                EndUserEventDiscriminatorType.ToolOutput => "tool_output",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -50,6 +70,10 @@ namespace Vectara
                 "agent_output" => EndUserEventDiscriminatorType.AgentOutput,
                 "error" => EndUserEventDiscriminatorType.Error,
                 "input_message" => EndUserEventDiscriminatorType.InputMessage,
+                "structured_output" => EndUserEventDiscriminatorType.StructuredOutput,
+                "thinking" => EndUserEventDiscriminatorType.Thinking,
+                "tool_input" => EndUserEventDiscriminatorType.ToolInput,
+                "tool_output" => EndUserEventDiscriminatorType.ToolOutput,
                 _ => null,
             };
         }

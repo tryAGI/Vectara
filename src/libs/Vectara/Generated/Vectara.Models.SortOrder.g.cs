@@ -9,11 +9,11 @@ namespace Vectara
     public enum SortOrder
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Asc,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Desc,
     }

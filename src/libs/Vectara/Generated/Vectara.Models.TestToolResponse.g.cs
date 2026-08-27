@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct TestToolResponse : global::System.IEquatable<TestToolResponse>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.TestToolResponseDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Success))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsSuccess => Success != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSuccess(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.TestToolSuccessResponse PickSuccess() => IsSuccess
             ? Success!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsError => Error != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickError(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.TestToolErrorResponse PickError() => IsError
             ? Error!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator TestToolResponse(global::Vectara.TestToolSuccessResponse value) => new TestToolResponse((global::Vectara.TestToolSuccessResponse?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.TestToolSuccessResponse?(TestToolResponse @this) => @this.Success;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TestToolResponse(global::Vectara.TestToolSuccessResponse? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static TestToolResponse FromSuccess(global::Vectara.TestToolSuccessResponse? value) => new TestToolResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator TestToolResponse(global::Vectara.TestToolErrorResponse value) => new TestToolResponse((global::Vectara.TestToolErrorResponse?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.TestToolErrorResponse?(TestToolResponse @this) => @this.Error;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TestToolResponse(global::Vectara.TestToolErrorResponse? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static TestToolResponse FromError(global::Vectara.TestToolErrorResponse? value) => new TestToolResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TestToolResponse(
             global::Vectara.TestToolResponseDiscriminatorType? type,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Error as object ??
-            Success as object 
+            Success as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Success?.ToString() ??
-            Error?.ToString() 
+            Error?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.TestToolSuccessResponse, TResult>? success = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.TestToolSuccessResponse>? success = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.TestToolSuccessResponse>? success = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(TestToolResponse other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.TestToolSuccessResponse?>.Default.Equals(Success, other.Success) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.TestToolErrorResponse?>.Default.Equals(Error, other.Error) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.TestToolErrorResponse?>.Default.Equals(Error, other.Error)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(TestToolResponse obj1, TestToolResponse obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(TestToolResponse obj1, TestToolResponse obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

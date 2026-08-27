@@ -4,64 +4,64 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AgentToolConfigurationDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ArtifactGrep,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ArtifactRead,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Client,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         CorporaSearch,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         DocumentConversion,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         DynamicVectara,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GetDocumentText,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ImageRead,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lambda,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Mcp,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Reference,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SubAgent,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WebGet,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WebSearch,
     }

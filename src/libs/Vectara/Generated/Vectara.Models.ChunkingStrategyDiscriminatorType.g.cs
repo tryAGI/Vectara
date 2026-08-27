@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ChunkingStrategyDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         MaxCharsChunkingStrategy,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SentenceChunkingStrategy,
     }

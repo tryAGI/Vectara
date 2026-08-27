@@ -9,19 +9,19 @@ namespace Vectara
     public enum PipelineStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Active,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Initializing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Paused,
     }

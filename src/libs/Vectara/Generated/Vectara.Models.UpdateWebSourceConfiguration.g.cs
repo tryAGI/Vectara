@@ -25,7 +25,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -33,7 +33,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -46,14 +46,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BaseWebSource PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateWebSourceConfigurationVariant2? UpdateWebSourceConfigurationVariant2 { get; init; }
@@ -62,7 +62,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(UpdateWebSourceConfigurationVariant2))]
@@ -70,7 +70,7 @@ namespace Vectara
         public bool IsUpdateWebSourceConfigurationVariant2 => UpdateWebSourceConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickUpdateWebSourceConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -83,23 +83,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateWebSourceConfigurationVariant2 PickUpdateWebSourceConfigurationVariant2() => IsUpdateWebSourceConfigurationVariant2
             ? UpdateWebSourceConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'UpdateWebSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateWebSourceConfiguration(global::Vectara.BaseWebSource value) => new UpdateWebSourceConfiguration((global::Vectara.BaseWebSource?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BaseWebSource?(UpdateWebSourceConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateWebSourceConfiguration(global::Vectara.BaseWebSource? value)
         {
@@ -107,22 +107,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateWebSourceConfiguration FromBase(global::Vectara.BaseWebSource? value) => new UpdateWebSourceConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateWebSourceConfiguration(global::Vectara.UpdateWebSourceConfigurationVariant2 value) => new UpdateWebSourceConfiguration((global::Vectara.UpdateWebSourceConfigurationVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateWebSourceConfigurationVariant2?(UpdateWebSourceConfiguration @this) => @this.UpdateWebSourceConfigurationVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateWebSourceConfiguration(global::Vectara.UpdateWebSourceConfigurationVariant2? value)
         {
@@ -130,12 +130,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateWebSourceConfiguration FromUpdateWebSourceConfigurationVariant2(global::Vectara.UpdateWebSourceConfigurationVariant2? value) => new UpdateWebSourceConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateWebSourceConfiguration(
             global::Vectara.BaseWebSource? @base,
@@ -147,23 +147,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             UpdateWebSourceConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            UpdateWebSourceConfigurationVariant2?.ToString() 
+            UpdateWebSourceConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -171,7 +171,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BaseWebSource, TResult>? @base = null,
@@ -196,7 +196,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BaseWebSource>? @base = null,
@@ -220,7 +220,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BaseWebSource>? @base = null,
@@ -243,7 +243,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -264,18 +264,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(UpdateWebSourceConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseWebSource?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWebSourceConfigurationVariant2?>.Default.Equals(UpdateWebSourceConfigurationVariant2, other.UpdateWebSourceConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWebSourceConfigurationVariant2?>.Default.Equals(UpdateWebSourceConfigurationVariant2, other.UpdateWebSourceConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(UpdateWebSourceConfiguration obj1, UpdateWebSourceConfiguration obj2)
         {
@@ -283,7 +283,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(UpdateWebSourceConfiguration obj1, UpdateWebSourceConfiguration obj2)
         {
@@ -291,7 +291,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

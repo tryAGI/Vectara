@@ -25,7 +25,7 @@ namespace Vectara
     public readonly partial struct BulkDeleteDocumentsResponse : global::System.IEquatable<BulkDeleteDocumentsResponse>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType? Type { get; }
 
@@ -39,7 +39,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Async))]
@@ -47,7 +47,7 @@ namespace Vectara
         public bool IsAsync => Async != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAsync(
 #if NET6_0_OR_GREATER
@@ -60,7 +60,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BulkDeleteAsyncResponse PickAsync() => IsAsync
             ? Async!
@@ -76,7 +76,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Success))]
@@ -84,7 +84,7 @@ namespace Vectara
         public bool IsSuccess => Success != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSuccess(
 #if NET6_0_OR_GREATER
@@ -97,23 +97,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BulkDeleteSyncSuccessResponse PickSuccess() => IsSuccess
             ? Success!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Success' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteAsyncResponse value) => new BulkDeleteDocumentsResponse((global::Vectara.BulkDeleteAsyncResponse?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BulkDeleteAsyncResponse?(BulkDeleteDocumentsResponse @this) => @this.Async;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteAsyncResponse? value)
         {
@@ -121,22 +121,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static BulkDeleteDocumentsResponse FromAsync(global::Vectara.BulkDeleteAsyncResponse? value) => new BulkDeleteDocumentsResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteSyncSuccessResponse value) => new BulkDeleteDocumentsResponse((global::Vectara.BulkDeleteSyncSuccessResponse?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BulkDeleteSyncSuccessResponse?(BulkDeleteDocumentsResponse @this) => @this.Success;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BulkDeleteDocumentsResponse(global::Vectara.BulkDeleteSyncSuccessResponse? value)
         {
@@ -144,12 +144,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static BulkDeleteDocumentsResponse FromSuccess(global::Vectara.BulkDeleteSyncSuccessResponse? value) => new BulkDeleteDocumentsResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BulkDeleteDocumentsResponse(
             global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType? type,
@@ -164,23 +164,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Success as object ??
-            Async as object 
+            Async as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Async?.ToString() ??
-            Success?.ToString() 
+            Success?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -188,7 +188,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BulkDeleteAsyncResponse, TResult>? async = null,
@@ -213,7 +213,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BulkDeleteAsyncResponse>? async = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BulkDeleteAsyncResponse>? async = null,
@@ -260,7 +260,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -281,18 +281,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(BulkDeleteDocumentsResponse other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkDeleteAsyncResponse?>.Default.Equals(Async, other.Async) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkDeleteSyncSuccessResponse?>.Default.Equals(Success, other.Success) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkDeleteSyncSuccessResponse?>.Default.Equals(Success, other.Success)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(BulkDeleteDocumentsResponse obj1, BulkDeleteDocumentsResponse obj2)
         {
@@ -300,7 +300,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(BulkDeleteDocumentsResponse obj1, BulkDeleteDocumentsResponse obj2)
         {
@@ -308,7 +308,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

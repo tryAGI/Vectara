@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum GoogleDriveScopeDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         MyDrive,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Shared,
     }

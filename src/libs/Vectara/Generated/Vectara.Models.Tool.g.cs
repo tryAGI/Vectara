@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct Tool : global::System.IEquatable<Tool>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(DynamicVectara))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsDynamicVectara => DynamicVectara != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDynamicVectara(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.DynamicVectaraTool PickDynamicVectara() => IsDynamicVectara
             ? DynamicVectara!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Mcp))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsMcp => Mcp != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickMcp(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.McpTool PickMcp() => IsMcp
             ? Mcp!.Value
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CorporaSearch))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsCorporaSearch => CorporaSearch != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCorporaSearch(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CorporaSearchTool PickCorporaSearch() => IsCorporaSearch
             ? CorporaSearch!.Value
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WebSearch))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsWebSearch => WebSearch != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWebSearch(
 #if NET6_0_OR_GREATER
@@ -156,7 +156,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebSearchTool PickWebSearch() => IsWebSearch
             ? WebSearch!.Value
@@ -172,7 +172,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WebGet))]
@@ -180,7 +180,7 @@ namespace Vectara
         public bool IsWebGet => WebGet != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWebGet(
 #if NET6_0_OR_GREATER
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetTool PickWebGet() => IsWebGet
             ? WebGet!.Value
@@ -211,7 +211,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Lambda))]
@@ -219,7 +219,7 @@ namespace Vectara
         public bool IsLambda => Lambda != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickLambda(
 #if NET6_0_OR_GREATER
@@ -232,7 +232,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.LambdaTool PickLambda() => IsLambda
             ? Lambda!.Value
@@ -249,7 +249,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SubAgent))]
@@ -257,7 +257,7 @@ namespace Vectara
         public bool IsSubAgent => SubAgent != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSubAgent(
 #if NET6_0_OR_GREATER
@@ -270,7 +270,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SubAgentTool PickSubAgent() => IsSubAgent
             ? SubAgent!.Value
@@ -286,7 +286,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactCreate))]
@@ -294,7 +294,7 @@ namespace Vectara
         public bool IsArtifactCreate => ArtifactCreate != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickArtifactCreate(
 #if NET6_0_OR_GREATER
@@ -307,7 +307,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ArtifactCreateTool PickArtifactCreate() => IsArtifactCreate
             ? ArtifactCreate!.Value
@@ -323,7 +323,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactRead))]
@@ -331,7 +331,7 @@ namespace Vectara
         public bool IsArtifactRead => ArtifactRead != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickArtifactRead(
 #if NET6_0_OR_GREATER
@@ -344,7 +344,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ArtifactReadTool PickArtifactRead() => IsArtifactRead
             ? ArtifactRead!.Value
@@ -360,7 +360,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactGrep))]
@@ -368,7 +368,7 @@ namespace Vectara
         public bool IsArtifactGrep => ArtifactGrep != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickArtifactGrep(
 #if NET6_0_OR_GREATER
@@ -381,7 +381,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ArtifactGrepTool PickArtifactGrep() => IsArtifactGrep
             ? ArtifactGrep!.Value
@@ -397,7 +397,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ImageRead))]
@@ -405,7 +405,7 @@ namespace Vectara
         public bool IsImageRead => ImageRead != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickImageRead(
 #if NET6_0_OR_GREATER
@@ -418,7 +418,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ImageReadTool PickImageRead() => IsImageRead
             ? ImageRead!.Value
@@ -434,7 +434,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(DocumentConversion))]
@@ -442,7 +442,7 @@ namespace Vectara
         public bool IsDocumentConversion => DocumentConversion != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDocumentConversion(
 #if NET6_0_OR_GREATER
@@ -455,7 +455,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.DocumentConversionTool PickDocumentConversion() => IsDocumentConversion
             ? DocumentConversion!.Value
@@ -471,7 +471,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GetDocumentText))]
@@ -479,7 +479,7 @@ namespace Vectara
         public bool IsGetDocumentText => GetDocumentText != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGetDocumentText(
 #if NET6_0_OR_GREATER
@@ -492,7 +492,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GetDocumentTextTool PickGetDocumentText() => IsGetDocumentText
             ? GetDocumentText!.Value
@@ -508,7 +508,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Client))]
@@ -516,7 +516,7 @@ namespace Vectara
         public bool IsClient => Client != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickClient(
 #if NET6_0_OR_GREATER
@@ -529,23 +529,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ClientTool PickClient() => IsClient
             ? Client!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Client' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.DynamicVectaraTool value) => new Tool((global::Vectara.DynamicVectaraTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.DynamicVectaraTool?(Tool @this) => @this.DynamicVectara;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.DynamicVectaraTool? value)
         {
@@ -553,22 +553,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromDynamicVectara(global::Vectara.DynamicVectaraTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.McpTool value) => new Tool((global::Vectara.McpTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.McpTool?(Tool @this) => @this.Mcp;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.McpTool? value)
         {
@@ -576,22 +576,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromMcp(global::Vectara.McpTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.CorporaSearchTool value) => new Tool((global::Vectara.CorporaSearchTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CorporaSearchTool?(Tool @this) => @this.CorporaSearch;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.CorporaSearchTool? value)
         {
@@ -599,22 +599,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromCorporaSearch(global::Vectara.CorporaSearchTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.WebSearchTool value) => new Tool((global::Vectara.WebSearchTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebSearchTool?(Tool @this) => @this.WebSearch;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.WebSearchTool? value)
         {
@@ -622,22 +622,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromWebSearch(global::Vectara.WebSearchTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.WebGetTool value) => new Tool((global::Vectara.WebGetTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetTool?(Tool @this) => @this.WebGet;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.WebGetTool? value)
         {
@@ -645,22 +645,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromWebGet(global::Vectara.WebGetTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.LambdaTool value) => new Tool((global::Vectara.LambdaTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.LambdaTool?(Tool @this) => @this.Lambda;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.LambdaTool? value)
         {
@@ -668,22 +668,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromLambda(global::Vectara.LambdaTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.SubAgentTool value) => new Tool((global::Vectara.SubAgentTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SubAgentTool?(Tool @this) => @this.SubAgent;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.SubAgentTool? value)
         {
@@ -691,22 +691,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromSubAgent(global::Vectara.SubAgentTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.ArtifactCreateTool value) => new Tool((global::Vectara.ArtifactCreateTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ArtifactCreateTool?(Tool @this) => @this.ArtifactCreate;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.ArtifactCreateTool? value)
         {
@@ -714,22 +714,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromArtifactCreate(global::Vectara.ArtifactCreateTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.ArtifactReadTool value) => new Tool((global::Vectara.ArtifactReadTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ArtifactReadTool?(Tool @this) => @this.ArtifactRead;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.ArtifactReadTool? value)
         {
@@ -737,22 +737,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromArtifactRead(global::Vectara.ArtifactReadTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.ArtifactGrepTool value) => new Tool((global::Vectara.ArtifactGrepTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ArtifactGrepTool?(Tool @this) => @this.ArtifactGrep;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.ArtifactGrepTool? value)
         {
@@ -760,22 +760,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromArtifactGrep(global::Vectara.ArtifactGrepTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.ImageReadTool value) => new Tool((global::Vectara.ImageReadTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ImageReadTool?(Tool @this) => @this.ImageRead;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.ImageReadTool? value)
         {
@@ -783,22 +783,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromImageRead(global::Vectara.ImageReadTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.DocumentConversionTool value) => new Tool((global::Vectara.DocumentConversionTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.DocumentConversionTool?(Tool @this) => @this.DocumentConversion;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.DocumentConversionTool? value)
         {
@@ -806,22 +806,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromDocumentConversion(global::Vectara.DocumentConversionTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.GetDocumentTextTool value) => new Tool((global::Vectara.GetDocumentTextTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GetDocumentTextTool?(Tool @this) => @this.GetDocumentText;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.GetDocumentTextTool? value)
         {
@@ -829,22 +829,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromGetDocumentText(global::Vectara.GetDocumentTextTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Tool(global::Vectara.ClientTool value) => new Tool((global::Vectara.ClientTool?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ClientTool?(Tool @this) => @this.Client;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(global::Vectara.ClientTool? value)
         {
@@ -852,12 +852,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Tool FromClient(global::Vectara.ClientTool? value) => new Tool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Tool(
             global::Vectara.ToolDiscriminatorType? type,
@@ -896,7 +896,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Client as object ??
@@ -912,11 +912,11 @@ namespace Vectara
             WebSearch as object ??
             CorporaSearch as object ??
             Mcp as object ??
-            DynamicVectara as object 
+            DynamicVectara as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             DynamicVectara?.ToString() ??
@@ -932,11 +932,11 @@ namespace Vectara
             ImageRead?.ToString() ??
             DocumentConversion?.ToString() ??
             GetDocumentText?.ToString() ??
-            Client?.ToString() 
+            Client?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -944,7 +944,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.DynamicVectaraTool?, TResult>? dynamicVectara = null,
@@ -1029,7 +1029,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.DynamicVectaraTool?>? dynamicVectara = null,
@@ -1125,7 +1125,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.DynamicVectaraTool?>? dynamicVectara = null,
@@ -1208,7 +1208,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -1253,7 +1253,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(Tool other)
         {
@@ -1271,12 +1271,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageReadTool?>.Default.Equals(ImageRead, other.ImageRead) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.DocumentConversionTool?>.Default.Equals(DocumentConversion, other.DocumentConversion) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.GetDocumentTextTool?>.Default.Equals(GetDocumentText, other.GetDocumentText) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientTool?>.Default.Equals(Client, other.Client) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientTool?>.Default.Equals(Client, other.Client)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(Tool obj1, Tool obj2)
         {
@@ -1284,7 +1284,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(Tool obj1, Tool obj2)
         {
@@ -1292,7 +1292,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

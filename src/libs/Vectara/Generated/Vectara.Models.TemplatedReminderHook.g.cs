@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum TemplatedReminderHook
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InputMessage,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ToolOutput,
     }

@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum BulkDeleteDocumentsResponseDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Async,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Success,
     }

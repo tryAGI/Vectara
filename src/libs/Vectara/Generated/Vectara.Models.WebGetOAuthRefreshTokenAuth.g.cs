@@ -21,7 +21,7 @@ namespace Vectara
         public required string Type { get; set; } = "oauth_refresh_token";
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("client_id")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>))]
@@ -29,7 +29,7 @@ namespace Vectara
         public required global::Vectara.OneOf<string, global::Vectara.EagerReference> ClientId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("client_secret")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>))]
@@ -37,7 +37,7 @@ namespace Vectara
         public required global::Vectara.OneOf<string, global::Vectara.EagerReference> ClientSecret { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("refresh_token")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>))]

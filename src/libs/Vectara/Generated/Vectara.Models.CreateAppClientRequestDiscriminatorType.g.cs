@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateAppClientRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ClientCredentials,
     }

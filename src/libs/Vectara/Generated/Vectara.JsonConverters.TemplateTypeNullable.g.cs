@@ -20,7 +20,7 @@ namespace Vectara.JsonConverters
                     {
                         return global::Vectara.TemplateTypeExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

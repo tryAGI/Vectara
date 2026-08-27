@@ -9,11 +9,11 @@ namespace Vectara
     public enum BulkDeleteSyncSuccessResponseResponseType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Async,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Success,
     }

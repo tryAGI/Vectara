@@ -22,7 +22,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -30,7 +30,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -43,14 +43,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BaseCrawlPagesSource PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SitemapCrawlPagesSourceVariant2? SitemapCrawlPagesSourceVariant2 { get; init; }
@@ -59,7 +59,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SitemapCrawlPagesSourceVariant2))]
@@ -67,7 +67,7 @@ namespace Vectara
         public bool IsSitemapCrawlPagesSourceVariant2 => SitemapCrawlPagesSourceVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSitemapCrawlPagesSourceVariant2(
 #if NET6_0_OR_GREATER
@@ -80,23 +80,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SitemapCrawlPagesSourceVariant2 PickSitemapCrawlPagesSourceVariant2() => IsSitemapCrawlPagesSourceVariant2
             ? SitemapCrawlPagesSourceVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'SitemapCrawlPagesSourceVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SitemapCrawlPagesSource(global::Vectara.BaseCrawlPagesSource value) => new SitemapCrawlPagesSource((global::Vectara.BaseCrawlPagesSource?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BaseCrawlPagesSource?(SitemapCrawlPagesSource @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SitemapCrawlPagesSource(global::Vectara.BaseCrawlPagesSource? value)
         {
@@ -104,22 +104,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SitemapCrawlPagesSource FromBase(global::Vectara.BaseCrawlPagesSource? value) => new SitemapCrawlPagesSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SitemapCrawlPagesSource(global::Vectara.SitemapCrawlPagesSourceVariant2 value) => new SitemapCrawlPagesSource((global::Vectara.SitemapCrawlPagesSourceVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SitemapCrawlPagesSourceVariant2?(SitemapCrawlPagesSource @this) => @this.SitemapCrawlPagesSourceVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SitemapCrawlPagesSource(global::Vectara.SitemapCrawlPagesSourceVariant2? value)
         {
@@ -127,12 +127,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SitemapCrawlPagesSource FromSitemapCrawlPagesSourceVariant2(global::Vectara.SitemapCrawlPagesSourceVariant2? value) => new SitemapCrawlPagesSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SitemapCrawlPagesSource(
             global::Vectara.BaseCrawlPagesSource? @base,
@@ -144,23 +144,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             SitemapCrawlPagesSourceVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            SitemapCrawlPagesSourceVariant2?.ToString() 
+            SitemapCrawlPagesSourceVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -168,7 +168,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BaseCrawlPagesSource, TResult>? @base = null,
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BaseCrawlPagesSource>? @base = null,
@@ -217,7 +217,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BaseCrawlPagesSource>? @base = null,
@@ -240,7 +240,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -261,18 +261,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(SitemapCrawlPagesSource other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseCrawlPagesSource?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SitemapCrawlPagesSourceVariant2?>.Default.Equals(SitemapCrawlPagesSourceVariant2, other.SitemapCrawlPagesSourceVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SitemapCrawlPagesSourceVariant2?>.Default.Equals(SitemapCrawlPagesSourceVariant2, other.SitemapCrawlPagesSourceVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(SitemapCrawlPagesSource obj1, SitemapCrawlPagesSource obj2)
         {
@@ -280,7 +280,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(SitemapCrawlPagesSource obj1, SitemapCrawlPagesSource obj2)
         {
@@ -288,7 +288,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

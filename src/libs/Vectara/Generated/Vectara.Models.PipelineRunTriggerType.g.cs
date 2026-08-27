@@ -9,15 +9,15 @@ namespace Vectara
     public enum PipelineRunTriggerType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Manual,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Retry,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Scheduled,
     }

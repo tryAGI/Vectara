@@ -22,7 +22,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -30,7 +30,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -43,14 +43,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolConfigurationBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ToolConfigurationReferenceVariant2? ToolConfigurationReferenceVariant2 { get; init; }
@@ -59,7 +59,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolConfigurationReferenceVariant2))]
@@ -67,7 +67,7 @@ namespace Vectara
         public bool IsToolConfigurationReferenceVariant2 => ToolConfigurationReferenceVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickToolConfigurationReferenceVariant2(
 #if NET6_0_OR_GREATER
@@ -80,23 +80,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolConfigurationReferenceVariant2 PickToolConfigurationReferenceVariant2() => IsToolConfigurationReferenceVariant2
             ? ToolConfigurationReferenceVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolConfigurationReferenceVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ToolConfigurationReference(global::Vectara.ToolConfigurationBase value) => new ToolConfigurationReference((global::Vectara.ToolConfigurationBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolConfigurationBase?(ToolConfigurationReference @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolConfigurationReference(global::Vectara.ToolConfigurationBase? value)
         {
@@ -104,22 +104,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ToolConfigurationReference FromBase(global::Vectara.ToolConfigurationBase? value) => new ToolConfigurationReference(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ToolConfigurationReference(global::Vectara.ToolConfigurationReferenceVariant2 value) => new ToolConfigurationReference((global::Vectara.ToolConfigurationReferenceVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolConfigurationReferenceVariant2?(ToolConfigurationReference @this) => @this.ToolConfigurationReferenceVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolConfigurationReference(global::Vectara.ToolConfigurationReferenceVariant2? value)
         {
@@ -127,12 +127,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ToolConfigurationReference FromToolConfigurationReferenceVariant2(global::Vectara.ToolConfigurationReferenceVariant2? value) => new ToolConfigurationReference(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolConfigurationReference(
             global::Vectara.ToolConfigurationBase? @base,
@@ -144,23 +144,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ToolConfigurationReferenceVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            ToolConfigurationReferenceVariant2?.ToString() 
+            ToolConfigurationReferenceVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -168,7 +168,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ToolConfigurationBase, TResult>? @base = null,
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -217,7 +217,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -240,7 +240,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -261,18 +261,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ToolConfigurationReference other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationReferenceVariant2?>.Default.Equals(ToolConfigurationReferenceVariant2, other.ToolConfigurationReferenceVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationReferenceVariant2?>.Default.Equals(ToolConfigurationReferenceVariant2, other.ToolConfigurationReferenceVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ToolConfigurationReference obj1, ToolConfigurationReference obj2)
         {
@@ -280,7 +280,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ToolConfigurationReference obj1, ToolConfigurationReference obj2)
         {
@@ -288,7 +288,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

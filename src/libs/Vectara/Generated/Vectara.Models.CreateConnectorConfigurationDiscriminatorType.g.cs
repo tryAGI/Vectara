@@ -4,20 +4,24 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateConnectorConfigurationDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Gchat,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Slack,
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        Widget,
+        /// <summary>
+        ///
         /// </summary>
         Zoom,
     }
@@ -36,6 +40,7 @@ namespace Vectara
             {
                 CreateConnectorConfigurationDiscriminatorType.Gchat => "gchat",
                 CreateConnectorConfigurationDiscriminatorType.Slack => "slack",
+                CreateConnectorConfigurationDiscriminatorType.Widget => "widget",
                 CreateConnectorConfigurationDiscriminatorType.Zoom => "zoom",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -49,6 +54,7 @@ namespace Vectara
             {
                 "gchat" => CreateConnectorConfigurationDiscriminatorType.Gchat,
                 "slack" => CreateConnectorConfigurationDiscriminatorType.Slack,
+                "widget" => CreateConnectorConfigurationDiscriminatorType.Widget,
                 "zoom" => CreateConnectorConfigurationDiscriminatorType.Zoom,
                 _ => null,
             };

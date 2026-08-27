@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum VertexAiAuthDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ApiKey,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ServiceAccount,
     }

@@ -13,11 +13,11 @@ namespace Vectara
     public enum ToolOutputOffloadingConfigurationMode
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Artifact,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Truncate,
     }

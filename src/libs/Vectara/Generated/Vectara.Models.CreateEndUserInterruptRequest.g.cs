@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InputBase))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsInputBase => InputBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInputBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateEndUserInputRequestBase PickInputBase() => IsInputBase
             ? InputBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'InputBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateEndUserInterruptRequestVariant2? CreateEndUserInterruptRequestVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateEndUserInterruptRequestVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCreateEndUserInterruptRequestVariant2 => CreateEndUserInterruptRequestVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCreateEndUserInterruptRequestVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateEndUserInterruptRequestVariant2 PickCreateEndUserInterruptRequestVariant2() => IsCreateEndUserInterruptRequestVariant2
             ? CreateEndUserInterruptRequestVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateEndUserInterruptRequestVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateEndUserInterruptRequest(global::Vectara.CreateEndUserInputRequestBase value) => new CreateEndUserInterruptRequest((global::Vectara.CreateEndUserInputRequestBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateEndUserInputRequestBase?(CreateEndUserInterruptRequest @this) => @this.InputBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInterruptRequest(global::Vectara.CreateEndUserInputRequestBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateEndUserInterruptRequest FromInputBase(global::Vectara.CreateEndUserInputRequestBase? value) => new CreateEndUserInterruptRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateEndUserInterruptRequest(global::Vectara.CreateEndUserInterruptRequestVariant2 value) => new CreateEndUserInterruptRequest((global::Vectara.CreateEndUserInterruptRequestVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateEndUserInterruptRequestVariant2?(CreateEndUserInterruptRequest @this) => @this.CreateEndUserInterruptRequestVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInterruptRequest(global::Vectara.CreateEndUserInterruptRequestVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateEndUserInterruptRequest FromCreateEndUserInterruptRequestVariant2(global::Vectara.CreateEndUserInterruptRequestVariant2? value) => new CreateEndUserInterruptRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInterruptRequest(
             global::Vectara.CreateEndUserInputRequestBase? inputBase,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             CreateEndUserInterruptRequestVariant2 as object ??
-            InputBase as object 
+            InputBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             InputBase?.ToString() ??
-            CreateEndUserInterruptRequestVariant2?.ToString() 
+            CreateEndUserInterruptRequestVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateEndUserInputRequestBase, TResult>? inputBase = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateEndUserInputRequestBase>? inputBase = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateEndUserInputRequestBase>? inputBase = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateEndUserInterruptRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInputRequestBase?>.Default.Equals(InputBase, other.InputBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInterruptRequestVariant2?>.Default.Equals(CreateEndUserInterruptRequestVariant2, other.CreateEndUserInterruptRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInterruptRequestVariant2?>.Default.Equals(CreateEndUserInterruptRequestVariant2, other.CreateEndUserInterruptRequestVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateEndUserInterruptRequest obj1, CreateEndUserInterruptRequest obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateEndUserInterruptRequest obj1, CreateEndUserInterruptRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

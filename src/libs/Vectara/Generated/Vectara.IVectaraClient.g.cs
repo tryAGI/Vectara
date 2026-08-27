@@ -54,73 +54,73 @@ namespace Vectara
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; }
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public A2aClient A2a { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAliasesClient AgentAliases { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAliasesArtifactsClient AgentAliasesArtifacts { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAliasesEventsClient AgentAliasesEvents { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAliasesSessionsClient AgentAliasesSessions { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAnalyticsClient AgentAnalytics { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentArtifactsClient AgentArtifacts { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEventsClient AgentEvents { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentSchedulesClient AgentSchedules { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentSessionsClient AgentSessions { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentsClient Agents { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ApiKeysClient ApiKeys { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AppClientsClient AppClients { get; }
 
@@ -130,134 +130,144 @@ namespace Vectara
         public AuthenticationClient Authentication { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CorporaClient Corpora { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CustomerMetricsClient CustomerMetrics { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DocumentsClient Documents { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EncodersClient Encoders { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EndUserEventsClient EndUserEvents { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EndUserSessionsClient EndUserSessions { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public FactualConsistencyClient FactualConsistency { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GenerationPresetsClient GenerationPresets { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GlossariesClient Glossaries { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public HallucinationCorrectorsClient HallucinationCorrectors { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public InstructionsClient Instructions { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public JobsClient Jobs { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LlmClient Llm { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LlmsClient Llms { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetadataClient Metadata { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineDeadLetterEntriesClient PipelineDeadLetterEntries { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineRunsClient PipelineRuns { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelinesClient Pipelines { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueriesClient Queries { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistoryClient QueryHistory { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RerankersClient Rerankers { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TableExtractorsClient TableExtractors { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolServersClient ToolServers { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolsClient Tools { get; }
 
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        public TrustedTokenIssuersClient TrustedTokenIssuers { get; }
+
+        /// <summary>
+        ///
         /// </summary>
         public UploadClient Upload { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UsersClient Users { get; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public WidgetsClient Widgets { get; }
 
     }
 }

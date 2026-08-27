@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ThinkingTraceSpanVariant2? ThinkingTraceSpanVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ThinkingTraceSpanVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsThinkingTraceSpanVariant2 => ThinkingTraceSpanVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickThinkingTraceSpanVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ThinkingTraceSpanVariant2 PickThinkingTraceSpanVariant2() => IsThinkingTraceSpanVariant2
             ? ThinkingTraceSpanVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ThinkingTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ThinkingTraceSpan(global::Vectara.AgentTraceSpanBase value) => new ThinkingTraceSpan((global::Vectara.AgentTraceSpanBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentTraceSpanBase?(ThinkingTraceSpan @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ThinkingTraceSpan(global::Vectara.AgentTraceSpanBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ThinkingTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new ThinkingTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ThinkingTraceSpan(global::Vectara.ThinkingTraceSpanVariant2 value) => new ThinkingTraceSpan((global::Vectara.ThinkingTraceSpanVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ThinkingTraceSpanVariant2?(ThinkingTraceSpan @this) => @this.ThinkingTraceSpanVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ThinkingTraceSpan(global::Vectara.ThinkingTraceSpanVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ThinkingTraceSpan FromThinkingTraceSpanVariant2(global::Vectara.ThinkingTraceSpanVariant2? value) => new ThinkingTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ThinkingTraceSpan(
             global::Vectara.AgentTraceSpanBase? agentBase,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ThinkingTraceSpanVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            ThinkingTraceSpanVariant2?.ToString() 
+            ThinkingTraceSpanVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentTraceSpanBase, TResult>? agentBase = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ThinkingTraceSpan other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentTraceSpanBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingTraceSpanVariant2?>.Default.Equals(ThinkingTraceSpanVariant2, other.ThinkingTraceSpanVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingTraceSpanVariant2?>.Default.Equals(ThinkingTraceSpanVariant2, other.ThinkingTraceSpanVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ThinkingTraceSpan obj1, ThinkingTraceSpan obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ThinkingTraceSpan obj1, ThinkingTraceSpan obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

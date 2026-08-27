@@ -10,7 +10,7 @@ namespace Vectara
     public enum CronScheduleConfigurationType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Cron,
     }

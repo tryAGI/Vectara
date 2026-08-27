@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ToolActivityEventDiscriminatorActivityType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Generic,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SubAgent,
     }

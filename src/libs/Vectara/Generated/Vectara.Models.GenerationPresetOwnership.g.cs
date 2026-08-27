@@ -10,11 +10,11 @@ namespace Vectara
     public enum GenerationPresetOwnership
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Customer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Platform,
     }

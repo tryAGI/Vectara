@@ -4,20 +4,20 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum RemoteAuthDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Bearer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Header,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OauthClientCredentials,
     }

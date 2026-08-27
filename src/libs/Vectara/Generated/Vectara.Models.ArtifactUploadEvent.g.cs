@@ -22,7 +22,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -30,7 +30,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -43,14 +43,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ArtifactUploadEventVariant2? ArtifactUploadEventVariant2 { get; init; }
@@ -59,7 +59,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactUploadEventVariant2))]
@@ -67,7 +67,7 @@ namespace Vectara
         public bool IsArtifactUploadEventVariant2 => ArtifactUploadEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickArtifactUploadEventVariant2(
 #if NET6_0_OR_GREATER
@@ -80,23 +80,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ArtifactUploadEventVariant2 PickArtifactUploadEventVariant2() => IsArtifactUploadEventVariant2
             ? ArtifactUploadEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactUploadEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ArtifactUploadEvent(global::Vectara.AgentEventBase value) => new ArtifactUploadEvent((global::Vectara.AgentEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentEventBase?(ArtifactUploadEvent @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ArtifactUploadEvent(global::Vectara.AgentEventBase? value)
         {
@@ -104,22 +104,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ArtifactUploadEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ArtifactUploadEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ArtifactUploadEvent(global::Vectara.ArtifactUploadEventVariant2 value) => new ArtifactUploadEvent((global::Vectara.ArtifactUploadEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ArtifactUploadEventVariant2?(ArtifactUploadEvent @this) => @this.ArtifactUploadEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ArtifactUploadEvent(global::Vectara.ArtifactUploadEventVariant2? value)
         {
@@ -127,12 +127,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ArtifactUploadEvent FromArtifactUploadEventVariant2(global::Vectara.ArtifactUploadEventVariant2? value) => new ArtifactUploadEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ArtifactUploadEvent(
             global::Vectara.AgentEventBase? agentBase,
@@ -144,23 +144,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ArtifactUploadEventVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            ArtifactUploadEventVariant2?.ToString() 
+            ArtifactUploadEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -168,7 +168,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -217,7 +217,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -240,7 +240,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -261,18 +261,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ArtifactUploadEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactUploadEventVariant2?>.Default.Equals(ArtifactUploadEventVariant2, other.ArtifactUploadEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactUploadEventVariant2?>.Default.Equals(ArtifactUploadEventVariant2, other.ArtifactUploadEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ArtifactUploadEvent obj1, ArtifactUploadEvent obj2)
         {
@@ -280,7 +280,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ArtifactUploadEvent obj1, ArtifactUploadEvent obj2)
         {
@@ -288,7 +288,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -7,10 +7,12 @@ namespace Vectara
         /// <summary>
         /// List end user events for alias<br/>
         /// Lists the visible events in a session the caller owns, addressed by the alias it was created through, with optional pagination.<br/>
-        /// Returns 403 if the session belongs to a different principal. The response only includes event types curated as end-user-safe.
+        /// Returns 403 if the session belongs to a different principal. The response only includes event types curated as end-user-safe.<br/>
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="xVisitorId"></param>
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
@@ -31,6 +33,7 @@ namespace Vectara
             string sessionKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? xVisitorId = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -38,10 +41,12 @@ namespace Vectara
         /// <summary>
         /// List end user events for alias<br/>
         /// Lists the visible events in a session the caller owns, addressed by the alias it was created through, with optional pagination.<br/>
-        /// Returns 403 if the session belongs to a different principal. The response only includes event types curated as end-user-safe.
+        /// Returns 403 if the session belongs to a different principal. The response only includes event types curated as end-user-safe.<br/>
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="xVisitorId"></param>
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
@@ -62,6 +67,7 @@ namespace Vectara
             string sessionKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? xVisitorId = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

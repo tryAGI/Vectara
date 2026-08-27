@@ -10,11 +10,11 @@ namespace Vectara
     public enum WebGetToolParametersResponseMode
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Artifact,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Content,
     }

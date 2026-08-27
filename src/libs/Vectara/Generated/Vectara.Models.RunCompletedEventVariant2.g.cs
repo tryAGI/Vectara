@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class RunCompletedEventVariant2
     {
@@ -31,7 +31,7 @@ namespace Vectara
         public int? RecordsFetched { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("records_processed")]
         public int? RecordsProcessed { get; set; }
@@ -43,7 +43,7 @@ namespace Vectara
         public int? RecordsSkipped { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("records_failed")]
         public int? RecordsFailed { get; set; }

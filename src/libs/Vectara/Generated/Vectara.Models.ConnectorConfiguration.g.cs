@@ -10,12 +10,13 @@ namespace Vectara
     /// platform-derived display fields:<br/>
     /// - Slack exposes `webhook_path`<br/>
     /// - gchat exposes `audience_url` and `client_email`<br/>
-    /// - zoom exposes the generated `connector_token` and `webhook_path`
+    /// - zoom exposes the generated `connector_token` and `webhook_path`<br/>
+    /// - widget exposes `bootstrap_path`
     /// </summary>
     public readonly partial struct ConnectorConfiguration : global::System.IEquatable<ConnectorConfiguration>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ConnectorConfigurationDiscriminatorType? Type { get; }
 
@@ -29,7 +30,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Slack))]
@@ -37,7 +38,7 @@ namespace Vectara
         public bool IsSlack => Slack != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSlack(
 #if NET6_0_OR_GREATER
@@ -50,7 +51,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SlackConnectorConfiguration PickSlack() => IsSlack
             ? Slack!.Value
@@ -69,7 +70,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Gchat))]
@@ -77,7 +78,7 @@ namespace Vectara
         public bool IsGchat => Gchat != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGchat(
 #if NET6_0_OR_GREATER
@@ -90,7 +91,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GchatConnectorConfiguration PickGchat() => IsGchat
             ? Gchat!.Value
@@ -112,7 +113,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Zoom))]
@@ -120,7 +121,7 @@ namespace Vectara
         public bool IsZoom => Zoom != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickZoom(
 #if NET6_0_OR_GREATER
@@ -133,23 +134,63 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ZoomConnectorConfiguration PickZoom() => IsZoom
             ? Zoom!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Zoom' but the value was {ToString()}.");
+
         /// <summary>
-        /// 
+        /// Read view of a web widget connector's configuration.<br/>
+        /// Every field is served to anonymous visitors by the unauthenticated widget bootstrap endpoint.<br/>
+        /// Includes the platform-derived `bootstrap_path` the embed snippet calls.<br/>
+        /// Widget connectors ignore the base `hidden_output_types`; end-user event visibility is controlled by `revealed_output_types`.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.WidgetConnectorConfiguration? Widget { get; init; }
+#else
+        public global::Vectara.WidgetConnectorConfiguration? Widget { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Widget))]
+#endif
+        public bool IsWidget => Widget != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickWidget(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WidgetConnectorConfiguration? value)
+        {
+            value = Widget;
+            return IsWidget;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.WidgetConnectorConfiguration PickWidget() => IsWidget
+            ? Widget!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Widget' but the value was {ToString()}.");
+        /// <summary>
+        ///
         /// </summary>
         public static implicit operator ConnectorConfiguration(global::Vectara.SlackConnectorConfiguration value) => new ConnectorConfiguration((global::Vectara.SlackConnectorConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SlackConnectorConfiguration?(ConnectorConfiguration @this) => @this.Slack;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ConnectorConfiguration(global::Vectara.SlackConnectorConfiguration? value)
         {
@@ -157,22 +198,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ConnectorConfiguration FromSlack(global::Vectara.SlackConnectorConfiguration? value) => new ConnectorConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ConnectorConfiguration(global::Vectara.GchatConnectorConfiguration value) => new ConnectorConfiguration((global::Vectara.GchatConnectorConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GchatConnectorConfiguration?(ConnectorConfiguration @this) => @this.Gchat;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ConnectorConfiguration(global::Vectara.GchatConnectorConfiguration? value)
         {
@@ -180,22 +221,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ConnectorConfiguration FromGchat(global::Vectara.GchatConnectorConfiguration? value) => new ConnectorConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ConnectorConfiguration(global::Vectara.ZoomConnectorConfiguration value) => new ConnectorConfiguration((global::Vectara.ZoomConnectorConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ZoomConnectorConfiguration?(ConnectorConfiguration @this) => @this.Zoom;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ConnectorConfiguration(global::Vectara.ZoomConnectorConfiguration? value)
         {
@@ -203,18 +244,42 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ConnectorConfiguration FromZoom(global::Vectara.ZoomConnectorConfiguration? value) => new ConnectorConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        public static implicit operator ConnectorConfiguration(global::Vectara.WidgetConnectorConfiguration value) => new ConnectorConfiguration((global::Vectara.WidgetConnectorConfiguration?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.WidgetConnectorConfiguration?(ConnectorConfiguration @this) => @this.Widget;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public ConnectorConfiguration(global::Vectara.WidgetConnectorConfiguration? value)
+        {
+            Widget = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static ConnectorConfiguration FromWidget(global::Vectara.WidgetConnectorConfiguration? value) => new ConnectorConfiguration(value);
+
+        /// <summary>
+        ///
         /// </summary>
         public ConnectorConfiguration(
             global::Vectara.ConnectorConfigurationDiscriminatorType? type,
             global::Vectara.SlackConnectorConfiguration? slack,
             global::Vectara.GchatConnectorConfiguration? gchat,
-            global::Vectara.ZoomConnectorConfiguration? zoom
+            global::Vectara.ZoomConnectorConfiguration? zoom,
+            global::Vectara.WidgetConnectorConfiguration? widget
             )
         {
             Type = type;
@@ -222,41 +287,45 @@ namespace Vectara
             Slack = slack;
             Gchat = gchat;
             Zoom = zoom;
+            Widget = widget;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
+            Widget as object ??
             Zoom as object ??
             Gchat as object ??
-            Slack as object 
+            Slack as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Slack?.ToString() ??
             Gchat?.ToString() ??
-            Zoom?.ToString() 
+            Zoom?.ToString() ??
+            Widget?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
-            return IsSlack && !IsGchat && !IsZoom || !IsSlack && IsGchat && !IsZoom || !IsSlack && !IsGchat && IsZoom;
+            return IsSlack && !IsGchat && !IsZoom && !IsWidget || !IsSlack && IsGchat && !IsZoom && !IsWidget || !IsSlack && !IsGchat && IsZoom && !IsWidget || !IsSlack && !IsGchat && !IsZoom && IsWidget;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.SlackConnectorConfiguration?, TResult>? slack = null,
             global::System.Func<global::Vectara.GchatConnectorConfiguration?, TResult>? gchat = null,
             global::System.Func<global::Vectara.ZoomConnectorConfiguration?, TResult>? zoom = null,
+            global::System.Func<global::Vectara.WidgetConnectorConfiguration?, TResult>? widget = null,
             bool validate = true)
         {
             if (validate)
@@ -276,12 +345,16 @@ namespace Vectara
             {
                 return zoom(Zoom!);
             }
+            else if (IsWidget && widget != null)
+            {
+                return widget(Widget!);
+            }
 
             return default(TResult);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
@@ -289,6 +362,8 @@ namespace Vectara
             global::System.Action<global::Vectara.GchatConnectorConfiguration?>? gchat = null,
 
             global::System.Action<global::Vectara.ZoomConnectorConfiguration?>? zoom = null,
+
+            global::System.Action<global::Vectara.WidgetConnectorConfiguration?>? widget = null,
             bool validate = true)
         {
             if (validate)
@@ -308,15 +383,20 @@ namespace Vectara
             {
                 zoom?.Invoke(Zoom!);
             }
+            else if (IsWidget)
+            {
+                widget?.Invoke(Widget!);
+            }
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.SlackConnectorConfiguration?>? slack = null,
             global::System.Action<global::Vectara.GchatConnectorConfiguration?>? gchat = null,
             global::System.Action<global::Vectara.ZoomConnectorConfiguration?>? zoom = null,
+            global::System.Action<global::Vectara.WidgetConnectorConfiguration?>? widget = null,
             bool validate = true)
         {
             if (validate)
@@ -336,10 +416,14 @@ namespace Vectara
             {
                 zoom?.Invoke(Zoom!);
             }
+            else if (IsWidget)
+            {
+                widget?.Invoke(Widget!);
+            }
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -351,6 +435,8 @@ namespace Vectara
                 typeof(global::Vectara.GchatConnectorConfiguration),
                 Zoom,
                 typeof(global::Vectara.ZoomConnectorConfiguration),
+                Widget,
+                typeof(global::Vectara.WidgetConnectorConfiguration),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -362,19 +448,20 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ConnectorConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.SlackConnectorConfiguration?>.Default.Equals(Slack, other.Slack) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.GchatConnectorConfiguration?>.Default.Equals(Gchat, other.Gchat) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ZoomConnectorConfiguration?>.Default.Equals(Zoom, other.Zoom) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ZoomConnectorConfiguration?>.Default.Equals(Zoom, other.Zoom) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WidgetConnectorConfiguration?>.Default.Equals(Widget, other.Widget)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ConnectorConfiguration obj1, ConnectorConfiguration obj2)
         {
@@ -382,7 +469,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ConnectorConfiguration obj1, ConnectorConfiguration obj2)
         {
@@ -390,7 +477,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

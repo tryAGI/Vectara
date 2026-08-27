@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateToolRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Client,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lambda,
     }

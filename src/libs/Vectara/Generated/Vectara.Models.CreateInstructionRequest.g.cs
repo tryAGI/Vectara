@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CreateInstructionRequest : global::System.IEquatable<CreateInstructionRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateInstructionRequestDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Initial))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsInitial => Initial != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInitial(
 #if NET6_0_OR_GREATER
@@ -45,23 +45,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateInitialInstructionRequest PickInitial() => IsInitial
             ? Initial!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Initial' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateInstructionRequest(global::Vectara.CreateInitialInstructionRequest value) => new CreateInstructionRequest((global::Vectara.CreateInitialInstructionRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateInitialInstructionRequest?(CreateInstructionRequest @this) => @this.Initial;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInstructionRequest(global::Vectara.CreateInitialInstructionRequest? value)
         {
@@ -69,12 +69,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateInstructionRequest FromInitial(global::Vectara.CreateInitialInstructionRequest? value) => new CreateInstructionRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInstructionRequest(
             global::Vectara.CreateInstructionRequestDiscriminatorType? type,
@@ -87,21 +87,21 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
-            Initial as object 
+            Initial as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
-            Initial?.ToString() 
+            Initial?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -109,7 +109,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateInitialInstructionRequest?, TResult>? initial = null,
@@ -129,7 +129,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateInitialInstructionRequest?>? initial = null,
@@ -147,7 +147,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateInitialInstructionRequest?>? initial = null,
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -184,17 +184,17 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateInstructionRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInitialInstructionRequest?>.Default.Equals(Initial, other.Initial) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInitialInstructionRequest?>.Default.Equals(Initial, other.Initial)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateInstructionRequest obj1, CreateInstructionRequest obj2)
         {
@@ -202,7 +202,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateInstructionRequest obj1, CreateInstructionRequest obj2)
         {
@@ -210,7 +210,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

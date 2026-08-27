@@ -22,7 +22,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -30,7 +30,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -43,14 +43,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BaseGoogleDriveSourceConfiguration PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public object? GoogleDriveSourceConfigurationVariant2 { get; init; }
@@ -59,7 +59,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GoogleDriveSourceConfigurationVariant2))]
@@ -67,7 +67,7 @@ namespace Vectara
         public bool IsGoogleDriveSourceConfigurationVariant2 => GoogleDriveSourceConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGoogleDriveSourceConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -80,23 +80,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object PickGoogleDriveSourceConfigurationVariant2() => IsGoogleDriveSourceConfigurationVariant2
             ? GoogleDriveSourceConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'GoogleDriveSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GoogleDriveSourceConfiguration(global::Vectara.BaseGoogleDriveSourceConfiguration value) => new GoogleDriveSourceConfiguration((global::Vectara.BaseGoogleDriveSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BaseGoogleDriveSourceConfiguration?(GoogleDriveSourceConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GoogleDriveSourceConfiguration(global::Vectara.BaseGoogleDriveSourceConfiguration? value)
         {
@@ -104,12 +104,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GoogleDriveSourceConfiguration FromBase(global::Vectara.BaseGoogleDriveSourceConfiguration? value) => new GoogleDriveSourceConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GoogleDriveSourceConfiguration(
             global::Vectara.BaseGoogleDriveSourceConfiguration? @base,
@@ -121,23 +121,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             GoogleDriveSourceConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            GoogleDriveSourceConfigurationVariant2?.ToString() 
+            GoogleDriveSourceConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -145,7 +145,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BaseGoogleDriveSourceConfiguration, TResult>? @base = null,
@@ -170,7 +170,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BaseGoogleDriveSourceConfiguration>? @base = null,
@@ -194,7 +194,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BaseGoogleDriveSourceConfiguration>? @base = null,
@@ -217,7 +217,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -238,18 +238,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(GoogleDriveSourceConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseGoogleDriveSourceConfiguration?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(GoogleDriveSourceConfigurationVariant2, other.GoogleDriveSourceConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(GoogleDriveSourceConfigurationVariant2, other.GoogleDriveSourceConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(GoogleDriveSourceConfiguration obj1, GoogleDriveSourceConfiguration obj2)
         {
@@ -257,7 +257,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(GoogleDriveSourceConfiguration obj1, GoogleDriveSourceConfiguration obj2)
         {
@@ -265,7 +265,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

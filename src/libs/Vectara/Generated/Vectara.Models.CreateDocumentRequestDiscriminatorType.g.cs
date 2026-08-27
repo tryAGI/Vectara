@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateDocumentRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Core,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Structured,
     }

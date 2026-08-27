@@ -9,23 +9,23 @@ namespace Vectara
     public enum JobType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         BulkDeleteDocuments,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         BulkUpdateDocumentMetadata,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RebuildVectorIndex,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ReplaceFilterAttributes,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Unknown,
     }

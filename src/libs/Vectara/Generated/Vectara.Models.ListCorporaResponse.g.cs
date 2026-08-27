@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListCorporaResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("corpora")]
         public global::System.Collections.Generic.IList<global::Vectara.Corpus>? Corpora { get; set; }

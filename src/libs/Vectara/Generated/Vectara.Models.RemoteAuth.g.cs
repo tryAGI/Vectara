@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct RemoteAuth : global::System.IEquatable<RemoteAuth>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RemoteAuthDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Bearer))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsBearer => Bearer != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBearer(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BearerAuth PickBearer() => IsBearer
             ? Bearer!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Header))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsHeader => Header != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickHeader(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.HeaderAuth PickHeader() => IsHeader
             ? Header!
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OauthClientCredentials))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsOauthClientCredentials => OauthClientCredentials != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOauthClientCredentials(
 #if NET6_0_OR_GREATER
@@ -119,23 +119,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.OAuthClientCredentialsAuth PickOauthClientCredentials() => IsOauthClientCredentials
             ? OauthClientCredentials!
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthClientCredentials' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator RemoteAuth(global::Vectara.BearerAuth value) => new RemoteAuth((global::Vectara.BearerAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BearerAuth?(RemoteAuth @this) => @this.Bearer;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RemoteAuth(global::Vectara.BearerAuth? value)
         {
@@ -143,22 +143,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static RemoteAuth FromBearer(global::Vectara.BearerAuth? value) => new RemoteAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator RemoteAuth(global::Vectara.HeaderAuth value) => new RemoteAuth((global::Vectara.HeaderAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.HeaderAuth?(RemoteAuth @this) => @this.Header;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RemoteAuth(global::Vectara.HeaderAuth? value)
         {
@@ -166,22 +166,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static RemoteAuth FromHeader(global::Vectara.HeaderAuth? value) => new RemoteAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator RemoteAuth(global::Vectara.OAuthClientCredentialsAuth value) => new RemoteAuth((global::Vectara.OAuthClientCredentialsAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.OAuthClientCredentialsAuth?(RemoteAuth @this) => @this.OauthClientCredentials;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RemoteAuth(global::Vectara.OAuthClientCredentialsAuth? value)
         {
@@ -189,12 +189,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static RemoteAuth FromOauthClientCredentials(global::Vectara.OAuthClientCredentialsAuth? value) => new RemoteAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RemoteAuth(
             global::Vectara.RemoteAuthDiscriminatorType? type,
@@ -211,25 +211,25 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             OauthClientCredentials as object ??
             Header as object ??
-            Bearer as object 
+            Bearer as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Bearer?.ToString() ??
             Header?.ToString() ??
-            OauthClientCredentials?.ToString() 
+            OauthClientCredentials?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BearerAuth, TResult>? bearer = null,
@@ -267,7 +267,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BearerAuth>? bearer = null,
@@ -297,7 +297,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BearerAuth>? bearer = null,
@@ -325,7 +325,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -348,19 +348,19 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(RemoteAuth other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BearerAuth?>.Default.Equals(Bearer, other.Bearer) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.HeaderAuth?>.Default.Equals(Header, other.Header) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.OAuthClientCredentialsAuth?>.Default.Equals(OauthClientCredentials, other.OauthClientCredentials) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.OAuthClientCredentialsAuth?>.Default.Equals(OauthClientCredentials, other.OauthClientCredentials)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(RemoteAuth obj1, RemoteAuth obj2)
         {
@@ -368,7 +368,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(RemoteAuth obj1, RemoteAuth obj2)
         {
@@ -376,7 +376,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

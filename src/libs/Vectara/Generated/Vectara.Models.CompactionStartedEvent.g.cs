@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CompactionStartedEventVariant2? CompactionStartedEventVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CompactionStartedEventVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCompactionStartedEventVariant2 => CompactionStartedEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCompactionStartedEventVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CompactionStartedEventVariant2 PickCompactionStartedEventVariant2() => IsCompactionStartedEventVariant2
             ? CompactionStartedEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CompactionStartedEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CompactionStartedEvent(global::Vectara.AgentEventBase value) => new CompactionStartedEvent((global::Vectara.AgentEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentEventBase?(CompactionStartedEvent @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CompactionStartedEvent(global::Vectara.AgentEventBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CompactionStartedEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new CompactionStartedEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CompactionStartedEvent(global::Vectara.CompactionStartedEventVariant2 value) => new CompactionStartedEvent((global::Vectara.CompactionStartedEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CompactionStartedEventVariant2?(CompactionStartedEvent @this) => @this.CompactionStartedEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CompactionStartedEvent(global::Vectara.CompactionStartedEventVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CompactionStartedEvent FromCompactionStartedEventVariant2(global::Vectara.CompactionStartedEventVariant2? value) => new CompactionStartedEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CompactionStartedEvent(
             global::Vectara.AgentEventBase? agentBase,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             CompactionStartedEventVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            CompactionStartedEventVariant2?.ToString() 
+            CompactionStartedEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CompactionStartedEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionStartedEventVariant2?>.Default.Equals(CompactionStartedEventVariant2, other.CompactionStartedEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionStartedEventVariant2?>.Default.Equals(CompactionStartedEventVariant2, other.CompactionStartedEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CompactionStartedEvent obj1, CompactionStartedEvent obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CompactionStartedEvent obj1, CompactionStartedEvent obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

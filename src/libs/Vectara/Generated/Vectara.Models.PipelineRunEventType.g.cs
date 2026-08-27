@@ -11,19 +11,19 @@ namespace Vectara
     public enum PipelineRunEventType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RecordProcessing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RunCompleted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RunStarted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WatermarkAdvanced,
     }

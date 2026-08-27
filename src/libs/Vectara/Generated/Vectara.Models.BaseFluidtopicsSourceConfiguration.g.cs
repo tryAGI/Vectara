@@ -11,7 +11,14 @@ namespace Vectara
     /// - `maps`: whole maps, one record each.<br/>
     /// Every record carries its full Fluid Topics metadata, including classification and entitlement<br/>
     /// fields, as document metadata for attribute-based filtering and access control. Requires a<br/>
-    /// Fluid Topics API key with read access to the configured content.
+    /// Fluid Topics API key with read access to the configured content. Incremental runs that read<br/>
+    /// dataflow reports additionally require administration scope.<br/>
+    /// Unless `query` is set to a value other than `*` in the `documents` or `topics` scope,<br/>
+    /// incremental runs read the tenant's dataflow reports since the previous run's watermark and<br/>
+    /// ingest the content those reports flag as created or updated, including metadata-only changes.<br/>
+    /// Such a run fails when its watermark window holds more than 1000 reports, and a full refresh<br/>
+    /// is required to resync. Content the reports flag as deleted is not removed from the corpus.<br/>
+    /// Full-refresh runs — and the first run, which has no watermark yet — enumerate all content.
     /// </summary>
     public sealed partial class BaseFluidtopicsSourceConfiguration
     {
@@ -32,8 +39,10 @@ namespace Vectara
         public string? BaseUrl { get; set; }
 
         /// <summary>
-        /// Fluid Topics API key, sent as an HTTP Bearer authorization token. Generate one in the Fluid<br/>
-        /// Topics administration interface under Integrations, API keys — see<br/>
+        /// Fluid Topics API key, sent as an HTTP Bearer authorization token. Requires read access to<br/>
+        /// the configured content, plus administration scope when incremental runs read dataflow<br/>
+        /// reports. Generate one in the Fluid Topics administration interface under Integrations, API<br/>
+        /// keys — see<br/>
         /// https://doc.fluidtopics.com/r/Fluid-Topics-Configuration-and-Administration-Guide/Configure-a-Fluid-Topics-tenant/Integrations/API-keys.<br/>
         /// Encrypted at rest and not returned in responses.<br/>
         /// Included only in requests
@@ -57,6 +66,9 @@ namespace Vectara
 
         /// <summary>
         /// Search query used to select the content to ingest. Defaults to `*` (all content).<br/>
+        /// Ignored when `content_scope` is `maps`. In the `documents` and `topics` scopes, a query<br/>
+        /// other than `*` makes incremental runs re-enumerate the query's results and filter by<br/>
+        /// last-edition date, so metadata-only changes are not detected.<br/>
         /// Default Value: *<br/>
         /// Example: *
         /// </summary>
@@ -65,7 +77,9 @@ namespace Vectara
         public string? Query { get; set; }
 
         /// <summary>
-        /// Restricts ingestion to a single content locale (Fluid Topics `contentLocale`), for example `en-US`. When unset, all locales are ingested.<br/>
+        /// Restricts ingestion to a single content locale (Fluid Topics `contentLocale`), for example<br/>
+        /// `en-US`. When unset, all locales are ingested. Records that carry no locale metadata are<br/>
+        /// never excluded by this filter.<br/>
         /// Example: en-US
         /// </summary>
         /// <example>en-US</example>
@@ -134,8 +148,10 @@ namespace Vectara
         /// Example: https://example.fluidtopics.net
         /// </param>
         /// <param name="apiKey">
-        /// Fluid Topics API key, sent as an HTTP Bearer authorization token. Generate one in the Fluid<br/>
-        /// Topics administration interface under Integrations, API keys — see<br/>
+        /// Fluid Topics API key, sent as an HTTP Bearer authorization token. Requires read access to<br/>
+        /// the configured content, plus administration scope when incremental runs read dataflow<br/>
+        /// reports. Generate one in the Fluid Topics administration interface under Integrations, API<br/>
+        /// keys — see<br/>
         /// https://doc.fluidtopics.com/r/Fluid-Topics-Configuration-and-Administration-Guide/Configure-a-Fluid-Topics-tenant/Integrations/API-keys.<br/>
         /// Encrypted at rest and not returned in responses.<br/>
         /// Included only in requests
@@ -152,11 +168,16 @@ namespace Vectara
         /// </param>
         /// <param name="query">
         /// Search query used to select the content to ingest. Defaults to `*` (all content).<br/>
+        /// Ignored when `content_scope` is `maps`. In the `documents` and `topics` scopes, a query<br/>
+        /// other than `*` makes incremental runs re-enumerate the query's results and filter by<br/>
+        /// last-edition date, so metadata-only changes are not detected.<br/>
         /// Default Value: *<br/>
         /// Example: *
         /// </param>
         /// <param name="locale">
-        /// Restricts ingestion to a single content locale (Fluid Topics `contentLocale`), for example `en-US`. When unset, all locales are ingested.<br/>
+        /// Restricts ingestion to a single content locale (Fluid Topics `contentLocale`), for example<br/>
+        /// `en-US`. When unset, all locales are ingested. Records that carry no locale metadata are<br/>
+        /// never excluded by this filter.<br/>
         /// Example: en-US
         /// </param>
         /// <param name="filters">

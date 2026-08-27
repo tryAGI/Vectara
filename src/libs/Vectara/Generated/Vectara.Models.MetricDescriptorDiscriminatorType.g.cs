@@ -4,24 +4,24 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum MetricDescriptorDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Counter,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Distribution,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Gauge,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Percentiles,
     }

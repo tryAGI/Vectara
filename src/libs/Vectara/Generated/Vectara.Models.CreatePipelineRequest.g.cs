@@ -24,7 +24,7 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
@@ -61,6 +61,12 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonPropertyName("sync_mode")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.PipelineSyncModeJsonConverter))]
         public global::Vectara.PipelineSyncMode? SyncMode { get; set; }
+
+        /// <summary>
+        /// Per-pipeline overrides of the service processing defaults. Omit to use the defaults.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("processing_options")]
+        public global::Vectara.PipelineProcessingOptions? ProcessingOptions { get; set; }
 
         /// <summary>
         /// Default Value: true
@@ -106,6 +112,9 @@ namespace Vectara
         /// - `full_refresh`: Process all records from the source on each run.<br/>
         /// Default Value: incremental
         /// </param>
+        /// <param name="processingOptions">
+        /// Per-pipeline overrides of the service processing defaults. Omit to use the defaults.
+        /// </param>
         /// <param name="enabled">
         /// Default Value: true
         /// </param>
@@ -123,6 +132,7 @@ namespace Vectara
             string? key,
             string? description,
             global::Vectara.PipelineSyncMode? syncMode,
+            global::Vectara.PipelineProcessingOptions? processingOptions,
             bool? enabled,
             global::System.Collections.Generic.Dictionary<string, string>? metadata)
         {
@@ -133,6 +143,7 @@ namespace Vectara
             this.Trigger = trigger;
             this.Transform = transform ?? throw new global::System.ArgumentNullException(nameof(transform));
             this.SyncMode = syncMode;
+            this.ProcessingOptions = processingOptions;
             this.Enabled = enabled;
             this.Metadata = metadata;
         }

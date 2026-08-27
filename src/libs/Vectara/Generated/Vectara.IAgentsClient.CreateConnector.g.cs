@@ -48,56 +48,5 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Create agent connector<br/>
-        /// Creates a connector for an agent to receive events from an external platform such as Slack, Google Chat, or Zoom Contact Center.
-        /// </summary>
-        /// <param name="requestTimeout"></param>
-        /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
-        /// </param>
-        /// <param name="name">
-        /// The human-readable name of the connector.<br/>
-        /// Example: Customer Support Slack Channel
-        /// </param>
-        /// <param name="description">
-        /// A detailed description of what this connector does.<br/>
-        /// Example: Receives customer support messages from the
-        /// </param>
-        /// <param name="metadata">
-        /// Arbitrary metadata associated with the connector.<br/>
-        /// Default Value: {}<br/>
-        /// Example: {"priority":"high","department":"customer_service"}
-        /// </param>
-        /// <param name="enabled">
-        /// Whether the connector should be enabled upon creation.<br/>
-        /// Default Value: true<br/>
-        /// Example: true
-        /// </param>
-        /// <param name="configuration">
-        /// Write view of a connector's configuration. Used when creating a connector<br/>
-        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
-        /// must supply. Platform-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view:<br/>
-        /// - Slack returns `webhook_path`<br/>
-        /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`
-        /// </param>
-        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
-        /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::System.InvalidOperationException"></exception>
-        global::System.Threading.Tasks.Task<global::Vectara.AgentConnector> CreateConnectorAsync(
-            string agentKey,
-            string name,
-            global::Vectara.CreateConnectorConfiguration configuration,
-            int? requestTimeout = default,
-            int? requestTimeoutMillis = default,
-            string? description = default,
-            object? metadata = default,
-            bool? enabled = default,
-            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
-            global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

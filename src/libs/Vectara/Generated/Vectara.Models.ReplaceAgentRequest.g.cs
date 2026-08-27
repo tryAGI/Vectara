@@ -22,7 +22,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Create))]
@@ -30,7 +30,7 @@ namespace Vectara
         public bool IsCreate => Create != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCreate(
 #if NET6_0_OR_GREATER
@@ -43,14 +43,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateAgentRequest PickCreate() => IsCreate
             ? Create!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Create' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ReplaceAgentRequestVariant2? ReplaceAgentRequestVariant2 { get; init; }
@@ -59,7 +59,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ReplaceAgentRequestVariant2))]
@@ -67,7 +67,7 @@ namespace Vectara
         public bool IsReplaceAgentRequestVariant2 => ReplaceAgentRequestVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickReplaceAgentRequestVariant2(
 #if NET6_0_OR_GREATER
@@ -80,23 +80,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ReplaceAgentRequestVariant2 PickReplaceAgentRequestVariant2() => IsReplaceAgentRequestVariant2
             ? ReplaceAgentRequestVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ReplaceAgentRequestVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ReplaceAgentRequest(global::Vectara.CreateAgentRequest value) => new ReplaceAgentRequest((global::Vectara.CreateAgentRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateAgentRequest?(ReplaceAgentRequest @this) => @this.Create;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReplaceAgentRequest(global::Vectara.CreateAgentRequest? value)
         {
@@ -104,22 +104,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ReplaceAgentRequest FromCreate(global::Vectara.CreateAgentRequest? value) => new ReplaceAgentRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ReplaceAgentRequest(global::Vectara.ReplaceAgentRequestVariant2 value) => new ReplaceAgentRequest((global::Vectara.ReplaceAgentRequestVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ReplaceAgentRequestVariant2?(ReplaceAgentRequest @this) => @this.ReplaceAgentRequestVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReplaceAgentRequest(global::Vectara.ReplaceAgentRequestVariant2? value)
         {
@@ -127,12 +127,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ReplaceAgentRequest FromReplaceAgentRequestVariant2(global::Vectara.ReplaceAgentRequestVariant2? value) => new ReplaceAgentRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReplaceAgentRequest(
             global::Vectara.CreateAgentRequest? create,
@@ -144,23 +144,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ReplaceAgentRequestVariant2 as object ??
-            Create as object 
+            Create as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Create?.ToString() ??
-            ReplaceAgentRequestVariant2?.ToString() 
+            ReplaceAgentRequestVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -168,7 +168,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateAgentRequest, TResult>? create = null,
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateAgentRequest>? create = null,
@@ -217,7 +217,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateAgentRequest>? create = null,
@@ -240,7 +240,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -261,18 +261,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ReplaceAgentRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateAgentRequest?>.Default.Equals(Create, other.Create) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ReplaceAgentRequestVariant2?>.Default.Equals(ReplaceAgentRequestVariant2, other.ReplaceAgentRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ReplaceAgentRequestVariant2?>.Default.Equals(ReplaceAgentRequestVariant2, other.ReplaceAgentRequestVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ReplaceAgentRequest obj1, ReplaceAgentRequest obj2)
         {
@@ -280,7 +280,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ReplaceAgentRequest obj1, ReplaceAgentRequest obj2)
         {
@@ -288,7 +288,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

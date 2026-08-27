@@ -4,36 +4,36 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum WebGetAuthDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AwsSigv4,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Bearer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Header,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         None,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OauthClientCredentials,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OauthRefreshToken,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OauthTokenExchange,
     }

@@ -11,15 +11,15 @@ namespace Vectara
     public enum AgentSessionStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Running,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Stopped,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Unstarted,
     }

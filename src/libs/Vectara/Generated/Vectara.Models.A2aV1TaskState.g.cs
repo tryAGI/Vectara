@@ -9,39 +9,39 @@ namespace Vectara
     public enum A2aV1TaskState
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateAuthRequired,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateCanceled,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateCompleted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateFailed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateInputRequired,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateRejected,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateSubmitted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateUnspecified,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TaskStateWorking,
     }

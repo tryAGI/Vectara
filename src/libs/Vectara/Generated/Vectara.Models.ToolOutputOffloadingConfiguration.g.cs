@@ -31,7 +31,7 @@ namespace Vectara
         public global::Vectara.ToolOutputOffloadingConfigurationMode? Mode { get; set; }
 
         /// <summary>
-        /// The fraction of the model's context window that a single tool output is allowed to occupy before it is considered large enough to offload on its own, estimated at four characters per token. The resulting byte threshold is clamped between `min_threshold_bytes` and `max_threshold_bytes`, so for very large context models this percentage is usually dominated by `max_threshold_bytes`, and for very small context models it is dominated by `min_threshold_bytes`.<br/>
+        /// The fraction of the model's context window that a single tool output is allowed to occupy before it is considered large enough to offload on its own. The platform converts the fraction to a byte threshold using a bytes-per-token ratio for the model, then clamps it between `min_threshold_bytes` and `max_threshold_bytes`, so for very large context models this percentage is usually dominated by `max_threshold_bytes`, and for very small context models it is dominated by `min_threshold_bytes`.<br/>
         /// Default Value: 0.25<br/>
         /// Example: 0.25
         /// </summary>
@@ -56,7 +56,7 @@ namespace Vectara
         public long? MinThresholdBytes { get; set; }
 
         /// <summary>
-        /// The fraction of the model's context window at which offloading becomes sensitive to cumulative usage. When adding a tool output would push total input tokens above this fraction of the context window (estimated at four characters per token), the output is offloaded even if it would otherwise be considered small enough to pass through.<br/>
+        /// The fraction of the model's context window at which offloading becomes sensitive to cumulative usage. When adding a tool output would push estimated total input tokens above this fraction of the context window, the output is offloaded even if it would otherwise be considered small enough to pass through. Token counts are estimated from output size using a bytes-per-token ratio for the model.<br/>
         /// This is independent of the compaction `threshold_percent`: both can be configured on the same agent and both can apply. In practice it is often useful to set this below the compaction threshold so that large tool outputs are offloaded before compaction is triggered, avoiding the case where a large tool result is immediately summarized away. Setting this to 1.0 effectively disables the headroom behavior, leaving only the per-output size thresholds in effect.<br/>
         /// Default Value: 0.7<br/>
         /// Example: 0.7
@@ -86,7 +86,7 @@ namespace Vectara
         /// Example: artifact
         /// </param>
         /// <param name="contextPercentage">
-        /// The fraction of the model's context window that a single tool output is allowed to occupy before it is considered large enough to offload on its own, estimated at four characters per token. The resulting byte threshold is clamped between `min_threshold_bytes` and `max_threshold_bytes`, so for very large context models this percentage is usually dominated by `max_threshold_bytes`, and for very small context models it is dominated by `min_threshold_bytes`.<br/>
+        /// The fraction of the model's context window that a single tool output is allowed to occupy before it is considered large enough to offload on its own. The platform converts the fraction to a byte threshold using a bytes-per-token ratio for the model, then clamps it between `min_threshold_bytes` and `max_threshold_bytes`, so for very large context models this percentage is usually dominated by `max_threshold_bytes`, and for very small context models it is dominated by `min_threshold_bytes`.<br/>
         /// Default Value: 0.25<br/>
         /// Example: 0.25
         /// </param>
@@ -99,7 +99,7 @@ namespace Vectara
         /// Example: 4096
         /// </param>
         /// <param name="headroomPercentage">
-        /// The fraction of the model's context window at which offloading becomes sensitive to cumulative usage. When adding a tool output would push total input tokens above this fraction of the context window (estimated at four characters per token), the output is offloaded even if it would otherwise be considered small enough to pass through.<br/>
+        /// The fraction of the model's context window at which offloading becomes sensitive to cumulative usage. When adding a tool output would push estimated total input tokens above this fraction of the context window, the output is offloaded even if it would otherwise be considered small enough to pass through. Token counts are estimated from output size using a bytes-per-token ratio for the model.<br/>
         /// This is independent of the compaction `threshold_percent`: both can be configured on the same agent and both can apply. In practice it is often useful to set this below the compaction threshold so that large tool outputs are offloaded before compaction is triggered, avoiding the case where a large tool result is immediately summarized away. Setting this to 1.0 effectively disables the headroom behavior, leaving only the per-output size thresholds in effect.<br/>
         /// Default Value: 0.7<br/>
         /// Example: 0.7

@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(RequestBase))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsRequestBase => RequestBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRequestBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.InstructionRequestBase PickRequestBase() => IsRequestBase
             ? RequestBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'RequestBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.InlineInstructionVariant2? InlineInstructionVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InlineInstructionVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsInlineInstructionVariant2 => InlineInstructionVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInlineInstructionVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.InlineInstructionVariant2 PickInlineInstructionVariant2() => IsInlineInstructionVariant2
             ? InlineInstructionVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'InlineInstructionVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator InlineInstruction(global::Vectara.InstructionRequestBase value) => new InlineInstruction((global::Vectara.InstructionRequestBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.InstructionRequestBase?(InlineInstruction @this) => @this.RequestBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public InlineInstruction(global::Vectara.InstructionRequestBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static InlineInstruction FromRequestBase(global::Vectara.InstructionRequestBase? value) => new InlineInstruction(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator InlineInstruction(global::Vectara.InlineInstructionVariant2 value) => new InlineInstruction((global::Vectara.InlineInstructionVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.InlineInstructionVariant2?(InlineInstruction @this) => @this.InlineInstructionVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public InlineInstruction(global::Vectara.InlineInstructionVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static InlineInstruction FromInlineInstructionVariant2(global::Vectara.InlineInstructionVariant2? value) => new InlineInstruction(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public InlineInstruction(
             global::Vectara.InstructionRequestBase? requestBase,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             InlineInstructionVariant2 as object ??
-            RequestBase as object 
+            RequestBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             RequestBase?.ToString() ??
-            InlineInstructionVariant2?.ToString() 
+            InlineInstructionVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.InstructionRequestBase, TResult>? requestBase = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.InstructionRequestBase>? requestBase = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.InstructionRequestBase>? requestBase = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(InlineInstruction other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.InstructionRequestBase?>.Default.Equals(RequestBase, other.RequestBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineInstructionVariant2?>.Default.Equals(InlineInstructionVariant2, other.InlineInstructionVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineInstructionVariant2?>.Default.Equals(InlineInstructionVariant2, other.InlineInstructionVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(InlineInstruction obj1, InlineInstruction obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(InlineInstruction obj1, InlineInstruction obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

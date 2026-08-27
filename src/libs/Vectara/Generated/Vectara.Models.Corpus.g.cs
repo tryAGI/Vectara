@@ -105,7 +105,7 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.CorpusCustomDimension>? CustomDimensions { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("limits")]
         public global::Vectara.CorpusLimits? Limits { get; set; }

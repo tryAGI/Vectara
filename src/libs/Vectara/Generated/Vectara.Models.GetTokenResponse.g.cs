@@ -4,26 +4,26 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GetTokenResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("access_token")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string AccessToken { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("token_type")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string TokenType { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("expires_in")]
         [global::System.Text.Json.Serialization.JsonRequired]

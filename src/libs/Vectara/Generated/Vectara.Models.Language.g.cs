@@ -10,119 +10,119 @@ namespace Vectara
     public enum Language
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ara,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Auto,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ben,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ces,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Deu,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ell,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Eng,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Fas,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Fra,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Heb,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Hin,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ind,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ita,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Jpn,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Kor,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Msa,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Nld,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Pol,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Por,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ron,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Rus,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Spa,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Swe,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Tha,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Tur,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ukr,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Urd,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Vie,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Zho,
     }

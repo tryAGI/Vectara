@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct UpdateLLMRequest : global::System.IEquatable<UpdateLLMRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateLLMRequestDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiCompatible))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsOpenaiCompatible => OpenaiCompatible != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOpenaiCompatible(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateOpenAILLMRequest PickOpenaiCompatible() => IsOpenaiCompatible
             ? OpenaiCompatible!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiResponses))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsOpenaiResponses => OpenaiResponses != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOpenaiResponses(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateOpenAIResponsesLLMRequest PickOpenaiResponses() => IsOpenaiResponses
             ? OpenaiResponses!.Value
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VertexAi))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsVertexAi => VertexAi != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickVertexAi(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateVertexAILLMRequest PickVertexAi() => IsVertexAi
             ? VertexAi!
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Anthropic))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsAnthropic => Anthropic != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAnthropic(
 #if NET6_0_OR_GREATER
@@ -156,23 +156,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateAnthropicLLMRequest PickAnthropic() => IsAnthropic
             ? Anthropic!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Anthropic' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateLLMRequest(global::Vectara.UpdateOpenAILLMRequest value) => new UpdateLLMRequest((global::Vectara.UpdateOpenAILLMRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateOpenAILLMRequest?(UpdateLLMRequest @this) => @this.OpenaiCompatible;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateLLMRequest(global::Vectara.UpdateOpenAILLMRequest? value)
         {
@@ -180,22 +180,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateLLMRequest FromOpenaiCompatible(global::Vectara.UpdateOpenAILLMRequest? value) => new UpdateLLMRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateLLMRequest(global::Vectara.UpdateOpenAIResponsesLLMRequest value) => new UpdateLLMRequest((global::Vectara.UpdateOpenAIResponsesLLMRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateOpenAIResponsesLLMRequest?(UpdateLLMRequest @this) => @this.OpenaiResponses;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateLLMRequest(global::Vectara.UpdateOpenAIResponsesLLMRequest? value)
         {
@@ -203,22 +203,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateLLMRequest FromOpenaiResponses(global::Vectara.UpdateOpenAIResponsesLLMRequest? value) => new UpdateLLMRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateLLMRequest(global::Vectara.UpdateVertexAILLMRequest value) => new UpdateLLMRequest((global::Vectara.UpdateVertexAILLMRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateVertexAILLMRequest?(UpdateLLMRequest @this) => @this.VertexAi;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateLLMRequest(global::Vectara.UpdateVertexAILLMRequest? value)
         {
@@ -226,22 +226,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateLLMRequest FromVertexAi(global::Vectara.UpdateVertexAILLMRequest? value) => new UpdateLLMRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateLLMRequest(global::Vectara.UpdateAnthropicLLMRequest value) => new UpdateLLMRequest((global::Vectara.UpdateAnthropicLLMRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateAnthropicLLMRequest?(UpdateLLMRequest @this) => @this.Anthropic;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateLLMRequest(global::Vectara.UpdateAnthropicLLMRequest? value)
         {
@@ -249,12 +249,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateLLMRequest FromAnthropic(global::Vectara.UpdateAnthropicLLMRequest? value) => new UpdateLLMRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateLLMRequest(
             global::Vectara.UpdateLLMRequestDiscriminatorType? type,
@@ -273,27 +273,27 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Anthropic as object ??
             VertexAi as object ??
             OpenaiResponses as object ??
-            OpenaiCompatible as object 
+            OpenaiCompatible as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             OpenaiCompatible?.ToString() ??
             OpenaiResponses?.ToString() ??
             VertexAi?.ToString() ??
-            Anthropic?.ToString() 
+            Anthropic?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -301,7 +301,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.UpdateOpenAILLMRequest?, TResult>? openaiCompatible = null,
@@ -336,7 +336,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.UpdateOpenAILLMRequest?>? openaiCompatible = null,
@@ -372,7 +372,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.UpdateOpenAILLMRequest?>? openaiCompatible = null,
@@ -405,7 +405,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -430,7 +430,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(UpdateLLMRequest other)
         {
@@ -438,12 +438,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateOpenAILLMRequest?>.Default.Equals(OpenaiCompatible, other.OpenaiCompatible) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateOpenAIResponsesLLMRequest?>.Default.Equals(OpenaiResponses, other.OpenaiResponses) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateVertexAILLMRequest?>.Default.Equals(VertexAi, other.VertexAi) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateAnthropicLLMRequest?>.Default.Equals(Anthropic, other.Anthropic) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateAnthropicLLMRequest?>.Default.Equals(Anthropic, other.Anthropic)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(UpdateLLMRequest obj1, UpdateLLMRequest obj2)
         {
@@ -451,7 +451,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(UpdateLLMRequest obj1, UpdateLLMRequest obj2)
         {
@@ -459,7 +459,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

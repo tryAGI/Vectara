@@ -4,40 +4,40 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ListTraceSpansOperation
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Chat,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Compaction,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ExecuteTool,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ImageRead,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvokeAgent,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Output,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StepTransition,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Thinking,
     }

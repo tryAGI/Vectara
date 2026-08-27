@@ -4,32 +4,32 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ListTracesErrorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ActionsLimitReached,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ContextLimitExceeded,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Internal,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         LlmGenerationError,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StepTransitionLimitExceeded,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StreamError,
     }

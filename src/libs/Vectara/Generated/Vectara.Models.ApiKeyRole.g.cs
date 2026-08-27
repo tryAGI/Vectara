@@ -9,15 +9,15 @@ namespace Vectara
     public enum ApiKeyRole
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Personal,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Serving,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ServingAndIndexing,
     }

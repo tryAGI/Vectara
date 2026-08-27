@@ -13,7 +13,7 @@ namespace Vectara
     public readonly partial struct WebPagesSource : global::System.IEquatable<WebPagesSource>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebPagesSourceDiscriminatorType? Type { get; }
 
@@ -29,7 +29,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Sitemap))]
@@ -37,7 +37,7 @@ namespace Vectara
         public bool IsSitemap => Sitemap != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSitemap(
 #if NET6_0_OR_GREATER
@@ -50,7 +50,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SitemapPagesSource PickSitemap() => IsSitemap
             ? Sitemap!
@@ -67,7 +67,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Crawl))]
@@ -75,7 +75,7 @@ namespace Vectara
         public bool IsCrawl => Crawl != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCrawl(
 #if NET6_0_OR_GREATER
@@ -88,7 +88,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CrawlPagesSource PickCrawl() => IsCrawl
             ? Crawl!.Value
@@ -105,7 +105,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SitemapCrawl))]
@@ -113,7 +113,7 @@ namespace Vectara
         public bool IsSitemapCrawl => SitemapCrawl != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSitemapCrawl(
 #if NET6_0_OR_GREATER
@@ -126,23 +126,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SitemapCrawlPagesSource PickSitemapCrawl() => IsSitemapCrawl
             ? SitemapCrawl!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SitemapCrawl' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebPagesSource(global::Vectara.SitemapPagesSource value) => new WebPagesSource((global::Vectara.SitemapPagesSource?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SitemapPagesSource?(WebPagesSource @this) => @this.Sitemap;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebPagesSource(global::Vectara.SitemapPagesSource? value)
         {
@@ -150,22 +150,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebPagesSource FromSitemap(global::Vectara.SitemapPagesSource? value) => new WebPagesSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebPagesSource(global::Vectara.CrawlPagesSource value) => new WebPagesSource((global::Vectara.CrawlPagesSource?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CrawlPagesSource?(WebPagesSource @this) => @this.Crawl;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebPagesSource(global::Vectara.CrawlPagesSource? value)
         {
@@ -173,22 +173,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebPagesSource FromCrawl(global::Vectara.CrawlPagesSource? value) => new WebPagesSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebPagesSource(global::Vectara.SitemapCrawlPagesSource value) => new WebPagesSource((global::Vectara.SitemapCrawlPagesSource?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SitemapCrawlPagesSource?(WebPagesSource @this) => @this.SitemapCrawl;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebPagesSource(global::Vectara.SitemapCrawlPagesSource? value)
         {
@@ -196,12 +196,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebPagesSource FromSitemapCrawl(global::Vectara.SitemapCrawlPagesSource? value) => new WebPagesSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebPagesSource(
             global::Vectara.WebPagesSourceDiscriminatorType? type,
@@ -218,25 +218,25 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             SitemapCrawl as object ??
             Crawl as object ??
-            Sitemap as object 
+            Sitemap as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Sitemap?.ToString() ??
             Crawl?.ToString() ??
-            SitemapCrawl?.ToString() 
+            SitemapCrawl?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -244,7 +244,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.SitemapPagesSource, TResult>? sitemap = null,
@@ -274,7 +274,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.SitemapPagesSource>? sitemap = null,
@@ -304,7 +304,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.SitemapPagesSource>? sitemap = null,
@@ -332,7 +332,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -355,19 +355,19 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(WebPagesSource other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.SitemapPagesSource?>.Default.Equals(Sitemap, other.Sitemap) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CrawlPagesSource?>.Default.Equals(Crawl, other.Crawl) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SitemapCrawlPagesSource?>.Default.Equals(SitemapCrawl, other.SitemapCrawl) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SitemapCrawlPagesSource?>.Default.Equals(SitemapCrawl, other.SitemapCrawl)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(WebPagesSource obj1, WebPagesSource obj2)
         {
@@ -375,7 +375,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(WebPagesSource obj1, WebPagesSource obj2)
         {
@@ -383,7 +383,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

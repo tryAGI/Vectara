@@ -10,11 +10,11 @@ namespace Vectara
     public enum DocumentConversionToolParametersOutputFormat
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Markdown,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StructuredDocument,
     }

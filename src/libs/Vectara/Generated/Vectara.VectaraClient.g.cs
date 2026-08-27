@@ -25,7 +25,7 @@ namespace Vectara
     public sealed partial class VectaraClient : global::Vectara.IVectaraClient, global::System.IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const string DefaultBaseUrl = "https://api.vectara.io/";
 
@@ -55,7 +55,7 @@ namespace Vectara
         internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::Vectara.SourceGenerationContext.Default);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {
@@ -65,7 +65,7 @@ namespace Vectara
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public A2aClient A2a => new A2aClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -75,7 +75,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAliasesClient AgentAliases => new AgentAliasesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -85,7 +85,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAliasesArtifactsClient AgentAliasesArtifacts => new AgentAliasesArtifactsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -95,7 +95,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAliasesEventsClient AgentAliasesEvents => new AgentAliasesEventsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -105,7 +105,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAliasesSessionsClient AgentAliasesSessions => new AgentAliasesSessionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -115,7 +115,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentAnalyticsClient AgentAnalytics => new AgentAnalyticsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -125,7 +125,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentArtifactsClient AgentArtifacts => new AgentArtifactsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -135,7 +135,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEventsClient AgentEvents => new AgentEventsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -145,7 +145,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentSchedulesClient AgentSchedules => new AgentSchedulesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -155,7 +155,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentSessionsClient AgentSessions => new AgentSessionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -165,7 +165,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentsClient Agents => new AgentsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -175,7 +175,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ApiKeysClient ApiKeys => new ApiKeysClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -185,7 +185,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AppClientsClient AppClients => new AppClientsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -205,7 +205,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CorporaClient Corpora => new CorporaClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -215,7 +215,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CustomerMetricsClient CustomerMetrics => new CustomerMetricsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -225,7 +225,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DocumentsClient Documents => new DocumentsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -235,7 +235,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EncodersClient Encoders => new EncodersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -245,7 +245,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EndUserEventsClient EndUserEvents => new EndUserEventsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -255,7 +255,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EndUserSessionsClient EndUserSessions => new EndUserSessionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -265,7 +265,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public FactualConsistencyClient FactualConsistency => new FactualConsistencyClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -275,7 +275,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GenerationPresetsClient GenerationPresets => new GenerationPresetsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GlossariesClient Glossaries => new GlossariesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -295,7 +295,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public HallucinationCorrectorsClient HallucinationCorrectors => new HallucinationCorrectorsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -305,7 +305,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public InstructionsClient Instructions => new InstructionsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -315,7 +315,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public JobsClient Jobs => new JobsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -325,7 +325,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LlmClient Llm => new LlmClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -335,7 +335,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LlmsClient Llms => new LlmsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -345,7 +345,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetadataClient Metadata => new MetadataClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -355,7 +355,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineDeadLetterEntriesClient PipelineDeadLetterEntries => new PipelineDeadLetterEntriesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -365,7 +365,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineRunsClient PipelineRuns => new PipelineRunsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -375,7 +375,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelinesClient Pipelines => new PipelinesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -385,7 +385,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueriesClient Queries => new QueriesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -395,7 +395,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistoryClient QueryHistory => new QueryHistoryClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -405,7 +405,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RerankersClient Rerankers => new RerankersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -415,7 +415,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TableExtractorsClient TableExtractors => new TableExtractorsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -425,7 +425,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolServersClient ToolServers => new ToolServersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -435,7 +435,7 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolsClient Tools => new ToolsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -445,7 +445,17 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        public TrustedTokenIssuersClient TrustedTokenIssuers => new TrustedTokenIssuersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        ///
         /// </summary>
         public UploadClient Upload => new UploadClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -455,9 +465,19 @@ namespace Vectara
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UsersClient Users => new UsersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        ///
+        /// </summary>
+        public WidgetsClient Widgets => new WidgetsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContextProvider = JsonSerializerContextProvider,

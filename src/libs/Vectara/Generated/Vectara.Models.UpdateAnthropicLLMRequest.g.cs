@@ -34,7 +34,7 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// Authentication configuration for Anthropic LLM via direct Anthropic API (use RemoteAuth with header "x-api-key"), AWS Bedrock, or GCP Vertex AI Model Garden
+        /// Authentication configuration for Anthropic LLM via the direct Anthropic API (a `bearer` credential with the API key; a `header` credential with "x-api-key" is also accepted), AWS Bedrock, or GCP Vertex AI Model Garden
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AnthropicAuthJsonConverter))]
@@ -105,7 +105,7 @@ namespace Vectara
         /// Description of the LLM.
         /// </param>
         /// <param name="auth">
-        /// Authentication configuration for Anthropic LLM via direct Anthropic API (use RemoteAuth with header "x-api-key"), AWS Bedrock, or GCP Vertex AI Model Garden
+        /// Authentication configuration for Anthropic LLM via the direct Anthropic API (a `bearer` credential with the API key; a `header` credential with "x-api-key" is also accepted), AWS Bedrock, or GCP Vertex AI Model Garden
         /// </param>
         /// <param name="headers">
         /// Optional additional headers to send with the request

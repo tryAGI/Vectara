@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct PipelineSource : global::System.IEquatable<PipelineSource>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.PipelineSourceDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Sharepoint))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsSharepoint => Sharepoint != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSharepoint(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SharepointSourceConfiguration PickSharepoint() => IsSharepoint
             ? Sharepoint!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(S3))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsS3 => S3 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickS3(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.S3SourceConfiguration PickS3() => IsS3
             ? S3!.Value
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GoogleDrive))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsGoogleDrive => GoogleDrive != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGoogleDrive(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GoogleDriveSourceConfiguration PickGoogleDrive() => IsGoogleDrive
             ? GoogleDrive!.Value
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Box))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsBox => Box != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBox(
 #if NET6_0_OR_GREATER
@@ -156,7 +156,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BoxSourceConfiguration PickBox() => IsBox
             ? Box!.Value
@@ -172,7 +172,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WolkenKb))]
@@ -180,7 +180,7 @@ namespace Vectara
         public bool IsWolkenKb => WolkenKb != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWolkenKb(
 #if NET6_0_OR_GREATER
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WolkenKbSourceConfiguration PickWolkenKb() => IsWolkenKb
             ? WolkenKb!.Value
@@ -209,7 +209,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WolkenForms))]
@@ -217,7 +217,7 @@ namespace Vectara
         public bool IsWolkenForms => WolkenForms != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWolkenForms(
 #if NET6_0_OR_GREATER
@@ -230,7 +230,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WolkenFormsSourceConfiguration PickWolkenForms() => IsWolkenForms
             ? WolkenForms!.Value
@@ -246,7 +246,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Confluence))]
@@ -254,7 +254,7 @@ namespace Vectara
         public bool IsConfluence => Confluence != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickConfluence(
 #if NET6_0_OR_GREATER
@@ -267,7 +267,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ConfluenceSourceConfiguration PickConfluence() => IsConfluence
             ? Confluence!.Value
@@ -283,7 +283,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Fluidtopics))]
@@ -291,7 +291,7 @@ namespace Vectara
         public bool IsFluidtopics => Fluidtopics != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickFluidtopics(
 #if NET6_0_OR_GREATER
@@ -304,7 +304,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.FluidtopicsSourceConfiguration PickFluidtopics() => IsFluidtopics
             ? Fluidtopics!.Value
@@ -320,7 +320,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Scim))]
@@ -328,7 +328,7 @@ namespace Vectara
         public bool IsScim => Scim != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickScim(
 #if NET6_0_OR_GREATER
@@ -341,11 +341,48 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ScimSourceConfiguration PickScim() => IsScim
             ? Scim!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Scim' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Configuration for ingesting the course catalog of a Docebo LMS instance via the Learn REST API.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.DoceboSourceConfiguration? Docebo { get; init; }
+#else
+        public global::Vectara.DoceboSourceConfiguration? Docebo { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Docebo))]
+#endif
+        public bool IsDocebo => Docebo != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickDocebo(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.DoceboSourceConfiguration? value)
+        {
+            value = Docebo;
+            return IsDocebo;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.DoceboSourceConfiguration PickDocebo() => IsDocebo
+            ? Docebo!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Docebo' but the value was {ToString()}.");
 
         /// <summary>
         /// Configuration for ingesting pages from a website. Politeness, limits, and auth are configured<br/>
@@ -358,7 +395,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Web))]
@@ -366,7 +403,7 @@ namespace Vectara
         public bool IsWeb => Web != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWeb(
 #if NET6_0_OR_GREATER
@@ -379,23 +416,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebSourceConfiguration PickWeb() => IsWeb
             ? Web!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Web' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.SharepointSourceConfiguration value) => new PipelineSource((global::Vectara.SharepointSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SharepointSourceConfiguration?(PipelineSource @this) => @this.Sharepoint;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.SharepointSourceConfiguration? value)
         {
@@ -403,22 +440,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromSharepoint(global::Vectara.SharepointSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.S3SourceConfiguration value) => new PipelineSource((global::Vectara.S3SourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.S3SourceConfiguration?(PipelineSource @this) => @this.S3;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.S3SourceConfiguration? value)
         {
@@ -426,22 +463,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromS3(global::Vectara.S3SourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.GoogleDriveSourceConfiguration value) => new PipelineSource((global::Vectara.GoogleDriveSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GoogleDriveSourceConfiguration?(PipelineSource @this) => @this.GoogleDrive;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.GoogleDriveSourceConfiguration? value)
         {
@@ -449,22 +486,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromGoogleDrive(global::Vectara.GoogleDriveSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.BoxSourceConfiguration value) => new PipelineSource((global::Vectara.BoxSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BoxSourceConfiguration?(PipelineSource @this) => @this.Box;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.BoxSourceConfiguration? value)
         {
@@ -472,22 +509,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromBox(global::Vectara.BoxSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.WolkenKbSourceConfiguration value) => new PipelineSource((global::Vectara.WolkenKbSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WolkenKbSourceConfiguration?(PipelineSource @this) => @this.WolkenKb;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.WolkenKbSourceConfiguration? value)
         {
@@ -495,22 +532,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromWolkenKb(global::Vectara.WolkenKbSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.WolkenFormsSourceConfiguration value) => new PipelineSource((global::Vectara.WolkenFormsSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WolkenFormsSourceConfiguration?(PipelineSource @this) => @this.WolkenForms;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.WolkenFormsSourceConfiguration? value)
         {
@@ -518,22 +555,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromWolkenForms(global::Vectara.WolkenFormsSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.ConfluenceSourceConfiguration value) => new PipelineSource((global::Vectara.ConfluenceSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ConfluenceSourceConfiguration?(PipelineSource @this) => @this.Confluence;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.ConfluenceSourceConfiguration? value)
         {
@@ -541,22 +578,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromConfluence(global::Vectara.ConfluenceSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.FluidtopicsSourceConfiguration value) => new PipelineSource((global::Vectara.FluidtopicsSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.FluidtopicsSourceConfiguration?(PipelineSource @this) => @this.Fluidtopics;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.FluidtopicsSourceConfiguration? value)
         {
@@ -564,22 +601,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromFluidtopics(global::Vectara.FluidtopicsSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.ScimSourceConfiguration value) => new PipelineSource((global::Vectara.ScimSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ScimSourceConfiguration?(PipelineSource @this) => @this.Scim;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.ScimSourceConfiguration? value)
         {
@@ -587,22 +624,45 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromScim(global::Vectara.ScimSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        public static implicit operator PipelineSource(global::Vectara.DoceboSourceConfiguration value) => new PipelineSource((global::Vectara.DoceboSourceConfiguration?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.DoceboSourceConfiguration?(PipelineSource @this) => @this.Docebo;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public PipelineSource(global::Vectara.DoceboSourceConfiguration? value)
+        {
+            Docebo = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static PipelineSource FromDocebo(global::Vectara.DoceboSourceConfiguration? value) => new PipelineSource(value);
+
+        /// <summary>
+        ///
         /// </summary>
         public static implicit operator PipelineSource(global::Vectara.WebSourceConfiguration value) => new PipelineSource((global::Vectara.WebSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebSourceConfiguration?(PipelineSource @this) => @this.Web;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(global::Vectara.WebSourceConfiguration? value)
         {
@@ -610,12 +670,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineSource FromWeb(global::Vectara.WebSourceConfiguration? value) => new PipelineSource(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineSource(
             global::Vectara.PipelineSourceDiscriminatorType? type,
@@ -628,6 +688,7 @@ namespace Vectara
             global::Vectara.ConfluenceSourceConfiguration? confluence,
             global::Vectara.FluidtopicsSourceConfiguration? fluidtopics,
             global::Vectara.ScimSourceConfiguration? scim,
+            global::Vectara.DoceboSourceConfiguration? docebo,
             global::Vectara.WebSourceConfiguration? web
             )
         {
@@ -642,14 +703,16 @@ namespace Vectara
             Confluence = confluence;
             Fluidtopics = fluidtopics;
             Scim = scim;
+            Docebo = docebo;
             Web = web;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Web as object ??
+            Docebo as object ??
             Scim as object ??
             Fluidtopics as object ??
             Confluence as object ??
@@ -658,11 +721,11 @@ namespace Vectara
             Box as object ??
             GoogleDrive as object ??
             S3 as object ??
-            Sharepoint as object 
+            Sharepoint as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Sharepoint?.ToString() ??
@@ -674,19 +737,20 @@ namespace Vectara
             Confluence?.ToString() ??
             Fluidtopics?.ToString() ??
             Scim?.ToString() ??
-            Web?.ToString() 
+            Docebo?.ToString() ??
+            Web?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
-            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && IsConfluence && !IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && IsFluidtopics && !IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && IsScim && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && IsWeb;
+            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && IsWeb;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.SharepointSourceConfiguration?, TResult>? sharepoint = null,
@@ -698,6 +762,7 @@ namespace Vectara
             global::System.Func<global::Vectara.ConfluenceSourceConfiguration?, TResult>? confluence = null,
             global::System.Func<global::Vectara.FluidtopicsSourceConfiguration?, TResult>? fluidtopics = null,
             global::System.Func<global::Vectara.ScimSourceConfiguration?, TResult>? scim = null,
+            global::System.Func<global::Vectara.DoceboSourceConfiguration?, TResult>? docebo = null,
             global::System.Func<global::Vectara.WebSourceConfiguration?, TResult>? web = null,
             bool validate = true)
         {
@@ -742,6 +807,10 @@ namespace Vectara
             {
                 return scim(Scim!);
             }
+            else if (IsDocebo && docebo != null)
+            {
+                return docebo(Docebo!);
+            }
             else if (IsWeb && web != null)
             {
                 return web(Web!);
@@ -751,7 +820,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.SharepointSourceConfiguration?>? sharepoint = null,
@@ -772,6 +841,8 @@ namespace Vectara
 
             global::System.Action<global::Vectara.ScimSourceConfiguration?>? scim = null,
 
+            global::System.Action<global::Vectara.DoceboSourceConfiguration?>? docebo = null,
+
             global::System.Action<global::Vectara.WebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -816,6 +887,10 @@ namespace Vectara
             {
                 scim?.Invoke(Scim!);
             }
+            else if (IsDocebo)
+            {
+                docebo?.Invoke(Docebo!);
+            }
             else if (IsWeb)
             {
                 web?.Invoke(Web!);
@@ -823,7 +898,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.SharepointSourceConfiguration?>? sharepoint = null,
@@ -835,6 +910,7 @@ namespace Vectara
             global::System.Action<global::Vectara.ConfluenceSourceConfiguration?>? confluence = null,
             global::System.Action<global::Vectara.FluidtopicsSourceConfiguration?>? fluidtopics = null,
             global::System.Action<global::Vectara.ScimSourceConfiguration?>? scim = null,
+            global::System.Action<global::Vectara.DoceboSourceConfiguration?>? docebo = null,
             global::System.Action<global::Vectara.WebSourceConfiguration?>? web = null,
             bool validate = true)
         {
@@ -879,6 +955,10 @@ namespace Vectara
             {
                 scim?.Invoke(Scim!);
             }
+            else if (IsDocebo)
+            {
+                docebo?.Invoke(Docebo!);
+            }
             else if (IsWeb)
             {
                 web?.Invoke(Web!);
@@ -886,7 +966,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -910,6 +990,8 @@ namespace Vectara
                 typeof(global::Vectara.FluidtopicsSourceConfiguration),
                 Scim,
                 typeof(global::Vectara.ScimSourceConfiguration),
+                Docebo,
+                typeof(global::Vectara.DoceboSourceConfiguration),
                 Web,
                 typeof(global::Vectara.WebSourceConfiguration),
             };
@@ -923,7 +1005,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(PipelineSource other)
         {
@@ -937,12 +1019,13 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ConfluenceSourceConfiguration?>.Default.Equals(Confluence, other.Confluence) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.FluidtopicsSourceConfiguration?>.Default.Equals(Fluidtopics, other.Fluidtopics) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ScimSourceConfiguration?>.Default.Equals(Scim, other.Scim) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebSourceConfiguration?>.Default.Equals(Web, other.Web) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.DoceboSourceConfiguration?>.Default.Equals(Docebo, other.Docebo) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebSourceConfiguration?>.Default.Equals(Web, other.Web)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(PipelineSource obj1, PipelineSource obj2)
         {
@@ -950,7 +1033,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(PipelineSource obj1, PipelineSource obj2)
         {
@@ -958,7 +1041,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

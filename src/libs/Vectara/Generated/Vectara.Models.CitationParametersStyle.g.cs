@@ -13,15 +13,15 @@ namespace Vectara
     public enum CitationParametersStyle
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Html,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Markdown,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         None,
         /// <summary>

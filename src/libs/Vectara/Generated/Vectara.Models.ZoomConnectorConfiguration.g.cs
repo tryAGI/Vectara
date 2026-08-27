@@ -25,7 +25,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -33,7 +33,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -46,14 +46,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ConnectorConfigurationBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ZoomConnectorConfigurationVariant2? ZoomConnectorConfigurationVariant2 { get; init; }
@@ -62,7 +62,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ZoomConnectorConfigurationVariant2))]
@@ -70,7 +70,7 @@ namespace Vectara
         public bool IsZoomConnectorConfigurationVariant2 => ZoomConnectorConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickZoomConnectorConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -83,23 +83,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ZoomConnectorConfigurationVariant2 PickZoomConnectorConfigurationVariant2() => IsZoomConnectorConfigurationVariant2
             ? ZoomConnectorConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ZoomConnectorConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ZoomConnectorConfiguration(global::Vectara.ConnectorConfigurationBase value) => new ZoomConnectorConfiguration((global::Vectara.ConnectorConfigurationBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ConnectorConfigurationBase?(ZoomConnectorConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ZoomConnectorConfiguration(global::Vectara.ConnectorConfigurationBase? value)
         {
@@ -107,22 +107,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ZoomConnectorConfiguration FromBase(global::Vectara.ConnectorConfigurationBase? value) => new ZoomConnectorConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ZoomConnectorConfiguration(global::Vectara.ZoomConnectorConfigurationVariant2 value) => new ZoomConnectorConfiguration((global::Vectara.ZoomConnectorConfigurationVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ZoomConnectorConfigurationVariant2?(ZoomConnectorConfiguration @this) => @this.ZoomConnectorConfigurationVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ZoomConnectorConfiguration(global::Vectara.ZoomConnectorConfigurationVariant2? value)
         {
@@ -130,12 +130,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ZoomConnectorConfiguration FromZoomConnectorConfigurationVariant2(global::Vectara.ZoomConnectorConfigurationVariant2? value) => new ZoomConnectorConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ZoomConnectorConfiguration(
             global::Vectara.ConnectorConfigurationBase? @base,
@@ -147,23 +147,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ZoomConnectorConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            ZoomConnectorConfigurationVariant2?.ToString() 
+            ZoomConnectorConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -171,7 +171,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ConnectorConfigurationBase, TResult>? @base = null,
@@ -196,7 +196,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ConnectorConfigurationBase>? @base = null,
@@ -220,7 +220,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ConnectorConfigurationBase>? @base = null,
@@ -243,7 +243,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -264,18 +264,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ZoomConnectorConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ConnectorConfigurationBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ZoomConnectorConfigurationVariant2?>.Default.Equals(ZoomConnectorConfigurationVariant2, other.ZoomConnectorConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ZoomConnectorConfigurationVariant2?>.Default.Equals(ZoomConnectorConfigurationVariant2, other.ZoomConnectorConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ZoomConnectorConfiguration obj1, ZoomConnectorConfiguration obj2)
         {
@@ -283,7 +283,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ZoomConnectorConfiguration obj1, ZoomConnectorConfiguration obj2)
         {
@@ -291,7 +291,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

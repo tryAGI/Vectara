@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateInputRequestBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateInputMessageRequestVariant2? CreateInputMessageRequestVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateInputMessageRequestVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCreateInputMessageRequestVariant2 => CreateInputMessageRequestVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCreateInputMessageRequestVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateInputMessageRequestVariant2 PickCreateInputMessageRequestVariant2() => IsCreateInputMessageRequestVariant2
             ? CreateInputMessageRequestVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateInputMessageRequestVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateInputMessageRequest(global::Vectara.CreateInputRequestBase value) => new CreateInputMessageRequest((global::Vectara.CreateInputRequestBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateInputRequestBase?(CreateInputMessageRequest @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInputMessageRequest(global::Vectara.CreateInputRequestBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateInputMessageRequest FromBase(global::Vectara.CreateInputRequestBase? value) => new CreateInputMessageRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateInputMessageRequest(global::Vectara.CreateInputMessageRequestVariant2 value) => new CreateInputMessageRequest((global::Vectara.CreateInputMessageRequestVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateInputMessageRequestVariant2?(CreateInputMessageRequest @this) => @this.CreateInputMessageRequestVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInputMessageRequest(global::Vectara.CreateInputMessageRequestVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateInputMessageRequest FromCreateInputMessageRequestVariant2(global::Vectara.CreateInputMessageRequestVariant2? value) => new CreateInputMessageRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInputMessageRequest(
             global::Vectara.CreateInputRequestBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             CreateInputMessageRequestVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            CreateInputMessageRequestVariant2?.ToString() 
+            CreateInputMessageRequestVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateInputRequestBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateInputRequestBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateInputRequestBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateInputMessageRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInputRequestBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInputMessageRequestVariant2?>.Default.Equals(CreateInputMessageRequestVariant2, other.CreateInputMessageRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInputMessageRequestVariant2?>.Default.Equals(CreateInputMessageRequestVariant2, other.CreateInputMessageRequestVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateInputMessageRequest obj1, CreateInputMessageRequest obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateInputMessageRequest obj1, CreateInputMessageRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

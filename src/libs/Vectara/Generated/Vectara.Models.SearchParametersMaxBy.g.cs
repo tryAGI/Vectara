@@ -10,7 +10,7 @@ namespace Vectara
     public enum SearchParametersMaxBy
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         DocId,
     }

@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class AgentStreamedResponseDiscriminator
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentStreamedResponseDiscriminatorTypeJsonConverter))]

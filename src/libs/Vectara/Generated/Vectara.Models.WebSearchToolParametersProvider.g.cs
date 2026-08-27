@@ -10,7 +10,7 @@ namespace Vectara
     public enum WebSearchToolParametersProvider
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Tavily,
     }

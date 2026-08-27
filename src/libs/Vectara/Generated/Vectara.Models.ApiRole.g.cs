@@ -9,55 +9,55 @@ namespace Vectara
     public enum ApiRole
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Administrator,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentAdministrator,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentDeveloper,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentUser,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentViewer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         BillingAdministrator,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         CorpusAdministrator,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         CorpusDeveloper,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         CorpusViewer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Owner,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         PipelineAdministrator,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         PipelineViewer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Viewer,
     }

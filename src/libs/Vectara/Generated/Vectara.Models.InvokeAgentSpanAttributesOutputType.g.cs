@@ -9,11 +9,11 @@ namespace Vectara
     public enum InvokeAgentSpanAttributesOutputType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Json,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Text,
     }

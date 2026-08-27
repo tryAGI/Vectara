@@ -12,7 +12,7 @@ namespace Vectara
     public readonly partial struct RuleTargets : global::System.IEquatable<RuleTargets>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RuleTargetsDiscriminatorType? Type { get; }
 
@@ -26,7 +26,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Single))]
@@ -34,7 +34,7 @@ namespace Vectara
         public bool IsSingle => Single != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSingle(
 #if NET6_0_OR_GREATER
@@ -47,7 +47,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SingleRuleTargets PickSingle() => IsSingle
             ? Single!
@@ -63,7 +63,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Weighted))]
@@ -71,7 +71,7 @@ namespace Vectara
         public bool IsWeighted => Weighted != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWeighted(
 #if NET6_0_OR_GREATER
@@ -84,23 +84,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WeightedRuleTargets PickWeighted() => IsWeighted
             ? Weighted!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Weighted' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator RuleTargets(global::Vectara.SingleRuleTargets value) => new RuleTargets((global::Vectara.SingleRuleTargets?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SingleRuleTargets?(RuleTargets @this) => @this.Single;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RuleTargets(global::Vectara.SingleRuleTargets? value)
         {
@@ -108,22 +108,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static RuleTargets FromSingle(global::Vectara.SingleRuleTargets? value) => new RuleTargets(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator RuleTargets(global::Vectara.WeightedRuleTargets value) => new RuleTargets((global::Vectara.WeightedRuleTargets?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WeightedRuleTargets?(RuleTargets @this) => @this.Weighted;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RuleTargets(global::Vectara.WeightedRuleTargets? value)
         {
@@ -131,12 +131,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static RuleTargets FromWeighted(global::Vectara.WeightedRuleTargets? value) => new RuleTargets(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RuleTargets(
             global::Vectara.RuleTargetsDiscriminatorType? type,
@@ -151,23 +151,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Weighted as object ??
-            Single as object 
+            Single as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Single?.ToString() ??
-            Weighted?.ToString() 
+            Weighted?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -175,7 +175,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.SingleRuleTargets, TResult>? single = null,
@@ -200,7 +200,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.SingleRuleTargets>? single = null,
@@ -224,7 +224,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.SingleRuleTargets>? single = null,
@@ -247,7 +247,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -268,18 +268,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(RuleTargets other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.SingleRuleTargets?>.Default.Equals(Single, other.Single) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.WeightedRuleTargets?>.Default.Equals(Weighted, other.Weighted) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WeightedRuleTargets?>.Default.Equals(Weighted, other.Weighted)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(RuleTargets obj1, RuleTargets obj2)
         {
@@ -287,7 +287,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(RuleTargets obj1, RuleTargets obj2)
         {
@@ -295,7 +295,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

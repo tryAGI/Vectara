@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.EndUserEventBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.EndUserAgentOutputEventVariant2? EndUserAgentOutputEventVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(EndUserAgentOutputEventVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsEndUserAgentOutputEventVariant2 => EndUserAgentOutputEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickEndUserAgentOutputEventVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.EndUserAgentOutputEventVariant2 PickEndUserAgentOutputEventVariant2() => IsEndUserAgentOutputEventVariant2
             ? EndUserAgentOutputEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'EndUserAgentOutputEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator EndUserAgentOutputEvent(global::Vectara.EndUserEventBase value) => new EndUserAgentOutputEvent((global::Vectara.EndUserEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.EndUserEventBase?(EndUserAgentOutputEvent @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EndUserAgentOutputEvent(global::Vectara.EndUserEventBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static EndUserAgentOutputEvent FromBase(global::Vectara.EndUserEventBase? value) => new EndUserAgentOutputEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator EndUserAgentOutputEvent(global::Vectara.EndUserAgentOutputEventVariant2 value) => new EndUserAgentOutputEvent((global::Vectara.EndUserAgentOutputEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.EndUserAgentOutputEventVariant2?(EndUserAgentOutputEvent @this) => @this.EndUserAgentOutputEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EndUserAgentOutputEvent(global::Vectara.EndUserAgentOutputEventVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static EndUserAgentOutputEvent FromEndUserAgentOutputEventVariant2(global::Vectara.EndUserAgentOutputEventVariant2? value) => new EndUserAgentOutputEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public EndUserAgentOutputEvent(
             global::Vectara.EndUserEventBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             EndUserAgentOutputEventVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            EndUserAgentOutputEventVariant2?.ToString() 
+            EndUserAgentOutputEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.EndUserEventBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.EndUserEventBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.EndUserEventBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(EndUserAgentOutputEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserEventBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserAgentOutputEventVariant2?>.Default.Equals(EndUserAgentOutputEventVariant2, other.EndUserAgentOutputEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserAgentOutputEventVariant2?>.Default.Equals(EndUserAgentOutputEventVariant2, other.EndUserAgentOutputEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(EndUserAgentOutputEvent obj1, EndUserAgentOutputEvent obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(EndUserAgentOutputEvent obj1, EndUserAgentOutputEvent obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

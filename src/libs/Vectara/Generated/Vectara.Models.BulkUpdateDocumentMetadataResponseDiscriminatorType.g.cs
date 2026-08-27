@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum BulkUpdateDocumentMetadataResponseDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Async,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Success,
     }

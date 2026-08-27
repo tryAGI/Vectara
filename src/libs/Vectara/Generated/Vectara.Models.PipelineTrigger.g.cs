@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct PipelineTrigger : global::System.IEquatable<PipelineTrigger>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.PipelineTriggerDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Cron))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsCron => Cron != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCron(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CronTriggerConfiguration PickCron() => IsCron
             ? Cron!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Interval))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsInterval => Interval != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInterval(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.IntervalTriggerConfiguration PickInterval() => IsInterval
             ? Interval!
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Manual))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsManual => Manual != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickManual(
 #if NET6_0_OR_GREATER
@@ -119,23 +119,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ManualTriggerConfiguration PickManual() => IsManual
             ? Manual!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Manual' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineTrigger(global::Vectara.CronTriggerConfiguration value) => new PipelineTrigger((global::Vectara.CronTriggerConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CronTriggerConfiguration?(PipelineTrigger @this) => @this.Cron;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineTrigger(global::Vectara.CronTriggerConfiguration? value)
         {
@@ -143,22 +143,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineTrigger FromCron(global::Vectara.CronTriggerConfiguration? value) => new PipelineTrigger(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineTrigger(global::Vectara.IntervalTriggerConfiguration value) => new PipelineTrigger((global::Vectara.IntervalTriggerConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.IntervalTriggerConfiguration?(PipelineTrigger @this) => @this.Interval;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineTrigger(global::Vectara.IntervalTriggerConfiguration? value)
         {
@@ -166,22 +166,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineTrigger FromInterval(global::Vectara.IntervalTriggerConfiguration? value) => new PipelineTrigger(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineTrigger(global::Vectara.ManualTriggerConfiguration value) => new PipelineTrigger((global::Vectara.ManualTriggerConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ManualTriggerConfiguration?(PipelineTrigger @this) => @this.Manual;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineTrigger(global::Vectara.ManualTriggerConfiguration? value)
         {
@@ -189,12 +189,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineTrigger FromManual(global::Vectara.ManualTriggerConfiguration? value) => new PipelineTrigger(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineTrigger(
             global::Vectara.PipelineTriggerDiscriminatorType? type,
@@ -211,25 +211,25 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Manual as object ??
             Interval as object ??
-            Cron as object 
+            Cron as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Cron?.ToString() ??
             Interval?.ToString() ??
-            Manual?.ToString() 
+            Manual?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CronTriggerConfiguration, TResult>? cron = null,
@@ -267,7 +267,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CronTriggerConfiguration>? cron = null,
@@ -297,7 +297,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CronTriggerConfiguration>? cron = null,
@@ -325,7 +325,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -348,19 +348,19 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(PipelineTrigger other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CronTriggerConfiguration?>.Default.Equals(Cron, other.Cron) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.IntervalTriggerConfiguration?>.Default.Equals(Interval, other.Interval) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ManualTriggerConfiguration?>.Default.Equals(Manual, other.Manual) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ManualTriggerConfiguration?>.Default.Equals(Manual, other.Manual)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(PipelineTrigger obj1, PipelineTrigger obj2)
         {
@@ -368,7 +368,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(PipelineTrigger obj1, PipelineTrigger obj2)
         {
@@ -376,7 +376,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

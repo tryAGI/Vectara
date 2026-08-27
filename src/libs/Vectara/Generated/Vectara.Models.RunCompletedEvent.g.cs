@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(PipelineBase))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsPipelineBase => PipelineBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickPipelineBase(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.PipelineRunEventBase PickPipelineBase() => IsPipelineBase
             ? PipelineBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'PipelineBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.RunCompletedEventVariant2? RunCompletedEventVariant2 { get; init; }
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(RunCompletedEventVariant2))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsRunCompletedEventVariant2 => RunCompletedEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRunCompletedEventVariant2(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RunCompletedEventVariant2 PickRunCompletedEventVariant2() => IsRunCompletedEventVariant2
             ? RunCompletedEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'RunCompletedEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator RunCompletedEvent(global::Vectara.PipelineRunEventBase value) => new RunCompletedEvent((global::Vectara.PipelineRunEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.PipelineRunEventBase?(RunCompletedEvent @this) => @this.PipelineBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RunCompletedEvent(global::Vectara.PipelineRunEventBase? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static RunCompletedEvent FromPipelineBase(global::Vectara.PipelineRunEventBase? value) => new RunCompletedEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator RunCompletedEvent(global::Vectara.RunCompletedEventVariant2 value) => new RunCompletedEvent((global::Vectara.RunCompletedEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.RunCompletedEventVariant2?(RunCompletedEvent @this) => @this.RunCompletedEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RunCompletedEvent(global::Vectara.RunCompletedEventVariant2? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static RunCompletedEvent FromRunCompletedEventVariant2(global::Vectara.RunCompletedEventVariant2? value) => new RunCompletedEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public RunCompletedEvent(
             global::Vectara.PipelineRunEventBase? pipelineBase,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             RunCompletedEventVariant2 as object ??
-            PipelineBase as object 
+            PipelineBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             PipelineBase?.ToString() ??
-            RunCompletedEventVariant2?.ToString() 
+            RunCompletedEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.PipelineRunEventBase, TResult>? pipelineBase = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.PipelineRunEventBase>? pipelineBase = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.PipelineRunEventBase>? pipelineBase = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(RunCompletedEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.PipelineRunEventBase?>.Default.Equals(PipelineBase, other.PipelineBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.RunCompletedEventVariant2?>.Default.Equals(RunCompletedEventVariant2, other.RunCompletedEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.RunCompletedEventVariant2?>.Default.Equals(RunCompletedEventVariant2, other.RunCompletedEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(RunCompletedEvent obj1, RunCompletedEvent obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(RunCompletedEvent obj1, RunCompletedEvent obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

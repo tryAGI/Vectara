@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Vectara
@@ -18,13 +20,14 @@ namespace Vectara
         public int? MaxExecutionTimeSeconds { get; set; }
 
         /// <summary>
-        /// Maximum memory usage in megabytes.<br/>
+        /// Deprecated and ignored. Memory is fixed by the execution environment and cannot be configured per function.<br/>
         /// Default Value: 100<br/>
         /// Example: 100
         /// </summary>
         /// <example>100</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_memory_mb")]
-        public long? MaxMemoryMb { get; set; }
+        [global::System.Obsolete("This property marked as deprecated.")]
+        public int? MaxMemoryMb { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -40,20 +43,13 @@ namespace Vectara
         /// Default Value: 30<br/>
         /// Example: 30
         /// </param>
-        /// <param name="maxMemoryMb">
-        /// Maximum memory usage in megabytes.<br/>
-        /// Default Value: 100<br/>
-        /// Example: 100
-        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ExecutionConfiguration(
-            int? maxExecutionTimeSeconds,
-            long? maxMemoryMb)
+            int? maxExecutionTimeSeconds)
         {
             this.MaxExecutionTimeSeconds = maxExecutionTimeSeconds;
-            this.MaxMemoryMb = maxMemoryMb;
         }
 
         /// <summary>

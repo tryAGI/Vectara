@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ImageReadTraceSpanVariant2? ImageReadTraceSpanVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ImageReadTraceSpanVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsImageReadTraceSpanVariant2 => ImageReadTraceSpanVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickImageReadTraceSpanVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ImageReadTraceSpanVariant2 PickImageReadTraceSpanVariant2() => IsImageReadTraceSpanVariant2
             ? ImageReadTraceSpanVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ImageReadTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ImageReadTraceSpan(global::Vectara.AgentTraceSpanBase value) => new ImageReadTraceSpan((global::Vectara.AgentTraceSpanBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentTraceSpanBase?(ImageReadTraceSpan @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ImageReadTraceSpan(global::Vectara.AgentTraceSpanBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ImageReadTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new ImageReadTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ImageReadTraceSpan(global::Vectara.ImageReadTraceSpanVariant2 value) => new ImageReadTraceSpan((global::Vectara.ImageReadTraceSpanVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ImageReadTraceSpanVariant2?(ImageReadTraceSpan @this) => @this.ImageReadTraceSpanVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ImageReadTraceSpan(global::Vectara.ImageReadTraceSpanVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ImageReadTraceSpan FromImageReadTraceSpanVariant2(global::Vectara.ImageReadTraceSpanVariant2? value) => new ImageReadTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ImageReadTraceSpan(
             global::Vectara.AgentTraceSpanBase? agentBase,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ImageReadTraceSpanVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            ImageReadTraceSpanVariant2?.ToString() 
+            ImageReadTraceSpanVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentTraceSpanBase, TResult>? agentBase = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ImageReadTraceSpan other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentTraceSpanBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageReadTraceSpanVariant2?>.Default.Equals(ImageReadTraceSpanVariant2, other.ImageReadTraceSpanVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageReadTraceSpanVariant2?>.Default.Equals(ImageReadTraceSpanVariant2, other.ImageReadTraceSpanVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ImageReadTraceSpan obj1, ImageReadTraceSpan obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ImageReadTraceSpan obj1, ImageReadTraceSpan obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

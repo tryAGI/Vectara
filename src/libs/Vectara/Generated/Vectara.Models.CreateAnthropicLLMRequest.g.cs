@@ -38,7 +38,7 @@ namespace Vectara
         public required string Model { get; set; }
 
         /// <summary>
-        /// An optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com when you use the direct Anthropic API (header auth with x-api-key). Not required with Bedrock or Vertex authentication because the platform determines the endpoint from the region or project configuration.<br/>
+        /// An optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com when you use the direct Anthropic API with a `bearer` credential (a `header` credential with `x-api-key` is also accepted). Not required with Bedrock or Vertex authentication because the platform determines the endpoint from the region or project configuration.<br/>
         /// Default Value: https://api.anthropic.com<br/>
         /// Example: https://api.anthropic.com
         /// </summary>
@@ -47,7 +47,7 @@ namespace Vectara
         public string? Uri { get; set; }
 
         /// <summary>
-        /// Authentication configuration for Anthropic LLM via direct Anthropic API (use RemoteAuth with header "x-api-key"), AWS Bedrock, or GCP Vertex AI Model Garden
+        /// Authentication configuration for Anthropic LLM via the direct Anthropic API (a `bearer` credential with the API key; a `header` credential with "x-api-key" is also accepted), AWS Bedrock, or GCP Vertex AI Model Garden
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AnthropicAuthJsonConverter))]
@@ -106,13 +106,13 @@ namespace Vectara
         /// The Claude model name to use (e.g. claude-3-5-sonnet-20241022, claude-3-opus-20240229, etc).
         /// </param>
         /// <param name="auth">
-        /// Authentication configuration for Anthropic LLM via direct Anthropic API (use RemoteAuth with header "x-api-key"), AWS Bedrock, or GCP Vertex AI Model Garden
+        /// Authentication configuration for Anthropic LLM via the direct Anthropic API (a `bearer` credential with the API key; a `header` credential with "x-api-key" is also accepted), AWS Bedrock, or GCP Vertex AI Model Garden
         /// </param>
         /// <param name="description">
         /// Description of the LLM.
         /// </param>
         /// <param name="uri">
-        /// An optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com when you use the direct Anthropic API (header auth with x-api-key). Not required with Bedrock or Vertex authentication because the platform determines the endpoint from the region or project configuration.<br/>
+        /// An optional custom base URL for the Anthropic API. Defaults to https://api.anthropic.com when you use the direct Anthropic API with a `bearer` credential (a `header` credential with `x-api-key` is also accepted). Not required with Bedrock or Vertex authentication because the platform determines the endpoint from the region or project configuration.<br/>
         /// Default Value: https://api.anthropic.com<br/>
         /// Example: https://api.anthropic.com
         /// </param>

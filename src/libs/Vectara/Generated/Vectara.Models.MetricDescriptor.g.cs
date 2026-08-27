@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct MetricDescriptor : global::System.IEquatable<MetricDescriptor>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.MetricDescriptorDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Counter))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsCounter => Counter != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCounter(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CounterMetricDescriptor PickCounter() => IsCounter
             ? Counter!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Gauge))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsGauge => Gauge != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGauge(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GaugeMetricDescriptor PickGauge() => IsGauge
             ? Gauge!.Value
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Percentiles))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsPercentiles => Percentiles != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickPercentiles(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.PercentilesMetricDescriptor PickPercentiles() => IsPercentiles
             ? Percentiles!.Value
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Distribution))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsDistribution => Distribution != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDistribution(
 #if NET6_0_OR_GREATER
@@ -156,23 +156,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.DistributionMetricDescriptor PickDistribution() => IsDistribution
             ? Distribution!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Distribution' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator MetricDescriptor(global::Vectara.CounterMetricDescriptor value) => new MetricDescriptor((global::Vectara.CounterMetricDescriptor?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CounterMetricDescriptor?(MetricDescriptor @this) => @this.Counter;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricDescriptor(global::Vectara.CounterMetricDescriptor? value)
         {
@@ -180,22 +180,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static MetricDescriptor FromCounter(global::Vectara.CounterMetricDescriptor? value) => new MetricDescriptor(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator MetricDescriptor(global::Vectara.GaugeMetricDescriptor value) => new MetricDescriptor((global::Vectara.GaugeMetricDescriptor?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GaugeMetricDescriptor?(MetricDescriptor @this) => @this.Gauge;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricDescriptor(global::Vectara.GaugeMetricDescriptor? value)
         {
@@ -203,22 +203,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static MetricDescriptor FromGauge(global::Vectara.GaugeMetricDescriptor? value) => new MetricDescriptor(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator MetricDescriptor(global::Vectara.PercentilesMetricDescriptor value) => new MetricDescriptor((global::Vectara.PercentilesMetricDescriptor?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.PercentilesMetricDescriptor?(MetricDescriptor @this) => @this.Percentiles;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricDescriptor(global::Vectara.PercentilesMetricDescriptor? value)
         {
@@ -226,22 +226,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static MetricDescriptor FromPercentiles(global::Vectara.PercentilesMetricDescriptor? value) => new MetricDescriptor(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator MetricDescriptor(global::Vectara.DistributionMetricDescriptor value) => new MetricDescriptor((global::Vectara.DistributionMetricDescriptor?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.DistributionMetricDescriptor?(MetricDescriptor @this) => @this.Distribution;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricDescriptor(global::Vectara.DistributionMetricDescriptor? value)
         {
@@ -249,12 +249,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static MetricDescriptor FromDistribution(global::Vectara.DistributionMetricDescriptor? value) => new MetricDescriptor(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricDescriptor(
             global::Vectara.MetricDescriptorDiscriminatorType? type,
@@ -273,27 +273,27 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Distribution as object ??
             Percentiles as object ??
             Gauge as object ??
-            Counter as object 
+            Counter as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Counter?.ToString() ??
             Gauge?.ToString() ??
             Percentiles?.ToString() ??
-            Distribution?.ToString() 
+            Distribution?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -301,7 +301,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CounterMetricDescriptor?, TResult>? counter = null,
@@ -336,7 +336,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CounterMetricDescriptor?>? counter = null,
@@ -372,7 +372,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CounterMetricDescriptor?>? counter = null,
@@ -405,7 +405,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -430,7 +430,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(MetricDescriptor other)
         {
@@ -438,12 +438,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CounterMetricDescriptor?>.Default.Equals(Counter, other.Counter) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.GaugeMetricDescriptor?>.Default.Equals(Gauge, other.Gauge) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.PercentilesMetricDescriptor?>.Default.Equals(Percentiles, other.Percentiles) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.DistributionMetricDescriptor?>.Default.Equals(Distribution, other.Distribution) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.DistributionMetricDescriptor?>.Default.Equals(Distribution, other.Distribution)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(MetricDescriptor obj1, MetricDescriptor obj2)
         {
@@ -451,7 +451,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(MetricDescriptor obj1, MetricDescriptor obj2)
         {
@@ -459,7 +459,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolConfigurationBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ArtifactReadToolConfigurationVariant2? ArtifactReadToolConfigurationVariant2 { get; init; }
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactReadToolConfigurationVariant2))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsArtifactReadToolConfigurationVariant2 => ArtifactReadToolConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickArtifactReadToolConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ArtifactReadToolConfigurationVariant2 PickArtifactReadToolConfigurationVariant2() => IsArtifactReadToolConfigurationVariant2
             ? ArtifactReadToolConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactReadToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ArtifactReadToolConfiguration(global::Vectara.ToolConfigurationBase value) => new ArtifactReadToolConfiguration((global::Vectara.ToolConfigurationBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolConfigurationBase?(ArtifactReadToolConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ArtifactReadToolConfiguration(global::Vectara.ToolConfigurationBase? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ArtifactReadToolConfiguration FromBase(global::Vectara.ToolConfigurationBase? value) => new ArtifactReadToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ArtifactReadToolConfiguration(global::Vectara.ArtifactReadToolConfigurationVariant2 value) => new ArtifactReadToolConfiguration((global::Vectara.ArtifactReadToolConfigurationVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ArtifactReadToolConfigurationVariant2?(ArtifactReadToolConfiguration @this) => @this.ArtifactReadToolConfigurationVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ArtifactReadToolConfiguration(global::Vectara.ArtifactReadToolConfigurationVariant2? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ArtifactReadToolConfiguration FromArtifactReadToolConfigurationVariant2(global::Vectara.ArtifactReadToolConfigurationVariant2? value) => new ArtifactReadToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ArtifactReadToolConfiguration(
             global::Vectara.ToolConfigurationBase? @base,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ArtifactReadToolConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            ArtifactReadToolConfigurationVariant2?.ToString() 
+            ArtifactReadToolConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ToolConfigurationBase, TResult>? @base = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ArtifactReadToolConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactReadToolConfigurationVariant2?>.Default.Equals(ArtifactReadToolConfigurationVariant2, other.ArtifactReadToolConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ArtifactReadToolConfigurationVariant2?>.Default.Equals(ArtifactReadToolConfigurationVariant2, other.ArtifactReadToolConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ArtifactReadToolConfiguration obj1, ArtifactReadToolConfiguration obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ArtifactReadToolConfiguration obj1, ArtifactReadToolConfiguration obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -4,72 +4,72 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AgentEventDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentOutput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ArtifactUpload,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ClientToolPending,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Compaction,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ContextLimitExceeded,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ImageRead,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InputMessage,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SessionInterrupted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SkillLoad,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StepTransition,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StepTransitionLimitExceeded,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StructuredOutput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Thinking,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ToolInput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ToolOutput,
     }

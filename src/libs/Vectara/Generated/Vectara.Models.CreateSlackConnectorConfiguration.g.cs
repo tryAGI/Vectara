@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateConnectorConfigurationBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateSlackConnectorConfigurationVariant2? CreateSlackConnectorConfigurationVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateSlackConnectorConfigurationVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCreateSlackConnectorConfigurationVariant2 => CreateSlackConnectorConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCreateSlackConnectorConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateSlackConnectorConfigurationVariant2 PickCreateSlackConnectorConfigurationVariant2() => IsCreateSlackConnectorConfigurationVariant2
             ? CreateSlackConnectorConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateSlackConnectorConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateSlackConnectorConfiguration(global::Vectara.CreateConnectorConfigurationBase value) => new CreateSlackConnectorConfiguration((global::Vectara.CreateConnectorConfigurationBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateConnectorConfigurationBase?(CreateSlackConnectorConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateSlackConnectorConfiguration(global::Vectara.CreateConnectorConfigurationBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateSlackConnectorConfiguration FromBase(global::Vectara.CreateConnectorConfigurationBase? value) => new CreateSlackConnectorConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateSlackConnectorConfiguration(global::Vectara.CreateSlackConnectorConfigurationVariant2 value) => new CreateSlackConnectorConfiguration((global::Vectara.CreateSlackConnectorConfigurationVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateSlackConnectorConfigurationVariant2?(CreateSlackConnectorConfiguration @this) => @this.CreateSlackConnectorConfigurationVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateSlackConnectorConfiguration(global::Vectara.CreateSlackConnectorConfigurationVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateSlackConnectorConfiguration FromCreateSlackConnectorConfigurationVariant2(global::Vectara.CreateSlackConnectorConfigurationVariant2? value) => new CreateSlackConnectorConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateSlackConnectorConfiguration(
             global::Vectara.CreateConnectorConfigurationBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             CreateSlackConnectorConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            CreateSlackConnectorConfigurationVariant2?.ToString() 
+            CreateSlackConnectorConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateConnectorConfigurationBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateConnectorConfigurationBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateConnectorConfigurationBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateSlackConnectorConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateConnectorConfigurationBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateSlackConnectorConfigurationVariant2?>.Default.Equals(CreateSlackConnectorConfigurationVariant2, other.CreateSlackConnectorConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateSlackConnectorConfigurationVariant2?>.Default.Equals(CreateSlackConnectorConfigurationVariant2, other.CreateSlackConnectorConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateSlackConnectorConfiguration obj1, CreateSlackConnectorConfiguration obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateSlackConnectorConfiguration obj1, CreateSlackConnectorConfiguration obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

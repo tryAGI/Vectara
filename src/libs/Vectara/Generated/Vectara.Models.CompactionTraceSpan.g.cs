@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CompactionTraceSpanVariant2? CompactionTraceSpanVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CompactionTraceSpanVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCompactionTraceSpanVariant2 => CompactionTraceSpanVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCompactionTraceSpanVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CompactionTraceSpanVariant2 PickCompactionTraceSpanVariant2() => IsCompactionTraceSpanVariant2
             ? CompactionTraceSpanVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CompactionTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CompactionTraceSpan(global::Vectara.AgentTraceSpanBase value) => new CompactionTraceSpan((global::Vectara.AgentTraceSpanBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentTraceSpanBase?(CompactionTraceSpan @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CompactionTraceSpan(global::Vectara.AgentTraceSpanBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CompactionTraceSpan FromAgentBase(global::Vectara.AgentTraceSpanBase? value) => new CompactionTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CompactionTraceSpan(global::Vectara.CompactionTraceSpanVariant2 value) => new CompactionTraceSpan((global::Vectara.CompactionTraceSpanVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CompactionTraceSpanVariant2?(CompactionTraceSpan @this) => @this.CompactionTraceSpanVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CompactionTraceSpan(global::Vectara.CompactionTraceSpanVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CompactionTraceSpan FromCompactionTraceSpanVariant2(global::Vectara.CompactionTraceSpanVariant2? value) => new CompactionTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CompactionTraceSpan(
             global::Vectara.AgentTraceSpanBase? agentBase,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             CompactionTraceSpanVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            CompactionTraceSpanVariant2?.ToString() 
+            CompactionTraceSpanVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentTraceSpanBase, TResult>? agentBase = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentTraceSpanBase>? agentBase = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CompactionTraceSpan other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentTraceSpanBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionTraceSpanVariant2?>.Default.Equals(CompactionTraceSpanVariant2, other.CompactionTraceSpanVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionTraceSpanVariant2?>.Default.Equals(CompactionTraceSpanVariant2, other.CompactionTraceSpanVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CompactionTraceSpan obj1, CompactionTraceSpan obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CompactionTraceSpan obj1, CompactionTraceSpan obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

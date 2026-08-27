@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventBase PickBase() => IsBase
             ? Base!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Stream))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsStream => Stream != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStream(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StreamError PickStream() => IsStream
             ? Stream!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Stream' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentErrorEvent(global::Vectara.AgentEventBase value) => new AgentErrorEvent((global::Vectara.AgentEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentEventBase?(AgentErrorEvent @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentErrorEvent(global::Vectara.AgentEventBase? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentErrorEvent FromBase(global::Vectara.AgentEventBase? value) => new AgentErrorEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentErrorEvent(global::Vectara.StreamError value) => new AgentErrorEvent((global::Vectara.StreamError?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StreamError?(AgentErrorEvent @this) => @this.Stream;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentErrorEvent(global::Vectara.StreamError? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentErrorEvent FromStream(global::Vectara.StreamError? value) => new AgentErrorEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentErrorEvent(
             global::Vectara.AgentEventBase? @base,
@@ -146,23 +146,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Stream as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            Stream?.ToString() 
+            Stream?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -170,7 +170,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentEventBase, TResult>? @base = null,
@@ -195,7 +195,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentEventBase>? @base = null,
@@ -219,7 +219,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentEventBase>? @base = null,
@@ -242,7 +242,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -263,18 +263,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(AgentErrorEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamError?>.Default.Equals(Stream, other.Stream) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamError?>.Default.Equals(Stream, other.Stream)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(AgentErrorEvent obj1, AgentErrorEvent obj2)
         {
@@ -282,7 +282,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(AgentErrorEvent obj1, AgentErrorEvent obj2)
         {
@@ -290,7 +290,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

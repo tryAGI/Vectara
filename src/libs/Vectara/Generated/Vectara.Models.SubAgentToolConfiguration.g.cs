@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolConfigurationBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SubAgentToolConfigurationVariant2? SubAgentToolConfigurationVariant2 { get; init; }
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SubAgentToolConfigurationVariant2))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsSubAgentToolConfigurationVariant2 => SubAgentToolConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSubAgentToolConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SubAgentToolConfigurationVariant2 PickSubAgentToolConfigurationVariant2() => IsSubAgentToolConfigurationVariant2
             ? SubAgentToolConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgentToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SubAgentToolConfiguration(global::Vectara.ToolConfigurationBase value) => new SubAgentToolConfiguration((global::Vectara.ToolConfigurationBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolConfigurationBase?(SubAgentToolConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SubAgentToolConfiguration(global::Vectara.ToolConfigurationBase? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SubAgentToolConfiguration FromBase(global::Vectara.ToolConfigurationBase? value) => new SubAgentToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SubAgentToolConfiguration(global::Vectara.SubAgentToolConfigurationVariant2 value) => new SubAgentToolConfiguration((global::Vectara.SubAgentToolConfigurationVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SubAgentToolConfigurationVariant2?(SubAgentToolConfiguration @this) => @this.SubAgentToolConfigurationVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SubAgentToolConfiguration(global::Vectara.SubAgentToolConfigurationVariant2? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SubAgentToolConfiguration FromSubAgentToolConfigurationVariant2(global::Vectara.SubAgentToolConfigurationVariant2? value) => new SubAgentToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SubAgentToolConfiguration(
             global::Vectara.ToolConfigurationBase? @base,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             SubAgentToolConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            SubAgentToolConfigurationVariant2?.ToString() 
+            SubAgentToolConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ToolConfigurationBase, TResult>? @base = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(SubAgentToolConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SubAgentToolConfigurationVariant2?>.Default.Equals(SubAgentToolConfigurationVariant2, other.SubAgentToolConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SubAgentToolConfigurationVariant2?>.Default.Equals(SubAgentToolConfigurationVariant2, other.SubAgentToolConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(SubAgentToolConfiguration obj1, SubAgentToolConfiguration obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(SubAgentToolConfiguration obj1, SubAgentToolConfiguration obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

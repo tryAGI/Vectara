@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct VertexAiAuth : global::System.IEquatable<VertexAiAuth>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexAiAuthDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ApiKey))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsApiKey => ApiKey != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickApiKey(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexAiApiKeyAuth PickApiKey() => IsApiKey
             ? ApiKey!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ServiceAccount))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsServiceAccount => ServiceAccount != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickServiceAccount(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexAiServiceAccountAuth PickServiceAccount() => IsServiceAccount
             ? ServiceAccount!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ServiceAccount' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator VertexAiAuth(global::Vectara.VertexAiApiKeyAuth value) => new VertexAiAuth((global::Vectara.VertexAiApiKeyAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.VertexAiApiKeyAuth?(VertexAiAuth @this) => @this.ApiKey;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public VertexAiAuth(global::Vectara.VertexAiApiKeyAuth? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static VertexAiAuth FromApiKey(global::Vectara.VertexAiApiKeyAuth? value) => new VertexAiAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator VertexAiAuth(global::Vectara.VertexAiServiceAccountAuth value) => new VertexAiAuth((global::Vectara.VertexAiServiceAccountAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.VertexAiServiceAccountAuth?(VertexAiAuth @this) => @this.ServiceAccount;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public VertexAiAuth(global::Vectara.VertexAiServiceAccountAuth? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static VertexAiAuth FromServiceAccount(global::Vectara.VertexAiServiceAccountAuth? value) => new VertexAiAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public VertexAiAuth(
             global::Vectara.VertexAiAuthDiscriminatorType? type,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ServiceAccount as object ??
-            ApiKey as object 
+            ApiKey as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             ApiKey?.ToString() ??
-            ServiceAccount?.ToString() 
+            ServiceAccount?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.VertexAiApiKeyAuth, TResult>? apiKey = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.VertexAiApiKeyAuth>? apiKey = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.VertexAiApiKeyAuth>? apiKey = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(VertexAiAuth other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAiApiKeyAuth?>.Default.Equals(ApiKey, other.ApiKey) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAiServiceAccountAuth?>.Default.Equals(ServiceAccount, other.ServiceAccount) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAiServiceAccountAuth?>.Default.Equals(ServiceAccount, other.ServiceAccount)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(VertexAiAuth obj1, VertexAiAuth obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(VertexAiAuth obj1, VertexAiAuth obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

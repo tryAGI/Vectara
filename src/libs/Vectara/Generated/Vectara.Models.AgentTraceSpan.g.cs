@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct AgentTraceSpan : global::System.IEquatable<AgentTraceSpan>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentTraceSpanDiscriminatorOperation? Operation { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InvokeAgent))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsInvokeAgent => InvokeAgent != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInvokeAgent(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.InvokeAgentTraceSpan PickInvokeAgent() => IsInvokeAgent
             ? InvokeAgent!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Chat))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsChat => Chat != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickChat(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ChatTraceSpan PickChat() => IsChat
             ? Chat!.Value
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ExecuteTool))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsExecuteTool => ExecuteTool != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickExecuteTool(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ExecuteToolTraceSpan PickExecuteTool() => IsExecuteTool
             ? ExecuteTool!.Value
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Thinking))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsThinking => Thinking != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickThinking(
 #if NET6_0_OR_GREATER
@@ -156,7 +156,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ThinkingTraceSpan PickThinking() => IsThinking
             ? Thinking!.Value
@@ -172,7 +172,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Output))]
@@ -180,7 +180,7 @@ namespace Vectara
         public bool IsOutput => Output != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOutput(
 #if NET6_0_OR_GREATER
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.OutputTraceSpan PickOutput() => IsOutput
             ? Output!.Value
@@ -209,7 +209,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StepTransition))]
@@ -217,7 +217,7 @@ namespace Vectara
         public bool IsStepTransition => StepTransition != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStepTransition(
 #if NET6_0_OR_GREATER
@@ -230,7 +230,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StepTransitionTraceSpan PickStepTransition() => IsStepTransition
             ? StepTransition!.Value
@@ -246,7 +246,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ImageRead))]
@@ -254,7 +254,7 @@ namespace Vectara
         public bool IsImageRead => ImageRead != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickImageRead(
 #if NET6_0_OR_GREATER
@@ -267,7 +267,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ImageReadTraceSpan PickImageRead() => IsImageRead
             ? ImageRead!.Value
@@ -283,7 +283,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Compaction))]
@@ -291,7 +291,7 @@ namespace Vectara
         public bool IsCompaction => Compaction != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCompaction(
 #if NET6_0_OR_GREATER
@@ -304,23 +304,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CompactionTraceSpan PickCompaction() => IsCompaction
             ? Compaction!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Compaction' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.InvokeAgentTraceSpan value) => new AgentTraceSpan((global::Vectara.InvokeAgentTraceSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.InvokeAgentTraceSpan?(AgentTraceSpan @this) => @this.InvokeAgent;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(global::Vectara.InvokeAgentTraceSpan? value)
         {
@@ -328,22 +328,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentTraceSpan FromInvokeAgent(global::Vectara.InvokeAgentTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.ChatTraceSpan value) => new AgentTraceSpan((global::Vectara.ChatTraceSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ChatTraceSpan?(AgentTraceSpan @this) => @this.Chat;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(global::Vectara.ChatTraceSpan? value)
         {
@@ -351,22 +351,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentTraceSpan FromChat(global::Vectara.ChatTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.ExecuteToolTraceSpan value) => new AgentTraceSpan((global::Vectara.ExecuteToolTraceSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ExecuteToolTraceSpan?(AgentTraceSpan @this) => @this.ExecuteTool;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(global::Vectara.ExecuteToolTraceSpan? value)
         {
@@ -374,22 +374,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentTraceSpan FromExecuteTool(global::Vectara.ExecuteToolTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.ThinkingTraceSpan value) => new AgentTraceSpan((global::Vectara.ThinkingTraceSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ThinkingTraceSpan?(AgentTraceSpan @this) => @this.Thinking;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(global::Vectara.ThinkingTraceSpan? value)
         {
@@ -397,22 +397,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentTraceSpan FromThinking(global::Vectara.ThinkingTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.OutputTraceSpan value) => new AgentTraceSpan((global::Vectara.OutputTraceSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.OutputTraceSpan?(AgentTraceSpan @this) => @this.Output;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(global::Vectara.OutputTraceSpan? value)
         {
@@ -420,22 +420,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentTraceSpan FromOutput(global::Vectara.OutputTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.StepTransitionTraceSpan value) => new AgentTraceSpan((global::Vectara.StepTransitionTraceSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StepTransitionTraceSpan?(AgentTraceSpan @this) => @this.StepTransition;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(global::Vectara.StepTransitionTraceSpan? value)
         {
@@ -443,22 +443,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentTraceSpan FromStepTransition(global::Vectara.StepTransitionTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.ImageReadTraceSpan value) => new AgentTraceSpan((global::Vectara.ImageReadTraceSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ImageReadTraceSpan?(AgentTraceSpan @this) => @this.ImageRead;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(global::Vectara.ImageReadTraceSpan? value)
         {
@@ -466,22 +466,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentTraceSpan FromImageRead(global::Vectara.ImageReadTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentTraceSpan(global::Vectara.CompactionTraceSpan value) => new AgentTraceSpan((global::Vectara.CompactionTraceSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CompactionTraceSpan?(AgentTraceSpan @this) => @this.Compaction;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(global::Vectara.CompactionTraceSpan? value)
         {
@@ -489,12 +489,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentTraceSpan FromCompaction(global::Vectara.CompactionTraceSpan? value) => new AgentTraceSpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentTraceSpan(
             global::Vectara.AgentTraceSpanDiscriminatorOperation? operation,
@@ -521,7 +521,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Compaction as object ??
@@ -531,11 +531,11 @@ namespace Vectara
             Thinking as object ??
             ExecuteTool as object ??
             Chat as object ??
-            InvokeAgent as object 
+            InvokeAgent as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             InvokeAgent?.ToString() ??
@@ -545,11 +545,11 @@ namespace Vectara
             Output?.ToString() ??
             StepTransition?.ToString() ??
             ImageRead?.ToString() ??
-            Compaction?.ToString() 
+            Compaction?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -557,7 +557,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.InvokeAgentTraceSpan?, TResult>? invokeAgent = null,
@@ -612,7 +612,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.InvokeAgentTraceSpan?>? invokeAgent = null,
@@ -672,7 +672,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.InvokeAgentTraceSpan?>? invokeAgent = null,
@@ -725,7 +725,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -758,7 +758,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(AgentTraceSpan other)
         {
@@ -770,12 +770,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.OutputTraceSpan?>.Default.Equals(Output, other.Output) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StepTransitionTraceSpan?>.Default.Equals(StepTransition, other.StepTransition) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageReadTraceSpan?>.Default.Equals(ImageRead, other.ImageRead) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionTraceSpan?>.Default.Equals(Compaction, other.Compaction) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionTraceSpan?>.Default.Equals(Compaction, other.Compaction)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(AgentTraceSpan obj1, AgentTraceSpan obj2)
         {
@@ -783,7 +783,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(AgentTraceSpan obj1, AgentTraceSpan obj2)
         {
@@ -791,7 +791,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

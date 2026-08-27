@@ -18,7 +18,7 @@ namespace Vectara
         public required object Value { get; set; }
 
         /// <summary>
-        /// Number of documents or parts (depending on the filter attribute level) that contain this value. For list-type attributes, a single document may contribute to multiple value counts.<br/>
+        /// Number of document parts (chunks) that contain this value. Document-level attribute values are stored on every part of their document, so a document with multiple parts contributes once per part, not once per document. For list-type attributes, each list element is counted independently.<br/>
         /// Example: 42
         /// </summary>
         /// <example>42</example>
@@ -40,7 +40,7 @@ namespace Vectara
         /// Example: contract
         /// </param>
         /// <param name="count">
-        /// Number of documents or parts (depending on the filter attribute level) that contain this value. For list-type attributes, a single document may contribute to multiple value counts.<br/>
+        /// Number of document parts (chunks) that contain this value. Document-level attribute values are stored on every part of their document, so a document with multiple parts contributes once per part, not once per document. For list-type attributes, each list element is counted independently.<br/>
         /// Example: 42
         /// </param>
 #if NET7_0_OR_GREATER

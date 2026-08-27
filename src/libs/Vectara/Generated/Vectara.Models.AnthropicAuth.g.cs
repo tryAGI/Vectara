@@ -5,12 +5,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// Authentication configuration for Anthropic LLM via direct Anthropic API (use RemoteAuth with header "x-api-key"), AWS Bedrock, or GCP Vertex AI Model Garden
+    /// Authentication configuration for Anthropic LLM via the direct Anthropic API (a `bearer` credential with the API key; a `header` credential with "x-api-key" is also accepted), AWS Bedrock, or GCP Vertex AI Model Garden
     /// </summary>
     public readonly partial struct AnthropicAuth : global::System.IEquatable<AnthropicAuth>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AnthropicAuthDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Bearer))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsBearer => Bearer != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBearer(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BearerAuth PickBearer() => IsBearer
             ? Bearer!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Header))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsHeader => Header != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickHeader(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.HeaderAuth PickHeader() => IsHeader
             ? Header!
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(BedrockStaticIam))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsBedrockStaticIam => BedrockStaticIam != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBedrockStaticIam(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BedrockStaticIAMAuth PickBedrockStaticIam() => IsBedrockStaticIam
             ? BedrockStaticIam!
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(BedrockApiKey))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsBedrockApiKey => BedrockApiKey != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBedrockApiKey(
 #if NET6_0_OR_GREATER
@@ -156,7 +156,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BedrockApiKeyAuth PickBedrockApiKey() => IsBedrockApiKey
             ? BedrockApiKey!
@@ -172,7 +172,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VertexServiceAccount))]
@@ -180,7 +180,7 @@ namespace Vectara
         public bool IsVertexServiceAccount => VertexServiceAccount != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickVertexServiceAccount(
 #if NET6_0_OR_GREATER
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexServiceAccountAuth PickVertexServiceAccount() => IsVertexServiceAccount
             ? VertexServiceAccount!
@@ -209,7 +209,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VertexAccessToken))]
@@ -217,7 +217,7 @@ namespace Vectara
         public bool IsVertexAccessToken => VertexAccessToken != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickVertexAccessToken(
 #if NET6_0_OR_GREATER
@@ -230,23 +230,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexAccessTokenAuth PickVertexAccessToken() => IsVertexAccessToken
             ? VertexAccessToken!
             : throw new global::System.InvalidOperationException($"Expected union variant 'VertexAccessToken' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.BearerAuth value) => new AnthropicAuth((global::Vectara.BearerAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BearerAuth?(AnthropicAuth @this) => @this.Bearer;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AnthropicAuth(global::Vectara.BearerAuth? value)
         {
@@ -254,22 +254,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AnthropicAuth FromBearer(global::Vectara.BearerAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.HeaderAuth value) => new AnthropicAuth((global::Vectara.HeaderAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.HeaderAuth?(AnthropicAuth @this) => @this.Header;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AnthropicAuth(global::Vectara.HeaderAuth? value)
         {
@@ -277,22 +277,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AnthropicAuth FromHeader(global::Vectara.HeaderAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.BedrockStaticIAMAuth value) => new AnthropicAuth((global::Vectara.BedrockStaticIAMAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BedrockStaticIAMAuth?(AnthropicAuth @this) => @this.BedrockStaticIam;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AnthropicAuth(global::Vectara.BedrockStaticIAMAuth? value)
         {
@@ -300,22 +300,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AnthropicAuth FromBedrockStaticIam(global::Vectara.BedrockStaticIAMAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.BedrockApiKeyAuth value) => new AnthropicAuth((global::Vectara.BedrockApiKeyAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BedrockApiKeyAuth?(AnthropicAuth @this) => @this.BedrockApiKey;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AnthropicAuth(global::Vectara.BedrockApiKeyAuth? value)
         {
@@ -323,22 +323,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AnthropicAuth FromBedrockApiKey(global::Vectara.BedrockApiKeyAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.VertexServiceAccountAuth value) => new AnthropicAuth((global::Vectara.VertexServiceAccountAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.VertexServiceAccountAuth?(AnthropicAuth @this) => @this.VertexServiceAccount;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AnthropicAuth(global::Vectara.VertexServiceAccountAuth? value)
         {
@@ -346,22 +346,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AnthropicAuth FromVertexServiceAccount(global::Vectara.VertexServiceAccountAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AnthropicAuth(global::Vectara.VertexAccessTokenAuth value) => new AnthropicAuth((global::Vectara.VertexAccessTokenAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.VertexAccessTokenAuth?(AnthropicAuth @this) => @this.VertexAccessToken;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AnthropicAuth(global::Vectara.VertexAccessTokenAuth? value)
         {
@@ -369,12 +369,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AnthropicAuth FromVertexAccessToken(global::Vectara.VertexAccessTokenAuth? value) => new AnthropicAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AnthropicAuth(
             global::Vectara.AnthropicAuthDiscriminatorType? type,
@@ -397,7 +397,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             VertexAccessToken as object ??
@@ -405,11 +405,11 @@ namespace Vectara
             BedrockApiKey as object ??
             BedrockStaticIam as object ??
             Header as object ??
-            Bearer as object 
+            Bearer as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Bearer?.ToString() ??
@@ -417,11 +417,11 @@ namespace Vectara
             BedrockStaticIam?.ToString() ??
             BedrockApiKey?.ToString() ??
             VertexServiceAccount?.ToString() ??
-            VertexAccessToken?.ToString() 
+            VertexAccessToken?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -429,7 +429,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BearerAuth, TResult>? bearer = null,
@@ -474,7 +474,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BearerAuth>? bearer = null,
@@ -522,7 +522,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BearerAuth>? bearer = null,
@@ -565,7 +565,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -594,7 +594,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(AnthropicAuth other)
         {
@@ -604,12 +604,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BedrockStaticIAMAuth?>.Default.Equals(BedrockStaticIam, other.BedrockStaticIam) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BedrockApiKeyAuth?>.Default.Equals(BedrockApiKey, other.BedrockApiKey) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexServiceAccountAuth?>.Default.Equals(VertexServiceAccount, other.VertexServiceAccount) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAccessTokenAuth?>.Default.Equals(VertexAccessToken, other.VertexAccessToken) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAccessTokenAuth?>.Default.Equals(VertexAccessToken, other.VertexAccessToken)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(AnthropicAuth obj1, AnthropicAuth obj2)
         {
@@ -617,7 +617,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(AnthropicAuth obj1, AnthropicAuth obj2)
         {
@@ -625,7 +625,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

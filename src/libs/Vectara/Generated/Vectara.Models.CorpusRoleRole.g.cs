@@ -9,19 +9,19 @@ namespace Vectara
     public enum CorpusRoleRole
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Administrator,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Editor,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Owner,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Viewer,
     }

@@ -10,11 +10,11 @@ namespace Vectara
     public enum MetadataQueryRequestLevel
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Document,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Part,
     }

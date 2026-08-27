@@ -84,6 +84,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ScimSourceConfiguration)}");
                 scim = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.DoceboSourceConfiguration? docebo = default;
+            if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Docebo)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.DoceboSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.DoceboSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.DoceboSourceConfiguration)}");
+                docebo = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.WebSourceConfiguration? web = default;
             if (discriminator?.Type == global::Vectara.PipelineSourceDiscriminatorType.Web)
             {
@@ -111,6 +118,8 @@ namespace Vectara.JsonConverters
                 fluidtopics,
 
                 scim,
+
+                docebo,
 
                 web
                 );
@@ -180,6 +189,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ScimSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ScimSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ScimSourceConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Scim!.Value, typeInfo);
+            }
+            else if (value.IsDocebo)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.DoceboSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.DoceboSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.DoceboSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Docebo!.Value, typeInfo);
             }
             else if (value.IsWeb)
             {

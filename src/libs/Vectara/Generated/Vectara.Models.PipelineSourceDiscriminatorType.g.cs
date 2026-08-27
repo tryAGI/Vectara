@@ -4,48 +4,52 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum PipelineSourceDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Box,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Confluence,
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        Docebo,
+        /// <summary>
+        ///
         /// </summary>
         Fluidtopics,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GoogleDrive,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         S3,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Scim,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Sharepoint,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Web,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WolkenForms,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WolkenKb,
     }
@@ -64,6 +68,7 @@ namespace Vectara
             {
                 PipelineSourceDiscriminatorType.Box => "box",
                 PipelineSourceDiscriminatorType.Confluence => "confluence",
+                PipelineSourceDiscriminatorType.Docebo => "docebo",
                 PipelineSourceDiscriminatorType.Fluidtopics => "fluidtopics",
                 PipelineSourceDiscriminatorType.GoogleDrive => "google_drive",
                 PipelineSourceDiscriminatorType.S3 => "s3",
@@ -84,6 +89,7 @@ namespace Vectara
             {
                 "box" => PipelineSourceDiscriminatorType.Box,
                 "confluence" => PipelineSourceDiscriminatorType.Confluence,
+                "docebo" => PipelineSourceDiscriminatorType.Docebo,
                 "fluidtopics" => PipelineSourceDiscriminatorType.Fluidtopics,
                 "google_drive" => PipelineSourceDiscriminatorType.GoogleDrive,
                 "s3" => PipelineSourceDiscriminatorType.S3,

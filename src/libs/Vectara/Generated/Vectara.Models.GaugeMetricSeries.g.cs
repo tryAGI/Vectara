@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.MetricSeriesBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GaugeMetricSeriesVariant2? GaugeMetricSeriesVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GaugeMetricSeriesVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsGaugeMetricSeriesVariant2 => GaugeMetricSeriesVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGaugeMetricSeriesVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GaugeMetricSeriesVariant2 PickGaugeMetricSeriesVariant2() => IsGaugeMetricSeriesVariant2
             ? GaugeMetricSeriesVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'GaugeMetricSeriesVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GaugeMetricSeries(global::Vectara.MetricSeriesBase value) => new GaugeMetricSeries((global::Vectara.MetricSeriesBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.MetricSeriesBase?(GaugeMetricSeries @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GaugeMetricSeries(global::Vectara.MetricSeriesBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GaugeMetricSeries FromBase(global::Vectara.MetricSeriesBase? value) => new GaugeMetricSeries(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GaugeMetricSeries(global::Vectara.GaugeMetricSeriesVariant2 value) => new GaugeMetricSeries((global::Vectara.GaugeMetricSeriesVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GaugeMetricSeriesVariant2?(GaugeMetricSeries @this) => @this.GaugeMetricSeriesVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GaugeMetricSeries(global::Vectara.GaugeMetricSeriesVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GaugeMetricSeries FromGaugeMetricSeriesVariant2(global::Vectara.GaugeMetricSeriesVariant2? value) => new GaugeMetricSeries(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GaugeMetricSeries(
             global::Vectara.MetricSeriesBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             GaugeMetricSeriesVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            GaugeMetricSeriesVariant2?.ToString() 
+            GaugeMetricSeriesVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.MetricSeriesBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.MetricSeriesBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.MetricSeriesBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(GaugeMetricSeries other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.MetricSeriesBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GaugeMetricSeriesVariant2?>.Default.Equals(GaugeMetricSeriesVariant2, other.GaugeMetricSeriesVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GaugeMetricSeriesVariant2?>.Default.Equals(GaugeMetricSeriesVariant2, other.GaugeMetricSeriesVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(GaugeMetricSeries obj1, GaugeMetricSeries obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(GaugeMetricSeries obj1, GaugeMetricSeries obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

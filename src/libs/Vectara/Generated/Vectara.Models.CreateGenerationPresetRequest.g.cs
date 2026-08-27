@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationPreset))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsGenerationPreset => GenerationPreset != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGenerationPreset(
 #if NET6_0_OR_GREATER
@@ -40,23 +40,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GenerationPreset PickGenerationPreset() => IsGenerationPreset
             ? GenerationPreset!
             : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationPreset' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateGenerationPresetRequest(global::Vectara.GenerationPreset value) => new CreateGenerationPresetRequest((global::Vectara.GenerationPreset?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GenerationPreset?(CreateGenerationPresetRequest @this) => @this.GenerationPreset;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateGenerationPresetRequest(global::Vectara.GenerationPreset? value)
         {
@@ -64,26 +64,26 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateGenerationPresetRequest FromGenerationPreset(global::Vectara.GenerationPreset? value) => new CreateGenerationPresetRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
-            GenerationPreset as object 
+            GenerationPreset as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
-            GenerationPreset?.ToString() 
+            GenerationPreset?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -91,7 +91,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.GenerationPreset, TResult>? generationPreset = null,
@@ -111,7 +111,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.GenerationPreset>? generationPreset = null,
@@ -129,7 +129,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.GenerationPreset>? generationPreset = null,
@@ -147,7 +147,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -166,17 +166,17 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateGenerationPresetRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GenerationPreset?>.Default.Equals(GenerationPreset, other.GenerationPreset) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GenerationPreset?>.Default.Equals(GenerationPreset, other.GenerationPreset)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateGenerationPresetRequest obj1, CreateGenerationPresetRequest obj2)
         {
@@ -184,7 +184,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateGenerationPresetRequest obj1, CreateGenerationPresetRequest obj2)
         {
@@ -192,7 +192,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

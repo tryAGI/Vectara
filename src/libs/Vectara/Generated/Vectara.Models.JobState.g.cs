@@ -9,31 +9,31 @@ namespace Vectara
     public enum JobState
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Aborted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Completed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Failed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         FailedWillRetry,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Queued,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Started,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Unknown,
     }

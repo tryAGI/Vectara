@@ -4,36 +4,36 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ListTracesToolErrorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         DependencyFailed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ExecutionError,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Forbidden,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidConfiguration,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InvalidInput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         NotFound,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Timeout,
     }

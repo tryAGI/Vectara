@@ -9,7 +9,7 @@ namespace Vectara
     public enum ListInstructionsType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Initial,
     }

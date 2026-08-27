@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListMetricsResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metrics")]
         [global::System.Text.Json.Serialization.JsonRequired]

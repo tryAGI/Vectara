@@ -10,11 +10,11 @@ namespace Vectara
     public enum LLMOwnership
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Customer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Platform,
     }

@@ -85,6 +85,12 @@ namespace Vectara
         /// Whether the connector is enabled.<br/>
         /// Example: false
         /// </param>
+        /// <param name="publicAccess">
+        /// Whether the connector admits anonymous visitors. Only accepted for<br/>
+        /// `widget` connectors; rejected for other types. Setting it to `false`<br/>
+        /// refuses every previously minted visitor id; the change takes effect within a few seconds.<br/>
+        /// Example: false
+        /// </param>
         /// <param name="configuration">
         /// Write view of a connector's configuration. Used when creating a connector<br/>
         /// and reused when updating one. Carries the secrets and inputs the customer<br/>
@@ -92,7 +98,8 @@ namespace Vectara
         /// appear in the read view:<br/>
         /// - Slack returns `webhook_path`<br/>
         /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`
+        /// - zoom returns the generated `connector_token` and `webhook_path`<br/>
+        /// - widget returns `bootstrap_path`
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -106,6 +113,7 @@ namespace Vectara
             string? description = default,
             object? metadata = default,
             bool? enabled = default,
+            bool? publicAccess = default,
             global::Vectara.CreateConnectorConfiguration? configuration = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);

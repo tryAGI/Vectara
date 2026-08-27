@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateEncoderRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OpenaiCompatible,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VllmCompatible,
     }

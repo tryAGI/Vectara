@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListEncodersResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("encoders")]
         public global::System.Collections.Generic.IList<global::Vectara.Encoder>? Encoders { get; set; }

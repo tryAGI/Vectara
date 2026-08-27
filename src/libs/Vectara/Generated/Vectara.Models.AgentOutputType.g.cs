@@ -4,21 +4,21 @@
 namespace Vectara
 {
     /// <summary>
-    /// A category of intermediate agent output a connector can hide from its channel via `hidden_output_types`. `tool_calls` is the agent's tool-call activity, `thinking` is the model's reasoning output, and `structured_output` is structured (JSON) payloads emitted by the agent. The final response is never one of these and is always posted.<br/>
+    /// A category of intermediate agent output. Connectors hide categories from their channel via `hidden_output_types`; widget connectors reveal categories to end users via `revealed_output_types`. `tool_calls` is the agent's tool-call activity, `thinking` is the model's reasoning output, and `structured_output` is structured (JSON) payloads emitted by the agent. The final response is never one of these and is always delivered.<br/>
     /// Example: tool_calls
     /// </summary>
     public enum AgentOutputType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StructuredOutput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Thinking,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ToolCalls,
     }

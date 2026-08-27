@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolConfigurationBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.DynamicVectaraToolConfigurationVariant2? DynamicVectaraToolConfigurationVariant2 { get; init; }
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(DynamicVectaraToolConfigurationVariant2))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsDynamicVectaraToolConfigurationVariant2 => DynamicVectaraToolConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDynamicVectaraToolConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.DynamicVectaraToolConfigurationVariant2 PickDynamicVectaraToolConfigurationVariant2() => IsDynamicVectaraToolConfigurationVariant2
             ? DynamicVectaraToolConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'DynamicVectaraToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator DynamicVectaraToolConfiguration(global::Vectara.ToolConfigurationBase value) => new DynamicVectaraToolConfiguration((global::Vectara.ToolConfigurationBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolConfigurationBase?(DynamicVectaraToolConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DynamicVectaraToolConfiguration(global::Vectara.ToolConfigurationBase? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static DynamicVectaraToolConfiguration FromBase(global::Vectara.ToolConfigurationBase? value) => new DynamicVectaraToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator DynamicVectaraToolConfiguration(global::Vectara.DynamicVectaraToolConfigurationVariant2 value) => new DynamicVectaraToolConfiguration((global::Vectara.DynamicVectaraToolConfigurationVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.DynamicVectaraToolConfigurationVariant2?(DynamicVectaraToolConfiguration @this) => @this.DynamicVectaraToolConfigurationVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DynamicVectaraToolConfiguration(global::Vectara.DynamicVectaraToolConfigurationVariant2? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static DynamicVectaraToolConfiguration FromDynamicVectaraToolConfigurationVariant2(global::Vectara.DynamicVectaraToolConfigurationVariant2? value) => new DynamicVectaraToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DynamicVectaraToolConfiguration(
             global::Vectara.ToolConfigurationBase? @base,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             DynamicVectaraToolConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            DynamicVectaraToolConfigurationVariant2?.ToString() 
+            DynamicVectaraToolConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ToolConfigurationBase, TResult>? @base = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(DynamicVectaraToolConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.DynamicVectaraToolConfigurationVariant2?>.Default.Equals(DynamicVectaraToolConfigurationVariant2, other.DynamicVectaraToolConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.DynamicVectaraToolConfigurationVariant2?>.Default.Equals(DynamicVectaraToolConfigurationVariant2, other.DynamicVectaraToolConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(DynamicVectaraToolConfiguration obj1, DynamicVectaraToolConfiguration obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(DynamicVectaraToolConfiguration obj1, DynamicVectaraToolConfiguration obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -11,7 +11,7 @@ namespace Vectara
     public readonly partial struct BulkUpdateDocumentMetadataResponse : global::System.IEquatable<BulkUpdateDocumentMetadataResponse>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BulkUpdateDocumentMetadataResponseDiscriminatorType? Type { get; }
 
@@ -25,7 +25,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Async))]
@@ -33,7 +33,7 @@ namespace Vectara
         public bool IsAsync => Async != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAsync(
 #if NET6_0_OR_GREATER
@@ -46,7 +46,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BulkUpdateDocumentMetadataAsyncResponse PickAsync() => IsAsync
             ? Async!.Value
@@ -62,7 +62,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Success))]
@@ -70,7 +70,7 @@ namespace Vectara
         public bool IsSuccess => Success != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSuccess(
 #if NET6_0_OR_GREATER
@@ -83,23 +83,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse PickSuccess() => IsSuccess
             ? Success!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Success' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator BulkUpdateDocumentMetadataResponse(global::Vectara.BulkUpdateDocumentMetadataAsyncResponse value) => new BulkUpdateDocumentMetadataResponse((global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?(BulkUpdateDocumentMetadataResponse @this) => @this.Async;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BulkUpdateDocumentMetadataResponse(global::Vectara.BulkUpdateDocumentMetadataAsyncResponse? value)
         {
@@ -107,22 +107,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static BulkUpdateDocumentMetadataResponse FromAsync(global::Vectara.BulkUpdateDocumentMetadataAsyncResponse? value) => new BulkUpdateDocumentMetadataResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator BulkUpdateDocumentMetadataResponse(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse value) => new BulkUpdateDocumentMetadataResponse((global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?(BulkUpdateDocumentMetadataResponse @this) => @this.Success;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BulkUpdateDocumentMetadataResponse(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse? value)
         {
@@ -130,12 +130,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static BulkUpdateDocumentMetadataResponse FromSuccess(global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse? value) => new BulkUpdateDocumentMetadataResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BulkUpdateDocumentMetadataResponse(
             global::Vectara.BulkUpdateDocumentMetadataResponseDiscriminatorType? type,
@@ -150,23 +150,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Success as object ??
-            Async as object 
+            Async as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Async?.ToString() ??
-            Success?.ToString() 
+            Success?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -174,7 +174,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?, TResult>? async = null,
@@ -199,7 +199,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?>? async = null,
@@ -223,7 +223,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?>? async = null,
@@ -246,7 +246,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -267,18 +267,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(BulkUpdateDocumentMetadataResponse other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkUpdateDocumentMetadataAsyncResponse?>.Default.Equals(Async, other.Async) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?>.Default.Equals(Success, other.Success) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponse?>.Default.Equals(Success, other.Success)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(BulkUpdateDocumentMetadataResponse obj1, BulkUpdateDocumentMetadataResponse obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(BulkUpdateDocumentMetadataResponse obj1, BulkUpdateDocumentMetadataResponse obj2)
         {
@@ -294,7 +294,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

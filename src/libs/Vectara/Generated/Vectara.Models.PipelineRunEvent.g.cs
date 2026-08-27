@@ -11,7 +11,7 @@ namespace Vectara
     public readonly partial struct PipelineRunEvent : global::System.IEquatable<PipelineRunEvent>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.PipelineRunEventDiscriminatorType? Type { get; }
 
@@ -25,7 +25,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(RunStarted))]
@@ -33,7 +33,7 @@ namespace Vectara
         public bool IsRunStarted => RunStarted != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRunStarted(
 #if NET6_0_OR_GREATER
@@ -46,7 +46,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RunStartedEvent PickRunStarted() => IsRunStarted
             ? RunStarted!.Value
@@ -63,7 +63,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(RunCompleted))]
@@ -71,7 +71,7 @@ namespace Vectara
         public bool IsRunCompleted => RunCompleted != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRunCompleted(
 #if NET6_0_OR_GREATER
@@ -84,7 +84,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RunCompletedEvent PickRunCompleted() => IsRunCompleted
             ? RunCompleted!.Value
@@ -105,7 +105,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(RecordProcessing))]
@@ -113,7 +113,7 @@ namespace Vectara
         public bool IsRecordProcessing => RecordProcessing != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRecordProcessing(
 #if NET6_0_OR_GREATER
@@ -126,7 +126,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RecordProcessingEvent PickRecordProcessing() => IsRecordProcessing
             ? RecordProcessing!.Value
@@ -142,7 +142,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WatermarkAdvanced))]
@@ -150,7 +150,7 @@ namespace Vectara
         public bool IsWatermarkAdvanced => WatermarkAdvanced != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWatermarkAdvanced(
 #if NET6_0_OR_GREATER
@@ -163,23 +163,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WatermarkAdvancedEvent PickWatermarkAdvanced() => IsWatermarkAdvanced
             ? WatermarkAdvanced!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WatermarkAdvanced' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineRunEvent(global::Vectara.RunStartedEvent value) => new PipelineRunEvent((global::Vectara.RunStartedEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.RunStartedEvent?(PipelineRunEvent @this) => @this.RunStarted;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineRunEvent(global::Vectara.RunStartedEvent? value)
         {
@@ -187,22 +187,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineRunEvent FromRunStarted(global::Vectara.RunStartedEvent? value) => new PipelineRunEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineRunEvent(global::Vectara.RunCompletedEvent value) => new PipelineRunEvent((global::Vectara.RunCompletedEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.RunCompletedEvent?(PipelineRunEvent @this) => @this.RunCompleted;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineRunEvent(global::Vectara.RunCompletedEvent? value)
         {
@@ -210,22 +210,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineRunEvent FromRunCompleted(global::Vectara.RunCompletedEvent? value) => new PipelineRunEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineRunEvent(global::Vectara.RecordProcessingEvent value) => new PipelineRunEvent((global::Vectara.RecordProcessingEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.RecordProcessingEvent?(PipelineRunEvent @this) => @this.RecordProcessing;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineRunEvent(global::Vectara.RecordProcessingEvent? value)
         {
@@ -233,22 +233,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineRunEvent FromRecordProcessing(global::Vectara.RecordProcessingEvent? value) => new PipelineRunEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineRunEvent(global::Vectara.WatermarkAdvancedEvent value) => new PipelineRunEvent((global::Vectara.WatermarkAdvancedEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WatermarkAdvancedEvent?(PipelineRunEvent @this) => @this.WatermarkAdvanced;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineRunEvent(global::Vectara.WatermarkAdvancedEvent? value)
         {
@@ -256,12 +256,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineRunEvent FromWatermarkAdvanced(global::Vectara.WatermarkAdvancedEvent? value) => new PipelineRunEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineRunEvent(
             global::Vectara.PipelineRunEventDiscriminatorType? type,
@@ -280,27 +280,27 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             WatermarkAdvanced as object ??
             RecordProcessing as object ??
             RunCompleted as object ??
-            RunStarted as object 
+            RunStarted as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             RunStarted?.ToString() ??
             RunCompleted?.ToString() ??
             RecordProcessing?.ToString() ??
-            WatermarkAdvanced?.ToString() 
+            WatermarkAdvanced?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -308,7 +308,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.RunStartedEvent?, TResult>? runStarted = null,
@@ -343,7 +343,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.RunStartedEvent?>? runStarted = null,
@@ -379,7 +379,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.RunStartedEvent?>? runStarted = null,
@@ -412,7 +412,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -437,7 +437,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(PipelineRunEvent other)
         {
@@ -445,12 +445,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.RunStartedEvent?>.Default.Equals(RunStarted, other.RunStarted) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.RunCompletedEvent?>.Default.Equals(RunCompleted, other.RunCompleted) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.RecordProcessingEvent?>.Default.Equals(RecordProcessing, other.RecordProcessing) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.WatermarkAdvancedEvent?>.Default.Equals(WatermarkAdvanced, other.WatermarkAdvanced) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WatermarkAdvancedEvent?>.Default.Equals(WatermarkAdvanced, other.WatermarkAdvanced)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(PipelineRunEvent obj1, PipelineRunEvent obj2)
         {
@@ -458,7 +458,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(PipelineRunEvent obj1, PipelineRunEvent obj2)
         {
@@ -466,7 +466,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {
