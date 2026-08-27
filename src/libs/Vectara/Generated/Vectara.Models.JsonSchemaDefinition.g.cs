@@ -11,7 +11,7 @@ namespace Vectara
     public readonly partial struct JsonSchemaDefinition : global::System.IEquatable<JsonSchemaDefinition>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.JsonSchemaDefinitionDiscriminatorType? Type { get; }
 
@@ -25,7 +25,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ObjectValue))]
@@ -33,7 +33,7 @@ namespace Vectara
         public bool IsObjectValue => ObjectValue != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickObjectValue(
 #if NET6_0_OR_GREATER
@@ -46,7 +46,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.JsonSchemaObject PickObjectValue() => IsObjectValue
             ? ObjectValue!.Value
@@ -62,7 +62,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Array))]
@@ -70,7 +70,7 @@ namespace Vectara
         public bool IsArray => Array != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickArray(
 #if NET6_0_OR_GREATER
@@ -83,23 +83,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.JsonSchemaValue PickArray() => IsArray
             ? Array!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Array' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator JsonSchemaDefinition(global::Vectara.JsonSchemaObject value) => new JsonSchemaDefinition((global::Vectara.JsonSchemaObject?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.JsonSchemaObject?(JsonSchemaDefinition @this) => @this.ObjectValue;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public JsonSchemaDefinition(global::Vectara.JsonSchemaObject? value)
         {
@@ -107,22 +107,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static JsonSchemaDefinition FromObjectValue(global::Vectara.JsonSchemaObject? value) => new JsonSchemaDefinition(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator JsonSchemaDefinition(global::Vectara.JsonSchemaValue value) => new JsonSchemaDefinition((global::Vectara.JsonSchemaValue?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.JsonSchemaValue?(JsonSchemaDefinition @this) => @this.Array;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public JsonSchemaDefinition(global::Vectara.JsonSchemaValue? value)
         {
@@ -130,12 +130,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static JsonSchemaDefinition FromArray(global::Vectara.JsonSchemaValue? value) => new JsonSchemaDefinition(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public JsonSchemaDefinition(
             global::Vectara.JsonSchemaDefinitionDiscriminatorType? type,
@@ -150,23 +150,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Array as object ??
-            ObjectValue as object 
+            ObjectValue as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             ObjectValue?.ToString() ??
-            Array?.ToString() 
+            Array?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -174,7 +174,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.JsonSchemaObject?, TResult>? objectValue = null,
@@ -199,7 +199,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.JsonSchemaObject?>? objectValue = null,
@@ -223,7 +223,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.JsonSchemaObject?>? objectValue = null,
@@ -246,7 +246,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -267,18 +267,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(JsonSchemaDefinition other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.JsonSchemaObject?>.Default.Equals(ObjectValue, other.ObjectValue) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.JsonSchemaValue?>.Default.Equals(Array, other.Array) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.JsonSchemaValue?>.Default.Equals(Array, other.Array)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(JsonSchemaDefinition obj1, JsonSchemaDefinition obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(JsonSchemaDefinition obj1, JsonSchemaDefinition obj2)
         {
@@ -294,7 +294,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

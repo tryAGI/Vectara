@@ -12,7 +12,7 @@ namespace Vectara
     public readonly partial struct PipelineVerification : global::System.IEquatable<PipelineVerification>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.PipelineVerificationDiscriminatorType? Type { get; }
 
@@ -28,7 +28,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Condition))]
@@ -36,7 +36,7 @@ namespace Vectara
         public bool IsCondition => Condition != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCondition(
 #if NET6_0_OR_GREATER
@@ -49,7 +49,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ConditionVerification PickCondition() => IsCondition
             ? Condition!
@@ -70,7 +70,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Agent))]
@@ -78,7 +78,7 @@ namespace Vectara
         public bool IsAgent => Agent != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgent(
 #if NET6_0_OR_GREATER
@@ -91,23 +91,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentVerification PickAgent() => IsAgent
             ? Agent!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Agent' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineVerification(global::Vectara.ConditionVerification value) => new PipelineVerification((global::Vectara.ConditionVerification?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ConditionVerification?(PipelineVerification @this) => @this.Condition;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineVerification(global::Vectara.ConditionVerification? value)
         {
@@ -115,22 +115,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineVerification FromCondition(global::Vectara.ConditionVerification? value) => new PipelineVerification(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator PipelineVerification(global::Vectara.AgentVerification value) => new PipelineVerification((global::Vectara.AgentVerification?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentVerification?(PipelineVerification @this) => @this.Agent;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineVerification(global::Vectara.AgentVerification? value)
         {
@@ -138,12 +138,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static PipelineVerification FromAgent(global::Vectara.AgentVerification? value) => new PipelineVerification(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PipelineVerification(
             global::Vectara.PipelineVerificationDiscriminatorType? type,
@@ -158,23 +158,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Agent as object ??
-            Condition as object 
+            Condition as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Condition?.ToString() ??
-            Agent?.ToString() 
+            Agent?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -182,7 +182,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ConditionVerification, TResult>? condition = null,
@@ -207,7 +207,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ConditionVerification>? condition = null,
@@ -231,7 +231,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ConditionVerification>? condition = null,
@@ -254,7 +254,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -275,18 +275,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(PipelineVerification other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ConditionVerification?>.Default.Equals(Condition, other.Condition) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentVerification?>.Default.Equals(Agent, other.Agent) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentVerification?>.Default.Equals(Agent, other.Agent)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(PipelineVerification obj1, PipelineVerification obj2)
         {
@@ -294,7 +294,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(PipelineVerification obj1, PipelineVerification obj2)
         {
@@ -302,7 +302,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

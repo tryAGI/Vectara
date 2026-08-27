@@ -17,7 +17,7 @@ namespace Vectara
         public string? Name { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
@@ -53,13 +53,22 @@ namespace Vectara
         public global::Vectara.PipelineSyncMode? SyncMode { get; set; }
 
         /// <summary>
-        /// 
+        /// Per-pipeline processing options. Each field overrides the service default for this pipeline<br/>
+        /// only. A field that is null or omitted keeps the service default. In an update, a provided<br/>
+        /// object replaces the stored options wholesale; it is not merged field-by-field. Send an<br/>
+        /// empty object to return to the service defaults.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("processing_options")]
+        public global::Vectara.PipelineProcessingOptions? ProcessingOptions { get; set; }
+
+        /// <summary>
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public global::System.Collections.Generic.Dictionary<string, string>? Metadata { get; set; }
@@ -93,6 +102,12 @@ namespace Vectara
         /// - `full_refresh`: Process all records from the source on each run.<br/>
         /// Default Value: incremental
         /// </param>
+        /// <param name="processingOptions">
+        /// Per-pipeline processing options. Each field overrides the service default for this pipeline<br/>
+        /// only. A field that is null or omitted keeps the service default. In an update, a provided<br/>
+        /// object replaces the stored options wholesale; it is not merged field-by-field. Send an<br/>
+        /// empty object to return to the service defaults.
+        /// </param>
         /// <param name="enabled"></param>
         /// <param name="metadata"></param>
 #if NET7_0_OR_GREATER
@@ -105,6 +120,7 @@ namespace Vectara
             global::Vectara.PipelineTrigger? trigger,
             global::Vectara.PipelineTransform? transform,
             global::Vectara.PipelineSyncMode? syncMode,
+            global::Vectara.PipelineProcessingOptions? processingOptions,
             bool? enabled,
             global::System.Collections.Generic.Dictionary<string, string>? metadata)
         {
@@ -114,6 +130,7 @@ namespace Vectara
             this.Trigger = trigger;
             this.Transform = transform;
             this.SyncMode = syncMode;
+            this.ProcessingOptions = processingOptions;
             this.Enabled = enabled;
             this.Metadata = metadata;
         }

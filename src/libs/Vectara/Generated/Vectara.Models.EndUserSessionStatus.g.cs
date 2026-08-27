@@ -12,15 +12,15 @@ namespace Vectara
     public enum EndUserSessionStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Running,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Stopped,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Unstarted,
     }

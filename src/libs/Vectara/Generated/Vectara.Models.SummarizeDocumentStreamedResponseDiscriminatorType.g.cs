@@ -4,28 +4,28 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum SummarizeDocumentStreamedResponseDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         End,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GenerationChunk,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GenerationEnd,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GenerationInfo,
     }

@@ -7,13 +7,12 @@ namespace Vectara
     /// Definition of a function to be executed as a tool in a sandboxed environment.<br/>
     /// **Python Environment:**<br/>
     /// - Python version: 3.12<br/>
-    /// - Execution: Sandboxed for security isolation<br/>
-    /// - **Allowed modules**: `json`, `math`, `datetime`, `collections`, `itertools`, `functools`, `re`, `time`, `typing`<br/>
-    /// - Memory limit: 100MB (configurable up to 1GB)<br/>
+    /// - Execution: isolated, with no network access<br/>
+    /// - **Preinstalled modules**: the standard library plus `numpy` and `pandas`<br/>
+    /// - Memory: fixed by the execution environment and not configurable per function<br/>
     /// - Execution timeout: 30 seconds (configurable up to 300 seconds)<br/>
-    /// - Network access: Disabled for security<br/>
-    /// - File system access: Read-only temporary workspace<br/>
-    /// - No custom package installation supported (security constraint)<br/>
+    /// - File system access: a writable temporary workspace, discarded after each execution<br/>
+    /// - No custom package installation supported<br/>
     /// **Type Annotations:**<br/>
     /// - Use type annotations for automatic input/output schema discovery<br/>
     /// - Supported typing constructs: `List`, `Dict`, `Optional`, `Union`, `Literal`<br/>

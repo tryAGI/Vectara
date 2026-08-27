@@ -25,7 +25,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -33,7 +33,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -46,14 +46,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StructuredOutputEventVariant2? StructuredOutputEventVariant2 { get; init; }
@@ -62,7 +62,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StructuredOutputEventVariant2))]
@@ -70,7 +70,7 @@ namespace Vectara
         public bool IsStructuredOutputEventVariant2 => StructuredOutputEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStructuredOutputEventVariant2(
 #if NET6_0_OR_GREATER
@@ -83,23 +83,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StructuredOutputEventVariant2 PickStructuredOutputEventVariant2() => IsStructuredOutputEventVariant2
             ? StructuredOutputEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutputEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator StructuredOutputEvent(global::Vectara.AgentEventBase value) => new StructuredOutputEvent((global::Vectara.AgentEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentEventBase?(StructuredOutputEvent @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public StructuredOutputEvent(global::Vectara.AgentEventBase? value)
         {
@@ -107,22 +107,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static StructuredOutputEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new StructuredOutputEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator StructuredOutputEvent(global::Vectara.StructuredOutputEventVariant2 value) => new StructuredOutputEvent((global::Vectara.StructuredOutputEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StructuredOutputEventVariant2?(StructuredOutputEvent @this) => @this.StructuredOutputEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public StructuredOutputEvent(global::Vectara.StructuredOutputEventVariant2? value)
         {
@@ -130,12 +130,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static StructuredOutputEvent FromStructuredOutputEventVariant2(global::Vectara.StructuredOutputEventVariant2? value) => new StructuredOutputEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public StructuredOutputEvent(
             global::Vectara.AgentEventBase? agentBase,
@@ -147,23 +147,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             StructuredOutputEventVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            StructuredOutputEventVariant2?.ToString() 
+            StructuredOutputEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -171,7 +171,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
@@ -196,7 +196,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -220,7 +220,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -243,7 +243,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -264,18 +264,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(StructuredOutputEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredOutputEventVariant2?>.Default.Equals(StructuredOutputEventVariant2, other.StructuredOutputEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredOutputEventVariant2?>.Default.Equals(StructuredOutputEventVariant2, other.StructuredOutputEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(StructuredOutputEvent obj1, StructuredOutputEvent obj2)
         {
@@ -283,7 +283,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(StructuredOutputEvent obj1, StructuredOutputEvent obj2)
         {
@@ -291,7 +291,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

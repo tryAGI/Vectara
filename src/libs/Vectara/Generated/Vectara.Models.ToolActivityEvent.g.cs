@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct ToolActivityEvent : global::System.IEquatable<ToolActivityEvent>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolActivityEventDiscriminatorActivityType? ActivityType { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Generic))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsGeneric => Generic != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGeneric(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GenericToolActivityEvent PickGeneric() => IsGeneric
             ? Generic!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SubAgent))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsSubAgent => SubAgent != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSubAgent(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SubAgentToolActivityEvent PickSubAgent() => IsSubAgent
             ? SubAgent!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgent' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ToolActivityEvent(global::Vectara.GenericToolActivityEvent value) => new ToolActivityEvent((global::Vectara.GenericToolActivityEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GenericToolActivityEvent?(ToolActivityEvent @this) => @this.Generic;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolActivityEvent(global::Vectara.GenericToolActivityEvent? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ToolActivityEvent FromGeneric(global::Vectara.GenericToolActivityEvent? value) => new ToolActivityEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ToolActivityEvent(global::Vectara.SubAgentToolActivityEvent value) => new ToolActivityEvent((global::Vectara.SubAgentToolActivityEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SubAgentToolActivityEvent?(ToolActivityEvent @this) => @this.SubAgent;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolActivityEvent(global::Vectara.SubAgentToolActivityEvent? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ToolActivityEvent FromSubAgent(global::Vectara.SubAgentToolActivityEvent? value) => new ToolActivityEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ToolActivityEvent(
             global::Vectara.ToolActivityEventDiscriminatorActivityType? activityType,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             SubAgent as object ??
-            Generic as object 
+            Generic as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Generic?.ToString() ??
-            SubAgent?.ToString() 
+            SubAgent?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.GenericToolActivityEvent?, TResult>? generic = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.GenericToolActivityEvent?>? generic = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.GenericToolActivityEvent?>? generic = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ToolActivityEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.GenericToolActivityEvent?>.Default.Equals(Generic, other.Generic) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SubAgentToolActivityEvent?>.Default.Equals(SubAgent, other.SubAgent) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SubAgentToolActivityEvent?>.Default.Equals(SubAgent, other.SubAgent)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ToolActivityEvent obj1, ToolActivityEvent obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ToolActivityEvent obj1, ToolActivityEvent obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

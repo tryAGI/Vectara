@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.SessionInterruptedEventVariant2? SessionInterruptedEventVariant2 { get; init; }
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SessionInterruptedEventVariant2))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsSessionInterruptedEventVariant2 => SessionInterruptedEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSessionInterruptedEventVariant2(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SessionInterruptedEventVariant2 PickSessionInterruptedEventVariant2() => IsSessionInterruptedEventVariant2
             ? SessionInterruptedEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'SessionInterruptedEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SessionInterruptedEvent(global::Vectara.AgentEventBase value) => new SessionInterruptedEvent((global::Vectara.AgentEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentEventBase?(SessionInterruptedEvent @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SessionInterruptedEvent(global::Vectara.AgentEventBase? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SessionInterruptedEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new SessionInterruptedEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SessionInterruptedEvent(global::Vectara.SessionInterruptedEventVariant2 value) => new SessionInterruptedEvent((global::Vectara.SessionInterruptedEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SessionInterruptedEventVariant2?(SessionInterruptedEvent @this) => @this.SessionInterruptedEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SessionInterruptedEvent(global::Vectara.SessionInterruptedEventVariant2? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SessionInterruptedEvent FromSessionInterruptedEventVariant2(global::Vectara.SessionInterruptedEventVariant2? value) => new SessionInterruptedEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SessionInterruptedEvent(
             global::Vectara.AgentEventBase? agentBase,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             SessionInterruptedEventVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            SessionInterruptedEventVariant2?.ToString() 
+            SessionInterruptedEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(SessionInterruptedEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.SessionInterruptedEventVariant2?>.Default.Equals(SessionInterruptedEventVariant2, other.SessionInterruptedEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SessionInterruptedEventVariant2?>.Default.Equals(SessionInterruptedEventVariant2, other.SessionInterruptedEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(SessionInterruptedEvent obj1, SessionInterruptedEvent obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(SessionInterruptedEvent obj1, SessionInterruptedEvent obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

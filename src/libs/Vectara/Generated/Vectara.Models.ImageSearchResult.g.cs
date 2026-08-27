@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SearchResultBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ImageSearchResultVariant2? ImageSearchResultVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ImageSearchResultVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsImageSearchResultVariant2 => ImageSearchResultVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickImageSearchResultVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ImageSearchResultVariant2 PickImageSearchResultVariant2() => IsImageSearchResultVariant2
             ? ImageSearchResultVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ImageSearchResultVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ImageSearchResult(global::Vectara.SearchResultBase value) => new ImageSearchResult((global::Vectara.SearchResultBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SearchResultBase?(ImageSearchResult @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ImageSearchResult(global::Vectara.SearchResultBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ImageSearchResult FromBase(global::Vectara.SearchResultBase? value) => new ImageSearchResult(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ImageSearchResult(global::Vectara.ImageSearchResultVariant2 value) => new ImageSearchResult((global::Vectara.ImageSearchResultVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ImageSearchResultVariant2?(ImageSearchResult @this) => @this.ImageSearchResultVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ImageSearchResult(global::Vectara.ImageSearchResultVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ImageSearchResult FromImageSearchResultVariant2(global::Vectara.ImageSearchResultVariant2? value) => new ImageSearchResult(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ImageSearchResult(
             global::Vectara.SearchResultBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ImageSearchResultVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            ImageSearchResultVariant2?.ToString() 
+            ImageSearchResultVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.SearchResultBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.SearchResultBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.SearchResultBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ImageSearchResult other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.SearchResultBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageSearchResultVariant2?>.Default.Equals(ImageSearchResultVariant2, other.ImageSearchResultVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageSearchResultVariant2?>.Default.Equals(ImageSearchResultVariant2, other.ImageSearchResultVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ImageSearchResult obj1, ImageSearchResult obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ImageSearchResult obj1, ImageSearchResult obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -6,7 +6,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class RecordProcessingEventVariant2
     {

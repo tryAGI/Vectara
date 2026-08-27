@@ -4,24 +4,24 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateLLMRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Anthropic,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OpenaiCompatible,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OpenaiResponses,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VertexAi,
     }

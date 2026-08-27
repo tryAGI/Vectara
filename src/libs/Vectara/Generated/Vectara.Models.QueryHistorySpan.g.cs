@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct QueryHistorySpan : global::System.IEquatable<QueryHistorySpan>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.QueryHistorySpanDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Rephrase))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsRephrase => Rephrase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRephrase(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RephraseSpan PickRephrase() => IsRephrase
             ? Rephrase!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Search))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsSearch => Search != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSearch(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SearchSpan PickSearch() => IsSearch
             ? Search!
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Rerank))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsRerank => Rerank != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRerank(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RerankSpan PickRerank() => IsRerank
             ? Rerank!
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Generation))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsGeneration => Generation != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGeneration(
 #if NET6_0_OR_GREATER
@@ -156,7 +156,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GenerationSpan PickGeneration() => IsGeneration
             ? Generation!
@@ -172,7 +172,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Fcs))]
@@ -180,7 +180,7 @@ namespace Vectara
         public bool IsFcs => Fcs != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickFcs(
 #if NET6_0_OR_GREATER
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.FactualConsistencyScoreSpan PickFcs() => IsFcs
             ? Fcs!
@@ -209,7 +209,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(RewrittenQuery))]
@@ -217,7 +217,7 @@ namespace Vectara
         public bool IsRewrittenQuery => RewrittenQuery != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRewrittenQuery(
 #if NET6_0_OR_GREATER
@@ -230,23 +230,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RewrittenQuerySpan PickRewrittenQuery() => IsRewrittenQuery
             ? RewrittenQuery!
             : throw new global::System.InvalidOperationException($"Expected union variant 'RewrittenQuery' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.RephraseSpan value) => new QueryHistorySpan((global::Vectara.RephraseSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.RephraseSpan?(QueryHistorySpan @this) => @this.Rephrase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistorySpan(global::Vectara.RephraseSpan? value)
         {
@@ -254,22 +254,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static QueryHistorySpan FromRephrase(global::Vectara.RephraseSpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.SearchSpan value) => new QueryHistorySpan((global::Vectara.SearchSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SearchSpan?(QueryHistorySpan @this) => @this.Search;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistorySpan(global::Vectara.SearchSpan? value)
         {
@@ -277,22 +277,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static QueryHistorySpan FromSearch(global::Vectara.SearchSpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.RerankSpan value) => new QueryHistorySpan((global::Vectara.RerankSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.RerankSpan?(QueryHistorySpan @this) => @this.Rerank;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistorySpan(global::Vectara.RerankSpan? value)
         {
@@ -300,22 +300,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static QueryHistorySpan FromRerank(global::Vectara.RerankSpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.GenerationSpan value) => new QueryHistorySpan((global::Vectara.GenerationSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GenerationSpan?(QueryHistorySpan @this) => @this.Generation;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistorySpan(global::Vectara.GenerationSpan? value)
         {
@@ -323,22 +323,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static QueryHistorySpan FromGeneration(global::Vectara.GenerationSpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.FactualConsistencyScoreSpan value) => new QueryHistorySpan((global::Vectara.FactualConsistencyScoreSpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.FactualConsistencyScoreSpan?(QueryHistorySpan @this) => @this.Fcs;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistorySpan(global::Vectara.FactualConsistencyScoreSpan? value)
         {
@@ -346,22 +346,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static QueryHistorySpan FromFcs(global::Vectara.FactualConsistencyScoreSpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator QueryHistorySpan(global::Vectara.RewrittenQuerySpan value) => new QueryHistorySpan((global::Vectara.RewrittenQuerySpan?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.RewrittenQuerySpan?(QueryHistorySpan @this) => @this.RewrittenQuery;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistorySpan(global::Vectara.RewrittenQuerySpan? value)
         {
@@ -369,12 +369,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static QueryHistorySpan FromRewrittenQuery(global::Vectara.RewrittenQuerySpan? value) => new QueryHistorySpan(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public QueryHistorySpan(
             global::Vectara.QueryHistorySpanDiscriminatorType? type,
@@ -397,7 +397,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             RewrittenQuery as object ??
@@ -405,11 +405,11 @@ namespace Vectara
             Generation as object ??
             Rerank as object ??
             Search as object ??
-            Rephrase as object 
+            Rephrase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Rephrase?.ToString() ??
@@ -417,11 +417,11 @@ namespace Vectara
             Rerank?.ToString() ??
             Generation?.ToString() ??
             Fcs?.ToString() ??
-            RewrittenQuery?.ToString() 
+            RewrittenQuery?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -429,7 +429,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.RephraseSpan, TResult>? rephrase = null,
@@ -474,7 +474,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.RephraseSpan>? rephrase = null,
@@ -522,7 +522,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.RephraseSpan>? rephrase = null,
@@ -565,7 +565,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -594,7 +594,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(QueryHistorySpan other)
         {
@@ -604,12 +604,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.RerankSpan?>.Default.Equals(Rerank, other.Rerank) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.GenerationSpan?>.Default.Equals(Generation, other.Generation) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.FactualConsistencyScoreSpan?>.Default.Equals(Fcs, other.Fcs) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.RewrittenQuerySpan?>.Default.Equals(RewrittenQuery, other.RewrittenQuery) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.RewrittenQuerySpan?>.Default.Equals(RewrittenQuery, other.RewrittenQuery)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(QueryHistorySpan obj1, QueryHistorySpan obj2)
         {
@@ -617,7 +617,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(QueryHistorySpan obj1, QueryHistorySpan obj2)
         {
@@ -625,7 +625,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

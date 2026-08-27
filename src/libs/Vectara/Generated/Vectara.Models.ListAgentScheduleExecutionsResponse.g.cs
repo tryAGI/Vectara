@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListAgentScheduleExecutionsResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("executions")]
         [global::System.Text.Json.Serialization.JsonRequired]

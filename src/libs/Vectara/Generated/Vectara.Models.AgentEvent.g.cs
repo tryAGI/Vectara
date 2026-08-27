@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct AgentEvent : global::System.IEquatable<AgentEvent>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InputMessage))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsInputMessage => InputMessage != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInputMessage(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.InputMessageEvent PickInputMessage() => IsInputMessage
             ? InputMessage!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SkillLoad))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsSkillLoad => SkillLoad != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSkillLoad(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SkillLoadEvent PickSkillLoad() => IsSkillLoad
             ? SkillLoad!.Value
@@ -101,7 +101,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ArtifactUpload))]
@@ -109,7 +109,7 @@ namespace Vectara
         public bool IsArtifactUpload => ArtifactUpload != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickArtifactUpload(
 #if NET6_0_OR_GREATER
@@ -122,7 +122,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ArtifactUploadEvent PickArtifactUpload() => IsArtifactUpload
             ? ArtifactUpload!.Value
@@ -138,7 +138,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolInput))]
@@ -146,7 +146,7 @@ namespace Vectara
         public bool IsToolInput => ToolInput != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickToolInput(
 #if NET6_0_OR_GREATER
@@ -159,7 +159,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolInputEvent PickToolInput() => IsToolInput
             ? ToolInput!.Value
@@ -175,7 +175,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolOutput))]
@@ -183,7 +183,7 @@ namespace Vectara
         public bool IsToolOutput => ToolOutput != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickToolOutput(
 #if NET6_0_OR_GREATER
@@ -196,7 +196,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolOutputEvent PickToolOutput() => IsToolOutput
             ? ToolOutput!.Value
@@ -212,7 +212,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Thinking))]
@@ -220,7 +220,7 @@ namespace Vectara
         public bool IsThinking => Thinking != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickThinking(
 #if NET6_0_OR_GREATER
@@ -233,7 +233,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ThinkingEvent PickThinking() => IsThinking
             ? Thinking!.Value
@@ -249,7 +249,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentOutput))]
@@ -257,7 +257,7 @@ namespace Vectara
         public bool IsAgentOutput => AgentOutput != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentOutput(
 #if NET6_0_OR_GREATER
@@ -270,7 +270,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentOutputEvent PickAgentOutput() => IsAgentOutput
             ? AgentOutput!.Value
@@ -292,7 +292,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StructuredOutput))]
@@ -300,7 +300,7 @@ namespace Vectara
         public bool IsStructuredOutput => StructuredOutput != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStructuredOutput(
 #if NET6_0_OR_GREATER
@@ -313,7 +313,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StructuredOutputEvent PickStructuredOutput() => IsStructuredOutput
             ? StructuredOutput!.Value
@@ -331,7 +331,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ContextLimitExceeded))]
@@ -339,7 +339,7 @@ namespace Vectara
         public bool IsContextLimitExceeded => ContextLimitExceeded != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickContextLimitExceeded(
 #if NET6_0_OR_GREATER
@@ -352,7 +352,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ContextLimitExceededEvent PickContextLimitExceeded() => IsContextLimitExceeded
             ? ContextLimitExceeded!.Value
@@ -370,7 +370,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StepTransitionLimitExceeded))]
@@ -378,7 +378,7 @@ namespace Vectara
         public bool IsStepTransitionLimitExceeded => StepTransitionLimitExceeded != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStepTransitionLimitExceeded(
 #if NET6_0_OR_GREATER
@@ -391,7 +391,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StepTransitionLimitExceededEvent PickStepTransitionLimitExceeded() => IsStepTransitionLimitExceeded
             ? StepTransitionLimitExceeded!.Value
@@ -408,7 +408,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SessionInterrupted))]
@@ -416,7 +416,7 @@ namespace Vectara
         public bool IsSessionInterrupted => SessionInterrupted != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSessionInterrupted(
 #if NET6_0_OR_GREATER
@@ -429,7 +429,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SessionInterruptedEvent PickSessionInterrupted() => IsSessionInterrupted
             ? SessionInterrupted!.Value
@@ -450,7 +450,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
@@ -458,7 +458,7 @@ namespace Vectara
         public bool IsError => Error != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickError(
 #if NET6_0_OR_GREATER
@@ -471,7 +471,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentErrorEvent PickError() => IsError
             ? Error!.Value
@@ -494,7 +494,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientToolPending))]
@@ -502,7 +502,7 @@ namespace Vectara
         public bool IsClientToolPending => ClientToolPending != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickClientToolPending(
 #if NET6_0_OR_GREATER
@@ -515,7 +515,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ClientToolPendingEvent PickClientToolPending() => IsClientToolPending
             ? ClientToolPending!.Value
@@ -531,7 +531,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ImageRead))]
@@ -539,7 +539,7 @@ namespace Vectara
         public bool IsImageRead => ImageRead != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickImageRead(
 #if NET6_0_OR_GREATER
@@ -552,7 +552,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ImageReadEvent PickImageRead() => IsImageRead
             ? ImageRead!.Value
@@ -568,7 +568,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StepTransition))]
@@ -576,7 +576,7 @@ namespace Vectara
         public bool IsStepTransition => StepTransition != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStepTransition(
 #if NET6_0_OR_GREATER
@@ -589,7 +589,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StepTransitionEvent PickStepTransition() => IsStepTransition
             ? StepTransition!.Value
@@ -605,7 +605,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Compaction))]
@@ -613,7 +613,7 @@ namespace Vectara
         public bool IsCompaction => Compaction != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCompaction(
 #if NET6_0_OR_GREATER
@@ -626,23 +626,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CompactionEvent PickCompaction() => IsCompaction
             ? Compaction!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Compaction' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.InputMessageEvent value) => new AgentEvent((global::Vectara.InputMessageEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.InputMessageEvent?(AgentEvent @this) => @this.InputMessage;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.InputMessageEvent? value)
         {
@@ -650,22 +650,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromInputMessage(global::Vectara.InputMessageEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.SkillLoadEvent value) => new AgentEvent((global::Vectara.SkillLoadEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SkillLoadEvent?(AgentEvent @this) => @this.SkillLoad;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.SkillLoadEvent? value)
         {
@@ -673,22 +673,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromSkillLoad(global::Vectara.SkillLoadEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ArtifactUploadEvent value) => new AgentEvent((global::Vectara.ArtifactUploadEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ArtifactUploadEvent?(AgentEvent @this) => @this.ArtifactUpload;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.ArtifactUploadEvent? value)
         {
@@ -696,22 +696,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromArtifactUpload(global::Vectara.ArtifactUploadEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ToolInputEvent value) => new AgentEvent((global::Vectara.ToolInputEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolInputEvent?(AgentEvent @this) => @this.ToolInput;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.ToolInputEvent? value)
         {
@@ -719,22 +719,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromToolInput(global::Vectara.ToolInputEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ToolOutputEvent value) => new AgentEvent((global::Vectara.ToolOutputEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolOutputEvent?(AgentEvent @this) => @this.ToolOutput;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.ToolOutputEvent? value)
         {
@@ -742,22 +742,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromToolOutput(global::Vectara.ToolOutputEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ThinkingEvent value) => new AgentEvent((global::Vectara.ThinkingEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ThinkingEvent?(AgentEvent @this) => @this.Thinking;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.ThinkingEvent? value)
         {
@@ -765,22 +765,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromThinking(global::Vectara.ThinkingEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.AgentOutputEvent value) => new AgentEvent((global::Vectara.AgentOutputEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentOutputEvent?(AgentEvent @this) => @this.AgentOutput;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.AgentOutputEvent? value)
         {
@@ -788,22 +788,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromAgentOutput(global::Vectara.AgentOutputEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.StructuredOutputEvent value) => new AgentEvent((global::Vectara.StructuredOutputEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StructuredOutputEvent?(AgentEvent @this) => @this.StructuredOutput;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.StructuredOutputEvent? value)
         {
@@ -811,22 +811,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromStructuredOutput(global::Vectara.StructuredOutputEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ContextLimitExceededEvent value) => new AgentEvent((global::Vectara.ContextLimitExceededEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ContextLimitExceededEvent?(AgentEvent @this) => @this.ContextLimitExceeded;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.ContextLimitExceededEvent? value)
         {
@@ -834,22 +834,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromContextLimitExceeded(global::Vectara.ContextLimitExceededEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.StepTransitionLimitExceededEvent value) => new AgentEvent((global::Vectara.StepTransitionLimitExceededEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StepTransitionLimitExceededEvent?(AgentEvent @this) => @this.StepTransitionLimitExceeded;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.StepTransitionLimitExceededEvent? value)
         {
@@ -857,22 +857,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromStepTransitionLimitExceeded(global::Vectara.StepTransitionLimitExceededEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.SessionInterruptedEvent value) => new AgentEvent((global::Vectara.SessionInterruptedEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SessionInterruptedEvent?(AgentEvent @this) => @this.SessionInterrupted;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.SessionInterruptedEvent? value)
         {
@@ -880,22 +880,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromSessionInterrupted(global::Vectara.SessionInterruptedEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.AgentErrorEvent value) => new AgentEvent((global::Vectara.AgentErrorEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentErrorEvent?(AgentEvent @this) => @this.Error;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.AgentErrorEvent? value)
         {
@@ -903,22 +903,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromError(global::Vectara.AgentErrorEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ClientToolPendingEvent value) => new AgentEvent((global::Vectara.ClientToolPendingEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ClientToolPendingEvent?(AgentEvent @this) => @this.ClientToolPending;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.ClientToolPendingEvent? value)
         {
@@ -926,22 +926,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromClientToolPending(global::Vectara.ClientToolPendingEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.ImageReadEvent value) => new AgentEvent((global::Vectara.ImageReadEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ImageReadEvent?(AgentEvent @this) => @this.ImageRead;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.ImageReadEvent? value)
         {
@@ -949,22 +949,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromImageRead(global::Vectara.ImageReadEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.StepTransitionEvent value) => new AgentEvent((global::Vectara.StepTransitionEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StepTransitionEvent?(AgentEvent @this) => @this.StepTransition;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.StepTransitionEvent? value)
         {
@@ -972,22 +972,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromStepTransition(global::Vectara.StepTransitionEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentEvent(global::Vectara.CompactionEvent value) => new AgentEvent((global::Vectara.CompactionEvent?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CompactionEvent?(AgentEvent @this) => @this.Compaction;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(global::Vectara.CompactionEvent? value)
         {
@@ -995,12 +995,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentEvent FromCompaction(global::Vectara.CompactionEvent? value) => new AgentEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentEvent(
             global::Vectara.AgentEventDiscriminatorType? type,
@@ -1043,7 +1043,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Compaction as object ??
@@ -1061,11 +1061,11 @@ namespace Vectara
             ToolInput as object ??
             ArtifactUpload as object ??
             SkillLoad as object ??
-            InputMessage as object 
+            InputMessage as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             InputMessage?.ToString() ??
@@ -1083,11 +1083,11 @@ namespace Vectara
             ClientToolPending?.ToString() ??
             ImageRead?.ToString() ??
             StepTransition?.ToString() ??
-            Compaction?.ToString() 
+            Compaction?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -1095,7 +1095,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.InputMessageEvent?, TResult>? inputMessage = null,
@@ -1190,7 +1190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.InputMessageEvent?>? inputMessage = null,
@@ -1298,7 +1298,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.InputMessageEvent?>? inputMessage = null,
@@ -1391,7 +1391,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -1440,7 +1440,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(AgentEvent other)
         {
@@ -1460,12 +1460,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolPendingEvent?>.Default.Equals(ClientToolPending, other.ClientToolPending) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageReadEvent?>.Default.Equals(ImageRead, other.ImageRead) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StepTransitionEvent?>.Default.Equals(StepTransition, other.StepTransition) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionEvent?>.Default.Equals(Compaction, other.Compaction) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CompactionEvent?>.Default.Equals(Compaction, other.Compaction)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(AgentEvent obj1, AgentEvent obj2)
         {
@@ -1473,7 +1473,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(AgentEvent obj1, AgentEvent obj2)
         {
@@ -1481,7 +1481,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

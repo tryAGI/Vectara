@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GetOAuthTokenRequest
     {
@@ -23,7 +23,7 @@ namespace Vectara
         public required string ClientSecret { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <default>"client_credentials"</default>
         [global::System.Text.Json.Serialization.JsonPropertyName("grant_type")]

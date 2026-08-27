@@ -4,100 +4,100 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AgentStreamedResponseDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ArtifactUpload,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ClientToolPending,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Compaction,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         CompactionStarted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ContextConsumed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ContextLimitExceeded,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         End,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ImageRead,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InputMessage,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SessionInterrupted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SkillLoad,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StepTransition,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StepTransitionLimitExceeded,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StreamingAgentOutput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StreamingAgentOutputEnd,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StreamingThinking,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StreamingThinkingEnd,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StructuredOutput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Thinking,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ToolActivity,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ToolInput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ToolOutput,
     }

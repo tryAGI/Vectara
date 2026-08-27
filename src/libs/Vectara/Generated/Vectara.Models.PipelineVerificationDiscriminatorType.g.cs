@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum PipelineVerificationDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Agent,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Condition,
     }

@@ -4,44 +4,44 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum LLMAuthDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ApiKey,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Bearer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         BedrockApiKey,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         BedrockStaticIam,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Header,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         OauthClientCredentials,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ServiceAccount,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VertexAccessToken,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VertexServiceAccount,
     }

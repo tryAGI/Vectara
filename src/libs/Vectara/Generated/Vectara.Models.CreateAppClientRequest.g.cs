@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CreateAppClientRequest : global::System.IEquatable<CreateAppClientRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateAppClientRequestDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientCredentials))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsClientCredentials => ClientCredentials != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickClientCredentials(
 #if NET6_0_OR_GREATER
@@ -45,23 +45,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateClientCredentialsRequest PickClientCredentials() => IsClientCredentials
             ? ClientCredentials!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ClientCredentials' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateAppClientRequest(global::Vectara.CreateClientCredentialsRequest value) => new CreateAppClientRequest((global::Vectara.CreateClientCredentialsRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateClientCredentialsRequest?(CreateAppClientRequest @this) => @this.ClientCredentials;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateAppClientRequest(global::Vectara.CreateClientCredentialsRequest? value)
         {
@@ -69,12 +69,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateAppClientRequest FromClientCredentials(global::Vectara.CreateClientCredentialsRequest? value) => new CreateAppClientRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateAppClientRequest(
             global::Vectara.CreateAppClientRequestDiscriminatorType? type,
@@ -87,21 +87,21 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
-            ClientCredentials as object 
+            ClientCredentials as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
-            ClientCredentials?.ToString() 
+            ClientCredentials?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -109,7 +109,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateClientCredentialsRequest, TResult>? clientCredentials = null,
@@ -129,7 +129,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateClientCredentialsRequest>? clientCredentials = null,
@@ -147,7 +147,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateClientCredentialsRequest>? clientCredentials = null,
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -184,17 +184,17 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateAppClientRequest other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateClientCredentialsRequest?>.Default.Equals(ClientCredentials, other.ClientCredentials) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateClientCredentialsRequest?>.Default.Equals(ClientCredentials, other.ClientCredentials)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateAppClientRequest obj1, CreateAppClientRequest obj2)
         {
@@ -202,7 +202,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateAppClientRequest obj1, CreateAppClientRequest obj2)
         {
@@ -210,7 +210,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

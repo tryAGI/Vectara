@@ -10,15 +10,15 @@ namespace Vectara
     public enum CompactionConfigToolEventPolicy
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Exclude,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         IncludeAll,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         IncludeOutputs,
     }

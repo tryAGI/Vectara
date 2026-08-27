@@ -9,27 +9,27 @@ namespace Vectara
     public enum JobProgressPhase
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Completed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         CuttingOver,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Importing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Preparing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ReplayingJournals,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Scanning,
     }

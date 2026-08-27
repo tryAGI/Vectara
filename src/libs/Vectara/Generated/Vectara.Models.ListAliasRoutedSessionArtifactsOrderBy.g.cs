@@ -9,11 +9,11 @@ namespace Vectara
     public enum ListAliasRoutedSessionArtifactsOrderBy
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Asc,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Desc,
     }

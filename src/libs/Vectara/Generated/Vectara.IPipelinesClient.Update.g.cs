@@ -78,6 +78,12 @@ namespace Vectara
         /// - `full_refresh`: Process all records from the source on each run.<br/>
         /// Default Value: incremental
         /// </param>
+        /// <param name="processingOptions">
+        /// Per-pipeline processing options. Each field overrides the service default for this pipeline<br/>
+        /// only. A field that is null or omitted keeps the service default. In an update, a provided<br/>
+        /// object replaces the stored options wholesale; it is not merged field-by-field. Send an<br/>
+        /// empty object to return to the service defaults.
+        /// </param>
         /// <param name="enabled"></param>
         /// <param name="metadata"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -93,6 +99,7 @@ namespace Vectara
             global::Vectara.PipelineTrigger? trigger = default,
             global::Vectara.PipelineTransform? transform = default,
             global::Vectara.PipelineSyncMode? syncMode = default,
+            global::Vectara.PipelineProcessingOptions? processingOptions = default,
             bool? enabled = default,
             global::System.Collections.Generic.Dictionary<string, string>? metadata = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

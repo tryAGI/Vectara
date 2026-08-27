@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolConfigurationBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.WebGetToolConfigurationVariant2? WebGetToolConfigurationVariant2 { get; init; }
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WebGetToolConfigurationVariant2))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsWebGetToolConfigurationVariant2 => WebGetToolConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWebGetToolConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetToolConfigurationVariant2 PickWebGetToolConfigurationVariant2() => IsWebGetToolConfigurationVariant2
             ? WebGetToolConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'WebGetToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetToolConfiguration(global::Vectara.ToolConfigurationBase value) => new WebGetToolConfiguration((global::Vectara.ToolConfigurationBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolConfigurationBase?(WebGetToolConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetToolConfiguration(global::Vectara.ToolConfigurationBase? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetToolConfiguration FromBase(global::Vectara.ToolConfigurationBase? value) => new WebGetToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetToolConfiguration(global::Vectara.WebGetToolConfigurationVariant2 value) => new WebGetToolConfiguration((global::Vectara.WebGetToolConfigurationVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetToolConfigurationVariant2?(WebGetToolConfiguration @this) => @this.WebGetToolConfigurationVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetToolConfiguration(global::Vectara.WebGetToolConfigurationVariant2? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetToolConfiguration FromWebGetToolConfigurationVariant2(global::Vectara.WebGetToolConfigurationVariant2? value) => new WebGetToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetToolConfiguration(
             global::Vectara.ToolConfigurationBase? @base,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             WebGetToolConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            WebGetToolConfigurationVariant2?.ToString() 
+            WebGetToolConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ToolConfigurationBase, TResult>? @base = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(WebGetToolConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetToolConfigurationVariant2?>.Default.Equals(WebGetToolConfigurationVariant2, other.WebGetToolConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetToolConfigurationVariant2?>.Default.Equals(WebGetToolConfigurationVariant2, other.WebGetToolConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(WebGetToolConfiguration obj1, WebGetToolConfiguration obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(WebGetToolConfiguration obj1, WebGetToolConfiguration obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

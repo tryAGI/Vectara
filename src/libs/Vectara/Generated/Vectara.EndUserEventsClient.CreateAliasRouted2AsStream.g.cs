@@ -13,11 +13,11 @@ namespace Vectara
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
                 {                    new global::Vectara.EndPointAuthorizationRequirement
                     {
-                        Type = "ApiKey",
-                        SchemeId = "ApiKeyAuth",
+                        Type = "OAuth2",
+                        SchemeId = "OAuth2",
                         Location = "Header",
-                        Name = "x-api-key",
-                        FriendlyName = "ApiKeyInHeader",
+                        Name = "",
+                        FriendlyName = "OAuth2",
                     },
                 },
             };
@@ -28,11 +28,26 @@ namespace Vectara
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
                 {                    new global::Vectara.EndPointAuthorizationRequirement
                     {
-                        Type = "OAuth2",
-                        SchemeId = "OAuth2",
+                        Type = "ApiKey",
+                        SchemeId = "VisitorToken",
                         Location = "Header",
-                        Name = "",
-                        FriendlyName = "OAuth2",
+                        Name = "X-Visitor-Id",
+                        FriendlyName = "VisitorToken",
+                    },
+                },
+            };
+
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRouted2AsStreamSecurityRequirement2 =
+            new global::Vectara.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
+                {                    new global::Vectara.EndPointAuthorizationRequirement
+                    {
+                        Type = "Http",
+                        SchemeId = "FederatedSignIn",
+                        Location = "Header",
+                        Name = "Bearer",
+                        FriendlyName = "Bearer",
                     },
                 },
             };
@@ -40,11 +55,13 @@ namespace Vectara
             new global::Vectara.EndPointSecurityRequirement[]
             {                s_CreateAliasRouted2AsStreamSecurityRequirement0,
                 s_CreateAliasRouted2AsStreamSecurityRequirement1,
+                s_CreateAliasRouted2AsStreamSecurityRequirement2,
             };
         partial void PrepareCreateAliasRouted2AsStreamArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
+            ref string? xVisitorId,
             ref string aliasKey,
             ref string sessionKey,
             global::Vectara.CreateEndUserInputRequest request);
@@ -53,6 +70,7 @@ namespace Vectara
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
+            string? xVisitorId,
             string aliasKey,
             string sessionKey,
             global::Vectara.CreateEndUserInputRequest request);
@@ -64,10 +82,13 @@ namespace Vectara
         /// Create end user input for alias<br/>
         /// Sends a message, an interrupt, or a client tool output to a session the caller owns, addressed by the alias it was created through.<br/>
         /// Returns 403 if the session belongs to a different principal.<br/>
-        /// The response is projected to the caller's end-user visibility — see `EndUserEvent`.
+        /// The response is projected to the caller's end-user visibility — see `EndUserEvent`.<br/>
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
+        /// Returns `429` when the caller reaches its hourly event cap.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="xVisitorId"></param>
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
@@ -87,6 +108,7 @@ namespace Vectara
             global::Vectara.CreateEndUserInputRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? xVisitorId = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -96,6 +118,7 @@ namespace Vectara
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
+                xVisitorId: ref xVisitorId,
                 aliasKey: ref aliasKey,
                 sessionKey: ref sessionKey,
                 request: request);
@@ -157,7 +180,7 @@ namespace Vectara
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
 
             if (requestTimeout != default)
@@ -167,6 +190,10 @@ namespace Vectara
             if (requestTimeoutMillis != default)
             {
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
+            }
+            if (xVisitorId != default)
+            {
+                __httpRequest.Headers.TryAddWithoutValidation("X-Visitor-Id", xVisitorId.ToString());
             }
 
                             var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
@@ -188,9 +215,12 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
+                    xVisitorId: xVisitorId,
                     aliasKey: aliasKey!,
                     sessionKey: sessionKey!,
                     request: request);
+
+                global::Vectara.AutoSDKHttpRequestOptions.StampAuthorizationOverride(__httpRequest);
 
                 return __httpRequest;
             }

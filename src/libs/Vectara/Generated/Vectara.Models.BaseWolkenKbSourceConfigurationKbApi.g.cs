@@ -14,11 +14,11 @@ namespace Vectara
     public enum BaseWolkenKbSourceConfigurationKbApi
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         DataApi,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         KbModule,
     }

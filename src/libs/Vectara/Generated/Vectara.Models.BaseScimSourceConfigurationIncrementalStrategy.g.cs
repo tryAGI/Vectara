@@ -15,11 +15,11 @@ namespace Vectara
     public enum BaseScimSourceConfigurationIncrementalStrategy
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ClientSide,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         LastModifiedFilter,
     }

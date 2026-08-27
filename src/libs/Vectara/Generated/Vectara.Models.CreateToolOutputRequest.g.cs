@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CreateToolOutputRequest : global::System.IEquatable<CreateToolOutputRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateToolOutputRequestDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Success))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsSuccess => Success != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSuccess(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateToolOutputSuccess PickSuccess() => IsSuccess
             ? Success!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsError => Error != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickError(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateToolOutputError PickError() => IsError
             ? Error!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateToolOutputRequest(global::Vectara.CreateToolOutputSuccess value) => new CreateToolOutputRequest((global::Vectara.CreateToolOutputSuccess?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateToolOutputSuccess?(CreateToolOutputRequest @this) => @this.Success;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateToolOutputRequest(global::Vectara.CreateToolOutputSuccess? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateToolOutputRequest FromSuccess(global::Vectara.CreateToolOutputSuccess? value) => new CreateToolOutputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateToolOutputRequest(global::Vectara.CreateToolOutputError value) => new CreateToolOutputRequest((global::Vectara.CreateToolOutputError?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateToolOutputError?(CreateToolOutputRequest @this) => @this.Error;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateToolOutputRequest(global::Vectara.CreateToolOutputError? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateToolOutputRequest FromError(global::Vectara.CreateToolOutputError? value) => new CreateToolOutputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateToolOutputRequest(
             global::Vectara.CreateToolOutputRequestDiscriminatorType? type,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Error as object ??
-            Success as object 
+            Success as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Success?.ToString() ??
-            Error?.ToString() 
+            Error?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateToolOutputSuccess?, TResult>? success = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateToolOutputSuccess?>? success = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateToolOutputSuccess?>? success = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateToolOutputRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateToolOutputSuccess?>.Default.Equals(Success, other.Success) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateToolOutputError?>.Default.Equals(Error, other.Error) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateToolOutputError?>.Default.Equals(Error, other.Error)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateToolOutputRequest obj1, CreateToolOutputRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateToolOutputRequest obj1, CreateToolOutputRequest obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -4,24 +4,24 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateInputRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Compact,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InputMessage,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Interrupt,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ToolOutput,
     }

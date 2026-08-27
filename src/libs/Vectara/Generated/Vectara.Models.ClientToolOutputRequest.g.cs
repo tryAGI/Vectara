@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateInputBase))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsCreateInputBase => CreateInputBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCreateInputBase(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateInputRequestBase PickCreateInputBase() => IsCreateInputBase
             ? CreateInputBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateInputBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ClientToolOutputRequestVariant2? ClientToolOutputRequestVariant2 { get; init; }
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientToolOutputRequestVariant2))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsClientToolOutputRequestVariant2 => ClientToolOutputRequestVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickClientToolOutputRequestVariant2(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ClientToolOutputRequestVariant2 PickClientToolOutputRequestVariant2() => IsClientToolOutputRequestVariant2
             ? ClientToolOutputRequestVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ClientToolOutputRequestVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ClientToolOutputRequest(global::Vectara.CreateInputRequestBase value) => new ClientToolOutputRequest((global::Vectara.CreateInputRequestBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateInputRequestBase?(ClientToolOutputRequest @this) => @this.CreateInputBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ClientToolOutputRequest(global::Vectara.CreateInputRequestBase? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ClientToolOutputRequest FromCreateInputBase(global::Vectara.CreateInputRequestBase? value) => new ClientToolOutputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ClientToolOutputRequest(global::Vectara.ClientToolOutputRequestVariant2 value) => new ClientToolOutputRequest((global::Vectara.ClientToolOutputRequestVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ClientToolOutputRequestVariant2?(ClientToolOutputRequest @this) => @this.ClientToolOutputRequestVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ClientToolOutputRequest(global::Vectara.ClientToolOutputRequestVariant2? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ClientToolOutputRequest FromClientToolOutputRequestVariant2(global::Vectara.ClientToolOutputRequestVariant2? value) => new ClientToolOutputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ClientToolOutputRequest(
             global::Vectara.CreateInputRequestBase? createInputBase,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ClientToolOutputRequestVariant2 as object ??
-            CreateInputBase as object 
+            CreateInputBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             CreateInputBase?.ToString() ??
-            ClientToolOutputRequestVariant2?.ToString() 
+            ClientToolOutputRequestVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateInputRequestBase, TResult>? createInputBase = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateInputRequestBase>? createInputBase = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateInputRequestBase>? createInputBase = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ClientToolOutputRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInputRequestBase?>.Default.Equals(CreateInputBase, other.CreateInputBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolOutputRequestVariant2?>.Default.Equals(ClientToolOutputRequestVariant2, other.ClientToolOutputRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolOutputRequestVariant2?>.Default.Equals(ClientToolOutputRequestVariant2, other.ClientToolOutputRequestVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ClientToolOutputRequest obj1, ClientToolOutputRequest obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ClientToolOutputRequest obj1, ClientToolOutputRequest obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

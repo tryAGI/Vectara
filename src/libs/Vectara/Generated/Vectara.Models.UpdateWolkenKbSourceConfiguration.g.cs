@@ -26,7 +26,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -34,7 +34,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -47,23 +47,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BaseWolkenKbSourceConfiguration PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateWolkenKbSourceConfiguration(global::Vectara.BaseWolkenKbSourceConfiguration value) => new UpdateWolkenKbSourceConfiguration((global::Vectara.BaseWolkenKbSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BaseWolkenKbSourceConfiguration?(UpdateWolkenKbSourceConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateWolkenKbSourceConfiguration(global::Vectara.BaseWolkenKbSourceConfiguration? value)
         {
@@ -71,26 +71,26 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateWolkenKbSourceConfiguration FromBase(global::Vectara.BaseWolkenKbSourceConfiguration? value) => new UpdateWolkenKbSourceConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
-            Base?.ToString() 
+            Base?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -98,7 +98,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BaseWolkenKbSourceConfiguration, TResult>? @base = null,
@@ -118,7 +118,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BaseWolkenKbSourceConfiguration>? @base = null,
@@ -136,7 +136,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BaseWolkenKbSourceConfiguration>? @base = null,
@@ -154,7 +154,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -173,17 +173,17 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(UpdateWolkenKbSourceConfiguration other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseWolkenKbSourceConfiguration?>.Default.Equals(Base, other.Base) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseWolkenKbSourceConfiguration?>.Default.Equals(Base, other.Base)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(UpdateWolkenKbSourceConfiguration obj1, UpdateWolkenKbSourceConfiguration obj2)
         {
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(UpdateWolkenKbSourceConfiguration obj1, UpdateWolkenKbSourceConfiguration obj2)
         {
@@ -199,7 +199,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

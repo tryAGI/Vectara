@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolActivityEventBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GenericToolActivityEventVariant2? GenericToolActivityEventVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenericToolActivityEventVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsGenericToolActivityEventVariant2 => GenericToolActivityEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGenericToolActivityEventVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GenericToolActivityEventVariant2 PickGenericToolActivityEventVariant2() => IsGenericToolActivityEventVariant2
             ? GenericToolActivityEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'GenericToolActivityEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GenericToolActivityEvent(global::Vectara.ToolActivityEventBase value) => new GenericToolActivityEvent((global::Vectara.ToolActivityEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolActivityEventBase?(GenericToolActivityEvent @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GenericToolActivityEvent(global::Vectara.ToolActivityEventBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GenericToolActivityEvent FromBase(global::Vectara.ToolActivityEventBase? value) => new GenericToolActivityEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GenericToolActivityEvent(global::Vectara.GenericToolActivityEventVariant2 value) => new GenericToolActivityEvent((global::Vectara.GenericToolActivityEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GenericToolActivityEventVariant2?(GenericToolActivityEvent @this) => @this.GenericToolActivityEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GenericToolActivityEvent(global::Vectara.GenericToolActivityEventVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GenericToolActivityEvent FromGenericToolActivityEventVariant2(global::Vectara.GenericToolActivityEventVariant2? value) => new GenericToolActivityEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GenericToolActivityEvent(
             global::Vectara.ToolActivityEventBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             GenericToolActivityEventVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            GenericToolActivityEventVariant2?.ToString() 
+            GenericToolActivityEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ToolActivityEventBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ToolActivityEventBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ToolActivityEventBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(GenericToolActivityEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolActivityEventBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GenericToolActivityEventVariant2?>.Default.Equals(GenericToolActivityEventVariant2, other.GenericToolActivityEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GenericToolActivityEventVariant2?>.Default.Equals(GenericToolActivityEventVariant2, other.GenericToolActivityEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(GenericToolActivityEvent obj1, GenericToolActivityEvent obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(GenericToolActivityEvent obj1, GenericToolActivityEvent obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

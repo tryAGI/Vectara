@@ -4,20 +4,20 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum WebPagesSourceDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Crawl,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Sitemap,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SitemapCrawl,
     }

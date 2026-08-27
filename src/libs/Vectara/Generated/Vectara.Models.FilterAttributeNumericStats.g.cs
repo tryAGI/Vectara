@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Statistical aggregations for numeric filter attributes (integer, real_number, and their list variants). Provides summary statistics across all values in the corpus.
+    /// Statistical aggregations for numeric filter attributes (integer, real_number, and their list variants). Statistics are computed over document parts (chunks), so a document-level value contributes once per part of its document. Averages and sums reflect that per-part weighting; minimum and maximum are unaffected.
     /// </summary>
     public sealed partial class FilterAttributeNumericStats
     {

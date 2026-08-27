@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct IndividualSearchResult : global::System.IEquatable<IndividualSearchResult>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.IndividualSearchResultDiscriminatorResultType? ResultType { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Text))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsText => Text != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickText(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.TextSearchResult PickText() => IsText
             ? Text!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Image))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsImage => Image != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickImage(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ImageSearchResult PickImage() => IsImage
             ? Image!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Image' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator IndividualSearchResult(global::Vectara.TextSearchResult value) => new IndividualSearchResult((global::Vectara.TextSearchResult?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.TextSearchResult?(IndividualSearchResult @this) => @this.Text;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IndividualSearchResult(global::Vectara.TextSearchResult? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static IndividualSearchResult FromText(global::Vectara.TextSearchResult? value) => new IndividualSearchResult(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator IndividualSearchResult(global::Vectara.ImageSearchResult value) => new IndividualSearchResult((global::Vectara.ImageSearchResult?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ImageSearchResult?(IndividualSearchResult @this) => @this.Image;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IndividualSearchResult(global::Vectara.ImageSearchResult? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static IndividualSearchResult FromImage(global::Vectara.ImageSearchResult? value) => new IndividualSearchResult(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IndividualSearchResult(
             global::Vectara.IndividualSearchResultDiscriminatorResultType? resultType,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Image as object ??
-            Text as object 
+            Text as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Text?.ToString() ??
-            Image?.ToString() 
+            Image?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.TextSearchResult?, TResult>? text = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.TextSearchResult?>? text = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.TextSearchResult?>? text = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(IndividualSearchResult other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.TextSearchResult?>.Default.Equals(Text, other.Text) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageSearchResult?>.Default.Equals(Image, other.Image) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ImageSearchResult?>.Default.Equals(Image, other.Image)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(IndividualSearchResult obj1, IndividualSearchResult obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(IndividualSearchResult obj1, IndividualSearchResult obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

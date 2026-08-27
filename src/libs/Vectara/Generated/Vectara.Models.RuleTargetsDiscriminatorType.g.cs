@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum RuleTargetsDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Single,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Weighted,
     }

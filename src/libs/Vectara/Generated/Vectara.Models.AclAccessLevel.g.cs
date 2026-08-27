@@ -11,19 +11,19 @@ namespace Vectara
     public enum AclAccessLevel
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Commenter,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Editor,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         None,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Reader,
     }

@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct AgentOutputParser : global::System.IEquatable<AgentOutputParser>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentOutputParserDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Default))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsDefault => Default != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDefault(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.DefaultOutputParser PickDefault() => IsDefault
             ? Default!
@@ -70,7 +70,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Structured))]
@@ -78,7 +78,7 @@ namespace Vectara
         public bool IsStructured => Structured != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStructured(
 #if NET6_0_OR_GREATER
@@ -91,23 +91,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StructuredOutputParser PickStructured() => IsStructured
             ? Structured!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Structured' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentOutputParser(global::Vectara.DefaultOutputParser value) => new AgentOutputParser((global::Vectara.DefaultOutputParser?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.DefaultOutputParser?(AgentOutputParser @this) => @this.Default;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentOutputParser(global::Vectara.DefaultOutputParser? value)
         {
@@ -115,22 +115,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentOutputParser FromDefault(global::Vectara.DefaultOutputParser? value) => new AgentOutputParser(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentOutputParser(global::Vectara.StructuredOutputParser value) => new AgentOutputParser((global::Vectara.StructuredOutputParser?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StructuredOutputParser?(AgentOutputParser @this) => @this.Structured;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentOutputParser(global::Vectara.StructuredOutputParser? value)
         {
@@ -138,12 +138,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentOutputParser FromStructured(global::Vectara.StructuredOutputParser? value) => new AgentOutputParser(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentOutputParser(
             global::Vectara.AgentOutputParserDiscriminatorType? type,
@@ -158,23 +158,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Structured as object ??
-            Default as object 
+            Default as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Default?.ToString() ??
-            Structured?.ToString() 
+            Structured?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -182,7 +182,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.DefaultOutputParser, TResult>? @default = null,
@@ -207,7 +207,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.DefaultOutputParser>? @default = null,
@@ -231,7 +231,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.DefaultOutputParser>? @default = null,
@@ -254,7 +254,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -275,18 +275,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(AgentOutputParser other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.DefaultOutputParser?>.Default.Equals(Default, other.Default) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredOutputParser?>.Default.Equals(Structured, other.Structured) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredOutputParser?>.Default.Equals(Structured, other.Structured)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(AgentOutputParser obj1, AgentOutputParser obj2)
         {
@@ -294,7 +294,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(AgentOutputParser obj1, AgentOutputParser obj2)
         {
@@ -302,7 +302,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

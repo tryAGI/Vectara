@@ -39,6 +39,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("excluded_content_types")) __score0++;
             if (__jsonProps.Contains("js_rendering")) __score0++;
             if (__jsonProps.Contains("max_concurrent")) __score0++;
+            if (__jsonProps.Contains("max_concurrent_fetches")) __score0++;
             if (__jsonProps.Contains("max_page_bytes")) __score0++;
             if (__jsonProps.Contains("max_pages")) __score0++;
             if (__jsonProps.Contains("requests_per_second")) __score0++;

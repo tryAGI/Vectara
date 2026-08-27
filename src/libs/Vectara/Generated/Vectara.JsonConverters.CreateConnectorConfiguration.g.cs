@@ -42,6 +42,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateZoomConnectorConfiguration)}");
                 zoom = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.CreateWidgetConnectorConfiguration? widget = default;
+            if (discriminator?.Type == global::Vectara.CreateConnectorConfigurationDiscriminatorType.Widget)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateWidgetConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateWidgetConnectorConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateWidgetConnectorConfiguration)}");
+                widget = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.CreateConnectorConfiguration(
                 discriminator?.Type,
@@ -49,7 +56,9 @@ namespace Vectara.JsonConverters
 
                 gchat,
 
-                zoom
+                zoom,
+
+                widget
                 );
 
             return __value;
@@ -81,6 +90,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateZoomConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateZoomConnectorConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateZoomConnectorConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Zoom!.Value, typeInfo);
+            }
+            else if (value.IsWidget)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateWidgetConnectorConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateWidgetConnectorConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateWidgetConnectorConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Widget!.Value, typeInfo);
             }
         }
     }

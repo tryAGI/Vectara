@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct Instruction : global::System.IEquatable<Instruction>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.InstructionDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Initial))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsInitial => Initial != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInitial(
 #if NET6_0_OR_GREATER
@@ -45,23 +45,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.InitialInstruction PickInitial() => IsInitial
             ? Initial!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Initial' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator Instruction(global::Vectara.InitialInstruction value) => new Instruction((global::Vectara.InitialInstruction?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.InitialInstruction?(Instruction @this) => @this.Initial;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Instruction(global::Vectara.InitialInstruction? value)
         {
@@ -69,12 +69,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Instruction FromInitial(global::Vectara.InitialInstruction? value) => new Instruction(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Instruction(
             global::Vectara.InstructionDiscriminatorType? type,
@@ -87,21 +87,21 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
-            Initial as object 
+            Initial as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
-            Initial?.ToString() 
+            Initial?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -109,7 +109,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.InitialInstruction, TResult>? initial = null,
@@ -129,7 +129,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.InitialInstruction>? initial = null,
@@ -147,7 +147,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.InitialInstruction>? initial = null,
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -184,17 +184,17 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(Instruction other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.InitialInstruction?>.Default.Equals(Initial, other.Initial) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InitialInstruction?>.Default.Equals(Initial, other.Initial)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(Instruction obj1, Instruction obj2)
         {
@@ -202,7 +202,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(Instruction obj1, Instruction obj2)
         {
@@ -210,7 +210,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

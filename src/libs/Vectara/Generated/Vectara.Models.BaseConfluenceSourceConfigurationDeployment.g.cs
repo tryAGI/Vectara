@@ -11,11 +11,11 @@ namespace Vectara
     public enum BaseConfluenceSourceConfigurationDeployment
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Cloud,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         DataCenter,
     }

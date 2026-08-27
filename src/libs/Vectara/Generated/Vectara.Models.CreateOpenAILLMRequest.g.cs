@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.OpenAILLMRequestBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateOpenAILLMRequestVariant2? CreateOpenAILLMRequestVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateOpenAILLMRequestVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCreateOpenAILLMRequestVariant2 => CreateOpenAILLMRequestVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCreateOpenAILLMRequestVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateOpenAILLMRequestVariant2 PickCreateOpenAILLMRequestVariant2() => IsCreateOpenAILLMRequestVariant2
             ? CreateOpenAILLMRequestVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateOpenAILLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateOpenAILLMRequest(global::Vectara.OpenAILLMRequestBase value) => new CreateOpenAILLMRequest((global::Vectara.OpenAILLMRequestBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.OpenAILLMRequestBase?(CreateOpenAILLMRequest @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateOpenAILLMRequest(global::Vectara.OpenAILLMRequestBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateOpenAILLMRequest FromBase(global::Vectara.OpenAILLMRequestBase? value) => new CreateOpenAILLMRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateOpenAILLMRequest(global::Vectara.CreateOpenAILLMRequestVariant2 value) => new CreateOpenAILLMRequest((global::Vectara.CreateOpenAILLMRequestVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateOpenAILLMRequestVariant2?(CreateOpenAILLMRequest @this) => @this.CreateOpenAILLMRequestVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateOpenAILLMRequest(global::Vectara.CreateOpenAILLMRequestVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateOpenAILLMRequest FromCreateOpenAILLMRequestVariant2(global::Vectara.CreateOpenAILLMRequestVariant2? value) => new CreateOpenAILLMRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateOpenAILLMRequest(
             global::Vectara.OpenAILLMRequestBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             CreateOpenAILLMRequestVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            CreateOpenAILLMRequestVariant2?.ToString() 
+            CreateOpenAILLMRequestVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.OpenAILLMRequestBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.OpenAILLMRequestBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.OpenAILLMRequestBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateOpenAILLMRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.OpenAILLMRequestBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAILLMRequestVariant2?>.Default.Equals(CreateOpenAILLMRequestVariant2, other.CreateOpenAILLMRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAILLMRequestVariant2?>.Default.Equals(CreateOpenAILLMRequestVariant2, other.CreateOpenAILLMRequestVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateOpenAILLMRequest obj1, CreateOpenAILLMRequest obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateOpenAILLMRequest obj1, CreateOpenAILLMRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

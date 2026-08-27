@@ -4,32 +4,32 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AnthropicAuthDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Bearer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         BedrockApiKey,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         BedrockStaticIam,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Header,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VertexAccessToken,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VertexServiceAccount,
     }

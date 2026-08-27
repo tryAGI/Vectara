@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BaseSharepointSourceConfiguration PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public object? SharepointSourceConfigurationVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SharepointSourceConfigurationVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsSharepointSourceConfigurationVariant2 => SharepointSourceConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSharepointSourceConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object PickSharepointSourceConfigurationVariant2() => IsSharepointSourceConfigurationVariant2
             ? SharepointSourceConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'SharepointSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SharepointSourceConfiguration(global::Vectara.BaseSharepointSourceConfiguration value) => new SharepointSourceConfiguration((global::Vectara.BaseSharepointSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BaseSharepointSourceConfiguration?(SharepointSourceConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SharepointSourceConfiguration(global::Vectara.BaseSharepointSourceConfiguration? value)
         {
@@ -101,12 +101,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SharepointSourceConfiguration FromBase(global::Vectara.BaseSharepointSourceConfiguration? value) => new SharepointSourceConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SharepointSourceConfiguration(
             global::Vectara.BaseSharepointSourceConfiguration? @base,
@@ -118,23 +118,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             SharepointSourceConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            SharepointSourceConfigurationVariant2?.ToString() 
+            SharepointSourceConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -142,7 +142,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BaseSharepointSourceConfiguration, TResult>? @base = null,
@@ -167,7 +167,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BaseSharepointSourceConfiguration>? @base = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BaseSharepointSourceConfiguration>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -235,18 +235,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(SharepointSourceConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseSharepointSourceConfiguration?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(SharepointSourceConfigurationVariant2, other.SharepointSourceConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(SharepointSourceConfigurationVariant2, other.SharepointSourceConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(SharepointSourceConfiguration obj1, SharepointSourceConfiguration obj2)
         {
@@ -254,7 +254,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(SharepointSourceConfiguration obj1, SharepointSourceConfiguration obj2)
         {
@@ -262,7 +262,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

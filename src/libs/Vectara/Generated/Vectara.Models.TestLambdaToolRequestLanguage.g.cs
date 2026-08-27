@@ -11,7 +11,7 @@ namespace Vectara
     public enum TestLambdaToolRequestLanguage
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Python,
     }

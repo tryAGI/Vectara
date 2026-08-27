@@ -6,10 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// List end user sessions for alias<br/>
-        /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.
+        /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.<br/>
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="xVisitorId"></param>
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
@@ -25,16 +27,19 @@ namespace Vectara
             string aliasKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? xVisitorId = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List end user sessions for alias<br/>
-        /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.
+        /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.<br/>
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
+        /// <param name="xVisitorId"></param>
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
@@ -50,6 +55,7 @@ namespace Vectara
             string aliasKey,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            string? xVisitorId = default,
             int? limit = default,
             string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

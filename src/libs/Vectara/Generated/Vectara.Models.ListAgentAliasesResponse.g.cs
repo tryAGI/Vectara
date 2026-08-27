@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListAgentAliasesResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("aliases")]
         [global::System.Text.Json.Serialization.JsonRequired]

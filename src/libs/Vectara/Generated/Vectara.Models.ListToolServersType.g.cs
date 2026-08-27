@@ -9,7 +9,7 @@ namespace Vectara
     public enum ListToolServersType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Mcp,
     }

@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AgentStepInstructionDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Inline,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Reference,
     }

@@ -17,7 +17,14 @@ namespace Vectara
         /// - `maps`: whole maps, one record each.<br/>
         /// Every record carries its full Fluid Topics metadata, including classification and entitlement<br/>
         /// fields, as document metadata for attribute-based filtering and access control. Requires a<br/>
-        /// Fluid Topics API key with read access to the configured content.
+        /// Fluid Topics API key with read access to the configured content. Incremental runs that read<br/>
+        /// dataflow reports additionally require administration scope.<br/>
+        /// Unless `query` is set to a value other than `*` in the `documents` or `topics` scope,<br/>
+        /// incremental runs read the tenant's dataflow reports since the previous run's watermark and<br/>
+        /// ingest the content those reports flag as created or updated, including metadata-only changes.<br/>
+        /// Such a run fails when its watermark window holds more than 1000 reports, and a full refresh<br/>
+        /// is required to resync. Content the reports flag as deleted is not removed from the corpus.<br/>
+        /// Full-refresh runs — and the first run, which has no watermark yet — enumerate all content.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseFluidtopicsSourceConfiguration? Base { get; init; }
@@ -26,7 +33,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -34,7 +41,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -47,23 +54,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BaseFluidtopicsSourceConfiguration PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateFluidtopicsSourceConfiguration(global::Vectara.BaseFluidtopicsSourceConfiguration value) => new UpdateFluidtopicsSourceConfiguration((global::Vectara.BaseFluidtopicsSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BaseFluidtopicsSourceConfiguration?(UpdateFluidtopicsSourceConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateFluidtopicsSourceConfiguration(global::Vectara.BaseFluidtopicsSourceConfiguration? value)
         {
@@ -71,26 +78,26 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateFluidtopicsSourceConfiguration FromBase(global::Vectara.BaseFluidtopicsSourceConfiguration? value) => new UpdateFluidtopicsSourceConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
-            Base?.ToString() 
+            Base?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -98,7 +105,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BaseFluidtopicsSourceConfiguration, TResult>? @base = null,
@@ -118,7 +125,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BaseFluidtopicsSourceConfiguration>? @base = null,
@@ -136,7 +143,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BaseFluidtopicsSourceConfiguration>? @base = null,
@@ -154,7 +161,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -173,17 +180,17 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(UpdateFluidtopicsSourceConfiguration other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseFluidtopicsSourceConfiguration?>.Default.Equals(Base, other.Base) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseFluidtopicsSourceConfiguration?>.Default.Equals(Base, other.Base)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(UpdateFluidtopicsSourceConfiguration obj1, UpdateFluidtopicsSourceConfiguration obj2)
         {
@@ -191,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(UpdateFluidtopicsSourceConfiguration obj1, UpdateFluidtopicsSourceConfiguration obj2)
         {
@@ -199,7 +206,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

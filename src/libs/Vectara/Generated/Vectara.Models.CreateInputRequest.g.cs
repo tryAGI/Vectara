@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CreateInputRequest : global::System.IEquatable<CreateInputRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateInputRequestDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InputMessage))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsInputMessage => InputMessage != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInputMessage(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateInputMessageRequest PickInputMessage() => IsInputMessage
             ? InputMessage!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Interrupt))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsInterrupt => Interrupt != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInterrupt(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateInterruptRequest PickInterrupt() => IsInterrupt
             ? Interrupt!.Value
@@ -99,7 +99,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Compact))]
@@ -107,7 +107,7 @@ namespace Vectara
         public bool IsCompact => Compact != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCompact(
 #if NET6_0_OR_GREATER
@@ -120,7 +120,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateCompactRequest PickCompact() => IsCompact
             ? Compact!.Value
@@ -137,7 +137,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolOutput))]
@@ -145,7 +145,7 @@ namespace Vectara
         public bool IsToolOutput => ToolOutput != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickToolOutput(
 #if NET6_0_OR_GREATER
@@ -158,23 +158,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ClientToolOutputRequest PickToolOutput() => IsToolOutput
             ? ToolOutput!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolOutput' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateInputRequest(global::Vectara.CreateInputMessageRequest value) => new CreateInputRequest((global::Vectara.CreateInputMessageRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateInputMessageRequest?(CreateInputRequest @this) => @this.InputMessage;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInputRequest(global::Vectara.CreateInputMessageRequest? value)
         {
@@ -182,22 +182,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateInputRequest FromInputMessage(global::Vectara.CreateInputMessageRequest? value) => new CreateInputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateInputRequest(global::Vectara.CreateInterruptRequest value) => new CreateInputRequest((global::Vectara.CreateInterruptRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateInterruptRequest?(CreateInputRequest @this) => @this.Interrupt;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInputRequest(global::Vectara.CreateInterruptRequest? value)
         {
@@ -205,22 +205,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateInputRequest FromInterrupt(global::Vectara.CreateInterruptRequest? value) => new CreateInputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateInputRequest(global::Vectara.CreateCompactRequest value) => new CreateInputRequest((global::Vectara.CreateCompactRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateCompactRequest?(CreateInputRequest @this) => @this.Compact;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInputRequest(global::Vectara.CreateCompactRequest? value)
         {
@@ -228,22 +228,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateInputRequest FromCompact(global::Vectara.CreateCompactRequest? value) => new CreateInputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateInputRequest(global::Vectara.ClientToolOutputRequest value) => new CreateInputRequest((global::Vectara.ClientToolOutputRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ClientToolOutputRequest?(CreateInputRequest @this) => @this.ToolOutput;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInputRequest(global::Vectara.ClientToolOutputRequest? value)
         {
@@ -251,12 +251,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateInputRequest FromToolOutput(global::Vectara.ClientToolOutputRequest? value) => new CreateInputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateInputRequest(
             global::Vectara.CreateInputRequestDiscriminatorType? type,
@@ -275,27 +275,27 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ToolOutput as object ??
             Compact as object ??
             Interrupt as object ??
-            InputMessage as object 
+            InputMessage as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             InputMessage?.ToString() ??
             Interrupt?.ToString() ??
             Compact?.ToString() ??
-            ToolOutput?.ToString() 
+            ToolOutput?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -303,7 +303,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateInputMessageRequest?, TResult>? inputMessage = null,
@@ -338,7 +338,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateInputMessageRequest?>? inputMessage = null,
@@ -374,7 +374,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateInputMessageRequest?>? inputMessage = null,
@@ -407,7 +407,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -432,7 +432,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateInputRequest other)
         {
@@ -440,12 +440,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInputMessageRequest?>.Default.Equals(InputMessage, other.InputMessage) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateInterruptRequest?>.Default.Equals(Interrupt, other.Interrupt) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateCompactRequest?>.Default.Equals(Compact, other.Compact) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolOutputRequest?>.Default.Equals(ToolOutput, other.ToolOutput) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolOutputRequest?>.Default.Equals(ToolOutput, other.ToolOutput)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateInputRequest obj1, CreateInputRequest obj2)
         {
@@ -453,7 +453,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateInputRequest obj1, CreateInputRequest obj2)
         {
@@ -461,7 +461,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

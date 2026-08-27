@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class A2aV03AgentSkillSecurityItem
     {

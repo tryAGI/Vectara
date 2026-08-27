@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct UpdateToolRequest : global::System.IEquatable<UpdateToolRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateToolRequestDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Mcp))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsMcp => Mcp != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickMcp(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateMcpToolRequest PickMcp() => IsMcp
             ? Mcp!
@@ -62,7 +62,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Lambda))]
@@ -70,7 +70,7 @@ namespace Vectara
         public bool IsLambda => Lambda != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickLambda(
 #if NET6_0_OR_GREATER
@@ -83,7 +83,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateLambdaToolRequest PickLambda() => IsLambda
             ? Lambda!
@@ -99,7 +99,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Client))]
@@ -107,7 +107,7 @@ namespace Vectara
         public bool IsClient => Client != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickClient(
 #if NET6_0_OR_GREATER
@@ -120,23 +120,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateClientToolRequest PickClient() => IsClient
             ? Client!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Client' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateToolRequest(global::Vectara.UpdateMcpToolRequest value) => new UpdateToolRequest((global::Vectara.UpdateMcpToolRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateMcpToolRequest?(UpdateToolRequest @this) => @this.Mcp;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateToolRequest(global::Vectara.UpdateMcpToolRequest? value)
         {
@@ -144,22 +144,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateToolRequest FromMcp(global::Vectara.UpdateMcpToolRequest? value) => new UpdateToolRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateToolRequest(global::Vectara.UpdateLambdaToolRequest value) => new UpdateToolRequest((global::Vectara.UpdateLambdaToolRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateLambdaToolRequest?(UpdateToolRequest @this) => @this.Lambda;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateToolRequest(global::Vectara.UpdateLambdaToolRequest? value)
         {
@@ -167,22 +167,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateToolRequest FromLambda(global::Vectara.UpdateLambdaToolRequest? value) => new UpdateToolRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateToolRequest(global::Vectara.UpdateClientToolRequest value) => new UpdateToolRequest((global::Vectara.UpdateClientToolRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateClientToolRequest?(UpdateToolRequest @this) => @this.Client;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateToolRequest(global::Vectara.UpdateClientToolRequest? value)
         {
@@ -190,12 +190,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateToolRequest FromClient(global::Vectara.UpdateClientToolRequest? value) => new UpdateToolRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateToolRequest(
             global::Vectara.UpdateToolRequestDiscriminatorType? type,
@@ -212,25 +212,25 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Client as object ??
             Lambda as object ??
-            Mcp as object 
+            Mcp as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Mcp?.ToString() ??
             Lambda?.ToString() ??
-            Client?.ToString() 
+            Client?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.UpdateMcpToolRequest, TResult>? mcp = null,
@@ -268,7 +268,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.UpdateMcpToolRequest>? mcp = null,
@@ -298,7 +298,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.UpdateMcpToolRequest>? mcp = null,
@@ -326,7 +326,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -349,19 +349,19 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(UpdateToolRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateMcpToolRequest?>.Default.Equals(Mcp, other.Mcp) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateLambdaToolRequest?>.Default.Equals(Lambda, other.Lambda) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateClientToolRequest?>.Default.Equals(Client, other.Client) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateClientToolRequest?>.Default.Equals(Client, other.Client)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(UpdateToolRequest obj1, UpdateToolRequest obj2)
         {
@@ -369,7 +369,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(UpdateToolRequest obj1, UpdateToolRequest obj2)
         {
@@ -377,7 +377,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

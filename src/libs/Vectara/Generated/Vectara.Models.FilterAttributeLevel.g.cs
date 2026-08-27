@@ -10,11 +10,11 @@ namespace Vectara
     public enum FilterAttributeLevel
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Document,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Part,
     }

@@ -10,7 +10,7 @@ namespace Vectara
     public sealed partial class AgentAliasesArtifactsClient : global::Vectara.IAgentAliasesArtifactsClient, global::System.IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const string DefaultBaseUrl = "https://api.vectara.io/";
 
@@ -40,7 +40,7 @@ namespace Vectara
         internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::Vectara.SourceGenerationContext.Default);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {

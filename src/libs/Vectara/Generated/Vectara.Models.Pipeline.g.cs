@@ -79,6 +79,12 @@ namespace Vectara
         public required global::Vectara.PipelineSyncMode SyncMode { get; set; } = global::Vectara.PipelineSyncMode.Incremental;
 
         /// <summary>
+        /// Per-pipeline processing options. Omitted when the service defaults apply.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("processing_options")]
+        public global::Vectara.PipelineProcessingOptions? ProcessingOptions { get; set; }
+
+        /// <summary>
         /// The current incremental sync watermark. Null if the pipeline has never run.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("watermark")]
@@ -171,6 +177,9 @@ namespace Vectara
         /// A description of what this pipeline does.<br/>
         /// Example: Ingests legal contracts from SharePoint and indexes them into the legal corpus.
         /// </param>
+        /// <param name="processingOptions">
+        /// Per-pipeline processing options. Omitted when the service defaults apply.
+        /// </param>
         /// <param name="watermark">
         /// The current incremental sync watermark. Null if the pipeline has never run.
         /// </param>
@@ -197,6 +206,7 @@ namespace Vectara
             bool enabled,
             global::System.DateTime createdAt,
             string? description,
+            global::Vectara.PipelineProcessingOptions? processingOptions,
             global::Vectara.PipelineWatermark? watermark,
             string? statusMessage,
             global::System.Collections.Generic.Dictionary<string, string>? metadata,
@@ -209,6 +219,7 @@ namespace Vectara
             this.Trigger = trigger;
             this.Transform = transform ?? throw new global::System.ArgumentNullException(nameof(transform));
             this.SyncMode = syncMode;
+            this.ProcessingOptions = processingOptions;
             this.Watermark = watermark;
             this.Status = status;
             this.StatusMessage = statusMessage;

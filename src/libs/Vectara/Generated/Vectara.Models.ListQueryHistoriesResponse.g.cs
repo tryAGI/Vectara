@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListQueryHistoriesResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("queries")]
         public global::System.Collections.Generic.IList<global::Vectara.QueryHistorySummary>? Queries { get; set; }

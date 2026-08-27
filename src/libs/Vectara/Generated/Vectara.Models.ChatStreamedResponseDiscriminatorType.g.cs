@@ -4,40 +4,40 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ChatStreamedResponseDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ChatInfo,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         End,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         FactualConsistencyScore,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GenerationChunk,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GenerationEnd,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GenerationInfo,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SearchResults,
     }

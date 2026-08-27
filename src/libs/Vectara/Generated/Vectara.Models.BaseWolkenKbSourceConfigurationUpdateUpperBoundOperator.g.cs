@@ -11,11 +11,11 @@ namespace Vectara
     public enum BaseWolkenKbSourceConfigurationUpdateUpperBoundOperator
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lt,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lte,
     }

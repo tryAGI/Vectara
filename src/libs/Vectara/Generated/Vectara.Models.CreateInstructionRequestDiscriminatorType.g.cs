@@ -4,12 +4,12 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateInstructionRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Initial,
     }

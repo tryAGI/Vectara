@@ -4,48 +4,52 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum UpdatePipelineSourceDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Box,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Confluence,
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        Docebo,
+        /// <summary>
+        ///
         /// </summary>
         Fluidtopics,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GoogleDrive,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         S3,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Scim,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Sharepoint,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Web,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WolkenForms,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WolkenKb,
     }
@@ -64,6 +68,7 @@ namespace Vectara
             {
                 UpdatePipelineSourceDiscriminatorType.Box => "box",
                 UpdatePipelineSourceDiscriminatorType.Confluence => "confluence",
+                UpdatePipelineSourceDiscriminatorType.Docebo => "docebo",
                 UpdatePipelineSourceDiscriminatorType.Fluidtopics => "fluidtopics",
                 UpdatePipelineSourceDiscriminatorType.GoogleDrive => "google_drive",
                 UpdatePipelineSourceDiscriminatorType.S3 => "s3",
@@ -84,6 +89,7 @@ namespace Vectara
             {
                 "box" => UpdatePipelineSourceDiscriminatorType.Box,
                 "confluence" => UpdatePipelineSourceDiscriminatorType.Confluence,
+                "docebo" => UpdatePipelineSourceDiscriminatorType.Docebo,
                 "fluidtopics" => UpdatePipelineSourceDiscriminatorType.Fluidtopics,
                 "google_drive" => UpdatePipelineSourceDiscriminatorType.GoogleDrive,
                 "s3" => UpdatePipelineSourceDiscriminatorType.S3,

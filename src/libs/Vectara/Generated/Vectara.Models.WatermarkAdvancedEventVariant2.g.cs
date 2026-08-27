@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class WatermarkAdvancedEventVariant2
     {
@@ -17,7 +17,7 @@ namespace Vectara
         public required string Type { get; set; } = "watermark_advanced";
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("watermark")]
         [global::System.Text.Json.Serialization.JsonRequired]

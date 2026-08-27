@@ -4,36 +4,36 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum JsonSchemaDefinitionDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Array,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Boolean,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Integer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Null,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Number,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Object,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         String,
     }

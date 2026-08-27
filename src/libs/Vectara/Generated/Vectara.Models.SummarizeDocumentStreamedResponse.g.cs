@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct SummarizeDocumentStreamedResponse : global::System.IEquatable<SummarizeDocumentStreamedResponse>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SummarizeDocumentStreamedResponseDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationChunk))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsGenerationChunk => GenerationChunk != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGenerationChunk(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StreamGenerationChunk PickGenerationChunk() => IsGenerationChunk
             ? GenerationChunk!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationInfo))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsGenerationInfo => GenerationInfo != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGenerationInfo(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GenerationInfo PickGenerationInfo() => IsGenerationInfo
             ? GenerationInfo!
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GenerationEnd))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsGenerationEnd => GenerationEnd != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGenerationEnd(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StreamGenerationEnd PickGenerationEnd() => IsGenerationEnd
             ? GenerationEnd!
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(End))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsEnd => End != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickEnd(
 #if NET6_0_OR_GREATER
@@ -156,7 +156,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StreamResponseEnd PickEnd() => IsEnd
             ? End!
@@ -172,7 +172,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Error))]
@@ -180,7 +180,7 @@ namespace Vectara
         public bool IsError => Error != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickError(
 #if NET6_0_OR_GREATER
@@ -193,23 +193,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StreamError PickError() => IsError
             ? Error!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationChunk value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamGenerationChunk?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StreamGenerationChunk?(SummarizeDocumentStreamedResponse @this) => @this.GenerationChunk;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationChunk? value)
         {
@@ -217,22 +217,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SummarizeDocumentStreamedResponse FromGenerationChunk(global::Vectara.StreamGenerationChunk? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.GenerationInfo value) => new SummarizeDocumentStreamedResponse((global::Vectara.GenerationInfo?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GenerationInfo?(SummarizeDocumentStreamedResponse @this) => @this.GenerationInfo;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SummarizeDocumentStreamedResponse(global::Vectara.GenerationInfo? value)
         {
@@ -240,22 +240,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SummarizeDocumentStreamedResponse FromGenerationInfo(global::Vectara.GenerationInfo? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationEnd value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamGenerationEnd?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StreamGenerationEnd?(SummarizeDocumentStreamedResponse @this) => @this.GenerationEnd;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SummarizeDocumentStreamedResponse(global::Vectara.StreamGenerationEnd? value)
         {
@@ -263,22 +263,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SummarizeDocumentStreamedResponse FromGenerationEnd(global::Vectara.StreamGenerationEnd? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamResponseEnd value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamResponseEnd?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StreamResponseEnd?(SummarizeDocumentStreamedResponse @this) => @this.End;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SummarizeDocumentStreamedResponse(global::Vectara.StreamResponseEnd? value)
         {
@@ -286,22 +286,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SummarizeDocumentStreamedResponse FromEnd(global::Vectara.StreamResponseEnd? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SummarizeDocumentStreamedResponse(global::Vectara.StreamError value) => new SummarizeDocumentStreamedResponse((global::Vectara.StreamError?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StreamError?(SummarizeDocumentStreamedResponse @this) => @this.Error;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SummarizeDocumentStreamedResponse(global::Vectara.StreamError? value)
         {
@@ -309,12 +309,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SummarizeDocumentStreamedResponse FromError(global::Vectara.StreamError? value) => new SummarizeDocumentStreamedResponse(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SummarizeDocumentStreamedResponse(
             global::Vectara.SummarizeDocumentStreamedResponseDiscriminatorType? type,
@@ -335,29 +335,29 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Error as object ??
             End as object ??
             GenerationEnd as object ??
             GenerationInfo as object ??
-            GenerationChunk as object 
+            GenerationChunk as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             GenerationChunk?.ToString() ??
             GenerationInfo?.ToString() ??
             GenerationEnd?.ToString() ??
             End?.ToString() ??
-            Error?.ToString() 
+            Error?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -365,7 +365,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.StreamGenerationChunk, TResult>? generationChunk = null,
@@ -405,7 +405,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.StreamGenerationChunk>? generationChunk = null,
@@ -447,7 +447,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.StreamGenerationChunk>? generationChunk = null,
@@ -485,7 +485,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -512,7 +512,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(SummarizeDocumentStreamedResponse other)
         {
@@ -521,12 +521,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.GenerationInfo?>.Default.Equals(GenerationInfo, other.GenerationInfo) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamGenerationEnd?>.Default.Equals(GenerationEnd, other.GenerationEnd) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamResponseEnd?>.Default.Equals(End, other.End) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamError?>.Default.Equals(Error, other.Error) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamError?>.Default.Equals(Error, other.Error)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(SummarizeDocumentStreamedResponse obj1, SummarizeDocumentStreamedResponse obj2)
         {
@@ -534,7 +534,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(SummarizeDocumentStreamedResponse obj1, SummarizeDocumentStreamedResponse obj2)
         {
@@ -542,7 +542,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

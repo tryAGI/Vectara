@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct WebGetAuth : global::System.IEquatable<WebGetAuth>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetAuthDiscriminatorType? Type { get; }
 
@@ -25,7 +25,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(None))]
@@ -33,7 +33,7 @@ namespace Vectara
         public bool IsNone => None != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickNone(
 #if NET6_0_OR_GREATER
@@ -46,7 +46,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetNoAuth PickNone() => IsNone
             ? None!
@@ -62,7 +62,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Bearer))]
@@ -70,7 +70,7 @@ namespace Vectara
         public bool IsBearer => Bearer != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBearer(
 #if NET6_0_OR_GREATER
@@ -83,7 +83,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetBearerAuth PickBearer() => IsBearer
             ? Bearer!
@@ -99,7 +99,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Header))]
@@ -107,7 +107,7 @@ namespace Vectara
         public bool IsHeader => Header != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickHeader(
 #if NET6_0_OR_GREATER
@@ -120,7 +120,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetHeaderAuth PickHeader() => IsHeader
             ? Header!
@@ -137,7 +137,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OauthClientCredentials))]
@@ -145,7 +145,7 @@ namespace Vectara
         public bool IsOauthClientCredentials => OauthClientCredentials != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOauthClientCredentials(
 #if NET6_0_OR_GREATER
@@ -158,7 +158,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetOAuthClientCredentialsAuth PickOauthClientCredentials() => IsOauthClientCredentials
             ? OauthClientCredentials!
@@ -176,7 +176,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OauthRefreshToken))]
@@ -184,7 +184,7 @@ namespace Vectara
         public bool IsOauthRefreshToken => OauthRefreshToken != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOauthRefreshToken(
 #if NET6_0_OR_GREATER
@@ -197,7 +197,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetOAuthRefreshTokenAuth PickOauthRefreshToken() => IsOauthRefreshToken
             ? OauthRefreshToken!
@@ -213,7 +213,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OauthTokenExchange))]
@@ -221,7 +221,7 @@ namespace Vectara
         public bool IsOauthTokenExchange => OauthTokenExchange != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOauthTokenExchange(
 #if NET6_0_OR_GREATER
@@ -234,7 +234,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetOAuthTokenExchangeAuth PickOauthTokenExchange() => IsOauthTokenExchange
             ? OauthTokenExchange!
@@ -250,7 +250,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AwsSigv4))]
@@ -258,7 +258,7 @@ namespace Vectara
         public bool IsAwsSigv4 => AwsSigv4 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAwsSigv4(
 #if NET6_0_OR_GREATER
@@ -271,23 +271,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.WebGetAwsSigV4Auth PickAwsSigv4() => IsAwsSigv4
             ? AwsSigv4!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AwsSigv4' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetAuth(global::Vectara.WebGetNoAuth value) => new WebGetAuth((global::Vectara.WebGetNoAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetNoAuth?(WebGetAuth @this) => @this.None;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetAuth(global::Vectara.WebGetNoAuth? value)
         {
@@ -295,22 +295,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetAuth FromNone(global::Vectara.WebGetNoAuth? value) => new WebGetAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetAuth(global::Vectara.WebGetBearerAuth value) => new WebGetAuth((global::Vectara.WebGetBearerAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetBearerAuth?(WebGetAuth @this) => @this.Bearer;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetAuth(global::Vectara.WebGetBearerAuth? value)
         {
@@ -318,22 +318,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetAuth FromBearer(global::Vectara.WebGetBearerAuth? value) => new WebGetAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetAuth(global::Vectara.WebGetHeaderAuth value) => new WebGetAuth((global::Vectara.WebGetHeaderAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetHeaderAuth?(WebGetAuth @this) => @this.Header;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetAuth(global::Vectara.WebGetHeaderAuth? value)
         {
@@ -341,22 +341,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetAuth FromHeader(global::Vectara.WebGetHeaderAuth? value) => new WebGetAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetAuth(global::Vectara.WebGetOAuthClientCredentialsAuth value) => new WebGetAuth((global::Vectara.WebGetOAuthClientCredentialsAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetOAuthClientCredentialsAuth?(WebGetAuth @this) => @this.OauthClientCredentials;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetAuth(global::Vectara.WebGetOAuthClientCredentialsAuth? value)
         {
@@ -364,22 +364,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetAuth FromOauthClientCredentials(global::Vectara.WebGetOAuthClientCredentialsAuth? value) => new WebGetAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetAuth(global::Vectara.WebGetOAuthRefreshTokenAuth value) => new WebGetAuth((global::Vectara.WebGetOAuthRefreshTokenAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetOAuthRefreshTokenAuth?(WebGetAuth @this) => @this.OauthRefreshToken;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetAuth(global::Vectara.WebGetOAuthRefreshTokenAuth? value)
         {
@@ -387,22 +387,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetAuth FromOauthRefreshToken(global::Vectara.WebGetOAuthRefreshTokenAuth? value) => new WebGetAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetAuth(global::Vectara.WebGetOAuthTokenExchangeAuth value) => new WebGetAuth((global::Vectara.WebGetOAuthTokenExchangeAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetOAuthTokenExchangeAuth?(WebGetAuth @this) => @this.OauthTokenExchange;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetAuth(global::Vectara.WebGetOAuthTokenExchangeAuth? value)
         {
@@ -410,22 +410,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetAuth FromOauthTokenExchange(global::Vectara.WebGetOAuthTokenExchangeAuth? value) => new WebGetAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetAuth(global::Vectara.WebGetAwsSigV4Auth value) => new WebGetAuth((global::Vectara.WebGetAwsSigV4Auth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.WebGetAwsSigV4Auth?(WebGetAuth @this) => @this.AwsSigv4;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetAuth(global::Vectara.WebGetAwsSigV4Auth? value)
         {
@@ -433,12 +433,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetAuth FromAwsSigv4(global::Vectara.WebGetAwsSigV4Auth? value) => new WebGetAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetAuth(
             global::Vectara.WebGetAuthDiscriminatorType? type,
@@ -463,7 +463,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             AwsSigv4 as object ??
@@ -472,11 +472,11 @@ namespace Vectara
             OauthClientCredentials as object ??
             Header as object ??
             Bearer as object ??
-            None as object 
+            None as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             None?.ToString() ??
@@ -485,11 +485,11 @@ namespace Vectara
             OauthClientCredentials?.ToString() ??
             OauthRefreshToken?.ToString() ??
             OauthTokenExchange?.ToString() ??
-            AwsSigv4?.ToString() 
+            AwsSigv4?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -497,7 +497,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.WebGetNoAuth, TResult>? none = null,
@@ -547,7 +547,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.WebGetNoAuth>? none = null,
@@ -601,7 +601,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.WebGetNoAuth>? none = null,
@@ -649,7 +649,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -680,7 +680,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(WebGetAuth other)
         {
@@ -691,12 +691,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthClientCredentialsAuth?>.Default.Equals(OauthClientCredentials, other.OauthClientCredentials) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthRefreshTokenAuth?>.Default.Equals(OauthRefreshToken, other.OauthRefreshToken) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetOAuthTokenExchangeAuth?>.Default.Equals(OauthTokenExchange, other.OauthTokenExchange) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetAwsSigV4Auth?>.Default.Equals(AwsSigv4, other.AwsSigv4) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WebGetAwsSigV4Auth?>.Default.Equals(AwsSigv4, other.AwsSigv4)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(WebGetAuth obj1, WebGetAuth obj2)
         {
@@ -704,7 +704,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(WebGetAuth obj1, WebGetAuth obj2)
         {
@@ -712,7 +712,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

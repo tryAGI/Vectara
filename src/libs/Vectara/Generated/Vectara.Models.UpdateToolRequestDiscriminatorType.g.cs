@@ -4,20 +4,20 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum UpdateToolRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Client,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lambda,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Mcp,
     }

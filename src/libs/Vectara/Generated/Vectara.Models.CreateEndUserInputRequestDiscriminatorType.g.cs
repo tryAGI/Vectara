@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum CreateEndUserInputRequestDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InputMessage,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Interrupt,
     }

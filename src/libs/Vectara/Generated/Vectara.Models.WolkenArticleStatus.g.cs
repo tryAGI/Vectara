@@ -9,19 +9,19 @@ namespace Vectara
     public enum WolkenArticleStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Delete,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Draft,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Published,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Retired,
     }

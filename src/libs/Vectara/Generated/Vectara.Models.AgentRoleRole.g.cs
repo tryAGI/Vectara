@@ -14,23 +14,23 @@ namespace Vectara
     public enum AgentRoleRole
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentAdministrator,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentDeveloper,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentEndUser,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentUser,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AgentViewer,
     }

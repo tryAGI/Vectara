@@ -61,6 +61,12 @@ tags:
 - name: Agent End User Sessions
   description: Create and interact with agent sessions as an end user, seeing only
     your own sessions and their messages.
+- name: Trusted Token Issuers
+  description: Register customer identity providers whose signed tokens the platform
+    accepts as end-user credentials.
+- name: Widgets
+  description: Bootstrap embeddable web widgets that let anonymous visitors talk to
+    a published agent.
 - name: Agent Schedules
   description: Create and manage scheduled automated execution of agents at specified
     intervals.
@@ -5332,19 +5338,17 @@ paths:
         \ o1-preview, o1-mini, o3-mini (reasoning models)\n**Auth**: Bearer token\n\
         **Note**: For reasoning models that don't support streaming\n\n```json\n{\n\
         \  \"type\": \"openai-responses\",\n  \"name\": \"my-o1\",\n  \"model\": \"\
-        o1-preview\",\n  \"uri\": \"https://api.openai.com/v1/chat/completions\",\n\
-        \  \"auth\": {\n    \"type\": \"bearer\",\n    \"token\": \"sk-...\"\n  }\n\
-        }\n```\n\n### Anthropic Claude\n\n**Type:** `openai-compatible`\n**Models:**\
-        \ claude-4-opus, claude-4-5-haiku, claude-4-5-sonnet\n**Auth:** Bearer token\
-        \ with header\n\n```json\n{\n  \"type\": \"openai-compatible\",\n  \"name\"\
-        : \"my-claude\",\n  \"model\": \"claude-sonnet-4-5-20250929\",\n  \"uri\"\
-        : \"https://api.anthropic.com/v1/messages\",\n  \"auth\": {\n    \"type\"\
-        : \"bearer\",\n    \"token\": \"sk-ant-...\"\n  },\n  \"headers\": {\n   \
-        \ \"anthropic-version\": \"2023-06-01\"\n  }\n}\n```\n\n### Azure OpenAI\n\
-        \n**Type:** `openai-compatible`\n**Models:** GPT-3.5, GPT-4 (Azure-deployed\
-        \ versions)\n**Auth:** Custom header (api-key)\n\n```json\n{\n  \"type\":\
-        \ \"openai-compatible\",\n  \"name\": \"my-azure-gpt4\",\n  \"model\": \"\
-        gpt-4\",\n  \"uri\": \"https://YOUR-RESOURCE.openai.azure.com/openai/deployments/YOUR-DEPLOYMENT/chat/completions?api-version=2024-02-15-preview\"\
+        o1-preview\",\n  \"uri\": \"https://api.openai.com/v1/responses\",\n  \"auth\"\
+        : {\n    \"type\": \"bearer\",\n    \"token\": \"sk-...\"\n  }\n}\n```\n\n\
+        ### Anthropic Claude\n\n**Type:** `anthropic`\n**Models:** claude-4-opus,\
+        \ claude-4-5-haiku, claude-4-5-sonnet\n**Auth:** Bearer token (direct API);\
+        \ AWS or GCP credentials for Bedrock / Vertex\n\n```json\n{\n  \"type\": \"\
+        anthropic\",\n  \"name\": \"my-claude\",\n  \"model\": \"claude-sonnet-4-5-20250929\"\
+        ,\n  \"auth\": {\n    \"type\": \"bearer\",\n    \"token\": \"sk-ant-...\"\
+        \n  }\n}\n```\n\n### Azure OpenAI\n\n**Type:** `openai-compatible`\n**Models:**\
+        \ GPT-3.5, GPT-4 (Azure-deployed versions)\n**Auth:** Custom header (api-key)\n\
+        \n```json\n{\n  \"type\": \"openai-compatible\",\n  \"name\": \"my-azure-gpt4\"\
+        ,\n  \"model\": \"gpt-4\",\n  \"uri\": \"https://YOUR-RESOURCE.openai.azure.com/openai/deployments/YOUR-DEPLOYMENT/chat/completions?api-version=2024-02-15-preview\"\
         ,\n  \"auth\": {\n    \"type\": \"header\",\n    \"header\": \"api-key\",\n\
         \    \"value\": \"your-azure-key\"\n  }\n}\n```\n\n### Google Vertex AI (Gemini)\
         \ \u2014 Service Account\n\n**Type:** `vertex-ai`\n**Models:** gemini-2.5-pro,\
@@ -5484,6 +5488,65 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.llms
+  /v2/llms/discover:
+    post:
+      tags:
+      - Large Language Models
+      summary: Discover LLMs
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      description: "Probes an external LLM provider endpoint and returns the model\
+        \ configurations most likely to work. The provider type and API dialect are\
+        \ inferred from the credential and the URI when `type` is omitted.\n\nNothing\
+        \ is persisted. Combine a returned candidate with a `name` and the credential\
+        \ you supplied here and submit it to `POST /v2/llms`.\n\nDiscovery live-tests\
+        \ at most three models per detected endpoint \u2014 with both OpenAI dialects\
+        \ probed, at most six upstream generation calls \u2014 and returns every usable\
+        \ model the endpoint advertises.\n"
+      operationId: discoverLLMs
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscoverLLMsRequest'
+      responses:
+        '200':
+          description: The discovered LLM configurations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscoverLLMsResponse'
+        '400':
+          description: The request body is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow discovering LLMs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: "The endpoint could not be probed \u2014 no provider type could\
+            \ be determined for the supplied URI and credential, the supplied `type`\
+            \ contradicts what the credential and URI imply, or every detected provider's\
+            \ model listing failed. A reachable endpoint whose live test fails instead\
+            \ returns `200` with `verified` false and a `verification_error`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: llms
+      x-fern-sdk-method-name: discover
   /v2/llms/{llm_id}:
     get:
       tags:
@@ -6100,28 +6163,27 @@ paths:
         \ helps identify potential hallucinations or misrepresentations.\n\nUse this\
         \ endpoint to validate generated content against trusted source materials,\
         \ such as in legal, healthcare, scientific publishing, and enterprise knowledge\
-        \ systems.\n\nThe request body includes the following parameters:\n* `model_parameters`:\
-        \ Optional. The evaluation model to use. Supported values are `hhem_v2.3`\
-        \ (the default) and `hhem_v2.2`.\n* `generated_text`: The output text you\
-        \ want to evaluate, such as a model-generated summary, answer, or response.\n\
-        * `source_texts`: An array of source documents or passages used to verify\
-        \ the accuracy of the generated text.\n* `language`: The ISO 639-3 code representing\
-        \ the language of the provided texts (`eng` for English, `fra` for French).\n\
-        \n### Example request\n\nThis example evaluates whether a generated statement\
-        \ about the Eiffel Tower is factually accurate based on two reference documents.\n\
-        \n```json\n{\n  \"generated_text\": \"The Eiffel Tower is located in Berlin.\"\
-        ,\n  \"source_texts\": [\n    \"The Eiffel Tower is a famous landmark located\
-        \ in Paris, France.\",\n    \"It was built in 1889 and remains one of the\
-        \ most visited monuments in the world.\"\n  ],\n  \"language\": \"eng\"\n\
-        }\n```\n### Example response\n\nThe response includes a factual consistency\
-        \ score and probability estimates.\n\n```json\n{\n  \"score\": 0.23,\n  \"\
-        p_consistent\": 0.12,\n  \"p_inconsistent\": 0.88\n}\n```\n* `score`: A normalized\
-        \ value between `0.0` and `1.0` that reflects the overall factual alignment\
-        \ between the generated text and the source texts. Higher scores indicate\
-        \ stronger consistency.\n* `p_consistent`: The estimated probability that\
-        \ the generated text is factually consistent with the sources.\n* `p_inconsistent`:\
-        \ The estimated probability that the generated text contains factual inaccuracies\
-        \ relative to the source documents.\n"
+        \ systems.\n\nThe request body includes the following parameters:\n* `model_parameters.model_name`:\
+        \ Optional. The evaluation model to use. `hhem_v2.3` is the default and the\
+        \ recommended model. `hhem_v2.2` is retired; it remains accepted for backward\
+        \ compatibility and is served by `hhem_v2.3`. Any other value is rejected\
+        \ with a `400`.\n* `generated_text`: The output text you want to evaluate,\
+        \ such as a model-generated summary, answer, or response.\n* `source_texts`:\
+        \ An array of source documents or passages used to verify the accuracy of\
+        \ the generated text.\n\nThe endpoint scores the texts as given, in whatever\
+        \ language they are written. HHEM is trained on `eng`, `deu`, `fra`, `spa`,\
+        \ `por`, `ara`, `kor`, `zho`, `rus`, `jpn`, and `hin`; treat scores for text\
+        \ in other languages as unreliable.\n\n### Example request\n\nThis example\
+        \ evaluates whether a generated statement about the Eiffel Tower is factually\
+        \ accurate based on two reference documents.\n\n```json\n{\n  \"generated_text\"\
+        : \"The Eiffel Tower is located in Berlin.\",\n  \"source_texts\": [\n   \
+        \ \"The Eiffel Tower is a famous landmark located in Paris, France.\",\n \
+        \   \"It was built in 1889 and remains one of the most visited monuments in\
+        \ the world.\"\n  ]\n}\n```\n### Example response\n\nThe response includes\
+        \ the factual consistency score.\n\n```json\n{\n  \"score\": 0.23\n}\n```\n\
+        * `score`: A normalized value between `0.0` and `1.0` that reflects the overall\
+        \ factual alignment between the generated text and the source texts. Higher\
+        \ scores indicate stronger consistency.\n"
       operationId: evaluateFactualConsistency
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -6146,12 +6208,6 @@ paths:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
           description: Permissions do not allow factual consistency evaluation.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '422':
-          description: Language not supported by the factual consistency service.
           content:
             application/json:
               schema:
@@ -11651,6 +11707,7 @@ paths:
           - slack
           - gchat
           - zoom
+          - widget
           example: slack
       - in: query
         name: enabled
@@ -14220,14 +14277,26 @@ paths:
         Ownership binds to the alias key, not the resolved agent, so it is unaffected
         by a later change to the alias''s routing weights.
 
+        Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
+        of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
+        on the addressed alias, which satisfies this operation''s role requirement.
+
+        The session takes its idle lifetime from its widget connector''s `session_tti_minutes`,
+        reported on the returned session.
+
         Returns `429` when the caller reaches the live-session or hourly session-creation
-        cap.
+        cap, or when the customer-wide anonymous session-creation ceiling is reached.
 
         '
       operationId: createEndUserAliasRoutedSession
+      security:
+      - OAuth2: []
+      - VisitorToken: []
+      - FederatedSignIn: []
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - $ref: '#/components/parameters/VisitorId'
       - in: path
         name: alias_key
         description: The unique key of the alias to create a session for.
@@ -14235,7 +14304,7 @@ paths:
         schema:
           $ref: '#/components/schemas/AgentAliasKey'
       requestBody:
-        required: false
+        required: true
         content:
           application/json:
             schema:
@@ -14247,8 +14316,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EndUserSession'
+        '400':
+          description: The request body omits the required `connector_id`, or the
+            `connector_id` given does not name an enabled widget connector of the
+            addressed alias. `field_errors` names the offending field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: "The request carries no valid credential \u2014 no `Authorization`,\
+            \ and for anonymous callers a missing, malformed, or badly signed `X-Visitor-Id`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
           description: Permissions do not allow creating sessions for this alias.
+            For an anonymous visitor, also returned when the widget connector its
+            token was minted through no longer admits visitors or does not front this
+            alias.
           content:
             application/json:
               schema:
@@ -14302,11 +14389,20 @@ paths:
       description: 'Lists the calling end user''s own sessions created through this
         alias. The response never includes sessions owned by another principal.
 
+        Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
+        of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
+        on the addressed alias, which satisfies this operation''s role requirement.
+
         '
       operationId: listEndUserAliasRoutedSessions
+      security:
+      - OAuth2: []
+      - VisitorToken: []
+      - FederatedSignIn: []
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - $ref: '#/components/parameters/VisitorId'
       - in: path
         name: alias_key
         description: The unique key of the alias to list the caller's sessions for.
@@ -14337,8 +14433,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListEndUserSessionsResponse'
+        '401':
+          description: "The request carries no valid credential \u2014 no `Authorization`,\
+            \ and for anonymous callers a missing, malformed, or badly signed `X-Visitor-Id`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
-          description: Permissions do not allow listing sessions for this alias.
+          description: "Permissions do not allow listing sessions for this alias.\
+            \ Also returned when a presented connector id fails validation \u2014\
+            \ the connector no longer admits the caller or does not front this alias."
           content:
             application/json:
               schema:
@@ -14368,12 +14473,23 @@ paths:
       - type: AgentRole
         roles:
         - agent_end_user
-      description: Returns a session the caller owns, addressed by the alias it was
+      description: 'Returns a session the caller owns, addressed by the alias it was
         created through. Returns 403 if the session belongs to a different principal.
+
+        Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
+        of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
+        on the addressed alias, which satisfies this operation''s role requirement.
+
+        '
       operationId: getEndUserAliasRoutedSession
+      security:
+      - OAuth2: []
+      - VisitorToken: []
+      - FederatedSignIn: []
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - $ref: '#/components/parameters/VisitorId'
       - in: path
         name: alias_key
         description: The unique key of the alias.
@@ -14393,9 +14509,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EndUserSession'
+        '401':
+          description: "The request carries no valid credential \u2014 no `Authorization`,\
+            \ and for anonymous callers a missing, malformed, or badly signed `X-Visitor-Id`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
-          description: The session does not belong to the caller, or permissions do
-            not allow access.
+          description: "The session does not belong to the caller, or permissions\
+            \ do not allow access. Also returned when a presented connector id fails\
+            \ validation \u2014 the connector no longer admits the caller or does\
+            \ not front this alias."
           content:
             application/json:
               schema:
@@ -14420,13 +14545,24 @@ paths:
       - type: AgentRole
         roles:
         - agent_end_user
-      description: Permanently deletes a session the caller owns, addressed by the
+      description: 'Permanently deletes a session the caller owns, addressed by the
         alias it was created through. Returns 403 if the session belongs to a different
         principal. This action cannot be undone.
+
+        Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
+        of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
+        on the addressed alias, which satisfies this operation''s role requirement.
+
+        '
       operationId: deleteEndUserAliasRoutedSession
+      security:
+      - OAuth2: []
+      - VisitorToken: []
+      - FederatedSignIn: []
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - $ref: '#/components/parameters/VisitorId'
       - in: path
         name: alias_key
         description: The unique key of the alias.
@@ -14442,9 +14578,18 @@ paths:
       responses:
         '204':
           description: The session is deleted.
+        '401':
+          description: "The request carries no valid credential \u2014 no `Authorization`,\
+            \ and for anonymous callers a missing, malformed, or badly signed `X-Visitor-Id`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
-          description: The session does not belong to the caller, or permissions do
-            not allow deletion.
+          description: "The session does not belong to the caller, or permissions\
+            \ do not allow deletion. Also returned when a presented connector id fails\
+            \ validation \u2014 the connector no longer admits the caller or does\
+            \ not front this alias."
           content:
             application/json:
               schema:
@@ -14473,11 +14618,20 @@ paths:
       description: "Sends a message, an interrupt, or a client tool output to a session\
         \ the caller owns, addressed by the alias it was created through.\nReturns\
         \ 403 if the session belongs to a different principal.\nThe response is projected\
-        \ to the caller's end-user visibility \u2014 see `EndUserEvent`.\n"
+        \ to the caller's end-user visibility \u2014 see `EndUserEvent`.\nAnonymous\
+        \ widget visitors authenticate by presenting `X-Visitor-Id` instead of an\
+        \ `Authorization` credential; the platform mints an identity holding `agent_end_user`\
+        \ on the addressed alias, which satisfies this operation's role requirement.\n\
+        Returns `429` when the caller reaches its hourly event cap.\n"
       operationId: createEndUserAliasRoutedInput
+      security:
+      - OAuth2: []
+      - VisitorToken: []
+      - FederatedSignIn: []
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - $ref: '#/components/parameters/VisitorId'
       - in: path
         name: alias_key
         description: The unique key of the alias.
@@ -14526,9 +14680,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: "The request carries no valid credential \u2014 no `Authorization`,\
+            \ and for anonymous callers a missing, malformed, or badly signed `X-Visitor-Id`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
-          description: The session does not belong to the caller, or permissions do
-            not allow sending input.
+          description: "The session does not belong to the caller, or permissions\
+            \ do not allow sending input. Also returned when a presented connector\
+            \ id fails validation \u2014 the connector no longer admits the caller\
+            \ or does not front this alias."
           content:
             application/json:
               schema:
@@ -14541,6 +14704,12 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
         '409':
           description: Session is already running.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: The request exceeds the caller's hourly event cap.
           content:
             application/json:
               schema:
@@ -14567,14 +14736,19 @@ paths:
           - events
           - session_key
         response-stream:
-          description: 'An individual frame on the end-user live SSE stream. Frames
-            include every `EndUserEvent` variant, plus two transient chunk types
+          description: 'An individual frame on the end-user live SSE stream.
 
+            Frames include every `EndUserEvent` variant, plus transient chunk types
             that are not persisted: `streaming_agent_output` and `streaming_agent_output_end`.
-            These chunk types let a client render the
 
-            agent''s reply incrementally instead of waiting for the complete `agent_output`
-            event.
+            These chunk types let a client render the agent''s reply incrementally
+            instead of waiting for the complete `agent_output` event.
+
+            When the widget connector reveals the matching output category, the stream
+            also carries `streaming_thinking` and `streaming_thinking_end` chunks
+            and `tool_activity` frames.
+
+            Every stream terminates with a single `end` frame.
 
             '
           discriminator:
@@ -14583,14 +14757,30 @@ paths:
               input_message: '#/components/schemas/EndUserInputMessageEvent'
               agent_output: '#/components/schemas/EndUserAgentOutputEvent'
               error: '#/components/schemas/EndUserErrorEvent'
+              tool_input: '#/components/schemas/ToolInputEvent'
+              tool_output: '#/components/schemas/ToolOutputEvent'
+              thinking: '#/components/schemas/ThinkingEvent'
+              structured_output: '#/components/schemas/StructuredOutputEvent'
               streaming_agent_output: '#/components/schemas/StreamingAgentOutput'
               streaming_agent_output_end: '#/components/schemas/StreamingAgentOutputEnd'
+              streaming_thinking: '#/components/schemas/StreamingThinking'
+              streaming_thinking_end: '#/components/schemas/StreamingThinkingEnd'
+              tool_activity: '#/components/schemas/ToolActivityEvent'
+              end: '#/components/schemas/StreamResponseEnd'
           oneOf:
           - $ref: '#/components/schemas/EndUserInputMessageEvent'
           - $ref: '#/components/schemas/EndUserAgentOutputEvent'
           - $ref: '#/components/schemas/EndUserErrorEvent'
+          - $ref: '#/components/schemas/ToolInputEvent'
+          - $ref: '#/components/schemas/ToolOutputEvent'
+          - $ref: '#/components/schemas/ThinkingEvent'
+          - $ref: '#/components/schemas/StructuredOutputEvent'
           - $ref: '#/components/schemas/StreamingAgentOutput'
           - $ref: '#/components/schemas/StreamingAgentOutputEnd'
+          - $ref: '#/components/schemas/StreamingThinking'
+          - $ref: '#/components/schemas/StreamingThinkingEnd'
+          - $ref: '#/components/schemas/ToolActivityEvent'
+          - $ref: '#/components/schemas/StreamResponseEnd'
     get:
       tags:
       - Agent End User Sessions
@@ -14609,11 +14799,20 @@ paths:
         Returns 403 if the session belongs to a different principal. The response
         only includes event types curated as end-user-safe.
 
+        Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
+        of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
+        on the addressed alias, which satisfies this operation''s role requirement.
+
         '
       operationId: listEndUserAliasRoutedEvents
+      security:
+      - OAuth2: []
+      - VisitorToken: []
+      - FederatedSignIn: []
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - $ref: '#/components/parameters/VisitorId'
       - in: path
         name: alias_key
         description: The unique key of the alias.
@@ -14650,9 +14849,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListEndUserEventsResponse'
+        '401':
+          description: "The request carries no valid credential \u2014 no `Authorization`,\
+            \ and for anonymous callers a missing, malformed, or badly signed `X-Visitor-Id`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
-          description: The session does not belong to the caller, or permissions do
-            not allow reading its events.
+          description: "The session does not belong to the caller, or permissions\
+            \ do not allow reading its events. Also returned when a presented connector\
+            \ id fails validation \u2014 the connector no longer admits the caller\
+            \ or does not front this alias."
           content:
             application/json:
               schema:
@@ -14669,6 +14877,332 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.events
+  /v2/widgets/{connector_id}/bootstrap:
+    post:
+      tags:
+      - Widgets
+      summary: Bootstrap widget visitor
+      security: []
+      x-required-roles: []
+      description: 'Mints a signed anonymous visitor id and returns it with the widget''s
+        presentation configuration.
+
+        No credential is required.
+
+
+        The client presents the minted id as `X-Visitor-Id` on `/v2/agent_aliases/{alias_key}/end_user_sessions`
+        requests, using the `alias_key` returned here; the widget connector the id
+        was minted through travels inside it.
+
+
+        Returns `404` if the connector does not exist, is not a `widget` connector,
+        is disabled, does not have `public_access` enabled, or belongs to a disabled
+        customer.
+
+
+        The visitor id never expires.
+
+        Store it durably; a repeat call mints a fresh identity that owns none of the
+        previous identity''s sessions.
+
+        '
+      operationId: bootstrapWidget
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: connector_id
+        description: The globally unique id of the widget connector, as carried by
+          the embed snippet.
+        required: true
+        schema:
+          type: string
+          pattern: con_[0-9a-zA-Z_-]+$
+          example: con_3Kx9QpVn2mZr8YbLc5TdWe
+      responses:
+        '200':
+          description: A minted visitor identity and the widget's presentation configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BootstrapWidgetResponse'
+        '404':
+          description: The connector does not exist, is not a widget connector, is
+            disabled, does not admit anonymous visitors, or belongs to a disabled
+            customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: The caller's network address exceeded the per-address minting
+            rate. Try again shortly.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: widgets
+      x-fern-sdk-method-name: bootstrap
+  /v2/trusted_token_issuers:
+    post:
+      tags:
+      - Trusted Token Issuers
+      summary: Register trusted token issuer
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      description: 'Registers a customer identity provider as a trusted issuer of
+        end-user sign-in tokens.
+
+        A widget connector references the registration by id to accept tokens the
+        issuer signs.
+
+        '
+      operationId: createTrustedTokenIssuer
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTrustedTokenIssuerRequest'
+      responses:
+        '201':
+          description: The newly registered trusted token issuer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrustedTokenIssuer'
+        '400':
+          description: The request is malformed, or `issuer` or `jwks_uri` is not
+            an https URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow registering trusted token issuers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: A registration for this issuer already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: trusted_token_issuers
+      x-fern-sdk-method-name: create
+    get:
+      tags:
+      - Trusted Token Issuers
+      summary: List trusted token issuers
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      description: Lists the customer's trusted token issuer registrations.
+      operationId: listTrustedTokenIssuers
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: query
+        name: limit
+        description: The maximum number of registrations to return in the list.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 10
+      - in: query
+        name: page_key
+        description: The opaque cursor returned in `metadata.page_key` of the previous
+          response. Omit it to fetch the first page.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The customer's trusted token issuers. Empty when none are registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTrustedTokenIssuersResponse'
+        '403':
+          description: Permissions do not allow listing trusted token issuers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: trusted_token_issuers
+      x-fern-sdk-method-name: list
+      x-fern-pagination:
+        cursor: $request.page_key
+        next_cursor: $response.metadata.page_key
+        results: $response.trusted_token_issuers
+  /v2/trusted_token_issuers/{trusted_token_issuer_id}:
+    get:
+      tags:
+      - Trusted Token Issuers
+      summary: Get trusted token issuer
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      description: Returns a trusted token issuer registration.
+      operationId: getTrustedTokenIssuer
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: trusted_token_issuer_id
+        description: The unique identifier of the trusted token issuer.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TrustedTokenIssuerId'
+      responses:
+        '200':
+          description: The trusted token issuer registration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrustedTokenIssuer'
+        '400':
+          description: The trusted token issuer id is malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow accessing trusted token issuers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trusted token issuer not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: trusted_token_issuers
+      x-fern-sdk-method-name: get
+    put:
+      tags:
+      - Trusted Token Issuers
+      summary: Replace trusted token issuer
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      description: 'Replaces a trusted token issuer registration in full.
+
+        The `issuer` is immutable and is not part of the request.
+
+        Disabling the registration refuses every future sign-in immediately.
+
+        '
+      operationId: replaceTrustedTokenIssuer
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: trusted_token_issuer_id
+        description: The unique identifier of the trusted token issuer.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TrustedTokenIssuerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceTrustedTokenIssuerRequest'
+      responses:
+        '200':
+          description: The replaced trusted token issuer registration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrustedTokenIssuer'
+        '400':
+          description: The request is malformed, the trusted token issuer id is malformed,
+            or `jwks_uri` is not an https URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow replacing trusted token issuers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trusted token issuer not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: trusted_token_issuers
+      x-fern-sdk-method-name: replace
+    delete:
+      tags:
+      - Trusted Token Issuers
+      summary: Delete trusted token issuer
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - administrator
+        - owner
+      description: 'Deletes a trusted token issuer registration.
+
+        Every future sign-in with the issuer''s tokens is refused immediately.
+
+        '
+      operationId: deleteTrustedTokenIssuer
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: trusted_token_issuer_id
+        description: The unique identifier of the trusted token issuer.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TrustedTokenIssuerId'
+      responses:
+        '204':
+          description: The trusted token issuer registration has been deleted.
+        '400':
+          description: The trusted token issuer id is malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Permissions do not allow deleting trusted token issuers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trusted token issuer not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: trusted_token_issuers
+      x-fern-sdk-method-name: delete
   /v2/pipelines:
     post:
       tags:
@@ -14780,7 +15314,9 @@ paths:
           - wolken_kb
           - wolken_forms
           - confluence
+          - fluidtopics
           - scim
+          - docebo
           - web
       - in: query
         name: status
@@ -17046,9 +17582,10 @@ components:
             boolean for boolean).
           example: contract
         count:
-          description: Number of documents or parts (depending on the filter attribute
-            level) that contain this value. For list-type attributes, a single document
-            may contribute to multiple value counts.
+          description: Number of document parts (chunks) that contain this value.
+            Document-level attribute values are stored on every part of their document,
+            so a document with multiple parts contributes once per part, not once
+            per document. For list-type attributes, each list element is counted independently.
           type: integer
           format: int64
           example: 42
@@ -17058,8 +17595,10 @@ components:
     FilterAttributeNumericStats:
       type: object
       description: Statistical aggregations for numeric filter attributes (integer,
-        real_number, and their list variants). Provides summary statistics across
-        all values in the corpus.
+        real_number, and their list variants). Statistics are computed over document
+        parts (chunks), so a document-level value contributes once per part of its
+        document. Averages and sums reflect that per-part weighting; minimum and maximum
+        are unaffected.
       properties:
         min:
           description: Minimum value found across all documents or parts for this
@@ -19985,6 +20524,17 @@ components:
       - platform
       - customer
       example: platform
+    LLMType:
+      description: The LLM provider type, identifying which authentication and configuration
+        apply. New values may be added as providers are onboarded; clients should
+        ignore values they do not recognize rather than fail.
+      type: string
+      enum:
+      - openai-compatible
+      - openai-responses
+      - vertex-ai
+      - anthropic
+      example: openai-compatible
     IdleTimeoutSeconds:
       description: The maximum time in seconds that the platform waits for the model
         to send data before it closes the stale connection. During streaming, this
@@ -20311,12 +20861,8 @@ components:
           description: The provider type. It determines which authentication and configuration
             apply. Responses always include this field. If a stored LLM cannot be
             mapped to one of these values, the request fails with HTTP 500.
-          type: string
-          enum:
-          - openai-compatible
-          - openai-responses
-          - vertex-ai
-          - anthropic
+          allOf:
+          - $ref: '#/components/schemas/LLMType'
         model:
           description: Provider-specific model identifier (e.g. `gpt-4o`, `claude-3-5-sonnet-20241022`,
             `gemini-2.5-flash`).
@@ -20591,9 +21137,9 @@ components:
       - CreateLLMRequest
     AnthropicAuth:
       type: object
-      description: Authentication configuration for Anthropic LLM via direct Anthropic
-        API (use RemoteAuth with header "x-api-key"), AWS Bedrock, or GCP Vertex AI
-        Model Garden
+      description: Authentication configuration for Anthropic LLM via the direct Anthropic
+        API (a `bearer` credential with the API key; a `header` credential with "x-api-key"
+        is also accepted), AWS Bedrock, or GCP Vertex AI Model Garden
       discriminator:
         propertyName: type
         mapping:
@@ -20638,10 +21184,10 @@ components:
           type: string
         uri:
           description: An optional custom base URL for the Anthropic API. Defaults
-            to https://api.anthropic.com when you use the direct Anthropic API (header
-            auth with x-api-key). Not required with Bedrock or Vertex authentication
-            because the platform determines the endpoint from the region or project
-            configuration.
+            to https://api.anthropic.com when you use the direct Anthropic API with
+            a `bearer` credential (a `header` credential with `x-api-key` is also
+            accepted). Not required with Bedrock or Vertex authentication because
+            the platform determines the endpoint from the region or project configuration.
           type: string
           format: uri
           example: https://api.anthropic.com
@@ -20696,6 +21242,114 @@ components:
       - $ref: '#/components/schemas/CreateAnthropicLLMRequest'
       required:
       - type
+    DiscoverLLMsRequest:
+      description: Request to probe an external LLM provider endpoint and return the
+        model configurations most likely to work. Nothing is persisted. Submit a returned
+        candidate to `POST /v2/llms` to create the LLM.
+      type: object
+      properties:
+        uri:
+          description: "The provider endpoint URI: an http or https URL including\
+            \ a host. Accepts a base URL, a full chat/completions URL, or a Vertex\
+            \ `generateContent` URL; each is reduced to the provider's base endpoint.\
+            \ Optional when the credential itself identifies the provider: Anthropic\
+            \ (`sk-ant-\u2026`) and OpenAI (`sk-\u2026`) API keys, Bedrock credentials\
+            \ (endpoint derived from the region), `vertex_service_account`/`vertex_access_token`\
+            \ credentials (endpoint derived from the project and region), and the\
+            \ Gemini `api_key` credential (endpoint defaults to Google AI Studio).\
+            \ Required for any other credential, including the Gemini `service_account`\
+            \ credential, which declares no project or region."
+          type: string
+          format: uri
+          example: https://api.openai.com/v1/chat/completions
+        type:
+          description: Optional provider-type hint. When set, discovery is restricted
+            to that provider; a hint that contradicts what the credential and URI
+            imply fails with HTTP 422. When omitted, the platform infers candidate
+            provider types from the credential shape and the URI host, and probes
+            both the chat-completions and responses dialects for a generic OpenAI-compatible
+            host.
+          allOf:
+          - $ref: '#/components/schemas/LLMType'
+        auth:
+          description: The credential to authenticate the probe with. Accepts any
+            variant that any provider supports. Omit for an unauthenticated endpoint
+            (e.g. a self-hosted vLLM server), in which case `uri` is required.
+          allOf:
+          - $ref: '#/components/schemas/LLMAuth'
+        headers:
+          description: Additional HTTP headers to send with the probe requests.
+          type: object
+          additionalProperties:
+            type: string
+        test_model_parameters:
+          description: Extra parameters passed to the live verification call (e.g.
+            `max_tokens` for providers that require it).
+          type: object
+          additionalProperties: true
+          example:
+            max_tokens: 512
+    DiscoveredLLM:
+      description: A single likely-working LLM configuration discovered by probing
+        an endpoint.
+      type: object
+      properties:
+        type:
+          description: The provider type to use when creating this LLM.
+          allOf:
+          - $ref: '#/components/schemas/LLMType'
+        uri:
+          description: "The endpoint URI to use when creating this LLM, normalized\
+            \ and rebuilt for this candidate's dialect (for example `\u2026/v1/chat/completions`\
+            \ for `openai-compatible` and `\u2026/v1/responses` for `openai-responses`).\
+            \ Absent for providers whose endpoint is derived from the credential rather\
+            \ than a URL \u2014 Anthropic on Bedrock (region-derived) and, where no\
+            \ base URI was supplied, Vertex."
+          type: string
+          format: uri
+          nullable: true
+          example: https://api.openai.com/v1/chat/completions
+        model:
+          description: The provider-specific model identifier this candidate configures.
+          type: string
+        capabilities:
+          description: Capabilities inferred for `model` from its name and provider
+            type.
+          allOf:
+          - $ref: '#/components/schemas/LLMCapabilities'
+        verified:
+          description: Whether a live generation round-trip against this exact `model`
+            succeeded. At most three models per detected endpoint are live-tested;
+            other candidates sharing a healthy endpoint are returned with `verified`
+            false and no `verification_error`, and are expected to work.
+          type: boolean
+        verification_error:
+          description: When `verified` is false, the reason this model's live test
+            failed. When every live test against the candidate's endpoint failed,
+            the endpoint-wide failure is reported instead. Null for an untested candidate
+            on a healthy endpoint.
+          type: string
+          nullable: true
+      required:
+      - type
+      - model
+      - verified
+    DiscoverLLMsResponse:
+      description: The model configurations discovered by probing the endpoint, most-likely-to-work
+        first.
+      type: object
+      properties:
+        candidates:
+          description: "Discovered configurations, one per (provider type, model).\
+            \ Candidates that were successfully live-tested (`verified: true`) are\
+            \ listed first. Submit any candidate's fields \u2014 together with the\
+            \ same credential you passed in \u2014 to `POST /v2/llms` to create the\
+            \ LLM."
+          type: array
+          items:
+            $ref: '#/components/schemas/DiscoveredLLM'
+      required:
+      - candidates
     OpenAILLMUpdateBase:
       description: Common updatable fields for OpenAI-compatible and Responses API
         LLM requests.
@@ -21358,8 +22012,10 @@ components:
           type: object
           properties:
             model_name:
-              description: The name of the model to use for evaluation. Supported
-                values are `hhem_v2.3` (the default) and `hhem_v2.2`.
+              description: The name of the model to use for evaluation. `hhem_v2.3`
+                is the default and the recommended model. `hhem_v2.2` is retired;
+                it remains accepted for backward compatibility and is served by `hhem_v2.3`.
+                Any other value is rejected.
               type: string
               example: hhem_v2.3
               default: hhem_v2.3
@@ -21930,7 +22586,8 @@ components:
       type: object
       properties:
         agent_key:
-          description: The key of the agent this role applies to.
+          description: The key of the agent this role applies to. For the `agent_end_user`
+            role this is an agent alias key, which shares the same shape.
           type: string
         role:
           description: 'The role assigned for this specific agent.
@@ -22855,7 +23512,9 @@ components:
           default: 30
           example: 30
         max_memory_mb:
-          description: Maximum memory usage in megabytes.
+          description: Deprecated and ignored. Memory is fixed by the execution environment
+            and cannot be configured per function.
+          deprecated: true
           type: integer
           minimum: 10
           maximum: 1024
@@ -22870,20 +23529,18 @@ components:
 
         - Python version: 3.12
 
-        - Execution: Sandboxed for security isolation
+        - Execution: isolated, with no network access
 
-        - **Allowed modules**: `json`, `math`, `datetime`, `collections`, `itertools`,
-        `functools`, `re`, `time`, `typing`
+        - **Preinstalled modules**: the standard library plus `numpy` and `pandas`
 
-        - Memory limit: 100MB (configurable up to 1GB)
+        - Memory: fixed by the execution environment and not configurable per function
 
         - Execution timeout: 30 seconds (configurable up to 300 seconds)
 
-        - Network access: Disabled for security
+        - File system access: a writable temporary workspace, discarded after each
+        execution
 
-        - File system access: Read-only temporary workspace
-
-        - No custom package installation supported (security constraint)
+        - No custom package installation supported
 
 
         **Type Annotations:**
@@ -23013,11 +23670,11 @@ components:
         context_percentage:
           description: The fraction of the model's context window that a single tool
             output is allowed to occupy before it is considered large enough to offload
-            on its own, estimated at four characters per token. The resulting byte
-            threshold is clamped between `min_threshold_bytes` and `max_threshold_bytes`,
-            so for very large context models this percentage is usually dominated
-            by `max_threshold_bytes`, and for very small context models it is dominated
-            by `min_threshold_bytes`.
+            on its own. The platform converts the fraction to a byte threshold using
+            a bytes-per-token ratio for the model, then clamps it between `min_threshold_bytes`
+            and `max_threshold_bytes`, so for very large context models this percentage
+            is usually dominated by `max_threshold_bytes`, and for very small context
+            models it is dominated by `min_threshold_bytes`.
           type: number
           format: double
           minimum: 0.01
@@ -23045,9 +23702,10 @@ components:
         headroom_percentage:
           description: 'The fraction of the model''s context window at which offloading
             becomes sensitive to cumulative usage. When adding a tool output would
-            push total input tokens above this fraction of the context window (estimated
-            at four characters per token), the output is offloaded even if it would
-            otherwise be considered small enough to pass through.
+            push estimated total input tokens above this fraction of the context window,
+            the output is offloaded even if it would otherwise be considered small
+            enough to pass through. Token counts are estimated from output size using
+            a bytes-per-token ratio for the model.
 
             This is independent of the compaction `threshold_percent`: both can be
             configured on the same agent and both can apply. In practice it is often
@@ -23126,11 +23784,12 @@ components:
         max_execution_time_seconds:
           description: Maximum wall-clock time, in seconds, before the platform aborts
             a call to this tool. For `sandbox_exec`, this also bounds the command
-            running in the session sandbox; it does not change the session's lifetime.
-            For `lambda` tools, this also bounds the function's execution, taking
-            precedence over the tool's `execution_configuration`. When unset, no timeout
-            applies and the tool's own limits, if any, govern how long a call may
-            run.
+            running in the session sandbox, and the session pod is kept alive at least
+            until this budget (plus a safety margin) has elapsed, so an in-flight
+            command is never cut short by session expiry. For `lambda` tools, this
+            also bounds the function's execution, taking precedence over the tool's
+            `execution_configuration`. When unset, no timeout applies and the tool's
+            own limits, if any, govern how long a call may run.
           type: integer
           minimum: 1
           maximum: 3600
@@ -27433,6 +28092,17 @@ components:
           description: The text content of the input.
           type: string
           example: I need help with my widget installation
+        external_id:
+          description: 'The submitter''s own identifier for this input, e.g. a Slack
+            message timestamp. Opaque to Vectara, and unique within the session: submitting
+            an input whose `external_id` the session already holds adds nothing and
+            returns no error. An input without an `external_id` is always added. Returned
+            on the input''s event in `InputMessageEvent.messages`.
+
+            '
+          type: string
+          maxLength: 255
+          example: '1787105665.831929'
       required:
       - type
       - content
@@ -29428,12 +30098,22 @@ components:
             old_token_to_remove: null
       required:
       - secrets
+    ConnectorStatus:
+      description: The current status of the connector.
+      type: string
+      enum:
+      - active
+      - inactive
+      - error
+      default: active
+      example: active
     AgentOutputType:
-      description: A category of intermediate agent output a connector can hide from
-        its channel via `hidden_output_types`. `tool_calls` is the agent's tool-call
+      description: A category of intermediate agent output. Connectors hide categories
+        from their channel via `hidden_output_types`; widget connectors reveal categories
+        to end users via `revealed_output_types`. `tool_calls` is the agent's tool-call
         activity, `thinking` is the model's reasoning output, and `structured_output`
         is structured (JSON) payloads emitted by the agent. The final response is
-        never one of these and is always posted.
+        never one of these and is always delivered.
       type: string
       enum:
       - tool_calls
@@ -29641,6 +30321,138 @@ components:
         - webhook_path
       x-vectaraParents:
       - ConnectorConfiguration
+    AgentAliasKey:
+      description: 'The unique key that identifies an alias. Alias keys are independent
+        of agent keys. The same string can exist as both an alias key and an agent
+        key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target
+        the alias. Calls to `/v2/agents/{key}/...` target the agent.
+
+        '
+      type: string
+      pattern: ^[0-9a-zA-Z_-]+$
+      minLength: 1
+      maxLength: 50
+      example: support
+    WidgetPresentation:
+      description: "The presentation configuration the widget client renders \u2014\
+        \ branding, palette, welcome content, suggested prompts.\nFree-form apart\
+        \ from the required `version`; the platform stores it verbatim, serves it\
+        \ back uninterpreted, and caps its total size.\nNull-valued keys are accepted\
+        \ but are omitted from responses.\nServed to anonymous visitors by the unauthenticated\
+        \ widget bootstrap endpoint, so widget clients must treat every value as untrusted\
+        \ data.\nSchema validation of the payload lands with the first Altera release;\
+        \ `version` is what lets clients render older payloads once the shape evolves.\n"
+      type: object
+      additionalProperties: true
+      required:
+      - version
+      properties:
+        version:
+          description: 'The version of the presentation payload''s shape, chosen by
+            the writer and echoed verbatim on read.
+
+            Until the first Altera release the only accepted value is `beta`, marking
+            the payload as free-form; schema-validated numbered versions arrive with
+            that release.
+
+            '
+          type: string
+          maxLength: 20
+          example: beta
+    TrustedTokenIssuerId:
+      description: The unique identifier of a trusted token issuer.
+      type: string
+      pattern: ^tki_[0-9a-zA-Z_-]+$
+      example: tki_9Kx2QpVn4mZr8YbLc5TdWe
+    WidgetSignIn:
+      description: "Enables the widget's sign-in affordance and names the identity\
+        \ provider it authenticates users against.\nThe host page supplies a token\
+        \ minted by the referenced trusted token issuer, and the widget presents it\
+        \ as the bearer credential on end-user session requests.\nThe platform verifies\
+        \ the token by its `iss` claim against the globally-unique issuer registration\
+        \ \u2014 never against this connector \u2014 so the token stands on its own:\
+        \ it signs the caller in as an end user across the customer's aliases, not\
+        \ this widget's alone.\nThe platform accepts the token when its signature\
+        \ verifies against the issuer's JWKS and it carries an `email` claim.\nThe\
+        \ referenced registration must exist, or the connector write is rejected with\
+        \ `400`.\n"
+      type: object
+      required:
+      - trusted_token_issuer_id
+      properties:
+        trusted_token_issuer_id:
+          $ref: '#/components/schemas/TrustedTokenIssuerId'
+    WidgetConnectorConfiguration:
+      description: 'Read view of a web widget connector''s configuration.
+
+        Every field is served to anonymous visitors by the unauthenticated widget
+        bootstrap endpoint.
+
+        Includes the platform-derived `bootstrap_path` the embed snippet calls.
+
+        Widget connectors ignore the base `hidden_output_types`; end-user event visibility
+        is controlled by `revealed_output_types`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/ConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: widget
+            example: widget
+          alias_key:
+            $ref: '#/components/schemas/AgentAliasKey'
+          presentation:
+            $ref: '#/components/schemas/WidgetPresentation'
+          session_tti_minutes:
+            description: 'How long a session created through this widget may sit idle
+              before it is closed, in minutes.
+
+              Applied to sessions created with this connector''s id as `connector_id`,
+              anonymous or signed-in, and reported as `tti_minutes` on those sessions.
+
+              Set to 0 for sessions that never expire.
+
+              Omit to use the platform default of 30 days.
+
+              '
+            type: integer
+            format: int32
+            minimum: 0
+            default: 43200
+          revealed_output_types:
+            description: 'Agent output types included in the widget''s end-user event
+              projection; the final response is always visible.
+
+              Applies to sessions created with this connector''s id as `connector_id`,
+              anonymous or signed-in.
+
+              Omitted or empty reveals none.
+
+              '
+            type: array
+            default: []
+            items:
+              $ref: '#/components/schemas/AgentOutputType'
+            example:
+            - tool_calls
+          end_user_sign_in:
+            $ref: '#/components/schemas/WidgetSignIn'
+          bootstrap_path:
+            description: The unauthenticated bootstrap path the embed snippet calls
+              to obtain a visitor id and the presentation configuration.
+            type: string
+            example: /v2/widgets/con_3Kx9QpVn2mZr8YbLc5TdWe/bootstrap
+        required:
+        - type
+        - alias_key
+        - presentation
+        - bootstrap_path
+      x-vectaraParents:
+      - ConnectorConfiguration
     ConnectorConfiguration:
       description: 'Read view of a connector''s configuration, as returned by GET
         and list
@@ -29655,6 +30467,8 @@ components:
 
         - zoom exposes the generated `connector_token` and `webhook_path`
 
+        - widget exposes `bootstrap_path`
+
         '
       x-vectara-base-schema: '#/ConnectorConfigurationBase'
       discriminator:
@@ -29663,13 +30477,56 @@ components:
           slack: '#/components/schemas/SlackConnectorConfiguration'
           gchat: '#/components/schemas/GchatConnectorConfiguration'
           zoom: '#/components/schemas/ZoomConnectorConfiguration'
+          widget: '#/components/schemas/WidgetConnectorConfiguration'
       oneOf:
       - $ref: '#/components/schemas/SlackConnectorConfiguration'
       - $ref: '#/components/schemas/GchatConnectorConfiguration'
       - $ref: '#/components/schemas/ZoomConnectorConfiguration'
-    AgentConnector:
-      description: A connector that allows an agent to receive events from external
-        platforms like Slack, Google Chat, or Zoom Contact Center.
+      - $ref: '#/components/schemas/WidgetConnectorConfiguration'
+    ConnectorWebhookStatus:
+      description: 'Outcome of the most recently received inbound webhook. Absent
+        until the
+
+        first webhook arrives. Values:
+
+        - `success`: the webhook verified and the event was accepted.
+
+        - `jwt_verification_failed`: the bearer token was missing or could not be
+        verified.
+
+        - `audience_mismatch`: the token was valid but its aud did not equal the connector''s
+        audience_url.
+
+        - `auth_failed`: the inbound request lacked or did not match the connector''s
+        authentication secret.
+
+        - `missing_signature`: the request lacked the signature needed for an asynchronous
+        reply.
+
+        - `missing_engagement`: the request lacked the engagement identifier needed
+        to route the session.
+
+        - `event_parse_failed`: the event body could not be parsed.
+
+        - `internal_error`: an unexpected error occurred after the connector was resolved.
+
+        - `unknown`: the outcome could not be classified.
+
+        '
+      type: string
+      enum:
+      - success
+      - jwt_verification_failed
+      - audience_mismatch
+      - auth_failed
+      - missing_signature
+      - missing_engagement
+      - event_parse_failed
+      - internal_error
+      - unknown
+      example: success
+    AgentConnectorBase:
+      description: Properties shared by every connector read view.
       type: object
       properties:
         id:
@@ -29687,23 +30544,8 @@ components:
           description: A detailed description of what this connector does.
           type: string
           example: Receives customer support messages from the
-        type:
-          description: The type of connector.
-          type: string
-          enum:
-          - slack
-          - gchat
-          - zoom
-          example: slack
         status:
-          description: The current status of the connector.
-          type: string
-          enum:
-          - active
-          - inactive
-          - error
-          default: active
-          example: active
+          $ref: '#/components/schemas/ConnectorStatus'
         status_message:
           description: Detailed status message (e.g., error description or success
             confirmation).
@@ -29747,57 +30589,109 @@ components:
           format: date-time
           example: '2024-01-16T14:45:00Z'
         last_webhook_status:
-          description: 'Outcome of the most recently received inbound webhook. Absent
-            until the
-
-            first webhook arrives. Values:
-
-            - `success`: the webhook verified and the event was accepted.
-
-            - `jwt_verification_failed`: the bearer token was missing or could not
-            be verified.
-
-            - `audience_mismatch`: the token was valid but its aud did not equal the
-            connector''s audience_url.
-
-            - `auth_failed`: the inbound request lacked or did not match the connector''s
-            authentication secret.
-
-            - `missing_signature`: the request lacked the signature needed for an
-            asynchronous reply.
-
-            - `missing_engagement`: the request lacked the engagement identifier needed
-            to route the session.
-
-            - `event_parse_failed`: the event body could not be parsed.
-
-            - `internal_error`: an unexpected error occurred after the connector was
-            resolved.
-
-            - `unknown`: the outcome could not be classified.
-
-            '
-          type: string
-          enum:
-          - success
-          - jwt_verification_failed
-          - audience_mismatch
-          - auth_failed
-          - missing_signature
-          - missing_engagement
-          - event_parse_failed
-          - internal_error
-          - unknown
-          example: success
+          $ref: '#/components/schemas/ConnectorWebhookStatus'
       required:
       - id
       - agent_key
       - name
-      - type
       - status
       - enabled
       - configuration
       - created_at
+    SlackAgentConnector:
+      description: Read view of a Slack connector.
+      allOf:
+      - $ref: '#/components/schemas/AgentConnectorBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector.
+            type: string
+            default: slack
+            example: slack
+        required:
+        - type
+      x-vectaraParents:
+      - AgentConnector
+    GchatAgentConnector:
+      description: Read view of a Google Chat connector.
+      allOf:
+      - $ref: '#/components/schemas/AgentConnectorBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector.
+            type: string
+            default: gchat
+            example: gchat
+        required:
+        - type
+      x-vectaraParents:
+      - AgentConnector
+    ZoomAgentConnector:
+      description: Read view of a Zoom Contact Center connector.
+      allOf:
+      - $ref: '#/components/schemas/AgentConnectorBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector.
+            type: string
+            default: zoom
+            example: zoom
+        required:
+        - type
+      x-vectaraParents:
+      - AgentConnector
+    WidgetAgentConnector:
+      description: Read view of a web widget connector.
+      allOf:
+      - $ref: '#/components/schemas/AgentConnectorBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector.
+            type: string
+            default: widget
+            example: widget
+          public_access:
+            description: 'Whether this connector admits anonymous visitors.
+
+              Independent of `status`.
+
+              While `false`, the widget bootstrap endpoint returns `404` for the connector
+              and every previously minted visitor id is refused on the end-user session
+              surface.
+
+              Gates anonymous admission only; authenticated callers presenting this
+              connector are governed by `enabled`.
+
+              '
+            type: boolean
+            default: false
+            example: false
+        required:
+        - type
+        - public_access
+      x-vectaraParents:
+      - AgentConnector
+    AgentConnector:
+      description: "A connector that surfaces an agent to end users through a channel\
+        \ \u2014 an external platform like Slack, Google Chat, or Zoom Contact Center,\
+        \ or the embeddable web widget."
+      x-vectara-base-schema: '#/AgentConnectorBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          slack: '#/components/schemas/SlackAgentConnector'
+          gchat: '#/components/schemas/GchatAgentConnector'
+          zoom: '#/components/schemas/ZoomAgentConnector'
+          widget: '#/components/schemas/WidgetAgentConnector'
+      oneOf:
+      - $ref: '#/components/schemas/SlackAgentConnector'
+      - $ref: '#/components/schemas/GchatAgentConnector'
+      - $ref: '#/components/schemas/ZoomAgentConnector'
+      - $ref: '#/components/schemas/WidgetAgentConnector'
     ListAgentConnectorsResponse:
       description: Response containing a list of agent connectors.
       type: object
@@ -29812,6 +30706,33 @@ components:
       required:
       - connectors
       - metadata
+    CreateAgentConnectorRequestBase:
+      description: Properties shared by every connector create request.
+      type: object
+      properties:
+        name:
+          description: The human-readable name of the connector.
+          type: string
+          example: Customer Support Slack Channel
+        description:
+          description: A detailed description of what this connector does.
+          type: string
+          example: Receives customer support messages from the
+        metadata:
+          description: Arbitrary metadata associated with the connector.
+          type: object
+          additionalProperties: true
+          default: {}
+          example:
+            priority: high
+            department: customer_service
+        enabled:
+          description: Whether the connector should be enabled upon creation.
+          type: boolean
+          default: true
+          example: true
+      required:
+      - name
     CreateConnectorConfigurationBase:
       description: Properties shared by every connector configuration write view.
       type: object
@@ -29864,6 +30785,24 @@ components:
         - api_app_id
       x-vectaraParents:
       - CreateConnectorConfiguration
+    CreateSlackAgentConnectorRequest:
+      description: Request object for creating a Slack connector.
+      allOf:
+      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector.
+            type: string
+            default: slack
+            example: slack
+          configuration:
+            $ref: '#/components/schemas/CreateSlackConnectorConfiguration'
+        required:
+        - type
+        - configuration
+      x-vectaraParents:
+      - CreateAgentConnectorRequest
     CreateGchatConnectorConfiguration:
       description: 'Write view of a Google Chat connector''s configuration. Supply
         the service
@@ -29903,6 +30842,24 @@ components:
         - service_account_key
       x-vectaraParents:
       - CreateConnectorConfiguration
+    CreateGchatAgentConnectorRequest:
+      description: Request object for creating a Google Chat connector.
+      allOf:
+      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector.
+            type: string
+            default: gchat
+            example: gchat
+          configuration:
+            $ref: '#/components/schemas/CreateGchatConnectorConfiguration'
+        required:
+        - type
+        - configuration
+      x-vectaraParents:
+      - CreateAgentConnectorRequest
     CreateZoomConnectorConfiguration:
       description: 'Write view of a Zoom Contact Center connector''s configuration.
         Supply the
@@ -29962,6 +30919,136 @@ components:
         - callback_url
       x-vectaraParents:
       - CreateConnectorConfiguration
+    CreateZoomAgentConnectorRequest:
+      description: Request object for creating a Zoom Contact Center connector.
+      allOf:
+      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector.
+            type: string
+            default: zoom
+            example: zoom
+          configuration:
+            $ref: '#/components/schemas/CreateZoomConnectorConfiguration'
+        required:
+        - type
+        - configuration
+      x-vectaraParents:
+      - CreateAgentConnectorRequest
+    CreateWidgetConnectorConfiguration:
+      description: 'Write view of a web widget connector''s configuration, supplied
+        on create or update.
+
+        Every field is served to anonymous visitors by the unauthenticated widget
+        bootstrap endpoint.
+
+        The `bootstrap_path` is platform-derived and appears only in the read view.
+
+        Widget connectors ignore the base `hidden_output_types`; end-user event visibility
+        is controlled by `revealed_output_types`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/CreateConnectorConfigurationBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector configuration.
+            type: string
+            default: widget
+            example: widget
+          alias_key:
+            $ref: '#/components/schemas/AgentAliasKey'
+          presentation:
+            $ref: '#/components/schemas/WidgetPresentation'
+          session_tti_minutes:
+            description: 'How long a session created through this widget may sit idle
+              before it is closed, in minutes.
+
+              Applied to sessions created with this connector''s id as `connector_id`,
+              anonymous or signed-in.
+
+              Set to 0 for sessions that never expire.
+
+              Omit to use the platform default of 30 days.
+
+              '
+            type: integer
+            format: int32
+            minimum: 0
+            default: 43200
+          revealed_output_types:
+            description: 'Agent output types included in the widget''s end-user event
+              projection; the final response is always visible.
+
+              Applies to sessions created with this connector''s id as `connector_id`,
+              anonymous or signed-in.
+
+              Omitted or empty reveals none.
+
+              '
+            type: array
+            default: []
+            items:
+              $ref: '#/components/schemas/AgentOutputType'
+            example:
+            - tool_calls
+          end_user_sign_in:
+            $ref: '#/components/schemas/WidgetSignIn'
+        required:
+        - type
+        - alias_key
+        - presentation
+      x-vectaraParents:
+      - CreateConnectorConfiguration
+    CreateWidgetAgentConnectorRequest:
+      description: Request object for creating a web widget connector.
+      allOf:
+      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
+      - type: object
+        properties:
+          type:
+            description: The type of connector.
+            type: string
+            default: widget
+            example: widget
+          public_access:
+            description: 'Whether the connector admits anonymous visitors upon creation.
+              Defaults to `false`, so a widget never admits visitors until it is explicitly
+              opened.
+
+              Gates anonymous admission only; authenticated callers presenting this
+              connector are governed by `enabled`.
+
+              '
+            type: boolean
+            default: false
+            example: false
+          configuration:
+            $ref: '#/components/schemas/CreateWidgetConnectorConfiguration'
+        required:
+        - type
+        - configuration
+      x-vectaraParents:
+      - CreateAgentConnectorRequest
+    CreateAgentConnectorRequest:
+      description: Request object for creating a new agent connector, discriminated
+        by the connector type.
+      x-vectara-base-schema: '#/CreateAgentConnectorRequestBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          slack: '#/components/schemas/CreateSlackAgentConnectorRequest'
+          gchat: '#/components/schemas/CreateGchatAgentConnectorRequest'
+          zoom: '#/components/schemas/CreateZoomAgentConnectorRequest'
+          widget: '#/components/schemas/CreateWidgetAgentConnectorRequest'
+      oneOf:
+      - $ref: '#/components/schemas/CreateSlackAgentConnectorRequest'
+      - $ref: '#/components/schemas/CreateGchatAgentConnectorRequest'
+      - $ref: '#/components/schemas/CreateZoomAgentConnectorRequest'
+      - $ref: '#/components/schemas/CreateWidgetAgentConnectorRequest'
     CreateConnectorConfiguration:
       description: 'Write view of a connector''s configuration. Used when creating
         a connector
@@ -29978,6 +31065,8 @@ components:
 
         - zoom returns the generated `connector_token` and `webhook_path`
 
+        - widget returns `bootstrap_path`
+
         '
       x-vectara-base-schema: '#/CreateConnectorConfigurationBase'
       discriminator:
@@ -29986,40 +31075,12 @@ components:
           slack: '#/components/schemas/CreateSlackConnectorConfiguration'
           gchat: '#/components/schemas/CreateGchatConnectorConfiguration'
           zoom: '#/components/schemas/CreateZoomConnectorConfiguration'
+          widget: '#/components/schemas/CreateWidgetConnectorConfiguration'
       oneOf:
       - $ref: '#/components/schemas/CreateSlackConnectorConfiguration'
       - $ref: '#/components/schemas/CreateGchatConnectorConfiguration'
       - $ref: '#/components/schemas/CreateZoomConnectorConfiguration'
-    CreateAgentConnectorRequest:
-      description: Request object for creating a new agent connector.
-      type: object
-      properties:
-        name:
-          description: The human-readable name of the connector.
-          type: string
-          example: Customer Support Slack Channel
-        description:
-          description: A detailed description of what this connector does.
-          type: string
-          example: Receives customer support messages from the
-        metadata:
-          description: Arbitrary metadata associated with the connector.
-          type: object
-          additionalProperties: true
-          default: {}
-          example:
-            priority: high
-            department: customer_service
-        enabled:
-          description: Whether the connector should be enabled upon creation.
-          type: boolean
-          default: true
-          example: true
-        configuration:
-          $ref: '#/components/schemas/CreateConnectorConfiguration'
-      required:
-      - name
-      - configuration
+      - $ref: '#/components/schemas/CreateWidgetConnectorConfiguration'
     UpdateAgentConnectorRequest:
       description: 'Request object for updating an existing agent connector. A supplied
 
@@ -30052,6 +31113,18 @@ components:
             last_reviewed: '2024-01-15'
         enabled:
           description: Whether the connector is enabled.
+          type: boolean
+          example: false
+        public_access:
+          description: 'Whether the connector admits anonymous visitors. Only accepted
+            for
+
+            `widget` connectors; rejected for other types. Setting it to `false`
+
+            refuses every previously minted visitor id; the change takes effect within
+            a few seconds.
+
+            '
           type: boolean
           example: false
         configuration:
@@ -31683,18 +32756,6 @@ components:
       - pageSize
       - totalSize
       additionalProperties: false
-    AgentAliasKey:
-      description: 'The unique key that identifies an alias. Alias keys are independent
-        of agent keys. The same string can exist as both an alias key and an agent
-        key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target
-        the alias. Calls to `/v2/agents/{key}/...` target the agent.
-
-        '
-      type: string
-      pattern: ^[0-9a-zA-Z_-]+$
-      minLength: 1
-      maxLength: 50
-      example: support
     SingleRuleTargets:
       description: 'Direct route to a single agent. The `agent_key` must reference
         an existing agent owned by the same customer.
@@ -32032,6 +33093,12 @@ components:
           minimum: 0
           default: 0
           example: 60
+        connector_id:
+          description: The widget connector this session belongs to, fixed at create.
+          type: string
+          pattern: ^con_[0-9a-zA-Z_-]+$
+          readOnly: true
+          example: con_9f3aQpVn2mZr8YbLc5TdWe
         created_at:
           description: Timestamp when the session was created.
           type: string
@@ -32057,13 +33124,13 @@ components:
       - sessions
       - metadata
     CreateEndUserSessionRequest:
-      description: 'Request to create a session as an end user. You may supply only
-        `name` and `description`. The owning principal comes from the
-
-        caller''s authenticated identity.
+      description: 'Request to create a session as an end user. The owning principal
+        comes from the caller''s authenticated identity.
 
         '
       type: object
+      required:
+      - connector_id
       properties:
         name:
           description: Human-readable name for the session. Platform-generated if
@@ -32075,6 +33142,16 @@ components:
             platform generates one after the agent produces events.
           type: string
           example: Helping customer troubleshoot widget installation issues
+        connector_id:
+          description: "The widget connector this session belongs to \u2014 the one\
+            \ the widget client learned at bootstrap. Must name an enabled widget\
+            \ connector of the addressed alias, or the request is rejected with `400`.\n\
+            It fixes the session's widget behavior for its lifetime: the widget's\
+            \ `session_tti_minutes` sets the idle lifetime, and event\nreads through\
+            \ the session use the widget's `revealed_output_types`.\n"
+          type: string
+          pattern: ^con_[0-9a-zA-Z_-]+$
+          example: con_9f3aQpVn2mZr8YbLc5TdWe
     EndUserEventBase:
       description: Base properties shared by all end-user event types.
       type: object
@@ -32161,7 +33238,17 @@ components:
       x-vectaraParents:
       - EndUserEvent
     EndUserEvent:
-      description: A session event visible to the end user who owns the session.
+      description: 'A session event visible to the end user who owns the session.
+
+        The `input_message`, `agent_output`, and `error` variants are always visible.
+
+        The `tool_input`, `tool_output`, `thinking`, and `structured_output` variants
+        appear only when the widget connector the caller entered through reveals the
+        matching output category via `revealed_output_types`.
+
+        Revealed variants carry the same payload as their operator representations.
+
+        '
       type: object
       x-vectara-base-schema: '#/EndUserEventBase'
       discriminator:
@@ -32170,10 +33257,18 @@ components:
           input_message: '#/components/schemas/EndUserInputMessageEvent'
           agent_output: '#/components/schemas/EndUserAgentOutputEvent'
           error: '#/components/schemas/EndUserErrorEvent'
+          tool_input: '#/components/schemas/ToolInputEvent'
+          tool_output: '#/components/schemas/ToolOutputEvent'
+          thinking: '#/components/schemas/ThinkingEvent'
+          structured_output: '#/components/schemas/StructuredOutputEvent'
       oneOf:
       - $ref: '#/components/schemas/EndUserInputMessageEvent'
       - $ref: '#/components/schemas/EndUserAgentOutputEvent'
       - $ref: '#/components/schemas/EndUserErrorEvent'
+      - $ref: '#/components/schemas/ToolInputEvent'
+      - $ref: '#/components/schemas/ToolOutputEvent'
+      - $ref: '#/components/schemas/ThinkingEvent'
+      - $ref: '#/components/schemas/StructuredOutputEvent'
     ListEndUserEventsResponse:
       description: Response containing a session's events, projected to the caller's
         end-user visibility.
@@ -32287,14 +33382,19 @@ components:
       - events
       - session_key
     EndUserAgentStreamedResponse:
-      description: 'An individual frame on the end-user live SSE stream. Frames include
-        every `EndUserEvent` variant, plus two transient chunk types
+      description: 'An individual frame on the end-user live SSE stream.
 
-        that are not persisted: `streaming_agent_output` and `streaming_agent_output_end`.
-        These chunk types let a client render the
+        Frames include every `EndUserEvent` variant, plus transient chunk types that
+        are not persisted: `streaming_agent_output` and `streaming_agent_output_end`.
 
-        agent''s reply incrementally instead of waiting for the complete `agent_output`
-        event.
+        These chunk types let a client render the agent''s reply incrementally instead
+        of waiting for the complete `agent_output` event.
+
+        When the widget connector reveals the matching output category, the stream
+        also carries `streaming_thinking` and `streaming_thinking_end` chunks and
+        `tool_activity` frames.
+
+        Every stream terminates with a single `end` frame.
 
         '
       discriminator:
@@ -32303,14 +33403,248 @@ components:
           input_message: '#/components/schemas/EndUserInputMessageEvent'
           agent_output: '#/components/schemas/EndUserAgentOutputEvent'
           error: '#/components/schemas/EndUserErrorEvent'
+          tool_input: '#/components/schemas/ToolInputEvent'
+          tool_output: '#/components/schemas/ToolOutputEvent'
+          thinking: '#/components/schemas/ThinkingEvent'
+          structured_output: '#/components/schemas/StructuredOutputEvent'
           streaming_agent_output: '#/components/schemas/StreamingAgentOutput'
           streaming_agent_output_end: '#/components/schemas/StreamingAgentOutputEnd'
+          streaming_thinking: '#/components/schemas/StreamingThinking'
+          streaming_thinking_end: '#/components/schemas/StreamingThinkingEnd'
+          tool_activity: '#/components/schemas/ToolActivityEvent'
+          end: '#/components/schemas/StreamResponseEnd'
       oneOf:
       - $ref: '#/components/schemas/EndUserInputMessageEvent'
       - $ref: '#/components/schemas/EndUserAgentOutputEvent'
       - $ref: '#/components/schemas/EndUserErrorEvent'
+      - $ref: '#/components/schemas/ToolInputEvent'
+      - $ref: '#/components/schemas/ToolOutputEvent'
+      - $ref: '#/components/schemas/ThinkingEvent'
+      - $ref: '#/components/schemas/StructuredOutputEvent'
       - $ref: '#/components/schemas/StreamingAgentOutput'
       - $ref: '#/components/schemas/StreamingAgentOutputEnd'
+      - $ref: '#/components/schemas/StreamingThinking'
+      - $ref: '#/components/schemas/StreamingThinkingEnd'
+      - $ref: '#/components/schemas/ToolActivityEvent'
+      - $ref: '#/components/schemas/StreamResponseEnd'
+    BootstrapWidgetResponse:
+      description: "The configuration a widget client needs to render and to open\
+        \ a session, and \u2014 for a widget that admits anonymous visitors \u2014\
+        \ the anonymous identity to open one with.\nSession attributes such as idle\
+        \ lifetime are reported on the session object returned by the end-user session\
+        \ create endpoint.\n"
+      type: object
+      required:
+      - alias_key
+      - presentation
+      properties:
+        visitor_id:
+          description: 'The anonymous identity minted for this visitor. Present only
+            when the widget admits anonymous visitors; a sign-in-only widget returns
+            no `visitor_id`, and its callers open a session with a customer-IdP token
+            instead.
+
+            Presented as the `X-Visitor-Id` header on every end-user session request.
+
+            Store it durably on the client; it never expires, and it is the only proof
+            of ownership of the sessions it creates.
+
+            '
+          type: string
+        alias_key:
+          $ref: '#/components/schemas/AgentAliasKey'
+        presentation:
+          $ref: '#/components/schemas/WidgetPresentation'
+        end_user_sign_in:
+          $ref: '#/components/schemas/WidgetSignIn'
+    TrustedTokenIssuer:
+      description: 'A customer identity provider whose signed tokens the platform
+        accepts as end-user credentials.
+
+        The registration is a trust anchor: the issuer URL and the JWKS the platform
+        verifies signatures against.
+
+        What a verified token grants is declared on the widget connector that references
+        this registration by id.
+
+        '
+      type: object
+      required:
+      - id
+      - name
+      - issuer
+      - jwks_uri
+      - enabled
+      - created_at
+      properties:
+        id:
+          $ref: '#/components/schemas/TrustedTokenIssuerId'
+        name:
+          description: The human-readable name of the trusted issuer.
+          type: string
+          minLength: 1
+          maxLength: 200
+          example: Acme Okta production
+        description:
+          description: A detailed description of what this trust registration is for.
+          type: string
+          maxLength: 1000
+          example: Lets Acme portal users chat with the support agent.
+        issuer:
+          description: 'The issuer URL exactly as it appears in the `iss` claim of
+            the identity provider''s tokens. Immutable after creation.
+
+            A customer may register an issuer once; a duplicate registration returns
+            `409`.
+
+            '
+          type: string
+          pattern: ^https://.+
+          maxLength: 1024
+          example: https://acme.okta.com/oauth2/default
+        jwks_uri:
+          description: 'The HTTPS URL of the issuer''s JSON Web Key Set.
+
+            The platform fetches it server-side and refreshes it periodically, so
+            new signing keys become effective on the next refresh.
+
+            A token signed with a key the platform has not yet seen triggers one immediate
+            refresh.
+
+            When a refresh fails, previously fetched keys remain in use until a refresh
+            succeeds.
+
+            '
+          type: string
+          pattern: ^https://.+
+          maxLength: 1024
+          example: https://acme.okta.com/oauth2/default/v1/keys
+        enabled:
+          description: Whether the registration currently accepts tokens. Disabling
+            refuses every future sign-in immediately.
+          type: boolean
+          default: true
+          example: true
+        last_jwks_fetch_at:
+          description: Timestamp of the most recent successful fetch of the issuer's
+            JWKS. Absent until the first successful fetch.
+          type: string
+          format: date-time
+          example: '2026-08-12T10:30:00Z'
+        jwks_key_count:
+          description: The number of signing keys in the most recent successful JWKS
+            fetch.
+          type: integer
+          format: int32
+          example: 2
+        jwks_fetch_error:
+          description: The most recent JWKS fetch error, absent while fetching is
+            healthy.
+          type: string
+          example: 'jwks fetch failed: connection timed out'
+        created_at:
+          description: Timestamp when the registration was created.
+          type: string
+          format: date-time
+          example: '2026-08-07T10:30:00Z'
+        updated_at:
+          description: Timestamp when the registration was last updated.
+          type: string
+          format: date-time
+          example: '2026-08-07T14:45:00Z'
+    ListTrustedTokenIssuersResponse:
+      description: Response containing a list of trusted token issuers.
+      type: object
+      required:
+      - trusted_token_issuers
+      - metadata
+      properties:
+        trusted_token_issuers:
+          description: List of trusted token issuers.
+          type: array
+          items:
+            $ref: '#/components/schemas/TrustedTokenIssuer'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+    CreateTrustedTokenIssuerRequest:
+      description: Request object for registering a trusted token issuer.
+      type: object
+      required:
+      - name
+      - issuer
+      - jwks_uri
+      properties:
+        name:
+          description: The human-readable name of the trusted issuer.
+          type: string
+          minLength: 1
+          maxLength: 200
+          example: Acme Okta production
+        description:
+          description: A detailed description of what this trust registration is for.
+          type: string
+          maxLength: 1000
+          example: Lets Acme portal users chat with the support agent.
+        issuer:
+          description: 'The issuer URL exactly as it appears in the `iss` claim of
+            the identity provider''s tokens. Immutable after creation.
+
+            A customer may register an issuer once; a duplicate registration returns
+            `409`.
+
+            '
+          type: string
+          pattern: ^https://.+
+          maxLength: 1024
+          example: https://acme.okta.com/oauth2/default
+        jwks_uri:
+          description: The HTTPS URL of the issuer's JSON Web Key Set.
+          type: string
+          pattern: ^https://.+
+          maxLength: 1024
+          example: https://acme.okta.com/oauth2/default/v1/keys
+        enabled:
+          description: Whether the registration accepts tokens upon creation.
+          type: boolean
+          default: true
+          example: true
+    ReplaceTrustedTokenIssuerRequest:
+      description: 'Request object for replacing a trusted token issuer registration.
+
+        The registration is fully replaced by this request; an omitted `description`
+        clears it and an omitted `enabled` resets it to `true`.
+
+        The `issuer` is immutable and is not part of this request.
+
+        '
+      type: object
+      required:
+      - name
+      - jwks_uri
+      properties:
+        name:
+          description: The human-readable name of the trusted issuer.
+          type: string
+          minLength: 1
+          maxLength: 200
+          example: Acme Okta production
+        description:
+          description: A detailed description of what this trust registration is for.
+          type: string
+          maxLength: 1000
+          example: Lets Acme portal users chat with the support agent.
+        jwks_uri:
+          description: The HTTPS URL of the issuer's JSON Web Key Set.
+          type: string
+          pattern: ^https://.+
+          maxLength: 1024
+          example: https://acme.okta.com/oauth2/default/v1/keys
+        enabled:
+          description: Whether the registration accepts tokens. Disabling refuses
+            every future sign-in immediately.
+          type: boolean
+          default: true
+          example: true
     PipelineStatus:
       description: The current operational status of the pipeline.
       type: string
@@ -33269,28 +34603,23 @@ components:
       - original_file
       - metadata_only
     BaseFluidtopicsSourceConfiguration:
-      description: 'Base Fluid Topics source configuration. Ingests content from a
-        Fluid Topics tenant via the
-
-        Knowledge Hub REST API. `content_scope` selects which layer to ingest:
-
-        - `documents`: standalone items.
-
-        - `topics`: the sections inside maps, each carrying its parent map''s identity
-        and classification.
-
-        - `maps`: whole maps, one record each.
-
-
-        Every record carries its full Fluid Topics metadata, including classification
-        and entitlement
-
-        fields, as document metadata for attribute-based filtering and access control.
-        Requires a
-
-        Fluid Topics API key with read access to the configured content.
-
-        '
+      description: "Base Fluid Topics source configuration. Ingests content from a\
+        \ Fluid Topics tenant via the\nKnowledge Hub REST API. `content_scope` selects\
+        \ which layer to ingest:\n- `documents`: standalone items.\n- `topics`: the\
+        \ sections inside maps, each carrying its parent map's identity and classification.\n\
+        - `maps`: whole maps, one record each.\n\nEvery record carries its full Fluid\
+        \ Topics metadata, including classification and entitlement\nfields, as document\
+        \ metadata for attribute-based filtering and access control. Requires a\n\
+        Fluid Topics API key with read access to the configured content. Incremental\
+        \ runs that read\ndataflow reports additionally require administration scope.\n\
+        \nUnless `query` is set to a value other than `*` in the `documents` or `topics`\
+        \ scope,\nincremental runs read the tenant's dataflow reports since the previous\
+        \ run's watermark and\ningest the content those reports flag as created or\
+        \ updated, including metadata-only changes.\nSuch a run fails when its watermark\
+        \ window holds more than 1000 reports, and a full refresh\nis required to\
+        \ resync. Content the reports flag as deleted is not removed from the corpus.\n\
+        Full-refresh runs \u2014 and the first run, which has no watermark yet \u2014\
+        \ enumerate all content.\n"
       type: object
       properties:
         type:
@@ -33303,8 +34632,10 @@ components:
           example: https://example.fluidtopics.net
         api_key:
           description: "Fluid Topics API key, sent as an HTTP Bearer authorization\
-            \ token. Generate one in the Fluid\nTopics administration interface under\
-            \ Integrations, API keys \u2014 see\nhttps://doc.fluidtopics.com/r/Fluid-Topics-Configuration-and-Administration-Guide/Configure-a-Fluid-Topics-tenant/Integrations/API-keys.\n\
+            \ token. Requires read access to\nthe configured content, plus administration\
+            \ scope when incremental runs read dataflow\nreports. Generate one in\
+            \ the Fluid Topics administration interface under Integrations, API\n\
+            keys \u2014 see\nhttps://doc.fluidtopics.com/r/Fluid-Topics-Configuration-and-Administration-Guide/Configure-a-Fluid-Topics-tenant/Integrations/API-keys.\n\
             Encrypted at rest and not returned in responses.\n"
           type: string
           writeOnly: true
@@ -33323,14 +34654,31 @@ components:
           - maps
           default: documents
         query:
-          description: Search query used to select the content to ingest. Defaults
+          description: 'Search query used to select the content to ingest. Defaults
             to `*` (all content).
+
+            Ignored when `content_scope` is `maps`. In the `documents` and `topics`
+            scopes, a query
+
+            other than `*` makes incremental runs re-enumerate the query''s results
+            and filter by
+
+            last-edition date, so metadata-only changes are not detected.
+
+            '
           type: string
           default: '*'
           example: '*'
         locale:
-          description: Restricts ingestion to a single content locale (Fluid Topics
-            `contentLocale`), for example `en-US`. When unset, all locales are ingested.
+          description: 'Restricts ingestion to a single content locale (Fluid Topics
+            `contentLocale`), for example
+
+            `en-US`. When unset, all locales are ingested. Records that carry no locale
+            metadata are
+
+            never excluded by this filter.
+
+            '
           type: string
           example: en-US
         filters:
@@ -33543,6 +34891,134 @@ components:
       - required:
         - base_url
         - auth
+    BaseDoceboSourceConfiguration:
+      description: 'Base Docebo source configuration. Ingests the course catalog of
+        a Docebo LMS instance through the
+
+        Learn REST API. Each course becomes one document carrying its description,
+        skills, and
+
+        instructors, with its category, language, and course type as document metadata
+        for
+
+        attribute-based filtering.
+
+
+        Only courses are ingested; the contents of their training materials are not.
+        Each course document
+
+        includes a curriculum outline listing the title, type, and description of
+        every training material.
+
+        '
+      type: object
+      properties:
+        type:
+          type: string
+          default: docebo
+          example: docebo
+        base_url:
+          description: 'Base URL of the Docebo instance. The Learn API paths are appended
+            automatically and must not
+
+            be included.
+
+            '
+          type: string
+          pattern: ^https?://.+
+          example: https://example.docebosaas.com
+        auth:
+          description: 'Authentication for the Docebo instance. The credential must
+            be permitted to read courses.
+
+            '
+          $ref: '#/components/schemas/RemoteAuth'
+        published_only:
+          description: Restricts ingestion to published courses, skipping any course
+            Docebo reports as unpublished.
+          type: boolean
+          default: true
+        include_languages:
+          description: 'Docebo language codes to ingest, for example `english` or
+            `japanese`, matched
+
+            case-insensitively. A course in a language that is not listed is skipped.
+            A Docebo catalog
+
+            commonly carries the same course once per translation, so this selects
+            which translations
+
+            are ingested. Empty (the default) ingests every language.
+
+            '
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 64
+          example:
+          - english
+        exclude_languages:
+          description: 'Docebo language codes whose courses are excluded from ingestion,
+            even when they also match
+
+            `include_languages`. Empty (the default) excludes nothing.
+
+            '
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 64
+          example:
+          - japanese
+        include_categories:
+          description: 'Docebo category names to ingest, matched case-insensitively.
+            A course in a category that is
+
+            not listed is skipped, as is a course with no category at all. Empty (the
+            default) ingests
+
+            every category, including courses with no category.
+
+            '
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
+          example:
+          - Product training
+        exclude_categories:
+          description: 'Docebo category names whose courses are excluded from ingestion,
+            even when they also match
+
+            `include_categories`. Empty (the default) excludes nothing.
+
+            '
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
+          example:
+          - Internal
+      required:
+      - type
+    DoceboSourceConfiguration:
+      description: Configuration for ingesting the course catalog of a Docebo LMS
+        instance via the Learn REST API.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseDoceboSourceConfiguration'
+      - required:
+        - base_url
+        - auth
     BaseWebSource:
       description: 'Shared configuration for all web-based sources (sitemap, crawl,
         sitemap+crawl). Contains
@@ -33571,19 +35047,36 @@ components:
           type: boolean
           default: true
         requests_per_second:
-          description: Maximum sustained requests per second per host.
+          description: "Maximum sustained requests per second, applied to each concurrent\
+            \ fetch\nindependently \u2014 the worst-case rate against a host is this\
+            \ value multiplied by\n`max_concurrent_fetches`.\n"
           type: number
           format: double
           minimum: 0.1
-          maximum: 20
+          maximum: 50
           default: 2
         max_concurrent:
-          description: Maximum concurrent in-flight requests per host.
+          description: 'Ignored. Use `max_concurrent_fetches`.
+
+            '
+          deprecated: true
           type: integer
           format: int32
           minimum: 1
           maximum: 8
           default: 4
+        max_concurrent_fetches:
+          description: 'Maximum number of pages fetched concurrently from a single
+            host. Each concurrent
+
+            fetch is paced by `requests_per_second` independently.
+
+            '
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 4
+          default: 2
         max_pages:
           description: "Hard cap on the number of pages fetched per run. The default\
             \ is a safety rail to prevent\nunbounded crawls. In BFS mode, `max_depth`\
@@ -33865,6 +35358,7 @@ components:
           confluence: '#/components/schemas/ConfluenceSourceConfiguration'
           fluidtopics: '#/components/schemas/FluidtopicsSourceConfiguration'
           scim: '#/components/schemas/ScimSourceConfiguration'
+          docebo: '#/components/schemas/DoceboSourceConfiguration'
           web: '#/components/schemas/WebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/SharepointSourceConfiguration'
@@ -33876,6 +35370,7 @@ components:
       - $ref: '#/components/schemas/ConfluenceSourceConfiguration'
       - $ref: '#/components/schemas/FluidtopicsSourceConfiguration'
       - $ref: '#/components/schemas/ScimSourceConfiguration'
+      - $ref: '#/components/schemas/DoceboSourceConfiguration'
       - $ref: '#/components/schemas/WebSourceConfiguration'
     CronTriggerConfiguration:
       description: Runs the pipeline on a cron schedule.
@@ -34097,6 +35592,40 @@ components:
       - incremental
       - full_refresh
       default: incremental
+    PipelineProcessingOptions:
+      description: 'Per-pipeline processing options. Each field overrides the service
+        default for this pipeline
+
+        only. A field that is null or omitted keeps the service default. In an update,
+        a provided
+
+        object replaces the stored options wholesale; it is not merged field-by-field.
+        Send an
+
+        empty object to return to the service defaults.
+
+        '
+      type: object
+      properties:
+        record_timeout_minutes:
+          description: Maximum time in minutes for a single processing attempt of
+            one record, including the agent session work. Overrides the service default
+            of 30 minutes. The record's total budget across all retry attempts is
+            twice this value.
+          type: integer
+          minimum: 1
+          maximum: 180
+          nullable: true
+          example: 60
+        max_concurrent_records:
+          description: Maximum number of this pipeline's records processed in parallel
+            within a run. Values above the service's parallelism limit are reduced
+            to that limit.
+          type: integer
+          minimum: 1
+          maximum: 64
+          nullable: true
+          example: 6
     PipelineWatermark:
       description: Tracks incremental sync progress. The value is opaque and source-specific
         (e.g. a timestamp or change token).
@@ -34145,6 +35674,11 @@ components:
           $ref: '#/components/schemas/PipelineTransform'
         sync_mode:
           $ref: '#/components/schemas/PipelineSyncMode'
+        processing_options:
+          description: Per-pipeline processing options. Omitted when the service defaults
+            apply.
+          allOf:
+          - $ref: '#/components/schemas/PipelineProcessingOptions'
         watermark:
           description: The current incremental sync watermark. Null if the pipeline
             has never run.
@@ -34219,6 +35753,11 @@ components:
           $ref: '#/components/schemas/PipelineTransform'
         sync_mode:
           $ref: '#/components/schemas/PipelineSyncMode'
+        processing_options:
+          description: Per-pipeline overrides of the service processing defaults.
+            Omit to use the defaults.
+          allOf:
+          - $ref: '#/components/schemas/PipelineProcessingOptions'
         enabled:
           type: boolean
           default: true
@@ -34303,6 +35842,13 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseScimSourceConfiguration'
+    UpdateDoceboSourceConfiguration:
+      description: Partial update for Docebo source configuration. Only provided fields
+        are merged.
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseDoceboSourceConfiguration'
     UpdateWebSourceConfiguration:
       description: 'Partial update for a `web` source configuration. Top-level fields
         are merged into the existing
@@ -34345,6 +35891,7 @@ components:
           confluence: '#/components/schemas/UpdateConfluenceSourceConfiguration'
           fluidtopics: '#/components/schemas/UpdateFluidtopicsSourceConfiguration'
           scim: '#/components/schemas/UpdateScimSourceConfiguration'
+          docebo: '#/components/schemas/UpdateDoceboSourceConfiguration'
           web: '#/components/schemas/UpdateWebSourceConfiguration'
       oneOf:
       - $ref: '#/components/schemas/UpdateSharepointSourceConfiguration'
@@ -34356,6 +35903,7 @@ components:
       - $ref: '#/components/schemas/UpdateConfluenceSourceConfiguration'
       - $ref: '#/components/schemas/UpdateFluidtopicsSourceConfiguration'
       - $ref: '#/components/schemas/UpdateScimSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateDoceboSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWebSourceConfiguration'
     UpdatePipelineRequest:
       description: Request to partially update an existing pipeline. Omitted fields
@@ -34375,6 +35923,15 @@ components:
           $ref: '#/components/schemas/PipelineTransform'
         sync_mode:
           $ref: '#/components/schemas/PipelineSyncMode'
+        processing_options:
+          description: 'Per-pipeline processing options. A provided object replaces
+            the stored one wholesale;
+
+            it is not merged field-by-field. Send an empty object to return to the
+            service defaults.
+
+            '
+          $ref: '#/components/schemas/PipelineProcessingOptions'
         enabled:
           type: boolean
         metadata:
@@ -36017,6 +37574,22 @@ components:
       schema:
         type: integer
         minimum: 1
+    VisitorId:
+      in: header
+      name: X-Visitor-Id
+      description: 'The encrypted anonymous visitor token minted by the widget bootstrap
+        endpoint, presented in place of an `Authorization` credential.
+
+        The widget connector the token was minted through travels inside it; the request
+        is refused unless that connector still admits anonymous visitors and fronts
+        the addressed alias.
+
+        Ignored when the request carries an authenticated credential.
+
+        '
+      schema:
+        type: string
+      required: false
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -36029,6 +37602,25 @@ components:
       type: apiKey
       in: header
       name: x-api-key
+    VisitorToken:
+      type: apiKey
+      in: header
+      name: X-Visitor-Id
+      description: 'The encrypted anonymous visitor token minted by the widget bootstrap
+        endpoint.
+
+        Accepted only on the operations that declare it; the widget connector the
+        token was minted through travels inside it and decides admission.
+
+        '
+    FederatedSignIn:
+      type: http
+      scheme: bearer
+      description: "A token minted by a registered trusted token issuer, verified\
+        \ by its `iss` claim against the globally-unique issuer registration \u2014\
+        \ no connector is presented, and the token signs the caller in as an end user\
+        \ across the issuer's customer's aliases.\nAccepted only on the operations\
+        \ that declare it.\n"
 x-tagGroups:
 - name: Agents
   tags:
@@ -36044,6 +37636,8 @@ x-tagGroups:
   - Tools
   - Tool Servers
   - Agent Connectors
+  - Widgets
+  - Trusted Token Issuers
   - Agent Secrets
   - A2A Protocol
   - Agent Memory

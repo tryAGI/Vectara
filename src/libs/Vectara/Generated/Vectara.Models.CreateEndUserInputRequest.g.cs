@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CreateEndUserInputRequest : global::System.IEquatable<CreateEndUserInputRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateEndUserInputRequestDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(InputMessage))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsInputMessage => InputMessage != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInputMessage(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateEndUserInputMessageRequest PickInputMessage() => IsInputMessage
             ? InputMessage!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Interrupt))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsInterrupt => Interrupt != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInterrupt(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateEndUserInterruptRequest PickInterrupt() => IsInterrupt
             ? Interrupt!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Interrupt' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateEndUserInputRequest(global::Vectara.CreateEndUserInputMessageRequest value) => new CreateEndUserInputRequest((global::Vectara.CreateEndUserInputMessageRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateEndUserInputMessageRequest?(CreateEndUserInputRequest @this) => @this.InputMessage;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInputRequest(global::Vectara.CreateEndUserInputMessageRequest? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateEndUserInputRequest FromInputMessage(global::Vectara.CreateEndUserInputMessageRequest? value) => new CreateEndUserInputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateEndUserInputRequest(global::Vectara.CreateEndUserInterruptRequest value) => new CreateEndUserInputRequest((global::Vectara.CreateEndUserInterruptRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateEndUserInterruptRequest?(CreateEndUserInputRequest @this) => @this.Interrupt;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInputRequest(global::Vectara.CreateEndUserInterruptRequest? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateEndUserInputRequest FromInterrupt(global::Vectara.CreateEndUserInterruptRequest? value) => new CreateEndUserInputRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInputRequest(
             global::Vectara.CreateEndUserInputRequestDiscriminatorType? type,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Interrupt as object ??
-            InputMessage as object 
+            InputMessage as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             InputMessage?.ToString() ??
-            Interrupt?.ToString() 
+            Interrupt?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateEndUserInputMessageRequest?, TResult>? inputMessage = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateEndUserInputMessageRequest?>? inputMessage = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateEndUserInputMessageRequest?>? inputMessage = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateEndUserInputRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInputMessageRequest?>.Default.Equals(InputMessage, other.InputMessage) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInterruptRequest?>.Default.Equals(Interrupt, other.Interrupt) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInterruptRequest?>.Default.Equals(Interrupt, other.Interrupt)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateEndUserInputRequest obj1, CreateEndUserInputRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateEndUserInputRequest obj1, CreateEndUserInputRequest obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

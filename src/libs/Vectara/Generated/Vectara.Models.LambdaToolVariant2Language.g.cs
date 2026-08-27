@@ -11,7 +11,7 @@ namespace Vectara
     public enum LambdaToolVariant2Language
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Python,
     }

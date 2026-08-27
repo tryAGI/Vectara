@@ -9,15 +9,15 @@ namespace Vectara
     public enum A2aV03Role
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RoleAgent,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RoleUnspecified,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RoleUser,
     }

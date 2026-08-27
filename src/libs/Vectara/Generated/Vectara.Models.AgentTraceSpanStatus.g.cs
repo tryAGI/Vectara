@@ -9,11 +9,11 @@ namespace Vectara
     public enum AgentTraceSpanStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Ok,
     }

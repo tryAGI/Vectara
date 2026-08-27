@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct MetricSeries : global::System.IEquatable<MetricSeries>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.MetricSeriesDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Counter))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsCounter => Counter != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCounter(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CounterMetricSeries PickCounter() => IsCounter
             ? Counter!.Value
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Gauge))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsGauge => Gauge != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGauge(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GaugeMetricSeries PickGauge() => IsGauge
             ? Gauge!.Value
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Percentiles))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsPercentiles => Percentiles != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickPercentiles(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.PercentilesMetricSeries PickPercentiles() => IsPercentiles
             ? Percentiles!.Value
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Distribution))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsDistribution => Distribution != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickDistribution(
 #if NET6_0_OR_GREATER
@@ -156,23 +156,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.DistributionMetricSeries PickDistribution() => IsDistribution
             ? Distribution!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Distribution' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator MetricSeries(global::Vectara.CounterMetricSeries value) => new MetricSeries((global::Vectara.CounterMetricSeries?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CounterMetricSeries?(MetricSeries @this) => @this.Counter;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricSeries(global::Vectara.CounterMetricSeries? value)
         {
@@ -180,22 +180,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static MetricSeries FromCounter(global::Vectara.CounterMetricSeries? value) => new MetricSeries(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator MetricSeries(global::Vectara.GaugeMetricSeries value) => new MetricSeries((global::Vectara.GaugeMetricSeries?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GaugeMetricSeries?(MetricSeries @this) => @this.Gauge;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricSeries(global::Vectara.GaugeMetricSeries? value)
         {
@@ -203,22 +203,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static MetricSeries FromGauge(global::Vectara.GaugeMetricSeries? value) => new MetricSeries(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator MetricSeries(global::Vectara.PercentilesMetricSeries value) => new MetricSeries((global::Vectara.PercentilesMetricSeries?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.PercentilesMetricSeries?(MetricSeries @this) => @this.Percentiles;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricSeries(global::Vectara.PercentilesMetricSeries? value)
         {
@@ -226,22 +226,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static MetricSeries FromPercentiles(global::Vectara.PercentilesMetricSeries? value) => new MetricSeries(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator MetricSeries(global::Vectara.DistributionMetricSeries value) => new MetricSeries((global::Vectara.DistributionMetricSeries?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.DistributionMetricSeries?(MetricSeries @this) => @this.Distribution;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricSeries(global::Vectara.DistributionMetricSeries? value)
         {
@@ -249,12 +249,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static MetricSeries FromDistribution(global::Vectara.DistributionMetricSeries? value) => new MetricSeries(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public MetricSeries(
             global::Vectara.MetricSeriesDiscriminatorType? type,
@@ -273,27 +273,27 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Distribution as object ??
             Percentiles as object ??
             Gauge as object ??
-            Counter as object 
+            Counter as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Counter?.ToString() ??
             Gauge?.ToString() ??
             Percentiles?.ToString() ??
-            Distribution?.ToString() 
+            Distribution?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -301,7 +301,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CounterMetricSeries?, TResult>? counter = null,
@@ -336,7 +336,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CounterMetricSeries?>? counter = null,
@@ -372,7 +372,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CounterMetricSeries?>? counter = null,
@@ -405,7 +405,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -430,7 +430,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(MetricSeries other)
         {
@@ -438,12 +438,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CounterMetricSeries?>.Default.Equals(Counter, other.Counter) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.GaugeMetricSeries?>.Default.Equals(Gauge, other.Gauge) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.PercentilesMetricSeries?>.Default.Equals(Percentiles, other.Percentiles) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.DistributionMetricSeries?>.Default.Equals(Distribution, other.Distribution) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.DistributionMetricSeries?>.Default.Equals(Distribution, other.Distribution)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(MetricSeries obj1, MetricSeries obj2)
         {
@@ -451,7 +451,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(MetricSeries obj1, MetricSeries obj2)
         {
@@ -459,7 +459,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

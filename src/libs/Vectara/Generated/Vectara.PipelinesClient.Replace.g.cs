@@ -17,7 +17,7 @@ namespace Vectara
                         SchemeId = "ApiKeyAuth",
                         Location = "Header",
                         Name = "x-api-key",
-                        FriendlyName = "ApiKeyInHeader",
+                        FriendlyName = "ApiKeyAuth",
                     },
                 },
             };
@@ -185,7 +185,7 @@ namespace Vectara
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
 
             if (requestTimeout != default)
@@ -639,6 +639,9 @@ namespace Vectara
         /// - `full_refresh`: Process all records from the source on each run.<br/>
         /// Default Value: incremental
         /// </param>
+        /// <param name="processingOptions">
+        /// Per-pipeline overrides of the service processing defaults. Omit to use the defaults.
+        /// </param>
         /// <param name="enabled">
         /// Default Value: true
         /// </param>
@@ -659,6 +662,7 @@ namespace Vectara
             string? key = default,
             string? description = default,
             global::Vectara.PipelineSyncMode? syncMode = default,
+            global::Vectara.PipelineProcessingOptions? processingOptions = default,
             bool? enabled = default,
             global::System.Collections.Generic.Dictionary<string, string>? metadata = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -673,6 +677,7 @@ namespace Vectara
                 Trigger = trigger,
                 Transform = transform,
                 SyncMode = syncMode,
+                ProcessingOptions = processingOptions,
                 Enabled = enabled,
                 Metadata = metadata,
             };

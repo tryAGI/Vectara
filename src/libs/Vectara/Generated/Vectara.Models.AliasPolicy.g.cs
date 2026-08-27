@@ -12,7 +12,7 @@ namespace Vectara
     public readonly partial struct AliasPolicy : global::System.IEquatable<AliasPolicy>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AliasPolicyDiscriminatorType? Type { get; }
 
@@ -31,7 +31,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Routed))]
@@ -39,7 +39,7 @@ namespace Vectara
         public bool IsRouted => Routed != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickRouted(
 #if NET6_0_OR_GREATER
@@ -52,23 +52,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.RoutedAliasPolicy PickRouted() => IsRouted
             ? Routed!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Routed' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AliasPolicy(global::Vectara.RoutedAliasPolicy value) => new AliasPolicy((global::Vectara.RoutedAliasPolicy?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.RoutedAliasPolicy?(AliasPolicy @this) => @this.Routed;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AliasPolicy(global::Vectara.RoutedAliasPolicy? value)
         {
@@ -76,12 +76,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AliasPolicy FromRouted(global::Vectara.RoutedAliasPolicy? value) => new AliasPolicy(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AliasPolicy(
             global::Vectara.AliasPolicyDiscriminatorType? type,
@@ -94,21 +94,21 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
-            Routed as object 
+            Routed as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
-            Routed?.ToString() 
+            Routed?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -116,7 +116,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.RoutedAliasPolicy, TResult>? routed = null,
@@ -136,7 +136,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.RoutedAliasPolicy>? routed = null,
@@ -154,7 +154,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.RoutedAliasPolicy>? routed = null,
@@ -172,7 +172,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -191,17 +191,17 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(AliasPolicy other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.RoutedAliasPolicy?>.Default.Equals(Routed, other.Routed) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.RoutedAliasPolicy?>.Default.Equals(Routed, other.Routed)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(AliasPolicy obj1, AliasPolicy obj2)
         {
@@ -209,7 +209,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(AliasPolicy obj1, AliasPolicy obj2)
         {
@@ -217,7 +217,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

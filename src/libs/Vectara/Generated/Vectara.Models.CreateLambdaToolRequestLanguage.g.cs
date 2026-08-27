@@ -11,7 +11,7 @@ namespace Vectara
     public enum CreateLambdaToolRequestLanguage
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Python,
     }

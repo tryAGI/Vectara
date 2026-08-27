@@ -10,7 +10,7 @@ namespace Vectara
     public enum FunctionDefinitionLanguage
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Python,
     }

@@ -1,279 +1,469 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
 namespace Vectara
 {
     /// <summary>
-    /// A connector that allows an agent to receive events from external platforms like Slack, Google Chat, or Zoom Contact Center.
+    /// A connector that surfaces an agent to end users through a channel — an external platform like Slack, Google Chat, or Zoom Contact Center, or the embeddable web widget.
     /// </summary>
-    public sealed partial class AgentConnector
+    public readonly partial struct AgentConnector : global::System.IEquatable<AgentConnector>
     {
         /// <summary>
-        /// The unique identifier for the connector.<br/>
-        /// Example: con_3Kx9QpVn2mZr8YbLc5TdWe
+        ///
         /// </summary>
-        /// <example>con_3Kx9QpVn2mZr8YbLc5TdWe</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("id")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Id { get; set; }
+        public global::Vectara.AgentConnectorDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// Read view of a Slack connector.
         /// </summary>
-        /// <example>customer_support</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("agent_key")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string AgentKey { get; set; }
-
-        /// <summary>
-        /// The human-readable name of the connector.<br/>
-        /// Example: Customer Support Slack Channel
-        /// </summary>
-        /// <example>Customer Support Slack Channel</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Name { get; set; }
-
-        /// <summary>
-        /// A detailed description of what this connector does.<br/>
-        /// Example: Receives customer support messages from the
-        /// </summary>
-        /// <example>Receives customer support messages from the</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; }
-
-        /// <summary>
-        /// The type of connector.<br/>
-        /// Example: slack
-        /// </summary>
-        /// <example>slack</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentConnectorTypeJsonConverter))]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.AgentConnectorType Type { get; set; }
-
-        /// <summary>
-        /// The current status of the connector.<br/>
-        /// Default Value: active<br/>
-        /// Example: active
-        /// </summary>
-        /// <default>global::Vectara.AgentConnectorStatus.Active</default>
-        /// <example>active</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("status")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentConnectorStatusJsonConverter))]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.AgentConnectorStatus Status { get; set; } = global::Vectara.AgentConnectorStatus.Active;
-
-        /// <summary>
-        /// Detailed status message (e.g., error description or success confirmation).<br/>
-        /// Example: Slack authentication successful
-        /// </summary>
-        /// <example>Slack authentication successful</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("status_message")]
-        public string? StatusMessage { get; set; }
-
-        /// <summary>
-        /// Arbitrary metadata associated with the connector.<br/>
-        /// Example: {"priority":"high","department":"customer_service"}
-        /// </summary>
-        /// <example>{"priority":"high","department":"customer_service"}</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
-        public object? Metadata { get; set; }
-
-        /// <summary>
-        /// Whether the connector is currently enabled and can receive events.<br/>
-        /// Default Value: true<br/>
-        /// Example: true
-        /// </summary>
-        /// <example>true</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required bool Enabled { get; set; }
-
-        /// <summary>
-        /// Read view of a connector's configuration, as returned by GET and list<br/>
-        /// endpoints. Contains the secrets supplied at create time alongside<br/>
-        /// platform-derived display fields:<br/>
-        /// - Slack exposes `webhook_path`<br/>
-        /// - gchat exposes `audience_url` and `client_email`<br/>
-        /// - zoom exposes the generated `connector_token` and `webhook_path`
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter))]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.ConnectorConfiguration Configuration { get; set; }
-
-        /// <summary>
-        /// Timestamp when the connector was created.<br/>
-        /// Example: 2024-01-15T10:30:00Z
-        /// </summary>
-        /// <example>2024-01-15T10:30:00Z</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::System.DateTime CreatedAt { get; set; }
-
-        /// <summary>
-        /// Timestamp when the connector was last updated.<br/>
-        /// Example: 2024-01-16T14:45:00Z
-        /// </summary>
-        /// <example>2024-01-16T14:45:00Z</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("updated_at")]
-        public global::System.DateTime? UpdatedAt { get; set; }
-
-        /// <summary>
-        /// Timestamp of the most recently received inbound webhook for this<br/>
-        /// connector, regardless of outcome. Absent until the first webhook<br/>
-        /// arrives.<br/>
-        /// Example: 2024-01-16T14:45:00Z
-        /// </summary>
-        /// <example>2024-01-16T14:45:00Z</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("last_webhook_at")]
-        public global::System.DateTime? LastWebhookAt { get; set; }
-
-        /// <summary>
-        /// Outcome of the most recently received inbound webhook. Absent until the<br/>
-        /// first webhook arrives. Values:<br/>
-        /// - `success`: the webhook verified and the event was accepted.<br/>
-        /// - `jwt_verification_failed`: the bearer token was missing or could not be verified.<br/>
-        /// - `audience_mismatch`: the token was valid but its aud did not equal the connector's audience_url.<br/>
-        /// - `auth_failed`: the inbound request lacked or did not match the connector's authentication secret.<br/>
-        /// - `missing_signature`: the request lacked the signature needed for an asynchronous reply.<br/>
-        /// - `missing_engagement`: the request lacked the engagement identifier needed to route the session.<br/>
-        /// - `event_parse_failed`: the event body could not be parsed.<br/>
-        /// - `internal_error`: an unexpected error occurred after the connector was resolved.<br/>
-        /// - `unknown`: the outcome could not be classified.<br/>
-        /// Example: success
-        /// </summary>
-        /// <example>success</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("last_webhook_status")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentConnectorLastWebhookStatusJsonConverter))]
-        public global::Vectara.AgentConnectorLastWebhookStatus? LastWebhookStatus { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AgentConnector" /> class.
-        /// </summary>
-        /// <param name="id">
-        /// The unique identifier for the connector.<br/>
-        /// Example: con_3Kx9QpVn2mZr8YbLc5TdWe
-        /// </param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
-        /// </param>
-        /// <param name="name">
-        /// The human-readable name of the connector.<br/>
-        /// Example: Customer Support Slack Channel
-        /// </param>
-        /// <param name="type">
-        /// The type of connector.<br/>
-        /// Example: slack
-        /// </param>
-        /// <param name="status">
-        /// The current status of the connector.<br/>
-        /// Default Value: active<br/>
-        /// Example: active
-        /// </param>
-        /// <param name="enabled">
-        /// Whether the connector is currently enabled and can receive events.<br/>
-        /// Default Value: true<br/>
-        /// Example: true
-        /// </param>
-        /// <param name="configuration">
-        /// Read view of a connector's configuration, as returned by GET and list<br/>
-        /// endpoints. Contains the secrets supplied at create time alongside<br/>
-        /// platform-derived display fields:<br/>
-        /// - Slack exposes `webhook_path`<br/>
-        /// - gchat exposes `audience_url` and `client_email`<br/>
-        /// - zoom exposes the generated `connector_token` and `webhook_path`
-        /// </param>
-        /// <param name="createdAt">
-        /// Timestamp when the connector was created.<br/>
-        /// Example: 2024-01-15T10:30:00Z
-        /// </param>
-        /// <param name="description">
-        /// A detailed description of what this connector does.<br/>
-        /// Example: Receives customer support messages from the
-        /// </param>
-        /// <param name="statusMessage">
-        /// Detailed status message (e.g., error description or success confirmation).<br/>
-        /// Example: Slack authentication successful
-        /// </param>
-        /// <param name="metadata">
-        /// Arbitrary metadata associated with the connector.<br/>
-        /// Example: {"priority":"high","department":"customer_service"}
-        /// </param>
-        /// <param name="updatedAt">
-        /// Timestamp when the connector was last updated.<br/>
-        /// Example: 2024-01-16T14:45:00Z
-        /// </param>
-        /// <param name="lastWebhookAt">
-        /// Timestamp of the most recently received inbound webhook for this<br/>
-        /// connector, regardless of outcome. Absent until the first webhook<br/>
-        /// arrives.<br/>
-        /// Example: 2024-01-16T14:45:00Z
-        /// </param>
-        /// <param name="lastWebhookStatus">
-        /// Outcome of the most recently received inbound webhook. Absent until the<br/>
-        /// first webhook arrives. Values:<br/>
-        /// - `success`: the webhook verified and the event was accepted.<br/>
-        /// - `jwt_verification_failed`: the bearer token was missing or could not be verified.<br/>
-        /// - `audience_mismatch`: the token was valid but its aud did not equal the connector's audience_url.<br/>
-        /// - `auth_failed`: the inbound request lacked or did not match the connector's authentication secret.<br/>
-        /// - `missing_signature`: the request lacked the signature needed for an asynchronous reply.<br/>
-        /// - `missing_engagement`: the request lacked the engagement identifier needed to route the session.<br/>
-        /// - `event_parse_failed`: the event body could not be parsed.<br/>
-        /// - `internal_error`: an unexpected error occurred after the connector was resolved.<br/>
-        /// - `unknown`: the outcome could not be classified.<br/>
-        /// Example: success
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.SlackAgentConnector? Slack { get; init; }
+#else
+        public global::Vectara.SlackAgentConnector? Slack { get; }
 #endif
-        public AgentConnector(
-            string id,
-            string agentKey,
-            string name,
-            global::Vectara.AgentConnectorType type,
-            global::Vectara.AgentConnectorStatus status,
-            bool enabled,
-            global::Vectara.ConnectorConfiguration configuration,
-            global::System.DateTime createdAt,
-            string? description,
-            string? statusMessage,
-            object? metadata,
-            global::System.DateTime? updatedAt,
-            global::System.DateTime? lastWebhookAt,
-            global::Vectara.AgentConnectorLastWebhookStatus? lastWebhookStatus)
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Slack))]
+#endif
+        public bool IsSlack => Slack != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickSlack(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SlackAgentConnector? value)
         {
-            this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
-            this.AgentKey = agentKey ?? throw new global::System.ArgumentNullException(nameof(agentKey));
-            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
-            this.Description = description;
-            this.Type = type;
-            this.Status = status;
-            this.StatusMessage = statusMessage;
-            this.Metadata = metadata;
-            this.Enabled = enabled;
-            this.Configuration = configuration;
-            this.CreatedAt = createdAt;
-            this.UpdatedAt = updatedAt;
-            this.LastWebhookAt = lastWebhookAt;
-            this.LastWebhookStatus = lastWebhookStatus;
+            value = Slack;
+            return IsSlack;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AgentConnector" /> class.
+        ///
         /// </summary>
-        public AgentConnector()
+        public global::Vectara.SlackAgentConnector PickSlack() => IsSlack
+            ? Slack!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Slack' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Read view of a Google Chat connector.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.GchatAgentConnector? Gchat { get; init; }
+#else
+        public global::Vectara.GchatAgentConnector? Gchat { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Gchat))]
+#endif
+        public bool IsGchat => Gchat != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickGchat(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.GchatAgentConnector? value)
         {
+            value = Gchat;
+            return IsGchat;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.GchatAgentConnector PickGchat() => IsGchat
+            ? Gchat!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Gchat' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Read view of a Zoom Contact Center connector.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.ZoomAgentConnector? Zoom { get; init; }
+#else
+        public global::Vectara.ZoomAgentConnector? Zoom { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Zoom))]
+#endif
+        public bool IsZoom => Zoom != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickZoom(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ZoomAgentConnector? value)
+        {
+            value = Zoom;
+            return IsZoom;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.ZoomAgentConnector PickZoom() => IsZoom
+            ? Zoom!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Zoom' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Read view of a web widget connector.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.WidgetAgentConnector? Widget { get; init; }
+#else
+        public global::Vectara.WidgetAgentConnector? Widget { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Widget))]
+#endif
+        public bool IsWidget => Widget != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickWidget(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.WidgetAgentConnector? value)
+        {
+            value = Widget;
+            return IsWidget;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.WidgetAgentConnector PickWidget() => IsWidget
+            ? Widget!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Widget' but the value was {ToString()}.");
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator AgentConnector(global::Vectara.SlackAgentConnector value) => new AgentConnector((global::Vectara.SlackAgentConnector?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.SlackAgentConnector?(AgentConnector @this) => @this.Slack;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public AgentConnector(global::Vectara.SlackAgentConnector? value)
+        {
+            Slack = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static AgentConnector FromSlack(global::Vectara.SlackAgentConnector? value) => new AgentConnector(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator AgentConnector(global::Vectara.GchatAgentConnector value) => new AgentConnector((global::Vectara.GchatAgentConnector?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.GchatAgentConnector?(AgentConnector @this) => @this.Gchat;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public AgentConnector(global::Vectara.GchatAgentConnector? value)
+        {
+            Gchat = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static AgentConnector FromGchat(global::Vectara.GchatAgentConnector? value) => new AgentConnector(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator AgentConnector(global::Vectara.ZoomAgentConnector value) => new AgentConnector((global::Vectara.ZoomAgentConnector?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.ZoomAgentConnector?(AgentConnector @this) => @this.Zoom;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public AgentConnector(global::Vectara.ZoomAgentConnector? value)
+        {
+            Zoom = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static AgentConnector FromZoom(global::Vectara.ZoomAgentConnector? value) => new AgentConnector(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator AgentConnector(global::Vectara.WidgetAgentConnector value) => new AgentConnector((global::Vectara.WidgetAgentConnector?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.WidgetAgentConnector?(AgentConnector @this) => @this.Widget;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public AgentConnector(global::Vectara.WidgetAgentConnector? value)
+        {
+            Widget = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static AgentConnector FromWidget(global::Vectara.WidgetAgentConnector? value) => new AgentConnector(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public AgentConnector(
+            global::Vectara.AgentConnectorDiscriminatorType? type,
+            global::Vectara.SlackAgentConnector? slack,
+            global::Vectara.GchatAgentConnector? gchat,
+            global::Vectara.ZoomAgentConnector? zoom,
+            global::Vectara.WidgetAgentConnector? widget
+            )
+        {
+            Type = type;
+
+            Slack = slack;
+            Gchat = gchat;
+            Zoom = zoom;
+            Widget = widget;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public object? Object =>
+            Widget as object ??
+            Zoom as object ??
+            Gchat as object ??
+            Slack as object
+            ;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public override string? ToString() =>
+            Slack?.ToString() ??
+            Gchat?.ToString() ??
+            Zoom?.ToString() ??
+            Widget?.ToString()
+            ;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool Validate()
+        {
+            return IsSlack && !IsGchat && !IsZoom && !IsWidget || !IsSlack && IsGchat && !IsZoom && !IsWidget || !IsSlack && !IsGchat && IsZoom && !IsWidget || !IsSlack && !IsGchat && !IsZoom && IsWidget;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.SlackAgentConnector?, TResult>? slack = null,
+            global::System.Func<global::Vectara.GchatAgentConnector?, TResult>? gchat = null,
+            global::System.Func<global::Vectara.ZoomAgentConnector?, TResult>? zoom = null,
+            global::System.Func<global::Vectara.WidgetAgentConnector?, TResult>? widget = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSlack && slack != null)
+            {
+                return slack(Slack!);
+            }
+            else if (IsGchat && gchat != null)
+            {
+                return gchat(Gchat!);
+            }
+            else if (IsZoom && zoom != null)
+            {
+                return zoom(Zoom!);
+            }
+            else if (IsWidget && widget != null)
+            {
+                return widget(Widget!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.SlackAgentConnector?>? slack = null,
+
+            global::System.Action<global::Vectara.GchatAgentConnector?>? gchat = null,
+
+            global::System.Action<global::Vectara.ZoomAgentConnector?>? zoom = null,
+
+            global::System.Action<global::Vectara.WidgetAgentConnector?>? widget = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSlack)
+            {
+                slack?.Invoke(Slack!);
+            }
+            else if (IsGchat)
+            {
+                gchat?.Invoke(Gchat!);
+            }
+            else if (IsZoom)
+            {
+                zoom?.Invoke(Zoom!);
+            }
+            else if (IsWidget)
+            {
+                widget?.Invoke(Widget!);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.SlackAgentConnector?>? slack = null,
+            global::System.Action<global::Vectara.GchatAgentConnector?>? gchat = null,
+            global::System.Action<global::Vectara.ZoomAgentConnector?>? zoom = null,
+            global::System.Action<global::Vectara.WidgetAgentConnector?>? widget = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSlack)
+            {
+                slack?.Invoke(Slack!);
+            }
+            else if (IsGchat)
+            {
+                gchat?.Invoke(Gchat!);
+            }
+            else if (IsZoom)
+            {
+                zoom?.Invoke(Zoom!);
+            }
+            else if (IsWidget)
+            {
+                widget?.Invoke(Widget!);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                Slack,
+                typeof(global::Vectara.SlackAgentConnector),
+                Gchat,
+                typeof(global::Vectara.GchatAgentConnector),
+                Zoom,
+                typeof(global::Vectara.ZoomAgentConnector),
+                Widget,
+                typeof(global::Vectara.WidgetAgentConnector),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool Equals(AgentConnector other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SlackAgentConnector?>.Default.Equals(Slack, other.Slack) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GchatAgentConnector?>.Default.Equals(Gchat, other.Gchat) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ZoomAgentConnector?>.Default.Equals(Zoom, other.Zoom) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.WidgetAgentConnector?>.Default.Equals(Widget, other.Widget)
+                ;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static bool operator ==(AgentConnector obj1, AgentConnector obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<AgentConnector>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static bool operator !=(AgentConnector obj1, AgentConnector obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is AgentConnector o && Equals(o);
+        }
     }
 }

@@ -10,11 +10,11 @@ namespace Vectara
     public enum ArtifactReadToolParametersEncoding
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Base64,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Raw,
     }

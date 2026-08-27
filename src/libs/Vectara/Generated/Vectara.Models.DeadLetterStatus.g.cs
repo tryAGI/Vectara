@@ -9,11 +9,11 @@ namespace Vectara
     public enum DeadLetterStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Pending,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Retrying,
     }

@@ -67,9 +67,9 @@ namespace Vectara
         /// The provider type. It determines which authentication and configuration apply. Responses always include this field. If a stored LLM cannot be mapped to one of these values, the request fails with HTTP 500.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.LlmTypeJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.LLMTypeJsonConverter))]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.LlmType Type { get; set; }
+        public required global::Vectara.LLMType Type { get; set; }
 
         /// <summary>
         /// Provider-specific model identifier (e.g. `gpt-4o`, `claude-3-5-sonnet-20241022`, `gemini-2.5-flash`).
@@ -179,7 +179,7 @@ namespace Vectara
         public Llm(
             string id,
             string name,
-            global::Vectara.LlmType type,
+            global::Vectara.LLMType type,
             string? description,
             bool? enabled,
             bool? @default,

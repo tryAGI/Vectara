@@ -9,11 +9,11 @@ namespace Vectara
     public enum DeadLetterOrigin
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Manual,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Pipeline,
     }

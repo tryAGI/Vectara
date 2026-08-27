@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class AgentRole
     {
         /// <summary>
-        /// The key of the agent this role applies to.
+        /// The key of the agent this role applies to. For the `agent_end_user` role this is an agent alias key, which shares the same shape.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("agent_key")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -38,7 +38,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AgentRole" /> class.
         /// </summary>
         /// <param name="agentKey">
-        /// The key of the agent this role applies to.
+        /// The key of the agent this role applies to. For the `agent_end_user` role this is an agent alias key, which shares the same shape.
         /// </param>
         /// <param name="role">
         /// The role assigned for this specific agent.<br/>

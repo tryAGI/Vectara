@@ -11,7 +11,7 @@ namespace Vectara
     public readonly partial struct WebGetHeaderValue : global::System.IEquatable<WebGetHeaderValue>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public string? WebGetHeaderValueVariant1 { get; init; }
@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WebGetHeaderValueVariant1))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsWebGetHeaderValueVariant1 => WebGetHeaderValueVariant1 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickWebGetHeaderValueVariant1(
 #if NET6_0_OR_GREATER
@@ -41,7 +41,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string PickWebGetHeaderValueVariant1() => IsWebGetHeaderValueVariant1
             ? WebGetHeaderValueVariant1!
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(EagerReference))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsEagerReference => EagerReference != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickEagerReference(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.EagerReference PickEagerReference() => IsEagerReference
             ? EagerReference!
             : throw new global::System.InvalidOperationException($"Expected union variant 'EagerReference' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetHeaderValue(string value) => new WebGetHeaderValue((string?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator string?(WebGetHeaderValue @this) => @this.WebGetHeaderValueVariant1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetHeaderValue(string? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetHeaderValue FromWebGetHeaderValueVariant1(string? value) => new WebGetHeaderValue(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator WebGetHeaderValue(global::Vectara.EagerReference value) => new WebGetHeaderValue((global::Vectara.EagerReference?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.EagerReference?(WebGetHeaderValue @this) => @this.EagerReference;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetHeaderValue(global::Vectara.EagerReference? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static WebGetHeaderValue FromEagerReference(global::Vectara.EagerReference? value) => new WebGetHeaderValue(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public WebGetHeaderValue(
             string? webGetHeaderValueVariant1,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             EagerReference as object ??
-            WebGetHeaderValueVariant1 as object 
+            WebGetHeaderValueVariant1 as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             WebGetHeaderValueVariant1?.ToString() ??
-            EagerReference?.ToString() 
+            EagerReference?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<string, TResult>? webGetHeaderValueVariant1 = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<string>? webGetHeaderValueVariant1 = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<string>? webGetHeaderValueVariant1 = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(WebGetHeaderValue other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<string?>.Default.Equals(WebGetHeaderValueVariant1, other.WebGetHeaderValueVariant1) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.EagerReference?>.Default.Equals(EagerReference, other.EagerReference) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.EagerReference?>.Default.Equals(EagerReference, other.EagerReference)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(WebGetHeaderValue obj1, WebGetHeaderValue obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(WebGetHeaderValue obj1, WebGetHeaderValue obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

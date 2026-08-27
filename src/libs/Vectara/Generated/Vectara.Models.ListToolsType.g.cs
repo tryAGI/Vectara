@@ -9,15 +9,15 @@ namespace Vectara
     public enum ListToolsType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Client,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lambda,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Mcp,
     }

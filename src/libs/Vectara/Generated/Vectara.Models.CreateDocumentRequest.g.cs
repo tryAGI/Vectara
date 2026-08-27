@@ -11,7 +11,7 @@ namespace Vectara
     public readonly partial struct CreateDocumentRequest : global::System.IEquatable<CreateDocumentRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateDocumentRequestDiscriminatorType? Type { get; }
 
@@ -26,7 +26,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Core))]
@@ -34,7 +34,7 @@ namespace Vectara
         public bool IsCore => Core != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCore(
 #if NET6_0_OR_GREATER
@@ -47,7 +47,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CoreDocument PickCore() => IsCore
             ? Core!
@@ -63,7 +63,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Structured))]
@@ -71,7 +71,7 @@ namespace Vectara
         public bool IsStructured => Structured != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStructured(
 #if NET6_0_OR_GREATER
@@ -84,23 +84,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StructuredDocument PickStructured() => IsStructured
             ? Structured!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Structured' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateDocumentRequest(global::Vectara.CoreDocument value) => new CreateDocumentRequest((global::Vectara.CoreDocument?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CoreDocument?(CreateDocumentRequest @this) => @this.Core;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateDocumentRequest(global::Vectara.CoreDocument? value)
         {
@@ -108,22 +108,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateDocumentRequest FromCore(global::Vectara.CoreDocument? value) => new CreateDocumentRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateDocumentRequest(global::Vectara.StructuredDocument value) => new CreateDocumentRequest((global::Vectara.StructuredDocument?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StructuredDocument?(CreateDocumentRequest @this) => @this.Structured;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateDocumentRequest(global::Vectara.StructuredDocument? value)
         {
@@ -131,12 +131,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateDocumentRequest FromStructured(global::Vectara.StructuredDocument? value) => new CreateDocumentRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateDocumentRequest(
             global::Vectara.CreateDocumentRequestDiscriminatorType? type,
@@ -151,23 +151,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Structured as object ??
-            Core as object 
+            Core as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Core?.ToString() ??
-            Structured?.ToString() 
+            Structured?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -175,7 +175,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CoreDocument, TResult>? core = null,
@@ -200,7 +200,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CoreDocument>? core = null,
@@ -224,7 +224,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CoreDocument>? core = null,
@@ -247,7 +247,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -268,18 +268,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateDocumentRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CoreDocument?>.Default.Equals(Core, other.Core) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredDocument?>.Default.Equals(Structured, other.Structured) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredDocument?>.Default.Equals(Structured, other.Structured)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateDocumentRequest obj1, CreateDocumentRequest obj2)
         {
@@ -287,7 +287,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateDocumentRequest obj1, CreateDocumentRequest obj2)
         {
@@ -295,7 +295,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

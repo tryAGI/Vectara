@@ -45,13 +45,24 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
+        /// Whether the connector admits anonymous visitors. Only accepted for<br/>
+        /// `widget` connectors; rejected for other types. Setting it to `false`<br/>
+        /// refuses every previously minted visitor id; the change takes effect within a few seconds.<br/>
+        /// Example: false
+        /// </summary>
+        /// <example>false</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("public_access")]
+        public bool? PublicAccess { get; set; }
+
+        /// <summary>
         /// Write view of a connector's configuration. Used when creating a connector<br/>
         /// and reused when updating one. Carries the secrets and inputs the customer<br/>
         /// must supply. Platform-derived display fields are not accepted here and instead<br/>
         /// appear in the read view:<br/>
         /// - Slack returns `webhook_path`<br/>
         /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`
+        /// - zoom returns the generated `connector_token` and `webhook_path`<br/>
+        /// - widget returns `bootstrap_path`
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter))]
@@ -82,6 +93,12 @@ namespace Vectara
         /// Whether the connector is enabled.<br/>
         /// Example: false
         /// </param>
+        /// <param name="publicAccess">
+        /// Whether the connector admits anonymous visitors. Only accepted for<br/>
+        /// `widget` connectors; rejected for other types. Setting it to `false`<br/>
+        /// refuses every previously minted visitor id; the change takes effect within a few seconds.<br/>
+        /// Example: false
+        /// </param>
         /// <param name="configuration">
         /// Write view of a connector's configuration. Used when creating a connector<br/>
         /// and reused when updating one. Carries the secrets and inputs the customer<br/>
@@ -89,7 +106,8 @@ namespace Vectara
         /// appear in the read view:<br/>
         /// - Slack returns `webhook_path`<br/>
         /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`
+        /// - zoom returns the generated `connector_token` and `webhook_path`<br/>
+        /// - widget returns `bootstrap_path`
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -99,12 +117,14 @@ namespace Vectara
             string? description,
             object? metadata,
             bool? enabled,
+            bool? publicAccess,
             global::Vectara.CreateConnectorConfiguration? configuration)
         {
             this.Name = name;
             this.Description = description;
             this.Metadata = metadata;
             this.Enabled = enabled;
+            this.PublicAccess = publicAccess;
             this.Configuration = configuration;
         }
 

@@ -10,15 +10,15 @@ namespace Vectara
     public enum SearchSemantics
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Default,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Query,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Response,
     }

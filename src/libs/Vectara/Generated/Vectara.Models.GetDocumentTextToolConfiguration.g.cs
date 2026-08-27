@@ -20,7 +20,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -28,7 +28,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -41,14 +41,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolConfigurationBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.GetDocumentTextToolConfigurationVariant2? GetDocumentTextToolConfigurationVariant2 { get; init; }
@@ -57,7 +57,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(GetDocumentTextToolConfigurationVariant2))]
@@ -65,7 +65,7 @@ namespace Vectara
         public bool IsGetDocumentTextToolConfigurationVariant2 => GetDocumentTextToolConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickGetDocumentTextToolConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -78,23 +78,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GetDocumentTextToolConfigurationVariant2 PickGetDocumentTextToolConfigurationVariant2() => IsGetDocumentTextToolConfigurationVariant2
             ? GetDocumentTextToolConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'GetDocumentTextToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GetDocumentTextToolConfiguration(global::Vectara.ToolConfigurationBase value) => new GetDocumentTextToolConfiguration((global::Vectara.ToolConfigurationBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolConfigurationBase?(GetDocumentTextToolConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GetDocumentTextToolConfiguration(global::Vectara.ToolConfigurationBase? value)
         {
@@ -102,22 +102,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GetDocumentTextToolConfiguration FromBase(global::Vectara.ToolConfigurationBase? value) => new GetDocumentTextToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GetDocumentTextToolConfiguration(global::Vectara.GetDocumentTextToolConfigurationVariant2 value) => new GetDocumentTextToolConfiguration((global::Vectara.GetDocumentTextToolConfigurationVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.GetDocumentTextToolConfigurationVariant2?(GetDocumentTextToolConfiguration @this) => @this.GetDocumentTextToolConfigurationVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GetDocumentTextToolConfiguration(global::Vectara.GetDocumentTextToolConfigurationVariant2? value)
         {
@@ -125,12 +125,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GetDocumentTextToolConfiguration FromGetDocumentTextToolConfigurationVariant2(global::Vectara.GetDocumentTextToolConfigurationVariant2? value) => new GetDocumentTextToolConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GetDocumentTextToolConfiguration(
             global::Vectara.ToolConfigurationBase? @base,
@@ -142,23 +142,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             GetDocumentTextToolConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            GetDocumentTextToolConfigurationVariant2?.ToString() 
+            GetDocumentTextToolConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -166,7 +166,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ToolConfigurationBase, TResult>? @base = null,
@@ -191,7 +191,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -215,7 +215,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ToolConfigurationBase>? @base = null,
@@ -238,7 +238,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -259,18 +259,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(GetDocumentTextToolConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolConfigurationBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.GetDocumentTextToolConfigurationVariant2?>.Default.Equals(GetDocumentTextToolConfigurationVariant2, other.GetDocumentTextToolConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.GetDocumentTextToolConfigurationVariant2?>.Default.Equals(GetDocumentTextToolConfigurationVariant2, other.GetDocumentTextToolConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(GetDocumentTextToolConfiguration obj1, GetDocumentTextToolConfiguration obj2)
         {
@@ -278,7 +278,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(GetDocumentTextToolConfiguration obj1, GetDocumentTextToolConfiguration obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -4,20 +4,20 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum PipelineTriggerDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Cron,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Interval,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Manual,
     }

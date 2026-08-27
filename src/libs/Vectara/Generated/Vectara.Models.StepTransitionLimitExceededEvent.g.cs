@@ -21,7 +21,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -29,7 +29,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -42,14 +42,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.StepTransitionLimitExceededEventVariant2? StepTransitionLimitExceededEventVariant2 { get; init; }
@@ -58,7 +58,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(StepTransitionLimitExceededEventVariant2))]
@@ -66,7 +66,7 @@ namespace Vectara
         public bool IsStepTransitionLimitExceededEventVariant2 => StepTransitionLimitExceededEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStepTransitionLimitExceededEventVariant2(
 #if NET6_0_OR_GREATER
@@ -79,23 +79,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.StepTransitionLimitExceededEventVariant2 PickStepTransitionLimitExceededEventVariant2() => IsStepTransitionLimitExceededEventVariant2
             ? StepTransitionLimitExceededEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransitionLimitExceededEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator StepTransitionLimitExceededEvent(global::Vectara.AgentEventBase value) => new StepTransitionLimitExceededEvent((global::Vectara.AgentEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentEventBase?(StepTransitionLimitExceededEvent @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public StepTransitionLimitExceededEvent(global::Vectara.AgentEventBase? value)
         {
@@ -103,22 +103,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static StepTransitionLimitExceededEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new StepTransitionLimitExceededEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator StepTransitionLimitExceededEvent(global::Vectara.StepTransitionLimitExceededEventVariant2 value) => new StepTransitionLimitExceededEvent((global::Vectara.StepTransitionLimitExceededEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.StepTransitionLimitExceededEventVariant2?(StepTransitionLimitExceededEvent @this) => @this.StepTransitionLimitExceededEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public StepTransitionLimitExceededEvent(global::Vectara.StepTransitionLimitExceededEventVariant2? value)
         {
@@ -126,12 +126,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static StepTransitionLimitExceededEvent FromStepTransitionLimitExceededEventVariant2(global::Vectara.StepTransitionLimitExceededEventVariant2? value) => new StepTransitionLimitExceededEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public StepTransitionLimitExceededEvent(
             global::Vectara.AgentEventBase? agentBase,
@@ -143,23 +143,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             StepTransitionLimitExceededEventVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            StepTransitionLimitExceededEventVariant2?.ToString() 
+            StepTransitionLimitExceededEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -167,7 +167,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
@@ -192,7 +192,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -216,7 +216,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -239,7 +239,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -260,18 +260,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(StepTransitionLimitExceededEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StepTransitionLimitExceededEventVariant2?>.Default.Equals(StepTransitionLimitExceededEventVariant2, other.StepTransitionLimitExceededEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.StepTransitionLimitExceededEventVariant2?>.Default.Equals(StepTransitionLimitExceededEventVariant2, other.StepTransitionLimitExceededEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(StepTransitionLimitExceededEvent obj1, StepTransitionLimitExceededEvent obj2)
         {
@@ -279,7 +279,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(StepTransitionLimitExceededEvent obj1, StepTransitionLimitExceededEvent obj2)
         {
@@ -287,7 +287,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

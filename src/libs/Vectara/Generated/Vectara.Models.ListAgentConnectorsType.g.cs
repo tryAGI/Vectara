@@ -9,15 +9,19 @@ namespace Vectara
     public enum ListAgentConnectorsType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Gchat,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Slack,
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        Widget,
+        /// <summary>
+        ///
         /// </summary>
         Zoom,
     }
@@ -36,6 +40,7 @@ namespace Vectara
             {
                 ListAgentConnectorsType.Gchat => "gchat",
                 ListAgentConnectorsType.Slack => "slack",
+                ListAgentConnectorsType.Widget => "widget",
                 ListAgentConnectorsType.Zoom => "zoom",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -49,6 +54,7 @@ namespace Vectara
             {
                 "gchat" => ListAgentConnectorsType.Gchat,
                 "slack" => ListAgentConnectorsType.Slack,
+                "widget" => ListAgentConnectorsType.Widget,
                 "zoom" => ListAgentConnectorsType.Zoom,
                 _ => null,
             };

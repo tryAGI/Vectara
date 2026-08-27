@@ -12,7 +12,7 @@ namespace Vectara
     public readonly partial struct GoogleDriveScope : global::System.IEquatable<GoogleDriveScope>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.GoogleDriveScopeDiscriminatorType? Type { get; }
 
@@ -28,7 +28,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Shared))]
@@ -36,7 +36,7 @@ namespace Vectara
         public bool IsShared => Shared != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickShared(
 #if NET6_0_OR_GREATER
@@ -49,7 +49,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.SharedGoogleDriveScope PickShared() => IsShared
             ? Shared!
@@ -67,7 +67,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(MyDrive))]
@@ -75,7 +75,7 @@ namespace Vectara
         public bool IsMyDrive => MyDrive != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickMyDrive(
 #if NET6_0_OR_GREATER
@@ -88,23 +88,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.MyGoogleDriveScope PickMyDrive() => IsMyDrive
             ? MyDrive!
             : throw new global::System.InvalidOperationException($"Expected union variant 'MyDrive' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GoogleDriveScope(global::Vectara.SharedGoogleDriveScope value) => new GoogleDriveScope((global::Vectara.SharedGoogleDriveScope?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.SharedGoogleDriveScope?(GoogleDriveScope @this) => @this.Shared;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GoogleDriveScope(global::Vectara.SharedGoogleDriveScope? value)
         {
@@ -112,22 +112,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GoogleDriveScope FromShared(global::Vectara.SharedGoogleDriveScope? value) => new GoogleDriveScope(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator GoogleDriveScope(global::Vectara.MyGoogleDriveScope value) => new GoogleDriveScope((global::Vectara.MyGoogleDriveScope?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.MyGoogleDriveScope?(GoogleDriveScope @this) => @this.MyDrive;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GoogleDriveScope(global::Vectara.MyGoogleDriveScope? value)
         {
@@ -135,12 +135,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static GoogleDriveScope FromMyDrive(global::Vectara.MyGoogleDriveScope? value) => new GoogleDriveScope(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public GoogleDriveScope(
             global::Vectara.GoogleDriveScopeDiscriminatorType? type,
@@ -155,23 +155,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             MyDrive as object ??
-            Shared as object 
+            Shared as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Shared?.ToString() ??
-            MyDrive?.ToString() 
+            MyDrive?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -179,7 +179,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.SharedGoogleDriveScope, TResult>? shared = null,
@@ -204,7 +204,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.SharedGoogleDriveScope>? shared = null,
@@ -228,7 +228,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.SharedGoogleDriveScope>? shared = null,
@@ -251,7 +251,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -272,18 +272,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(GoogleDriveScope other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.SharedGoogleDriveScope?>.Default.Equals(Shared, other.Shared) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.MyGoogleDriveScope?>.Default.Equals(MyDrive, other.MyDrive) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.MyGoogleDriveScope?>.Default.Equals(MyDrive, other.MyDrive)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(GoogleDriveScope obj1, GoogleDriveScope obj2)
         {
@@ -291,7 +291,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(GoogleDriveScope obj1, GoogleDriveScope obj2)
         {
@@ -299,7 +299,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

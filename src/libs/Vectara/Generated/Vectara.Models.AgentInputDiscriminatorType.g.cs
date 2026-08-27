@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AgentInputDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Skill,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Text,
     }

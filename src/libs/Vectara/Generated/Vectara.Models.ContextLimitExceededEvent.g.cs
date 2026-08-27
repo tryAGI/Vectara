@@ -21,7 +21,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -29,7 +29,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -42,14 +42,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ContextLimitExceededEventVariant2? ContextLimitExceededEventVariant2 { get; init; }
@@ -58,7 +58,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ContextLimitExceededEventVariant2))]
@@ -66,7 +66,7 @@ namespace Vectara
         public bool IsContextLimitExceededEventVariant2 => ContextLimitExceededEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickContextLimitExceededEventVariant2(
 #if NET6_0_OR_GREATER
@@ -79,23 +79,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ContextLimitExceededEventVariant2 PickContextLimitExceededEventVariant2() => IsContextLimitExceededEventVariant2
             ? ContextLimitExceededEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ContextLimitExceededEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ContextLimitExceededEvent(global::Vectara.AgentEventBase value) => new ContextLimitExceededEvent((global::Vectara.AgentEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentEventBase?(ContextLimitExceededEvent @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ContextLimitExceededEvent(global::Vectara.AgentEventBase? value)
         {
@@ -103,22 +103,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ContextLimitExceededEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ContextLimitExceededEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ContextLimitExceededEvent(global::Vectara.ContextLimitExceededEventVariant2 value) => new ContextLimitExceededEvent((global::Vectara.ContextLimitExceededEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ContextLimitExceededEventVariant2?(ContextLimitExceededEvent @this) => @this.ContextLimitExceededEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ContextLimitExceededEvent(global::Vectara.ContextLimitExceededEventVariant2? value)
         {
@@ -126,12 +126,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ContextLimitExceededEvent FromContextLimitExceededEventVariant2(global::Vectara.ContextLimitExceededEventVariant2? value) => new ContextLimitExceededEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ContextLimitExceededEvent(
             global::Vectara.AgentEventBase? agentBase,
@@ -143,23 +143,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ContextLimitExceededEventVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            ContextLimitExceededEventVariant2?.ToString() 
+            ContextLimitExceededEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -167,7 +167,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
@@ -192,7 +192,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -216,7 +216,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -239,7 +239,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -260,18 +260,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ContextLimitExceededEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ContextLimitExceededEventVariant2?>.Default.Equals(ContextLimitExceededEventVariant2, other.ContextLimitExceededEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ContextLimitExceededEventVariant2?>.Default.Equals(ContextLimitExceededEventVariant2, other.ContextLimitExceededEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ContextLimitExceededEvent obj1, ContextLimitExceededEvent obj2)
         {
@@ -279,7 +279,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ContextLimitExceededEvent obj1, ContextLimitExceededEvent obj2)
         {
@@ -287,7 +287,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

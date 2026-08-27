@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Interval))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsInterval => Interval != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInterval(
 #if NET6_0_OR_GREATER
@@ -40,7 +40,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.IntervalScheduleConfiguration PickInterval() => IsInterval
             ? Interval!
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Cron))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCron => Cron != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCron(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CronScheduleConfiguration PickCron() => IsCron
             ? Cron!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Cron' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ScheduleConfiguration(global::Vectara.IntervalScheduleConfiguration value) => new ScheduleConfiguration((global::Vectara.IntervalScheduleConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.IntervalScheduleConfiguration?(ScheduleConfiguration @this) => @this.Interval;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ScheduleConfiguration(global::Vectara.IntervalScheduleConfiguration? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ScheduleConfiguration FromInterval(global::Vectara.IntervalScheduleConfiguration? value) => new ScheduleConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ScheduleConfiguration(global::Vectara.CronScheduleConfiguration value) => new ScheduleConfiguration((global::Vectara.CronScheduleConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CronScheduleConfiguration?(ScheduleConfiguration @this) => @this.Cron;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ScheduleConfiguration(global::Vectara.CronScheduleConfiguration? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ScheduleConfiguration FromCron(global::Vectara.CronScheduleConfiguration? value) => new ScheduleConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ScheduleConfiguration(
             global::Vectara.IntervalScheduleConfiguration? interval,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Cron as object ??
-            Interval as object 
+            Interval as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Interval?.ToString() ??
-            Cron?.ToString() 
+            Cron?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.IntervalScheduleConfiguration, TResult>? interval = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.IntervalScheduleConfiguration>? interval = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.IntervalScheduleConfiguration>? interval = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ScheduleConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.IntervalScheduleConfiguration?>.Default.Equals(Interval, other.Interval) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CronScheduleConfiguration?>.Default.Equals(Cron, other.Cron) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CronScheduleConfiguration?>.Default.Equals(Cron, other.Cron)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ScheduleConfiguration obj1, ScheduleConfiguration obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ScheduleConfiguration obj1, ScheduleConfiguration obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -111,7 +111,7 @@ namespace Vectara
         public string? InputTransform { get; set; }
 
         /// <summary>
-        /// Maximum wall-clock time, in seconds, before the platform aborts a call to this tool. For `sandbox_exec`, this also bounds the command running in the session sandbox; it does not change the session's lifetime. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout applies and the tool's own limits, if any, govern how long a call may run.<br/>
+        /// Maximum wall-clock time, in seconds, before the platform aborts a call to this tool. For `sandbox_exec`, this also bounds the command running in the session sandbox, and the session pod is kept alive at least until this budget (plus a safety margin) has elapsed, so an in-flight command is never cut short by session expiry. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout applies and the tool's own limits, if any, govern how long a call may run.<br/>
         /// Example: 180
         /// </summary>
         /// <example>180</example>
@@ -206,7 +206,7 @@ namespace Vectara
         /// Example: .args + { auth: ("Bearer " + .agent.secrets.token) }
         /// </param>
         /// <param name="maxExecutionTimeSeconds">
-        /// Maximum wall-clock time, in seconds, before the platform aborts a call to this tool. For `sandbox_exec`, this also bounds the command running in the session sandbox; it does not change the session's lifetime. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout applies and the tool's own limits, if any, govern how long a call may run.<br/>
+        /// Maximum wall-clock time, in seconds, before the platform aborts a call to this tool. For `sandbox_exec`, this also bounds the command running in the session sandbox, and the session pod is kept alive at least until this budget (plus a safety margin) has elapsed, so an in-flight command is never cut short by session expiry. For `lambda` tools, this also bounds the function's execution, taking precedence over the tool's `execution_configuration`. When unset, no timeout applies and the tool's own limits, if any, govern how long a call may run.<br/>
         /// Example: 180
         /// </param>
         /// <param name="toolOutputOffloading">

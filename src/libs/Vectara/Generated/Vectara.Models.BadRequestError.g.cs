@@ -15,7 +15,7 @@ namespace Vectara
         public global::System.Collections.Generic.Dictionary<string, string>? FieldErrors { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("messages")]
         public global::System.Collections.Generic.IList<string>? Messages { get; set; }

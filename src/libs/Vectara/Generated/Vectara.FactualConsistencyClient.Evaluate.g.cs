@@ -17,7 +17,7 @@ namespace Vectara
                         SchemeId = "ApiKeyAuth",
                         Location = "Header",
                         Name = "x-api-key",
-                        FriendlyName = "ApiKeyInHeader",
+                        FriendlyName = "ApiKeyAuth",
                     },
                 },
             };
@@ -66,10 +66,10 @@ namespace Vectara
         /// Evaluates the factual consistency of a generated text (like a summary) against source documents. The evaluation determines how accurately the generated text reflects the information in the source documents. This helps identify potential hallucinations or misrepresentations.<br/>
         /// Use this endpoint to validate generated content against trusted source materials, such as in legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
         /// The request body includes the following parameters:<br/>
-        /// * `model_parameters`: Optional. The evaluation model to use. Supported values are `hhem_v2.3` (the default) and `hhem_v2.2`.<br/>
+        /// * `model_parameters.model_name`: Optional. The evaluation model to use. `hhem_v2.3` is the default and the recommended model. `hhem_v2.2` is retired; it remains accepted for backward compatibility and is served by `hhem_v2.3`. Any other value is rejected with a `400`.<br/>
         /// * `generated_text`: The output text you want to evaluate, such as a model-generated summary, answer, or response.<br/>
         /// * `source_texts`: An array of source documents or passages used to verify the accuracy of the generated text.<br/>
-        /// * `language`: The ISO 639-3 code representing the language of the provided texts (`eng` for English, `fra` for French).<br/>
+        /// The endpoint scores the texts as given, in whatever language they are written. HHEM is trained on `eng`, `deu`, `fra`, `spa`, `por`, `ara`, `kor`, `zho`, `rus`, `jpn`, and `hin`; treat scores for text in other languages as unreliable.<br/>
         /// ### Example request<br/>
         /// This example evaluates whether a generated statement about the Eiffel Tower is factually accurate based on two reference documents.<br/>
         /// ```json<br/>
@@ -78,22 +78,17 @@ namespace Vectara
         ///   "source_texts": [<br/>
         ///     "The Eiffel Tower is a famous landmark located in Paris, France.",<br/>
         ///     "It was built in 1889 and remains one of the most visited monuments in the world."<br/>
-        ///   ],<br/>
-        ///   "language": "eng"<br/>
+        ///   ]<br/>
         /// }<br/>
         /// ```<br/>
         /// ### Example response<br/>
-        /// The response includes a factual consistency score and probability estimates.<br/>
+        /// The response includes the factual consistency score.<br/>
         /// ```json<br/>
         /// {<br/>
-        ///   "score": 0.23,<br/>
-        ///   "p_consistent": 0.12,<br/>
-        ///   "p_inconsistent": 0.88<br/>
+        ///   "score": 0.23<br/>
         /// }<br/>
         /// ```<br/>
-        /// * `score`: A normalized value between `0.0` and `1.0` that reflects the overall factual alignment between the generated text and the source texts. Higher scores indicate stronger consistency.<br/>
-        /// * `p_consistent`: The estimated probability that the generated text is factually consistent with the sources.<br/>
-        /// * `p_inconsistent`: The estimated probability that the generated text contains factual inaccuracies relative to the source documents.
+        /// * `score`: A normalized value between `0.0` and `1.0` that reflects the overall factual alignment between the generated text and the source texts. Higher scores indicate stronger consistency.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -125,10 +120,10 @@ namespace Vectara
         /// Evaluates the factual consistency of a generated text (like a summary) against source documents. The evaluation determines how accurately the generated text reflects the information in the source documents. This helps identify potential hallucinations or misrepresentations.<br/>
         /// Use this endpoint to validate generated content against trusted source materials, such as in legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
         /// The request body includes the following parameters:<br/>
-        /// * `model_parameters`: Optional. The evaluation model to use. Supported values are `hhem_v2.3` (the default) and `hhem_v2.2`.<br/>
+        /// * `model_parameters.model_name`: Optional. The evaluation model to use. `hhem_v2.3` is the default and the recommended model. `hhem_v2.2` is retired; it remains accepted for backward compatibility and is served by `hhem_v2.3`. Any other value is rejected with a `400`.<br/>
         /// * `generated_text`: The output text you want to evaluate, such as a model-generated summary, answer, or response.<br/>
         /// * `source_texts`: An array of source documents or passages used to verify the accuracy of the generated text.<br/>
-        /// * `language`: The ISO 639-3 code representing the language of the provided texts (`eng` for English, `fra` for French).<br/>
+        /// The endpoint scores the texts as given, in whatever language they are written. HHEM is trained on `eng`, `deu`, `fra`, `spa`, `por`, `ara`, `kor`, `zho`, `rus`, `jpn`, and `hin`; treat scores for text in other languages as unreliable.<br/>
         /// ### Example request<br/>
         /// This example evaluates whether a generated statement about the Eiffel Tower is factually accurate based on two reference documents.<br/>
         /// ```json<br/>
@@ -137,22 +132,17 @@ namespace Vectara
         ///   "source_texts": [<br/>
         ///     "The Eiffel Tower is a famous landmark located in Paris, France.",<br/>
         ///     "It was built in 1889 and remains one of the most visited monuments in the world."<br/>
-        ///   ],<br/>
-        ///   "language": "eng"<br/>
+        ///   ]<br/>
         /// }<br/>
         /// ```<br/>
         /// ### Example response<br/>
-        /// The response includes a factual consistency score and probability estimates.<br/>
+        /// The response includes the factual consistency score.<br/>
         /// ```json<br/>
         /// {<br/>
-        ///   "score": 0.23,<br/>
-        ///   "p_consistent": 0.12,<br/>
-        ///   "p_inconsistent": 0.88<br/>
+        ///   "score": 0.23<br/>
         /// }<br/>
         /// ```<br/>
-        /// * `score`: A normalized value between `0.0` and `1.0` that reflects the overall factual alignment between the generated text and the source texts. Higher scores indicate stronger consistency.<br/>
-        /// * `p_consistent`: The estimated probability that the generated text is factually consistent with the sources.<br/>
-        /// * `p_inconsistent`: The estimated probability that the generated text contains factual inaccuracies relative to the source documents.
+        /// * `score`: A normalized value between `0.0` and `1.0` that reflects the overall factual alignment between the generated text and the source texts. Higher scores indicate stronger consistency.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -231,7 +221,7 @@ namespace Vectara
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
 
             if (requestTimeout != default)
@@ -518,43 +508,6 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Language not supported by the factual consistency service.
-                            if ((int)__response.StatusCode == 422)
-                            {
-                                string? __content_422 = null;
-                                global::System.Exception? __exception_422 = null;
-                                global::Vectara.Error? __value_422 = null;
-                                try
-                                {
-                                    if (__effectiveReadResponseAsString)
-                                    {
-                                        __content_422 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
-                                        __value_422 = global::Vectara.Error.FromJson(__content_422, JsonSerializerContext);
-                                    }
-                                    else
-                                    {
-                                        __content_422 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
-
-                                        __value_422 = global::Vectara.Error.FromJson(__content_422, JsonSerializerContext);
-                                    }
-                                }
-                                catch (global::System.Exception __ex)
-                                {
-                                    __exception_422 = __ex;
-                                }
-
-
-                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
-                                    statusCode: __response.StatusCode,
-                                    message: __content_422 ?? __response.ReasonPhrase ?? string.Empty,
-                                    innerException: __exception_422,
-                                    responseBody: __content_422,
-                                    responseObject: __value_422,
-                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
-                                        __response.Headers,
-                                        h => h.Key,
-                                        h => h.Value));
-                            }
 
                             if (__effectiveReadResponseAsString)
                             {
@@ -656,10 +609,10 @@ namespace Vectara
         /// Evaluates the factual consistency of a generated text (like a summary) against source documents. The evaluation determines how accurately the generated text reflects the information in the source documents. This helps identify potential hallucinations or misrepresentations.<br/>
         /// Use this endpoint to validate generated content against trusted source materials, such as in legal, healthcare, scientific publishing, and enterprise knowledge systems.<br/>
         /// The request body includes the following parameters:<br/>
-        /// * `model_parameters`: Optional. The evaluation model to use. Supported values are `hhem_v2.3` (the default) and `hhem_v2.2`.<br/>
+        /// * `model_parameters.model_name`: Optional. The evaluation model to use. `hhem_v2.3` is the default and the recommended model. `hhem_v2.2` is retired; it remains accepted for backward compatibility and is served by `hhem_v2.3`. Any other value is rejected with a `400`.<br/>
         /// * `generated_text`: The output text you want to evaluate, such as a model-generated summary, answer, or response.<br/>
         /// * `source_texts`: An array of source documents or passages used to verify the accuracy of the generated text.<br/>
-        /// * `language`: The ISO 639-3 code representing the language of the provided texts (`eng` for English, `fra` for French).<br/>
+        /// The endpoint scores the texts as given, in whatever language they are written. HHEM is trained on `eng`, `deu`, `fra`, `spa`, `por`, `ara`, `kor`, `zho`, `rus`, `jpn`, and `hin`; treat scores for text in other languages as unreliable.<br/>
         /// ### Example request<br/>
         /// This example evaluates whether a generated statement about the Eiffel Tower is factually accurate based on two reference documents.<br/>
         /// ```json<br/>
@@ -668,22 +621,17 @@ namespace Vectara
         ///   "source_texts": [<br/>
         ///     "The Eiffel Tower is a famous landmark located in Paris, France.",<br/>
         ///     "It was built in 1889 and remains one of the most visited monuments in the world."<br/>
-        ///   ],<br/>
-        ///   "language": "eng"<br/>
+        ///   ]<br/>
         /// }<br/>
         /// ```<br/>
         /// ### Example response<br/>
-        /// The response includes a factual consistency score and probability estimates.<br/>
+        /// The response includes the factual consistency score.<br/>
         /// ```json<br/>
         /// {<br/>
-        ///   "score": 0.23,<br/>
-        ///   "p_consistent": 0.12,<br/>
-        ///   "p_inconsistent": 0.88<br/>
+        ///   "score": 0.23<br/>
         /// }<br/>
         /// ```<br/>
-        /// * `score`: A normalized value between `0.0` and `1.0` that reflects the overall factual alignment between the generated text and the source texts. Higher scores indicate stronger consistency.<br/>
-        /// * `p_consistent`: The estimated probability that the generated text is factually consistent with the sources.<br/>
-        /// * `p_inconsistent`: The estimated probability that the generated text contains factual inaccuracies relative to the source documents.
+        /// * `score`: A normalized value between `0.0` and `1.0` that reflects the overall factual alignment between the generated text and the source texts. Higher scores indicate stronger consistency.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

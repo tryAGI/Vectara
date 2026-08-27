@@ -81,6 +81,9 @@ namespace Vectara
         /// - `full_refresh`: Process all records from the source on each run.<br/>
         /// Default Value: incremental
         /// </param>
+        /// <param name="processingOptions">
+        /// Per-pipeline overrides of the service processing defaults. Omit to use the defaults.
+        /// </param>
         /// <param name="enabled">
         /// Default Value: true
         /// </param>
@@ -101,6 +104,7 @@ namespace Vectara
             string? key = default,
             string? description = default,
             global::Vectara.PipelineSyncMode? syncMode = default,
+            global::Vectara.PipelineProcessingOptions? processingOptions = default,
             bool? enabled = default,
             global::System.Collections.Generic.Dictionary<string, string>? metadata = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

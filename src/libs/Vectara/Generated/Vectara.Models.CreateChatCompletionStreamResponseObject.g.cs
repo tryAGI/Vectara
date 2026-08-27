@@ -9,7 +9,7 @@ namespace Vectara
     public enum CreateChatCompletionStreamResponseObject
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ChatCompletionChunk,
     }

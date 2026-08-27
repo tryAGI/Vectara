@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.MetricDescriptorBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CounterMetricDescriptorVariant2? CounterMetricDescriptorVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CounterMetricDescriptorVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCounterMetricDescriptorVariant2 => CounterMetricDescriptorVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCounterMetricDescriptorVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CounterMetricDescriptorVariant2 PickCounterMetricDescriptorVariant2() => IsCounterMetricDescriptorVariant2
             ? CounterMetricDescriptorVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CounterMetricDescriptorVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CounterMetricDescriptor(global::Vectara.MetricDescriptorBase value) => new CounterMetricDescriptor((global::Vectara.MetricDescriptorBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.MetricDescriptorBase?(CounterMetricDescriptor @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CounterMetricDescriptor(global::Vectara.MetricDescriptorBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CounterMetricDescriptor FromBase(global::Vectara.MetricDescriptorBase? value) => new CounterMetricDescriptor(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CounterMetricDescriptor(global::Vectara.CounterMetricDescriptorVariant2 value) => new CounterMetricDescriptor((global::Vectara.CounterMetricDescriptorVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CounterMetricDescriptorVariant2?(CounterMetricDescriptor @this) => @this.CounterMetricDescriptorVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CounterMetricDescriptor(global::Vectara.CounterMetricDescriptorVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CounterMetricDescriptor FromCounterMetricDescriptorVariant2(global::Vectara.CounterMetricDescriptorVariant2? value) => new CounterMetricDescriptor(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CounterMetricDescriptor(
             global::Vectara.MetricDescriptorBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             CounterMetricDescriptorVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            CounterMetricDescriptorVariant2?.ToString() 
+            CounterMetricDescriptorVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.MetricDescriptorBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.MetricDescriptorBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.MetricDescriptorBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CounterMetricDescriptor other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.MetricDescriptorBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CounterMetricDescriptorVariant2?>.Default.Equals(CounterMetricDescriptorVariant2, other.CounterMetricDescriptorVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CounterMetricDescriptorVariant2?>.Default.Equals(CounterMetricDescriptorVariant2, other.CounterMetricDescriptorVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CounterMetricDescriptor obj1, CounterMetricDescriptor obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CounterMetricDescriptor obj1, CounterMetricDescriptor obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

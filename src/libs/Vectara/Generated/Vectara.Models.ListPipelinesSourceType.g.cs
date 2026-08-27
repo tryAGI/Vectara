@@ -4,44 +4,52 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ListPipelinesSourceType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Box,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Confluence,
         /// <summary>
-        /// 
+        ///
+        /// </summary>
+        Docebo,
+        /// <summary>
+        ///
+        /// </summary>
+        Fluidtopics,
+        /// <summary>
+        ///
         /// </summary>
         GoogleDrive,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         S3,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Scim,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Sharepoint,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Web,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WolkenForms,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WolkenKb,
     }
@@ -60,6 +68,8 @@ namespace Vectara
             {
                 ListPipelinesSourceType.Box => "box",
                 ListPipelinesSourceType.Confluence => "confluence",
+                ListPipelinesSourceType.Docebo => "docebo",
+                ListPipelinesSourceType.Fluidtopics => "fluidtopics",
                 ListPipelinesSourceType.GoogleDrive => "google_drive",
                 ListPipelinesSourceType.S3 => "s3",
                 ListPipelinesSourceType.Scim => "scim",
@@ -79,6 +89,8 @@ namespace Vectara
             {
                 "box" => ListPipelinesSourceType.Box,
                 "confluence" => ListPipelinesSourceType.Confluence,
+                "docebo" => ListPipelinesSourceType.Docebo,
+                "fluidtopics" => ListPipelinesSourceType.Fluidtopics,
                 "google_drive" => ListPipelinesSourceType.GoogleDrive,
                 "s3" => ListPipelinesSourceType.S3,
                 "scim" => ListPipelinesSourceType.Scim,

@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CreateEncoderRequest : global::System.IEquatable<CreateEncoderRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateEncoderRequestDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OpenaiCompatible))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsOpenaiCompatible => OpenaiCompatible != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOpenaiCompatible(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateOpenAIEncoderRequest PickOpenaiCompatible() => IsOpenaiCompatible
             ? OpenaiCompatible!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VllmCompatible))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsVllmCompatible => VllmCompatible != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickVllmCompatible(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateVLlmEncoderRequest PickVllmCompatible() => IsVllmCompatible
             ? VllmCompatible!
             : throw new global::System.InvalidOperationException($"Expected union variant 'VllmCompatible' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateEncoderRequest(global::Vectara.CreateOpenAIEncoderRequest value) => new CreateEncoderRequest((global::Vectara.CreateOpenAIEncoderRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateOpenAIEncoderRequest?(CreateEncoderRequest @this) => @this.OpenaiCompatible;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEncoderRequest(global::Vectara.CreateOpenAIEncoderRequest? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateEncoderRequest FromOpenaiCompatible(global::Vectara.CreateOpenAIEncoderRequest? value) => new CreateEncoderRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateEncoderRequest(global::Vectara.CreateVLlmEncoderRequest value) => new CreateEncoderRequest((global::Vectara.CreateVLlmEncoderRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateVLlmEncoderRequest?(CreateEncoderRequest @this) => @this.VllmCompatible;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEncoderRequest(global::Vectara.CreateVLlmEncoderRequest? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateEncoderRequest FromVllmCompatible(global::Vectara.CreateVLlmEncoderRequest? value) => new CreateEncoderRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEncoderRequest(
             global::Vectara.CreateEncoderRequestDiscriminatorType? type,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             VllmCompatible as object ??
-            OpenaiCompatible as object 
+            OpenaiCompatible as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             OpenaiCompatible?.ToString() ??
-            VllmCompatible?.ToString() 
+            VllmCompatible?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateOpenAIEncoderRequest, TResult>? openaiCompatible = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateOpenAIEncoderRequest>? openaiCompatible = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateOpenAIEncoderRequest>? openaiCompatible = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateEncoderRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateOpenAIEncoderRequest?>.Default.Equals(OpenaiCompatible, other.OpenaiCompatible) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateVLlmEncoderRequest?>.Default.Equals(VllmCompatible, other.VllmCompatible) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateVLlmEncoderRequest?>.Default.Equals(VllmCompatible, other.VllmCompatible)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateEncoderRequest obj1, CreateEncoderRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateEncoderRequest obj1, CreateEncoderRequest obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

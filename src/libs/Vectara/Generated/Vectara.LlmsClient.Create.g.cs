@@ -17,7 +17,7 @@ namespace Vectara
                         SchemeId = "ApiKeyAuth",
                         Location = "Header",
                         Name = "x-api-key",
-                        FriendlyName = "ApiKeyInHeader",
+                        FriendlyName = "ApiKeyAuth",
                     },
                 },
             };
@@ -95,7 +95,7 @@ namespace Vectara
         ///   "type": "openai-responses",<br/>
         ///   "name": "my-o1",<br/>
         ///   "model": "o1-preview",<br/>
-        ///   "uri": "https://api.openai.com/v1/chat/completions",<br/>
+        ///   "uri": "https://api.openai.com/v1/responses",<br/>
         ///   "auth": {<br/>
         ///     "type": "bearer",<br/>
         ///     "token": "sk-..."<br/>
@@ -103,21 +103,17 @@ namespace Vectara
         /// }<br/>
         /// ```<br/>
         /// ### Anthropic Claude<br/>
-        /// **Type:** `openai-compatible`<br/>
+        /// **Type:** `anthropic`<br/>
         /// **Models:** claude-4-opus, claude-4-5-haiku, claude-4-5-sonnet<br/>
-        /// **Auth:** Bearer token with header<br/>
+        /// **Auth:** Bearer token (direct API); AWS or GCP credentials for Bedrock / Vertex<br/>
         /// ```json<br/>
         /// {<br/>
-        ///   "type": "openai-compatible",<br/>
+        ///   "type": "anthropic",<br/>
         ///   "name": "my-claude",<br/>
         ///   "model": "claude-sonnet-4-5-20250929",<br/>
-        ///   "uri": "https://api.anthropic.com/v1/messages",<br/>
         ///   "auth": {<br/>
         ///     "type": "bearer",<br/>
         ///     "token": "sk-ant-..."<br/>
-        ///   },<br/>
-        ///   "headers": {<br/>
-        ///     "anthropic-version": "2023-06-01"<br/>
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
@@ -248,7 +244,7 @@ namespace Vectara
         ///   "type": "openai-responses",<br/>
         ///   "name": "my-o1",<br/>
         ///   "model": "o1-preview",<br/>
-        ///   "uri": "https://api.openai.com/v1/chat/completions",<br/>
+        ///   "uri": "https://api.openai.com/v1/responses",<br/>
         ///   "auth": {<br/>
         ///     "type": "bearer",<br/>
         ///     "token": "sk-..."<br/>
@@ -256,21 +252,17 @@ namespace Vectara
         /// }<br/>
         /// ```<br/>
         /// ### Anthropic Claude<br/>
-        /// **Type:** `openai-compatible`<br/>
+        /// **Type:** `anthropic`<br/>
         /// **Models:** claude-4-opus, claude-4-5-haiku, claude-4-5-sonnet<br/>
-        /// **Auth:** Bearer token with header<br/>
+        /// **Auth:** Bearer token (direct API); AWS or GCP credentials for Bedrock / Vertex<br/>
         /// ```json<br/>
         /// {<br/>
-        ///   "type": "openai-compatible",<br/>
+        ///   "type": "anthropic",<br/>
         ///   "name": "my-claude",<br/>
         ///   "model": "claude-sonnet-4-5-20250929",<br/>
-        ///   "uri": "https://api.anthropic.com/v1/messages",<br/>
         ///   "auth": {<br/>
         ///     "type": "bearer",<br/>
         ///     "token": "sk-ant-..."<br/>
-        ///   },<br/>
-        ///   "headers": {<br/>
-        ///     "anthropic-version": "2023-06-01"<br/>
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
@@ -417,7 +409,7 @@ namespace Vectara
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
 
             if (requestTimeout != default)

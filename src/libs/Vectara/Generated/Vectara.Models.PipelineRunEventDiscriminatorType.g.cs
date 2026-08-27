@@ -4,24 +4,24 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum PipelineRunEventDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RecordProcessing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RunCompleted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RunStarted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WatermarkAdvanced,
     }

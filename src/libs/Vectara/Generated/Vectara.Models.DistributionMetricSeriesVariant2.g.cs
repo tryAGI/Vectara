@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class DistributionMetricSeriesVariant2
     {
@@ -17,7 +17,7 @@ namespace Vectara
         public required string Type { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("points")]
         [global::System.Text.Json.Serialization.JsonRequired]

@@ -26,7 +26,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(AgentBase))]
@@ -34,7 +34,7 @@ namespace Vectara
         public bool IsAgentBase => AgentBase != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickAgentBase(
 #if NET6_0_OR_GREATER
@@ -47,14 +47,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
             ? AgentBase!
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.ClientToolPendingEventVariant2? ClientToolPendingEventVariant2 { get; init; }
@@ -63,7 +63,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientToolPendingEventVariant2))]
@@ -71,7 +71,7 @@ namespace Vectara
         public bool IsClientToolPendingEventVariant2 => ClientToolPendingEventVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickClientToolPendingEventVariant2(
 #if NET6_0_OR_GREATER
@@ -84,23 +84,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ClientToolPendingEventVariant2 PickClientToolPendingEventVariant2() => IsClientToolPendingEventVariant2
             ? ClientToolPendingEventVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ClientToolPendingEventVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ClientToolPendingEvent(global::Vectara.AgentEventBase value) => new ClientToolPendingEvent((global::Vectara.AgentEventBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentEventBase?(ClientToolPendingEvent @this) => @this.AgentBase;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ClientToolPendingEvent(global::Vectara.AgentEventBase? value)
         {
@@ -108,22 +108,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ClientToolPendingEvent FromAgentBase(global::Vectara.AgentEventBase? value) => new ClientToolPendingEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator ClientToolPendingEvent(global::Vectara.ClientToolPendingEventVariant2 value) => new ClientToolPendingEvent((global::Vectara.ClientToolPendingEventVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ClientToolPendingEventVariant2?(ClientToolPendingEvent @this) => @this.ClientToolPendingEventVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ClientToolPendingEvent(global::Vectara.ClientToolPendingEventVariant2? value)
         {
@@ -131,12 +131,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static ClientToolPendingEvent FromClientToolPendingEventVariant2(global::Vectara.ClientToolPendingEventVariant2? value) => new ClientToolPendingEvent(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ClientToolPendingEvent(
             global::Vectara.AgentEventBase? agentBase,
@@ -148,23 +148,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ClientToolPendingEventVariant2 as object ??
-            AgentBase as object 
+            AgentBase as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             AgentBase?.ToString() ??
-            ClientToolPendingEventVariant2?.ToString() 
+            ClientToolPendingEventVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -172,7 +172,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentEventBase, TResult>? agentBase = null,
@@ -197,7 +197,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -221,7 +221,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentEventBase>? agentBase = null,
@@ -244,7 +244,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -265,18 +265,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(ClientToolPendingEvent other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentEventBase?>.Default.Equals(AgentBase, other.AgentBase) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolPendingEventVariant2?>.Default.Equals(ClientToolPendingEventVariant2, other.ClientToolPendingEventVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolPendingEventVariant2?>.Default.Equals(ClientToolPendingEventVariant2, other.ClientToolPendingEventVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(ClientToolPendingEvent obj1, ClientToolPendingEvent obj2)
         {
@@ -284,7 +284,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(ClientToolPendingEvent obj1, ClientToolPendingEvent obj2)
         {
@@ -292,7 +292,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

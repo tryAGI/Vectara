@@ -21,7 +21,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -29,7 +29,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -42,14 +42,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ToolBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.LambdaToolVariant2? LambdaToolVariant2 { get; init; }
@@ -58,7 +58,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(LambdaToolVariant2))]
@@ -66,7 +66,7 @@ namespace Vectara
         public bool IsLambdaToolVariant2 => LambdaToolVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickLambdaToolVariant2(
 #if NET6_0_OR_GREATER
@@ -79,23 +79,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.LambdaToolVariant2 PickLambdaToolVariant2() => IsLambdaToolVariant2
             ? LambdaToolVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'LambdaToolVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LambdaTool(global::Vectara.ToolBase value) => new LambdaTool((global::Vectara.ToolBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ToolBase?(LambdaTool @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LambdaTool(global::Vectara.ToolBase? value)
         {
@@ -103,22 +103,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LambdaTool FromBase(global::Vectara.ToolBase? value) => new LambdaTool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LambdaTool(global::Vectara.LambdaToolVariant2 value) => new LambdaTool((global::Vectara.LambdaToolVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.LambdaToolVariant2?(LambdaTool @this) => @this.LambdaToolVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LambdaTool(global::Vectara.LambdaToolVariant2? value)
         {
@@ -126,12 +126,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LambdaTool FromLambdaToolVariant2(global::Vectara.LambdaToolVariant2? value) => new LambdaTool(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LambdaTool(
             global::Vectara.ToolBase? @base,
@@ -143,23 +143,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             LambdaToolVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            LambdaToolVariant2?.ToString() 
+            LambdaToolVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -167,7 +167,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ToolBase, TResult>? @base = null,
@@ -192,7 +192,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ToolBase>? @base = null,
@@ -216,7 +216,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ToolBase>? @base = null,
@@ -239,7 +239,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -260,18 +260,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(LambdaTool other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.LambdaToolVariant2?>.Default.Equals(LambdaToolVariant2, other.LambdaToolVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.LambdaToolVariant2?>.Default.Equals(LambdaToolVariant2, other.LambdaToolVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(LambdaTool obj1, LambdaTool obj2)
         {
@@ -279,7 +279,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(LambdaTool obj1, LambdaTool obj2)
         {
@@ -287,7 +287,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

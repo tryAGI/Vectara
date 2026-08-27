@@ -14,15 +14,15 @@ namespace Vectara
     public enum CoreDocumentPartImagePartMode
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Image,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ImageAndText,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Text,
     }

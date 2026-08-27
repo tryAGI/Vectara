@@ -4,16 +4,16 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AgentStepReminderDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         GlossaryExpansion,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Templated,
     }

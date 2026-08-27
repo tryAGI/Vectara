@@ -21,7 +21,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -29,7 +29,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -42,14 +42,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BaseBoxSourceConfiguration PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public object? BoxSourceConfigurationVariant2 { get; init; }
@@ -58,7 +58,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(BoxSourceConfigurationVariant2))]
@@ -66,7 +66,7 @@ namespace Vectara
         public bool IsBoxSourceConfigurationVariant2 => BoxSourceConfigurationVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBoxSourceConfigurationVariant2(
 #if NET6_0_OR_GREATER
@@ -79,23 +79,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object PickBoxSourceConfigurationVariant2() => IsBoxSourceConfigurationVariant2
             ? BoxSourceConfigurationVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'BoxSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator BoxSourceConfiguration(global::Vectara.BaseBoxSourceConfiguration value) => new BoxSourceConfiguration((global::Vectara.BaseBoxSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BaseBoxSourceConfiguration?(BoxSourceConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BoxSourceConfiguration(global::Vectara.BaseBoxSourceConfiguration? value)
         {
@@ -103,12 +103,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static BoxSourceConfiguration FromBase(global::Vectara.BaseBoxSourceConfiguration? value) => new BoxSourceConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BoxSourceConfiguration(
             global::Vectara.BaseBoxSourceConfiguration? @base,
@@ -120,23 +120,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             BoxSourceConfigurationVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            BoxSourceConfigurationVariant2?.ToString() 
+            BoxSourceConfigurationVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -144,7 +144,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BaseBoxSourceConfiguration, TResult>? @base = null,
@@ -169,7 +169,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BaseBoxSourceConfiguration>? @base = null,
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BaseBoxSourceConfiguration>? @base = null,
@@ -216,7 +216,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -237,18 +237,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(BoxSourceConfiguration other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseBoxSourceConfiguration?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(BoxSourceConfigurationVariant2, other.BoxSourceConfigurationVariant2) 
+                global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(BoxSourceConfigurationVariant2, other.BoxSourceConfigurationVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(BoxSourceConfiguration obj1, BoxSourceConfiguration obj2)
         {
@@ -256,7 +256,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(BoxSourceConfiguration obj1, BoxSourceConfiguration obj2)
         {
@@ -264,7 +264,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

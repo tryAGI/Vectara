@@ -10,31 +10,31 @@ namespace Vectara
     public enum FilterAttributeStatType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Boolean,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Integer,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Listinteger,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ListrealNumber,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Listtext,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RealNumber,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Text,
     }

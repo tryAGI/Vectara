@@ -19,7 +19,7 @@ namespace Vectara
                         SchemeId = "ApiKeyAuth",
                         Location = "Header",
                         Name = "x-api-key",
-                        FriendlyName = "ApiKeyInHeader",
+                        FriendlyName = "ApiKeyAuth",
                     },
                 },
             };
@@ -213,7 +213,7 @@ namespace Vectara
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
 
             if (requestTimeout != default)

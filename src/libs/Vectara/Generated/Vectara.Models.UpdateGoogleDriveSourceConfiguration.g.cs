@@ -22,7 +22,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -30,7 +30,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -43,23 +43,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BaseGoogleDriveSourceConfiguration PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateGoogleDriveSourceConfiguration(global::Vectara.BaseGoogleDriveSourceConfiguration value) => new UpdateGoogleDriveSourceConfiguration((global::Vectara.BaseGoogleDriveSourceConfiguration?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BaseGoogleDriveSourceConfiguration?(UpdateGoogleDriveSourceConfiguration @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateGoogleDriveSourceConfiguration(global::Vectara.BaseGoogleDriveSourceConfiguration? value)
         {
@@ -67,26 +67,26 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateGoogleDriveSourceConfiguration FromBase(global::Vectara.BaseGoogleDriveSourceConfiguration? value) => new UpdateGoogleDriveSourceConfiguration(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
-            Base?.ToString() 
+            Base?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -94,7 +94,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BaseGoogleDriveSourceConfiguration, TResult>? @base = null,
@@ -114,7 +114,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BaseGoogleDriveSourceConfiguration>? @base = null,
@@ -132,7 +132,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BaseGoogleDriveSourceConfiguration>? @base = null,
@@ -150,7 +150,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -169,17 +169,17 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(UpdateGoogleDriveSourceConfiguration other)
         {
             return
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseGoogleDriveSourceConfiguration?>.Default.Equals(Base, other.Base) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.BaseGoogleDriveSourceConfiguration?>.Default.Equals(Base, other.Base)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(UpdateGoogleDriveSourceConfiguration obj1, UpdateGoogleDriveSourceConfiguration obj2)
         {
@@ -187,7 +187,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(UpdateGoogleDriveSourceConfiguration obj1, UpdateGoogleDriveSourceConfiguration obj2)
         {
@@ -195,7 +195,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

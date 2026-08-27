@@ -43,7 +43,7 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.FilterAttributeValue> Values { get; set; }
 
         /// <summary>
-        /// Statistical aggregations for numeric filter attributes (integer, real_number, and their list variants). Provides summary statistics across all values in the corpus.
+        /// Statistical aggregations for numeric filter attributes (integer, real_number, and their list variants). Statistics are computed over document parts (chunks), so a document-level value contributes once per part of its document. Averages and sums reflect that per-part weighting; minimum and maximum are unaffected.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stats")]
         public global::Vectara.FilterAttributeNumericStats? Stats { get; set; }
@@ -73,7 +73,7 @@ namespace Vectara
         /// Example: The category of the document (e.g., contract, invoice, report).
         /// </param>
         /// <param name="stats">
-        /// Statistical aggregations for numeric filter attributes (integer, real_number, and their list variants). Provides summary statistics across all values in the corpus.
+        /// Statistical aggregations for numeric filter attributes (integer, real_number, and their list variants). Statistics are computed over document parts (chunks), so a document-level value contributes once per part of its document. Averages and sums reflect that per-part weighting; minimum and maximum are unaffected.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

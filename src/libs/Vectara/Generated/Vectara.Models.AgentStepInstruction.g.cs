@@ -11,7 +11,7 @@ namespace Vectara
     public readonly partial struct AgentStepInstruction : global::System.IEquatable<AgentStepInstruction>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentStepInstructionDiscriminatorType? Type { get; }
 
@@ -25,7 +25,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Reference))]
@@ -33,7 +33,7 @@ namespace Vectara
         public bool IsReference => Reference != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickReference(
 #if NET6_0_OR_GREATER
@@ -46,7 +46,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.ReferenceInstruction PickReference() => IsReference
             ? Reference!.Value
@@ -62,7 +62,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Inline))]
@@ -70,7 +70,7 @@ namespace Vectara
         public bool IsInline => Inline != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickInline(
 #if NET6_0_OR_GREATER
@@ -83,23 +83,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.InlineInstruction PickInline() => IsInline
             ? Inline!.Value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Inline' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentStepInstruction(global::Vectara.ReferenceInstruction value) => new AgentStepInstruction((global::Vectara.ReferenceInstruction?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.ReferenceInstruction?(AgentStepInstruction @this) => @this.Reference;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentStepInstruction(global::Vectara.ReferenceInstruction? value)
         {
@@ -107,22 +107,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentStepInstruction FromReference(global::Vectara.ReferenceInstruction? value) => new AgentStepInstruction(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentStepInstruction(global::Vectara.InlineInstruction value) => new AgentStepInstruction((global::Vectara.InlineInstruction?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.InlineInstruction?(AgentStepInstruction @this) => @this.Inline;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentStepInstruction(global::Vectara.InlineInstruction? value)
         {
@@ -130,12 +130,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentStepInstruction FromInline(global::Vectara.InlineInstruction? value) => new AgentStepInstruction(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentStepInstruction(
             global::Vectara.AgentStepInstructionDiscriminatorType? type,
@@ -150,23 +150,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Inline as object ??
-            Reference as object 
+            Reference as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Reference?.ToString() ??
-            Inline?.ToString() 
+            Inline?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -174,7 +174,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.ReferenceInstruction?, TResult>? reference = null,
@@ -199,7 +199,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.ReferenceInstruction?>? reference = null,
@@ -223,7 +223,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.ReferenceInstruction?>? reference = null,
@@ -246,7 +246,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -267,18 +267,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(AgentStepInstruction other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ReferenceInstruction?>.Default.Equals(Reference, other.Reference) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineInstruction?>.Default.Equals(Inline, other.Inline) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.InlineInstruction?>.Default.Equals(Inline, other.Inline)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(AgentStepInstruction obj1, AgentStepInstruction obj2)
         {
@@ -286,7 +286,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(AgentStepInstruction obj1, AgentStepInstruction obj2)
         {
@@ -294,7 +294,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

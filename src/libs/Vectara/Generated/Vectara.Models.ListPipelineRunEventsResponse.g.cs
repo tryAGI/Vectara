@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class ListPipelineRunEventsResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("events")]
         [global::System.Text.Json.Serialization.JsonRequired]

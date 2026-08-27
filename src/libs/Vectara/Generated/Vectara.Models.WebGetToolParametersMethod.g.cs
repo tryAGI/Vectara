@@ -9,27 +9,27 @@ namespace Vectara
     public enum WebGetToolParametersMethod
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Delete,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Get,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Head,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Patch,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Post,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Put,
     }

@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct CreateToolRequest : global::System.IEquatable<CreateToolRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateToolRequestDiscriminatorType? Type { get; }
 
@@ -28,7 +28,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Lambda))]
@@ -36,7 +36,7 @@ namespace Vectara
         public bool IsLambda => Lambda != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickLambda(
 #if NET6_0_OR_GREATER
@@ -49,7 +49,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateLambdaToolRequest PickLambda() => IsLambda
             ? Lambda!
@@ -65,7 +65,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Client))]
@@ -73,7 +73,7 @@ namespace Vectara
         public bool IsClient => Client != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickClient(
 #if NET6_0_OR_GREATER
@@ -86,23 +86,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateClientToolRequest PickClient() => IsClient
             ? Client!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Client' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateToolRequest(global::Vectara.CreateLambdaToolRequest value) => new CreateToolRequest((global::Vectara.CreateLambdaToolRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateLambdaToolRequest?(CreateToolRequest @this) => @this.Lambda;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateToolRequest(global::Vectara.CreateLambdaToolRequest? value)
         {
@@ -110,22 +110,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateToolRequest FromLambda(global::Vectara.CreateLambdaToolRequest? value) => new CreateToolRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateToolRequest(global::Vectara.CreateClientToolRequest value) => new CreateToolRequest((global::Vectara.CreateClientToolRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateClientToolRequest?(CreateToolRequest @this) => @this.Client;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateToolRequest(global::Vectara.CreateClientToolRequest? value)
         {
@@ -133,12 +133,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateToolRequest FromClient(global::Vectara.CreateClientToolRequest? value) => new CreateToolRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateToolRequest(
             global::Vectara.CreateToolRequestDiscriminatorType? type,
@@ -153,23 +153,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Client as object ??
-            Lambda as object 
+            Lambda as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Lambda?.ToString() ??
-            Client?.ToString() 
+            Client?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -177,7 +177,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateLambdaToolRequest, TResult>? lambda = null,
@@ -202,7 +202,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateLambdaToolRequest>? lambda = null,
@@ -226,7 +226,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateLambdaToolRequest>? lambda = null,
@@ -249,7 +249,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -270,18 +270,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateToolRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateLambdaToolRequest?>.Default.Equals(Lambda, other.Lambda) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateClientToolRequest?>.Default.Equals(Client, other.Client) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateClientToolRequest?>.Default.Equals(Client, other.Client)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateToolRequest obj1, CreateToolRequest obj2)
         {
@@ -289,7 +289,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateToolRequest obj1, CreateToolRequest obj2)
         {
@@ -297,7 +297,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

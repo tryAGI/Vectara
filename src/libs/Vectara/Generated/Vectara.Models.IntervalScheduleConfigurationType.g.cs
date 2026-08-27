@@ -10,7 +10,7 @@ namespace Vectara
     public enum IntervalScheduleConfigurationType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Interval,
     }

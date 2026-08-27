@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.OpenAILLMUpdateBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateOpenAILLMRequestVariant2? UpdateOpenAILLMRequestVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(UpdateOpenAILLMRequestVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsUpdateOpenAILLMRequestVariant2 => UpdateOpenAILLMRequestVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickUpdateOpenAILLMRequestVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.UpdateOpenAILLMRequestVariant2 PickUpdateOpenAILLMRequestVariant2() => IsUpdateOpenAILLMRequestVariant2
             ? UpdateOpenAILLMRequestVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'UpdateOpenAILLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateOpenAILLMRequest(global::Vectara.OpenAILLMUpdateBase value) => new UpdateOpenAILLMRequest((global::Vectara.OpenAILLMUpdateBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.OpenAILLMUpdateBase?(UpdateOpenAILLMRequest @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateOpenAILLMRequest(global::Vectara.OpenAILLMUpdateBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateOpenAILLMRequest FromBase(global::Vectara.OpenAILLMUpdateBase? value) => new UpdateOpenAILLMRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator UpdateOpenAILLMRequest(global::Vectara.UpdateOpenAILLMRequestVariant2 value) => new UpdateOpenAILLMRequest((global::Vectara.UpdateOpenAILLMRequestVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.UpdateOpenAILLMRequestVariant2?(UpdateOpenAILLMRequest @this) => @this.UpdateOpenAILLMRequestVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateOpenAILLMRequest(global::Vectara.UpdateOpenAILLMRequestVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static UpdateOpenAILLMRequest FromUpdateOpenAILLMRequestVariant2(global::Vectara.UpdateOpenAILLMRequestVariant2? value) => new UpdateOpenAILLMRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UpdateOpenAILLMRequest(
             global::Vectara.OpenAILLMUpdateBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             UpdateOpenAILLMRequestVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            UpdateOpenAILLMRequestVariant2?.ToString() 
+            UpdateOpenAILLMRequestVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.OpenAILLMUpdateBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.OpenAILLMUpdateBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.OpenAILLMUpdateBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(UpdateOpenAILLMRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.OpenAILLMUpdateBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateOpenAILLMRequestVariant2?>.Default.Equals(UpdateOpenAILLMRequestVariant2, other.UpdateOpenAILLMRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateOpenAILLMRequestVariant2?>.Default.Equals(UpdateOpenAILLMRequestVariant2, other.UpdateOpenAILLMRequestVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(UpdateOpenAILLMRequest obj1, UpdateOpenAILLMRequest obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(UpdateOpenAILLMRequest obj1, UpdateOpenAILLMRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

@@ -1,121 +1,469 @@
+#pragma warning disable CS0618 // Type or member is obsolete
 
 #nullable enable
 
 namespace Vectara
 {
     /// <summary>
-    /// Request object for creating a new agent connector.
+    /// Request object for creating a new agent connector, discriminated by the connector type.
     /// </summary>
-    public sealed partial class CreateAgentConnectorRequest
+    public readonly partial struct CreateAgentConnectorRequest : global::System.IEquatable<CreateAgentConnectorRequest>
     {
         /// <summary>
-        /// The human-readable name of the connector.<br/>
-        /// Example: Customer Support Slack Channel
+        ///
         /// </summary>
-        /// <example>Customer Support Slack Channel</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("name")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Name { get; set; }
+        public global::Vectara.CreateAgentConnectorRequestDiscriminatorType? Type { get; }
 
         /// <summary>
-        /// A detailed description of what this connector does.<br/>
-        /// Example: Receives customer support messages from the
+        /// Request object for creating a Slack connector.
         /// </summary>
-        /// <example>Receives customer support messages from the</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; }
-
-        /// <summary>
-        /// Arbitrary metadata associated with the connector.<br/>
-        /// Default Value: {}<br/>
-        /// Example: {"priority":"high","department":"customer_service"}
-        /// </summary>
-        /// <example>{"priority":"high","department":"customer_service"}</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
-        public object? Metadata { get; set; }
-
-        /// <summary>
-        /// Whether the connector should be enabled upon creation.<br/>
-        /// Default Value: true<br/>
-        /// Example: true
-        /// </summary>
-        /// <example>true</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("enabled")]
-        public bool? Enabled { get; set; }
-
-        /// <summary>
-        /// Write view of a connector's configuration. Used when creating a connector<br/>
-        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
-        /// must supply. Platform-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view:<br/>
-        /// - Slack returns `webhook_path`<br/>
-        /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter))]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required global::Vectara.CreateConnectorConfiguration Configuration { get; set; }
-
-        /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CreateAgentConnectorRequest" /> class.
-        /// </summary>
-        /// <param name="name">
-        /// The human-readable name of the connector.<br/>
-        /// Example: Customer Support Slack Channel
-        /// </param>
-        /// <param name="configuration">
-        /// Write view of a connector's configuration. Used when creating a connector<br/>
-        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
-        /// must supply. Platform-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view:<br/>
-        /// - Slack returns `webhook_path`<br/>
-        /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`
-        /// </param>
-        /// <param name="description">
-        /// A detailed description of what this connector does.<br/>
-        /// Example: Receives customer support messages from the
-        /// </param>
-        /// <param name="metadata">
-        /// Arbitrary metadata associated with the connector.<br/>
-        /// Default Value: {}<br/>
-        /// Example: {"priority":"high","department":"customer_service"}
-        /// </param>
-        /// <param name="enabled">
-        /// Whether the connector should be enabled upon creation.<br/>
-        /// Default Value: true<br/>
-        /// Example: true
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateSlackAgentConnectorRequest? Slack { get; init; }
+#else
+        public global::Vectara.CreateSlackAgentConnectorRequest? Slack { get; }
 #endif
-        public CreateAgentConnectorRequest(
-            string name,
-            global::Vectara.CreateConnectorConfiguration configuration,
-            string? description,
-            object? metadata,
-            bool? enabled)
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Slack))]
+#endif
+        public bool IsSlack => Slack != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickSlack(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateSlackAgentConnectorRequest? value)
         {
-            this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
-            this.Description = description;
-            this.Metadata = metadata;
-            this.Enabled = enabled;
-            this.Configuration = configuration;
+            value = Slack;
+            return IsSlack;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateAgentConnectorRequest" /> class.
+        ///
         /// </summary>
-        public CreateAgentConnectorRequest()
+        public global::Vectara.CreateSlackAgentConnectorRequest PickSlack() => IsSlack
+            ? Slack!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Slack' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Request object for creating a Google Chat connector.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateGchatAgentConnectorRequest? Gchat { get; init; }
+#else
+        public global::Vectara.CreateGchatAgentConnectorRequest? Gchat { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Gchat))]
+#endif
+        public bool IsGchat => Gchat != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickGchat(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateGchatAgentConnectorRequest? value)
         {
+            value = Gchat;
+            return IsGchat;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.CreateGchatAgentConnectorRequest PickGchat() => IsGchat
+            ? Gchat!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Gchat' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Request object for creating a Zoom Contact Center connector.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateZoomAgentConnectorRequest? Zoom { get; init; }
+#else
+        public global::Vectara.CreateZoomAgentConnectorRequest? Zoom { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Zoom))]
+#endif
+        public bool IsZoom => Zoom != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickZoom(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateZoomAgentConnectorRequest? value)
+        {
+            value = Zoom;
+            return IsZoom;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.CreateZoomAgentConnectorRequest PickZoom() => IsZoom
+            ? Zoom!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Zoom' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Request object for creating a web widget connector.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateWidgetAgentConnectorRequest? Widget { get; init; }
+#else
+        public global::Vectara.CreateWidgetAgentConnectorRequest? Widget { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Widget))]
+#endif
+        public bool IsWidget => Widget != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickWidget(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateWidgetAgentConnectorRequest? value)
+        {
+            value = Widget;
+            return IsWidget;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.CreateWidgetAgentConnectorRequest PickWidget() => IsWidget
+            ? Widget!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Widget' but the value was {ToString()}.");
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator CreateAgentConnectorRequest(global::Vectara.CreateSlackAgentConnectorRequest value) => new CreateAgentConnectorRequest((global::Vectara.CreateSlackAgentConnectorRequest?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.CreateSlackAgentConnectorRequest?(CreateAgentConnectorRequest @this) => @this.Slack;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public CreateAgentConnectorRequest(global::Vectara.CreateSlackAgentConnectorRequest? value)
+        {
+            Slack = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static CreateAgentConnectorRequest FromSlack(global::Vectara.CreateSlackAgentConnectorRequest? value) => new CreateAgentConnectorRequest(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator CreateAgentConnectorRequest(global::Vectara.CreateGchatAgentConnectorRequest value) => new CreateAgentConnectorRequest((global::Vectara.CreateGchatAgentConnectorRequest?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.CreateGchatAgentConnectorRequest?(CreateAgentConnectorRequest @this) => @this.Gchat;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public CreateAgentConnectorRequest(global::Vectara.CreateGchatAgentConnectorRequest? value)
+        {
+            Gchat = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static CreateAgentConnectorRequest FromGchat(global::Vectara.CreateGchatAgentConnectorRequest? value) => new CreateAgentConnectorRequest(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator CreateAgentConnectorRequest(global::Vectara.CreateZoomAgentConnectorRequest value) => new CreateAgentConnectorRequest((global::Vectara.CreateZoomAgentConnectorRequest?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.CreateZoomAgentConnectorRequest?(CreateAgentConnectorRequest @this) => @this.Zoom;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public CreateAgentConnectorRequest(global::Vectara.CreateZoomAgentConnectorRequest? value)
+        {
+            Zoom = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static CreateAgentConnectorRequest FromZoom(global::Vectara.CreateZoomAgentConnectorRequest? value) => new CreateAgentConnectorRequest(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator CreateAgentConnectorRequest(global::Vectara.CreateWidgetAgentConnectorRequest value) => new CreateAgentConnectorRequest((global::Vectara.CreateWidgetAgentConnectorRequest?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.CreateWidgetAgentConnectorRequest?(CreateAgentConnectorRequest @this) => @this.Widget;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public CreateAgentConnectorRequest(global::Vectara.CreateWidgetAgentConnectorRequest? value)
+        {
+            Widget = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static CreateAgentConnectorRequest FromWidget(global::Vectara.CreateWidgetAgentConnectorRequest? value) => new CreateAgentConnectorRequest(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public CreateAgentConnectorRequest(
+            global::Vectara.CreateAgentConnectorRequestDiscriminatorType? type,
+            global::Vectara.CreateSlackAgentConnectorRequest? slack,
+            global::Vectara.CreateGchatAgentConnectorRequest? gchat,
+            global::Vectara.CreateZoomAgentConnectorRequest? zoom,
+            global::Vectara.CreateWidgetAgentConnectorRequest? widget
+            )
+        {
+            Type = type;
+
+            Slack = slack;
+            Gchat = gchat;
+            Zoom = zoom;
+            Widget = widget;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public object? Object =>
+            Widget as object ??
+            Zoom as object ??
+            Gchat as object ??
+            Slack as object
+            ;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public override string? ToString() =>
+            Slack?.ToString() ??
+            Gchat?.ToString() ??
+            Zoom?.ToString() ??
+            Widget?.ToString()
+            ;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool Validate()
+        {
+            return IsSlack && !IsGchat && !IsZoom && !IsWidget || !IsSlack && IsGchat && !IsZoom && !IsWidget || !IsSlack && !IsGchat && IsZoom && !IsWidget || !IsSlack && !IsGchat && !IsZoom && IsWidget;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public TResult? Match<TResult>(
+            global::System.Func<global::Vectara.CreateSlackAgentConnectorRequest?, TResult>? slack = null,
+            global::System.Func<global::Vectara.CreateGchatAgentConnectorRequest?, TResult>? gchat = null,
+            global::System.Func<global::Vectara.CreateZoomAgentConnectorRequest?, TResult>? zoom = null,
+            global::System.Func<global::Vectara.CreateWidgetAgentConnectorRequest?, TResult>? widget = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSlack && slack != null)
+            {
+                return slack(Slack!);
+            }
+            else if (IsGchat && gchat != null)
+            {
+                return gchat(Gchat!);
+            }
+            else if (IsZoom && zoom != null)
+            {
+                return zoom(Zoom!);
+            }
+            else if (IsWidget && widget != null)
+            {
+                return widget(Widget!);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public void Match(
+            global::System.Action<global::Vectara.CreateSlackAgentConnectorRequest?>? slack = null,
+
+            global::System.Action<global::Vectara.CreateGchatAgentConnectorRequest?>? gchat = null,
+
+            global::System.Action<global::Vectara.CreateZoomAgentConnectorRequest?>? zoom = null,
+
+            global::System.Action<global::Vectara.CreateWidgetAgentConnectorRequest?>? widget = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSlack)
+            {
+                slack?.Invoke(Slack!);
+            }
+            else if (IsGchat)
+            {
+                gchat?.Invoke(Gchat!);
+            }
+            else if (IsZoom)
+            {
+                zoom?.Invoke(Zoom!);
+            }
+            else if (IsWidget)
+            {
+                widget?.Invoke(Widget!);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::Vectara.CreateSlackAgentConnectorRequest?>? slack = null,
+            global::System.Action<global::Vectara.CreateGchatAgentConnectorRequest?>? gchat = null,
+            global::System.Action<global::Vectara.CreateZoomAgentConnectorRequest?>? zoom = null,
+            global::System.Action<global::Vectara.CreateWidgetAgentConnectorRequest?>? widget = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsSlack)
+            {
+                slack?.Invoke(Slack!);
+            }
+            else if (IsGchat)
+            {
+                gchat?.Invoke(Gchat!);
+            }
+            else if (IsZoom)
+            {
+                zoom?.Invoke(Zoom!);
+            }
+            else if (IsWidget)
+            {
+                widget?.Invoke(Widget!);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public override int GetHashCode()
+        {
+            var fields = new object?[]
+            {
+                Slack,
+                typeof(global::Vectara.CreateSlackAgentConnectorRequest),
+                Gchat,
+                typeof(global::Vectara.CreateGchatAgentConnectorRequest),
+                Zoom,
+                typeof(global::Vectara.CreateZoomAgentConnectorRequest),
+                Widget,
+                typeof(global::Vectara.CreateWidgetAgentConnectorRequest),
+            };
+            const int offset = unchecked((int)2166136261);
+            const int prime = 16777619;
+            static int HashCodeAggregator(int hashCode, object? value) => value == null
+                ? (hashCode ^ 0) * prime
+                : (hashCode ^ value.GetHashCode()) * prime;
+
+            return global::System.Linq.Enumerable.Aggregate(fields, offset, HashCodeAggregator);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool Equals(CreateAgentConnectorRequest other)
+        {
+            return
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateSlackAgentConnectorRequest?>.Default.Equals(Slack, other.Slack) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateGchatAgentConnectorRequest?>.Default.Equals(Gchat, other.Gchat) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateZoomAgentConnectorRequest?>.Default.Equals(Zoom, other.Zoom) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateWidgetAgentConnectorRequest?>.Default.Equals(Widget, other.Widget)
+                ;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static bool operator ==(CreateAgentConnectorRequest obj1, CreateAgentConnectorRequest obj2)
+        {
+            return global::System.Collections.Generic.EqualityComparer<CreateAgentConnectorRequest>.Default.Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static bool operator !=(CreateAgentConnectorRequest obj1, CreateAgentConnectorRequest obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public override bool Equals(object? obj)
+        {
+            return obj is CreateAgentConnectorRequest o && Equals(o);
+        }
     }
 }

@@ -4,32 +4,32 @@
 namespace Vectara
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum QueryHistorySpanDiscriminatorType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Fcs,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Generation,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Rephrase,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Rerank,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         RewrittenQuery,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Search,
     }

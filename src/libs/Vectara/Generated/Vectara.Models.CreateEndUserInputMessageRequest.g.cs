@@ -19,7 +19,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Base))]
@@ -27,7 +27,7 @@ namespace Vectara
         public bool IsBase => Base != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBase(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateEndUserInputRequestBase PickBase() => IsBase
             ? Base!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.CreateEndUserInputMessageRequestVariant2? CreateEndUserInputMessageRequestVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(CreateEndUserInputMessageRequestVariant2))]
@@ -64,7 +64,7 @@ namespace Vectara
         public bool IsCreateEndUserInputMessageRequestVariant2 => CreateEndUserInputMessageRequestVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickCreateEndUserInputMessageRequestVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.CreateEndUserInputMessageRequestVariant2 PickCreateEndUserInputMessageRequestVariant2() => IsCreateEndUserInputMessageRequestVariant2
             ? CreateEndUserInputMessageRequestVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateEndUserInputMessageRequestVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateEndUserInputMessageRequest(global::Vectara.CreateEndUserInputRequestBase value) => new CreateEndUserInputMessageRequest((global::Vectara.CreateEndUserInputRequestBase?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateEndUserInputRequestBase?(CreateEndUserInputMessageRequest @this) => @this.Base;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInputMessageRequest(global::Vectara.CreateEndUserInputRequestBase? value)
         {
@@ -101,22 +101,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateEndUserInputMessageRequest FromBase(global::Vectara.CreateEndUserInputRequestBase? value) => new CreateEndUserInputMessageRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator CreateEndUserInputMessageRequest(global::Vectara.CreateEndUserInputMessageRequestVariant2 value) => new CreateEndUserInputMessageRequest((global::Vectara.CreateEndUserInputMessageRequestVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.CreateEndUserInputMessageRequestVariant2?(CreateEndUserInputMessageRequest @this) => @this.CreateEndUserInputMessageRequestVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInputMessageRequest(global::Vectara.CreateEndUserInputMessageRequestVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static CreateEndUserInputMessageRequest FromCreateEndUserInputMessageRequestVariant2(global::Vectara.CreateEndUserInputMessageRequestVariant2? value) => new CreateEndUserInputMessageRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CreateEndUserInputMessageRequest(
             global::Vectara.CreateEndUserInputRequestBase? @base,
@@ -141,23 +141,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             CreateEndUserInputMessageRequestVariant2 as object ??
-            Base as object 
+            Base as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Base?.ToString() ??
-            CreateEndUserInputMessageRequestVariant2?.ToString() 
+            CreateEndUserInputMessageRequestVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateEndUserInputRequestBase, TResult>? @base = null,
@@ -190,7 +190,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.CreateEndUserInputRequestBase>? @base = null,
@@ -214,7 +214,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.CreateEndUserInputRequestBase>? @base = null,
@@ -237,7 +237,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(CreateEndUserInputMessageRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInputRequestBase?>.Default.Equals(Base, other.Base) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInputMessageRequestVariant2?>.Default.Equals(CreateEndUserInputMessageRequestVariant2, other.CreateEndUserInputMessageRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInputMessageRequestVariant2?>.Default.Equals(CreateEndUserInputMessageRequestVariant2, other.CreateEndUserInputMessageRequestVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(CreateEndUserInputMessageRequest obj1, CreateEndUserInputMessageRequest obj2)
         {
@@ -277,7 +277,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(CreateEndUserInputMessageRequest obj1, CreateEndUserInputMessageRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

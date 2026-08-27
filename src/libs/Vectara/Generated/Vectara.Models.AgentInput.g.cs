@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct AgentInput : global::System.IEquatable<AgentInput>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentInputDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Text))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsText => Text != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickText(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentTextInput PickText() => IsText
             ? Text!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Skill))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsSkill => Skill != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSkill(
 #if NET6_0_OR_GREATER
@@ -82,23 +82,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.AgentSkillInput PickSkill() => IsSkill
             ? Skill!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Skill' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentInput(global::Vectara.AgentTextInput value) => new AgentInput((global::Vectara.AgentTextInput?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentTextInput?(AgentInput @this) => @this.Text;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentInput(global::Vectara.AgentTextInput? value)
         {
@@ -106,22 +106,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentInput FromText(global::Vectara.AgentTextInput? value) => new AgentInput(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator AgentInput(global::Vectara.AgentSkillInput value) => new AgentInput((global::Vectara.AgentSkillInput?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.AgentSkillInput?(AgentInput @this) => @this.Skill;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentInput(global::Vectara.AgentSkillInput? value)
         {
@@ -129,12 +129,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AgentInput FromSkill(global::Vectara.AgentSkillInput? value) => new AgentInput(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AgentInput(
             global::Vectara.AgentInputDiscriminatorType? type,
@@ -149,23 +149,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             Skill as object ??
-            Text as object 
+            Text as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Text?.ToString() ??
-            Skill?.ToString() 
+            Skill?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -173,7 +173,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.AgentTextInput, TResult>? text = null,
@@ -198,7 +198,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.AgentTextInput>? text = null,
@@ -222,7 +222,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.AgentTextInput>? text = null,
@@ -245,7 +245,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -266,18 +266,18 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(AgentInput other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentTextInput?>.Default.Equals(Text, other.Text) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentSkillInput?>.Default.Equals(Skill, other.Skill) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.AgentSkillInput?>.Default.Equals(Skill, other.Skill)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(AgentInput obj1, AgentInput obj2)
         {
@@ -285,7 +285,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(AgentInput obj1, AgentInput obj2)
         {
@@ -293,7 +293,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

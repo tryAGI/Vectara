@@ -42,6 +42,34 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.EndUserErrorEvent)}");
                 error = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.ToolInputEvent? toolInput = default;
+            if (discriminator?.Type == global::Vectara.EndUserEventDiscriminatorType.ToolInput)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolInputEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolInputEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ToolInputEvent)}");
+                toolInput = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.ToolOutputEvent? toolOutput = default;
+            if (discriminator?.Type == global::Vectara.EndUserEventDiscriminatorType.ToolOutput)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolOutputEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolOutputEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ToolOutputEvent)}");
+                toolOutput = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.ThinkingEvent? thinking = default;
+            if (discriminator?.Type == global::Vectara.EndUserEventDiscriminatorType.Thinking)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ThinkingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ThinkingEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ThinkingEvent)}");
+                thinking = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
+            global::Vectara.StructuredOutputEvent? structuredOutput = default;
+            if (discriminator?.Type == global::Vectara.EndUserEventDiscriminatorType.StructuredOutput)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StructuredOutputEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StructuredOutputEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StructuredOutputEvent)}");
+                structuredOutput = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.EndUserEvent(
                 discriminator?.Type,
@@ -49,7 +77,15 @@ namespace Vectara.JsonConverters
 
                 agentOutput,
 
-                error
+                error,
+
+                toolInput,
+
+                toolOutput,
+
+                thinking,
+
+                structuredOutput
                 );
 
             return __value;
@@ -81,6 +117,30 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.EndUserErrorEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.EndUserErrorEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.EndUserErrorEvent).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.Error!.Value, typeInfo);
+            }
+            else if (value.IsToolInput)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolInputEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolInputEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ToolInputEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ToolInput!.Value, typeInfo);
+            }
+            else if (value.IsToolOutput)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolOutputEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolOutputEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ToolOutputEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ToolOutput!.Value, typeInfo);
+            }
+            else if (value.IsThinking)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ThinkingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ThinkingEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ThinkingEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Thinking!.Value, typeInfo);
+            }
+            else if (value.IsStructuredOutput)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StructuredOutputEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StructuredOutputEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StructuredOutputEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.StructuredOutput!.Value, typeInfo);
             }
         }
     }

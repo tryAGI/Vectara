@@ -10,7 +10,7 @@ namespace Vectara
     public readonly partial struct LLMAuth : global::System.IEquatable<LLMAuth>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.LLMAuthDiscriminatorType? Type { get; }
 
@@ -24,7 +24,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Bearer))]
@@ -32,7 +32,7 @@ namespace Vectara
         public bool IsBearer => Bearer != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBearer(
 #if NET6_0_OR_GREATER
@@ -45,7 +45,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BearerAuth PickBearer() => IsBearer
             ? Bearer!
@@ -61,7 +61,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Header))]
@@ -69,7 +69,7 @@ namespace Vectara
         public bool IsHeader => Header != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickHeader(
 #if NET6_0_OR_GREATER
@@ -82,7 +82,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.HeaderAuth PickHeader() => IsHeader
             ? Header!
@@ -98,7 +98,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(OauthClientCredentials))]
@@ -106,7 +106,7 @@ namespace Vectara
         public bool IsOauthClientCredentials => OauthClientCredentials != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickOauthClientCredentials(
 #if NET6_0_OR_GREATER
@@ -119,7 +119,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.OAuthClientCredentialsAuth PickOauthClientCredentials() => IsOauthClientCredentials
             ? OauthClientCredentials!
@@ -135,7 +135,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(BedrockStaticIam))]
@@ -143,7 +143,7 @@ namespace Vectara
         public bool IsBedrockStaticIam => BedrockStaticIam != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBedrockStaticIam(
 #if NET6_0_OR_GREATER
@@ -156,7 +156,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BedrockStaticIAMAuth PickBedrockStaticIam() => IsBedrockStaticIam
             ? BedrockStaticIam!
@@ -172,7 +172,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(BedrockApiKey))]
@@ -180,7 +180,7 @@ namespace Vectara
         public bool IsBedrockApiKey => BedrockApiKey != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickBedrockApiKey(
 #if NET6_0_OR_GREATER
@@ -193,7 +193,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.BedrockApiKeyAuth PickBedrockApiKey() => IsBedrockApiKey
             ? BedrockApiKey!
@@ -209,7 +209,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VertexServiceAccount))]
@@ -217,7 +217,7 @@ namespace Vectara
         public bool IsVertexServiceAccount => VertexServiceAccount != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickVertexServiceAccount(
 #if NET6_0_OR_GREATER
@@ -230,7 +230,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexServiceAccountAuth PickVertexServiceAccount() => IsVertexServiceAccount
             ? VertexServiceAccount!
@@ -246,7 +246,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(VertexAccessToken))]
@@ -254,7 +254,7 @@ namespace Vectara
         public bool IsVertexAccessToken => VertexAccessToken != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickVertexAccessToken(
 #if NET6_0_OR_GREATER
@@ -267,7 +267,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexAccessTokenAuth PickVertexAccessToken() => IsVertexAccessToken
             ? VertexAccessToken!
@@ -283,7 +283,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ApiKey))]
@@ -291,7 +291,7 @@ namespace Vectara
         public bool IsApiKey => ApiKey != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickApiKey(
 #if NET6_0_OR_GREATER
@@ -304,7 +304,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexAiApiKeyAuth PickApiKey() => IsApiKey
             ? ApiKey!
@@ -320,7 +320,7 @@ namespace Vectara
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ServiceAccount))]
@@ -328,7 +328,7 @@ namespace Vectara
         public bool IsServiceAccount => ServiceAccount != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickServiceAccount(
 #if NET6_0_OR_GREATER
@@ -341,23 +341,23 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::Vectara.VertexAiServiceAccountAuth PickServiceAccount() => IsServiceAccount
             ? ServiceAccount!
             : throw new global::System.InvalidOperationException($"Expected union variant 'ServiceAccount' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.BearerAuth value) => new LLMAuth((global::Vectara.BearerAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BearerAuth?(LLMAuth @this) => @this.Bearer;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.BearerAuth? value)
         {
@@ -365,22 +365,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromBearer(global::Vectara.BearerAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.HeaderAuth value) => new LLMAuth((global::Vectara.HeaderAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.HeaderAuth?(LLMAuth @this) => @this.Header;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.HeaderAuth? value)
         {
@@ -388,22 +388,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromHeader(global::Vectara.HeaderAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.OAuthClientCredentialsAuth value) => new LLMAuth((global::Vectara.OAuthClientCredentialsAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.OAuthClientCredentialsAuth?(LLMAuth @this) => @this.OauthClientCredentials;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.OAuthClientCredentialsAuth? value)
         {
@@ -411,22 +411,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromOauthClientCredentials(global::Vectara.OAuthClientCredentialsAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.BedrockStaticIAMAuth value) => new LLMAuth((global::Vectara.BedrockStaticIAMAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BedrockStaticIAMAuth?(LLMAuth @this) => @this.BedrockStaticIam;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.BedrockStaticIAMAuth? value)
         {
@@ -434,22 +434,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromBedrockStaticIam(global::Vectara.BedrockStaticIAMAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.BedrockApiKeyAuth value) => new LLMAuth((global::Vectara.BedrockApiKeyAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.BedrockApiKeyAuth?(LLMAuth @this) => @this.BedrockApiKey;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.BedrockApiKeyAuth? value)
         {
@@ -457,22 +457,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromBedrockApiKey(global::Vectara.BedrockApiKeyAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.VertexServiceAccountAuth value) => new LLMAuth((global::Vectara.VertexServiceAccountAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.VertexServiceAccountAuth?(LLMAuth @this) => @this.VertexServiceAccount;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.VertexServiceAccountAuth? value)
         {
@@ -480,22 +480,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromVertexServiceAccount(global::Vectara.VertexServiceAccountAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.VertexAccessTokenAuth value) => new LLMAuth((global::Vectara.VertexAccessTokenAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.VertexAccessTokenAuth?(LLMAuth @this) => @this.VertexAccessToken;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.VertexAccessTokenAuth? value)
         {
@@ -503,22 +503,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromVertexAccessToken(global::Vectara.VertexAccessTokenAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.VertexAiApiKeyAuth value) => new LLMAuth((global::Vectara.VertexAiApiKeyAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.VertexAiApiKeyAuth?(LLMAuth @this) => @this.ApiKey;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.VertexAiApiKeyAuth? value)
         {
@@ -526,22 +526,22 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromApiKey(global::Vectara.VertexAiApiKeyAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator LLMAuth(global::Vectara.VertexAiServiceAccountAuth value) => new LLMAuth((global::Vectara.VertexAiServiceAccountAuth?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::Vectara.VertexAiServiceAccountAuth?(LLMAuth @this) => @this.ServiceAccount;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(global::Vectara.VertexAiServiceAccountAuth? value)
         {
@@ -549,12 +549,12 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static LLMAuth FromServiceAccount(global::Vectara.VertexAiServiceAccountAuth? value) => new LLMAuth(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public LLMAuth(
             global::Vectara.LLMAuthDiscriminatorType? type,
@@ -583,7 +583,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             ServiceAccount as object ??
@@ -594,11 +594,11 @@ namespace Vectara
             BedrockStaticIam as object ??
             OauthClientCredentials as object ??
             Header as object ??
-            Bearer as object 
+            Bearer as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Bearer?.ToString() ??
@@ -609,11 +609,11 @@ namespace Vectara
             VertexServiceAccount?.ToString() ??
             VertexAccessToken?.ToString() ??
             ApiKey?.ToString() ??
-            ServiceAccount?.ToString() 
+            ServiceAccount?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -621,7 +621,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.BearerAuth, TResult>? bearer = null,
@@ -681,7 +681,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::Vectara.BearerAuth>? bearer = null,
@@ -747,7 +747,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::Vectara.BearerAuth>? bearer = null,
@@ -805,7 +805,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -840,7 +840,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(LLMAuth other)
         {
@@ -853,12 +853,12 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexServiceAccountAuth?>.Default.Equals(VertexServiceAccount, other.VertexServiceAccount) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAccessTokenAuth?>.Default.Equals(VertexAccessToken, other.VertexAccessToken) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAiApiKeyAuth?>.Default.Equals(ApiKey, other.ApiKey) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAiServiceAccountAuth?>.Default.Equals(ServiceAccount, other.ServiceAccount) 
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.VertexAiServiceAccountAuth?>.Default.Equals(ServiceAccount, other.ServiceAccount)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(LLMAuth obj1, LLMAuth obj2)
         {
@@ -866,7 +866,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(LLMAuth obj1, LLMAuth obj2)
         {
@@ -874,7 +874,7 @@ namespace Vectara
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {
