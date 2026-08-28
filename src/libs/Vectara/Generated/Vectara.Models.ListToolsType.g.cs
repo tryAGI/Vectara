@@ -9,17 +9,21 @@ namespace Vectara
     public enum ListToolsType
     {
         /// <summary>
-        ///
+        /// `vectara` matches the built-in Vectara tools, `mcp` tools provided by a tool server, `lambda` user-defined Python tools, and `client` tools executed by the calling client.
         /// </summary>
         Client,
         /// <summary>
-        ///
+        /// `vectara` matches the built-in Vectara tools, `mcp` tools provided by a tool server, `lambda` user-defined Python tools, and `client` tools executed by the calling client.
         /// </summary>
         Lambda,
         /// <summary>
-        ///
+        /// `vectara` matches the built-in Vectara tools, `mcp` tools provided by a tool server, `lambda` user-defined Python tools, and `client` tools executed by the calling client.
         /// </summary>
         Mcp,
+        /// <summary>
+        /// `vectara` matches the built-in Vectara tools, `mcp` tools provided by a tool server, `lambda` user-defined Python tools, and `client` tools executed by the calling client.
+        /// </summary>
+        Vectara,
     }
 
     /// <summary>
@@ -37,6 +41,7 @@ namespace Vectara
                 ListToolsType.Client => "client",
                 ListToolsType.Lambda => "lambda",
                 ListToolsType.Mcp => "mcp",
+                ListToolsType.Vectara => "vectara",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -50,6 +55,7 @@ namespace Vectara
                 "client" => ListToolsType.Client,
                 "lambda" => ListToolsType.Lambda,
                 "mcp" => ListToolsType.Mcp,
+                "vectara" => ListToolsType.Vectara,
                 _ => null,
             };
         }

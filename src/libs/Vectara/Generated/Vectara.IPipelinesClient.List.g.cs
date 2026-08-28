@@ -10,7 +10,9 @@ namespace Vectara
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="sourceType"></param>
+        /// <param name="sourceType">
+        /// Example: sharepoint
+        /// </param>
         /// <param name="status">
         /// The current operational status of the pipeline.
         /// </param>
@@ -40,7 +42,9 @@ namespace Vectara
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="sourceType"></param>
+        /// <param name="sourceType">
+        /// Example: sharepoint
+        /// </param>
         /// <param name="status">
         /// The current operational status of the pipeline.
         /// </param>

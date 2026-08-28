@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    ///
+    /// Example: sharepoint
     /// </summary>
     public enum ListPipelinesSourceType
     {
@@ -52,6 +52,10 @@ namespace Vectara
         ///
         /// </summary>
         WolkenKb,
+        /// <summary>
+        ///
+        /// </summary>
+        WolkenTickets,
     }
 
     /// <summary>
@@ -77,6 +81,7 @@ namespace Vectara
                 ListPipelinesSourceType.Web => "web",
                 ListPipelinesSourceType.WolkenForms => "wolken_forms",
                 ListPipelinesSourceType.WolkenKb => "wolken_kb",
+                ListPipelinesSourceType.WolkenTickets => "wolken_tickets",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -98,6 +103,7 @@ namespace Vectara
                 "web" => ListPipelinesSourceType.Web,
                 "wolken_forms" => ListPipelinesSourceType.WolkenForms,
                 "wolken_kb" => ListPipelinesSourceType.WolkenKb,
+                "wolken_tickets" => ListPipelinesSourceType.WolkenTickets,
                 _ => null,
             };
         }

@@ -438,7 +438,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // The request body omits the required `connector_id`, or the `connector_id` given does not name an enabled widget connector of the addressed alias. `field_errors` names the offending field.
+                            // The addressed alias has no enabled widget connector to bind the session to.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -816,18 +816,11 @@ namespace Vectara
         /// A short description of the session's purpose. If omitted, the platform generates one after the agent produces events.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </param>
-        /// <param name="connectorId">
-        /// The widget connector this session belongs to — the one the widget client learned at bootstrap. Must name an enabled widget connector of the addressed alias, or the request is rejected with `400`.<br/>
-        /// It fixes the session's widget behavior for its lifetime: the widget's `session_tti_minutes` sets the idle lifetime, and event<br/>
-        /// reads through the session use the widget's `revealed_output_types`.<br/>
-        /// Example: con_9f3aQpVn2mZr8YbLc5TdWe
-        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.EndUserSession> CreateAliasRoutedAsync(
             string aliasKey,
-            string connectorId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? xVisitorId = default,
@@ -840,7 +833,6 @@ namespace Vectara
             {
                 Name = name,
                 Description = description,
-                ConnectorId = connectorId,
             };
 
             return await CreateAliasRoutedAsync(

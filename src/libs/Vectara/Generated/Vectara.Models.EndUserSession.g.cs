@@ -65,15 +65,6 @@ namespace Vectara
         public long? TtiMinutes { get; set; }
 
         /// <summary>
-        /// The widget connector this session belongs to, fixed at create.<br/>
-        /// Included only in responses<br/>
-        /// Example: con_9f3aQpVn2mZr8YbLc5TdWe
-        /// </summary>
-        /// <example>con_9f3aQpVn2mZr8YbLc5TdWe</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("connector_id")]
-        public string? ConnectorId { get; set; }
-
-        /// <summary>
         /// Timestamp when the session was created.<br/>
         /// Example: 2024-01-15T10:30:00Z
         /// </summary>
@@ -123,11 +114,6 @@ namespace Vectara
         /// Default Value: 0<br/>
         /// Example: 60
         /// </param>
-        /// <param name="connectorId">
-        /// The widget connector this session belongs to, fixed at create.<br/>
-        /// Included only in responses<br/>
-        /// Example: con_9f3aQpVn2mZr8YbLc5TdWe
-        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -138,8 +124,7 @@ namespace Vectara
             global::System.DateTime createdAt,
             string? description,
             global::Vectara.EndUserSessionStatus? status,
-            long? ttiMinutes,
-            string? connectorId)
+            long? ttiMinutes)
         {
             this.Key = key ?? throw new global::System.ArgumentNullException(nameof(key));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -147,7 +132,6 @@ namespace Vectara
             this.Enabled = enabled;
             this.Status = status;
             this.TtiMinutes = ttiMinutes;
-            this.ConnectorId = connectorId;
             this.CreatedAt = createdAt;
         }
 

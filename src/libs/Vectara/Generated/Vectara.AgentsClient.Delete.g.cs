@@ -446,7 +446,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The agent is still referenced — by aliases, or, for the system judge agent, by evaluators. Remove or rebind the references, then retry.
+                            // The agent is still referenced by aliases. Remove or rebind them, then retry.
                             if ((int)__response.StatusCode == 409)
                             {
                                 string? __content_409 = null;

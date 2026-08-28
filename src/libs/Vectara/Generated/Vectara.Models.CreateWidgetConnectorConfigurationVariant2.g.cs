@@ -20,13 +20,12 @@ namespace Vectara
         public required string Type { get; set; } = "widget";
 
         /// <summary>
-        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
-        /// Example: support
+        /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
+        /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
         /// </summary>
-        /// <example>support</example>
+        /// <example>als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("alias_key")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string AliasKey { get; set; }
+        public string? AliasKey { get; set; }
 
         /// <summary>
         /// The presentation configuration the widget client renders — branding, palette, welcome content, suggested prompts.<br/>
@@ -41,7 +40,7 @@ namespace Vectara
 
         /// <summary>
         /// How long a session created through this widget may sit idle before it is closed, in minutes.<br/>
-        /// Applied to sessions created with this connector's id as `connector_id`, anonymous or signed-in.<br/>
+        /// Applied to every session created through this widget's alias, anonymous or signed-in.<br/>
         /// Set to 0 for sessions that never expire.<br/>
         /// Omit to use the platform default of 30 days.<br/>
         /// Default Value: 43200
@@ -51,7 +50,7 @@ namespace Vectara
 
         /// <summary>
         /// Agent output types included in the widget's end-user event projection; the final response is always visible.<br/>
-        /// Applies to sessions created with this connector's id as `connector_id`, anonymous or signed-in.<br/>
+        /// Applies to every session created through this widget's alias, anonymous or signed-in.<br/>
         /// Omitted or empty reveals none.<br/>
         /// Default Value: []<br/>
         /// Example: [tool_calls]
@@ -59,6 +58,18 @@ namespace Vectara
         /// <example>[tool_calls]</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("revealed_output_types")]
         public global::System.Collections.Generic.IList<global::Vectara.AgentOutputType>? RevealedOutputTypes { get; set; }
+
+        /// <summary>
+        /// Written as the `metadata` of every session created through this widget's alias, anonymous or signed-in.<br/>
+        /// Readable wherever session metadata is readable: instruction templates, `run_condition`, `session_enrichment` references, alias routing rules, and tool `argument_override` expressions.<br/>
+        /// Not served by the widget bootstrap endpoint and not returned on the end-user session object, though values reach the agent's context and may surface in its replies.<br/>
+        /// Omitted or empty writes no session metadata.<br/>
+        /// Default Value: {}<br/>
+        /// Example: {"instance":"conversational-ai"}
+        /// </summary>
+        /// <example>{"instance":"conversational-ai"}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("session_metadata")]
+        public object? SessionMetadata { get; set; }
 
         /// <summary>
         /// Enables the widget's sign-in affordance and names the identity provider it authenticates users against.<br/>
@@ -84,10 +95,6 @@ namespace Vectara
         /// Default Value: widget<br/>
         /// Example: widget
         /// </param>
-        /// <param name="aliasKey">
-        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
-        /// Example: support
-        /// </param>
         /// <param name="presentation">
         /// The presentation configuration the widget client renders — branding, palette, welcome content, suggested prompts.<br/>
         /// Free-form apart from the required `version`; the platform stores it verbatim, serves it back uninterpreted, and caps its total size.<br/>
@@ -95,19 +102,31 @@ namespace Vectara
         /// Served to anonymous visitors by the unauthenticated widget bootstrap endpoint, so widget clients must treat every value as untrusted data.<br/>
         /// Schema validation of the payload lands with the first Altera release; `version` is what lets clients render older payloads once the shape evolves.
         /// </param>
+        /// <param name="aliasKey">
+        /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
+        /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
+        /// </param>
         /// <param name="sessionTtiMinutes">
         /// How long a session created through this widget may sit idle before it is closed, in minutes.<br/>
-        /// Applied to sessions created with this connector's id as `connector_id`, anonymous or signed-in.<br/>
+        /// Applied to every session created through this widget's alias, anonymous or signed-in.<br/>
         /// Set to 0 for sessions that never expire.<br/>
         /// Omit to use the platform default of 30 days.<br/>
         /// Default Value: 43200
         /// </param>
         /// <param name="revealedOutputTypes">
         /// Agent output types included in the widget's end-user event projection; the final response is always visible.<br/>
-        /// Applies to sessions created with this connector's id as `connector_id`, anonymous or signed-in.<br/>
+        /// Applies to every session created through this widget's alias, anonymous or signed-in.<br/>
         /// Omitted or empty reveals none.<br/>
         /// Default Value: []<br/>
         /// Example: [tool_calls]
+        /// </param>
+        /// <param name="sessionMetadata">
+        /// Written as the `metadata` of every session created through this widget's alias, anonymous or signed-in.<br/>
+        /// Readable wherever session metadata is readable: instruction templates, `run_condition`, `session_enrichment` references, alias routing rules, and tool `argument_override` expressions.<br/>
+        /// Not served by the widget bootstrap endpoint and not returned on the end-user session object, though values reach the agent's context and may surface in its replies.<br/>
+        /// Omitted or empty writes no session metadata.<br/>
+        /// Default Value: {}<br/>
+        /// Example: {"instance":"conversational-ai"}
         /// </param>
         /// <param name="endUserSignIn">
         /// Enables the widget's sign-in affordance and names the identity provider it authenticates users against.<br/>
@@ -121,17 +140,19 @@ namespace Vectara
 #endif
         public CreateWidgetConnectorConfigurationVariant2(
             string type,
-            string aliasKey,
             global::Vectara.WidgetPresentation presentation,
+            string? aliasKey,
             int? sessionTtiMinutes,
             global::System.Collections.Generic.IList<global::Vectara.AgentOutputType>? revealedOutputTypes,
+            object? sessionMetadata,
             global::Vectara.WidgetSignIn? endUserSignIn)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
-            this.AliasKey = aliasKey ?? throw new global::System.ArgumentNullException(nameof(aliasKey));
+            this.AliasKey = aliasKey;
             this.Presentation = presentation ?? throw new global::System.ArgumentNullException(nameof(presentation));
             this.SessionTtiMinutes = sessionTtiMinutes;
             this.RevealedOutputTypes = revealedOutputTypes;
+            this.SessionMetadata = sessionMetadata;
             this.EndUserSignIn = endUserSignIn;
         }
 

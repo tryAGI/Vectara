@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Update an alias's metadata<br/>
-        /// Updates an alias's metadata fields (name, description, enabled, metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
+        /// Updates an alias's metadata fields (name, description, enabled, metadata). Setting `enabled` to false on a platform-generated alias fronted by a widget connector is rejected with `409`; disable the connector instead. To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -100,7 +100,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update an alias's metadata<br/>
-        /// Updates an alias's metadata fields (name, description, enabled, metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
+        /// Updates an alias's metadata fields (name, description, enabled, metadata). Setting `enabled` to false on a platform-generated alias fronted by a widget connector is rejected with `409`; disable the connector instead. To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -473,6 +473,43 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
+                            // The alias is platform-managed by a widget connector and cannot be disabled directly; disable the connector instead.
+                            if ((int)__response.StatusCode == 409)
+                            {
+                                string? __content_409 = null;
+                                global::System.Exception? __exception_409 = null;
+                                global::Vectara.Error? __value_409 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_409 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_409 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_409 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_409 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_409,
+                                    responseBody: __content_409,
+                                    responseObject: __value_409,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
 
                             if (__effectiveReadResponseAsString)
                             {
@@ -571,7 +608,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update an alias's metadata<br/>
-        /// Updates an alias's metadata fields (name, description, enabled, metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
+        /// Updates an alias's metadata fields (name, description, enabled, metadata). Setting `enabled` to false on a platform-generated alias fronted by a widget connector is rejected with `409`; disable the connector instead. To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

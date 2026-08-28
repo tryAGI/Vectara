@@ -43,6 +43,7 @@ namespace Vectara.JsonConverters
             if (__jsonProps.Contains("presentation")) __score1++;
             if (__jsonProps.Contains("presentation.version")) __score1++;
             if (__jsonProps.Contains("revealed_output_types")) __score1++;
+            if (__jsonProps.Contains("session_metadata")) __score1++;
             if (__jsonProps.Contains("session_tti_minutes")) __score1++;
             if (__jsonProps.Contains("type")) __score1++;
             var __bestScore = 0;
