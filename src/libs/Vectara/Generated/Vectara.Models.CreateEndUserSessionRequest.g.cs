@@ -4,7 +4,10 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to create a session as an end user. The owning principal comes from the caller's authenticated identity.
+    /// Request to create a session as an end user. The owning principal comes from the caller's authenticated identity.<br/>
+    /// The session binds to the addressed alias's widget connector — an alias has exactly one — which fixes the session's widget behavior for its lifetime:<br/>
+    /// the widget's `session_tti_minutes` sets the idle lifetime, and event reads through the session use the widget's `revealed_output_types`. The widget must<br/>
+    /// be enabled, or the request is rejected with `400`, as it is when the alias has no widget connector at all.
     /// </summary>
     public sealed partial class CreateEndUserSessionRequest
     {
@@ -25,17 +28,6 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
-        /// The widget connector this session belongs to — the one the widget client learned at bootstrap. Must name an enabled widget connector of the addressed alias, or the request is rejected with `400`.<br/>
-        /// It fixes the session's widget behavior for its lifetime: the widget's `session_tti_minutes` sets the idle lifetime, and event<br/>
-        /// reads through the session use the widget's `revealed_output_types`.<br/>
-        /// Example: con_9f3aQpVn2mZr8YbLc5TdWe
-        /// </summary>
-        /// <example>con_9f3aQpVn2mZr8YbLc5TdWe</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("connector_id")]
-        [global::System.Text.Json.Serialization.JsonRequired]
-        public required string ConnectorId { get; set; }
-
-        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -44,12 +36,6 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateEndUserSessionRequest" /> class.
         /// </summary>
-        /// <param name="connectorId">
-        /// The widget connector this session belongs to — the one the widget client learned at bootstrap. Must name an enabled widget connector of the addressed alias, or the request is rejected with `400`.<br/>
-        /// It fixes the session's widget behavior for its lifetime: the widget's `session_tti_minutes` sets the idle lifetime, and event<br/>
-        /// reads through the session use the widget's `revealed_output_types`.<br/>
-        /// Example: con_9f3aQpVn2mZr8YbLc5TdWe
-        /// </param>
         /// <param name="name">
         /// Human-readable name for the session. Platform-generated if omitted.<br/>
         /// Example: Customer Support Session
@@ -62,13 +48,11 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public CreateEndUserSessionRequest(
-            string connectorId,
             string? name,
             string? description)
         {
             this.Name = name;
             this.Description = description;
-            this.ConnectorId = connectorId ?? throw new global::System.ArgumentNullException(nameof(connectorId));
         }
 
         /// <summary>

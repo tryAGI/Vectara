@@ -239,6 +239,48 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenForms' but the value was {ToString()}.");
 
         /// <summary>
+        /// Partial update for Wolken tickets source configuration. Only provided fields are merged.<br/>
+        /// An update cannot return `backfill_window` or `note_response_type_ids` to its unset state.<br/>
+        /// A `null` value for either is accepted and ignored, keeping the stored value, and an empty<br/>
+        /// `note_response_type_ids` is not a reset but the distinct no-notes state. To unset either<br/>
+        /// field, replace the pipeline with `PUT /v2/pipelines/{pipeline_key}` using a configuration<br/>
+        /// that omits it.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.UpdateWolkenTicketsSourceConfiguration? WolkenTickets { get; init; }
+#else
+        public global::Vectara.UpdateWolkenTicketsSourceConfiguration? WolkenTickets { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(WolkenTickets))]
+#endif
+        public bool IsWolkenTickets => WolkenTickets != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickWolkenTickets(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.UpdateWolkenTicketsSourceConfiguration? value)
+        {
+            value = WolkenTickets;
+            return IsWolkenTickets;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.UpdateWolkenTicketsSourceConfiguration PickWolkenTickets() => IsWolkenTickets
+            ? WolkenTickets!.Value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenTickets' but the value was {ToString()}.");
+
+        /// <summary>
         /// Partial update for Confluence source configuration. Only provided fields are merged.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -566,6 +608,29 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public static implicit operator UpdatePipelineSource(global::Vectara.UpdateWolkenTicketsSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateWolkenTicketsSourceConfiguration?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.UpdateWolkenTicketsSourceConfiguration?(UpdatePipelineSource @this) => @this.WolkenTickets;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public UpdatePipelineSource(global::Vectara.UpdateWolkenTicketsSourceConfiguration? value)
+        {
+            WolkenTickets = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static UpdatePipelineSource FromWolkenTickets(global::Vectara.UpdateWolkenTicketsSourceConfiguration? value) => new UpdatePipelineSource(value);
+
+        /// <summary>
+        ///
+        /// </summary>
         public static implicit operator UpdatePipelineSource(global::Vectara.UpdateConfluenceSourceConfiguration value) => new UpdatePipelineSource((global::Vectara.UpdateConfluenceSourceConfiguration?)value);
 
         /// <summary>
@@ -689,6 +754,7 @@ namespace Vectara
             global::Vectara.UpdateBoxSourceConfiguration? box,
             global::Vectara.UpdateWolkenKbSourceConfiguration? wolkenKb,
             global::Vectara.UpdateWolkenFormsSourceConfiguration? wolkenForms,
+            global::Vectara.UpdateWolkenTicketsSourceConfiguration? wolkenTickets,
             global::Vectara.UpdateConfluenceSourceConfiguration? confluence,
             global::Vectara.UpdateFluidtopicsSourceConfiguration? fluidtopics,
             global::Vectara.UpdateScimSourceConfiguration? scim,
@@ -704,6 +770,7 @@ namespace Vectara
             Box = box;
             WolkenKb = wolkenKb;
             WolkenForms = wolkenForms;
+            WolkenTickets = wolkenTickets;
             Confluence = confluence;
             Fluidtopics = fluidtopics;
             Scim = scim;
@@ -720,6 +787,7 @@ namespace Vectara
             Scim as object ??
             Fluidtopics as object ??
             Confluence as object ??
+            WolkenTickets as object ??
             WolkenForms as object ??
             WolkenKb as object ??
             Box as object ??
@@ -738,6 +806,7 @@ namespace Vectara
             Box?.ToString() ??
             WolkenKb?.ToString() ??
             WolkenForms?.ToString() ??
+            WolkenTickets?.ToString() ??
             Confluence?.ToString() ??
             Fluidtopics?.ToString() ??
             Scim?.ToString() ??
@@ -750,7 +819,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && IsWeb;
+            return IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && IsFluidtopics && !IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && IsScim && !IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && IsDocebo && !IsWeb || !IsSharepoint && !IsS3 && !IsGoogleDrive && !IsBox && !IsWolkenKb && !IsWolkenForms && !IsWolkenTickets && !IsConfluence && !IsFluidtopics && !IsScim && !IsDocebo && IsWeb;
         }
 
         /// <summary>
@@ -763,6 +832,7 @@ namespace Vectara
             global::System.Func<global::Vectara.UpdateBoxSourceConfiguration?, TResult>? box = null,
             global::System.Func<global::Vectara.UpdateWolkenKbSourceConfiguration?, TResult>? wolkenKb = null,
             global::System.Func<global::Vectara.UpdateWolkenFormsSourceConfiguration?, TResult>? wolkenForms = null,
+            global::System.Func<global::Vectara.UpdateWolkenTicketsSourceConfiguration?, TResult>? wolkenTickets = null,
             global::System.Func<global::Vectara.UpdateConfluenceSourceConfiguration?, TResult>? confluence = null,
             global::System.Func<global::Vectara.UpdateFluidtopicsSourceConfiguration?, TResult>? fluidtopics = null,
             global::System.Func<global::Vectara.UpdateScimSourceConfiguration?, TResult>? scim = null,
@@ -798,6 +868,10 @@ namespace Vectara
             else if (IsWolkenForms && wolkenForms != null)
             {
                 return wolkenForms(WolkenForms!);
+            }
+            else if (IsWolkenTickets && wolkenTickets != null)
+            {
+                return wolkenTickets(WolkenTickets!);
             }
             else if (IsConfluence && confluence != null)
             {
@@ -839,6 +913,8 @@ namespace Vectara
 
             global::System.Action<global::Vectara.UpdateWolkenFormsSourceConfiguration?>? wolkenForms = null,
 
+            global::System.Action<global::Vectara.UpdateWolkenTicketsSourceConfiguration?>? wolkenTickets = null,
+
             global::System.Action<global::Vectara.UpdateConfluenceSourceConfiguration?>? confluence = null,
 
             global::System.Action<global::Vectara.UpdateFluidtopicsSourceConfiguration?>? fluidtopics = null,
@@ -878,6 +954,10 @@ namespace Vectara
             else if (IsWolkenForms)
             {
                 wolkenForms?.Invoke(WolkenForms!);
+            }
+            else if (IsWolkenTickets)
+            {
+                wolkenTickets?.Invoke(WolkenTickets!);
             }
             else if (IsConfluence)
             {
@@ -911,6 +991,7 @@ namespace Vectara
             global::System.Action<global::Vectara.UpdateBoxSourceConfiguration?>? box = null,
             global::System.Action<global::Vectara.UpdateWolkenKbSourceConfiguration?>? wolkenKb = null,
             global::System.Action<global::Vectara.UpdateWolkenFormsSourceConfiguration?>? wolkenForms = null,
+            global::System.Action<global::Vectara.UpdateWolkenTicketsSourceConfiguration?>? wolkenTickets = null,
             global::System.Action<global::Vectara.UpdateConfluenceSourceConfiguration?>? confluence = null,
             global::System.Action<global::Vectara.UpdateFluidtopicsSourceConfiguration?>? fluidtopics = null,
             global::System.Action<global::Vectara.UpdateScimSourceConfiguration?>? scim = null,
@@ -946,6 +1027,10 @@ namespace Vectara
             else if (IsWolkenForms)
             {
                 wolkenForms?.Invoke(WolkenForms!);
+            }
+            else if (IsWolkenTickets)
+            {
+                wolkenTickets?.Invoke(WolkenTickets!);
             }
             else if (IsConfluence)
             {
@@ -988,6 +1073,8 @@ namespace Vectara
                 typeof(global::Vectara.UpdateWolkenKbSourceConfiguration),
                 WolkenForms,
                 typeof(global::Vectara.UpdateWolkenFormsSourceConfiguration),
+                WolkenTickets,
+                typeof(global::Vectara.UpdateWolkenTicketsSourceConfiguration),
                 Confluence,
                 typeof(global::Vectara.UpdateConfluenceSourceConfiguration),
                 Fluidtopics,
@@ -1020,6 +1107,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateBoxSourceConfiguration?>.Default.Equals(Box, other.Box) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWolkenKbSourceConfiguration?>.Default.Equals(WolkenKb, other.WolkenKb) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWolkenFormsSourceConfiguration?>.Default.Equals(WolkenForms, other.WolkenForms) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateWolkenTicketsSourceConfiguration?>.Default.Equals(WolkenTickets, other.WolkenTickets) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateConfluenceSourceConfiguration?>.Default.Equals(Confluence, other.Confluence) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateFluidtopicsSourceConfiguration?>.Default.Equals(Fluidtopics, other.Fluidtopics) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.UpdateScimSourceConfiguration?>.Default.Equals(Scim, other.Scim) &&

@@ -63,6 +63,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UpdateWolkenFormsSourceConfiguration)}");
                 wolkenForms = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.UpdateWolkenTicketsSourceConfiguration? wolkenTickets = default;
+            if (discriminator?.Type == global::Vectara.UpdatePipelineSourceDiscriminatorType.WolkenTickets)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateWolkenTicketsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateWolkenTicketsSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.UpdateWolkenTicketsSourceConfiguration)}");
+                wolkenTickets = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.UpdateConfluenceSourceConfiguration? confluence = default;
             if (discriminator?.Type == global::Vectara.UpdatePipelineSourceDiscriminatorType.Confluence)
             {
@@ -112,6 +119,8 @@ namespace Vectara.JsonConverters
                 wolkenKb,
 
                 wolkenForms,
+
+                wolkenTickets,
 
                 confluence,
 
@@ -171,6 +180,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateWolkenFormsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateWolkenFormsSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateWolkenFormsSourceConfiguration).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.WolkenForms!.Value, typeInfo);
+            }
+            else if (value.IsWolkenTickets)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateWolkenTicketsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateWolkenTicketsSourceConfiguration> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateWolkenTicketsSourceConfiguration).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WolkenTickets!.Value, typeInfo);
             }
             else if (value.IsConfluence)
             {

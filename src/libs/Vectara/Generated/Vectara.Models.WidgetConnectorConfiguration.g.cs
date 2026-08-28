@@ -5,8 +5,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Read view of a web widget connector's configuration.<br/>
-    /// Every field is served to anonymous visitors by the unauthenticated widget bootstrap endpoint.<br/>
+    /// Read view of a web widget connector's configuration. The `alias_key` names the alias this widget fronts; an alias has exactly one widget connector.<br/>
+    /// The unauthenticated widget bootstrap endpoint serves `alias_key`, `presentation`, and `end_user_sign_in` to anonymous visitors; `session_metadata` is never served to end users.<br/>
     /// Includes the platform-derived `bootstrap_path` the embed snippet calls.<br/>
     /// Widget connectors ignore the base `hidden_output_types`; end-user event visibility is controlled by `revealed_output_types`.
     /// </summary>

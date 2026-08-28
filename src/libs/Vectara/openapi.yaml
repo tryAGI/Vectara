@@ -8335,12 +8335,17 @@ paths:
           example: rag.*
       - in: query
         name: type
-        description: Filter tools by type.
+        description: 'Return only tools in this category. Categories group tools by
+          how they execute and are coarser than the `type` field on the returned tools:
+          `vectara` matches the built-in Vectara tools, `mcp` tools provided by a
+          tool server, `lambda` user-defined Python tools, and `client` tools executed
+          by the calling client.'
         required: false
         schema:
           type: string
           enum:
           - mcp
+          - vectara
           - lambda
           - client
           example: mcp
@@ -9597,9 +9602,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
         '409':
-          description: "The agent is still referenced \u2014 by aliases, or, for the\
-            \ system judge agent, by evaluators. Remove or rebind the references,\
-            \ then retry."
+          description: The agent is still referenced by aliases. Remove or rebind
+            them, then retry.
           content:
             application/json:
               schema:
@@ -11669,6 +11673,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: "Another connector already holds this connector's external\
+            \ identity \u2014 a channel connector naming an app or account another\
+            \ connector already uses.\n"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: createConnector
     get:
@@ -11878,6 +11890,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: "The supplied configuration moves this connector onto an external\
+            \ identity another connector already holds \u2014 for a widget connector,\
+            \ an `alias_key` whose alias already has a widget.\nAn alias has exactly\
+            \ one widget connector.\n"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: updateConnector
     delete:
@@ -11894,8 +11915,8 @@ paths:
         - agent_administrator
         - administrator
         - owner
-      description: Deletes an agent connector and all of its configuration. The deletion
-        is permanent.
+      description: Deletes an agent connector and all of its configuration. A widget
+        connector's platform-generated alias is deleted with it. The deletion is permanent.
       operationId: deleteAgentConnector
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -13180,7 +13201,9 @@ paths:
         - administrator
         - owner
       description: 'Updates an alias''s metadata fields (name, description, enabled,
-        metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`.
+        metadata). Setting `enabled` to false on a platform-generated alias fronted
+        by a widget connector is rejected with `409`; disable the connector instead.
+        To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`.
         Policies are atomic and do not support partial updates.
 
         '
@@ -13218,6 +13241,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: The alias is platform-managed by a widget connector and cannot
+            be disabled directly; disable the connector instead.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: agent_aliases
       x-fern-sdk-method-name: update
     delete:
@@ -13231,7 +13261,9 @@ paths:
         - administrator
         - owner
       description: Deletes an alias. The underlying agents the alias points at are
-        not affected. Returns 409 if any live resources still reference this alias.
+        not affected. A platform-generated alias fronted by a widget connector cannot
+        be deleted directly (`409`); it is deleted with its connector. Returns 409
+        if any live resources still reference this alias.
       operationId: deleteAgentAlias
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -14317,9 +14349,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/EndUserSession'
         '400':
-          description: The request body omits the required `connector_id`, or the
-            `connector_id` given does not name an enabled widget connector of the
-            addressed alias. `field_errors` names the offending field.
+          description: The addressed alias has no enabled widget connector to bind
+            the session to.
           content:
             application/json:
               schema:
@@ -14877,7 +14908,7 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.events
-  /v2/widgets/{connector_id}/bootstrap:
+  /v2/widgets/{alias_key}/bootstrap:
     post:
       tags:
       - Widgets
@@ -14895,7 +14926,7 @@ paths:
         was minted through travels inside it.
 
 
-        Returns `404` if the connector does not exist, is not a `widget` connector,
+        Returns `404` if the alias does not front a widget connector, or that connector
         is disabled, does not have `public_access` enabled, or belongs to a disabled
         customer.
 
@@ -14911,14 +14942,12 @@ paths:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: path
-        name: connector_id
-        description: The globally unique id of the widget connector, as carried by
+        name: alias_key
+        description: The platform-generated alias the widget fronts, as carried by
           the embed snippet.
         required: true
         schema:
-          type: string
-          pattern: con_[0-9a-zA-Z_-]+$
-          example: con_3Kx9QpVn2mZr8YbLc5TdWe
+          $ref: '#/components/schemas/WidgetAliasKey'
       responses:
         '200':
           description: A minted visitor identity and the widget's presentation configuration.
@@ -14927,8 +14956,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/BootstrapWidgetResponse'
         '404':
-          description: The connector does not exist, is not a widget connector, is
-            disabled, does not admit anonymous visitors, or belongs to a disabled
+          description: The alias does not front a widget connector, or that connector
+            is disabled, does not admit anonymous visitors, or belongs to a disabled
             customer.
           content:
             application/json:
@@ -15302,7 +15331,8 @@ paths:
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: query
         name: source_type
-        description: Filter pipelines by source type.
+        description: Return only pipelines whose source type exactly matches this
+          value.
         required: false
         schema:
           type: string
@@ -15313,11 +15343,13 @@ paths:
           - box
           - wolken_kb
           - wolken_forms
+          - wolken_tickets
           - confluence
           - fluidtopics
           - scim
           - docebo
           - web
+          example: sharepoint
       - in: query
         name: status
         description: Filter pipelines by status.
@@ -30321,18 +30353,15 @@ components:
         - webhook_path
       x-vectaraParents:
       - ConnectorConfiguration
-    AgentAliasKey:
-      description: 'The unique key that identifies an alias. Alias keys are independent
-        of agent keys. The same string can exist as both an alias key and an agent
-        key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target
-        the alias. Calls to `/v2/agents/{key}/...` target the agent.
+    WidgetAliasKey:
+      description: 'The platform-generated key of the alias fronting a widget connector,
+        as reported in the connector''s `alias_key` and `bootstrap_path`. Always `als_`-prefixed;
+        the prefix is reserved, so no operator-chosen alias ever matches it.
 
         '
       type: string
-      pattern: ^[0-9a-zA-Z_-]+$
-      minLength: 1
-      maxLength: 50
-      example: support
+      pattern: ^als_[0-9a-zA-Z_-]{1,46}$
+      example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
     WidgetPresentation:
       description: "The presentation configuration the widget client renders \u2014\
         \ branding, palette, welcome content, suggested prompts.\nFree-form apart\
@@ -30383,10 +30412,12 @@ components:
         trusted_token_issuer_id:
           $ref: '#/components/schemas/TrustedTokenIssuerId'
     WidgetConnectorConfiguration:
-      description: 'Read view of a web widget connector''s configuration.
+      description: 'Read view of a web widget connector''s configuration. The `alias_key`
+        names the alias this widget fronts; an alias has exactly one widget connector.
 
-        Every field is served to anonymous visitors by the unauthenticated widget
-        bootstrap endpoint.
+        The unauthenticated widget bootstrap endpoint serves `alias_key`, `presentation`,
+        and `end_user_sign_in` to anonymous visitors; `session_metadata` is never
+        served to end users.
 
         Includes the platform-derived `bootstrap_path` the embed snippet calls.
 
@@ -30404,15 +30435,15 @@ components:
             default: widget
             example: widget
           alias_key:
-            $ref: '#/components/schemas/AgentAliasKey'
+            $ref: '#/components/schemas/WidgetAliasKey'
           presentation:
             $ref: '#/components/schemas/WidgetPresentation'
           session_tti_minutes:
             description: 'How long a session created through this widget may sit idle
               before it is closed, in minutes.
 
-              Applied to sessions created with this connector''s id as `connector_id`,
-              anonymous or signed-in, and reported as `tti_minutes` on those sessions.
+              Applied to every session created through this widget''s alias, anonymous
+              or signed-in, and reported as `tti_minutes` on those sessions.
 
               Set to 0 for sessions that never expire.
 
@@ -30427,8 +30458,8 @@ components:
             description: 'Agent output types included in the widget''s end-user event
               projection; the final response is always visible.
 
-              Applies to sessions created with this connector''s id as `connector_id`,
-              anonymous or signed-in.
+              Applies to every session created through this widget''s alias, anonymous
+              or signed-in.
 
               Omitted or empty reveals none.
 
@@ -30439,13 +30470,33 @@ components:
               $ref: '#/components/schemas/AgentOutputType'
             example:
             - tool_calls
+          session_metadata:
+            description: 'Written as the `metadata` of every session created through
+              this widget''s alias, anonymous or signed-in.
+
+              Readable wherever session metadata is readable: instruction templates,
+              `run_condition`, `session_enrichment` references, alias routing rules,
+              and tool `argument_override` expressions.
+
+              Not served by the widget bootstrap endpoint and not returned on the
+              end-user session object, though values reach the agent''s context and
+              may surface in its replies.
+
+              Omitted or empty writes no session metadata.
+
+              '
+            type: object
+            additionalProperties: true
+            default: {}
+            example:
+              instance: conversational-ai
           end_user_sign_in:
             $ref: '#/components/schemas/WidgetSignIn'
           bootstrap_path:
             description: The unauthenticated bootstrap path the embed snippet calls
               to obtain a visitor id and the presentation configuration.
             type: string
-            example: /v2/widgets/con_3Kx9QpVn2mZr8YbLc5TdWe/bootstrap
+            example: /v2/widgets/als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa/bootstrap
         required:
         - type
         - alias_key
@@ -30938,18 +30989,18 @@ components:
       x-vectaraParents:
       - CreateAgentConnectorRequest
     CreateWidgetConnectorConfiguration:
-      description: 'Write view of a web widget connector''s configuration, supplied
-        on create or update.
-
-        Every field is served to anonymous visitors by the unauthenticated widget
-        bootstrap endpoint.
-
-        The `bootstrap_path` is platform-derived and appears only in the read view.
-
-        Widget connectors ignore the base `hidden_output_types`; end-user event visibility
-        is controlled by `revealed_output_types`.
-
-        '
+      description: "Write view of a web widget connector's configuration, supplied\
+        \ on create or update.\nOn create, `alias_key` is not accepted and is rejected\
+        \ with `400`: the platform creates a new alias and binds the widget to it\
+        \ for the connector's lifetime \u2014 the alias is deleted with the connector.\n\
+        On update, `alias_key` is required and must be the widget's current alias:\
+        \ an operator-chosen or unknown alias is rejected with `400`, and another\
+        \ widget's alias with `409`.\nThe unauthenticated widget bootstrap endpoint\
+        \ serves `alias_key`, `presentation`, and `end_user_sign_in` to anonymous\
+        \ visitors; `session_metadata` is never served to end users.\nThe `bootstrap_path`\
+        \ is platform-derived and appears only in the read view.\nWidget connectors\
+        \ ignore the base `hidden_output_types`; end-user event visibility is controlled\
+        \ by `revealed_output_types`.\n"
       allOf:
       - $ref: '#/components/schemas/CreateConnectorConfigurationBase'
       - type: object
@@ -30960,15 +31011,15 @@ components:
             default: widget
             example: widget
           alias_key:
-            $ref: '#/components/schemas/AgentAliasKey'
+            $ref: '#/components/schemas/WidgetAliasKey'
           presentation:
             $ref: '#/components/schemas/WidgetPresentation'
           session_tti_minutes:
             description: 'How long a session created through this widget may sit idle
               before it is closed, in minutes.
 
-              Applied to sessions created with this connector''s id as `connector_id`,
-              anonymous or signed-in.
+              Applied to every session created through this widget''s alias, anonymous
+              or signed-in.
 
               Set to 0 for sessions that never expire.
 
@@ -30983,8 +31034,8 @@ components:
             description: 'Agent output types included in the widget''s end-user event
               projection; the final response is always visible.
 
-              Applies to sessions created with this connector''s id as `connector_id`,
-              anonymous or signed-in.
+              Applies to every session created through this widget''s alias, anonymous
+              or signed-in.
 
               Omitted or empty reveals none.
 
@@ -30995,11 +31046,30 @@ components:
               $ref: '#/components/schemas/AgentOutputType'
             example:
             - tool_calls
+          session_metadata:
+            description: 'Written as the `metadata` of every session created through
+              this widget''s alias, anonymous or signed-in.
+
+              Readable wherever session metadata is readable: instruction templates,
+              `run_condition`, `session_enrichment` references, alias routing rules,
+              and tool `argument_override` expressions.
+
+              Not served by the widget bootstrap endpoint and not returned on the
+              end-user session object, though values reach the agent''s context and
+              may surface in its replies.
+
+              Omitted or empty writes no session metadata.
+
+              '
+            type: object
+            additionalProperties: true
+            default: {}
+            example:
+              instance: conversational-ai
           end_user_sign_in:
             $ref: '#/components/schemas/WidgetSignIn'
         required:
         - type
-        - alias_key
         - presentation
       x-vectaraParents:
       - CreateConnectorConfiguration
@@ -32756,6 +32826,18 @@ components:
       - pageSize
       - totalSize
       additionalProperties: false
+    AgentAliasKey:
+      description: 'The unique key that identifies an alias. Alias keys are independent
+        of agent keys. The same string can exist as both an alias key and an agent
+        key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target
+        the alias. Calls to `/v2/agents/{key}/...` target the agent.
+
+        '
+      type: string
+      pattern: ^[0-9a-zA-Z_-]+$
+      minLength: 1
+      maxLength: 50
+      example: support
     SingleRuleTargets:
       description: 'Direct route to a single agent. The `agent_key` must reference
         an existing agent owned by the same customer.
@@ -32998,7 +33080,10 @@ components:
         metadata:
           $ref: '#/components/schemas/ListMetadata'
     CreateAgentAliasRequest:
-      description: Request body for creating a new alias.
+      description: 'Request body for creating a new alias. Keys with the `als_` prefix
+        are reserved for platform-generated widget aliases and are rejected with `400`.
+
+        '
       type: object
       required:
       - key
@@ -33093,12 +33178,6 @@ components:
           minimum: 0
           default: 0
           example: 60
-        connector_id:
-          description: The widget connector this session belongs to, fixed at create.
-          type: string
-          pattern: ^con_[0-9a-zA-Z_-]+$
-          readOnly: true
-          example: con_9f3aQpVn2mZr8YbLc5TdWe
         created_at:
           description: Timestamp when the session was created.
           type: string
@@ -33124,13 +33203,15 @@ components:
       - sessions
       - metadata
     CreateEndUserSessionRequest:
-      description: 'Request to create a session as an end user. The owning principal
-        comes from the caller''s authenticated identity.
-
-        '
+      description: "Request to create a session as an end user. The owning principal\
+        \ comes from the caller's authenticated identity.\nThe session binds to the\
+        \ addressed alias's widget connector \u2014 an alias has exactly one \u2014\
+        \ which fixes the session's widget behavior for its lifetime:\nthe widget's\
+        \ `session_tti_minutes` sets the idle lifetime, and event reads through the\
+        \ session use the widget's `revealed_output_types`. The widget must\nbe enabled,\
+        \ or the request is rejected with `400`, as it is when the alias has no widget\
+        \ connector at all.\n"
       type: object
-      required:
-      - connector_id
       properties:
         name:
           description: Human-readable name for the session. Platform-generated if
@@ -33142,16 +33223,6 @@ components:
             platform generates one after the agent produces events.
           type: string
           example: Helping customer troubleshoot widget installation issues
-        connector_id:
-          description: "The widget connector this session belongs to \u2014 the one\
-            \ the widget client learned at bootstrap. Must name an enabled widget\
-            \ connector of the addressed alias, or the request is rejected with `400`.\n\
-            It fixes the session's widget behavior for its lifetime: the widget's\
-            \ `session_tti_minutes` sets the idle lifetime, and event\nreads through\
-            \ the session use the widget's `revealed_output_types`.\n"
-          type: string
-          pattern: ^con_[0-9a-zA-Z_-]+$
-          example: con_9f3aQpVn2mZr8YbLc5TdWe
     EndUserEventBase:
       description: Base properties shared by all end-user event types.
       type: object
@@ -34256,8 +34327,8 @@ components:
           example: https://example-api.wolkenservicedesk.com
         domain:
           description: The value of the `domain` header issued with your Wolken API
-            credentials. Wolken deployments vary in whether this is a tenant name
-            or a full hostname. Use the exact value from your credential handoff.
+            credentials. Depending on the deployment this is either a tenant name
+            or a full hostname.
           type: string
           example: example.wolkenservicedesk.com
         kb_api:
@@ -34458,8 +34529,8 @@ components:
           example: https://example-api.wolkenservicedesk.com
         domain:
           description: The value of the `domain` header issued with your Wolken API
-            credentials. Wolken deployments vary in whether this is a tenant name
-            or a full hostname. Use the exact value from your credential handoff.
+            credentials. Depending on the deployment this is either a tenant name
+            or a full hostname.
           type: string
           example: example.wolkenservicedesk.com
         include_form_details:
@@ -34515,6 +34586,207 @@ components:
       - PipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseWolkenFormsSourceConfiguration'
+      - required:
+        - base_url
+        - domain
+        - client_id
+        - service_account
+        - auth_code
+        - refresh_token
+    WolkenTicketRequestType:
+      description: A Wolken ServiceDesk request type.
+      type: string
+      enum:
+      - incident
+      - service_request
+    BaseWolkenTicketsSourceConfiguration:
+      description: 'Base Wolken ServiceDesk tickets source configuration. Ingests
+        incidents and service requests
+
+        from a Wolken ServiceDesk instance. Each ticket becomes one document carrying
+        the ticket
+
+        subject, description, and conversation notes, with the ticket classification
+        fields such as
+
+        status, priority, category, and team as document metadata for attribute-based
+        filtering.
+
+        Requires Wolken credentials with read access to the incident and service request
+        listing,
+
+        detail, and notes endpoints.
+
+
+        Incremental syncs read only the tickets updated since the previous run. Tickets
+        are
+
+        re-ingested when notes are added. A ticket whose notes cannot be read is not
+        ingested.
+
+        Deletions are not propagated. A ticket deleted or restricted in Wolken keeps
+        its last
+
+        indexed content.
+
+        '
+      type: object
+      properties:
+        type:
+          description: Discriminator value identifying this source configuration as
+            `wolken_tickets`.
+          type: string
+          default: wolken_tickets
+          example: wolken_tickets
+        base_url:
+          description: Base URL of the Wolken API.
+          type: string
+          example: https://example-api.wolkenservicedesk.com
+        domain:
+          description: The value of the `domain` header issued with your Wolken API
+            credentials. Depending on the deployment this is either a tenant name
+            or a full hostname.
+          type: string
+          example: example.wolkenservicedesk.com
+        request_types:
+          description: 'The Wolken request types to ingest. When unset or empty, both
+            incidents and service
+
+            requests are ingested.
+
+            '
+          type: array
+          items:
+            $ref: '#/components/schemas/WolkenTicketRequestType'
+          example:
+          - incident
+          - service_request
+        backfill_window:
+          description: 'An ISO-8601 duration bounding how far back ingestion reaches.
+            Applies when the pipeline
+
+            has no watermark, which is the case on the first run and on every `full_refresh`
+            run.
+
+            Tickets whose last update is older than this duration before the run are
+            not ingested.
+
+            Days are the largest supported unit. A non-positive duration is rejected.
+            When unset,
+
+            the entire ticket history is ingested. On create and replace, a `null`
+            value is
+
+            equivalent to omitting the field. On update it is ignored and the stored
+            value is
+
+            kept. To unset this field, replace the pipeline with `PUT /v2/pipelines/{pipeline_key}`
+
+            using a configuration that omits it.
+
+            '
+          type: string
+          nullable: true
+          x-vectara-duration: true
+          example: P90D
+        status_ids:
+          description: 'Wolken status IDs to restrict ingestion to. Status IDs are
+            specific to your Wolken
+
+            deployment. When unset or empty, tickets of every status are ingested.
+            Unrecognized
+
+            status IDs match no tickets. The filter applies to each ingested request
+            type
+
+            separately, and a ticket that leaves the configured statuses keeps its
+            last indexed
+
+            content until it returns to one of them.
+
+            '
+          type: array
+          maxItems: 50
+          items:
+            type: integer
+          example:
+          - 1
+          - 3
+          - 8
+        note_response_type_ids:
+          description: 'Wolken response type IDs selecting the notes included in each
+            ticket document. Every
+
+            note on a Wolken ticket carries a response type that classifies it, for
+            example as an
+
+            internal work note or an outbound comment to the requester. The IDs behind
+            those
+
+            classifications are specific to your Wolken deployment. When unset, notes
+            of every
+
+            response type are included. When empty, notes are not ingested. On create
+            and
+
+            replace, a `null` value is equivalent to omitting the field. On update
+            it is ignored
+
+            and the stored value is kept. To unset this field, replace the pipeline
+            with
+
+            `PUT /v2/pipelines/{pipeline_key}` using a configuration that omits it.
+
+            '
+          type: array
+          nullable: true
+          maxItems: 50
+          items:
+            type: integer
+          example:
+          - 2
+          - 7
+        ticket_url_template:
+          description: 'Template for the portal URL of a ticket. The `{ticket_id}`
+            placeholder is replaced with
+
+            the ticket''s numeric ID. When omitted, documents carry no URL metadata.
+
+            '
+          type: string
+          example: https://example.wolkenservicedesk.com/wolken-support/ticket_details?ticketId={ticket_id}
+        client_id:
+          description: Wolken OAuth client ID.
+          type: string
+          example: a1b2c3d4e5f6g7h8i9j0k1l2
+        service_account:
+          description: Wolken service account the API calls run as. Sent as a header
+            on API requests.
+          type: string
+          example: svc-tickets-reader@example.com
+        auth_code:
+          description: 'The auth code Wolken issues for the instance, used with `refresh_token`
+            to obtain access
+
+            tokens. Encrypted at rest and not returned in responses.
+
+            '
+          type: string
+          writeOnly: true
+        refresh_token:
+          description: Long-lived refresh token exchanged for access tokens. Encrypted
+            at rest and not returned in responses.
+          type: string
+          writeOnly: true
+      required:
+      - type
+    WolkenTicketsSourceConfiguration:
+      description: Configuration for ingesting incidents and service requests from
+        a Wolken ServiceDesk instance.
+      x-vectaraParents:
+      - PipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWolkenTicketsSourceConfiguration'
       - required:
         - base_url
         - domain
@@ -35355,6 +35627,7 @@ components:
           box: '#/components/schemas/BoxSourceConfiguration'
           wolken_kb: '#/components/schemas/WolkenKbSourceConfiguration'
           wolken_forms: '#/components/schemas/WolkenFormsSourceConfiguration'
+          wolken_tickets: '#/components/schemas/WolkenTicketsSourceConfiguration'
           confluence: '#/components/schemas/ConfluenceSourceConfiguration'
           fluidtopics: '#/components/schemas/FluidtopicsSourceConfiguration'
           scim: '#/components/schemas/ScimSourceConfiguration'
@@ -35367,6 +35640,7 @@ components:
       - $ref: '#/components/schemas/BoxSourceConfiguration'
       - $ref: '#/components/schemas/WolkenKbSourceConfiguration'
       - $ref: '#/components/schemas/WolkenFormsSourceConfiguration'
+      - $ref: '#/components/schemas/WolkenTicketsSourceConfiguration'
       - $ref: '#/components/schemas/ConfluenceSourceConfiguration'
       - $ref: '#/components/schemas/FluidtopicsSourceConfiguration'
       - $ref: '#/components/schemas/ScimSourceConfiguration'
@@ -35821,6 +36095,29 @@ components:
       - UpdatePipelineSource
       allOf:
       - $ref: '#/components/schemas/BaseWolkenFormsSourceConfiguration'
+    UpdateWolkenTicketsSourceConfiguration:
+      description: 'Partial update for Wolken tickets source configuration. Only provided
+        fields are merged.
+
+        An update cannot return `backfill_window` or `note_response_type_ids` to its
+        unset state.
+
+        A `null` value for either is accepted and ignored, keeping the stored value,
+        and an empty
+
+        `note_response_type_ids` is not a reset but the distinct no-notes state. To
+        unset either
+
+        field, replace the pipeline with `PUT /v2/pipelines/{pipeline_key}` using
+        a configuration
+
+        that omits it.
+
+        '
+      x-vectaraParents:
+      - UpdatePipelineSource
+      allOf:
+      - $ref: '#/components/schemas/BaseWolkenTicketsSourceConfiguration'
     UpdateConfluenceSourceConfiguration:
       description: Partial update for Confluence source configuration. Only provided
         fields are merged.
@@ -35888,6 +36185,7 @@ components:
           box: '#/components/schemas/UpdateBoxSourceConfiguration'
           wolken_kb: '#/components/schemas/UpdateWolkenKbSourceConfiguration'
           wolken_forms: '#/components/schemas/UpdateWolkenFormsSourceConfiguration'
+          wolken_tickets: '#/components/schemas/UpdateWolkenTicketsSourceConfiguration'
           confluence: '#/components/schemas/UpdateConfluenceSourceConfiguration'
           fluidtopics: '#/components/schemas/UpdateFluidtopicsSourceConfiguration'
           scim: '#/components/schemas/UpdateScimSourceConfiguration'
@@ -35900,6 +36198,7 @@ components:
       - $ref: '#/components/schemas/UpdateBoxSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWolkenKbSourceConfiguration'
       - $ref: '#/components/schemas/UpdateWolkenFormsSourceConfiguration'
+      - $ref: '#/components/schemas/UpdateWolkenTicketsSourceConfiguration'
       - $ref: '#/components/schemas/UpdateConfluenceSourceConfiguration'
       - $ref: '#/components/schemas/UpdateFluidtopicsSourceConfiguration'
       - $ref: '#/components/schemas/UpdateScimSourceConfiguration'

@@ -52,6 +52,10 @@ namespace Vectara
         ///
         /// </summary>
         WolkenKb,
+        /// <summary>
+        ///
+        /// </summary>
+        WolkenTickets,
     }
 
     /// <summary>
@@ -77,6 +81,7 @@ namespace Vectara
                 UpdatePipelineSourceDiscriminatorType.Web => "web",
                 UpdatePipelineSourceDiscriminatorType.WolkenForms => "wolken_forms",
                 UpdatePipelineSourceDiscriminatorType.WolkenKb => "wolken_kb",
+                UpdatePipelineSourceDiscriminatorType.WolkenTickets => "wolken_tickets",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -98,6 +103,7 @@ namespace Vectara
                 "web" => UpdatePipelineSourceDiscriminatorType.Web,
                 "wolken_forms" => UpdatePipelineSourceDiscriminatorType.WolkenForms,
                 "wolken_kb" => UpdatePipelineSourceDiscriminatorType.WolkenKb,
+                "wolken_tickets" => UpdatePipelineSourceDiscriminatorType.WolkenTickets,
                 _ => null,
             };
         }

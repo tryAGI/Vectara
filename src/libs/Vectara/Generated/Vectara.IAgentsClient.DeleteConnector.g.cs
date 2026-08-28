@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Delete agent connector<br/>
-        /// Deletes an agent connector and all of its configuration. The deletion is permanent.
+        /// Deletes an agent connector and all of its configuration. A widget connector's platform-generated alias is deleted with it. The deletion is permanent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -29,7 +29,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete agent connector<br/>
-        /// Deletes an agent connector and all of its configuration. The deletion is permanent.
+        /// Deletes an agent connector and all of its configuration. A widget connector's platform-generated alias is deleted with it. The deletion is permanent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

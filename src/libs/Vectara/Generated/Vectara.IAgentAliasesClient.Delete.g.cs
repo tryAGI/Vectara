@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Delete an alias<br/>
-        /// Deletes an alias. The underlying agents the alias points at are not affected. Returns 409 if any live resources still reference this alias.
+        /// Deletes an alias. The underlying agents the alias points at are not affected. A platform-generated alias fronted by a widget connector cannot be deleted directly (`409`); it is deleted with its connector. Returns 409 if any live resources still reference this alias.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -25,7 +25,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete an alias<br/>
-        /// Deletes an alias. The underlying agents the alias points at are not affected. Returns 409 if any live resources still reference this alias.
+        /// Deletes an alias. The underlying agents the alias points at are not affected. A platform-generated alias fronted by a widget connector cannot be deleted directly (`409`); it is deleted with its connector. Returns 409 if any live resources still reference this alias.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

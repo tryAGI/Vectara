@@ -34,7 +34,7 @@ namespace Vectara
         public string? BaseUrl { get; set; }
 
         /// <summary>
-        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname. Use the exact value from your credential handoff.<br/>
+        /// The value of the `domain` header issued with your Wolken API credentials. Depending on the deployment this is either a tenant name or a full hostname.<br/>
         /// Example: example.wolkenservicedesk.com
         /// </summary>
         /// <example>example.wolkenservicedesk.com</example>
@@ -109,7 +109,7 @@ namespace Vectara
         /// Example: https://example-api.wolkenservicedesk.com
         /// </param>
         /// <param name="domain">
-        /// The value of the `domain` header issued with your Wolken API credentials. Wolken deployments vary in whether this is a tenant name or a full hostname. Use the exact value from your credential handoff.<br/>
+        /// The value of the `domain` header issued with your Wolken API credentials. Depending on the deployment this is either a tenant name or a full hostname.<br/>
         /// Example: example.wolkenservicedesk.com
         /// </param>
         /// <param name="includeFormDetails">
