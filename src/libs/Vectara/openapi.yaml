@@ -9602,8 +9602,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
         '409':
-          description: The agent is still referenced by aliases. Remove or rebind
-            them, then retry.
+          description: "The agent is still referenced \u2014 by aliases, or by hooks\
+            \ that name it as the judge of an agent condition. Remove or rebind the\
+            \ references, then retry."
           content:
             application/json:
               schema:
