@@ -20,6 +20,17 @@ namespace Vectara
         public required string Type { get; set; } = "widget";
 
         /// <summary>
+        /// Whether the widget admits anonymous visitors. Gated alongside the connector's `enabled`: the widget admits anonymous visitors only while both are `true`. Independent of `status`.<br/>
+        /// While `false`, the widget bootstrap endpoint still serves the connector's presentation but mints no anonymous visitor id, and every previously minted visitor id is refused on the end-user session surface.<br/>
+        /// Default Value: false<br/>
+        /// Example: false
+        /// </summary>
+        /// <example>false</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("public_access")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required bool PublicAccess { get; set; }
+
+        /// <summary>
         /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
         /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
         /// </summary>
@@ -105,6 +116,12 @@ namespace Vectara
         /// Default Value: widget<br/>
         /// Example: widget
         /// </param>
+        /// <param name="publicAccess">
+        /// Whether the widget admits anonymous visitors. Gated alongside the connector's `enabled`: the widget admits anonymous visitors only while both are `true`. Independent of `status`.<br/>
+        /// While `false`, the widget bootstrap endpoint still serves the connector's presentation but mints no anonymous visitor id, and every previously minted visitor id is refused on the end-user session surface.<br/>
+        /// Default Value: false<br/>
+        /// Example: false
+        /// </param>
         /// <param name="aliasKey">
         /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
         /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
@@ -154,6 +171,7 @@ namespace Vectara
 #endif
         public WidgetConnectorConfigurationVariant2(
             string type,
+            bool publicAccess,
             string aliasKey,
             global::Vectara.WidgetPresentation presentation,
             string bootstrapPath,
@@ -163,6 +181,7 @@ namespace Vectara
             global::Vectara.WidgetSignIn? endUserSignIn)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
+            this.PublicAccess = publicAccess;
             this.AliasKey = aliasKey ?? throw new global::System.ArgumentNullException(nameof(aliasKey));
             this.Presentation = presentation ?? throw new global::System.ArgumentNullException(nameof(presentation));
             this.SessionTtiMinutes = sessionTtiMinutes;

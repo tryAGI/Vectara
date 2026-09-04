@@ -27,10 +27,11 @@ namespace Vectara
 
         /// <summary>
         /// Bootstrap widget visitor<br/>
-        /// Mints a signed anonymous visitor id and returns it with the widget's presentation configuration.<br/>
+        /// Returns the widget's presentation configuration and, when the widget admits anonymous visitors, a signed anonymous visitor id.<br/>
         /// No credential is required.<br/>
+        /// A widget that admits anonymous visitors (`public_access` true) mints a visitor id, returned as `visitor_id`. A sign-in-only widget (`public_access` false) still bootstraps — the response carries its `alias_key`, `presentation`, and `end_user_sign_in` so the client can render and sign a user in — but returns no `visitor_id`; the client must authenticate before creating an end-user session for the alias.<br/>
         /// The client presents the minted id as `X-Visitor-Id` on `/v2/agent_aliases/{alias_key}/end_user_sessions` requests, using the `alias_key` returned here; the widget connector the id was minted through travels inside it.<br/>
-        /// Returns `404` if the alias does not front a widget connector, or that connector is disabled, does not have `public_access` enabled, or belongs to a disabled customer.<br/>
+        /// Returns `404` if the alias does not front a widget connector, or that connector is disabled, or belongs to a disabled customer.<br/>
         /// The visitor id never expires.<br/>
         /// Store it durably; a repeat call mints a fresh identity that owns none of the previous identity's sessions.
         /// </summary>
@@ -62,10 +63,11 @@ namespace Vectara
         }
         /// <summary>
         /// Bootstrap widget visitor<br/>
-        /// Mints a signed anonymous visitor id and returns it with the widget's presentation configuration.<br/>
+        /// Returns the widget's presentation configuration and, when the widget admits anonymous visitors, a signed anonymous visitor id.<br/>
         /// No credential is required.<br/>
+        /// A widget that admits anonymous visitors (`public_access` true) mints a visitor id, returned as `visitor_id`. A sign-in-only widget (`public_access` false) still bootstraps — the response carries its `alias_key`, `presentation`, and `end_user_sign_in` so the client can render and sign a user in — but returns no `visitor_id`; the client must authenticate before creating an end-user session for the alias.<br/>
         /// The client presents the minted id as `X-Visitor-Id` on `/v2/agent_aliases/{alias_key}/end_user_sessions` requests, using the `alias_key` returned here; the widget connector the id was minted through travels inside it.<br/>
-        /// Returns `404` if the alias does not front a widget connector, or that connector is disabled, does not have `public_access` enabled, or belongs to a disabled customer.<br/>
+        /// Returns `404` if the alias does not front a widget connector, or that connector is disabled, or belongs to a disabled customer.<br/>
         /// The visitor id never expires.<br/>
         /// Store it durably; a repeat call mints a fresh identity that owns none of the previous identity's sessions.
         /// </summary>
@@ -327,7 +329,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // The alias does not front a widget connector, or that connector is disabled, does not admit anonymous visitors, or belongs to a disabled customer.
+                            // The alias does not front a widget connector, or that connector is disabled, or belongs to a disabled customer.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;

@@ -68,7 +68,7 @@ namespace Vectara
         /// <summary>
         /// List rerankers<br/>
         /// Lists the available rerankers. Rerankers improve the ranking and ordering of search results.<br/>
-        /// For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/rerankers/reranking-overview).
+        /// For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/reranking).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -106,7 +106,7 @@ namespace Vectara
         /// <summary>
         /// List rerankers<br/>
         /// Lists the available rerankers. Rerankers improve the ranking and ordering of search results.<br/>
-        /// For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/rerankers/reranking-overview).
+        /// For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/reranking).
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

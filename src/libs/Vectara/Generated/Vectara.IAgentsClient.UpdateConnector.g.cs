@@ -85,21 +85,10 @@ namespace Vectara
         /// Whether the connector is enabled.<br/>
         /// Example: false
         /// </param>
-        /// <param name="publicAccess">
-        /// Whether the connector admits anonymous visitors. Only accepted for<br/>
-        /// `widget` connectors; rejected for other types. Setting it to `false`<br/>
-        /// refuses every previously minted visitor id; the change takes effect within a few seconds.<br/>
-        /// Example: false
-        /// </param>
         /// <param name="configuration">
-        /// Write view of a connector's configuration. Used when creating a connector<br/>
-        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
-        /// must supply. Platform-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view:<br/>
-        /// - Slack returns `webhook_path`<br/>
-        /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`<br/>
-        /// - widget returns `bootstrap_path`
+        /// Write view of a connector's configuration, supplied on update. Discriminated by `type`, which must equal the connector's stored type.<br/>
+        /// Slack, Google Chat, and Zoom configurations are supplied in full and replace the stored configuration wholesale, exactly as on create; caller-omitted platform-generated fields (such as the Zoom `connector_token`) are preserved.<br/>
+        /// A widget configuration is the exception: it updates partially, so a supplied field replaces the stored one while an omitted field keeps it — see `UpdateWidgetConnectorConfiguration`.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -113,8 +102,7 @@ namespace Vectara
             string? description = default,
             object? metadata = default,
             bool? enabled = default,
-            bool? publicAccess = default,
-            global::Vectara.CreateConnectorConfiguration? configuration = default,
+            global::Vectara.UpdateConnectorConfiguration? configuration = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

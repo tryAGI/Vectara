@@ -3169,7 +3169,7 @@ paths:
         : \"<mark>\",\n    \"end_tag\": \"</mark>\"\n  }\n}\n```\n\n`search.reranker`\
         \ (object, optional) - Configures a reranker to improve result quality by\
         \ reordering search results to place the most relevant content first. For\
-        \ more details, see [Reranking overview](/docs/search-and-retrieval/rerankers/reranking-overview).\n\
+        \ more details, see [Reranking overview](/docs/search-and-retrieval/reranking).\n\
         * `type` (string): The reranker type. Options include customer_reranker (default\
         \ multilingual reranker), mmr (for result diversity), or none.\n* `reranker_name`\
         \ (string): The specific reranker model to use (e.g., Rerank_Multilingual_v1).\n\
@@ -6386,7 +6386,7 @@ paths:
         ordering of search results.
 
 
-        For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/rerankers/reranking-overview).
+        For more information about the available rerankers, see [Reranking overview](https://docs.vectara.com/docs/search-and-retrieval/reranking).
 
         '
       operationId: listRerankers
@@ -8457,13 +8457,18 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TestLambdaToolRequest'
+      x-stream-based-on-body: streamResponse()
       responses:
         '200':
-          description: The validation and execution results.
+          description: The validation and execution results, or the streamed events
+            when `stream_response` is true.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TestLambdaToolResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/TestLambdaToolStreamedResponse'
         '400':
           description: Invalid request or malformed code.
           content:
@@ -8674,13 +8679,18 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TestToolRequest'
+      x-stream-based-on-body: streamResponse()
       responses:
         '200':
-          description: The test execution results.
+          description: The test execution results, or the streamed events when `stream_response`
+            is true.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TestToolResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/TestToolStreamedResponse'
         '400':
           description: Invalid test input or tool configuration.
           content:
@@ -14916,28 +14926,21 @@ paths:
       summary: Bootstrap widget visitor
       security: []
       x-required-roles: []
-      description: 'Mints a signed anonymous visitor id and returns it with the widget''s
-        presentation configuration.
-
-        No credential is required.
-
-
-        The client presents the minted id as `X-Visitor-Id` on `/v2/agent_aliases/{alias_key}/end_user_sessions`
-        requests, using the `alias_key` returned here; the widget connector the id
-        was minted through travels inside it.
-
-
-        Returns `404` if the alias does not front a widget connector, or that connector
-        is disabled, does not have `public_access` enabled, or belongs to a disabled
-        customer.
-
-
-        The visitor id never expires.
-
-        Store it durably; a repeat call mints a fresh identity that owns none of the
-        previous identity''s sessions.
-
-        '
+      description: "Returns the widget's presentation configuration and, when the\
+        \ widget admits anonymous visitors, a signed anonymous visitor id.\nNo credential\
+        \ is required.\n\nA widget that admits anonymous visitors (`public_access`\
+        \ true) mints a visitor id, returned as `visitor_id`. A sign-in-only widget\
+        \ (`public_access` false) still bootstraps \u2014 the response carries its\
+        \ `alias_key`, `presentation`, and `end_user_sign_in` so the client can render\
+        \ and sign a user in \u2014 but returns no `visitor_id`; the client must authenticate\
+        \ before creating an end-user session for the alias.\n\nThe client presents\
+        \ the minted id as `X-Visitor-Id` on `/v2/agent_aliases/{alias_key}/end_user_sessions`\
+        \ requests, using the `alias_key` returned here; the widget connector the\
+        \ id was minted through travels inside it.\n\nReturns `404` if the alias does\
+        \ not front a widget connector, or that connector is disabled, or belongs\
+        \ to a disabled customer.\n\nThe visitor id never expires.\nStore it durably;\
+        \ a repeat call mints a fresh identity that owns none of the previous identity's\
+        \ sessions.\n"
       operationId: bootstrapWidget
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -14951,15 +14954,15 @@ paths:
           $ref: '#/components/schemas/WidgetAliasKey'
       responses:
         '200':
-          description: A minted visitor identity and the widget's presentation configuration.
+          description: The widget's presentation configuration, plus a minted anonymous
+            visitor id when the widget admits anonymous visitors.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BootstrapWidgetResponse'
         '404':
           description: The alias does not front a widget connector, or that connector
-            is disabled, does not admit anonymous visitors, or belongs to a disabled
-            customer.
+            is disabled, or belongs to a disabled customer.
           content:
             application/json:
               schema:
@@ -23538,10 +23541,14 @@ components:
       type: object
       properties:
         max_execution_time_seconds:
-          description: Maximum execution time in seconds.
+          description: Maximum execution time in seconds, up to 21600. When `execution_configuration`
+            is omitted entirely, a lambda that declares `tool_configurations` resolves
+            to 300 seconds and any other lambda resolves to 30. When `execution_configuration`
+            is supplied without this field, the declared default of 30 applies. `max_execution_time_seconds`
+            on the agent's tool-configuration entry takes precedence over this field.
           type: integer
           minimum: 1
-          maximum: 300
+          maximum: 21600
           default: 30
           example: 30
         max_memory_mb:
@@ -23825,7 +23832,7 @@ components:
             own limits, if any, govern how long a call may run.
           type: integer
           minimum: 1
-          maximum: 3600
+          maximum: 21600
           example: 180
         tool_output_offloading:
           allOf:
@@ -25738,12 +25745,24 @@ components:
             order_count: 10
             total_revenue: 500
         timeout_seconds:
-          description: Maximum execution time in seconds for this test. Overrides
-            execution_configuration if specified.
+          description: "Maximum execution time in seconds for this test. Overrides\
+            \ `execution_configuration` if specified. When omitted, the supplied `execution_configuration`\
+            \ timeout applies in full \u2014 up to 21600 seconds \u2014 and a request\
+            \ with none runs at 30 seconds. A budget longer than 300 seconds requires\
+            \ `stream_response` to be true; a non-streaming request with a larger\
+            \ budget is rejected."
           type: integer
           minimum: 1
-          maximum: 300
+          maximum: 21600
           example: 10
+        stream_response:
+          description: When true, the response is streamed as Server-sent Events.
+            While the test runs the platform sends zero or more `heartbeat` events,
+            then exactly one terminal `result` event carrying the same object the
+            non-streaming response returns. A platform failure after the stream has
+            started closes the connection without a `result`.
+          type: boolean
+          default: false
         tool_configurations:
           description: 'Named configurations of other tools the code under test may
             invoke through its built-in `tool` module.
@@ -25877,6 +25896,61 @@ components:
           - success
       required:
       - validation
+    TestToolHeartbeatEvent:
+      description: Emitted periodically while a streamed Lambda tool test is still
+        running.
+      type: object
+      properties:
+        type:
+          description: Event type indicator. Always `heartbeat`.
+          type: string
+          default: heartbeat
+          example: heartbeat
+        elapsed_ms:
+          description: Time elapsed since the test started, in milliseconds.
+          type: integer
+          example: 30000
+      required:
+      - type
+      x-vectaraParents:
+      - TestToolStreamedResponse
+      - TestLambdaToolStreamedResponse
+    TestLambdaToolResultEvent:
+      description: The terminal event of a streamed test of a Lambda tool that has
+        not been created yet, carrying the same result the non-streaming response
+        returns.
+      type: object
+      properties:
+        type:
+          description: Event type indicator. Always `result`.
+          type: string
+          default: result
+          example: result
+        result:
+          description: The completed test result, identical to the non-streaming response
+            body.
+          allOf:
+          - $ref: '#/components/schemas/TestLambdaToolResponse'
+      required:
+      - type
+      - result
+      x-vectaraParents:
+      - TestLambdaToolStreamedResponse
+    TestLambdaToolStreamedResponse:
+      description: An individual event sent with Server-sent Events (SSE) when a test
+        of a Lambda tool that has not been created yet is streamed. The stream carries
+        zero or more `heartbeat` events followed by exactly one terminal `result`
+        event; `result` is the end of the stream. A platform failure after the stream
+        has started closes the connection without a `result`.
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          heartbeat: '#/components/schemas/TestToolHeartbeatEvent'
+          result: '#/components/schemas/TestLambdaToolResultEvent'
+      oneOf:
+      - $ref: '#/components/schemas/TestToolHeartbeatEvent'
+      - $ref: '#/components/schemas/TestLambdaToolResultEvent'
     UpdateMcpToolRequest:
       description: Request object for updating an existing MCP tool.
       type: object
@@ -26031,12 +26105,24 @@ components:
             number: 42
             text: Hello, world!
         timeout_seconds:
-          description: Maximum execution time in seconds. If not specified, uses the
-            tool's configured timeout.
+          description: "Maximum execution time in seconds for this test. Overrides\
+            \ `execution_configuration` if specified. When omitted, the tool's stored\
+            \ `execution_configuration` timeout applies in full \u2014 up to 21600\
+            \ seconds \u2014 and a tool with none runs at 30 seconds. A budget longer\
+            \ than 300 seconds requires `stream_response` to be true; a non-streaming\
+            \ request with a larger budget is rejected."
           type: integer
           minimum: 1
-          maximum: 300
+          maximum: 21600
           example: 10
+        stream_response:
+          description: When true, the response is streamed as Server-sent Events.
+            While the test runs the platform sends zero or more `heartbeat` events,
+            then exactly one terminal `result` event carrying the same object the
+            non-streaming response returns. A platform failure after the stream has
+            started closes the connection without a `result`.
+          type: boolean
+          default: false
         test_context:
           description: 'Substitutes for the hosting agent and session for the duration
             of the test. `$ref` values in the tool''s
@@ -26148,6 +26234,41 @@ components:
       oneOf:
       - $ref: '#/components/schemas/TestToolSuccessResponse'
       - $ref: '#/components/schemas/TestToolErrorResponse'
+    TestToolResultEvent:
+      description: The terminal event of a streamed Lambda tool test, carrying the
+        same result the non-streaming response returns.
+      type: object
+      properties:
+        type:
+          description: Event type indicator. Always `result`.
+          type: string
+          default: result
+          example: result
+        result:
+          description: The completed test result, identical to the non-streaming response
+            body.
+          allOf:
+          - $ref: '#/components/schemas/TestToolResponse'
+      required:
+      - type
+      - result
+      x-vectaraParents:
+      - TestToolStreamedResponse
+    TestToolStreamedResponse:
+      description: An individual event sent with Server-sent Events (SSE) when a Lambda
+        tool test is streamed. The stream carries zero or more `heartbeat` events
+        followed by exactly one terminal `result` event; `result` is the end of the
+        stream. A platform failure after the stream has started closes the connection
+        without a `result`.
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          heartbeat: '#/components/schemas/TestToolHeartbeatEvent'
+          result: '#/components/schemas/TestToolResultEvent'
+      oneOf:
+      - $ref: '#/components/schemas/TestToolHeartbeatEvent'
+      - $ref: '#/components/schemas/TestToolResultEvent'
     InstructionId:
       description: The unique identifier for an instruction.
       type: string
@@ -30435,6 +30556,19 @@ components:
             type: string
             default: widget
             example: widget
+          public_access:
+            description: 'Whether the widget admits anonymous visitors. Gated alongside
+              the connector''s `enabled`: the widget admits anonymous visitors only
+              while both are `true`. Independent of `status`.
+
+              While `false`, the widget bootstrap endpoint still serves the connector''s
+              presentation but mints no anonymous visitor id, and every previously
+              minted visitor id is refused on the end-user session surface.
+
+              '
+            type: boolean
+            default: false
+            example: false
           alias_key:
             $ref: '#/components/schemas/WidgetAliasKey'
           presentation:
@@ -30500,6 +30634,7 @@ components:
             example: /v2/widgets/als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa/bootstrap
         required:
         - type
+        - public_access
         - alias_key
         - presentation
         - bootstrap_path
@@ -30577,8 +30712,10 @@ components:
       - internal_error
       - unknown
       example: success
-    AgentConnectorBase:
-      description: Properties shared by every connector read view.
+    AgentConnector:
+      description: "A connector that surfaces an agent to end users through a channel\
+        \ \u2014 an external platform like Slack, Google Chat, or Zoom Contact Center,\
+        \ or the embeddable web widget."
       type: object
       properties:
         id:
@@ -30596,6 +30733,15 @@ components:
           description: A detailed description of what this connector does.
           type: string
           example: Receives customer support messages from the
+        type:
+          description: The type of connector.
+          type: string
+          enum:
+          - slack
+          - gchat
+          - zoom
+          - widget
+          example: slack
         status:
           $ref: '#/components/schemas/ConnectorStatus'
         status_message:
@@ -30646,104 +30792,11 @@ components:
       - id
       - agent_key
       - name
+      - type
       - status
       - enabled
       - configuration
       - created_at
-    SlackAgentConnector:
-      description: Read view of a Slack connector.
-      allOf:
-      - $ref: '#/components/schemas/AgentConnectorBase'
-      - type: object
-        properties:
-          type:
-            description: The type of connector.
-            type: string
-            default: slack
-            example: slack
-        required:
-        - type
-      x-vectaraParents:
-      - AgentConnector
-    GchatAgentConnector:
-      description: Read view of a Google Chat connector.
-      allOf:
-      - $ref: '#/components/schemas/AgentConnectorBase'
-      - type: object
-        properties:
-          type:
-            description: The type of connector.
-            type: string
-            default: gchat
-            example: gchat
-        required:
-        - type
-      x-vectaraParents:
-      - AgentConnector
-    ZoomAgentConnector:
-      description: Read view of a Zoom Contact Center connector.
-      allOf:
-      - $ref: '#/components/schemas/AgentConnectorBase'
-      - type: object
-        properties:
-          type:
-            description: The type of connector.
-            type: string
-            default: zoom
-            example: zoom
-        required:
-        - type
-      x-vectaraParents:
-      - AgentConnector
-    WidgetAgentConnector:
-      description: Read view of a web widget connector.
-      allOf:
-      - $ref: '#/components/schemas/AgentConnectorBase'
-      - type: object
-        properties:
-          type:
-            description: The type of connector.
-            type: string
-            default: widget
-            example: widget
-          public_access:
-            description: 'Whether this connector admits anonymous visitors.
-
-              Independent of `status`.
-
-              While `false`, the widget bootstrap endpoint returns `404` for the connector
-              and every previously minted visitor id is refused on the end-user session
-              surface.
-
-              Gates anonymous admission only; authenticated callers presenting this
-              connector are governed by `enabled`.
-
-              '
-            type: boolean
-            default: false
-            example: false
-        required:
-        - type
-        - public_access
-      x-vectaraParents:
-      - AgentConnector
-    AgentConnector:
-      description: "A connector that surfaces an agent to end users through a channel\
-        \ \u2014 an external platform like Slack, Google Chat, or Zoom Contact Center,\
-        \ or the embeddable web widget."
-      x-vectara-base-schema: '#/AgentConnectorBase'
-      discriminator:
-        propertyName: type
-        mapping:
-          slack: '#/components/schemas/SlackAgentConnector'
-          gchat: '#/components/schemas/GchatAgentConnector'
-          zoom: '#/components/schemas/ZoomAgentConnector'
-          widget: '#/components/schemas/WidgetAgentConnector'
-      oneOf:
-      - $ref: '#/components/schemas/SlackAgentConnector'
-      - $ref: '#/components/schemas/GchatAgentConnector'
-      - $ref: '#/components/schemas/ZoomAgentConnector'
-      - $ref: '#/components/schemas/WidgetAgentConnector'
     ListAgentConnectorsResponse:
       description: Response containing a list of agent connectors.
       type: object
@@ -30837,24 +30890,7 @@ components:
         - api_app_id
       x-vectaraParents:
       - CreateConnectorConfiguration
-    CreateSlackAgentConnectorRequest:
-      description: Request object for creating a Slack connector.
-      allOf:
-      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
-      - type: object
-        properties:
-          type:
-            description: The type of connector.
-            type: string
-            default: slack
-            example: slack
-          configuration:
-            $ref: '#/components/schemas/CreateSlackConnectorConfiguration'
-        required:
-        - type
-        - configuration
-      x-vectaraParents:
-      - CreateAgentConnectorRequest
+      - UpdateConnectorConfiguration
     CreateGchatConnectorConfiguration:
       description: 'Write view of a Google Chat connector''s configuration. Supply
         the service
@@ -30894,24 +30930,7 @@ components:
         - service_account_key
       x-vectaraParents:
       - CreateConnectorConfiguration
-    CreateGchatAgentConnectorRequest:
-      description: Request object for creating a Google Chat connector.
-      allOf:
-      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
-      - type: object
-        properties:
-          type:
-            description: The type of connector.
-            type: string
-            default: gchat
-            example: gchat
-          configuration:
-            $ref: '#/components/schemas/CreateGchatConnectorConfiguration'
-        required:
-        - type
-        - configuration
-      x-vectaraParents:
-      - CreateAgentConnectorRequest
+      - UpdateConnectorConfiguration
     CreateZoomConnectorConfiguration:
       description: 'Write view of a Zoom Contact Center connector''s configuration.
         Supply the
@@ -30971,24 +30990,7 @@ components:
         - callback_url
       x-vectaraParents:
       - CreateConnectorConfiguration
-    CreateZoomAgentConnectorRequest:
-      description: Request object for creating a Zoom Contact Center connector.
-      allOf:
-      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
-      - type: object
-        properties:
-          type:
-            description: The type of connector.
-            type: string
-            default: zoom
-            example: zoom
-          configuration:
-            $ref: '#/components/schemas/CreateZoomConnectorConfiguration'
-        required:
-        - type
-        - configuration
-      x-vectaraParents:
-      - CreateAgentConnectorRequest
+      - UpdateConnectorConfiguration
     CreateWidgetConnectorConfiguration:
       description: "Write view of a web widget connector's configuration, supplied\
         \ on create or update.\nOn create, `alias_key` is not accepted and is rejected\
@@ -31011,6 +31013,17 @@ components:
             type: string
             default: widget
             example: widget
+          public_access:
+            description: 'Whether the widget admits anonymous visitors upon creation.
+              Gated alongside the connector''s `enabled`.
+
+              Defaults to `false`, so a widget admits no visitors until it is explicitly
+              opened.
+
+              '
+            type: boolean
+            default: false
+            example: false
           alias_key:
             $ref: '#/components/schemas/WidgetAliasKey'
           presentation:
@@ -31074,59 +31087,13 @@ components:
         - presentation
       x-vectaraParents:
       - CreateConnectorConfiguration
-    CreateWidgetAgentConnectorRequest:
-      description: Request object for creating a web widget connector.
-      allOf:
-      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
-      - type: object
-        properties:
-          type:
-            description: The type of connector.
-            type: string
-            default: widget
-            example: widget
-          public_access:
-            description: 'Whether the connector admits anonymous visitors upon creation.
-              Defaults to `false`, so a widget never admits visitors until it is explicitly
-              opened.
-
-              Gates anonymous admission only; authenticated callers presenting this
-              connector are governed by `enabled`.
-
-              '
-            type: boolean
-            default: false
-            example: false
-          configuration:
-            $ref: '#/components/schemas/CreateWidgetConnectorConfiguration'
-        required:
-        - type
-        - configuration
-      x-vectaraParents:
-      - CreateAgentConnectorRequest
-    CreateAgentConnectorRequest:
-      description: Request object for creating a new agent connector, discriminated
-        by the connector type.
-      x-vectara-base-schema: '#/CreateAgentConnectorRequestBase'
-      discriminator:
-        propertyName: type
-        mapping:
-          slack: '#/components/schemas/CreateSlackAgentConnectorRequest'
-          gchat: '#/components/schemas/CreateGchatAgentConnectorRequest'
-          zoom: '#/components/schemas/CreateZoomAgentConnectorRequest'
-          widget: '#/components/schemas/CreateWidgetAgentConnectorRequest'
-      oneOf:
-      - $ref: '#/components/schemas/CreateSlackAgentConnectorRequest'
-      - $ref: '#/components/schemas/CreateGchatAgentConnectorRequest'
-      - $ref: '#/components/schemas/CreateZoomAgentConnectorRequest'
-      - $ref: '#/components/schemas/CreateWidgetAgentConnectorRequest'
     CreateConnectorConfiguration:
-      description: 'Write view of a connector''s configuration. Used when creating
-        a connector
+      description: 'Write view of a connector''s configuration, supplied when creating
+        a
 
-        and reused when updating one. Carries the secrets and inputs the customer
+        connector. Carries the secrets and inputs the customer must supply.
 
-        must supply. Platform-derived display fields are not accepted here and instead
+        Platform-derived display fields are not accepted here and instead
 
         appear in the read view:
 
@@ -31152,16 +31119,140 @@ components:
       - $ref: '#/components/schemas/CreateGchatConnectorConfiguration'
       - $ref: '#/components/schemas/CreateZoomConnectorConfiguration'
       - $ref: '#/components/schemas/CreateWidgetConnectorConfiguration'
+    CreateAgentConnectorRequest:
+      description: 'Request object for creating a new agent connector. The connector
+        type is
+
+        taken from `configuration.type`. The top-level `type` is an optional
+
+        confirmation of it: when supplied it must equal `configuration.type` or the
+
+        request is rejected with `400`; when omitted the type is inferred from the
+
+        configuration. The created connector is returned as `AgentConnector`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/CreateAgentConnectorRequestBase'
+      - type: object
+        properties:
+          type:
+            description: Optional confirmation of the connector type. When supplied
+              it must match `configuration.type`; when omitted the type is taken from
+              `configuration.type`.
+            type: string
+            enum:
+            - slack
+            - gchat
+            - zoom
+            - widget
+            example: slack
+          configuration:
+            $ref: '#/components/schemas/CreateConnectorConfiguration'
+        required:
+        - configuration
+    UpdateWidgetConnectorConfiguration:
+      description: Partial update view of a web widget connector's configuration.
+        Omitted fields keep their stored value; nested objects such as `presentation`
+        are replaced whole when supplied.
+      type: object
+      properties:
+        type:
+          description: The type of connector configuration.
+          type: string
+          default: widget
+          example: widget
+        public_access:
+          description: 'Whether the widget admits anonymous visitors. Omitted leaves
+            the current value unchanged.
+
+            Setting it to `false` refuses every previously minted visitor id; the
+            change takes effect within a few seconds.
+
+            Gates anonymous admission only; authenticated callers presenting this
+            connector are governed by `enabled`.
+
+            '
+          type: boolean
+          example: false
+        alias_key:
+          $ref: '#/components/schemas/WidgetAliasKey'
+        presentation:
+          $ref: '#/components/schemas/WidgetPresentation'
+        session_tti_minutes:
+          description: How long a session created through this widget may sit idle
+            before it is closed, in minutes. Set to 0 for sessions that never expire.
+          type: integer
+          format: int32
+          minimum: 0
+        revealed_output_types:
+          description: Agent output types included in the widget's end-user event
+            projection; the final response is always visible.
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentOutputType'
+          example:
+          - tool_calls
+        session_metadata:
+          description: Written as the `metadata` of every session created through
+            this widget's alias.
+          type: object
+          additionalProperties: true
+          example:
+            instance: conversational-ai
+        end_user_sign_in:
+          $ref: '#/components/schemas/WidgetSignIn'
+        hidden_output_types:
+          description: Present on the read view for consistency with other connector
+            types; widget connectors ignore it and control end-user visibility through
+            `revealed_output_types`. Accepted on update so a read-modify-write round
+            trip is not rejected.
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentOutputType'
+          example:
+          - tool_calls
+      required:
+      - type
+      x-vectaraParents:
+      - UpdateConnectorConfiguration
+    UpdateConnectorConfiguration:
+      description: "Write view of a connector's configuration, supplied on update.\
+        \ Discriminated by `type`, which must equal the connector's stored type.\n\
+        Slack, Google Chat, and Zoom configurations are supplied in full and replace\
+        \ the stored configuration wholesale, exactly as on create; caller-omitted\
+        \ platform-generated fields (such as the Zoom `connector_token`) are preserved.\n\
+        A widget configuration is the exception: it updates partially, so a supplied\
+        \ field replaces the stored one while an omitted field keeps it \u2014 see\
+        \ `UpdateWidgetConnectorConfiguration`.\n"
+      discriminator:
+        propertyName: type
+        mapping:
+          slack: '#/components/schemas/CreateSlackConnectorConfiguration'
+          gchat: '#/components/schemas/CreateGchatConnectorConfiguration'
+          zoom: '#/components/schemas/CreateZoomConnectorConfiguration'
+          widget: '#/components/schemas/UpdateWidgetConnectorConfiguration'
+      oneOf:
+      - $ref: '#/components/schemas/CreateSlackConnectorConfiguration'
+      - $ref: '#/components/schemas/CreateGchatConnectorConfiguration'
+      - $ref: '#/components/schemas/CreateZoomConnectorConfiguration'
+      - $ref: '#/components/schemas/UpdateWidgetConnectorConfiguration'
     UpdateAgentConnectorRequest:
-      description: 'Request object for updating an existing agent connector. A supplied
+      description: 'Request object for updating an existing agent connector. An omitted
 
-        `configuration` fully replaces the existing configuration, including any
+        top-level field (`name`, `description`, `metadata`, `enabled`) is left
 
-        caller-supplied secrets. Platform-generated fields, such as the Zoom
+        unchanged, and an omitted `configuration` leaves the stored configuration
 
-        connector''s `connector_token`, are preserved across updates. An omitted
+        untouched. A supplied Slack, Google Chat, or Zoom `configuration` replaces
 
-        `configuration` leaves the existing configuration untouched.
+        the stored one in full, exactly as on create; a supplied widget
+
+        `configuration` updates partially, keeping the fields it omits. The
+
+        connector''s `type` cannot change, and platform-generated fields such as the
+
+        Zoom connector''s `connector_token` are preserved.
 
         '
       type: object
@@ -31186,20 +31277,8 @@ components:
           description: Whether the connector is enabled.
           type: boolean
           example: false
-        public_access:
-          description: 'Whether the connector admits anonymous visitors. Only accepted
-            for
-
-            `widget` connectors; rejected for other types. Setting it to `false`
-
-            refuses every previously minted visitor id; the change takes effect within
-            a few seconds.
-
-            '
-          type: boolean
-          example: false
         configuration:
-          $ref: '#/components/schemas/CreateConnectorConfiguration'
+          $ref: '#/components/schemas/UpdateConnectorConfiguration'
     A2aV03AgentInterface:
       description: An additional transport endpoint advertised by the agent card beyond
         `url`.

@@ -20,6 +20,16 @@ namespace Vectara
         public required string Type { get; set; } = "widget";
 
         /// <summary>
+        /// Whether the widget admits anonymous visitors upon creation. Gated alongside the connector's `enabled`.<br/>
+        /// Defaults to `false`, so a widget admits no visitors until it is explicitly opened.<br/>
+        /// Default Value: false<br/>
+        /// Example: false
+        /// </summary>
+        /// <example>false</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("public_access")]
+        public bool? PublicAccess { get; set; }
+
+        /// <summary>
         /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
         /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
         /// </summary>
@@ -102,6 +112,12 @@ namespace Vectara
         /// Served to anonymous visitors by the unauthenticated widget bootstrap endpoint, so widget clients must treat every value as untrusted data.<br/>
         /// Schema validation of the payload lands with the first Altera release; `version` is what lets clients render older payloads once the shape evolves.
         /// </param>
+        /// <param name="publicAccess">
+        /// Whether the widget admits anonymous visitors upon creation. Gated alongside the connector's `enabled`.<br/>
+        /// Defaults to `false`, so a widget admits no visitors until it is explicitly opened.<br/>
+        /// Default Value: false<br/>
+        /// Example: false
+        /// </param>
         /// <param name="aliasKey">
         /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
         /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
@@ -141,6 +157,7 @@ namespace Vectara
         public CreateWidgetConnectorConfigurationVariant2(
             string type,
             global::Vectara.WidgetPresentation presentation,
+            bool? publicAccess,
             string? aliasKey,
             int? sessionTtiMinutes,
             global::System.Collections.Generic.IList<global::Vectara.AgentOutputType>? revealedOutputTypes,
@@ -148,6 +165,7 @@ namespace Vectara
             global::Vectara.WidgetSignIn? endUserSignIn)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
+            this.PublicAccess = publicAccess;
             this.AliasKey = aliasKey;
             this.Presentation = presentation ?? throw new global::System.ArgumentNullException(nameof(presentation));
             this.SessionTtiMinutes = sessionTtiMinutes;
