@@ -641,5 +641,37 @@ namespace Vectara
                 __httpRequest?.Dispose();
             }
         }
+        /// <summary>
+        /// Create agent connector<br/>
+        /// Creates a connector for an agent to receive events from an external platform such as Slack, Google Chat, or Zoom Contact Center.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="agentKey">
+        /// A unique key that identifies an agent.<br/>
+        /// Example: customer_support
+        /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::System.InvalidOperationException"></exception>
+        public async global::System.Threading.Tasks.Task<global::Vectara.AgentConnector> CreateConnectorAsync(
+            string agentKey,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
+            var __request = new global::Vectara.CreateAgentConnectorRequest
+            {
+            };
+
+            return await CreateConnectorAsync(
+                requestTimeout: requestTimeout,
+                requestTimeoutMillis: requestTimeoutMillis,
+                agentKey: agentKey,
+                request: __request,
+                requestOptions: requestOptions,
+                cancellationToken: cancellationToken).ConfigureAwait(false);
+        }
     }
 }

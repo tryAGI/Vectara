@@ -15,50 +15,40 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
+            using var __jsonDocument = global::System.Text.Json.JsonDocument.ParseValue(ref reader);
+            var __rawJson = __jsonDocument.RootElement.GetRawText();
 
-            var readerCopy = reader;
-            var discriminatorTypeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateAgentConnectorRequestDiscriminator), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateAgentConnectorRequestDiscriminator> ??
-                            throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateAgentConnectorRequestDiscriminator)}");
-            var discriminator = global::System.Text.Json.JsonSerializer.Deserialize(ref readerCopy, discriminatorTypeInfo);
-
-            global::Vectara.CreateSlackAgentConnectorRequest? slack = default;
-            if (discriminator?.Type == global::Vectara.CreateAgentConnectorRequestDiscriminatorType.Slack)
+            global::Vectara.CreateAgentConnectorRequestBase? @base = default;
+            try
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateSlackAgentConnectorRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateSlackAgentConnectorRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateSlackAgentConnectorRequest)}");
-                slack = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateAgentConnectorRequestBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateAgentConnectorRequestBase> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateAgentConnectorRequestBase).Name}");
+                @base = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
             }
-            global::Vectara.CreateGchatAgentConnectorRequest? gchat = default;
-            if (discriminator?.Type == global::Vectara.CreateAgentConnectorRequestDiscriminatorType.Gchat)
+            catch (global::System.Text.Json.JsonException)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateGchatAgentConnectorRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateGchatAgentConnectorRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateGchatAgentConnectorRequest)}");
-                gchat = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
-            global::Vectara.CreateZoomAgentConnectorRequest? zoom = default;
-            if (discriminator?.Type == global::Vectara.CreateAgentConnectorRequestDiscriminatorType.Zoom)
+            catch (global::System.InvalidOperationException)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateZoomAgentConnectorRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateZoomAgentConnectorRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateZoomAgentConnectorRequest)}");
-                zoom = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
-            }
-            global::Vectara.CreateWidgetAgentConnectorRequest? widget = default;
-            if (discriminator?.Type == global::Vectara.CreateAgentConnectorRequestDiscriminatorType.Widget)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateWidgetAgentConnectorRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateWidgetAgentConnectorRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateWidgetAgentConnectorRequest)}");
-                widget = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
 
+            global::Vectara.CreateAgentConnectorRequestVariant2? createAgentConnectorRequestVariant2 = default;
+            try
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateAgentConnectorRequestVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateAgentConnectorRequestVariant2> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateAgentConnectorRequestVariant2).Name}");
+                createAgentConnectorRequestVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
+            }
+            catch (global::System.Text.Json.JsonException)
+            {
+            }
+            catch (global::System.InvalidOperationException)
+            {
+            }
             var __value = new global::Vectara.CreateAgentConnectorRequest(
-                discriminator?.Type,
-                slack,
+                @base,
 
-                gchat,
-
-                zoom,
-
-                widget
+                createAgentConnectorRequestVariant2
                 );
 
             return __value;
@@ -73,30 +63,46 @@ namespace Vectara.JsonConverters
             options = options ?? throw new global::System.ArgumentNullException(nameof(options));
             var typeInfoResolver = options.TypeInfoResolver ?? throw new global::System.InvalidOperationException("TypeInfoResolver is not set.");
 
-            if (value.IsSlack)
+
+            writer.WriteStartObject();
+            var __writtenPropertyNames = new global::System.Collections.Generic.HashSet<string>(global::System.StringComparer.Ordinal);
+            if (value.IsBase)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateSlackAgentConnectorRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateSlackAgentConnectorRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateSlackAgentConnectorRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Slack!.Value, typeInfo);
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateAgentConnectorRequestBase), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateAgentConnectorRequestBase?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateAgentConnectorRequestBase).Name}");
+                var __element0 = global::System.Text.Json.JsonSerializer.SerializeToElement(value.Base!, typeInfo);
+                if (__element0.ValueKind != global::System.Text.Json.JsonValueKind.Object)
+                {
+                    throw new global::System.Text.Json.JsonException("AllOf values must serialize as JSON objects.");
+                }
+
+                foreach (var __property in __element0.EnumerateObject())
+                {
+                    if (__writtenPropertyNames.Add(__property.Name))
+                    {
+                        __property.WriteTo(writer);
+                    }
+                }
             }
-            else if (value.IsGchat)
+            if (value.IsCreateAgentConnectorRequestVariant2)
             {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateGchatAgentConnectorRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateGchatAgentConnectorRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateGchatAgentConnectorRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Gchat!.Value, typeInfo);
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateAgentConnectorRequestVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateAgentConnectorRequestVariant2?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateAgentConnectorRequestVariant2).Name}");
+                var __element1 = global::System.Text.Json.JsonSerializer.SerializeToElement(value.CreateAgentConnectorRequestVariant2!, typeInfo);
+                if (__element1.ValueKind != global::System.Text.Json.JsonValueKind.Object)
+                {
+                    throw new global::System.Text.Json.JsonException("AllOf values must serialize as JSON objects.");
+                }
+
+                foreach (var __property in __element1.EnumerateObject())
+                {
+                    if (__writtenPropertyNames.Add(__property.Name))
+                    {
+                        __property.WriteTo(writer);
+                    }
+                }
             }
-            else if (value.IsZoom)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateZoomAgentConnectorRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateZoomAgentConnectorRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateZoomAgentConnectorRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Zoom!.Value, typeInfo);
-            }
-            else if (value.IsWidget)
-            {
-                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateWidgetAgentConnectorRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateWidgetAgentConnectorRequest> ??
-                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateWidgetAgentConnectorRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Widget!.Value, typeInfo);
-            }
+            writer.WriteEndObject();
         }
     }
 }

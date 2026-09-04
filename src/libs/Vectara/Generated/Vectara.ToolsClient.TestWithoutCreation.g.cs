@@ -171,6 +171,10 @@ namespace Vectara
                 __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
+                __httpRequest.Headers.TryAddWithoutValidation(
+                    "Accept",
+                    "application/json");
+
             foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
@@ -602,8 +606,12 @@ namespace Vectara
         /// Example: {"order_count":10,"total_revenue":500}
         /// </param>
         /// <param name="timeoutSeconds">
-        /// Maximum execution time in seconds for this test. Overrides execution_configuration if specified.<br/>
+        /// Maximum execution time in seconds for this test. Overrides `execution_configuration` if specified. When omitted, the supplied `execution_configuration` timeout applies in full — up to 21600 seconds — and a request with none runs at 30 seconds. A budget longer than 300 seconds requires `stream_response` to be true; a non-streaming request with a larger budget is rejected.<br/>
         /// Example: 10
+        /// </param>
+        /// <param name="streamResponse">
+        /// When true, the response is streamed as Server-sent Events. While the test runs the platform sends zero or more `heartbeat` events, then exactly one terminal `result` event carrying the same object the non-streaming response returns. A platform failure after the stream has started closes the connection without a `result`.<br/>
+        /// Default Value: false
         /// </param>
         /// <param name="toolConfigurations">
         /// Named configurations of other tools the code under test may invoke through its built-in `tool` module.<br/>
@@ -624,6 +632,7 @@ namespace Vectara
             global::Vectara.TestLambdaToolRequestLanguage? language = default,
             global::Vectara.ExecutionConfiguration? executionConfiguration = default,
             int? timeoutSeconds = default,
+            bool? streamResponse = default,
             global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentToolConfiguration>? toolConfigurations = default,
             global::Vectara.TestLambdaToolContext? testContext = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -636,6 +645,7 @@ namespace Vectara
                 ExecutionConfiguration = executionConfiguration,
                 TestInput = testInput,
                 TimeoutSeconds = timeoutSeconds,
+                StreamResponse = streamResponse,
                 ToolConfigurations = toolConfigurations,
                 TestContext = testContext,
             };

@@ -4,11 +4,14 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request object for updating an existing agent connector. A supplied<br/>
-    /// `configuration` fully replaces the existing configuration, including any<br/>
-    /// caller-supplied secrets. Platform-generated fields, such as the Zoom<br/>
-    /// connector's `connector_token`, are preserved across updates. An omitted<br/>
-    /// `configuration` leaves the existing configuration untouched.
+    /// Request object for updating an existing agent connector. An omitted<br/>
+    /// top-level field (`name`, `description`, `metadata`, `enabled`) is left<br/>
+    /// unchanged, and an omitted `configuration` leaves the stored configuration<br/>
+    /// untouched. A supplied Slack, Google Chat, or Zoom `configuration` replaces<br/>
+    /// the stored one in full, exactly as on create; a supplied widget<br/>
+    /// `configuration` updates partially, keeping the fields it omits. The<br/>
+    /// connector's `type` cannot change, and platform-generated fields such as the<br/>
+    /// Zoom connector's `connector_token` are preserved.
     /// </summary>
     public sealed partial class UpdateAgentConnectorRequest
     {
@@ -45,28 +48,13 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
-        /// Whether the connector admits anonymous visitors. Only accepted for<br/>
-        /// `widget` connectors; rejected for other types. Setting it to `false`<br/>
-        /// refuses every previously minted visitor id; the change takes effect within a few seconds.<br/>
-        /// Example: false
-        /// </summary>
-        /// <example>false</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("public_access")]
-        public bool? PublicAccess { get; set; }
-
-        /// <summary>
-        /// Write view of a connector's configuration. Used when creating a connector<br/>
-        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
-        /// must supply. Platform-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view:<br/>
-        /// - Slack returns `webhook_path`<br/>
-        /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`<br/>
-        /// - widget returns `bootstrap_path`
+        /// Write view of a connector's configuration, supplied on update. Discriminated by `type`, which must equal the connector's stored type.<br/>
+        /// Slack, Google Chat, and Zoom configurations are supplied in full and replace the stored configuration wholesale, exactly as on create; caller-omitted platform-generated fields (such as the Zoom `connector_token`) are preserved.<br/>
+        /// A widget configuration is the exception: it updates partially, so a supplied field replaces the stored one while an omitted field keeps it — see `UpdateWidgetConnectorConfiguration`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter))]
-        public global::Vectara.CreateConnectorConfiguration? Configuration { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.UpdateConnectorConfigurationJsonConverter))]
+        public global::Vectara.UpdateConnectorConfiguration? Configuration { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -93,21 +81,10 @@ namespace Vectara
         /// Whether the connector is enabled.<br/>
         /// Example: false
         /// </param>
-        /// <param name="publicAccess">
-        /// Whether the connector admits anonymous visitors. Only accepted for<br/>
-        /// `widget` connectors; rejected for other types. Setting it to `false`<br/>
-        /// refuses every previously minted visitor id; the change takes effect within a few seconds.<br/>
-        /// Example: false
-        /// </param>
         /// <param name="configuration">
-        /// Write view of a connector's configuration. Used when creating a connector<br/>
-        /// and reused when updating one. Carries the secrets and inputs the customer<br/>
-        /// must supply. Platform-derived display fields are not accepted here and instead<br/>
-        /// appear in the read view:<br/>
-        /// - Slack returns `webhook_path`<br/>
-        /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`<br/>
-        /// - widget returns `bootstrap_path`
+        /// Write view of a connector's configuration, supplied on update. Discriminated by `type`, which must equal the connector's stored type.<br/>
+        /// Slack, Google Chat, and Zoom configurations are supplied in full and replace the stored configuration wholesale, exactly as on create; caller-omitted platform-generated fields (such as the Zoom `connector_token`) are preserved.<br/>
+        /// A widget configuration is the exception: it updates partially, so a supplied field replaces the stored one while an omitted field keeps it — see `UpdateWidgetConnectorConfiguration`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -117,14 +94,12 @@ namespace Vectara
             string? description,
             object? metadata,
             bool? enabled,
-            bool? publicAccess,
-            global::Vectara.CreateConnectorConfiguration? configuration)
+            global::Vectara.UpdateConnectorConfiguration? configuration)
         {
             this.Name = name;
             this.Description = description;
             this.Metadata = metadata;
             this.Enabled = enabled;
-            this.PublicAccess = publicAccess;
             this.Configuration = configuration;
         }
 

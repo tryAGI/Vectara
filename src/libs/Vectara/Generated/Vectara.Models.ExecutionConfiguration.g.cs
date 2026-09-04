@@ -11,7 +11,7 @@ namespace Vectara
     public sealed partial class ExecutionConfiguration
     {
         /// <summary>
-        /// Maximum execution time in seconds.<br/>
+        /// Maximum execution time in seconds, up to 21600. When `execution_configuration` is omitted entirely, a lambda that declares `tool_configurations` resolves to 300 seconds and any other lambda resolves to 30. When `execution_configuration` is supplied without this field, the declared default of 30 applies. `max_execution_time_seconds` on the agent's tool-configuration entry takes precedence over this field.<br/>
         /// Default Value: 30<br/>
         /// Example: 30
         /// </summary>
@@ -39,7 +39,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ExecutionConfiguration" /> class.
         /// </summary>
         /// <param name="maxExecutionTimeSeconds">
-        /// Maximum execution time in seconds.<br/>
+        /// Maximum execution time in seconds, up to 21600. When `execution_configuration` is omitted entirely, a lambda that declares `tool_configurations` resolves to 300 seconds and any other lambda resolves to 30. When `execution_configuration` is supplied without this field, the declared default of 30 applies. `max_execution_time_seconds` on the agent's tool-configuration entry takes precedence over this field.<br/>
         /// Default Value: 30<br/>
         /// Example: 30
         /// </param>

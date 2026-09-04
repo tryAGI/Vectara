@@ -66,7 +66,7 @@ namespace Vectara
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `search.reranker` (object, optional) - Configures a reranker to improve result quality by reordering search results to place the most relevant content first. For more details, see [Reranking overview](/docs/search-and-retrieval/rerankers/reranking-overview).<br/>
+        /// `search.reranker` (object, optional) - Configures a reranker to improve result quality by reordering search results to place the most relevant content first. For more details, see [Reranking overview](/docs/search-and-retrieval/reranking).<br/>
         /// * `type` (string): The reranker type. Options include customer_reranker (default multilingual reranker), mmr (for result diversity), or none.<br/>
         /// * `reranker_name` (string): The specific reranker model to use (e.g., Rerank_Multilingual_v1).<br/>
         /// * `limit` (integer): The maximum number of results to return after reranking.<br/>
@@ -209,7 +209,7 @@ namespace Vectara
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `search.reranker` (object, optional) - Configures a reranker to improve result quality by reordering search results to place the most relevant content first. For more details, see [Reranking overview](/docs/search-and-retrieval/rerankers/reranking-overview).<br/>
+        /// `search.reranker` (object, optional) - Configures a reranker to improve result quality by reordering search results to place the most relevant content first. For more details, see [Reranking overview](/docs/search-and-retrieval/reranking).<br/>
         /// * `type` (string): The reranker type. Options include customer_reranker (default multilingual reranker), mmr (for result diversity), or none.<br/>
         /// * `reranker_name` (string): The specific reranker model to use (e.g., Rerank_Multilingual_v1).<br/>
         /// * `limit` (integer): The maximum number of results to return after reranking.<br/>
@@ -352,7 +352,7 @@ namespace Vectara
         ///   }<br/>
         /// }<br/>
         /// ```<br/>
-        /// `search.reranker` (object, optional) - Configures a reranker to improve result quality by reordering search results to place the most relevant content first. For more details, see [Reranking overview](/docs/search-and-retrieval/rerankers/reranking-overview).<br/>
+        /// `search.reranker` (object, optional) - Configures a reranker to improve result quality by reordering search results to place the most relevant content first. For more details, see [Reranking overview](/docs/search-and-retrieval/reranking).<br/>
         /// * `type` (string): The reranker type. Options include customer_reranker (default multilingual reranker), mmr (for result diversity), or none.<br/>
         /// * `reranker_name` (string): The specific reranker model to use (e.g., Rerank_Multilingual_v1).<br/>
         /// * `limit` (integer): The maximum number of results to return after reranking.<br/>

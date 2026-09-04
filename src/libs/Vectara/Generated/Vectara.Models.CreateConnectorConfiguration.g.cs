@@ -5,9 +5,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Write view of a connector's configuration. Used when creating a connector<br/>
-    /// and reused when updating one. Carries the secrets and inputs the customer<br/>
-    /// must supply. Platform-derived display fields are not accepted here and instead<br/>
+    /// Write view of a connector's configuration, supplied when creating a<br/>
+    /// connector. Carries the secrets and inputs the customer must supply.<br/>
+    /// Platform-derived display fields are not accepted here and instead<br/>
     /// appear in the read view:<br/>
     /// - Slack returns `webhook_path`<br/>
     /// - gchat returns `audience_url` and `client_email`<br/>
