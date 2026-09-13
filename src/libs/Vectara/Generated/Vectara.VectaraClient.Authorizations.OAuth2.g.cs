@@ -3,6 +3,11 @@
 
 namespace Vectara
 {
+    using OAuth2DeviceAuthorizationResponse = global::Vectara.VectaraClient.OAuth2DeviceAuthorizationResponse;
+    using OAuth2Token = global::Vectara.VectaraClient.OAuth2Token;
+    using IOAuth2TokenStore = global::Vectara.VectaraClient.IOAuth2TokenStore;
+    using AutoSDKOAuth2Helpers = global::Vectara.VectaraClient.AutoSDKOAuth2Helpers;
+
     public sealed partial class VectaraClient
     {
         /// <summary>

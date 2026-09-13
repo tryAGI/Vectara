@@ -38,7 +38,7 @@ namespace Vectara
 
         internal global::Vectara.VectaraClient.AutoSDKOAuth2Coordinator AutoSDKOAuth2State { get; set; } = new global::Vectara.VectaraClient.AutoSDKOAuth2Coordinator();
 
-        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::Vectara.SourceGenerationContext.Default);
+        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::Vectara.AuthenticationSourceGenerationContext.Default);
 
         /// <summary>
         ///
