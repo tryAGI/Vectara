@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Vectara
@@ -28,11 +30,27 @@ namespace Vectara
 
         /// <summary>
         /// Key prefix to scope ingestion to a subset of objects.<br/>
+        /// Deprecated: use `prefixes` instead. Ignored when `prefixes` is non-empty.<br/>
         /// Example: legal/contracts/
         /// </summary>
         /// <example>legal/contracts/</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("prefix")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public string? Prefix { get; set; }
+
+        /// <summary>
+        /// Key prefixes to scope ingestion to a subset of objects. An object is ingested when its<br/>
+        /// key starts with any listed prefix and passes the `pos_regex` and `neg_regex` filters.<br/>
+        /// No entry may be a prefix of another entry; duplicate or overlapping entries are<br/>
+        /// rejected. When empty or omitted, the deprecated `prefix` field applies; if that is<br/>
+        /// also empty, objects are not filtered by key prefix. On a partial update (PATCH), a<br/>
+        /// provided list replaces the stored list as a whole. An omitted one keeps the stored<br/>
+        /// list.<br/>
+        /// Example: [legal/contracts/, finance/reports/]
+        /// </summary>
+        /// <example>[legal/contracts/, finance/reports/]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("prefixes")]
+        public global::System.Collections.Generic.IList<string>? Prefixes { get; set; }
 
         /// <summary>
         /// The region of the S3-compatible service.<br/>
@@ -104,9 +122,15 @@ namespace Vectara
         /// The S3 bucket name.<br/>
         /// Example: my-documents-bucket
         /// </param>
-        /// <param name="prefix">
-        /// Key prefix to scope ingestion to a subset of objects.<br/>
-        /// Example: legal/contracts/
+        /// <param name="prefixes">
+        /// Key prefixes to scope ingestion to a subset of objects. An object is ingested when its<br/>
+        /// key starts with any listed prefix and passes the `pos_regex` and `neg_regex` filters.<br/>
+        /// No entry may be a prefix of another entry; duplicate or overlapping entries are<br/>
+        /// rejected. When empty or omitted, the deprecated `prefix` field applies; if that is<br/>
+        /// also empty, objects are not filtered by key prefix. On a partial update (PATCH), a<br/>
+        /// provided list replaces the stored list as a whole. An omitted one keeps the stored<br/>
+        /// list.<br/>
+        /// Example: [legal/contracts/, finance/reports/]
         /// </param>
         /// <param name="region">
         /// The region of the S3-compatible service.<br/>
@@ -144,7 +168,7 @@ namespace Vectara
         public BaseS3SourceConfiguration(
             string type,
             string? bucket,
-            string? prefix,
+            global::System.Collections.Generic.IList<string>? prefixes,
             string? region,
             string? endpointUrl,
             string? accessKeyId,
@@ -155,7 +179,7 @@ namespace Vectara
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Bucket = bucket;
-            this.Prefix = prefix;
+            this.Prefixes = prefixes;
             this.Region = region;
             this.EndpointUrl = endpointUrl;
             this.AccessKeyId = accessKeyId;

@@ -64,6 +64,12 @@ namespace Vectara
         public string? ResponseId { get; set; }
 
         /// <summary>
+        /// Milliseconds from the start of this completion until the LLM streamed its first output: a text or reasoning token, a tool call, or the structured output of a completion that produces one. Absent when the completion was not streamed or streamed no output.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("time_to_first_token_ms")]
+        public long? TimeToFirstTokenMs { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -100,6 +106,9 @@ namespace Vectara
         /// <param name="responseId">
         /// The provider response identifier.
         /// </param>
+        /// <param name="timeToFirstTokenMs">
+        /// Milliseconds from the start of this completion until the LLM streamed its first output: a text or reasoning token, a tool call, or the structured output of a completion that produces one. Absent when the completion was not streamed or streamed no output.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -112,7 +121,8 @@ namespace Vectara
             double? temperature,
             long? maxTokens,
             string? providerName,
-            string? responseId)
+            string? responseId,
+            long? timeToFirstTokenMs)
         {
             this.Model = model;
             this.InputTokens = inputTokens;
@@ -123,6 +133,7 @@ namespace Vectara
             this.MaxTokens = maxTokens;
             this.ProviderName = providerName;
             this.ResponseId = responseId;
+            this.TimeToFirstTokenMs = timeToFirstTokenMs;
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Vectara
         public required string Type { get; set; } = "record_processing";
 
         /// <summary>
-        /// Lifecycle status of a single source record within a run. `started` when processing begins, `completed` when the record succeeded or was skipped without processing, `failed` for a failed processing attempt, and `dead_lettered` when the record exhausted its retries and was written to, or in a retry run updated in, the dead letter queue.
+        /// Lifecycle status of a single source record within a run. `started` when processing begins, `completed` when the record succeeded or was skipped without processing, `failed` for a failed processing attempt, `dead_lettered` when the record exhausted its retries and was written to, or in a retry run updated in, the dead letter queue.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RecordProcessingEventStatusJsonConverter))]
@@ -32,6 +32,14 @@ namespace Vectara
         [global::System.Text.Json.Serialization.JsonPropertyName("source_record_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string SourceRecordId { get; set; }
+
+        /// <summary>
+        /// The operation the source performed on a record. `upsert` when the record was added or changed, `delete` when the source reported it deleted. New values may be added; treat unrecognized values as opaque.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("operation")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RecordOperationJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::Vectara.RecordOperation Operation { get; set; }
 
         /// <summary>
         /// The agent session created to process this record. Present on `completed`, except for a record the agent's `run_condition` evaluated to false for, which has no session. May be present on `failed` if a session was created before the failure. Null on `started` and `dead_lettered`.
@@ -71,7 +79,8 @@ namespace Vectara
         /// <summary>
         /// Which processing attempt produced this event, starting at 1. A record that fails is retried, so<br/>
         /// the same record can emit `started` and `failed` events for several attempts before it emits<br/>
-        /// `completed`. Null on `dead_lettered`, which is a terminal marker not tied to a single attempt.
+        /// `completed`. Null on `dead_lettered`, which is a terminal marker not tied to a<br/>
+        /// single attempt.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("attempt")]
         public int? Attempt { get; set; }
@@ -96,10 +105,13 @@ namespace Vectara
         /// Default Value: record_processing
         /// </param>
         /// <param name="status">
-        /// Lifecycle status of a single source record within a run. `started` when processing begins, `completed` when the record succeeded or was skipped without processing, `failed` for a failed processing attempt, and `dead_lettered` when the record exhausted its retries and was written to, or in a retry run updated in, the dead letter queue.
+        /// Lifecycle status of a single source record within a run. `started` when processing begins, `completed` when the record succeeded or was skipped without processing, `failed` for a failed processing attempt, `dead_lettered` when the record exhausted its retries and was written to, or in a retry run updated in, the dead letter queue.
         /// </param>
         /// <param name="sourceRecordId">
         /// The identifier of the source record.
+        /// </param>
+        /// <param name="operation">
+        /// The operation the source performed on a record. `upsert` when the record was added or changed, `delete` when the source reported it deleted. New values may be added; treat unrecognized values as opaque.
         /// </param>
         /// <param name="sessionKey">
         /// The agent session created to process this record. Present on `completed`, except for a record the agent's `run_condition` evaluated to false for, which has no session. May be present on `failed` if a session was created before the failure. Null on `started` and `dead_lettered`.
@@ -113,7 +125,8 @@ namespace Vectara
         /// <param name="attempt">
         /// Which processing attempt produced this event, starting at 1. A record that fails is retried, so<br/>
         /// the same record can emit `started` and `failed` events for several attempts before it emits<br/>
-        /// `completed`. Null on `dead_lettered`, which is a terminal marker not tied to a single attempt.
+        /// `completed`. Null on `dead_lettered`, which is a terminal marker not tied to a<br/>
+        /// single attempt.
         /// </param>
         /// <param name="durationMs">
         /// Wall-clock time in milliseconds this processing attempt took. Populated on `completed` and `failed`<br/>
@@ -126,6 +139,7 @@ namespace Vectara
             string type,
             global::Vectara.RecordProcessingEventStatus status,
             string sourceRecordId,
+            global::Vectara.RecordOperation operation,
             string? sessionKey,
             bool? skipped,
             string? reason,
@@ -135,6 +149,7 @@ namespace Vectara
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Status = status;
             this.SourceRecordId = sourceRecordId ?? throw new global::System.ArgumentNullException(nameof(sourceRecordId));
+            this.Operation = operation;
             this.SessionKey = sessionKey;
             this.Skipped = skipped;
             this.Reason = reason;

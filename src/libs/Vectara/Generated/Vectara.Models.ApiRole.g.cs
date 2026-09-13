@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Roles that a user or an app client can take on, account-wide.
+    /// Roles that a user or an app client can take on, account-wide. New values may be added over time; treat unknown values as opaque.
     /// </summary>
     public enum ApiRole
     {
@@ -47,6 +47,10 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        MetricsViewer,
+        /// <summary>
+        ///
+        /// </summary>
         Owner,
         /// <summary>
         ///
@@ -83,6 +87,7 @@ namespace Vectara
                 ApiRole.CorpusAdministrator => "corpus_administrator",
                 ApiRole.CorpusDeveloper => "corpus_developer",
                 ApiRole.CorpusViewer => "corpus_viewer",
+                ApiRole.MetricsViewer => "metrics_viewer",
                 ApiRole.Owner => "owner",
                 ApiRole.PipelineAdministrator => "pipeline_administrator",
                 ApiRole.PipelineViewer => "pipeline_viewer",
@@ -106,6 +111,7 @@ namespace Vectara
                 "corpus_administrator" => ApiRole.CorpusAdministrator,
                 "corpus_developer" => ApiRole.CorpusDeveloper,
                 "corpus_viewer" => ApiRole.CorpusViewer,
+                "metrics_viewer" => ApiRole.MetricsViewer,
                 "owner" => ApiRole.Owner,
                 "pipeline_administrator" => ApiRole.PipelineAdministrator,
                 "pipeline_viewer" => ApiRole.PipelineViewer,

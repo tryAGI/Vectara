@@ -7,6 +7,7 @@ namespace Vectara
         /// <summary>
         /// List end user sessions for alias<br/>
         /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -35,6 +36,7 @@ namespace Vectara
         /// <summary>
         /// List end user sessions for alias<br/>
         /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>

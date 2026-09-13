@@ -62,6 +62,11 @@ namespace Vectara
         /// <param name="agentRoles">
         /// Agent-specific role assignments for the user.
         /// </param>
+        /// <param name="metadata">
+        /// Arbitrary metadata associated with the user. The JSON serialization must not exceed 65535 bytes; larger payloads are rejected with a `400` response.<br/>
+        /// Default Value: {}<br/>
+        /// Example: {"console_mode":"business"}
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -74,6 +79,7 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles = default,
             global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles = default,
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles = default,
+            object? metadata = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

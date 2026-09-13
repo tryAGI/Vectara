@@ -13,6 +13,21 @@ namespace Vectara
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
                 {                    new global::Vectara.EndPointAuthorizationRequirement
                     {
+                        Type = "ApiKey",
+                        SchemeId = "ApiKeyAuth",
+                        Location = "Header",
+                        Name = "x-api-key",
+                        FriendlyName = "ApiKeyAuth",
+                    },
+                },
+            };
+
+        private static readonly global::Vectara.EndPointSecurityRequirement s_ListAliasRoutedSecurityRequirement1 =
+            new global::Vectara.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
+                {                    new global::Vectara.EndPointAuthorizationRequirement
+                    {
                         Type = "OAuth2",
                         SchemeId = "OAuth2",
                         Location = "Header",
@@ -22,7 +37,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_ListAliasRoutedSecurityRequirement1 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_ListAliasRoutedSecurityRequirement2 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -37,7 +52,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_ListAliasRoutedSecurityRequirement2 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_ListAliasRoutedSecurityRequirement3 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -56,6 +71,7 @@ namespace Vectara
             {                s_ListAliasRoutedSecurityRequirement0,
                 s_ListAliasRoutedSecurityRequirement1,
                 s_ListAliasRoutedSecurityRequirement2,
+                s_ListAliasRoutedSecurityRequirement3,
             };
         partial void PrepareListAliasRoutedArguments(
             global::System.Net.Http.HttpClient httpClient,
@@ -86,6 +102,7 @@ namespace Vectara
         /// <summary>
         /// List end user sessions for alias<br/>
         /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -128,6 +145,7 @@ namespace Vectara
         /// <summary>
         /// List end user sessions for alias<br/>
         /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>

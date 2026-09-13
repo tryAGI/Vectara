@@ -23,8 +23,12 @@ namespace Vectara
         /// incremental runs read the tenant's dataflow reports since the previous run's watermark and<br/>
         /// ingest the content those reports flag as created or updated, including metadata-only changes.<br/>
         /// Such a run fails when its watermark window holds more than 1000 reports, and a full refresh<br/>
-        /// is required to resync. Content the reports flag as deleted is not removed from the corpus.<br/>
-        /// Full-refresh runs — and the first run, which has no watermark yet — enumerate all content.
+        /// is required to resync. Content the reports flag as deleted, and content the reports flag as<br/>
+        /// changed that the tenant no longer returns, is reported as a delete record (`operation: delete`)<br/>
+        /// in the `documents` and `maps` scopes. A deletion is reported by record id, so `filters`,<br/>
+        /// `locale`, `include_sources`, and `exclude_sources` do not apply to it. In the `topics` scope a<br/>
+        /// deleted map's topics can no longer be listed, so they are not reported. Full-refresh runs — and<br/>
+        /// the first run, which has no watermark yet — enumerate all content and report no deletions.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.BaseFluidtopicsSourceConfiguration? Base { get; init; }

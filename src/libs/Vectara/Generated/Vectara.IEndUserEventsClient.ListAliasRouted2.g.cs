@@ -7,6 +7,7 @@ namespace Vectara
         /// <summary>
         /// List end user events for alias<br/>
         /// Lists the visible events in a session the caller owns, addressed by the alias it was created through, with optional pagination.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Returns 403 if the session belongs to a different principal. The response only includes event types curated as end-user-safe.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
@@ -41,6 +42,7 @@ namespace Vectara
         /// <summary>
         /// List end user events for alias<br/>
         /// Lists the visible events in a session the caller owns, addressed by the alias it was created through, with optional pagination.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Returns 403 if the session belongs to a different principal. The response only includes event types curated as end-user-safe.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>

@@ -35,7 +35,7 @@ namespace Vectara
         /// **Python Environment:**<br/>
         /// - Python version: 3.12<br/>
         /// - Execution: isolated, with no network access<br/>
-        /// - **Preinstalled modules**: the standard library plus `numpy` and `pandas`<br/>
+        /// - **Preinstalled packages**: the standard library plus data and document packages including `numpy`, `pandas`, `python-calamine`, `openpyxl`, `xlrd`, `xlsxwriter`, `python-pptx`, and `python-docx`. Import `python-calamine` as `python_calamine`, `python-pptx` as `pptx`, and `python-docx` as `docx`.<br/>
         /// - Memory: fixed by the execution environment and not configurable per function<br/>
         /// - Execution timeout: 30 seconds (configurable up to 300 seconds)<br/>
         /// - File system access: a writable temporary workspace, discarded after each execution<br/>
@@ -82,7 +82,7 @@ namespace Vectara
         /// **Python Environment:**<br/>
         /// - Python version: 3.12<br/>
         /// - Execution: isolated, with no network access<br/>
-        /// - **Preinstalled modules**: the standard library plus `numpy` and `pandas`<br/>
+        /// - **Preinstalled packages**: the standard library plus data and document packages including `numpy`, `pandas`, `python-calamine`, `openpyxl`, `xlrd`, `xlsxwriter`, `python-pptx`, and `python-docx`. Import `python-calamine` as `python_calamine`, `python-pptx` as `pptx`, and `python-docx` as `docx`.<br/>
         /// - Memory: fixed by the execution environment and not configurable per function<br/>
         /// - Execution timeout: 30 seconds (configurable up to 300 seconds)<br/>
         /// - File system access: a writable temporary workspace, discarded after each execution<br/>

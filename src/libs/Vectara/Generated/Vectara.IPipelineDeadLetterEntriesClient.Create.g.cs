@@ -71,6 +71,10 @@ namespace Vectara
         /// <param name="errorMessage">
         /// Optional reason for manually adding this record.
         /// </param>
+        /// <param name="operation">
+        /// The operation the next retry runs for this record.<br/>
+        /// Default Value: upsert
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -80,6 +84,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? errorMessage = default,
+            global::Vectara.RecordOperation? operation = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }

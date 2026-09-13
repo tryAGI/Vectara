@@ -13,6 +13,21 @@ namespace Vectara
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
                 {                    new global::Vectara.EndPointAuthorizationRequirement
                     {
+                        Type = "ApiKey",
+                        SchemeId = "ApiKeyAuth",
+                        Location = "Header",
+                        Name = "x-api-key",
+                        FriendlyName = "ApiKeyAuth",
+                    },
+                },
+            };
+
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRouted2AsStreamSecurityRequirement1 =
+            new global::Vectara.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
+                {                    new global::Vectara.EndPointAuthorizationRequirement
+                    {
                         Type = "OAuth2",
                         SchemeId = "OAuth2",
                         Location = "Header",
@@ -22,7 +37,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRouted2AsStreamSecurityRequirement1 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRouted2AsStreamSecurityRequirement2 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -37,7 +52,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRouted2AsStreamSecurityRequirement2 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRouted2AsStreamSecurityRequirement3 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -56,6 +71,7 @@ namespace Vectara
             {                s_CreateAliasRouted2AsStreamSecurityRequirement0,
                 s_CreateAliasRouted2AsStreamSecurityRequirement1,
                 s_CreateAliasRouted2AsStreamSecurityRequirement2,
+                s_CreateAliasRouted2AsStreamSecurityRequirement3,
             };
         partial void PrepareCreateAliasRouted2AsStreamArguments(
             global::System.Net.Http.HttpClient httpClient,
@@ -81,6 +97,7 @@ namespace Vectara
         /// <summary>
         /// Create end user input for alias<br/>
         /// Sends a message, an interrupt, or a client tool output to a session the caller owns, addressed by the alias it was created through.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Returns 403 if the session belongs to a different principal.<br/>
         /// The response is projected to the caller's end-user visibility — see `EndUserEvent`.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>

@@ -46,6 +46,15 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.AgentRole>? AgentRoles { get; set; }
 
         /// <summary>
+        /// Arbitrary metadata associated with the user. The JSON serialization must not exceed 65535 bytes; larger payloads are rejected with a `400` response.<br/>
+        /// Default Value: {}<br/>
+        /// Example: {"console_mode":"business"}
+        /// </summary>
+        /// <example>{"console_mode":"business"}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
+        public object? Metadata { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -72,6 +81,11 @@ namespace Vectara
         /// <param name="agentRoles">
         /// Agent-specific role assignments for the user.
         /// </param>
+        /// <param name="metadata">
+        /// Arbitrary metadata associated with the user. The JSON serialization must not exceed 65535 bytes; larger payloads are rejected with a `400` response.<br/>
+        /// Default Value: {}<br/>
+        /// Example: {"console_mode":"business"}
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -81,7 +95,8 @@ namespace Vectara
             string? description,
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
             global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
-            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles)
+            global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles,
+            object? metadata)
         {
             this.Email = email ?? throw new global::System.ArgumentNullException(nameof(email));
             this.Username = username;
@@ -89,6 +104,7 @@ namespace Vectara
             this.ApiRoles = apiRoles;
             this.CorpusRoles = corpusRoles;
             this.AgentRoles = agentRoles;
+            this.Metadata = metadata;
         }
 
         /// <summary>

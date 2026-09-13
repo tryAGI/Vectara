@@ -24,17 +24,17 @@ info:
     \ after 30 minutes.\n\n## Role-based access control\n\nEach endpoint requires\
     \ specific roles. The role badges on each endpoint page show which roles grant\
     \ access. The platform uses three role types:\n\n**API Roles** (account-wide,\
-    \ assigned to users): Roles like `owner`, `administrator`, `corpus_administrator`,\
-    \ `corpus_developer`, `corpus_viewer`, `agent_administrator`, `agent_developer`,\
-    \ `agent_viewer`, `agent_user`, `pipeline_administrator`, `pipeline_viewer`, and\
-    \ `viewer`. These grant access across all resources of that type.\n\n**Corpus\
-    \ Roles** (per-corpus, assigned on specific corpora): `owner`, `administrator`,\
-    \ `editor`, `viewer`. These grant access to a specific corpus only.\n\n**Agent\
-    \ Roles** (per-agent, assigned on specific agents): `agent_administrator`, `agent_developer`,\
-    \ `agent_viewer`, `agent_user`. These grant access to a specific agent only.\n\
-    \nA user's effective permissions are the union of their API roles, corpus roles,\
-    \ and agent roles. Higher roles in each hierarchy inherit lower role permissions.\
-    \ See [Role-based access control](/docs/security/authorization/role-based-access-control)\
+    \ assigned to users): Roles like `owner`, `administrator`, `billing_administrator`,\
+    \ `corpus_administrator`, `corpus_developer`, `corpus_viewer`, `agent_administrator`,\
+    \ `agent_developer`, `agent_viewer`, `agent_user`, `pipeline_administrator`, `pipeline_viewer`,\
+    \ `viewer`, and `metrics_viewer`. These grant access across all resources of that\
+    \ type.\n\n**Corpus Roles** (per-corpus, assigned on specific corpora): `owner`,\
+    \ `administrator`, `editor`, `viewer`. These grant access to a specific corpus\
+    \ only.\n\n**Agent Roles** (per-agent, assigned on specific agents): `agent_administrator`,\
+    \ `agent_developer`, `agent_viewer`, `agent_user`. These grant access to a specific\
+    \ agent only.\n\nA user's effective permissions are the union of their API roles,\
+    \ corpus roles, and agent roles. Higher roles in each hierarchy inherit lower\
+    \ role permissions. See [Role-based access control](/docs/security/authorization/role-based-access-control)\
     \ for the full role hierarchy and assignment instructions.\n"
   version: '2.0'
   termsOfService: https://vectara.com/legal/terms-of-service/
@@ -2309,6 +2309,7 @@ paths:
         - owner
       description: Permanently deletes a document from a corpus. The unique `document_id`
         identifies the document. This operation cannot be undone, so use it with caution.
+        The response arrives once the document has been removed.
       operationId: deleteCorpusDocument
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -2341,6 +2342,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: The document changed, or the corpus was reset, after this request
+            was received. The document is left in place; delete it again to remove
+            the current version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: The document cannot be deleted individually. Resetting the
+            corpus (`resetCorpus`) removes it along with every other document in the
+            corpus.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too many deletions are in progress. Please retry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: The deletion did not complete; the document may still be present.
+            Please retry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: The deletion could not be confirmed within the request timeout.
+            It may still complete; read the document (`getCorpusDocument`) and retry
+            if it is still present.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: documents
       x-fern-sdk-method-name: delete
     get:
@@ -6967,6 +7005,7 @@ paths:
         - pipeline_administrator
         - pipeline_viewer
         - viewer
+        - metrics_viewer
       - type: CorpusRole
         roles:
         - owner
@@ -6985,14 +7024,6 @@ paths:
         roles:
         - platform_admin
         - platform_viewer
-      - type: ApiRole
-        roles:
-        - corpus_viewer
-        - corpus_developer
-        - corpus_administrator
-        - viewer
-        - administrator
-        - owner
       description: Returns a user with details such as the email, username, and associated
         roles.
       operationId: getUser
@@ -7060,6 +7091,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '400':
+          description: User update request was malformed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
         '403':
           description: Permissions do not allow updating the user.
           content:
@@ -7072,6 +7109,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '503':
+          description: The update could not be completed and may succeed on retry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: users
       x-fern-sdk-method-name: update
     delete:
@@ -14313,9 +14356,23 @@ paths:
       - type: AgentRole
         roles:
         - agent_end_user
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
       description: 'Creates a session owned by the calling end user, routed through
         this alias''s policy. The session''s owning principal is the caller''s authenticated
         identity.
+
+        An administrator calling this operation is bound to the sessions it owns like
+        every other caller; the operator endpoints are the administrative view of
+        an alias''s sessions.
 
         Ownership binds to the alias key, not the resolved agent, so it is unaffected
         by a later change to the alias''s routing weights.
@@ -14333,6 +14390,7 @@ paths:
         '
       operationId: createEndUserAliasRoutedSession
       security:
+      - ApiKeyAuth: []
       - OAuth2: []
       - VisitorToken: []
       - FederatedSignIn: []
@@ -14428,8 +14486,23 @@ paths:
       - type: AgentRole
         roles:
         - agent_end_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
       description: 'Lists the calling end user''s own sessions created through this
         alias. The response never includes sessions owned by another principal.
+
+        An administrator calling this operation is bound to the sessions it owns like
+        every other caller; the operator endpoints are the administrative view of
+        an alias''s sessions.
 
         Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
         of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
@@ -14438,6 +14511,7 @@ paths:
         '
       operationId: listEndUserAliasRoutedSessions
       security:
+      - ApiKeyAuth: []
       - OAuth2: []
       - VisitorToken: []
       - FederatedSignIn: []
@@ -14515,8 +14589,25 @@ paths:
       - type: AgentRole
         roles:
         - agent_end_user
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
       description: 'Returns a session the caller owns, addressed by the alias it was
         created through. Returns 403 if the session belongs to a different principal.
+
+        An administrator calling this operation is bound to the sessions it owns like
+        every other caller; the operator endpoints are the administrative view of
+        an alias''s sessions.
 
         Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
         of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
@@ -14525,6 +14616,7 @@ paths:
         '
       operationId: getEndUserAliasRoutedSession
       security:
+      - ApiKeyAuth: []
       - OAuth2: []
       - VisitorToken: []
       - FederatedSignIn: []
@@ -14587,9 +14679,21 @@ paths:
       - type: AgentRole
         roles:
         - agent_end_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
       description: 'Permanently deletes a session the caller owns, addressed by the
         alias it was created through. Returns 403 if the session belongs to a different
         principal. This action cannot be undone.
+
+        An administrator calling this operation is bound to the sessions it owns like
+        every other caller; the operator endpoints are the administrative view of
+        an alias''s sessions.
 
         Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
         of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
@@ -14598,6 +14702,7 @@ paths:
         '
       operationId: deleteEndUserAliasRoutedSession
       security:
+      - ApiKeyAuth: []
       - OAuth2: []
       - VisitorToken: []
       - FederatedSignIn: []
@@ -14657,16 +14762,30 @@ paths:
       - type: AgentRole
         roles:
         - agent_end_user
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
       description: "Sends a message, an interrupt, or a client tool output to a session\
-        \ the caller owns, addressed by the alias it was created through.\nReturns\
-        \ 403 if the session belongs to a different principal.\nThe response is projected\
-        \ to the caller's end-user visibility \u2014 see `EndUserEvent`.\nAnonymous\
-        \ widget visitors authenticate by presenting `X-Visitor-Id` instead of an\
-        \ `Authorization` credential; the platform mints an identity holding `agent_end_user`\
-        \ on the addressed alias, which satisfies this operation's role requirement.\n\
-        Returns `429` when the caller reaches its hourly event cap.\n"
+        \ the caller owns, addressed by the alias it was created through.\nAn administrator\
+        \ calling this operation is bound to the sessions it owns like every other\
+        \ caller; the operator endpoints are the administrative view of an alias's\
+        \ sessions.\nReturns 403 if the session belongs to a different principal.\n\
+        The response is projected to the caller's end-user visibility \u2014 see `EndUserEvent`.\n\
+        Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead\
+        \ of an `Authorization` credential; the platform mints an identity holding\
+        \ `agent_end_user` on the addressed alias, which satisfies this operation's\
+        \ role requirement.\nReturns `429` when the caller reaches its hourly event\
+        \ cap.\n"
       operationId: createEndUserAliasRoutedInput
       security:
+      - ApiKeyAuth: []
       - OAuth2: []
       - VisitorToken: []
       - FederatedSignIn: []
@@ -14835,8 +14954,23 @@ paths:
       - type: AgentRole
         roles:
         - agent_end_user
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_viewer
+        - agent_developer
+        - agent_administrator
+        - viewer
+        - administrator
+        - owner
       description: 'Lists the visible events in a session the caller owns, addressed
         by the alias it was created through, with optional pagination.
+
+        An administrator calling this operation is bound to the sessions it owns like
+        every other caller; the operator endpoints are the administrative view of
+        an alias''s sessions.
 
         Returns 403 if the session belongs to a different principal. The response
         only includes event types curated as end-user-safe.
@@ -14848,6 +14982,7 @@ paths:
         '
       operationId: listEndUserAliasRoutedEvents
       security:
+      - ApiKeyAuth: []
       - OAuth2: []
       - VisitorToken: []
       - FederatedSignIn: []
@@ -16311,6 +16446,7 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
+        - metrics_viewer
         - corpus_viewer
         - corpus_developer
         - corpus_administrator
@@ -16352,6 +16488,7 @@ paths:
       x-required-roles:
       - type: ApiRole
         roles:
+        - metrics_viewer
         - corpus_viewer
         - corpus_developer
         - corpus_administrator
@@ -17217,6 +17354,28 @@ paths:
       x-fern-sdk-method-name: delete_entries
 components:
   schemas:
+    RecordProcessingInput:
+      description: 'The text input a pipeline run sends into each record''s agent
+        session: the source record''s id and the operation the source performed on
+        it.
+
+        On `upsert` the session also receives the record''s content as an uploaded
+        file.
+
+        On `delete` there is no file, and the agent acts on the input according to
+        its configuration.
+
+        '
+      type: object
+      properties:
+        source_record_id:
+          description: The identifier of the record in the source system.
+          type: string
+        operation:
+          $ref: '#/components/schemas/RecordOperation'
+      required:
+      - source_record_id
+      - operation
     CorpusKey:
       description: A user-provided key for a corpus.
       type: string
@@ -22583,7 +22742,8 @@ components:
         metadata:
           $ref: '#/components/schemas/ListMetadata'
     ApiRole:
-      description: Roles that a user or an app client can take on, account-wide.
+      description: Roles that a user or an app client can take on, account-wide. New
+        values may be added over time; treat unknown values as opaque.
       type: string
       enum:
       - owner
@@ -22599,6 +22759,7 @@ components:
       - pipeline_viewer
       - viewer
       - corpus_viewer
+      - metrics_viewer
     CorpusRole:
       description: Corpus-specific role assignment.
       type: object
@@ -22643,9 +22804,7 @@ components:
 
             * `agent_end_user` - Granted on an alias, lets a user create sessions
             and send messages through it. They see only their own sessions, and within
-            them only their own messages and the agent''s replies. This must be the
-            only role the user holds. The platform rejects assigning it alongside
-            any other role.
+            them only their own messages and the agent''s replies.
 
             '
           type: string
@@ -22743,6 +22902,12 @@ components:
             $ref: '#/components/schemas/AgentRole'
         api_policy:
           $ref: '#/components/schemas/ApiPolicy'
+        metadata:
+          description: Arbitrary metadata associated with the user.
+          type: object
+          additionalProperties: true
+          example:
+            console_mode: business
       required:
       - id
       - email
@@ -22788,6 +22953,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AgentRole'
+        metadata:
+          description: Arbitrary metadata associated with the user. The JSON serialization
+            must not exceed 65535 bytes; larger payloads are rejected with a `400`
+            response.
+          type: object
+          additionalProperties: true
+          default: {}
+          example:
+            console_mode: business
       required:
       - email
     UpdateUserRequest:
@@ -22816,6 +22990,16 @@ components:
           description: The description of the user.
           type: string
           maxLength: 255
+        metadata:
+          description: Arbitrary metadata associated with the user. Replaces the stored
+            metadata entirely; it is not merged. Omit the field to leave it unchanged,
+            or set it to null to clear it. The JSON serialization must not exceed
+            65535 bytes; larger payloads are rejected with a `400` response.
+          type: object
+          additionalProperties: true
+          nullable: true
+          example:
+            console_mode: business
     ApiKeyRole:
       description: "The role of the API key. A `personal` key has the same permissions\
         \ as its owner. A `serving` API key can only perform query type requests on\
@@ -23377,9 +23561,19 @@ components:
             : \"session.metadata.field_name\"}`\n\nReferences resolve at runtime from\
             \ context:\n- session.metadata.* - Access session metadata fields\n- session.caller.type\
             \ / .id / .email - The platform-verified identity of the caller who created\
-            \ the session (`user`, `api_key`, or `agent`; `email` is present only\
-            \ for user callers). The platform derives it from the authenticated request.\
-            \ A client cannot set it or shadow it through session metadata. It resolves\
+            \ the session (`user`, `anonymous`, `api_key`, `app_client`, `agent`,\
+            \ or `service_account`. For `user` the `id` is the user's subject, which\
+            \ for a federated identity is the one asserted by the identity provider;\
+            \ for `anonymous` it is the `vis_` visitor id minted by the widget bootstrap;\
+            \ for `api_key` it is the SHA-256 hex digest of the key's secret value,\
+            \ stable per key but not the `aky_` api key id and never returned by `/v2/api_keys`;\
+            \ for `app_client` it is the app client's `client_id`; for `agent` it\
+            \ is the client id of the service account a Vectara-run agent acts as;\
+            \ for `service_account` it is the client id of a Vectara platform job's\
+            \ account, such as an evaluation run, a pipeline, or a simulation. `email`\
+            \ is present only for `user` callers. A session created by an agent reports\
+            \ `agent`). The platform derives it from the authenticated request. A\
+            \ client cannot set it or shadow it through session metadata. It resolves\
             \ only during session-creation enrichment (`session_enrichment.tool_calls`\
             \ and the `enrichment_only` tool configurations they name). A reference\
             \ to it from a tool the agent calls mid-conversation stays unresolved\
@@ -23571,7 +23765,10 @@ components:
 
         - Execution: isolated, with no network access
 
-        - **Preinstalled modules**: the standard library plus `numpy` and `pandas`
+        - **Preinstalled packages**: the standard library plus data and document packages
+        including `numpy`, `pandas`, `python-calamine`, `openpyxl`, `xlrd`, `xlsxwriter`,
+        `python-pptx`, and `python-docx`. Import `python-calamine` as `python_calamine`,
+        `python-pptx` as `pptx`, and `python-docx` as `docx`.
 
         - Memory: fixed by the execution environment and not configurable per function
 
@@ -23904,28 +24101,38 @@ components:
               : \"session.metadata.field_name\"}`\n\nReferences resolve at runtime\
               \ from context:\n- session.metadata.* - Access session metadata fields\n\
               - session.caller.type / .id / .email - The platform-verified identity\
-              \ of the caller who created the session (`user`, `api_key`, or `agent`;\
-              \ `email` is present only for user callers). The platform derives it\
-              \ from the authenticated request. A client cannot set it or shadow it\
-              \ through session metadata. It resolves only during session-creation\
-              \ enrichment (`session_enrichment.tool_calls` and the `enrichment_only`\
-              \ tool configurations they name). A reference to it from a tool the\
-              \ agent calls mid-conversation stays unresolved and that call fails.\
-              \ An absent value (no email on the caller, or no authenticated identity)\
-              \ leaves the $ref unresolved and fails the call closed. In an `input_transform`\
-              \ jq expression the same absent value reads as `null` instead, so guard\
-              \ it there.\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
-              \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
-              \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
-              \ - The current date/time in ISO 8601 format\n\nA bracket index may\
-              \ reference another context value. The resolved value becomes the lookup\
-              \ key. The inner path may optionally carry a leading $ root marker:\n\
-              - Indirect reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
-              }` looks up the per-user secret named by `session.metadata.user_id`\n\
-              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
-              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
-              \nTo use a literal `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes\
-              \ the first $."
+              \ of the caller who created the session (`user`, `anonymous`, `api_key`,\
+              \ `app_client`, `agent`, or `service_account`. For `user` the `id` is\
+              \ the user's subject, which for a federated identity is the one asserted\
+              \ by the identity provider; for `anonymous` it is the `vis_` visitor\
+              \ id minted by the widget bootstrap; for `api_key` it is the SHA-256\
+              \ hex digest of the key's secret value, stable per key but not the `aky_`\
+              \ api key id and never returned by `/v2/api_keys`; for `app_client`\
+              \ it is the app client's `client_id`; for `agent` it is the client id\
+              \ of the service account a Vectara-run agent acts as; for `service_account`\
+              \ it is the client id of a Vectara platform job's account, such as an\
+              \ evaluation run, a pipeline, or a simulation. `email` is present only\
+              \ for `user` callers. A session created by an agent reports `agent`).\
+              \ The platform derives it from the authenticated request. A client cannot\
+              \ set it or shadow it through session metadata. It resolves only during\
+              \ session-creation enrichment (`session_enrichment.tool_calls` and the\
+              \ `enrichment_only` tool configurations they name). A reference to it\
+              \ from a tool the agent calls mid-conversation stays unresolved and\
+              \ that call fails. An absent value (no email on the caller, or no authenticated\
+              \ identity) leaves the $ref unresolved and fails the call closed. In\
+              \ an `input_transform` jq expression the same absent value reads as\
+              \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
+              \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
+              \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
+              \ after the dependent tool runs)\n- currentDate - The current date/time\
+              \ in ISO 8601 format\n\nA bracket index may reference another context\
+              \ value. The resolved value becomes the lookup key. The inner path may\
+              \ optionally carry a leading $ root marker:\n- Indirect reference: `{\"\
+              $ref\": \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
+              \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
+              \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
+              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
+              \ `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -23962,28 +24169,38 @@ components:
               : \"session.metadata.field_name\"}`\n\nReferences resolve at runtime\
               \ from context:\n- session.metadata.* - Access session metadata fields\n\
               - session.caller.type / .id / .email - The platform-verified identity\
-              \ of the caller who created the session (`user`, `api_key`, or `agent`;\
-              \ `email` is present only for user callers). The platform derives it\
-              \ from the authenticated request. A client cannot set it or shadow it\
-              \ through session metadata. It resolves only during session-creation\
-              \ enrichment (`session_enrichment.tool_calls` and the `enrichment_only`\
-              \ tool configurations they name). A reference to it from a tool the\
-              \ agent calls mid-conversation stays unresolved and that call fails.\
-              \ An absent value (no email on the caller, or no authenticated identity)\
-              \ leaves the $ref unresolved and fails the call closed. In an `input_transform`\
-              \ jq expression the same absent value reads as `null` instead, so guard\
-              \ it there.\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
-              \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
-              \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
-              \ - The current date/time in ISO 8601 format\n\nA bracket index may\
-              \ reference another context value. The resolved value becomes the lookup\
-              \ key. The inner path may optionally carry a leading $ root marker:\n\
-              - Indirect reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
-              }` looks up the per-user secret named by `session.metadata.user_id`\n\
-              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
-              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
-              \nTo use a literal `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes\
-              \ the first $."
+              \ of the caller who created the session (`user`, `anonymous`, `api_key`,\
+              \ `app_client`, `agent`, or `service_account`. For `user` the `id` is\
+              \ the user's subject, which for a federated identity is the one asserted\
+              \ by the identity provider; for `anonymous` it is the `vis_` visitor\
+              \ id minted by the widget bootstrap; for `api_key` it is the SHA-256\
+              \ hex digest of the key's secret value, stable per key but not the `aky_`\
+              \ api key id and never returned by `/v2/api_keys`; for `app_client`\
+              \ it is the app client's `client_id`; for `agent` it is the client id\
+              \ of the service account a Vectara-run agent acts as; for `service_account`\
+              \ it is the client id of a Vectara platform job's account, such as an\
+              \ evaluation run, a pipeline, or a simulation. `email` is present only\
+              \ for `user` callers. A session created by an agent reports `agent`).\
+              \ The platform derives it from the authenticated request. A client cannot\
+              \ set it or shadow it through session metadata. It resolves only during\
+              \ session-creation enrichment (`session_enrichment.tool_calls` and the\
+              \ `enrichment_only` tool configurations they name). A reference to it\
+              \ from a tool the agent calls mid-conversation stays unresolved and\
+              \ that call fails. An absent value (no email on the caller, or no authenticated\
+              \ identity) leaves the $ref unresolved and fails the call closed. In\
+              \ an `input_transform` jq expression the same absent value reads as\
+              \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
+              \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
+              \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
+              \ after the dependent tool runs)\n- currentDate - The current date/time\
+              \ in ISO 8601 format\n\nA bracket index may reference another context\
+              \ value. The resolved value becomes the lookup key. The inner path may\
+              \ optionally carry a leading $ root marker:\n- Indirect reference: `{\"\
+              $ref\": \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
+              \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
+              \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
+              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
+              \ `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -24698,28 +24915,38 @@ components:
               : \"session.metadata.field_name\"}`\n\nReferences resolve at runtime\
               \ from context:\n- session.metadata.* - Access session metadata fields\n\
               - session.caller.type / .id / .email - The platform-verified identity\
-              \ of the caller who created the session (`user`, `api_key`, or `agent`;\
-              \ `email` is present only for user callers). The platform derives it\
-              \ from the authenticated request. A client cannot set it or shadow it\
-              \ through session metadata. It resolves only during session-creation\
-              \ enrichment (`session_enrichment.tool_calls` and the `enrichment_only`\
-              \ tool configurations they name). A reference to it from a tool the\
-              \ agent calls mid-conversation stays unresolved and that call fails.\
-              \ An absent value (no email on the caller, or no authenticated identity)\
-              \ leaves the $ref unresolved and fails the call closed. In an `input_transform`\
-              \ jq expression the same absent value reads as `null` instead, so guard\
-              \ it there.\n- agent.metadata.* - Access agent metadata fields\n- agent.secrets.*\
-              \ - Access agent secrets (masked in audit events)\n- tools.* - Access\
-              \ prior tool outputs (resolved after the dependent tool runs)\n- currentDate\
-              \ - The current date/time in ISO 8601 format\n\nA bracket index may\
-              \ reference another context value. The resolved value becomes the lookup\
-              \ key. The inner path may optionally carry a leading $ root marker:\n\
-              - Indirect reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
-              }` looks up the per-user secret named by `session.metadata.user_id`\n\
-              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
-              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
-              \nTo use a literal `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes\
-              \ the first $."
+              \ of the caller who created the session (`user`, `anonymous`, `api_key`,\
+              \ `app_client`, `agent`, or `service_account`. For `user` the `id` is\
+              \ the user's subject, which for a federated identity is the one asserted\
+              \ by the identity provider; for `anonymous` it is the `vis_` visitor\
+              \ id minted by the widget bootstrap; for `api_key` it is the SHA-256\
+              \ hex digest of the key's secret value, stable per key but not the `aky_`\
+              \ api key id and never returned by `/v2/api_keys`; for `app_client`\
+              \ it is the app client's `client_id`; for `agent` it is the client id\
+              \ of the service account a Vectara-run agent acts as; for `service_account`\
+              \ it is the client id of a Vectara platform job's account, such as an\
+              \ evaluation run, a pipeline, or a simulation. `email` is present only\
+              \ for `user` callers. A session created by an agent reports `agent`).\
+              \ The platform derives it from the authenticated request. A client cannot\
+              \ set it or shadow it through session metadata. It resolves only during\
+              \ session-creation enrichment (`session_enrichment.tool_calls` and the\
+              \ `enrichment_only` tool configurations they name). A reference to it\
+              \ from a tool the agent calls mid-conversation stays unresolved and\
+              \ that call fails. An absent value (no email on the caller, or no authenticated\
+              \ identity) leaves the $ref unresolved and fails the call closed. In\
+              \ an `input_transform` jq expression the same absent value reads as\
+              \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
+              \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
+              \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
+              \ after the dependent tool runs)\n- currentDate - The current date/time\
+              \ in ISO 8601 format\n\nA bracket index may reference another context\
+              \ value. The resolved value becomes the lookup key. The inner path may\
+              \ optionally carry a leading $ root marker:\n- Indirect reference: `{\"\
+              $ref\": \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
+              \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
+              \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
+              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
+              \ `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -34044,9 +34271,46 @@ components:
           type: string
           example: my-documents-bucket
         prefix:
-          description: Key prefix to scope ingestion to a subset of objects.
+          description: 'Key prefix to scope ingestion to a subset of objects.
+
+
+            Deprecated: use `prefixes` instead. Ignored when `prefixes` is non-empty.
+
+            '
+          deprecated: true
           type: string
           example: legal/contracts/
+        prefixes:
+          description: 'Key prefixes to scope ingestion to a subset of objects. An
+            object is ingested when its
+
+            key starts with any listed prefix and passes the `pos_regex` and `neg_regex`
+            filters.
+
+            No entry may be a prefix of another entry; duplicate or overlapping entries
+            are
+
+            rejected. When empty or omitted, the deprecated `prefix` field applies;
+            if that is
+
+            also empty, objects are not filtered by key prefix. On a partial update
+            (PATCH), a
+
+            provided list replaces the stored list as a whole. An omitted one keeps
+            the stored
+
+            list.
+
+            '
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 1024
+          example:
+          - legal/contracts/
+          - finance/reports/
         region:
           description: The region of the S3-compatible service.
           type: string
@@ -34974,9 +35238,14 @@ components:
         \ run's watermark and\ningest the content those reports flag as created or\
         \ updated, including metadata-only changes.\nSuch a run fails when its watermark\
         \ window holds more than 1000 reports, and a full refresh\nis required to\
-        \ resync. Content the reports flag as deleted is not removed from the corpus.\n\
-        Full-refresh runs \u2014 and the first run, which has no watermark yet \u2014\
-        \ enumerate all content.\n"
+        \ resync. Content the reports flag as deleted, and content the reports flag\
+        \ as\nchanged that the tenant no longer returns, is reported as a delete record\
+        \ (`operation: delete`)\nin the `documents` and `maps` scopes. A deletion\
+        \ is reported by record id, so `filters`,\n`locale`, `include_sources`, and\
+        \ `exclude_sources` do not apply to it. In the `topics` scope a\ndeleted map's\
+        \ topics can no longer be listed, so they are not reported. Full-refresh runs\
+        \ \u2014 and\nthe first run, which has no watermark yet \u2014 enumerate all\
+        \ content and report no deletions.\n"
       type: object
       properties:
         type:
@@ -35941,9 +36210,11 @@ components:
     PipelineSyncMode:
       description: 'How the pipeline syncs data from the source.
 
-        - `incremental`: Only process new or changed records since the last watermark.
+        - `incremental`: Only process records that are new, changed, or deleted since
+        the last watermark.
 
-        - `full_refresh`: Process all records from the source on each run.
+        - `full_refresh`: Process all records the source lists on each run. Source-reported
+        deletions are not processed.
 
         '
       type: string
@@ -36347,7 +36618,9 @@ components:
       description: 'A single execution of a pipeline. Each run fetches data from the
         source and creates one
 
-        agent session per record. Each record is mapped 1:1 to a session.
+        agent session per record it processes. A record whose agent `run_condition`
+        evaluated to false gets no session, and a record already processed at the
+        same watermark reuses its prior session.
 
         '
       type: object
@@ -36363,7 +36636,10 @@ components:
         trigger_type:
           $ref: '#/components/schemas/PipelineRunTriggerType'
         records_fetched:
-          description: Number of records discovered from the source in this run.
+          description: Number of records this run took from the source for processing,
+            counting both upserts and deletions. Records the run drops before processing,
+            for example source-reported deletions during a full refresh, are excluded.
+            A retry run counts the dead letters it fetches.
           type: integer
           format: int32
           default: 0
@@ -36427,6 +36703,14 @@ components:
       enum:
       - pipeline
       - manual
+    RecordOperation:
+      description: The operation the source performed on a record. `upsert` when the
+        record was added or changed, `delete` when the source reported it deleted.
+        New values may be added; treat unrecognized values as opaque.
+      type: string
+      enum:
+      - upsert
+      - delete
     PipelineDeadLetterEntry:
       description: 'A record that failed processing during a pipeline run. Dead letters
         are pipeline-scoped.
@@ -36482,6 +36766,10 @@ components:
           format: int32
         origin:
           $ref: '#/components/schemas/DeadLetterOrigin'
+        operation:
+          description: The operation the next retry runs for this record.
+          allOf:
+          - $ref: '#/components/schemas/RecordOperation'
         created_at:
           description: When this dead letter was first recorded.
           type: string
@@ -36497,6 +36785,7 @@ components:
       - status
       - attempt_count
       - origin
+      - operation
       - created_at
     ListPipelineDeadLetterEntriesResponse:
       description: Response containing a list of pipeline dead letters.
@@ -36512,12 +36801,18 @@ components:
       - dead_letters
       - metadata
     CreatePipelineDeadLetterEntryRequest:
-      description: 'Request to manually add a source record to the dead letter queue
-        for reprocessing.
+      description: 'Request to manually add a source record to the dead letter queue.
+        The next retry run
 
-        Use this when you want to force a record through the pipeline again, for example
+        processes the record with the given `operation`. `upsert`, the default, forces
+        the record
 
-        when the agent or judge made an incorrect decision.
+        through the pipeline again, for example when the agent or judge made an incorrect
+
+        decision. `delete` runs the agent''s delete handling for a record the source
+        removed. If
+
+        the record already has a dead letter, the entry replaces it, operation included.
 
         '
       type: object
@@ -36545,6 +36840,11 @@ components:
         error_message:
           description: Optional reason for manually adding this record.
           type: string
+        operation:
+          description: The operation the next retry runs for this record.
+          default: upsert
+          allOf:
+          - $ref: '#/components/schemas/RecordOperation'
       required:
       - source_record_id
     ProcessPipelineDeadLetterEntriesRequest:
@@ -36669,8 +36969,9 @@ components:
           status:
             $ref: '#/components/schemas/RunCompletedEventStatus'
           records_fetched:
-            description: Total records fetched across the run. Present when the run
-              reported counters. Absent or partial for cancellation.
+            description: Records the run took from the source for processing, as defined
+              on `PipelineRun.records_fetched`. Present when the run reported counters.
+              Absent or partial for cancellation.
             type: integer
             format: int32
             nullable: true
@@ -36679,9 +36980,9 @@ components:
             format: int32
             nullable: true
           records_skipped:
-            description: Records the run neither processed nor failed, because a `run_condition`
-              on the agent or on the judge agent evaluated to false. Disjoint from
-              `records_processed` and `records_failed`.
+            description: Records the run neither processed nor failed, for the causes
+              listed on `PipelineRun.records_skipped`. Disjoint from `records_processed`
+              and `records_failed`.
             type: integer
             format: int32
             nullable: true
@@ -36699,7 +37000,7 @@ components:
     RecordProcessingEventStatus:
       description: Lifecycle status of a single source record within a run. `started`
         when processing begins, `completed` when the record succeeded or was skipped
-        without processing, `failed` for a failed processing attempt, and `dead_lettered`
+        without processing, `failed` for a failed processing attempt, `dead_lettered`
         when the record exhausted its retries and was written to, or in a retry run
         updated in, the dead letter queue.
       type: string
@@ -36725,6 +37026,10 @@ components:
         one or more `failed`
 
         events (one per attempt) followed by a single terminal `dead_lettered` event.
+        Every event carries the
+
+        record''s `operation`; a record the source reported deleted follows the same
+        lifecycle as an upsert.
 
         '
       allOf:
@@ -36739,6 +37044,8 @@ components:
           source_record_id:
             description: The identifier of the source record.
             type: string
+          operation:
+            $ref: '#/components/schemas/RecordOperation'
           session_key:
             description: The agent session created to process this record. Present
               on `completed`, except for a record the agent's `run_condition` evaluated
@@ -36797,7 +37104,9 @@ components:
               before it emits
 
               `completed`. Null on `dead_lettered`, which is a terminal marker not
-              tied to a single attempt.
+              tied to a
+
+              single attempt.
 
               '
             type: integer
@@ -36817,6 +37126,7 @@ components:
         - type
         - status
         - source_record_id
+        - operation
     WatermarkAdvancedEvent:
       description: The pipeline's persisted watermark moved forward at the end of
         the run.
@@ -37498,6 +37808,15 @@ components:
         response_id:
           description: The provider response identifier.
           type: string
+        time_to_first_token_ms:
+          description: 'Milliseconds from the start of this completion until the LLM
+            streamed its first output: a text or reasoning token, a tool call, or
+            the structured output of a completion that produces one. Absent when the
+            completion was not streamed or streamed no output.
+
+            '
+          type: integer
+          format: int64
     ChatTraceSpan:
       description: A span representing a single LLM chat completion call within an
         agent turn.
