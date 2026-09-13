@@ -39,6 +39,14 @@ namespace Vectara
         public string? Description { get; set; }
 
         /// <summary>
+        /// Arbitrary metadata associated with the user. Replaces the stored metadata entirely; it is not merged. Omit the field to leave it unchanged, or set it to null to clear it. The JSON serialization must not exceed 65535 bytes; larger payloads are rejected with a `400` response.<br/>
+        /// Example: {"console_mode":"business"}
+        /// </summary>
+        /// <example>{"console_mode":"business"}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
+        public object? Metadata { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -62,6 +70,10 @@ namespace Vectara
         /// <param name="description">
         /// The description of the user.
         /// </param>
+        /// <param name="metadata">
+        /// Arbitrary metadata associated with the user. Replaces the stored metadata entirely; it is not merged. Omit the field to leave it unchanged, or set it to null to clear it. The JSON serialization must not exceed 65535 bytes; larger payloads are rejected with a `400` response.<br/>
+        /// Example: {"console_mode":"business"}
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -70,13 +82,15 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
             global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles,
-            string? description)
+            string? description,
+            object? metadata)
         {
             this.Enabled = enabled;
             this.ApiRoles = apiRoles;
             this.CorpusRoles = corpusRoles;
             this.AgentRoles = agentRoles;
             this.Description = description;
+            this.Metadata = metadata;
         }
 
         /// <summary>

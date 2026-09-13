@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// Delete a document<br/>
-        /// Permanently deletes a document from a corpus. The unique `document_id` identifies the document. This operation cannot be undone, so use it with caution.
+        /// Permanently deletes a document from a corpus. The unique `document_id` identifies the document. This operation cannot be undone, so use it with caution. The response arrives once the document has been removed.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -27,7 +27,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete a document<br/>
-        /// Permanently deletes a document from a corpus. The unique `document_id` identifies the document. This operation cannot be undone, so use it with caution.
+        /// Permanently deletes a document from a corpus. The unique `document_id` identifies the document. This operation cannot be undone, so use it with caution. The response arrives once the document has been removed.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -70,6 +70,14 @@ namespace Vectara
         public required global::Vectara.DeadLetterOrigin Origin { get; set; }
 
         /// <summary>
+        /// The operation the next retry runs for this record.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("operation")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RecordOperationJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::Vectara.RecordOperation Operation { get; set; }
+
+        /// <summary>
         /// When this dead letter was first recorded.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_at")]
@@ -110,6 +118,9 @@ namespace Vectara
         /// <param name="origin">
         /// How this dead letter was created.
         /// </param>
+        /// <param name="operation">
+        /// The operation the next retry runs for this record.
+        /// </param>
         /// <param name="createdAt">
         /// When this dead letter was first recorded.
         /// </param>
@@ -135,6 +146,7 @@ namespace Vectara
             global::Vectara.DeadLetterStatus status,
             int attemptCount,
             global::Vectara.DeadLetterOrigin origin,
+            global::Vectara.RecordOperation operation,
             global::System.DateTime createdAt,
             string? errorMessage,
             string? lastRunId,
@@ -148,6 +160,7 @@ namespace Vectara
             this.LastRunId = lastRunId;
             this.AttemptCount = attemptCount;
             this.Origin = origin;
+            this.Operation = operation;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
         }

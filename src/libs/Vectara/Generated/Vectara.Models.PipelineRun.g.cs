@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// A single execution of a pipeline. Each run fetches data from the source and creates one<br/>
-    /// agent session per record. Each record is mapped 1:1 to a session.
+    /// agent session per record it processes. A record whose agent `run_condition` evaluated to false gets no session, and a record already processed at the same watermark reuses its prior session.
     /// </summary>
     public sealed partial class PipelineRun
     {
@@ -53,7 +53,7 @@ namespace Vectara
         public required global::Vectara.PipelineRunTriggerType TriggerType { get; set; }
 
         /// <summary>
-        /// Number of records discovered from the source in this run.<br/>
+        /// Number of records this run took from the source for processing, counting both upserts and deletions. Records the run drops before processing, for example source-reported deletions during a full refresh, are excluded. A retry run counts the dead letters it fetches.<br/>
         /// Default Value: 0
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("records_fetched")]
@@ -137,7 +137,7 @@ namespace Vectara
         /// What initiated the pipeline run.
         /// </param>
         /// <param name="recordsFetched">
-        /// Number of records discovered from the source in this run.<br/>
+        /// Number of records this run took from the source for processing, counting both upserts and deletions. Records the run drops before processing, for example source-reported deletions during a full refresh, are excluded. A retry run counts the dead letters it fetches.<br/>
         /// Default Value: 0
         /// </param>
         /// <param name="recordsProcessed">

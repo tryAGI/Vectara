@@ -9,7 +9,7 @@ namespace Vectara
     /// * `agent_viewer` - Read-only access to view agent configuration, sessions, events, instructions, and tools.<br/>
     /// * `agent_developer` - Can modify agent configuration, create/manage sessions, update tools and instructions.<br/>
     /// * `agent_user` - Limited access to interact with the agent by creating sessions and sending inputs. Cannot view agent configuration or modify settings.<br/>
-    /// * `agent_end_user` - Granted on an alias, lets a user create sessions and send messages through it. They see only their own sessions, and within them only their own messages and the agent's replies. This must be the only role the user holds. The platform rejects assigning it alongside any other role.
+    /// * `agent_end_user` - Granted on an alias, lets a user create sessions and send messages through it. They see only their own sessions, and within them only their own messages and the agent's replies.
     /// </summary>
     public enum AgentRoleRole
     {

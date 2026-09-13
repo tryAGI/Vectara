@@ -34,8 +34,8 @@ namespace Vectara
 
         /// <summary>
         /// How the pipeline syncs data from the source.<br/>
-        /// - `incremental`: Only process new or changed records since the last watermark.<br/>
-        /// - `full_refresh`: Process all records from the source on each run.<br/>
+        /// - `incremental`: Only process records that are new, changed, or deleted since the last watermark.<br/>
+        /// - `full_refresh`: Process all records the source lists on each run. Source-reported deletions are not processed.<br/>
         /// Default Value: incremental
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sync_mode")]
@@ -75,8 +75,8 @@ namespace Vectara
         /// </param>
         /// <param name="syncMode">
         /// How the pipeline syncs data from the source.<br/>
-        /// - `incremental`: Only process new or changed records since the last watermark.<br/>
-        /// - `full_refresh`: Process all records from the source on each run.<br/>
+        /// - `incremental`: Only process records that are new, changed, or deleted since the last watermark.<br/>
+        /// - `full_refresh`: Process all records the source lists on each run. Source-reported deletions are not processed.<br/>
         /// Default Value: incremental
         /// </param>
         /// <param name="startWatermark">

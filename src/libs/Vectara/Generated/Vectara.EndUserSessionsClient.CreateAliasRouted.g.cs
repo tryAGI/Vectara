@@ -13,6 +13,21 @@ namespace Vectara
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
                 {                    new global::Vectara.EndPointAuthorizationRequirement
                     {
+                        Type = "ApiKey",
+                        SchemeId = "ApiKeyAuth",
+                        Location = "Header",
+                        Name = "x-api-key",
+                        FriendlyName = "ApiKeyAuth",
+                    },
+                },
+            };
+
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRoutedSecurityRequirement1 =
+            new global::Vectara.EndPointSecurityRequirement
+            {
+                Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
+                {                    new global::Vectara.EndPointAuthorizationRequirement
+                    {
                         Type = "OAuth2",
                         SchemeId = "OAuth2",
                         Location = "Header",
@@ -22,7 +37,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRoutedSecurityRequirement1 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRoutedSecurityRequirement2 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -37,7 +52,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRoutedSecurityRequirement2 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateAliasRoutedSecurityRequirement3 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -56,6 +71,7 @@ namespace Vectara
             {                s_CreateAliasRoutedSecurityRequirement0,
                 s_CreateAliasRoutedSecurityRequirement1,
                 s_CreateAliasRoutedSecurityRequirement2,
+                s_CreateAliasRoutedSecurityRequirement3,
             };
         partial void PrepareCreateAliasRoutedArguments(
             global::System.Net.Http.HttpClient httpClient,
@@ -84,6 +100,7 @@ namespace Vectara
         /// <summary>
         /// Create end user session for alias<br/>
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
         /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>
@@ -126,6 +143,7 @@ namespace Vectara
         /// <summary>
         /// Create end user session for alias<br/>
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
         /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>
@@ -796,6 +814,7 @@ namespace Vectara
         /// <summary>
         /// Create end user session for alias<br/>
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
         /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>

@@ -4,9 +4,11 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request to manually add a source record to the dead letter queue for reprocessing.<br/>
-    /// Use this when you want to force a record through the pipeline again, for example<br/>
-    /// when the agent or judge made an incorrect decision.
+    /// Request to manually add a source record to the dead letter queue. The next retry run<br/>
+    /// processes the record with the given `operation`. `upsert`, the default, forces the record<br/>
+    /// through the pipeline again, for example when the agent or judge made an incorrect<br/>
+    /// decision. `delete` runs the agent's delete handling for a record the source removed. If<br/>
+    /// the record already has a dead letter, the entry replaces it, operation included.
     /// </summary>
     public sealed partial class CreatePipelineDeadLetterEntryRequest
     {
@@ -31,6 +33,14 @@ namespace Vectara
         public string? ErrorMessage { get; set; }
 
         /// <summary>
+        /// The operation the next retry runs for this record.<br/>
+        /// Default Value: upsert
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("operation")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.RecordOperationJsonConverter))]
+        public global::Vectara.RecordOperation? Operation { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -52,15 +62,21 @@ namespace Vectara
         /// <param name="errorMessage">
         /// Optional reason for manually adding this record.
         /// </param>
+        /// <param name="operation">
+        /// The operation the next retry runs for this record.<br/>
+        /// Default Value: upsert
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public CreatePipelineDeadLetterEntryRequest(
             string sourceRecordId,
-            string? errorMessage)
+            string? errorMessage,
+            global::Vectara.RecordOperation? operation)
         {
             this.SourceRecordId = sourceRecordId ?? throw new global::System.ArgumentNullException(nameof(sourceRecordId));
             this.ErrorMessage = errorMessage;
+            this.Operation = operation;
         }
 
         /// <summary>

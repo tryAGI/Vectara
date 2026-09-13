@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Lifecycle status of a single source record within a run. `started` when processing begins, `completed` when the record succeeded or was skipped without processing, `failed` for a failed processing attempt, and `dead_lettered` when the record exhausted its retries and was written to, or in a retry run updated in, the dead letter queue.
+    /// Lifecycle status of a single source record within a run. `started` when processing begins, `completed` when the record succeeded or was skipped without processing, `failed` for a failed processing attempt, `dead_lettered` when the record exhausted its retries and was written to, or in a retry run updated in, the dead letter queue.
     /// </summary>
     public enum RecordProcessingEventStatus
     {

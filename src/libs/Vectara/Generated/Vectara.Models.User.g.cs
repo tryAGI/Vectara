@@ -77,6 +77,14 @@ namespace Vectara
         public global::Vectara.ApiPolicy? ApiPolicy { get; set; }
 
         /// <summary>
+        /// Arbitrary metadata associated with the user.<br/>
+        /// Example: {"console_mode":"business"}
+        /// </summary>
+        /// <example>{"console_mode":"business"}</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
+        public object? Metadata { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -118,6 +126,10 @@ namespace Vectara
         /// <param name="apiPolicy">
         /// The actions a principal can take on the Vectara platform.
         /// </param>
+        /// <param name="metadata">
+        /// Arbitrary metadata associated with the user.<br/>
+        /// Example: {"console_mode":"business"}
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -132,7 +144,8 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.ApiRole>? apiRoles,
             global::System.Collections.Generic.IList<global::Vectara.CorpusRole>? corpusRoles,
             global::System.Collections.Generic.IList<global::Vectara.AgentRole>? agentRoles,
-            global::Vectara.ApiPolicy? apiPolicy)
+            global::Vectara.ApiPolicy? apiPolicy,
+            object? metadata)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Email = email ?? throw new global::System.ArgumentNullException(nameof(email));
@@ -145,6 +158,7 @@ namespace Vectara
             this.CorpusRoles = corpusRoles;
             this.AgentRoles = agentRoles;
             this.ApiPolicy = apiPolicy;
+            this.Metadata = metadata;
         }
 
         /// <summary>

@@ -7,6 +7,7 @@ namespace Vectara
         /// <summary>
         /// Create end user input for alias<br/>
         /// Sends a message, an interrupt, or a client tool output to a session the caller owns, addressed by the alias it was created through.<br/>
+        /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Returns 403 if the session belongs to a different principal.<br/>
         /// The response is projected to the caller's end-user visibility — see `EndUserEvent`.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>

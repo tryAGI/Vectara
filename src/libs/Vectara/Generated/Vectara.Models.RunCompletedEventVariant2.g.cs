@@ -25,7 +25,7 @@ namespace Vectara
         public required global::Vectara.RunCompletedEventStatus Status { get; set; }
 
         /// <summary>
-        /// Total records fetched across the run. Present when the run reported counters. Absent or partial for cancellation.
+        /// Records the run took from the source for processing, as defined on `PipelineRun.records_fetched`. Present when the run reported counters. Absent or partial for cancellation.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("records_fetched")]
         public int? RecordsFetched { get; set; }
@@ -37,7 +37,7 @@ namespace Vectara
         public int? RecordsProcessed { get; set; }
 
         /// <summary>
-        /// Records the run neither processed nor failed, because a `run_condition` on the agent or on the judge agent evaluated to false. Disjoint from `records_processed` and `records_failed`.
+        /// Records the run neither processed nor failed, for the causes listed on `PipelineRun.records_skipped`. Disjoint from `records_processed` and `records_failed`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("records_skipped")]
         public int? RecordsSkipped { get; set; }
@@ -70,11 +70,11 @@ namespace Vectara
         /// Terminal status of a pipeline run.
         /// </param>
         /// <param name="recordsFetched">
-        /// Total records fetched across the run. Present when the run reported counters. Absent or partial for cancellation.
+        /// Records the run took from the source for processing, as defined on `PipelineRun.records_fetched`. Present when the run reported counters. Absent or partial for cancellation.
         /// </param>
         /// <param name="recordsProcessed"></param>
         /// <param name="recordsSkipped">
-        /// Records the run neither processed nor failed, because a `run_condition` on the agent or on the judge agent evaluated to false. Disjoint from `records_processed` and `records_failed`.
+        /// Records the run neither processed nor failed, for the causes listed on `PipelineRun.records_skipped`. Disjoint from `records_processed` and `records_failed`.
         /// </param>
         /// <param name="recordsFailed"></param>
         /// <param name="error">

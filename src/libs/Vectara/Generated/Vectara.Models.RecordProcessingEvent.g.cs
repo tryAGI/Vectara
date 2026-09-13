@@ -10,7 +10,8 @@ namespace Vectara
     /// `failed` for each failed processing attempt, and `dead_lettered` when the record exhausted its<br/>
     /// retries and was written to the dead letter queue (or, in a retry run, its existing dead letter<br/>
     /// was marked still-failing). A record that is ultimately dead-lettered emits one or more `failed`<br/>
-    /// events (one per attempt) followed by a single terminal `dead_lettered` event.
+    /// events (one per attempt) followed by a single terminal `dead_lettered` event. Every event carries the<br/>
+    /// record's `operation`; a record the source reported deleted follows the same lifecycle as an upsert.
     /// </summary>
     public readonly partial struct RecordProcessingEvent : global::System.IEquatable<RecordProcessingEvent>
     {
