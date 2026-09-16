@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A point in a distribution metric series. Bin labels match those declared on the metric's descriptor. Only bins with non-zero counts appear.
+    /// A single time-bin point for a distribution metric.
     /// </summary>
     public sealed partial class DistributionMetricPoint
     {

@@ -55,6 +55,22 @@ namespace Vectara
         public global::Vectara.RemoteAuth? Auth { get; set; }
 
         /// <summary>
+        /// Ingestion of page attachments as their own records. No type filter is applied: every attachment is<br/>
+        /// ingested unless `pos_regex`, `neg_regex`, or `max_bytes` excludes it. An attachment whose type the<br/>
+        /// pipeline's transform cannot convert is still downloaded and counted as processed, but nothing is indexed<br/>
+        /// for it.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("attachments")]
+        public global::Vectara.ConfluenceAttachmentsConfiguration? Attachments { get; set; }
+
+        /// <summary>
+        /// Handling of images embedded in page bodies. At most 20 MiB of base64-encoded image data (roughly 15 MiB<br/>
+        /// of original image bytes) is inlined per page; images beyond that total are left as Confluence URLs.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("embedded_images")]
+        public global::Vectara.ConfluenceEmbeddedImagesConfiguration? EmbeddedImages { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -85,6 +101,16 @@ namespace Vectara
         /// <param name="auth">
         /// Authentication configuration for connecting to a remote service.
         /// </param>
+        /// <param name="attachments">
+        /// Ingestion of page attachments as their own records. No type filter is applied: every attachment is<br/>
+        /// ingested unless `pos_regex`, `neg_regex`, or `max_bytes` excludes it. An attachment whose type the<br/>
+        /// pipeline's transform cannot convert is still downloaded and counted as processed, but nothing is indexed<br/>
+        /// for it.
+        /// </param>
+        /// <param name="embeddedImages">
+        /// Handling of images embedded in page bodies. At most 20 MiB of base64-encoded image data (roughly 15 MiB<br/>
+        /// of original image bytes) is inlined per page; images beyond that total are left as Confluence URLs.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -93,13 +119,17 @@ namespace Vectara
             string? baseUrl,
             global::Vectara.BaseConfluenceSourceConfigurationDeployment? deployment,
             global::System.Collections.Generic.IList<string>? spaceKeys,
-            global::Vectara.RemoteAuth? auth)
+            global::Vectara.RemoteAuth? auth,
+            global::Vectara.ConfluenceAttachmentsConfiguration? attachments,
+            global::Vectara.ConfluenceEmbeddedImagesConfiguration? embeddedImages)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.BaseUrl = baseUrl;
             this.Deployment = deployment;
             this.SpaceKeys = spaceKeys;
             this.Auth = auth;
+            this.Attachments = attachments;
+            this.EmbeddedImages = embeddedImages;
         }
 
         /// <summary>

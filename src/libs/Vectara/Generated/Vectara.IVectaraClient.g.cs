@@ -267,7 +267,7 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public WidgetsClient Widgets { get; }
+        public VisitorsClient Visitors { get; }
 
     }
 }

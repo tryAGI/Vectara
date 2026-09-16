@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A time series of metric points. The shape of points varies by metric type.
+    /// A metric query result. A single series of points whose shape varies by metric type.
     /// </summary>
     public readonly partial struct MetricSeries : global::System.IEquatable<MetricSeries>
     {

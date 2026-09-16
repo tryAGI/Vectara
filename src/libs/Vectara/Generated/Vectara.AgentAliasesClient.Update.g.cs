@@ -65,7 +65,7 @@ namespace Vectara
 
         /// <summary>
         /// Update an alias's metadata<br/>
-        /// Updates an alias's metadata fields (name, description, enabled, metadata). Setting `enabled` to false on a platform-generated alias fronted by a widget connector is rejected with `409`; disable the connector instead. To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
+        /// Updates an alias's metadata fields (name, description, enabled, metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -100,7 +100,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update an alias's metadata<br/>
-        /// Updates an alias's metadata fields (name, description, enabled, metadata). Setting `enabled` to false on a platform-generated alias fronted by a widget connector is rejected with `409`; disable the connector instead. To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
+        /// Updates an alias's metadata fields (name, description, enabled, metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -608,7 +608,7 @@ namespace Vectara
         }
         /// <summary>
         /// Update an alias's metadata<br/>
-        /// Updates an alias's metadata fields (name, description, enabled, metadata). Setting `enabled` to false on a platform-generated alias fronted by a widget connector is rejected with `409`; disable the connector instead. To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
+        /// Updates an alias's metadata fields (name, description, enabled, metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`. Policies are atomic and do not support partial updates.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

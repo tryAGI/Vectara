@@ -59,7 +59,8 @@ namespace Vectara
         /// <summary>
         /// Delete trusted token issuer<br/>
         /// Deletes a trusted token issuer registration.<br/>
-        /// Every future sign-in with the issuer's tokens is refused immediately.
+        /// Every future sign-in with the issuer's tokens is refused immediately.<br/>
+        /// A registration a widget connector's `end_user_sign_in` references cannot be deleted; the widget is updated or deleted first.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -88,7 +89,8 @@ namespace Vectara
         /// <summary>
         /// Delete trusted token issuer<br/>
         /// Deletes a trusted token issuer registration.<br/>
-        /// Every future sign-in with the issuer's tokens is refused immediately.
+        /// Every future sign-in with the issuer's tokens is refused immediately.<br/>
+        /// A registration a widget connector's `end_user_sign_in` references cannot be deleted; the widget is updated or deleted first.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -480,6 +482,43 @@ namespace Vectara
                                     innerException: __exception_404,
                                     responseBody: __content_404,
                                     responseObject: __value_404,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // A widget connector's `end_user_sign_in` references the registration. Remove the reference before deleting it.
+                            if ((int)__response.StatusCode == 409)
+                            {
+                                string? __content_409 = null;
+                                global::System.Exception? __exception_409 = null;
+                                global::Vectara.Error? __value_409 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_409 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_409 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_409 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_409 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_409,
+                                    responseBody: __content_409,
+                                    responseObject: __value_409,
                                     responseHeaders: global::System.Linq.Enumerable.ToDictionary(
                                         __response.Headers,
                                         h => h.Key,

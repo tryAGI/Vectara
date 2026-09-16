@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Written as the `metadata` of every session created through this widget's alias.<br/>
+    /// Written into every session created through this widget connector, under `metadata.connector.&lt;connector_id&gt;`.<br/>
     /// Example: {"instance":"conversational-ai"}
     /// </summary>
     public sealed partial class UpdateWidgetConnectorConfigurationSessionMetadata

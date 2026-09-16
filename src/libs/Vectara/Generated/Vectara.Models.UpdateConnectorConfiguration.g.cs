@@ -135,7 +135,7 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Zoom' but the value was {ToString()}.");
 
         /// <summary>
-        /// Partial update view of a web widget connector's configuration. Omitted fields keep their stored value; nested objects such as `presentation` are replaced whole when supplied.
+        /// Partial update of a widget connector's configuration: an omitted field keeps its stored value; `presentation` is replaced whole when supplied.
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::Vectara.UpdateWidgetConnectorConfiguration? Widget { get; init; }

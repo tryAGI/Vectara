@@ -46,6 +46,7 @@ namespace Vectara
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
             ref string metricName,
+            global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? dimensions,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels,
             ref global::System.DateTime start,
             ref global::System.DateTime end,
@@ -56,6 +57,7 @@ namespace Vectara
             int? requestTimeout,
             int? requestTimeoutMillis,
             string metricName,
+            global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? dimensions,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels,
             global::System.DateTime start,
             global::System.DateTime end,
@@ -71,11 +73,12 @@ namespace Vectara
 
         /// <summary>
         /// Query a metric time series<br/>
-        /// Returns a time series of aggregated metric values for the named metric within the requested time range.
+        /// Returns a time series of aggregated metric values for the named metric within the requested time range, together with the metric's descriptor.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="metricName"></param>
+        /// <param name="dimensions"></param>
         /// <param name="labels"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
@@ -91,6 +94,7 @@ namespace Vectara
             global::System.DateTime end,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? dimensions = default,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels = default,
             int? maxBins = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -102,6 +106,7 @@ namespace Vectara
                 end: end,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
+                dimensions: dimensions,
                 labels: labels,
                 maxBins: maxBins,
                 requestOptions: requestOptions,
@@ -112,11 +117,12 @@ namespace Vectara
         }
         /// <summary>
         /// Query a metric time series<br/>
-        /// Returns a time series of aggregated metric values for the named metric within the requested time range.
+        /// Returns a time series of aggregated metric values for the named metric within the requested time range, together with the metric's descriptor.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="metricName"></param>
+        /// <param name="dimensions"></param>
         /// <param name="labels"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
@@ -132,6 +138,7 @@ namespace Vectara
             global::System.DateTime end,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? dimensions = default,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels = default,
             int? maxBins = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -144,6 +151,7 @@ namespace Vectara
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 metricName: ref metricName,
+                dimensions: dimensions,
                 labels: labels,
                 start: ref start,
                 end: ref end,
@@ -176,6 +184,7 @@ namespace Vectara
                                 path: $"/v2/metrics/{metricName}",
                                 baseUri: HttpClient.BaseAddress);
                             __pathBuilder
+                                .AddOptionalParameter("dimensions", dimensions?.ToString())
                                 .AddOptionalParameter("labels", labels?.ToString())
                                 .AddRequiredParameter("start", start.ToString("yyyy-MM-ddTHH:mm:ssZ"))
                                 .AddRequiredParameter("end", end.ToString("yyyy-MM-ddTHH:mm:ssZ"))
@@ -234,6 +243,7 @@ namespace Vectara
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
                     metricName: metricName!,
+                    dimensions: dimensions,
                     labels: labels,
                     start: start!,
                     end: end!,

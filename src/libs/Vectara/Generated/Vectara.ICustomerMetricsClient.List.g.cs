@@ -6,7 +6,7 @@ namespace Vectara
     {
         /// <summary>
         /// List available metrics<br/>
-        /// Returns the catalog of registered metrics that you can query via `/v2/metrics/{metric_name}`. Use it to discover metric names, types, and supported labels.
+        /// Returns the catalog of registered metrics that you can query via `/v2/metrics/{metric_name}`, both system metrics and the account's custom metrics. Use it to discover metric names, types, and dimensions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -22,7 +22,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// List available metrics<br/>
-        /// Returns the catalog of registered metrics that you can query via `/v2/metrics/{metric_name}`. Use it to discover metric names, types, and supported labels.
+        /// Returns the catalog of registered metrics that you can query via `/v2/metrics/{metric_name}`, both system metrics and the account's custom metrics. Use it to discover metric names, types, and dimensions.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

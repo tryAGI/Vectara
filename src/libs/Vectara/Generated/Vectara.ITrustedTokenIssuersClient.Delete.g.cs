@@ -7,7 +7,8 @@ namespace Vectara
         /// <summary>
         /// Delete trusted token issuer<br/>
         /// Deletes a trusted token issuer registration.<br/>
-        /// Every future sign-in with the issuer's tokens is refused immediately.
+        /// Every future sign-in with the issuer's tokens is refused immediately.<br/>
+        /// A registration a widget connector's `end_user_sign_in` references cannot be deleted; the widget is updated or deleted first.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -27,7 +28,8 @@ namespace Vectara
         /// <summary>
         /// Delete trusted token issuer<br/>
         /// Deletes a trusted token issuer registration.<br/>
-        /// Every future sign-in with the issuer's tokens is refused immediately.
+        /// Every future sign-in with the issuer's tokens is refused immediately.<br/>
+        /// A registration a widget connector's `end_user_sign_in` references cannot be deleted; the widget is updated or deleted first.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -477,7 +477,7 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public WidgetsClient Widgets => new WidgetsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
+        public VisitorsClient Visitors => new VisitorsClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContextProvider = JsonSerializerContextProvider,

@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A point in a counter or gauge metric series. A single scalar value at a time bin.
+    /// A single time-bin point for a counter or gauge metric.
     /// </summary>
     public sealed partial class ScalarMetricPoint
     {
@@ -16,7 +16,7 @@ namespace Vectara
         public required global::System.DateTime BinStart { get; set; }
 
         /// <summary>
-        /// The aggregated value for this time bin.
+        /// The aggregated value for this bin.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("value")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -35,7 +35,7 @@ namespace Vectara
         /// The start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </param>
         /// <param name="value">
-        /// The aggregated value for this time bin.
+        /// The aggregated value for this bin.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

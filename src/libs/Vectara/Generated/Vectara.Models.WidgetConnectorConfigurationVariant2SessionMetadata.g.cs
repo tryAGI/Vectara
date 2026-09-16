@@ -4,9 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// Written as the `metadata` of every session created through this widget's alias, anonymous or signed-in.<br/>
+    /// Written into every session created through this widget connector, anonymous or signed-in, under `metadata.connector.&lt;connector_id&gt;` — namespaced by the connector's id, so connector-written values never collide with metadata from other writers and expressions can address the entry connector explicitly (e.g. `$.session.metadata.connector.con_abc123.instance`).<br/>
     /// Readable wherever session metadata is readable: instruction templates, `run_condition`, `session_enrichment` references, alias routing rules, and tool `argument_override` expressions.<br/>
-    /// Not served by the widget bootstrap endpoint and not returned on the end-user session object, though values reach the agent's context and may surface in its replies.<br/>
+    /// Not served by the public connector view and not returned on the end-user session object, though values reach the agent's context and may surface in its replies.<br/>
     /// Omitted or empty writes no session metadata.<br/>
     /// Default Value: {}<br/>
     /// Example: {"instance":"conversational-ai"}
