@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A point in a percentiles metric series. Entries correspond by `label` to the descriptor's `percentiles` array, in the same canonical order.
+    /// A single time-bin point for a percentiles metric.
     /// </summary>
     public sealed partial class PercentilesMetricPoint
     {
@@ -16,7 +16,7 @@ namespace Vectara
         public required global::System.DateTime BinStart { get; set; }
 
         /// <summary>
-        /// Per-percentile aggregated values for this time bin. Each entry's `value` is the metric's aggregated value at the percentile identified by `label`.
+        /// Percentile values for this time bin. Entries appear in the same order and with the same labels as the descriptor's `percentiles` array.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("percentiles")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -35,7 +35,7 @@ namespace Vectara
         /// The start of the time bin in ISO 8601 (UTC). End-time aligned.
         /// </param>
         /// <param name="percentiles">
-        /// Per-percentile aggregated values for this time bin. Each entry's `value` is the metric's aggregated value at the percentile identified by `label`.
+        /// Percentile values for this time bin. Entries appear in the same order and with the same labels as the descriptor's `percentiles` array.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Vectara
@@ -9,7 +11,7 @@ namespace Vectara
     public sealed partial class MetricDescriptorBase
     {
         /// <summary>
-        /// The unique name of the metric, used as the path parameter to query it.<br/>
+        /// The unique name of the metric, used as the path parameter to query it. Custom metric names start with `custom.`.<br/>
         /// Example: agent.trace.duration_ms
         /// </summary>
         /// <example>agent.trace.duration_ms</example>
@@ -52,13 +54,28 @@ namespace Vectara
         public required string DisplayName { get; set; }
 
         /// <summary>
-        /// The names of labels you can use to filter this metric.<br/>
+        /// The names of the dimensions this metric is broken down by. Filter on them with the `dimensions` query parameter when querying the metric. On a custom metric these are the dimension names declared in its definition.<br/>
         /// Example: [agent_keys]
         /// </summary>
         /// <example>[agent_keys]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("dimensions")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::System.Collections.Generic.IList<string> Dimensions { get; set; }
+
+        /// <summary>
+        /// Deprecated alias for `dimensions`; identical value. Use `dimensions`.
+        /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("labels")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::System.Collections.Generic.IList<string> Labels { get; set; }
+
+        /// <summary>
+        /// Who provides the metric.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("origin")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.MetricOriginJsonConverter))]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::Vectara.MetricOrigin Origin { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -70,7 +87,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="MetricDescriptorBase" /> class.
         /// </summary>
         /// <param name="name">
-        /// The unique name of the metric, used as the path parameter to query it.<br/>
+        /// The unique name of the metric, used as the path parameter to query it. Custom metric names start with `custom.`.<br/>
         /// Example: agent.trace.duration_ms
         /// </param>
         /// <param name="category">
@@ -85,9 +102,15 @@ namespace Vectara
         /// label.<br/>
         /// Example: Agent turn duration percentiles
         /// </param>
-        /// <param name="labels">
-        /// The names of labels you can use to filter this metric.<br/>
+        /// <param name="dimensions">
+        /// The names of the dimensions this metric is broken down by. Filter on them with the `dimensions` query parameter when querying the metric. On a custom metric these are the dimension names declared in its definition.<br/>
         /// Example: [agent_keys]
+        /// </param>
+        /// <param name="labels">
+        /// Deprecated alias for `dimensions`; identical value. Use `dimensions`.
+        /// </param>
+        /// <param name="origin">
+        /// Who provides the metric.
         /// </param>
         /// <param name="unit">
         /// The unit of measure for the metric values, when applicable.<br/>
@@ -101,7 +124,9 @@ namespace Vectara
             string category,
             string description,
             string displayName,
+            global::System.Collections.Generic.IList<string> dimensions,
             global::System.Collections.Generic.IList<string> labels,
+            global::Vectara.MetricOrigin origin,
             string? unit)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -109,7 +134,9 @@ namespace Vectara
             this.Description = description ?? throw new global::System.ArgumentNullException(nameof(description));
             this.Unit = unit;
             this.DisplayName = displayName ?? throw new global::System.ArgumentNullException(nameof(displayName));
+            this.Dimensions = dimensions ?? throw new global::System.ArgumentNullException(nameof(dimensions));
             this.Labels = labels ?? throw new global::System.ArgumentNullException(nameof(labels));
+            this.Origin = origin;
         }
 
         /// <summary>

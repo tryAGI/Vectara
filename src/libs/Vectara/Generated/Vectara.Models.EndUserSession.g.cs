@@ -18,6 +18,14 @@ namespace Vectara
         public required string Key { get; set; }
 
         /// <summary>
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
+        /// </summary>
+        /// <example>con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("connector_id")]
+        public string? ConnectorId { get; set; }
+
+        /// <summary>
         /// Human-readable name for the session.<br/>
         /// Example: Customer Support Session
         /// </summary>
@@ -99,6 +107,10 @@ namespace Vectara
         /// Timestamp when the session was created.<br/>
         /// Example: 2024-01-15T10:30:00Z
         /// </param>
+        /// <param name="connectorId">
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
+        /// </param>
         /// <param name="description">
         /// A short description of the session's purpose.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
@@ -122,11 +134,13 @@ namespace Vectara
             string name,
             bool enabled,
             global::System.DateTime createdAt,
+            string? connectorId,
             string? description,
             global::Vectara.EndUserSessionStatus? status,
             long? ttiMinutes)
         {
             this.Key = key ?? throw new global::System.ArgumentNullException(nameof(key));
+            this.ConnectorId = connectorId;
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
             this.Enabled = enabled;

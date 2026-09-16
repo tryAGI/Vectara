@@ -64,9 +64,6 @@ tags:
 - name: Trusted Token Issuers
   description: Register customer identity providers whose signed tokens the platform
     accepts as end-user credentials.
-- name: Widgets
-  description: Bootstrap embeddable web widgets that let anonymous visitors talk to
-    a published agent.
 - name: Agent Schedules
   description: Create and manage scheduled automated execution of agents at specified
     intervals.
@@ -11669,33 +11666,31 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agents
       x-fern-sdk-method-name: updateSecrets
-  /v2/agents/{agent_key}/connectors:
+  /v2/agent_aliases/{alias_key}/connectors:
     post:
       tags:
       - Agent Connectors
       summary: Create agent connector
-      x-resource-locator: path.agent_key
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_administrator
         - administrator
         - owner
-      description: Creates a connector for an agent to receive events from an external
-        platform such as Slack, Google Chat, or Zoom Contact Center.
+      description: Creates a connector on an alias to receive events from an external
+        platform such as Slack, Google Chat, or Zoom Contact Center, or to serve the
+        embeddable widget. Sessions created through the connector are routed to an
+        agent by the alias's policy.
       operationId: createAgentConnector
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: path
-        name: agent_key
-        description: The unique identifier of the agent to create a connector for.
+        name: alias_key
+        description: The unique key of the alias to create a connector on.
         required: true
         schema:
-          $ref: '#/components/schemas/AgentKey'
+          $ref: '#/components/schemas/AgentAliasKey'
       requestBody:
         required: true
         content:
@@ -11716,13 +11711,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow creating connectors for this agent.
+          description: Permissions do not allow creating connectors for this alias.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: Agent not found.
+          description: Alias not found.
           content:
             application/json:
               schema:
@@ -11735,34 +11730,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-fern-sdk-group-name: agents
+      x-fern-sdk-group-name: agent_aliases
       x-fern-sdk-method-name: createConnector
     get:
       tags:
       - Agent Connectors
       summary: List agent connectors
-      x-resource-locator: path.agent_key
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_administrator
         - administrator
         - owner
-      description: Lists all connectors for an agent, with optional filtering and
-        pagination.
+      description: Lists all connectors on an alias, with optional filtering and pagination.
       operationId: listAgentConnectors
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: path
-        name: agent_key
-        description: The unique identifier of the agent to list connectors for.
+        name: alias_key
+        description: The unique key of the alias to list connectors for.
         required: true
         schema:
-          $ref: '#/components/schemas/AgentKey'
+          $ref: '#/components/schemas/AgentAliasKey'
       - in: query
         name: type
         description: Filter connectors by type.
@@ -11801,94 +11791,92 @@ paths:
           type: string
       responses:
         '200':
-          description: List of available connectors for the agent.
+          description: List of available connectors for the alias.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListAgentConnectorsResponse'
         '403':
-          description: Permissions do not allow listing connectors for this agent.
+          description: Permissions do not allow listing connectors for this alias.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: Agent not found.
+          description: Alias not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
-      x-fern-sdk-group-name: agents
+      x-fern-sdk-group-name: agent_aliases
       x-fern-sdk-method-name: listConnectors
       x-fern-pagination:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.connectors
-  /v2/agents/{agent_key}/connectors/{connector_id}:
+  /v2/agent_aliases/{alias_key}/connectors/{connector_id}:
     get:
       tags:
-      - Agent Connectors
-      summary: Get agent connector
-      x-resource-locator: path.agent_key
-      x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
-      - type: ApiRole
-        roles:
-        - agent_administrator
-        - administrator
-        - owner
-      description: Returns an agent connector by its ID, including its configuration
-        and status.
-      operationId: getAgentConnector
+      - Agent End User Sessions
+      summary: Get public connector
+      security: []
+      x-required-roles: []
+      description: "The public view of a connector, served unauthenticated to the\
+        \ embed snippet. The snippet carries the alias key and the connector's globally\
+        \ unique id, which expose no agent or customer identifier.\nReturns the `customer_id`\
+        \ visitor minting is addressed to, the `presentation` to render, whether anonymous\
+        \ visitors are admitted (`public_access`), and the sign-in configuration when\
+        \ the widget offers one.\n\nA read with no side effects: minting an anonymous\
+        \ visitor id is a separate call, `POST /v2/visitors`, so a returning visitor\
+        \ who already holds an id only reads this view.\nThe view tells the client\
+        \ how to authenticate: `public_access` true \u2014 mint or present a visitor\
+        \ id; `end_user_sign_in` present \u2014 sign the user in through the referenced\
+        \ issuer. A widget may offer both, and the two follow-up calls do not depend\
+        \ on each other.\n\nThis operation serves only the public projection; operators\
+        \ read the full connector, configuration included, from the connector list.\n\
+        \nServes connectors that front an end-user surface \u2014 today, widget connectors.\
+        \ Returns `404` if the connector does not exist on the addressed alias, is\
+        \ a channel connector with no end-user surface (Slack, Google Chat, or Zoom),\
+        \ is disabled, or belongs to a disabled customer.\n"
+      operationId: getPublicConnector
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: path
-        name: agent_key
-        description: The unique identifier of the agent.
+        name: alias_key
+        description: The unique key of the alias the connector is created on, as carried
+          by the embed snippet.
         required: true
         schema:
-          $ref: '#/components/schemas/AgentKey'
+          $ref: '#/components/schemas/AgentAliasKey'
       - in: path
         name: connector_id
-        description: The unique identifier of the connector to retrieve.
+        description: The globally unique id of the connector, as carried by the embed
+          snippet.
         required: true
         schema:
-          type: string
-          pattern: con_[0-9a-zA-Z_-]+$
-          example: con_slack_support
+          $ref: '#/components/schemas/ConnectorId'
       responses:
         '200':
-          description: The requested connector details.
+          description: The connector's public view.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AgentConnector'
-        '403':
-          description: Permissions do not allow accessing this connector.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/PublicConnector'
         '404':
-          description: Agent or connector not found.
+          description: The connector does not exist on the addressed alias, does not
+            front an end-user surface, is disabled, or belongs to a disabled customer.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
-      x-fern-sdk-group-name: agents
-      x-fern-sdk-method-name: getConnector
+      x-fern-sdk-group-name: agent_aliases
+      x-fern-sdk-method-name: getPublicConnector
     patch:
       tags:
       - Agent Connectors
       summary: Update agent connector
-      x-resource-locator: path.agent_key
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_administrator
@@ -11900,19 +11888,17 @@ paths:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: path
-        name: agent_key
-        description: The unique identifier of the agent.
+        name: alias_key
+        description: The unique key of the alias.
         required: true
         schema:
-          $ref: '#/components/schemas/AgentKey'
+          $ref: '#/components/schemas/AgentAliasKey'
       - in: path
         name: connector_id
         description: The unique identifier of the connector to update.
         required: true
         schema:
-          type: string
-          pattern: con_[0-9a-zA-Z_-]+$
-          example: con_slack_support
+          $ref: '#/components/schemas/ConnectorId'
       requestBody:
         required: true
         content:
@@ -11939,56 +11925,50 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: Agent or connector not found.
+          description: Alias or connector not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
         '409':
           description: "The supplied configuration moves this connector onto an external\
-            \ identity another connector already holds \u2014 for a widget connector,\
-            \ an `alias_key` whose alias already has a widget.\nAn alias has exactly\
-            \ one widget connector.\n"
+            \ identity another connector already holds \u2014 a channel connector\
+            \ naming an app or account another connector already uses.\n"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-fern-sdk-group-name: agents
+      x-fern-sdk-group-name: agent_aliases
       x-fern-sdk-method-name: updateConnector
     delete:
       tags:
       - Agent Connectors
       summary: Delete agent connector
-      x-resource-locator: path.agent_key
       x-required-roles:
-      - type: AgentRole
-        roles:
-        - agent_administrator
       - type: ApiRole
         roles:
         - agent_administrator
         - administrator
         - owner
-      description: Deletes an agent connector and all of its configuration. A widget
-        connector's platform-generated alias is deleted with it. The deletion is permanent.
+      description: Deletes an agent connector and all of its configuration. The alias
+        a widget connector fronts is operator-owned and is not deleted with it. The
+        deletion is permanent.
       operationId: deleteAgentConnector
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: path
-        name: agent_key
-        description: The unique identifier of the agent.
+        name: alias_key
+        description: The unique key of the alias.
         required: true
         schema:
-          $ref: '#/components/schemas/AgentKey'
+          $ref: '#/components/schemas/AgentAliasKey'
       - in: path
         name: connector_id
         description: The unique identifier of the connector to delete.
         required: true
         schema:
-          type: string
-          pattern: con_[0-9a-zA-Z_-]+$
-          example: con_slack_support
+          $ref: '#/components/schemas/ConnectorId'
       responses:
         '204':
           description: The connector is deleted.
@@ -11999,13 +11979,76 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: Agent or connector not found.
+          description: Alias or connector not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
-      x-fern-sdk-group-name: agents
+      x-fern-sdk-group-name: agent_aliases
       x-fern-sdk-method-name: deleteConnector
+  /v2/visitors:
+    post:
+      tags:
+      - Agent End User Sessions
+      summary: Create anonymous visitor
+      security: []
+      x-required-roles: []
+      description: "Mints the anonymous identity a widget visitor presents as `X-Visitor-Id`\
+        \ on `/v2/agent_aliases/{alias_key}/end_user_sessions` requests, naming a\
+        \ connector in the session create body.\nNo credential is required. The `X-Customer-Id`\
+        \ header carries the `customer_id` served by the public connector view; the\
+        \ minted id is scoped to that customer and authenticates the same visitor\
+        \ on any of the customer's widgets that admit anonymous visitors.\n\nCall\
+        \ this only when the client holds no visitor id. The id never expires \u2014\
+        \ store it durably; it is the only proof of ownership of the sessions it creates,\
+        \ and a repeat call mints a fresh identity that owns none of the previous\
+        \ identity's sessions.\n\nReturns `404` when the customer does not exist,\
+        \ is disabled, or has no enabled widget connector that admits anonymous visitors\
+        \ \u2014 one indistinguishable refusal, so the endpoint confirms nothing about\
+        \ which customer ids exist.\n"
+      operationId: createVisitor
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: header
+        name: X-Customer-Id
+        description: The unique identifier of the customer to mint a visitor identity
+          for, as served by the public connector view.
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 1234567890
+      responses:
+        '201':
+          description: The minted anonymous visitor identity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVisitorResponse'
+        '400':
+          description: The `X-Customer-Id` header is missing or is not a customer
+            id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '404':
+          description: The customer does not exist, is disabled, or has no enabled
+            widget connector that admits anonymous visitors.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: The caller's network address exceeded the per-address minting
+            rate. Try again shortly.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-fern-sdk-group-name: visitors
+      x-fern-sdk-method-name: create
   /v2/agents/{agent_key}/.well-known/agent-card.json:
     get:
       tags:
@@ -13255,9 +13298,7 @@ paths:
         - administrator
         - owner
       description: 'Updates an alias''s metadata fields (name, description, enabled,
-        metadata). Setting `enabled` to false on a platform-generated alias fronted
-        by a widget connector is rejected with `409`; disable the connector instead.
-        To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`.
+        metadata). To replace the routing policy, use `PUT /v2/agent_aliases/{alias_key}/policy`.
         Policies are atomic and do not support partial updates.
 
         '
@@ -13315,9 +13356,8 @@ paths:
         - administrator
         - owner
       description: Deletes an alias. The underlying agents the alias points at are
-        not affected. A platform-generated alias fronted by a widget connector cannot
-        be deleted directly (`409`); it is deleted with its connector. Returns 409
-        if any live resources still reference this alias.
+        not affected. Returns 409 if any live resources still reference this alias,
+        including its connectors; delete them first.
       operationId: deleteAgentAlias
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -14380,8 +14420,12 @@ paths:
         Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
         of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
         on the addressed alias, which satisfies this operation''s role requirement.
+        A visitor id is customer-scoped, so it need not have been minted through the
+        connector named in the request body; that connector must still admit anonymous
+        visitors (`403` otherwise).
 
-        The session takes its idle lifetime from its widget connector''s `session_tti_minutes`,
+        The session binds to the connector named by the request body''s `connector_id`
+        and takes its idle lifetime from that connector''s `session_tti_minutes`,
         reported on the returned session.
 
         Returns `429` when the caller reaches the live-session or hourly session-creation
@@ -14418,8 +14462,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/EndUserSession'
         '400':
-          description: The addressed alias has no enabled widget connector to bind
-            the session to.
+          description: The request body's `connector_id` does not name an enabled
+            widget connector on the addressed alias, or the addressed alias is disabled.
           content:
             application/json:
               schema:
@@ -14433,9 +14477,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '403':
           description: Permissions do not allow creating sessions for this alias.
-            For an anonymous visitor, also returned when the widget connector its
-            token was minted through no longer admits visitors or does not front this
-            alias.
+            For an anonymous visitor, also returned when the connector named in the
+            request body does not admit anonymous visitors.
           content:
             application/json:
               schema:
@@ -14504,6 +14547,9 @@ paths:
         every other caller; the operator endpoints are the administrative view of
         an alias''s sessions.
 
+        No connector admission is evaluated: the results are the caller''s own sessions,
+        visible to their owner regardless of any widget''s current `public_access`.
+
         Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
         of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
         on the addressed alias, which satisfies this operation''s role requirement.
@@ -14557,9 +14603,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '403':
-          description: "Permissions do not allow listing sessions for this alias.\
-            \ Also returned when a presented connector id fails validation \u2014\
-            \ the connector no longer admits the caller or does not front this alias."
+          description: Permissions do not allow listing sessions for this alias.
           content:
             application/json:
               schema:
@@ -14651,10 +14695,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '403':
-          description: "The session does not belong to the caller, or permissions\
-            \ do not allow access. Also returned when a presented connector id fails\
-            \ validation \u2014 the connector no longer admits the caller or does\
-            \ not front this alias."
+          description: The session does not belong to the caller, or permissions do
+            not allow access. For an anonymous visitor, also returned when the session's
+            connector no longer admits anonymous visitors.
           content:
             application/json:
               schema:
@@ -14733,10 +14776,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '403':
-          description: "The session does not belong to the caller, or permissions\
-            \ do not allow deletion. Also returned when a presented connector id fails\
-            \ validation \u2014 the connector no longer admits the caller or does\
-            \ not front this alias."
+          description: The session does not belong to the caller, or permissions do
+            not allow deletion. For an anonymous visitor, also returned when the session's
+            connector no longer admits anonymous visitors.
           content:
             application/json:
               schema:
@@ -14849,10 +14891,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '403':
-          description: "The session does not belong to the caller, or permissions\
-            \ do not allow sending input. Also returned when a presented connector\
-            \ id fails validation \u2014 the connector no longer admits the caller\
-            \ or does not front this alias."
+          description: The session does not belong to the caller, or permissions do
+            not allow sending input. For an anonymous visitor, also returned when
+            the session's connector no longer admits anonymous visitors.
           content:
             application/json:
               schema:
@@ -15034,10 +15075,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '403':
-          description: "The session does not belong to the caller, or permissions\
-            \ do not allow reading its events. Also returned when a presented connector\
-            \ id fails validation \u2014 the connector no longer admits the caller\
-            \ or does not front this alias."
+          description: The session does not belong to the caller, or permissions do
+            not allow reading its events. For an anonymous visitor, also returned
+            when the session's connector no longer admits anonymous visitors.
           content:
             application/json:
               schema:
@@ -15054,63 +15094,6 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.events
-  /v2/widgets/{alias_key}/bootstrap:
-    post:
-      tags:
-      - Widgets
-      summary: Bootstrap widget visitor
-      security: []
-      x-required-roles: []
-      description: "Returns the widget's presentation configuration and, when the\
-        \ widget admits anonymous visitors, a signed anonymous visitor id.\nNo credential\
-        \ is required.\n\nA widget that admits anonymous visitors (`public_access`\
-        \ true) mints a visitor id, returned as `visitor_id`. A sign-in-only widget\
-        \ (`public_access` false) still bootstraps \u2014 the response carries its\
-        \ `alias_key`, `presentation`, and `end_user_sign_in` so the client can render\
-        \ and sign a user in \u2014 but returns no `visitor_id`; the client must authenticate\
-        \ before creating an end-user session for the alias.\n\nThe client presents\
-        \ the minted id as `X-Visitor-Id` on `/v2/agent_aliases/{alias_key}/end_user_sessions`\
-        \ requests, using the `alias_key` returned here; the widget connector the\
-        \ id was minted through travels inside it.\n\nReturns `404` if the alias does\
-        \ not front a widget connector, or that connector is disabled, or belongs\
-        \ to a disabled customer.\n\nThe visitor id never expires.\nStore it durably;\
-        \ a repeat call mints a fresh identity that owns none of the previous identity's\
-        \ sessions.\n"
-      operationId: bootstrapWidget
-      parameters:
-      - $ref: '#/components/parameters/RequestTimeout'
-      - $ref: '#/components/parameters/RequestTimeoutMillis'
-      - in: path
-        name: alias_key
-        description: The platform-generated alias the widget fronts, as carried by
-          the embed snippet.
-        required: true
-        schema:
-          $ref: '#/components/schemas/WidgetAliasKey'
-      responses:
-        '200':
-          description: The widget's presentation configuration, plus a minted anonymous
-            visitor id when the widget admits anonymous visitors.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BootstrapWidgetResponse'
-        '404':
-          description: The alias does not front a widget connector, or that connector
-            is disabled, or belongs to a disabled customer.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundError'
-        '429':
-          description: The caller's network address exceeded the per-address minting
-            rate. Try again shortly.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      x-fern-sdk-group-name: widgets
-      x-fern-sdk-method-name: bootstrap
   /v2/trusted_token_issuers:
     post:
       tags:
@@ -15337,6 +15320,9 @@ paths:
 
         Every future sign-in with the issuer''s tokens is refused immediately.
 
+        A registration a widget connector''s `end_user_sign_in` references cannot
+        be deleted; the widget is updated or deleted first.
+
         '
       operationId: deleteTrustedTokenIssuer
       parameters:
@@ -15369,6 +15355,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: A widget connector's `end_user_sign_in` references the registration.
+            Remove the reference before deleting it.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: trusted_token_issuers
       x-fern-sdk-method-name: delete
   /v2/pipelines:
@@ -16454,8 +16447,8 @@ paths:
         - administrator
         - owner
       description: Returns the catalog of registered metrics that you can query via
-        `/v2/metrics/{metric_name}`. Use it to discover metric names, types, and supported
-        labels.
+        `/v2/metrics/{metric_name}`, both system metrics and the account's custom
+        metrics. Use it to discover metric names, types, and dimensions.
       operationId: listMetrics
       x-fern-sdk-group-name: customer_metrics
       x-fern-sdk-method-name: list
@@ -16496,7 +16489,7 @@ paths:
         - administrator
         - owner
       description: Returns a time series of aggregated metric values for the named
-        metric within the requested time range.
+        metric within the requested time range, together with the metric's descriptor.
       operationId: getMetric
       x-fern-sdk-group-name: customer_metrics
       x-fern-sdk-method-name: get
@@ -16509,11 +16502,29 @@ paths:
         description: The name of the metric to query (see `/v2/metrics` for the catalog).
         schema:
           type: string
+      - name: dimensions
+        in: query
+        required: false
+        description: Dimension filters keyed by dimension name, for example `dimensions[agent_keys]=support-bot`.
+          Each metric's descriptor at `/v2/metrics` lists its dimension names. A dimension
+          with several values matches any of them, and the series merges the matched
+          values.
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          additionalProperties:
+            type: array
+            minItems: 1
+            items:
+              type: string
+              minLength: 1
       - name: labels
         in: query
         required: false
-        description: Label filters keyed by label name. Each metric's descriptor at
-          `/v2/metrics` lists its valid label names.
+        deprecated: true
+        description: Deprecated alias for `dimensions`; identical semantics. Use `dimensions`.
+          Ignored when `dimensions` is supplied.
         style: deepObject
         explode: true
         schema:
@@ -16527,8 +16538,9 @@ paths:
       - name: start
         in: query
         required: true
-        description: The inclusive start of the query window (ISO 8601). Must be no
-          more than 30 days before now.
+        description: The inclusive start of the query window (ISO 8601). For a system
+          metric, no more than 30 days before now; for a custom metric, no earlier
+          than its `retention_days` allow. A window is at most 30 days long.
         schema:
           type: string
           format: date-time
@@ -16536,7 +16548,7 @@ paths:
         in: query
         required: true
         description: The exclusive end of the query window (ISO 8601). Must be after
-          `start`.
+          `start` and no more than 30 days after it.
         schema:
           type: string
           format: date-time
@@ -30484,6 +30496,23 @@ components:
             old_token_to_remove: null
       required:
       - secrets
+    AgentAliasKey:
+      description: 'The unique key that identifies an alias. Alias keys are independent
+        of agent keys. The same string can exist as both an alias key and an agent
+        key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target
+        the alias. Calls to `/v2/agents/{key}/...` target the agent.
+
+        '
+      type: string
+      pattern: ^[0-9a-zA-Z_-]+$
+      minLength: 1
+      maxLength: 50
+      example: support
+    ConnectorId:
+      description: The globally unique identifier of a connector.
+      type: string
+      pattern: ^con_[0-9a-zA-Z_-]+$
+      example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
     ConnectorStatus:
       description: The current status of the connector.
       type: string
@@ -30707,22 +30736,13 @@ components:
         - webhook_path
       x-vectaraParents:
       - ConnectorConfiguration
-    WidgetAliasKey:
-      description: 'The platform-generated key of the alias fronting a widget connector,
-        as reported in the connector''s `alias_key` and `bootstrap_path`. Always `als_`-prefixed;
-        the prefix is reserved, so no operator-chosen alias ever matches it.
-
-        '
-      type: string
-      pattern: ^als_[0-9a-zA-Z_-]{1,46}$
-      example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
     WidgetPresentation:
       description: "The presentation configuration the widget client renders \u2014\
         \ branding, palette, welcome content, suggested prompts.\nFree-form apart\
         \ from the required `version`; the platform stores it verbatim, serves it\
         \ back uninterpreted, and caps its total size.\nNull-valued keys are accepted\
         \ but are omitted from responses.\nServed to anonymous visitors by the unauthenticated\
-        \ widget bootstrap endpoint, so widget clients must treat every value as untrusted\
+        \ public connector view, so widget clients must treat every value as untrusted\
         \ data.\nSchema validation of the payload lands with the first Altera release;\
         \ `version` is what lets clients render older payloads once the shape evolves.\n"
       type: object
@@ -30766,14 +30786,12 @@ components:
         trusted_token_issuer_id:
           $ref: '#/components/schemas/TrustedTokenIssuerId'
     WidgetConnectorConfiguration:
-      description: 'Read view of a web widget connector''s configuration. The `alias_key`
-        names the alias this widget fronts; an alias has exactly one widget connector.
+      description: 'Read view of a widget connector''s configuration. The widget fronts
+        the alias the connector is created on; an alias may carry any number of connectors.
 
-        The unauthenticated widget bootstrap endpoint serves `alias_key`, `presentation`,
+        The unauthenticated public connector view serves the connector''s `presentation`
         and `end_user_sign_in` to anonymous visitors; `session_metadata` is never
         served to end users.
-
-        Includes the platform-derived `bootstrap_path` the embed snippet calls.
 
         Widget connectors ignore the base `hidden_output_types`; end-user event visibility
         is controlled by `revealed_output_types`.
@@ -30793,23 +30811,23 @@ components:
               the connector''s `enabled`: the widget admits anonymous visitors only
               while both are `true`. Independent of `status`.
 
-              While `false`, the widget bootstrap endpoint still serves the connector''s
-              presentation but mints no anonymous visitor id, and every previously
-              minted visitor id is refused on the end-user session surface.
+              While `false`, the public connector view is still served, but anonymous
+              session creation naming this connector is refused and sessions bound
+              to it refuse anonymous access. Visitor ids themselves stay valid on
+              the customer''s other open widgets; visitor minting (`POST /v2/visitors`)
+              refuses only when no widget of the customer admits anonymous visitors.
 
               '
             type: boolean
             default: false
             example: false
-          alias_key:
-            $ref: '#/components/schemas/WidgetAliasKey'
           presentation:
             $ref: '#/components/schemas/WidgetPresentation'
           session_tti_minutes:
             description: 'How long a session created through this widget may sit idle
               before it is closed, in minutes.
 
-              Applied to every session created through this widget''s alias, anonymous
+              Applied to every session created through this widget connector, anonymous
               or signed-in, and reported as `tti_minutes` on those sessions.
 
               Set to 0 for sessions that never expire.
@@ -30825,7 +30843,7 @@ components:
             description: 'Agent output types included in the widget''s end-user event
               projection; the final response is always visible.
 
-              Applies to every session created through this widget''s alias, anonymous
+              Applies to every session created through this widget connector, anonymous
               or signed-in.
 
               Omitted or empty reveals none.
@@ -30838,20 +30856,17 @@ components:
             example:
             - tool_calls
           session_metadata:
-            description: 'Written as the `metadata` of every session created through
-              this widget''s alias, anonymous or signed-in.
-
-              Readable wherever session metadata is readable: instruction templates,
-              `run_condition`, `session_enrichment` references, alias routing rules,
-              and tool `argument_override` expressions.
-
-              Not served by the widget bootstrap endpoint and not returned on the
-              end-user session object, though values reach the agent''s context and
-              may surface in its replies.
-
-              Omitted or empty writes no session metadata.
-
-              '
+            description: "Written into every session created through this widget connector,\
+              \ anonymous or signed-in, under `metadata.connector.<connector_id>`\
+              \ \u2014 namespaced by the connector's id, so connector-written values\
+              \ never collide with metadata from other writers and expressions can\
+              \ address the entry connector explicitly (e.g. `$.session.metadata.connector.con_abc123.instance`).\n\
+              Readable wherever session metadata is readable: instruction templates,\
+              \ `run_condition`, `session_enrichment` references, alias routing rules,\
+              \ and tool `argument_override` expressions.\nNot served by the public\
+              \ connector view and not returned on the end-user session object, though\
+              \ values reach the agent's context and may surface in its replies.\n\
+              Omitted or empty writes no session metadata.\n"
             type: object
             additionalProperties: true
             default: {}
@@ -30859,17 +30874,10 @@ components:
               instance: conversational-ai
           end_user_sign_in:
             $ref: '#/components/schemas/WidgetSignIn'
-          bootstrap_path:
-            description: The unauthenticated bootstrap path the embed snippet calls
-              to obtain a visitor id and the presentation configuration.
-            type: string
-            example: /v2/widgets/als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa/bootstrap
         required:
         - type
         - public_access
-        - alias_key
         - presentation
-        - bootstrap_path
       x-vectaraParents:
       - ConnectorConfiguration
     ConnectorConfiguration:
@@ -30885,8 +30893,6 @@ components:
         - gchat exposes `audience_url` and `client_email`
 
         - zoom exposes the generated `connector_token` and `webhook_path`
-
-        - widget exposes `bootstrap_path`
 
         '
       x-vectara-base-schema: '#/ConnectorConfigurationBase'
@@ -30945,18 +30951,16 @@ components:
       - unknown
       example: success
     AgentConnector:
-      description: "A connector that surfaces an agent to end users through a channel\
-        \ \u2014 an external platform like Slack, Google Chat, or Zoom Contact Center,\
-        \ or the embeddable web widget."
+      description: "A connector that surfaces an agent alias to end users through\
+        \ a channel \u2014 an external platform like Slack, Google Chat, or Zoom Contact\
+        \ Center, or the embeddable widget. Sessions created through a connector are\
+        \ routed to an agent by the alias's policy."
       type: object
       properties:
         id:
-          description: The unique identifier for the connector.
-          type: string
-          pattern: con_[0-9a-zA-Z_-]+$
-          example: con_3Kx9QpVn2mZr8YbLc5TdWe
-        agent_key:
-          $ref: '#/components/schemas/AgentKey'
+          $ref: '#/components/schemas/ConnectorId'
+        alias_key:
+          $ref: '#/components/schemas/AgentAliasKey'
         name:
           description: The human-readable name of the connector.
           type: string
@@ -31022,7 +31026,7 @@ components:
           $ref: '#/components/schemas/ConnectorWebhookStatus'
       required:
       - id
-      - agent_key
+      - alias_key
       - name
       - type
       - status
@@ -31224,18 +31228,18 @@ components:
       - CreateConnectorConfiguration
       - UpdateConnectorConfiguration
     CreateWidgetConnectorConfiguration:
-      description: "Write view of a web widget connector's configuration, supplied\
-        \ on create or update.\nOn create, `alias_key` is not accepted and is rejected\
-        \ with `400`: the platform creates a new alias and binds the widget to it\
-        \ for the connector's lifetime \u2014 the alias is deleted with the connector.\n\
-        On update, `alias_key` is required and must be the widget's current alias:\
-        \ an operator-chosen or unknown alias is rejected with `400`, and another\
-        \ widget's alias with `409`.\nThe unauthenticated widget bootstrap endpoint\
-        \ serves `alias_key`, `presentation`, and `end_user_sign_in` to anonymous\
-        \ visitors; `session_metadata` is never served to end users.\nThe `bootstrap_path`\
-        \ is platform-derived and appears only in the read view.\nWidget connectors\
-        \ ignore the base `hidden_output_types`; end-user event visibility is controlled\
-        \ by `revealed_output_types`.\n"
+      description: 'Write view of a widget connector''s configuration, supplied on
+        create. The widget fronts the alias the connector is created on; end-user
+        sessions opened through the widget are created on that alias.
+
+        The unauthenticated public connector view serves the connector''s `presentation`
+        and `end_user_sign_in` to anonymous visitors; `session_metadata` is never
+        served to end users.
+
+        Widget connectors ignore the base `hidden_output_types`; end-user event visibility
+        is controlled by `revealed_output_types`.
+
+        '
       allOf:
       - $ref: '#/components/schemas/CreateConnectorConfigurationBase'
       - type: object
@@ -31256,15 +31260,13 @@ components:
             type: boolean
             default: false
             example: false
-          alias_key:
-            $ref: '#/components/schemas/WidgetAliasKey'
           presentation:
             $ref: '#/components/schemas/WidgetPresentation'
           session_tti_minutes:
             description: 'How long a session created through this widget may sit idle
               before it is closed, in minutes.
 
-              Applied to every session created through this widget''s alias, anonymous
+              Applied to every session created through this widget connector, anonymous
               or signed-in.
 
               Set to 0 for sessions that never expire.
@@ -31280,7 +31282,7 @@ components:
             description: 'Agent output types included in the widget''s end-user event
               projection; the final response is always visible.
 
-              Applies to every session created through this widget''s alias, anonymous
+              Applies to every session created through this widget connector, anonymous
               or signed-in.
 
               Omitted or empty reveals none.
@@ -31293,20 +31295,17 @@ components:
             example:
             - tool_calls
           session_metadata:
-            description: 'Written as the `metadata` of every session created through
-              this widget''s alias, anonymous or signed-in.
-
-              Readable wherever session metadata is readable: instruction templates,
-              `run_condition`, `session_enrichment` references, alias routing rules,
-              and tool `argument_override` expressions.
-
-              Not served by the widget bootstrap endpoint and not returned on the
-              end-user session object, though values reach the agent''s context and
-              may surface in its replies.
-
-              Omitted or empty writes no session metadata.
-
-              '
+            description: "Written into every session created through this widget connector,\
+              \ anonymous or signed-in, under `metadata.connector.<connector_id>`\
+              \ \u2014 namespaced by the connector's id, so connector-written values\
+              \ never collide with metadata from other writers and expressions can\
+              \ address the entry connector explicitly (e.g. `$.session.metadata.connector.con_abc123.instance`).\n\
+              Readable wherever session metadata is readable: instruction templates,\
+              \ `run_condition`, `session_enrichment` references, alias routing rules,\
+              \ and tool `argument_override` expressions.\nNot served by the public\
+              \ connector view and not returned on the end-user session object, though\
+              \ values reach the agent's context and may surface in its replies.\n\
+              Omitted or empty writes no session metadata.\n"
             type: object
             additionalProperties: true
             default: {}
@@ -31334,8 +31333,6 @@ components:
         - gchat returns `audience_url` and `client_email`
 
         - zoom returns the generated `connector_token` and `webhook_path`
-
-        - widget returns `bootstrap_path`
 
         '
       x-vectara-base-schema: '#/CreateConnectorConfigurationBase'
@@ -31383,10 +31380,64 @@ components:
             $ref: '#/components/schemas/CreateConnectorConfiguration'
         required:
         - configuration
+    PublicSignIn:
+      description: "The sign-in affordance of the public connector view. Identifies\
+        \ the identity provider the widget authenticates users against by its issuer\
+        \ URL \u2014 the `iss` claim of the tokens the host page supplies \u2014 never\
+        \ by the internal registration id.\nThe host page obtains a token from this\
+        \ issuer and the widget presents it as the bearer credential on end-user session\
+        \ requests.\n"
+      type: object
+      required:
+      - issuer
+      properties:
+        issuer:
+          description: The issuer URL of the identity provider, exactly as it appears
+            in the `iss` claim of its tokens.
+          type: string
+          pattern: ^https://.+
+          maxLength: 1024
+          example: https://acme.okta.com/oauth2/default
+    PublicConnector:
+      description: "The public view of a connector that fronts an end-user surface,\
+        \ served unauthenticated to the embed snippet.\nEnd-user sessions are created\
+        \ on the addressed alias \u2014 `/v2/agent_aliases/{alias_key}/end_user_sessions`\
+        \ \u2014 naming this connector in the request body; the embed snippet carries\
+        \ the alias key and connector id it needs, and this view serves the `customer_id`\
+        \ that visitor minting (`POST /v2/visitors`) is addressed to.\nSession attributes\
+        \ such as idle lifetime are reported on the session object returned by the\
+        \ end-user session create endpoint.\n"
+      type: object
+      required:
+      - customer_id
+      - public_access
+      - presentation
+      properties:
+        customer_id:
+          description: The unique identifier of the customer the connector belongs
+            to, presented as the `X-Customer-Id` header when minting a visitor identity
+            through `POST /v2/visitors`.
+          type: integer
+          format: int64
+          example: 1234567890
+        public_access:
+          description: 'Whether the connector admits anonymous visitors.
+
+            When false, the client signs the user in through `end_user_sign_in` before
+            creating a session.
+
+            '
+          type: boolean
+          example: true
+        presentation:
+          $ref: '#/components/schemas/WidgetPresentation'
+        end_user_sign_in:
+          $ref: '#/components/schemas/PublicSignIn'
     UpdateWidgetConnectorConfiguration:
-      description: Partial update view of a web widget connector's configuration.
-        Omitted fields keep their stored value; nested objects such as `presentation`
-        are replaced whole when supplied.
+      description: 'Partial update of a widget connector''s configuration: an omitted
+        field keeps its stored value; `presentation` is replaced whole when supplied.
+
+        '
       type: object
       properties:
         type:
@@ -31398,8 +31449,10 @@ components:
           description: 'Whether the widget admits anonymous visitors. Omitted leaves
             the current value unchanged.
 
-            Setting it to `false` refuses every previously minted visitor id; the
-            change takes effect within a few seconds.
+            Setting it to `false` closes the widget to anonymous visitors: anonymous
+            session creation naming it is refused, and sessions bound to it refuse
+            anonymous access. Visitor ids themselves stay valid on the customer''s
+            other open widgets. The change takes effect within a few seconds.
 
             Gates anonymous admission only; authenticated callers presenting this
             connector are governed by `enabled`.
@@ -31407,8 +31460,6 @@ components:
             '
           type: boolean
           example: false
-        alias_key:
-          $ref: '#/components/schemas/WidgetAliasKey'
         presentation:
           $ref: '#/components/schemas/WidgetPresentation'
         session_tti_minutes:
@@ -31426,8 +31477,8 @@ components:
           example:
           - tool_calls
         session_metadata:
-          description: Written as the `metadata` of every session created through
-            this widget's alias.
+          description: Written into every session created through this widget connector,
+            under `metadata.connector.<connector_id>`.
           type: object
           additionalProperties: true
           example:
@@ -31511,6 +31562,26 @@ components:
           example: false
         configuration:
           $ref: '#/components/schemas/UpdateConnectorConfiguration'
+    CreateVisitorResponse:
+      description: The minted anonymous visitor identity.
+      type: object
+      required:
+      - visitor_id
+      properties:
+        visitor_id:
+          description: 'The anonymous identity minted for this visitor, presented
+            as the `X-Visitor-Id` header on every end-user session request.
+
+            Scoped to the customer, not the minting widget: it authenticates the same
+            visitor on any of the customer''s widgets that admit anonymous visitors.
+
+            Store it durably on the client; it never expires, and it is the only proof
+            of ownership of the sessions it creates.
+
+            '
+          type: string
+          pattern: ^vis_[A-Za-z0-9_-]+$
+          example: vis_lZzE1YTgtNDA1Ni00MmU3LWI5YzMtZTQ4ZDQxN2I5ZTcw
     A2aV03AgentInterface:
       description: An additional transport endpoint advertised by the agent card beyond
         `url`.
@@ -33138,18 +33209,6 @@ components:
       - pageSize
       - totalSize
       additionalProperties: false
-    AgentAliasKey:
-      description: 'The unique key that identifies an alias. Alias keys are independent
-        of agent keys. The same string can exist as both an alias key and an agent
-        key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target
-        the alias. Calls to `/v2/agents/{key}/...` target the agent.
-
-        '
-      type: string
-      pattern: ^[0-9a-zA-Z_-]+$
-      minLength: 1
-      maxLength: 50
-      example: support
     SingleRuleTargets:
       description: 'Direct route to a single agent. The `agent_key` must reference
         an existing agent owned by the same customer.
@@ -33392,8 +33451,7 @@ components:
         metadata:
           $ref: '#/components/schemas/ListMetadata'
     CreateAgentAliasRequest:
-      description: 'Request body for creating a new alias. Keys with the `als_` prefix
-        are reserved for platform-generated widget aliases and are rejected with `400`.
+      description: 'Request body for creating a new alias.
 
         '
       type: object
@@ -33453,6 +33511,8 @@ components:
       properties:
         key:
           $ref: '#/components/schemas/AgentSessionKey'
+        connector_id:
+          $ref: '#/components/schemas/ConnectorId'
         name:
           description: Human-readable name for the session.
           type: string
@@ -33515,16 +33575,35 @@ components:
       - sessions
       - metadata
     CreateEndUserSessionRequest:
-      description: "Request to create a session as an end user. The owning principal\
-        \ comes from the caller's authenticated identity.\nThe session binds to the\
-        \ addressed alias's widget connector \u2014 an alias has exactly one \u2014\
-        \ which fixes the session's widget behavior for its lifetime:\nthe widget's\
-        \ `session_tti_minutes` sets the idle lifetime, and event reads through the\
-        \ session use the widget's `revealed_output_types`. The widget must\nbe enabled,\
-        \ or the request is rejected with `400`, as it is when the alias has no widget\
-        \ connector at all.\n"
+      description: 'Request to create a session as an end user. The owning principal
+        comes from the caller''s authenticated identity; ownership binds to the addressed
+        alias.
+
+        The session binds to the connector named by `connector_id`, which fixes the
+        session''s widget behavior for its lifetime:
+
+        the widget''s `session_tti_minutes` sets the idle lifetime, and event reads
+        through the session use the widget''s `revealed_output_types`.
+
+        The named connector must be enabled, belong to the addressed alias, and front
+        an end-user surface (a widget connector), or the request is rejected with
+        `400`.
+
+        For an anonymous caller, the named connector must admit anonymous visitors
+        (`public_access`), or the request is rejected with `403`. The visitor id is
+        customer-scoped, so it need not have been minted through the named connector:
+
+        widget connectors on the same alias that admit anonymous visitors form one
+        anonymous trust boundary, since naming any of them grants exactly what minting
+        through it directly would grant.
+
+        '
       type: object
+      required:
+      - connector_id
       properties:
+        connector_id:
+          $ref: '#/components/schemas/ConnectorId'
         name:
           description: Human-readable name for the session. Platform-generated if
             omitted.
@@ -33626,7 +33705,7 @@ components:
         The `input_message`, `agent_output`, and `error` variants are always visible.
 
         The `tool_input`, `tool_output`, `thinking`, and `structured_output` variants
-        appear only when the widget connector the caller entered through reveals the
+        appear only when the widget connector the session is bound to reveals the
         matching output category via `revealed_output_types`.
 
         Revealed variants carry the same payload as their operator representations.
@@ -33810,36 +33889,6 @@ components:
       - $ref: '#/components/schemas/StreamingThinkingEnd'
       - $ref: '#/components/schemas/ToolActivityEvent'
       - $ref: '#/components/schemas/StreamResponseEnd'
-    BootstrapWidgetResponse:
-      description: "The configuration a widget client needs to render and to open\
-        \ a session, and \u2014 for a widget that admits anonymous visitors \u2014\
-        \ the anonymous identity to open one with.\nSession attributes such as idle\
-        \ lifetime are reported on the session object returned by the end-user session\
-        \ create endpoint.\n"
-      type: object
-      required:
-      - alias_key
-      - presentation
-      properties:
-        visitor_id:
-          description: 'The anonymous identity minted for this visitor. Present only
-            when the widget admits anonymous visitors; a sign-in-only widget returns
-            no `visitor_id`, and its callers open a session with a customer-IdP token
-            instead.
-
-            Presented as the `X-Visitor-Id` header on every end-user session request.
-
-            Store it durably on the client; it never expires, and it is the only proof
-            of ownership of the sessions it creates.
-
-            '
-          type: string
-        alias_key:
-          $ref: '#/components/schemas/AgentAliasKey'
-        presentation:
-          $ref: '#/components/schemas/WidgetPresentation'
-        end_user_sign_in:
-          $ref: '#/components/schemas/WidgetSignIn'
     TrustedTokenIssuer:
       description: 'A customer identity provider whose signed tokens the platform
         accepts as end-user credentials.
@@ -34675,9 +34724,8 @@ components:
           type: string
           example: https://example-api.wolkenservicedesk.com
         domain:
-          description: The value of the `domain` header issued with your Wolken API
-            credentials. Depending on the deployment this is either a tenant name
-            or a full hostname.
+          description: The `domain` header value issued with the Wolken API credentials.
+            Depending on the deployment, this is either a tenant name or a full hostname.
           type: string
           example: example.wolkenservicedesk.com
         kb_api:
@@ -34877,9 +34925,8 @@ components:
           type: string
           example: https://example-api.wolkenservicedesk.com
         domain:
-          description: The value of the `domain` header issued with your Wolken API
-            credentials. Depending on the deployment this is either a tenant name
-            or a full hostname.
+          description: The `domain` header value issued with the Wolken API credentials.
+            Depending on the deployment, this is either a tenant name or a full hostname.
           type: string
           example: example.wolkenservicedesk.com
         include_form_details:
@@ -34992,9 +35039,8 @@ components:
           type: string
           example: https://example-api.wolkenservicedesk.com
         domain:
-          description: The value of the `domain` header issued with your Wolken API
-            credentials. Depending on the deployment this is either a tenant name
-            or a full hostname.
+          description: The `domain` header value issued with the Wolken API credentials.
+            Depending on the deployment, this is either a tenant name or a full hostname.
           type: string
           example: example.wolkenservicedesk.com
         request_types:
@@ -35143,6 +35189,99 @@ components:
         - service_account
         - auth_code
         - refresh_token
+    ConfluenceAttachmentsConfiguration:
+      description: 'Ingestion of page attachments as their own records. No type filter
+        is applied: every attachment is
+
+        ingested unless `pos_regex`, `neg_regex`, or `max_bytes` excludes it. An attachment
+        whose type the
+
+        pipeline''s transform cannot convert is still downloaded and counted as processed,
+        but nothing is indexed
+
+        for it.
+
+        '
+      type: object
+      properties:
+        enabled:
+          description: Whether attachments are ingested.
+          type: boolean
+          default: true
+        pos_regex:
+          description: 'Java regular expressions matched against the attachment''s
+            file name. When non-empty, an attachment is
+
+            ingested only if its name fully matches at least one pattern. An empty
+            list applies no positive
+
+            filter.
+
+            '
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 1024
+        neg_regex:
+          description: 'Java regular expressions matched against the attachment''s
+            file name. An attachment whose name fully
+
+            matches any pattern is skipped.
+
+            '
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 1024
+        max_bytes:
+          description: Maximum attachment size in bytes; larger attachments are not
+            ingested. Between 1 KiB and 100 MiB.
+          type: integer
+          format: int64
+          minimum: 1024
+          maximum: 104857600
+          default: 26214400
+    ConfluenceEmbeddedImagesConfiguration:
+      description: 'Handling of images embedded in page bodies. At most 20 MiB of
+        base64-encoded image data (roughly 15 MiB
+
+        of original image bytes) is inlined per page; images beyond that total are
+        left as Confluence URLs.
+
+        '
+      type: object
+      properties:
+        handling:
+          description: '`inline` fetches each image attached to the page or to one
+            of its ancestors using the source''s
+
+            credentials and embeds it in the page so it is indexed with the page.
+            Images attached to any other
+
+            page, images hosted outside the instance, images larger than `max_bytes`,
+            and images that fail to
+
+            download are left as Confluence URLs; a failed image never fails the page.
+            `omit` leaves every image
+
+            as a Confluence URL, which is not fetched and so is not indexed.
+
+            '
+          type: string
+          enum:
+          - inline
+          - omit
+          default: inline
+        max_bytes:
+          description: Maximum image size in bytes; larger images are left as Confluence
+            URLs instead of inlined. Between 1 KiB and 15 MiB.
+          type: integer
+          format: int64
+          minimum: 1024
+          maximum: 15728640
+          default: 5242880
     BaseConfluenceSourceConfiguration:
       description: 'Base Confluence source configuration. Ingests pages from the configured
         spaces
@@ -35201,6 +35340,14 @@ components:
           description: Authentication for the Confluence instance. Omit only if the
             instance allows anonymous read access.
           $ref: '#/components/schemas/RemoteAuth'
+        attachments:
+          description: How page attachments are ingested. When omitted, every attachment
+            up to 25 MiB is ingested as its own record.
+          $ref: '#/components/schemas/ConfluenceAttachmentsConfiguration'
+        embedded_images:
+          description: How images embedded in page bodies are handled. When omitted,
+            images up to 5 MiB are embedded in the page and indexed with it.
+          $ref: '#/components/schemas/ConfluenceEmbeddedImagesConfiguration'
       required:
       - type
     ConfluenceSourceConfiguration:
@@ -37176,6 +37323,21 @@ components:
       required:
       - events
       - metadata
+    MetricOrigin:
+      description: 'Who provides a metric. New values may be added; treat unknown
+        values as opaque.
+
+
+        * `system`: the platform provides the metric. It cannot be updated or deleted.
+
+        * `custom`: the account created the metric from its agent traces.
+
+        '
+      type: string
+      enum:
+      - system
+      - custom
+      example: system
     MetricDescriptorBase:
       description: Common metadata fields shared by every metric descriptor regardless
         of type.
@@ -37183,7 +37345,7 @@ components:
       properties:
         name:
           description: The unique name of the metric, used as the path parameter to
-            query it.
+            query it. Custom metric names start with `custom.`.
           type: string
           example: agent.trace.duration_ms
         category:
@@ -37206,19 +37368,34 @@ components:
             '
           type: string
           example: Agent turn duration percentiles
-        labels:
-          description: The names of labels you can use to filter this metric.
+        dimensions:
+          description: The names of the dimensions this metric is broken down by.
+            Filter on them with the `dimensions` query parameter when querying the
+            metric. On a custom metric these are the dimension names declared in its
+            definition.
           type: array
           items:
             type: string
           example:
           - agent_keys
+        labels:
+          deprecated: true
+          description: Deprecated alias for `dimensions`; identical value. Use `dimensions`.
+          type: array
+          items:
+            type: string
+        origin:
+          allOf:
+          - $ref: '#/components/schemas/MetricOrigin'
+          description: Who provides the metric.
       required:
       - name
       - category
       - description
       - display_name
+      - dimensions
       - labels
+      - origin
     CounterMetricDescriptor:
       description: Descriptor for a counter metric.
       allOf:
@@ -37371,9 +37548,20 @@ components:
         metric_name:
           description: The name of the metric this series describes.
           type: string
+        dimension_values:
+          description: The dimension values identifying this series, keyed by dimension
+            name. Echoes the `dimensions` filter supplied in the request. A dimension
+            absent from the map was not filtered, so the series merges every value
+            of it.
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
         labels:
-          description: The labels matched for this series. Echoes the filter values
-            supplied in the request.
+          deprecated: true
+          description: Deprecated alias for `dimension_values`; identical value. Use
+            `dimension_values`.
           type: object
           additionalProperties:
             type: array
@@ -37384,13 +37572,20 @@ components:
             The platform chooses it from the requested time range and `max_bins`.
           type: integer
           format: int32
+        metric:
+          description: The descriptor of the metric this series describes, as listed
+            in the catalog. Carries the unit, the dimension names, and the percentile
+            ranks or bin ranges needed to interpret the points.
+          allOf:
+          - $ref: '#/components/schemas/MetricDescriptor'
       required:
       - metric_name
+      - dimension_values
       - labels
       - bin_size_seconds
+      - metric
     ScalarMetricPoint:
-      description: A point in a counter or gauge metric series. A single scalar value
-        at a time bin.
+      description: A single time-bin point for a counter or gauge metric.
       type: object
       properties:
         bin_start:
@@ -37398,7 +37593,7 @@ components:
           type: string
           format: date-time
         value:
-          description: The aggregated value for this time bin.
+          description: The aggregated value for this bin.
           type: number
           format: double
       required:
@@ -37438,8 +37633,7 @@ components:
         - type
         - points
     PercentilesMetricPoint:
-      description: A point in a percentiles metric series. Entries correspond by `label`
-        to the descriptor's `percentiles` array, in the same canonical order.
+      description: A single time-bin point for a percentiles metric.
       type: object
       properties:
         bin_start:
@@ -37447,9 +37641,9 @@ components:
           type: string
           format: date-time
         percentiles:
-          description: Per-percentile aggregated values for this time bin. Each entry's
-            `value` is the metric's aggregated value at the percentile identified
-            by `label`.
+          description: Percentile values for this time bin. Entries appear in the
+            same order and with the same labels as the descriptor's `percentiles`
+            array.
           type: array
           items:
             $ref: '#/components/schemas/PercentileEntry'
@@ -37495,8 +37689,7 @@ components:
       - label
       - value
     DistributionMetricPoint:
-      description: A point in a distribution metric series. Bin labels match those
-        declared on the metric's descriptor. Only bins with non-zero counts appear.
+      description: A single time-bin point for a distribution metric.
       type: object
       properties:
         bin_start:
@@ -37529,8 +37722,8 @@ components:
         - type
         - points
     MetricSeries:
-      description: A time series of metric points. The shape of points varies by metric
-        type.
+      description: A metric query result. A single series of points whose shape varies
+        by metric type.
       x-vectara-base-schema: '#/MetricSeriesBase'
       discriminator:
         propertyName: type
@@ -38280,12 +38473,13 @@ components:
     VisitorId:
       in: header
       name: X-Visitor-Id
-      description: 'The encrypted anonymous visitor token minted by the widget bootstrap
-        endpoint, presented in place of an `Authorization` credential.
+      description: 'The encrypted anonymous visitor token minted by `POST /v2/visitors`,
+        presented in place of an `Authorization` credential.
 
-        The widget connector the token was minted through travels inside it; the request
-        is refused unless that connector still admits anonymous visitors and fronts
-        the addressed alias.
+        The token is scoped to the customer that minted it: it authenticates the same
+        visitor on any of that customer''s widget connectors that admit anonymous
+        visitors, and admission is decided per request by the widget connector the
+        operation names or the session is bound to.
 
         Ignored when the request carries an authenticated credential.
 
@@ -38309,11 +38503,11 @@ components:
       type: apiKey
       in: header
       name: X-Visitor-Id
-      description: 'The encrypted anonymous visitor token minted by the widget bootstrap
-        endpoint.
+      description: 'The encrypted anonymous visitor token minted by `POST /v2/visitors`.
 
-        Accepted only on the operations that declare it; the widget connector the
-        token was minted through travels inside it and decides admission.
+        Accepted only on the operations that declare it; the token authenticates a
+        customer-scoped anonymous identity, and admission is decided by the widget
+        connector the operation names or the session is bound to.
 
         '
     FederatedSignIn:
@@ -38339,7 +38533,6 @@ x-tagGroups:
   - Tools
   - Tool Servers
   - Agent Connectors
-  - Widgets
   - Trusted Token Issuers
   - Agent Secrets
   - A2A Protocol
@@ -38371,6 +38564,7 @@ x-tagGroups:
   - Query History
   - Jobs
   - CustomerMetrics
+  - CustomMetrics
 - name: Platform
   tags:
   - Large Language Models

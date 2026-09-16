@@ -3,11 +3,11 @@
 
 namespace Vectara
 {
-    public partial class AgentsClient
+    public partial class AgentAliasesClient
     {
 
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_ListConnectorsSecurityRequirement0 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateConnectorSecurityRequirement0 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -22,7 +22,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_ListConnectorsSecurityRequirement1 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_CreateConnectorSecurityRequirement1 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -36,81 +36,62 @@ namespace Vectara
                     },
                 },
             };
-        private static readonly global::Vectara.EndPointSecurityRequirement[] s_ListConnectorsSecurityRequirements =
+        private static readonly global::Vectara.EndPointSecurityRequirement[] s_CreateConnectorSecurityRequirements =
             new global::Vectara.EndPointSecurityRequirement[]
-            {                s_ListConnectorsSecurityRequirement0,
-                s_ListConnectorsSecurityRequirement1,
+            {                s_CreateConnectorSecurityRequirement0,
+                s_CreateConnectorSecurityRequirement1,
             };
-        partial void PrepareListConnectorsArguments(
+        partial void PrepareCreateConnectorArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            ref string agentKey,
-            ref global::Vectara.ListAgentConnectorsType? type,
-            ref bool? enabled,
-            ref int? limit,
-            ref string? pageKey);
-        partial void PrepareListConnectorsRequest(
+            ref string aliasKey,
+            global::Vectara.CreateAgentConnectorRequest request);
+        partial void PrepareCreateConnectorRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            string agentKey,
-            global::Vectara.ListAgentConnectorsType? type,
-            bool? enabled,
-            int? limit,
-            string? pageKey);
-        partial void ProcessListConnectorsResponse(
+            string aliasKey,
+            global::Vectara.CreateAgentConnectorRequest request);
+        partial void ProcessCreateConnectorResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessListConnectorsResponseContent(
+        partial void ProcessCreateConnectorResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// List agent connectors<br/>
-        /// Lists all connectors for an agent, with optional filtering and pagination.
+        /// Create agent connector<br/>
+        /// Creates a connector on an alias to receive events from an external platform such as Slack, Google Chat, or Zoom Contact Center, or to serve the embeddable widget. Sessions created through the connector are routed to an agent by the alias's policy.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </param>
-        /// <param name="type">
-        /// Example: slack
-        /// </param>
-        /// <param name="enabled">
-        /// Example: true
-        /// </param>
-        /// <param name="limit">
-        /// Default Value: 10
-        /// </param>
-        /// <param name="pageKey"></param>
+        /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.ListAgentConnectorsResponse> ListConnectorsAsync(
-            string agentKey,
+        public async global::System.Threading.Tasks.Task<global::Vectara.AgentConnector> CreateConnectorAsync(
+            string aliasKey,
+
+            global::Vectara.CreateAgentConnectorRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            global::Vectara.ListAgentConnectorsType? type = default,
-            bool? enabled = default,
-            int? limit = default,
-            string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __response = await ListConnectorsAsResponseAsync(
-                agentKey: agentKey,
+            var __response = await CreateConnectorAsResponseAsync(
+                aliasKey: aliasKey,
+
+                request: request,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
-                type: type,
-                enabled: enabled,
-                limit: limit,
-                pageKey: pageKey,
                 requestOptions: requestOptions,
                 cancellationToken: cancellationToken
             ).ConfigureAwait(false);
@@ -118,56 +99,42 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// List agent connectors<br/>
-        /// Lists all connectors for an agent, with optional filtering and pagination.
+        /// Create agent connector<br/>
+        /// Creates a connector on an alias to receive events from an external platform such as Slack, Google Chat, or Zoom Contact Center, or to serve the embeddable widget. Sessions created through the connector are routed to an agent by the alias's policy.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </param>
-        /// <param name="type">
-        /// Example: slack
-        /// </param>
-        /// <param name="enabled">
-        /// Example: true
-        /// </param>
-        /// <param name="limit">
-        /// Default Value: 10
-        /// </param>
-        /// <param name="pageKey"></param>
+        /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.ListAgentConnectorsResponse>> ListConnectorsAsResponseAsync(
-            string agentKey,
+        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentConnector>> CreateConnectorAsResponseAsync(
+            string aliasKey,
+
+            global::Vectara.CreateAgentConnectorRequest request,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
-            global::Vectara.ListAgentConnectorsType? type = default,
-            bool? enabled = default,
-            int? limit = default,
-            string? pageKey = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             PrepareArguments(
                 client: HttpClient);
-            PrepareListConnectorsArguments(
+            PrepareCreateConnectorArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                agentKey: ref agentKey,
-                type: ref type,
-                enabled: ref enabled,
-                limit: ref limit,
-                pageKey: ref pageKey);
+                aliasKey: ref aliasKey,
+                request: request);
 
 
             var __authorizations = global::Vectara.EndPointSecurityResolver.ResolveAuthorizations(
                 availableAuthorizations: Authorizations,
-                securityRequirements: s_ListConnectorsSecurityRequirements,
-                operationName: "ListConnectorsAsync");
+                securityRequirements: s_CreateConnectorSecurityRequirements,
+                operationName: "CreateConnectorAsync");
 
             using var __timeoutCancellationTokenSource = global::Vectara.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
@@ -187,21 +154,15 @@ namespace Vectara
             {
 
                             var __pathBuilder = new global::Vectara.PathBuilder(
-                                path: $"/v2/agents/{agentKey}/connectors",
+                                path: $"/v2/agent_aliases/{aliasKey}/connectors",
                                 baseUri: HttpClient.BaseAddress);
-                            __pathBuilder
-                                .AddOptionalParameter("type", type?.ToValueString())
-                                .AddOptionalParameter("enabled", enabled?.ToString().ToLowerInvariant())
-                                .AddOptionalParameter("limit", limit?.ToString())
-                                .AddOptionalParameter("page_key", pageKey)
-                                ;
                             var __path = __pathBuilder.ToString();
                 __path = global::Vectara.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
                     clientParameters: Options.QueryParameters,
                     requestParameters: requestOptions?.QueryParameters);
                 var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                    method: global::System.Net.Http.HttpMethod.Get,
+                    method: global::System.Net.Http.HttpMethod.Post,
                     requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
                 __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -234,6 +195,12 @@ namespace Vectara
                 __httpRequest.Headers.TryAddWithoutValidation("Request-Timeout-Millis", requestTimeoutMillis.ToString());
             }
 
+                            var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
+                            var __httpRequestContent = new global::System.Net.Http.StringContent(
+                                content: __httpRequestContentBody,
+                                encoding: global::System.Text.Encoding.UTF8,
+                                mediaType: "application/json");
+                            __httpRequest.Content = __httpRequestContent;
                 global::Vectara.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,
                     clientHeaders: Options.Headers,
@@ -242,16 +209,13 @@ namespace Vectara
                 PrepareRequest(
                     client: HttpClient,
                     request: __httpRequest);
-                PrepareListConnectorsRequest(
+                PrepareCreateConnectorRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    agentKey: agentKey!,
-                    type: type,
-                    enabled: enabled,
-                    limit: limit,
-                    pageKey: pageKey);
+                    aliasKey: aliasKey!,
+                    request: request);
 
                 return __httpRequest;
             }
@@ -268,10 +232,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnBeforeRequestAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "ListConnectors",
-                                methodName: "ListConnectorsAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors\"",
-                                httpMethod: "GET",
+                                operationId: "CreateConnector",
+                                methodName: "CreateConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors\"",
+                                httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -305,10 +269,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "ListConnectors",
-                                methodName: "ListConnectorsAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors\"",
-                                httpMethod: "GET",
+                                operationId: "CreateConnector",
+                                methodName: "CreateConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors\"",
+                                httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -346,10 +310,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "ListConnectors",
-                                methodName: "ListConnectorsAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors\"",
-                                httpMethod: "GET",
+                                operationId: "CreateConnector",
+                                methodName: "CreateConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors\"",
+                                httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -386,7 +350,7 @@ namespace Vectara
                 ProcessResponse(
                     client: HttpClient,
                     response: __response);
-                ProcessListConnectorsResponse(
+                ProcessCreateConnectorResponse(
                     httpClient: HttpClient,
                     httpResponseMessage: __response);
                 if (__response.IsSuccessStatusCode)
@@ -394,10 +358,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterSuccessAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "ListConnectors",
-                                methodName: "ListConnectorsAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors\"",
-                                httpMethod: "GET",
+                                operationId: "CreateConnector",
+                                methodName: "CreateConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors\"",
+                                httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -416,10 +380,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "ListConnectors",
-                                methodName: "ListConnectorsAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors\"",
-                                httpMethod: "GET",
+                                operationId: "CreateConnector",
+                                methodName: "CreateConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors\"",
+                                httpMethod: "POST",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -433,7 +397,44 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Permissions do not allow listing connectors for this agent.
+                            // The request is malformed or contains invalid configuration.
+                            if ((int)__response.StatusCode == 400)
+                            {
+                                string? __content_400 = null;
+                                global::System.Exception? __exception_400 = null;
+                                global::Vectara.BadRequestError? __value_400 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_400 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_400 = global::Vectara.BadRequestError.FromJson(__content_400, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_400 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_400 = global::Vectara.BadRequestError.FromJson(__content_400, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_400 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.BadRequestError>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_400 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_400,
+                                    responseBody: __content_400,
+                                    responseObject: __value_400,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+                            // Permissions do not allow creating connectors for this alias.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -470,7 +471,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Agent not found.
+                            // Alias not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -507,6 +508,43 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
+                            // Another connector already holds this connector's external identity — a channel connector naming an app or account another connector already uses.
+                            if ((int)__response.StatusCode == 409)
+                            {
+                                string? __content_409 = null;
+                                global::System.Exception? __exception_409 = null;
+                                global::Vectara.Error? __value_409 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_409 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_409 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_409 = global::Vectara.Error.FromJson(__content_409, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_409 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_409 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_409,
+                                    responseBody: __content_409,
+                                    responseObject: __value_409,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
 
                             if (__effectiveReadResponseAsString)
                             {
@@ -520,7 +558,7 @@ namespace Vectara
                                     client: HttpClient,
                                     response: __response,
                                     content: ref __content);
-                                ProcessListConnectorsResponseContent(
+                                ProcessCreateConnectorResponseContent(
                                     httpClient: HttpClient,
                                     httpResponseMessage: __response,
                                     content: ref __content);
@@ -529,9 +567,9 @@ namespace Vectara
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::Vectara.ListAgentConnectorsResponse.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::Vectara.AgentConnector.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.ListAgentConnectorsResponse>(
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentConnector>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -561,9 +599,9 @@ namespace Vectara
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    var __value = await global::Vectara.ListAgentConnectorsResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::Vectara.AgentConnector.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.ListAgentConnectorsResponse>(
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentConnector>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -602,6 +640,38 @@ namespace Vectara
             {
                 __httpRequest?.Dispose();
             }
+        }
+        /// <summary>
+        /// Create agent connector<br/>
+        /// Creates a connector on an alias to receive events from an external platform such as Slack, Google Chat, or Zoom Contact Center, or to serve the embeddable widget. Sessions created through the connector are routed to an agent by the alias's policy.
+        /// </summary>
+        /// <param name="requestTimeout"></param>
+        /// <param name="requestTimeoutMillis"></param>
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
+        /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::System.InvalidOperationException"></exception>
+        public async global::System.Threading.Tasks.Task<global::Vectara.AgentConnector> CreateConnectorAsync(
+            string aliasKey,
+            int? requestTimeout = default,
+            int? requestTimeoutMillis = default,
+            global::Vectara.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
+            var __request = new global::Vectara.CreateAgentConnectorRequest
+            {
+            };
+
+            return await CreateConnectorAsync(
+                requestTimeout: requestTimeout,
+                requestTimeoutMillis: requestTimeoutMillis,
+                aliasKey: aliasKey,
+                request: __request,
+                requestOptions: requestOptions,
+                cancellationToken: cancellationToken).ConfigureAwait(false);
         }
     }
 }

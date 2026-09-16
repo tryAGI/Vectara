@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// Request body for creating a new alias. Keys with the `als_` prefix are reserved for platform-generated widget aliases and are rejected with `400`.
+    /// Request body for creating a new alias.
     /// </summary>
     public sealed partial class CreateAgentAliasRequest
     {

@@ -6,11 +6,12 @@ namespace Vectara
     {
         /// <summary>
         /// Query a metric time series<br/>
-        /// Returns a time series of aggregated metric values for the named metric within the requested time range.
+        /// Returns a time series of aggregated metric values for the named metric within the requested time range, together with the metric's descriptor.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="metricName"></param>
+        /// <param name="dimensions"></param>
         /// <param name="labels"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
@@ -26,17 +27,19 @@ namespace Vectara
             global::System.DateTime end,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? dimensions = default,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels = default,
             int? maxBins = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Query a metric time series<br/>
-        /// Returns a time series of aggregated metric values for the named metric within the requested time range.
+        /// Returns a time series of aggregated metric values for the named metric within the requested time range, together with the metric's descriptor.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="metricName"></param>
+        /// <param name="dimensions"></param>
         /// <param name="labels"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
@@ -52,6 +55,7 @@ namespace Vectara
             global::System.DateTime end,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
+            global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? dimensions = default,
             global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>>? labels = default,
             int? maxBins = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,

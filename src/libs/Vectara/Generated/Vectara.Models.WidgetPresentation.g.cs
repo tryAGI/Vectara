@@ -7,7 +7,7 @@ namespace Vectara
     /// The presentation configuration the widget client renders — branding, palette, welcome content, suggested prompts.<br/>
     /// Free-form apart from the required `version`; the platform stores it verbatim, serves it back uninterpreted, and caps its total size.<br/>
     /// Null-valued keys are accepted but are omitted from responses.<br/>
-    /// Served to anonymous visitors by the unauthenticated widget bootstrap endpoint, so widget clients must treat every value as untrusted data.<br/>
+    /// Served to anonymous visitors by the unauthenticated public connector view, so widget clients must treat every value as untrusted data.<br/>
     /// Schema validation of the payload lands with the first Altera release; `version` is what lets clients render older payloads once the shape evolves.
     /// </summary>
     public sealed partial class WidgetPresentation

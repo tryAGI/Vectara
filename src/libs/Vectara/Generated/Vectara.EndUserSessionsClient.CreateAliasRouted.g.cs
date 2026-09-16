@@ -102,8 +102,8 @@ namespace Vectara
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
         /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
-        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
-        /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement. A visitor id is customer-scoped, so it need not have been minted through the connector named in the request body; that connector must still admit anonymous visitors (`403` otherwise).<br/>
+        /// The session binds to the connector named by the request body's `connector_id` and takes its idle lifetime from that connector's `session_tti_minutes`, reported on the returned session.<br/>
         /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -145,8 +145,8 @@ namespace Vectara
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
         /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
-        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
-        /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement. A visitor id is customer-scoped, so it need not have been minted through the connector named in the request body; that connector must still admit anonymous visitors (`403` otherwise).<br/>
+        /// The session binds to the connector named by the request body's `connector_id` and takes its idle lifetime from that connector's `session_tti_minutes`, reported on the returned session.<br/>
         /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -456,7 +456,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // The addressed alias has no enabled widget connector to bind the session to.
+                            // The request body's `connector_id` does not name an enabled widget connector on the addressed alias, or the addressed alias is disabled.
                             if ((int)__response.StatusCode == 400)
                             {
                                 string? __content_400 = null;
@@ -530,7 +530,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow creating sessions for this alias. For an anonymous visitor, also returned when the widget connector its token was minted through no longer admits visitors or does not front this alias.
+                            // Permissions do not allow creating sessions for this alias. For an anonymous visitor, also returned when the connector named in the request body does not admit anonymous visitors.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -816,8 +816,8 @@ namespace Vectara
         /// Creates a session owned by the calling end user, routed through this alias's policy. The session's owning principal is the caller's authenticated identity.<br/>
         /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
-        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.<br/>
-        /// The session takes its idle lifetime from its widget connector's `session_tti_minutes`, reported on the returned session.<br/>
+        /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement. A visitor id is customer-scoped, so it need not have been minted through the connector named in the request body; that connector must still admit anonymous visitors (`403` otherwise).<br/>
+        /// The session binds to the connector named by the request body's `connector_id` and takes its idle lifetime from that connector's `session_tti_minutes`, reported on the returned session.<br/>
         /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -826,6 +826,10 @@ namespace Vectara
         /// <param name="aliasKey">
         /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
         /// Example: support
+        /// </param>
+        /// <param name="connectorId">
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
         /// <param name="name">
         /// Human-readable name for the session. Platform-generated if omitted.<br/>
@@ -840,6 +844,7 @@ namespace Vectara
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.EndUserSession> CreateAliasRoutedAsync(
             string aliasKey,
+            string connectorId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? xVisitorId = default,
@@ -850,6 +855,7 @@ namespace Vectara
         {
             var __request = new global::Vectara.CreateEndUserSessionRequest
             {
+                ConnectorId = connectorId,
                 Name = name,
                 Description = description,
             };

@@ -30,18 +30,10 @@ namespace Vectara
         public bool? PublicAccess { get; set; }
 
         /// <summary>
-        /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
-        /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
-        /// </summary>
-        /// <example>als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("alias_key")]
-        public string? AliasKey { get; set; }
-
-        /// <summary>
         /// The presentation configuration the widget client renders — branding, palette, welcome content, suggested prompts.<br/>
         /// Free-form apart from the required `version`; the platform stores it verbatim, serves it back uninterpreted, and caps its total size.<br/>
         /// Null-valued keys are accepted but are omitted from responses.<br/>
-        /// Served to anonymous visitors by the unauthenticated widget bootstrap endpoint, so widget clients must treat every value as untrusted data.<br/>
+        /// Served to anonymous visitors by the unauthenticated public connector view, so widget clients must treat every value as untrusted data.<br/>
         /// Schema validation of the payload lands with the first Altera release; `version` is what lets clients render older payloads once the shape evolves.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("presentation")]
@@ -50,7 +42,7 @@ namespace Vectara
 
         /// <summary>
         /// How long a session created through this widget may sit idle before it is closed, in minutes.<br/>
-        /// Applied to every session created through this widget's alias, anonymous or signed-in.<br/>
+        /// Applied to every session created through this widget connector, anonymous or signed-in.<br/>
         /// Set to 0 for sessions that never expire.<br/>
         /// Omit to use the platform default of 30 days.<br/>
         /// Default Value: 43200
@@ -60,7 +52,7 @@ namespace Vectara
 
         /// <summary>
         /// Agent output types included in the widget's end-user event projection; the final response is always visible.<br/>
-        /// Applies to every session created through this widget's alias, anonymous or signed-in.<br/>
+        /// Applies to every session created through this widget connector, anonymous or signed-in.<br/>
         /// Omitted or empty reveals none.<br/>
         /// Default Value: []<br/>
         /// Example: [tool_calls]
@@ -70,9 +62,9 @@ namespace Vectara
         public global::System.Collections.Generic.IList<global::Vectara.AgentOutputType>? RevealedOutputTypes { get; set; }
 
         /// <summary>
-        /// Written as the `metadata` of every session created through this widget's alias, anonymous or signed-in.<br/>
+        /// Written into every session created through this widget connector, anonymous or signed-in, under `metadata.connector.&lt;connector_id&gt;` — namespaced by the connector's id, so connector-written values never collide with metadata from other writers and expressions can address the entry connector explicitly (e.g. `$.session.metadata.connector.con_abc123.instance`).<br/>
         /// Readable wherever session metadata is readable: instruction templates, `run_condition`, `session_enrichment` references, alias routing rules, and tool `argument_override` expressions.<br/>
-        /// Not served by the widget bootstrap endpoint and not returned on the end-user session object, though values reach the agent's context and may surface in its replies.<br/>
+        /// Not served by the public connector view and not returned on the end-user session object, though values reach the agent's context and may surface in its replies.<br/>
         /// Omitted or empty writes no session metadata.<br/>
         /// Default Value: {}<br/>
         /// Example: {"instance":"conversational-ai"}
@@ -109,7 +101,7 @@ namespace Vectara
         /// The presentation configuration the widget client renders — branding, palette, welcome content, suggested prompts.<br/>
         /// Free-form apart from the required `version`; the platform stores it verbatim, serves it back uninterpreted, and caps its total size.<br/>
         /// Null-valued keys are accepted but are omitted from responses.<br/>
-        /// Served to anonymous visitors by the unauthenticated widget bootstrap endpoint, so widget clients must treat every value as untrusted data.<br/>
+        /// Served to anonymous visitors by the unauthenticated public connector view, so widget clients must treat every value as untrusted data.<br/>
         /// Schema validation of the payload lands with the first Altera release; `version` is what lets clients render older payloads once the shape evolves.
         /// </param>
         /// <param name="publicAccess">
@@ -118,28 +110,24 @@ namespace Vectara
         /// Default Value: false<br/>
         /// Example: false
         /// </param>
-        /// <param name="aliasKey">
-        /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
-        /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
-        /// </param>
         /// <param name="sessionTtiMinutes">
         /// How long a session created through this widget may sit idle before it is closed, in minutes.<br/>
-        /// Applied to every session created through this widget's alias, anonymous or signed-in.<br/>
+        /// Applied to every session created through this widget connector, anonymous or signed-in.<br/>
         /// Set to 0 for sessions that never expire.<br/>
         /// Omit to use the platform default of 30 days.<br/>
         /// Default Value: 43200
         /// </param>
         /// <param name="revealedOutputTypes">
         /// Agent output types included in the widget's end-user event projection; the final response is always visible.<br/>
-        /// Applies to every session created through this widget's alias, anonymous or signed-in.<br/>
+        /// Applies to every session created through this widget connector, anonymous or signed-in.<br/>
         /// Omitted or empty reveals none.<br/>
         /// Default Value: []<br/>
         /// Example: [tool_calls]
         /// </param>
         /// <param name="sessionMetadata">
-        /// Written as the `metadata` of every session created through this widget's alias, anonymous or signed-in.<br/>
+        /// Written into every session created through this widget connector, anonymous or signed-in, under `metadata.connector.&lt;connector_id&gt;` — namespaced by the connector's id, so connector-written values never collide with metadata from other writers and expressions can address the entry connector explicitly (e.g. `$.session.metadata.connector.con_abc123.instance`).<br/>
         /// Readable wherever session metadata is readable: instruction templates, `run_condition`, `session_enrichment` references, alias routing rules, and tool `argument_override` expressions.<br/>
-        /// Not served by the widget bootstrap endpoint and not returned on the end-user session object, though values reach the agent's context and may surface in its replies.<br/>
+        /// Not served by the public connector view and not returned on the end-user session object, though values reach the agent's context and may surface in its replies.<br/>
         /// Omitted or empty writes no session metadata.<br/>
         /// Default Value: {}<br/>
         /// Example: {"instance":"conversational-ai"}
@@ -158,7 +146,6 @@ namespace Vectara
             string type,
             global::Vectara.WidgetPresentation presentation,
             bool? publicAccess,
-            string? aliasKey,
             int? sessionTtiMinutes,
             global::System.Collections.Generic.IList<global::Vectara.AgentOutputType>? revealedOutputTypes,
             object? sessionMetadata,
@@ -166,7 +153,6 @@ namespace Vectara
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.PublicAccess = publicAccess;
-            this.AliasKey = aliasKey;
             this.Presentation = presentation ?? throw new global::System.ArgumentNullException(nameof(presentation));
             this.SessionTtiMinutes = sessionTtiMinutes;
             this.RevealedOutputTypes = revealedOutputTypes;

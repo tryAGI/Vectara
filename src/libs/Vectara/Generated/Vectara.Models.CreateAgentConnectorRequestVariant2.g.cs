@@ -24,8 +24,7 @@ namespace Vectara
         /// appear in the read view:<br/>
         /// - Slack returns `webhook_path`<br/>
         /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`<br/>
-        /// - widget returns `bootstrap_path`
+        /// - zoom returns the generated `connector_token` and `webhook_path`
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.CreateConnectorConfigurationJsonConverter))]
@@ -48,8 +47,7 @@ namespace Vectara
         /// appear in the read view:<br/>
         /// - Slack returns `webhook_path`<br/>
         /// - gchat returns `audience_url` and `client_email`<br/>
-        /// - zoom returns the generated `connector_token` and `webhook_path`<br/>
-        /// - widget returns `bootstrap_path`
+        /// - zoom returns the generated `connector_token` and `webhook_path`
         /// </param>
         /// <param name="type">
         /// Optional confirmation of the connector type. When supplied it must match `configuration.type`; when omitted the type is taken from `configuration.type`.<br/>

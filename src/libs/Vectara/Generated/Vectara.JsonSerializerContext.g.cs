@@ -764,11 +764,14 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateAgentConnectorRequest), TypeInfoPropertyName = "CreateAgentConnectorRequest2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateAgentConnectorRequestVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateAgentConnectorRequestVariant2Type), TypeInfoPropertyName = "CreateAgentConnectorRequestVariant2Type2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PublicSignIn))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PublicConnector))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateWidgetConnectorConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateConnectorConfiguration), TypeInfoPropertyName = "UpdateConnectorConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateConnectorConfigurationDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateConnectorConfigurationDiscriminatorType), TypeInfoPropertyName = "UpdateConnectorConfigurationDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateAgentConnectorRequest))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateVisitorResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.A2aV03AgentInterface))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.A2aV03AgentProvider))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.A2aV03AgentExtension))]
@@ -893,7 +896,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.EndUserAgentStreamedResponse), TypeInfoPropertyName = "EndUserAgentStreamedResponse2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.EndUserAgentStreamedResponseDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.EndUserAgentStreamedResponseDiscriminatorType), TypeInfoPropertyName = "EndUserAgentStreamedResponseDiscriminatorType2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BootstrapWidgetResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TrustedTokenIssuer))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListTrustedTokenIssuersResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.TrustedTokenIssuer>))]
@@ -931,6 +933,9 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.WolkenTicketRequestType>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<int>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WolkenTicketsSourceConfiguration), TypeInfoPropertyName = "WolkenTicketsSourceConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConfluenceAttachmentsConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConfluenceEmbeddedImagesConfiguration))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConfluenceEmbeddedImagesConfigurationHandling), TypeInfoPropertyName = "ConfluenceEmbeddedImagesConfigurationHandling2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseConfluenceSourceConfiguration))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseConfluenceSourceConfigurationDeployment), TypeInfoPropertyName = "BaseConfluenceSourceConfigurationDeployment2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConfluenceSourceConfiguration), TypeInfoPropertyName = "ConfluenceSourceConfiguration2")]
@@ -1021,11 +1026,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventStatus), TypeInfoPropertyName = "RecordProcessingEventStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEvent), TypeInfoPropertyName = "RecordProcessingEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEvent), TypeInfoPropertyName = "WatermarkAdvancedEvent2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEventVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEvent), TypeInfoPropertyName = "PipelineRunEvent2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventDiscriminator))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventDiscriminatorType), TypeInfoPropertyName = "PipelineRunEventDiscriminatorType2")]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1038,8 +1038,14 @@ namespace Vectara
         Converters = new global::System.Type[]
         {
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEvent), TypeInfoPropertyName = "WatermarkAdvancedEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEventVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEvent), TypeInfoPropertyName = "PipelineRunEvent2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventDiscriminator))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventDiscriminatorType), TypeInfoPropertyName = "PipelineRunEventDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListPipelineRunEventsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.PipelineRunEvent>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricOrigin), TypeInfoPropertyName = "MetricOrigin2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricDescriptorBase))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CounterMetricDescriptor), TypeInfoPropertyName = "CounterMetricDescriptor2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CounterMetricDescriptorVariant2))]
@@ -1423,6 +1429,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WolkenFormsSourceConfiguration?), TypeInfoPropertyName = "NullableWolkenFormsSourceConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WolkenTicketRequestType?), TypeInfoPropertyName = "NullableWolkenTicketRequestType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WolkenTicketsSourceConfiguration?), TypeInfoPropertyName = "NullableWolkenTicketsSourceConfiguration2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConfluenceEmbeddedImagesConfigurationHandling?), TypeInfoPropertyName = "NullableConfluenceEmbeddedImagesConfigurationHandling2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BaseConfluenceSourceConfigurationDeployment?), TypeInfoPropertyName = "NullableBaseConfluenceSourceConfigurationDeployment2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ConfluenceSourceConfiguration?), TypeInfoPropertyName = "NullableConfluenceSourceConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.FluidtopicsDocumentFetchMode?), TypeInfoPropertyName = "NullableFluidtopicsDocumentFetchMode2")]
@@ -1472,6 +1479,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEvent?), TypeInfoPropertyName = "NullableWatermarkAdvancedEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEvent?), TypeInfoPropertyName = "NullablePipelineRunEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEventDiscriminatorType?), TypeInfoPropertyName = "NullablePipelineRunEventDiscriminatorType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.MetricOrigin?), TypeInfoPropertyName = "NullableMetricOrigin2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CounterMetricDescriptor?), TypeInfoPropertyName = "NullableCounterMetricDescriptor2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.GaugeMetricDescriptor?), TypeInfoPropertyName = "NullableGaugeMetricDescriptor2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PercentilesMetricDescriptor?), TypeInfoPropertyName = "NullablePercentilesMetricDescriptor2")]
@@ -1530,14 +1538,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.StructuredDocumentSection>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.FieldQuery>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ScoredDocument>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.IndividualSearchResult>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.QueryWarning>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.RewrittenQuery>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.SearchReranker>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.KeyedSearchCorpus>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.RerankedSearchResult>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.RewrittenQueryWarning>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.QueryHistorySpan>))]
     internal sealed partial class SourceGenerationContextChunk2 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1550,6 +1550,14 @@ namespace Vectara
         Converters = new global::System.Type[]
         {
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.IndividualSearchResult>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.QueryWarning>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.RewrittenQuery>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.SearchReranker>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.KeyedSearchCorpus>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.RerankedSearchResult>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.RewrittenQueryWarning>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.QueryHistorySpan>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.QueryHistorySummary>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Chat>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Turn>))]
@@ -2388,6 +2396,10 @@ namespace Vectara
 
                     || typeToConvert == typeof(global::Vectara.WolkenTicketRequestType?)
 
+                    || typeToConvert == typeof(global::Vectara.ConfluenceEmbeddedImagesConfigurationHandling)
+
+                    || typeToConvert == typeof(global::Vectara.ConfluenceEmbeddedImagesConfigurationHandling?)
+
                     || typeToConvert == typeof(global::Vectara.BaseConfluenceSourceConfigurationDeployment)
 
                     || typeToConvert == typeof(global::Vectara.BaseConfluenceSourceConfigurationDeployment?)
@@ -2471,6 +2483,10 @@ namespace Vectara
                     || typeToConvert == typeof(global::Vectara.PipelineRunEventDiscriminatorType)
 
                     || typeToConvert == typeof(global::Vectara.PipelineRunEventDiscriminatorType?)
+
+                    || typeToConvert == typeof(global::Vectara.MetricOrigin)
+
+                    || typeToConvert == typeof(global::Vectara.MetricOrigin?)
 
                     || typeToConvert == typeof(global::Vectara.MetricDescriptorDiscriminatorType)
 
@@ -3751,6 +3767,16 @@ namespace Vectara
                     return new global::Vectara.JsonConverters.WolkenTicketRequestTypeNullableJsonConverter();
                 }
 
+                if (typeToConvert == typeof(global::Vectara.ConfluenceEmbeddedImagesConfigurationHandling))
+                {
+                    return new global::Vectara.JsonConverters.ConfluenceEmbeddedImagesConfigurationHandlingJsonConverter();
+                }
+
+                if (typeToConvert == typeof(global::Vectara.ConfluenceEmbeddedImagesConfigurationHandling?))
+                {
+                    return new global::Vectara.JsonConverters.ConfluenceEmbeddedImagesConfigurationHandlingNullableJsonConverter();
+                }
+
                 if (typeToConvert == typeof(global::Vectara.BaseConfluenceSourceConfigurationDeployment))
                 {
                     return new global::Vectara.JsonConverters.BaseConfluenceSourceConfigurationDeploymentJsonConverter();
@@ -3959,6 +3985,16 @@ namespace Vectara
                 if (typeToConvert == typeof(global::Vectara.PipelineRunEventDiscriminatorType?))
                 {
                     return new global::Vectara.JsonConverters.PipelineRunEventDiscriminatorTypeNullableJsonConverter();
+                }
+
+                if (typeToConvert == typeof(global::Vectara.MetricOrigin))
+                {
+                    return new global::Vectara.JsonConverters.MetricOriginJsonConverter();
+                }
+
+                if (typeToConvert == typeof(global::Vectara.MetricOrigin?))
+                {
+                    return new global::Vectara.JsonConverters.MetricOriginNullableJsonConverter();
                 }
 
                 if (typeToConvert == typeof(global::Vectara.MetricDescriptorDiscriminatorType))

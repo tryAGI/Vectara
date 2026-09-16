@@ -510,7 +510,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The session does not belong to the caller, or permissions do not allow reading its events. Also returned when a presented connector id fails validation — the connector no longer admits the caller or does not front this alias.
+                            // The session does not belong to the caller, or permissions do not allow reading its events. For an anonymous visitor, also returned when the session's connector no longer admits anonymous visitors.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;

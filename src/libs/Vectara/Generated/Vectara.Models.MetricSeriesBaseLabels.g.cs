@@ -4,8 +4,9 @@
 namespace Vectara
 {
     /// <summary>
-    /// The labels matched for this series. Echoes the filter values supplied in the request.
+    /// Deprecated alias for `dimension_values`; identical value. Use `dimension_values`.
     /// </summary>
+    [global::System.Obsolete("This model marked as deprecated.")]
     public sealed partial class MetricSeriesBaseLabels
     {
 

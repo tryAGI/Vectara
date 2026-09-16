@@ -103,6 +103,7 @@ namespace Vectara
         /// List end user sessions for alias<br/>
         /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.<br/>
         /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
+        /// No connector admission is evaluated: the results are the caller's own sessions, visible to their owner regardless of any widget's current `public_access`.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -146,6 +147,7 @@ namespace Vectara
         /// List end user sessions for alias<br/>
         /// Lists the calling end user's own sessions created through this alias. The response never includes sessions owned by another principal.<br/>
         /// An administrator calling this operation is bound to the sessions it owns like every other caller; the operator endpoints are the administrative view of an alias's sessions.<br/>
+        /// No connector admission is evaluated: the results are the caller's own sessions, visible to their owner regardless of any widget's current `public_access`.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -493,7 +495,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow listing sessions for this alias. Also returned when a presented connector id fails validation — the connector no longer admits the caller or does not front this alias.
+                            // Permissions do not allow listing sessions for this alias.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;

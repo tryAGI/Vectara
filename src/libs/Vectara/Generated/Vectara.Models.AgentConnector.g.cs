@@ -4,27 +4,27 @@
 namespace Vectara
 {
     /// <summary>
-    /// A connector that surfaces an agent to end users through a channel — an external platform like Slack, Google Chat, or Zoom Contact Center, or the embeddable web widget.
+    /// A connector that surfaces an agent alias to end users through a channel — an external platform like Slack, Google Chat, or Zoom Contact Center, or the embeddable widget. Sessions created through a connector are routed to an agent by the alias's policy.
     /// </summary>
     public sealed partial class AgentConnector
     {
         /// <summary>
-        /// The unique identifier for the connector.<br/>
-        /// Example: con_3Kx9QpVn2mZr8YbLc5TdWe
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </summary>
-        /// <example>con_3Kx9QpVn2mZr8YbLc5TdWe</example>
+        /// <example>con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Id { get; set; }
 
         /// <summary>
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </summary>
-        /// <example>customer_support</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("agent_key")]
+        /// <example>support</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("alias_key")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string AgentKey { get; set; }
+        public required string AliasKey { get; set; }
 
         /// <summary>
         /// The human-readable name of the connector.<br/>
@@ -97,8 +97,7 @@ namespace Vectara
         /// platform-derived display fields:<br/>
         /// - Slack exposes `webhook_path`<br/>
         /// - gchat exposes `audience_url` and `client_email`<br/>
-        /// - zoom exposes the generated `connector_token` and `webhook_path`<br/>
-        /// - widget exposes `bootstrap_path`
+        /// - zoom exposes the generated `connector_token` and `webhook_path`
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("configuration")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.ConnectorConfigurationJsonConverter))]
@@ -161,12 +160,12 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="AgentConnector" /> class.
         /// </summary>
         /// <param name="id">
-        /// The unique identifier for the connector.<br/>
-        /// Example: con_3Kx9QpVn2mZr8YbLc5TdWe
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </param>
         /// <param name="name">
         /// The human-readable name of the connector.<br/>
@@ -192,8 +191,7 @@ namespace Vectara
         /// platform-derived display fields:<br/>
         /// - Slack exposes `webhook_path`<br/>
         /// - gchat exposes `audience_url` and `client_email`<br/>
-        /// - zoom exposes the generated `connector_token` and `webhook_path`<br/>
-        /// - widget exposes `bootstrap_path`
+        /// - zoom exposes the generated `connector_token` and `webhook_path`
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the connector was created.<br/>
@@ -240,7 +238,7 @@ namespace Vectara
 #endif
         public AgentConnector(
             string id,
-            string agentKey,
+            string aliasKey,
             string name,
             global::Vectara.AgentConnectorType type,
             global::Vectara.ConnectorStatus status,
@@ -255,7 +253,7 @@ namespace Vectara
             global::Vectara.ConnectorWebhookStatus? lastWebhookStatus)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
-            this.AgentKey = agentKey ?? throw new global::System.ArgumentNullException(nameof(agentKey));
+            this.AliasKey = aliasKey ?? throw new global::System.ArgumentNullException(nameof(aliasKey));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
             this.Type = type;

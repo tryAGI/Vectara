@@ -3,56 +3,63 @@
 
 namespace Vectara
 {
-    public partial class WidgetsClient
+    public partial class AgentAliasesClient
     {
-        partial void PrepareBootstrapArguments(
+        partial void PrepareGetPublicConnectorArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            ref string aliasKey);
-        partial void PrepareBootstrapRequest(
+            ref string aliasKey,
+            ref string connectorId);
+        partial void PrepareGetPublicConnectorRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            string aliasKey);
-        partial void ProcessBootstrapResponse(
+            string aliasKey,
+            string connectorId);
+        partial void ProcessGetPublicConnectorResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessBootstrapResponseContent(
+        partial void ProcessGetPublicConnectorResponseContent(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage,
             ref string content);
 
         /// <summary>
-        /// Bootstrap widget visitor<br/>
-        /// Returns the widget's presentation configuration and, when the widget admits anonymous visitors, a signed anonymous visitor id.<br/>
-        /// No credential is required.<br/>
-        /// A widget that admits anonymous visitors (`public_access` true) mints a visitor id, returned as `visitor_id`. A sign-in-only widget (`public_access` false) still bootstraps — the response carries its `alias_key`, `presentation`, and `end_user_sign_in` so the client can render and sign a user in — but returns no `visitor_id`; the client must authenticate before creating an end-user session for the alias.<br/>
-        /// The client presents the minted id as `X-Visitor-Id` on `/v2/agent_aliases/{alias_key}/end_user_sessions` requests, using the `alias_key` returned here; the widget connector the id was minted through travels inside it.<br/>
-        /// Returns `404` if the alias does not front a widget connector, or that connector is disabled, or belongs to a disabled customer.<br/>
-        /// The visitor id never expires.<br/>
-        /// Store it durably; a repeat call mints a fresh identity that owns none of the previous identity's sessions.
+        /// Get public connector<br/>
+        /// The public view of a connector, served unauthenticated to the embed snippet. The snippet carries the alias key and the connector's globally unique id, which expose no agent or customer identifier.<br/>
+        /// Returns the `customer_id` visitor minting is addressed to, the `presentation` to render, whether anonymous visitors are admitted (`public_access`), and the sign-in configuration when the widget offers one.<br/>
+        /// A read with no side effects: minting an anonymous visitor id is a separate call, `POST /v2/visitors`, so a returning visitor who already holds an id only reads this view.<br/>
+        /// The view tells the client how to authenticate: `public_access` true — mint or present a visitor id; `end_user_sign_in` present — sign the user in through the referenced issuer. A widget may offer both, and the two follow-up calls do not depend on each other.<br/>
+        /// This operation serves only the public projection; operators read the full connector, configuration included, from the connector list.<br/>
+        /// Serves connectors that front an end-user surface — today, widget connectors. Returns `404` if the connector does not exist on the addressed alias, is a channel connector with no end-user surface (Slack, Google Chat, or Zoom), is disabled, or belongs to a disabled customer.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
-        /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
+        /// </param>
+        /// <param name="connectorId">
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.BootstrapWidgetResponse> BootstrapAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.PublicConnector> GetPublicConnectorAsync(
             string aliasKey,
+            string connectorId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __response = await BootstrapAsResponseAsync(
+            var __response = await GetPublicConnectorAsResponseAsync(
                 aliasKey: aliasKey,
+                connectorId: connectorId,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 requestOptions: requestOptions,
@@ -62,26 +69,30 @@ namespace Vectara
             return __response.Body;
         }
         /// <summary>
-        /// Bootstrap widget visitor<br/>
-        /// Returns the widget's presentation configuration and, when the widget admits anonymous visitors, a signed anonymous visitor id.<br/>
-        /// No credential is required.<br/>
-        /// A widget that admits anonymous visitors (`public_access` true) mints a visitor id, returned as `visitor_id`. A sign-in-only widget (`public_access` false) still bootstraps — the response carries its `alias_key`, `presentation`, and `end_user_sign_in` so the client can render and sign a user in — but returns no `visitor_id`; the client must authenticate before creating an end-user session for the alias.<br/>
-        /// The client presents the minted id as `X-Visitor-Id` on `/v2/agent_aliases/{alias_key}/end_user_sessions` requests, using the `alias_key` returned here; the widget connector the id was minted through travels inside it.<br/>
-        /// Returns `404` if the alias does not front a widget connector, or that connector is disabled, or belongs to a disabled customer.<br/>
-        /// The visitor id never expires.<br/>
-        /// Store it durably; a repeat call mints a fresh identity that owns none of the previous identity's sessions.
+        /// Get public connector<br/>
+        /// The public view of a connector, served unauthenticated to the embed snippet. The snippet carries the alias key and the connector's globally unique id, which expose no agent or customer identifier.<br/>
+        /// Returns the `customer_id` visitor minting is addressed to, the `presentation` to render, whether anonymous visitors are admitted (`public_access`), and the sign-in configuration when the widget offers one.<br/>
+        /// A read with no side effects: minting an anonymous visitor id is a separate call, `POST /v2/visitors`, so a returning visitor who already holds an id only reads this view.<br/>
+        /// The view tells the client how to authenticate: `public_access` true — mint or present a visitor id; `end_user_sign_in` present — sign the user in through the referenced issuer. A widget may offer both, and the two follow-up calls do not depend on each other.<br/>
+        /// This operation serves only the public projection; operators read the full connector, configuration included, from the connector list.<br/>
+        /// Serves connectors that front an end-user surface — today, widget connectors. Returns `404` if the connector does not exist on the addressed alias, is a channel connector with no end-user surface (Slack, Google Chat, or Zoom), is disabled, or belongs to a disabled customer.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="aliasKey">
-        /// The platform-generated key of the alias fronting a widget connector, as reported in the connector's `alias_key` and `bootstrap_path`. Always `als_`-prefixed; the prefix is reserved, so no operator-chosen alias ever matches it.<br/>
-        /// Example: als_9f3a1c2b-4d5e-6f70-8192-a3b4c5d6e7f8_00aa
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
+        /// </param>
+        /// <param name="connectorId">
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.BootstrapWidgetResponse>> BootstrapAsResponseAsync(
+        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.PublicConnector>> GetPublicConnectorAsResponseAsync(
             string aliasKey,
+            string connectorId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
@@ -89,11 +100,12 @@ namespace Vectara
         {
             PrepareArguments(
                 client: HttpClient);
-            PrepareBootstrapArguments(
+            PrepareGetPublicConnectorArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                aliasKey: ref aliasKey);
+                aliasKey: ref aliasKey,
+                connectorId: ref connectorId);
 
             using var __timeoutCancellationTokenSource = global::Vectara.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
@@ -113,7 +125,7 @@ namespace Vectara
             {
 
                             var __pathBuilder = new global::Vectara.PathBuilder(
-                                path: $"/v2/widgets/{aliasKey}/bootstrap",
+                                path: $"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}",
                                 baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::Vectara.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -121,7 +133,7 @@ namespace Vectara
                     clientParameters: Options.QueryParameters,
                     requestParameters: requestOptions?.QueryParameters);
                 var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                    method: global::System.Net.Http.HttpMethod.Post,
+                    method: global::System.Net.Http.HttpMethod.Get,
                     requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
                 __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -145,12 +157,13 @@ namespace Vectara
                 PrepareRequest(
                     client: HttpClient,
                     request: __httpRequest);
-                PrepareBootstrapRequest(
+                PrepareGetPublicConnectorRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    aliasKey: aliasKey!);
+                    aliasKey: aliasKey!,
+                    connectorId: connectorId!);
 
                 return __httpRequest;
             }
@@ -167,10 +180,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnBeforeRequestAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Bootstrap",
-                                methodName: "BootstrapAsync",
-                                pathTemplate: "$\"/v2/widgets/{aliasKey}/bootstrap\"",
-                                httpMethod: "POST",
+                                operationId: "GetPublicConnector",
+                                methodName: "GetPublicConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -201,10 +214,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Bootstrap",
-                                methodName: "BootstrapAsync",
-                                pathTemplate: "$\"/v2/widgets/{aliasKey}/bootstrap\"",
-                                httpMethod: "POST",
+                                operationId: "GetPublicConnector",
+                                methodName: "GetPublicConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -242,10 +255,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Bootstrap",
-                                methodName: "BootstrapAsync",
-                                pathTemplate: "$\"/v2/widgets/{aliasKey}/bootstrap\"",
-                                httpMethod: "POST",
+                                operationId: "GetPublicConnector",
+                                methodName: "GetPublicConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -282,7 +295,7 @@ namespace Vectara
                 ProcessResponse(
                     client: HttpClient,
                     response: __response);
-                ProcessBootstrapResponse(
+                ProcessGetPublicConnectorResponse(
                     httpClient: HttpClient,
                     httpResponseMessage: __response);
                 if (__response.IsSuccessStatusCode)
@@ -290,10 +303,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterSuccessAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Bootstrap",
-                                methodName: "BootstrapAsync",
-                                pathTemplate: "$\"/v2/widgets/{aliasKey}/bootstrap\"",
-                                httpMethod: "POST",
+                                operationId: "GetPublicConnector",
+                                methodName: "GetPublicConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -312,10 +325,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "Bootstrap",
-                                methodName: "BootstrapAsync",
-                                pathTemplate: "$\"/v2/widgets/{aliasKey}/bootstrap\"",
-                                httpMethod: "POST",
+                                operationId: "GetPublicConnector",
+                                methodName: "GetPublicConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -329,7 +342,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // The alias does not front a widget connector, or that connector is disabled, or belongs to a disabled customer.
+                            // The connector does not exist on the addressed alias, does not front an end-user surface, is disabled, or belongs to a disabled customer.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -366,43 +379,6 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The caller's network address exceeded the per-address minting rate. Try again shortly.
-                            if ((int)__response.StatusCode == 429)
-                            {
-                                string? __content_429 = null;
-                                global::System.Exception? __exception_429 = null;
-                                global::Vectara.Error? __value_429 = null;
-                                try
-                                {
-                                    if (__effectiveReadResponseAsString)
-                                    {
-                                        __content_429 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
-                                        __value_429 = global::Vectara.Error.FromJson(__content_429, JsonSerializerContext);
-                                    }
-                                    else
-                                    {
-                                        __content_429 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
-
-                                        __value_429 = global::Vectara.Error.FromJson(__content_429, JsonSerializerContext);
-                                    }
-                                }
-                                catch (global::System.Exception __ex)
-                                {
-                                    __exception_429 = __ex;
-                                }
-
-
-                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
-                                    statusCode: __response.StatusCode,
-                                    message: __content_429 ?? __response.ReasonPhrase ?? string.Empty,
-                                    innerException: __exception_429,
-                                    responseBody: __content_429,
-                                    responseObject: __value_429,
-                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
-                                        __response.Headers,
-                                        h => h.Key,
-                                        h => h.Value));
-                            }
 
                             if (__effectiveReadResponseAsString)
                             {
@@ -416,7 +392,7 @@ namespace Vectara
                                     client: HttpClient,
                                     response: __response,
                                     content: ref __content);
-                                ProcessBootstrapResponseContent(
+                                ProcessGetPublicConnectorResponseContent(
                                     httpClient: HttpClient,
                                     httpResponseMessage: __response,
                                     content: ref __content);
@@ -425,9 +401,9 @@ namespace Vectara
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::Vectara.BootstrapWidgetResponse.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::Vectara.PublicConnector.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.BootstrapWidgetResponse>(
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.PublicConnector>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -457,9 +433,9 @@ namespace Vectara
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    var __value = await global::Vectara.BootstrapWidgetResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::Vectara.PublicConnector.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.BootstrapWidgetResponse>(
+                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.PublicConnector>(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,

@@ -5,11 +5,8 @@
 namespace Vectara
 {
     /// <summary>
-    /// Write view of a web widget connector's configuration, supplied on create or update.<br/>
-    /// On create, `alias_key` is not accepted and is rejected with `400`: the platform creates a new alias and binds the widget to it for the connector's lifetime — the alias is deleted with the connector.<br/>
-    /// On update, `alias_key` is required and must be the widget's current alias: an operator-chosen or unknown alias is rejected with `400`, and another widget's alias with `409`.<br/>
-    /// The unauthenticated widget bootstrap endpoint serves `alias_key`, `presentation`, and `end_user_sign_in` to anonymous visitors; `session_metadata` is never served to end users.<br/>
-    /// The `bootstrap_path` is platform-derived and appears only in the read view.<br/>
+    /// Write view of a widget connector's configuration, supplied on create. The widget fronts the alias the connector is created on; end-user sessions opened through the widget are created on that alias.<br/>
+    /// The unauthenticated public connector view serves the connector's `presentation` and `end_user_sign_in` to anonymous visitors; `session_metadata` is never served to end users.<br/>
     /// Widget connectors ignore the base `hidden_output_types`; end-user event visibility is controlled by `revealed_output_types`.
     /// </summary>
     public readonly partial struct CreateWidgetConnectorConfiguration : global::System.IEquatable<CreateWidgetConnectorConfiguration>

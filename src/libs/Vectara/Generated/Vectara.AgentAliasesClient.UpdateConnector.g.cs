@@ -3,7 +3,7 @@
 
 namespace Vectara
 {
-    public partial class AgentsClient
+    public partial class AgentAliasesClient
     {
 
 
@@ -45,7 +45,7 @@ namespace Vectara
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            ref string agentKey,
+            ref string aliasKey,
             ref string connectorId,
             global::Vectara.UpdateAgentConnectorRequest request);
         partial void PrepareUpdateConnectorRequest(
@@ -53,7 +53,7 @@ namespace Vectara
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            string agentKey,
+            string aliasKey,
             string connectorId,
             global::Vectara.UpdateAgentConnectorRequest request);
         partial void ProcessUpdateConnectorResponse(
@@ -71,19 +71,20 @@ namespace Vectara
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </param>
         /// <param name="connectorId">
-        /// Example: con_slack_support
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.AgentConnector> UpdateConnectorAsync(
-            string agentKey,
+            string aliasKey,
             string connectorId,
 
             global::Vectara.UpdateAgentConnectorRequest request,
@@ -93,7 +94,7 @@ namespace Vectara
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __response = await UpdateConnectorAsResponseAsync(
-                agentKey: agentKey,
+                aliasKey: aliasKey,
                 connectorId: connectorId,
 
                 request: request,
@@ -111,19 +112,20 @@ namespace Vectara
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </param>
         /// <param name="connectorId">
-        /// Example: con_slack_support
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentConnector>> UpdateConnectorAsResponseAsync(
-            string agentKey,
+            string aliasKey,
             string connectorId,
 
             global::Vectara.UpdateAgentConnectorRequest request,
@@ -140,7 +142,7 @@ namespace Vectara
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                agentKey: ref agentKey,
+                aliasKey: ref aliasKey,
                 connectorId: ref connectorId,
                 request: request);
 
@@ -168,7 +170,7 @@ namespace Vectara
             {
 
                             var __pathBuilder = new global::Vectara.PathBuilder(
-                                path: $"/v2/agents/{agentKey}/connectors/{connectorId}",
+                                path: $"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}",
                                 baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::Vectara.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -228,7 +230,7 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    agentKey: agentKey!,
+                    aliasKey: aliasKey!,
                     connectorId: connectorId!,
                     request: request);
 
@@ -249,7 +251,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "UpdateConnector",
                                 methodName: "UpdateConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
                                 httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -286,7 +288,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "UpdateConnector",
                                 methodName: "UpdateConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
                                 httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -327,7 +329,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "UpdateConnector",
                                 methodName: "UpdateConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
                                 httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -375,7 +377,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "UpdateConnector",
                                 methodName: "UpdateConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
                                 httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -397,7 +399,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "UpdateConnector",
                                 methodName: "UpdateConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
                                 httpMethod: "PATCH",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
@@ -486,7 +488,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Agent or connector not found.
+                            // Alias or connector not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -523,7 +525,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The supplied configuration moves this connector onto an external identity another connector already holds — for a widget connector, an `alias_key` whose alias already has a widget. An alias has exactly one widget connector.
+                            // The supplied configuration moves this connector onto an external identity another connector already holds — a channel connector naming an app or account another connector already uses.
                             if ((int)__response.StatusCode == 409)
                             {
                                 string? __content_409 = null;
@@ -662,12 +664,13 @@ namespace Vectara
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </param>
         /// <param name="connectorId">
-        /// Example: con_slack_support
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
         /// <param name="name">
         /// The human-readable name of the connector.<br/>
@@ -694,7 +697,7 @@ namespace Vectara
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::Vectara.AgentConnector> UpdateConnectorAsync(
-            string agentKey,
+            string aliasKey,
             string connectorId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
@@ -718,7 +721,7 @@ namespace Vectara
             return await UpdateConnectorAsync(
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
-                agentKey: agentKey,
+                aliasKey: aliasKey,
                 connectorId: connectorId,
                 request: __request,
                 requestOptions: requestOptions,

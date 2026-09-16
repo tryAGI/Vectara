@@ -7,7 +7,7 @@ namespace Vectara
     /// <summary>
     /// A session event visible to the end user who owns the session.<br/>
     /// The `input_message`, `agent_output`, and `error` variants are always visible.<br/>
-    /// The `tool_input`, `tool_output`, `thinking`, and `structured_output` variants appear only when the widget connector the caller entered through reveals the matching output category via `revealed_output_types`.<br/>
+    /// The `tool_input`, `tool_output`, `thinking`, and `structured_output` variants appear only when the widget connector the session is bound to reveals the matching output category via `revealed_output_types`.<br/>
     /// Revealed variants carry the same payload as their operator representations.
     /// </summary>
     public readonly partial struct EndUserEvent : global::System.IEquatable<EndUserEvent>

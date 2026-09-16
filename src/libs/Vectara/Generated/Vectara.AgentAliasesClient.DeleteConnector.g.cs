@@ -3,11 +3,11 @@
 
 namespace Vectara
 {
-    public partial class AgentsClient
+    public partial class AgentAliasesClient
     {
 
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_GetConnectorSecurityRequirement0 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_DeleteConnectorSecurityRequirement0 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -22,7 +22,7 @@ namespace Vectara
                 },
             };
 
-        private static readonly global::Vectara.EndPointSecurityRequirement s_GetConnectorSecurityRequirement1 =
+        private static readonly global::Vectara.EndPointSecurityRequirement s_DeleteConnectorSecurityRequirement1 =
             new global::Vectara.EndPointSecurityRequirement
             {
                 Authorizations = new global::Vectara.EndPointAuthorizationRequirement[]
@@ -36,86 +36,81 @@ namespace Vectara
                     },
                 },
             };
-        private static readonly global::Vectara.EndPointSecurityRequirement[] s_GetConnectorSecurityRequirements =
+        private static readonly global::Vectara.EndPointSecurityRequirement[] s_DeleteConnectorSecurityRequirements =
             new global::Vectara.EndPointSecurityRequirement[]
-            {                s_GetConnectorSecurityRequirement0,
-                s_GetConnectorSecurityRequirement1,
+            {                s_DeleteConnectorSecurityRequirement0,
+                s_DeleteConnectorSecurityRequirement1,
             };
-        partial void PrepareGetConnectorArguments(
+        partial void PrepareDeleteConnectorArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
-            ref string agentKey,
+            ref string aliasKey,
             ref string connectorId);
-        partial void PrepareGetConnectorRequest(
+        partial void PrepareDeleteConnectorRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             int? requestTimeout,
             int? requestTimeoutMillis,
-            string agentKey,
+            string aliasKey,
             string connectorId);
-        partial void ProcessGetConnectorResponse(
+        partial void ProcessDeleteConnectorResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessGetConnectorResponseContent(
-            global::System.Net.Http.HttpClient httpClient,
-            global::System.Net.Http.HttpResponseMessage httpResponseMessage,
-            ref string content);
-
         /// <summary>
-        /// Get agent connector<br/>
-        /// Returns an agent connector by its ID, including its configuration and status.
+        /// Delete agent connector<br/>
+        /// Deletes an agent connector and all of its configuration. The alias a widget connector fronts is operator-owned and is not deleted with it. The deletion is permanent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </param>
         /// <param name="connectorId">
-        /// Example: con_slack_support
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AgentConnector> GetConnectorAsync(
-            string agentKey,
+        public async global::System.Threading.Tasks.Task DeleteConnectorAsync(
+            string aliasKey,
             string connectorId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-            var __response = await GetConnectorAsResponseAsync(
-                agentKey: agentKey,
+            await DeleteConnectorAsResponseAsync(
+                aliasKey: aliasKey,
                 connectorId: connectorId,
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 requestOptions: requestOptions,
                 cancellationToken: cancellationToken
             ).ConfigureAwait(false);
-
-            return __response.Body;
         }
         /// <summary>
-        /// Get agent connector<br/>
-        /// Returns an agent connector by its ID, including its configuration and status.
+        /// Delete agent connector<br/>
+        /// Deletes an agent connector and all of its configuration. The alias a widget connector fronts is operator-owned and is not deleted with it. The deletion is permanent.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
-        /// <param name="agentKey">
-        /// A unique key that identifies an agent.<br/>
-        /// Example: customer_support
+        /// <param name="aliasKey">
+        /// The unique key that identifies an alias. Alias keys are independent of agent keys. The same string can exist as both an alias key and an agent key in the same customer account. Calls to `/v2/agent_aliases/{key}/...` target the alias. Calls to `/v2/agents/{key}/...` target the agent.<br/>
+        /// Example: support
         /// </param>
         /// <param name="connectorId">
-        /// Example: con_slack_support
+        /// The globally unique identifier of a connector.<br/>
+        /// Example: con_support_9f3a1c2b4d5e6f708192a3b4c5d6e7f8
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::Vectara.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentConnector>> GetConnectorAsResponseAsync(
-            string agentKey,
+        public async global::System.Threading.Tasks.Task<global::Vectara.AutoSDKHttpResponse> DeleteConnectorAsResponseAsync(
+            string aliasKey,
             string connectorId,
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
@@ -124,18 +119,18 @@ namespace Vectara
         {
             PrepareArguments(
                 client: HttpClient);
-            PrepareGetConnectorArguments(
+            PrepareDeleteConnectorArguments(
                 httpClient: HttpClient,
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
-                agentKey: ref agentKey,
+                aliasKey: ref aliasKey,
                 connectorId: ref connectorId);
 
 
             var __authorizations = global::Vectara.EndPointSecurityResolver.ResolveAuthorizations(
                 availableAuthorizations: Authorizations,
-                securityRequirements: s_GetConnectorSecurityRequirements,
-                operationName: "GetConnectorAsync");
+                securityRequirements: s_DeleteConnectorSecurityRequirements,
+                operationName: "DeleteConnectorAsync");
 
             using var __timeoutCancellationTokenSource = global::Vectara.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
@@ -155,7 +150,7 @@ namespace Vectara
             {
 
                             var __pathBuilder = new global::Vectara.PathBuilder(
-                                path: $"/v2/agents/{agentKey}/connectors/{connectorId}",
+                                path: $"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}",
                                 baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::Vectara.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -163,7 +158,7 @@ namespace Vectara
                     clientParameters: Options.QueryParameters,
                     requestParameters: requestOptions?.QueryParameters);
                 var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
-                    method: global::System.Net.Http.HttpMethod.Get,
+                    method: global::System.Net.Http.HttpMethod.Delete,
                     requestUri: new global::System.Uri(__path, global::System.UriKind.RelativeOrAbsolute));
 #if NET6_0_OR_GREATER
                 __httpRequest.Version = global::System.Net.HttpVersion.Version11;
@@ -204,12 +199,12 @@ namespace Vectara
                 PrepareRequest(
                     client: HttpClient,
                     request: __httpRequest);
-                PrepareGetConnectorRequest(
+                PrepareDeleteConnectorRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    agentKey: agentKey!,
+                    aliasKey: aliasKey!,
                     connectorId: connectorId!);
 
                 return __httpRequest;
@@ -227,10 +222,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnBeforeRequestAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "GetConnector",
-                                methodName: "GetConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
-                                httpMethod: "GET",
+                                operationId: "DeleteConnector",
+                                methodName: "DeleteConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "DELETE",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -264,10 +259,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "GetConnector",
-                                methodName: "GetConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
-                                httpMethod: "GET",
+                                operationId: "DeleteConnector",
+                                methodName: "DeleteConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "DELETE",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: null,
@@ -305,10 +300,10 @@ namespace Vectara
                         await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "GetConnector",
-                                methodName: "GetConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
-                                httpMethod: "GET",
+                                operationId: "DeleteConnector",
+                                methodName: "DeleteConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "DELETE",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -345,7 +340,7 @@ namespace Vectara
                 ProcessResponse(
                     client: HttpClient,
                     response: __response);
-                ProcessGetConnectorResponse(
+                ProcessDeleteConnectorResponse(
                     httpClient: HttpClient,
                     httpResponseMessage: __response);
                 if (__response.IsSuccessStatusCode)
@@ -353,10 +348,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterSuccessAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "GetConnector",
-                                methodName: "GetConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
-                                httpMethod: "GET",
+                                operationId: "DeleteConnector",
+                                methodName: "DeleteConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "DELETE",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -375,10 +370,10 @@ namespace Vectara
                     await global::Vectara.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "GetConnector",
-                                methodName: "GetConnectorAsync",
-                                pathTemplate: "$\"/v2/agents/{agentKey}/connectors/{connectorId}\"",
-                                httpMethod: "GET",
+                                operationId: "DeleteConnector",
+                                methodName: "DeleteConnectorAsync",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                httpMethod: "DELETE",
                                 baseUri: BaseUri,
                                 request: __httpRequest!,
                                 response: __response,
@@ -392,7 +387,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Permissions do not allow accessing this connector.
+                            // Permissions do not allow deleting this connector.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -429,7 +424,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Agent or connector not found.
+                            // Alias or connector not found.
                             if ((int)__response.StatusCode == 404)
                             {
                                 string? __content_404 = null;
@@ -479,22 +474,15 @@ namespace Vectara
                                     client: HttpClient,
                                     response: __response,
                                     content: ref __content);
-                                ProcessGetConnectorResponseContent(
-                                    httpClient: HttpClient,
-                                    httpResponseMessage: __response,
-                                    content: ref __content);
 
                                 try
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::Vectara.AgentConnector.FromJson(__content, JsonSerializerContext) ??
-                                        throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentConnector>(
+                return new global::Vectara.AutoSDKHttpResponse(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
-                                        requestUri: __response.RequestMessage?.RequestUri,
-                                        body: __value);
+                                        requestUri: __response.RequestMessage?.RequestUri);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -514,19 +502,10 @@ namespace Vectara
                                 try
                                 {
                                     __response.EnsureSuccessStatusCode();
-                                    using var __content = await __response.Content.ReadAsStreamAsync(
-                #if NET5_0_OR_GREATER
-                                        __effectiveCancellationToken
-                #endif
-                                    ).ConfigureAwait(false);
-
-                                    var __value = await global::Vectara.AgentConnector.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
-                                        throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::Vectara.AutoSDKHttpResponse<global::Vectara.AgentConnector>(
+                                    return new global::Vectara.AutoSDKHttpResponse(
                                         statusCode: __response.StatusCode,
                                         headers: global::Vectara.AutoSDKHttpResponse.CreateHeaders(__response),
-                                        requestUri: __response.RequestMessage?.RequestUri,
-                                        body: __value);
+                                        requestUri: __response.RequestMessage?.RequestUri);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
