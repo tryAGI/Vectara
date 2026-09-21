@@ -23,7 +23,7 @@ namespace Vectara
         /// The object's properties. Each key maps to a nested schema.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("properties")]
-        public object? Properties { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, global::Vectara.JsonSchemaDefinition>? Properties { get; set; }
 
         /// <summary>
         /// The property names that must be present.
@@ -67,7 +67,7 @@ namespace Vectara
 #endif
         public JsonSchemaObjectVariant2(
             string type,
-            object? properties,
+            global::System.Collections.Generic.Dictionary<string, global::Vectara.JsonSchemaDefinition>? properties,
             global::System.Collections.Generic.IList<string>? required,
             bool? additionalProperties)
         {

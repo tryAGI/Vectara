@@ -28,8 +28,8 @@ namespace Vectara
         /// - An EagerReference ({"$ref": "agent.secrets"}) that resolves at session start to a `Map&lt;String, String&gt;`. Use this to source the whole header set from agent secrets.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("headers")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>))]
-        public global::Vectara.OneOf<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>? Headers { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OneOfJsonConverter<global::System.Collections.Generic.Dictionary<string, global::Vectara.WebGetHeaderValue>, global::Vectara.EagerReference>))]
+        public global::Vectara.OneOf<global::System.Collections.Generic.Dictionary<string, global::Vectara.WebGetHeaderValue>, global::Vectara.EagerReference>? Headers { get; set; }
 
         /// <summary>
         /// Request body for POST/PUT/PATCH requests. Its UTF-8 byte length must not exceed `max_body_bytes`.
@@ -159,7 +159,7 @@ namespace Vectara
         public WebGetToolParameters(
             global::Vectara.OneOf<string, global::Vectara.EagerReference>? url,
             global::Vectara.WebGetToolParametersMethod? method,
-            global::Vectara.OneOf<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>? headers,
+            global::Vectara.OneOf<global::System.Collections.Generic.Dictionary<string, global::Vectara.WebGetHeaderValue>, global::Vectara.EagerReference>? headers,
             global::Vectara.OneOf<string, global::Vectara.EagerReference>? body,
             global::Vectara.OneOf<bool?, global::Vectara.EagerReference>? followRedirects,
             global::Vectara.OneOf<int?, global::Vectara.EagerReference>? timeoutSeconds,

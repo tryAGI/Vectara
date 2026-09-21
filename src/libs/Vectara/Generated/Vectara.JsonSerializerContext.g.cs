@@ -270,6 +270,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JsonSchemaDefinitionDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JsonSchemaDefinitionDiscriminatorType), TypeInfoPropertyName = "JsonSchemaDefinitionDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JsonSchemaObjectVariant2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, global::Vectara.JsonSchemaDefinition>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JsonSchemaValueVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.JsonSchemaDefinition>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.JsonSchemaSpec))]
@@ -402,7 +403,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSearchToolConfiguration), TypeInfoPropertyName = "WebSearchToolConfiguration2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebSearchToolConfigurationVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetHeaderValue), TypeInfoPropertyName = "WebGetHeaderValue2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetHeadersMap))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, global::Vectara.WebGetHeaderValue>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetNoAuth))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetBearerAuth))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetHeaderAuth))]
@@ -417,7 +418,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetAuthDiscriminatorType), TypeInfoPropertyName = "WebGetAuthDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetToolParameters))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetToolParametersMethod), TypeInfoPropertyName = "WebGetToolParametersMethod2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfWebGetHeadersMapEagerReference2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<global::System.Collections.Generic.Dictionary<string, global::Vectara.WebGetHeaderValue>, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfDictionaryStringWebGetHeaderValueEagerReference2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<bool?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfBooleanEagerReference2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<int?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfInt32EagerReference2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<long?, global::Vectara.EagerReference>), TypeInfoPropertyName = "OneOfInt64EagerReference2")]
@@ -513,7 +514,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolSuccessResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolSuccessResponseValidationResults))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolErrorResponse))]
     internal sealed partial class SourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -526,6 +526,7 @@ namespace Vectara
         Converters = new global::System.Type[]
         {
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolErrorResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolErrorResponseError))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolResponse), TypeInfoPropertyName = "TestToolResponse2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolResponseDiscriminator))]
@@ -1025,7 +1026,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunCompletedEventVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventStatus), TypeInfoPropertyName = "RecordProcessingEventStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEvent), TypeInfoPropertyName = "RecordProcessingEvent2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventVariant2))]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1038,6 +1038,7 @@ namespace Vectara
         Converters = new global::System.Type[]
         {
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEvent), TypeInfoPropertyName = "WatermarkAdvancedEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEventVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.PipelineRunEvent), TypeInfoPropertyName = "PipelineRunEvent2")]
@@ -1265,7 +1266,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetAuth?), TypeInfoPropertyName = "NullableWebGetAuth2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetAuthDiscriminatorType?), TypeInfoPropertyName = "NullableWebGetAuthDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WebGetToolParametersMethod?), TypeInfoPropertyName = "NullableWebGetToolParametersMethod2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>?), TypeInfoPropertyName = "NullableOneOfWebGetHeadersMapEagerReference2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<global::System.Collections.Generic.Dictionary<string, global::Vectara.WebGetHeaderValue>, global::Vectara.EagerReference>?), TypeInfoPropertyName = "NullableOneOfDictionaryStringWebGetHeaderValueEagerReference2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<bool?, global::Vectara.EagerReference>?), TypeInfoPropertyName = "NullableOneOfBooleanEagerReference2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<int?, global::Vectara.EagerReference>?), TypeInfoPropertyName = "NullableOneOfInt32EagerReference2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OneOf<long?, global::Vectara.EagerReference>?), TypeInfoPropertyName = "NullableOneOfInt64EagerReference2")]
@@ -1537,7 +1538,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.CoreDocumentPart>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.StructuredDocumentSection>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.FieldQuery>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ScoredDocument>))]
     internal sealed partial class SourceGenerationContextChunk2 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1550,6 +1550,7 @@ namespace Vectara
         Converters = new global::System.Type[]
         {
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ScoredDocument>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.IndividualSearchResult>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.QueryWarning>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.RewrittenQuery>))]
@@ -1888,7 +1889,7 @@ namespace Vectara
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
-            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<global::Vectara.WebGetHeadersMap, global::Vectara.EagerReference>());
+            options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<global::System.Collections.Generic.Dictionary<string, global::Vectara.WebGetHeaderValue>, global::Vectara.EagerReference>());
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<string, global::Vectara.EagerReference>());
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<bool?, global::Vectara.EagerReference>());
             options.Converters.Add(new global::Vectara.JsonConverters.OneOfJsonConverter<int?, global::Vectara.EagerReference>());
