@@ -9,14 +9,14 @@ namespace Vectara
     public sealed partial class ArtifactReadConfiguration
     {
         /// <summary>
-        /// Maximum file size in bytes for full reads without line ranges. Defaults to 256KB.<br/>
+        /// Maximum size of any response, in bytes. A full read of a larger artifact is rejected and must be read by line range; a line range holding more is rejected naming the lines that fit. Under base64 encoding this bounds the encoded text, which is 4 bytes for every 3 bytes of the artifact.<br/>
         /// Default Value: 262144
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_size_bytes")]
         public long? MaxSizeBytes { get; set; }
 
         /// <summary>
-        /// Maximum number of lines for range-based reads. Defaults to 200.<br/>
+        /// Maximum number of lines a range-based read returns.<br/>
         /// Default Value: 200
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("max_lines")]
@@ -32,11 +32,11 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="ArtifactReadConfiguration" /> class.
         /// </summary>
         /// <param name="maxSizeBytes">
-        /// Maximum file size in bytes for full reads without line ranges. Defaults to 256KB.<br/>
+        /// Maximum size of any response, in bytes. A full read of a larger artifact is rejected and must be read by line range; a line range holding more is rejected naming the lines that fit. Under base64 encoding this bounds the encoded text, which is 4 bytes for every 3 bytes of the artifact.<br/>
         /// Default Value: 262144
         /// </param>
         /// <param name="maxLines">
-        /// Maximum number of lines for range-based reads. Defaults to 200.<br/>
+        /// Maximum number of lines a range-based read returns.<br/>
         /// Default Value: 200
         /// </param>
 #if NET7_0_OR_GREATER

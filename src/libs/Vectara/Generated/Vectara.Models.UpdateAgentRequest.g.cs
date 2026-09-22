@@ -5,8 +5,9 @@ namespace Vectara
 {
     /// <summary>
     /// Request object for updating an existing agent. Omitted fields are preserved.<br/>
-    /// Nullable fields (description, tool_configurations, metadata, enabled)<br/>
-    /// can be set to null to clear them.
+    /// Nullable fields (description, tool_configurations, metadata, enabled,<br/>
+    /// llm_quota) can be set to null to clear them. Sending `llm_quota` replaces<br/>
+    /// the agent's quota as a whole rather than merging it field by field.
     /// </summary>
     public sealed partial class UpdateAgentRequest
     {
@@ -99,6 +100,13 @@ namespace Vectara
         public global::Vectara.ToolOutputOffloadingConfiguration? ToolOutputOffloading { get; set; }
 
         /// <summary>
+        /// Ceilings on the LLM requests and tokens this agent may consume, counted across every LLM the agent calls. A sub-agent is charged to its own quota, not its parent's.<br/>
+        /// Each field is optional; an omitted field applies no limit. Day and month windows are UTC calendar windows. Input tokens are the provider's reported prompt tokens, including cached tokens; output tokens are completion plus reasoning tokens. When a limit is reached the agent's next LLM call is refused: a non-streamed `createAgentInput` request answers `429` with a `Retry-After` header, and a streamed one ends with an `error` event naming the exhausted quota and the seconds until it resets.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("llm_quota")]
+        public global::Vectara.LLMQuota? LlmQuota { get; set; }
+
+        /// <summary>
         /// A map of additional named steps keyed by step name for partial update.<br/>
         /// Only provided keys are modified; missing keys are preserved.<br/>
         /// Set a key's value to null to delete that step.<br/>
@@ -164,6 +172,10 @@ namespace Vectara
         /// Tool outputs are inspected as they are produced. A small output is always passed through unchanged. A larger output is handled in one of two cases: when the output on its own is big enough to dominate the context, or when adding it to the conversation would leave too little room for the agent to continue. In either case the output is handled according to `mode` — stored as an artifact and replaced with a compact reference, or truncated in place with the head and tail preserved and the middle omitted. When stored as an artifact, the agent is expected to have artifact_read, artifact_grep, or artifact_jq configured so it can retrieve the full content on demand.<br/>
         /// All fields are optional; omitted fields fall back to defaults.
         /// </param>
+        /// <param name="llmQuota">
+        /// Ceilings on the LLM requests and tokens this agent may consume, counted across every LLM the agent calls. A sub-agent is charged to its own quota, not its parent's.<br/>
+        /// Each field is optional; an omitted field applies no limit. Day and month windows are UTC calendar windows. Input tokens are the provider's reported prompt tokens, including cached tokens; output tokens are completion plus reasoning tokens. When a limit is reached the agent's next LLM call is refused: a non-streamed `createAgentInput` request answers `429` with a `Retry-After` header, and a streamed one ends with an `error` event naming the exhausted quota and the seconds until it resets.
+        /// </param>
         /// <param name="steps">
         /// A map of additional named steps keyed by step name for partial update.<br/>
         /// Only provided keys are modified; missing keys are preserved.<br/>
@@ -186,6 +198,7 @@ namespace Vectara
             global::Vectara.CompactionConfig? compaction,
             global::Vectara.SessionEnrichmentConfig? sessionEnrichment,
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading,
+            global::Vectara.LLMQuota? llmQuota,
             global::System.Collections.Generic.Dictionary<string, global::Vectara.UpdateAgentStep>? steps)
         {
             this.Name = name;
@@ -200,6 +213,7 @@ namespace Vectara
             this.Compaction = compaction;
             this.SessionEnrichment = sessionEnrichment;
             this.ToolOutputOffloading = toolOutputOffloading;
+            this.LlmQuota = llmQuota;
             this.Steps = steps;
         }
 

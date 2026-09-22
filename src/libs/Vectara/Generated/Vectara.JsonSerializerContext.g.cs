@@ -215,6 +215,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BearerAuth))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.HeaderAuth))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OAuthClientCredentialsAuth))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OAuthClientCredentialsAuthClientAuthMethod), TypeInfoPropertyName = "OAuthClientCredentialsAuthClientAuthMethod2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BedrockStaticIAMAuth))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BedrockApiKeyAuth))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.VertexServiceAccountAuth))]
@@ -513,7 +514,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.UpdateToolRequestDiscriminatorType), TypeInfoPropertyName = "UpdateToolRequestDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolSuccessResponse))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolSuccessResponseValidationResults))]
     internal sealed partial class SourceGenerationContextChunk0 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -526,6 +526,7 @@ namespace Vectara
         Converters = new global::System.Type[]
         {
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolSuccessResponseValidationResults))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolErrorResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolErrorResponseError))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolResponse), TypeInfoPropertyName = "TestToolResponse2")]
@@ -588,6 +589,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SessionEnrichmentToolCall))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.SessionEnrichmentConfig))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.SessionEnrichmentToolCall>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LLMQuota))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Agent))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentSkill>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, global::Vectara.AgentStep>))]
@@ -1024,8 +1026,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunCompletedEventStatus), TypeInfoPropertyName = "RunCompletedEventStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunCompletedEvent), TypeInfoPropertyName = "RunCompletedEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RunCompletedEventVariant2))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventStatus), TypeInfoPropertyName = "RecordProcessingEventStatus2")]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEvent), TypeInfoPropertyName = "RecordProcessingEvent2")]
     internal sealed partial class SourceGenerationContextChunk1 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1038,6 +1038,8 @@ namespace Vectara
         Converters = new global::System.Type[]
         {
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventStatus), TypeInfoPropertyName = "RecordProcessingEventStatus2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEvent), TypeInfoPropertyName = "RecordProcessingEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventVariant2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEvent), TypeInfoPropertyName = "WatermarkAdvancedEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.WatermarkAdvancedEventVariant2))]
@@ -1207,6 +1209,7 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ChatStreamedResponseDiscriminatorType?), TypeInfoPropertyName = "NullableChatStreamedResponseDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LLMOwnership?), TypeInfoPropertyName = "NullableLLMOwnership2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LLMType?), TypeInfoPropertyName = "NullableLLMType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.OAuthClientCredentialsAuthClientAuthMethod?), TypeInfoPropertyName = "NullableOAuthClientCredentialsAuthClientAuthMethod2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LLMAuth?), TypeInfoPropertyName = "NullableLLMAuth2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LLMAuthDiscriminatorType?), TypeInfoPropertyName = "NullableLLMAuthDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RemoteAuth?), TypeInfoPropertyName = "NullableRemoteAuth2")]
@@ -1535,9 +1538,6 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.DocumentPart>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Document>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.Image>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.CoreDocumentPart>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.StructuredDocumentSection>))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.FieldQuery>))]
     internal sealed partial class SourceGenerationContextChunk2 : global::System.Text.Json.Serialization.JsonSerializerContext
     {
     }
@@ -1550,6 +1550,9 @@ namespace Vectara
         Converters = new global::System.Type[]
         {
         })]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.CoreDocumentPart>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.StructuredDocumentSection>))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.FieldQuery>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.ScoredDocument>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.IndividualSearchResult>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.QueryWarning>))]
@@ -2024,6 +2027,10 @@ namespace Vectara
                     || typeToConvert == typeof(global::Vectara.LLMType)
 
                     || typeToConvert == typeof(global::Vectara.LLMType?)
+
+                    || typeToConvert == typeof(global::Vectara.OAuthClientCredentialsAuthClientAuthMethod)
+
+                    || typeToConvert == typeof(global::Vectara.OAuthClientCredentialsAuthClientAuthMethod?)
 
                     || typeToConvert == typeof(global::Vectara.LLMAuthDiscriminatorType)
 
@@ -2836,6 +2843,16 @@ namespace Vectara
                 if (typeToConvert == typeof(global::Vectara.LLMType?))
                 {
                     return new global::Vectara.JsonConverters.LLMTypeNullableJsonConverter();
+                }
+
+                if (typeToConvert == typeof(global::Vectara.OAuthClientCredentialsAuthClientAuthMethod))
+                {
+                    return new global::Vectara.JsonConverters.OAuthClientCredentialsAuthClientAuthMethodJsonConverter();
+                }
+
+                if (typeToConvert == typeof(global::Vectara.OAuthClientCredentialsAuthClientAuthMethod?))
+                {
+                    return new global::Vectara.JsonConverters.OAuthClientCredentialsAuthClientAuthMethodNullableJsonConverter();
                 }
 
                 if (typeToConvert == typeof(global::Vectara.LLMAuthDiscriminatorType))

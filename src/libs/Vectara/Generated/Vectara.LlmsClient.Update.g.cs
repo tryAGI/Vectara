@@ -76,6 +76,7 @@ namespace Vectara
         /// - `headers` - Additional HTTP headers (for openai-compatible and anthropic types)<br/>
         /// - `enabled` - Whether the LLM is enabled<br/>
         /// - `capabilities` - Model capabilities (image support, context limit, tool calling)<br/>
+        /// - `requests_per_second`, `input_tokens_per_minute`, `output_tokens_per_minute`, `input_tokens_per_day`, `output_tokens_per_day`, `input_tokens_per_month`, `output_tokens_per_month` - Request and token quotas<br/>
         /// **Immutable fields:**<br/>
         /// - `id` - System-generated identifier<br/>
         /// - `name` - LLM name<br/>
@@ -122,6 +123,7 @@ namespace Vectara
         /// - `headers` - Additional HTTP headers (for openai-compatible and anthropic types)<br/>
         /// - `enabled` - Whether the LLM is enabled<br/>
         /// - `capabilities` - Model capabilities (image support, context limit, tool calling)<br/>
+        /// - `requests_per_second`, `input_tokens_per_minute`, `output_tokens_per_minute`, `input_tokens_per_day`, `output_tokens_per_day`, `input_tokens_per_month`, `output_tokens_per_month` - Request and token quotas<br/>
         /// **Immutable fields:**<br/>
         /// - `id` - System-generated identifier<br/>
         /// - `name` - LLM name<br/>

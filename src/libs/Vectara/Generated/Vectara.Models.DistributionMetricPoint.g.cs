@@ -9,7 +9,7 @@ namespace Vectara
     public sealed partial class DistributionMetricPoint
     {
         /// <summary>
-        /// The start of the time bin in ISO 8601 (UTC). End-time aligned.
+        /// The start of the time bin in ISO 8601 (UTC). Bins lie on a grid of `bin_size_seconds` anchored at the Unix epoch, except when `max_bins` is 1, where the single bin starts at `start` rounded down to the nearest five-minute boundary.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bin_start")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -32,7 +32,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="DistributionMetricPoint" /> class.
         /// </summary>
         /// <param name="binStart">
-        /// The start of the time bin in ISO 8601 (UTC). End-time aligned.
+        /// The start of the time bin in ISO 8601 (UTC). Bins lie on a grid of `bin_size_seconds` anchored at the Unix epoch, except when `max_bins` is 1, where the single bin starts at `start` rounded down to the nearest five-minute boundary.
         /// </param>
         /// <param name="bins">
         /// Per-bin counts for this time bin, sorted by the descriptor's canonical bin order.

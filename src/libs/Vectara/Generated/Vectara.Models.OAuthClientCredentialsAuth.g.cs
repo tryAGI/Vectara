@@ -51,6 +51,24 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? Scopes { get; set; }
 
         /// <summary>
+        /// Sent as the OAuth `audience` form parameter so the identity provider mints a token whose `aud` claim targets this value. Required by some identity providers, such as Ory Hydra and Auth0.<br/>
+        /// Example: https://api.example.com
+        /// </summary>
+        /// <example>https://api.example.com</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("audience")]
+        public string? Audience { get; set; }
+
+        /// <summary>
+        /// How the platform presents the client ID and secret to the token endpoint, named after the OAuth `token_endpoint_auth_method` registry. `client_secret_basic` sends them in an HTTP Basic `Authorization` header. `client_secret_post` sends them as `client_id` and `client_secret` form fields in the request body. Set this to the method the client application is registered with at the identity provider.<br/>
+        /// Default Value: client_secret_basic<br/>
+        /// Example: client_secret_post
+        /// </summary>
+        /// <example>client_secret_post</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("client_auth_method")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.OAuthClientCredentialsAuthClientAuthMethodJsonConverter))]
+        public global::Vectara.OAuthClientCredentialsAuthClientAuthMethod? ClientAuthMethod { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -78,6 +96,15 @@ namespace Vectara
         /// OAuth2 scopes to request when acquiring the access token.<br/>
         /// Example: [read:jira-work, write:jira-work]
         /// </param>
+        /// <param name="audience">
+        /// Sent as the OAuth `audience` form parameter so the identity provider mints a token whose `aud` claim targets this value. Required by some identity providers, such as Ory Hydra and Auth0.<br/>
+        /// Example: https://api.example.com
+        /// </param>
+        /// <param name="clientAuthMethod">
+        /// How the platform presents the client ID and secret to the token endpoint, named after the OAuth `token_endpoint_auth_method` registry. `client_secret_basic` sends them in an HTTP Basic `Authorization` header. `client_secret_post` sends them as `client_id` and `client_secret` form fields in the request body. Set this to the method the client application is registered with at the identity provider.<br/>
+        /// Default Value: client_secret_basic<br/>
+        /// Example: client_secret_post
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -86,13 +113,17 @@ namespace Vectara
             string clientId,
             string clientSecret,
             string tokenEndpoint,
-            global::System.Collections.Generic.IList<string>? scopes)
+            global::System.Collections.Generic.IList<string>? scopes,
+            string? audience,
+            global::Vectara.OAuthClientCredentialsAuthClientAuthMethod? clientAuthMethod)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.ClientId = clientId ?? throw new global::System.ArgumentNullException(nameof(clientId));
             this.ClientSecret = clientSecret ?? throw new global::System.ArgumentNullException(nameof(clientSecret));
             this.TokenEndpoint = tokenEndpoint ?? throw new global::System.ArgumentNullException(nameof(tokenEndpoint));
             this.Scopes = scopes;
+            this.Audience = audience;
+            this.ClientAuthMethod = clientAuthMethod;
         }
 
         /// <summary>

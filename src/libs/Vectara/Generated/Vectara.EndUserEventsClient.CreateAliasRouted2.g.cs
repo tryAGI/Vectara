@@ -658,7 +658,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The request exceeds the caller's hourly event cap.
+                            // The request exceeds the caller's hourly event cap, or an LLM quota configured on the agent or its LLM is exhausted. The body names which, and the response carries a `Retry-After` header. An LLM quota refusal is returned this way when the request is not streamed; a streamed request receives that refusal as an `error` event in the stream on a `200`.
                             if ((int)__response.StatusCode == 429)
                             {
                                 string? __content_429 = null;
