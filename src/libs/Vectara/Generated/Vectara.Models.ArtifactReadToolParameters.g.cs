@@ -26,7 +26,7 @@ namespace Vectara
         public global::Vectara.ArtifactReadToolParametersEncoding? Encoding { get; set; }
 
         /// <summary>
-        /// Optional starting line number (1-indexed).<br/>
+        /// Optional starting line number (1-indexed). Only supported with raw encoding, and the output is then prefixed with line numbers as line_num:content. On its own it reads forward from that line; with end_line it reads the range. A range is bounded by both the configured line count and the configured response size, and an artifact larger than that size can only be read this way.<br/>
         /// Example: 100
         /// </summary>
         /// <example>100</example>
@@ -34,7 +34,7 @@ namespace Vectara
         public int? StartLine { get; set; }
 
         /// <summary>
-        /// Optional ending line number (1-indexed, inclusive).<br/>
+        /// Optional ending line number (1-indexed, inclusive), at or after start_line. Only supported with raw encoding, and the output is then prefixed with line numbers as line_num:content. On its own it reads from line 1 to that line. The range it closes is bounded by the same line count and response size as start_line.<br/>
         /// Example: 200
         /// </summary>
         /// <example>200</example>
@@ -59,11 +59,11 @@ namespace Vectara
         /// Example: raw
         /// </param>
         /// <param name="startLine">
-        /// Optional starting line number (1-indexed).<br/>
+        /// Optional starting line number (1-indexed). Only supported with raw encoding, and the output is then prefixed with line numbers as line_num:content. On its own it reads forward from that line; with end_line it reads the range. A range is bounded by both the configured line count and the configured response size, and an artifact larger than that size can only be read this way.<br/>
         /// Example: 100
         /// </param>
         /// <param name="endLine">
-        /// Optional ending line number (1-indexed, inclusive).<br/>
+        /// Optional ending line number (1-indexed, inclusive), at or after start_line. Only supported with raw encoding, and the output is then prefixed with line numbers as line_num:content. On its own it reads from line 1 to that line. The range it closes is bounded by the same line count and response size as start_line.<br/>
         /// Example: 200
         /// </param>
 #if NET7_0_OR_GREATER

@@ -81,10 +81,58 @@ namespace Vectara
         public global::Vectara.LLMCapabilities? Capabilities { get; set; }
 
         /// <summary>
-        /// The maximum number of requests per second for this LLM. Omit the field or set it to null to apply no limit. The platform rejects requests above the limit with HTTP 429.
+        /// The maximum number of requests per second for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("requests_per_second")]
         public long? RequestsPerSecond { get; set; }
+
+        /// <summary>
+        /// The maximum number of input (prompt) tokens per minute for this LLM, as reported by the provider and including cached prompt tokens. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 200000
+        /// </summary>
+        /// <example>200000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_minute")]
+        public long? InputTokensPerMinute { get; set; }
+
+        /// <summary>
+        /// The maximum number of output tokens (completion plus reasoning) per minute for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 50000
+        /// </summary>
+        /// <example>50000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_minute")]
+        public long? OutputTokensPerMinute { get; set; }
+
+        /// <summary>
+        /// The maximum number of input tokens per UTC calendar day for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 2000000
+        /// </summary>
+        /// <example>2000000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_day")]
+        public long? InputTokensPerDay { get; set; }
+
+        /// <summary>
+        /// The maximum number of output tokens per UTC calendar day for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 500000
+        /// </summary>
+        /// <example>500000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_day")]
+        public long? OutputTokensPerDay { get; set; }
+
+        /// <summary>
+        /// The maximum number of input tokens per UTC calendar month for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 50000000
+        /// </summary>
+        /// <example>50000000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_month")]
+        public long? InputTokensPerMonth { get; set; }
+
+        /// <summary>
+        /// The maximum number of output tokens per UTC calendar month for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 10000000
+        /// </summary>
+        /// <example>10000000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_month")]
+        public long? OutputTokensPerMonth { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -130,7 +178,31 @@ namespace Vectara
         /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
         /// </param>
         /// <param name="requestsPerSecond">
-        /// The maximum number of requests per second for this LLM. Omit the field or set it to null to apply no limit. The platform rejects requests above the limit with HTTP 429.
+        /// The maximum number of requests per second for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.
+        /// </param>
+        /// <param name="inputTokensPerMinute">
+        /// The maximum number of input (prompt) tokens per minute for this LLM, as reported by the provider and including cached prompt tokens. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 200000
+        /// </param>
+        /// <param name="outputTokensPerMinute">
+        /// The maximum number of output tokens (completion plus reasoning) per minute for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 50000
+        /// </param>
+        /// <param name="inputTokensPerDay">
+        /// The maximum number of input tokens per UTC calendar day for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 2000000
+        /// </param>
+        /// <param name="outputTokensPerDay">
+        /// The maximum number of output tokens per UTC calendar day for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 500000
+        /// </param>
+        /// <param name="inputTokensPerMonth">
+        /// The maximum number of input tokens per UTC calendar month for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 50000000
+        /// </param>
+        /// <param name="outputTokensPerMonth">
+        /// The maximum number of output tokens per UTC calendar month for this LLM. Omit the field or set it to null to apply no limit. Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
+        /// Example: 10000000
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -146,7 +218,13 @@ namespace Vectara
             int? idleTimeoutSeconds,
             object? testModelParameters,
             global::Vectara.LLMCapabilities? capabilities,
-            long? requestsPerSecond)
+            long? requestsPerSecond,
+            long? inputTokensPerMinute,
+            long? outputTokensPerMinute,
+            long? inputTokensPerDay,
+            long? outputTokensPerDay,
+            long? inputTokensPerMonth,
+            long? outputTokensPerMonth)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -159,6 +237,12 @@ namespace Vectara
             this.TestModelParameters = testModelParameters;
             this.Capabilities = capabilities;
             this.RequestsPerSecond = requestsPerSecond;
+            this.InputTokensPerMinute = inputTokensPerMinute;
+            this.OutputTokensPerMinute = outputTokensPerMinute;
+            this.InputTokensPerDay = inputTokensPerDay;
+            this.OutputTokensPerDay = outputTokensPerDay;
+            this.InputTokensPerMonth = inputTokensPerMonth;
+            this.OutputTokensPerMonth = outputTokensPerMonth;
         }
 
         /// <summary>

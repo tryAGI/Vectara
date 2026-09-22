@@ -3536,6 +3536,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: An LLM quota configured on the LLM used for generation is exhausted.
+            Returned when the request is not streamed, or when a streamed request
+            is refused before anything was emitted; a streamed request that has already
+            begun emitting receives the refusal as an `error` event in the stream.
+            The message in the body names the quota and the seconds until its window
+            resets. No `Retry-After` header is sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-streaming:
         format: sse
         stream-condition: $request.stream_response
@@ -3948,6 +3959,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: An LLM quota configured on the LLM used for generation is exhausted.
+            Returned when the request is not streamed, or when a streamed request
+            is refused before anything was emitted; a streamed request that has already
+            begun emitting receives the refusal as an `error` event in the stream.
+            The message in the body names the quota and the seconds until its window
+            resets. No `Retry-After` header is sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-streaming:
         stream-condition: $request.stream_response
         format: sse
@@ -4632,6 +4654,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: An LLM quota configured on the LLM used for generation is exhausted.
+            Returned when the request is not streamed, or when a streamed request
+            is refused before anything was emitted; a streamed request that has already
+            begun emitting receives the refusal as an `error` event in the stream.
+            The message in the body names the quota and the seconds until its window
+            resets. No `Retry-After` header is sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-streaming:
         format: sse
         stream-condition: $request.stream_response
@@ -5043,6 +5076,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: An LLM quota configured on the LLM used for generation is exhausted.
+            Returned when the request is not streamed, or when a streamed request
+            is refused before anything was emitted; a streamed request that has already
+            begun emitting receives the refusal as an `error` event in the stream.
+            The message in the body names the quota and the seconds until its window
+            resets. No `Retry-After` header is sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-streaming:
         format: sse
         stream-condition: $request.stream_response
@@ -5720,6 +5764,10 @@ paths:
         - `capabilities` - Model capabilities (image support, context limit, tool
         calling)
 
+        - `requests_per_second`, `input_tokens_per_minute`, `output_tokens_per_minute`,
+        `input_tokens_per_day`, `output_tokens_per_day`, `input_tokens_per_month`,
+        `output_tokens_per_month` - Request and token quotas
+
 
         **Immutable fields:**
 
@@ -5868,6 +5916,20 @@ paths:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
           description: Permissions do not allow creating a chat completion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: A quota configured on this LLM is exhausted. The body names
+            the quota and the response carries a `Retry-After` header.
+          headers:
+            Retry-After:
+              description: Seconds until the exhausted quota window turns and the
+                call may be retried.
+              schema:
+                type: integer
+                format: int64
           content:
             application/json:
               schema:
@@ -10194,6 +10256,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '429':
+          description: An LLM quota configured on the agent or its LLM is exhausted.
+            The body names the quota and the response carries a `Retry-After` header.
+            Returned when the request is not streamed; a streamed request receives
+            the refusal as an `error` event in the stream on a `200`.
+          headers:
+            Retry-After:
+              description: Seconds until the exhausted quota window turns and the
+                call may be retried.
+              schema:
+                type: integer
+                format: int64
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '502':
           description: Communication with the session failed.
           content:
@@ -13866,6 +13944,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '429':
+          description: An LLM quota configured on the agent or its LLM is exhausted.
+            The body names the quota and the response carries a `Retry-After` header.
+            Returned when the request is not streamed; a streamed request receives
+            the refusal as an `error` event in the stream on a `200`.
+          headers:
+            Retry-After:
+              description: Seconds until the exhausted quota window turns and the
+                call may be retried.
+              schema:
+                type: integer
+                format: int64
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: agent_aliases_sessions
       x-fern-sdk-method-name: create_input
     get:
@@ -14911,7 +15005,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '429':
-          description: The request exceeds the caller's hourly event cap.
+          description: The request exceeds the caller's hourly event cap, or an LLM
+            quota configured on the agent or its LLM is exhausted. The body names
+            which, and the response carries a `Retry-After` header. An LLM quota refusal
+            is returned this way when the request is not streamed; a streamed request
+            receives that refusal as an `error` event in the stream on a `200`.
+          headers:
+            Retry-After:
+              description: Seconds until the exhausted quota window turns and the
+                call may be retried.
+              schema:
+                type: integer
+                format: int64
           content:
             application/json:
               schema:
@@ -16539,8 +16644,10 @@ paths:
         in: query
         required: true
         description: The inclusive start of the query window (ISO 8601). For a system
-          metric, no more than 30 days before now; for a custom metric, no earlier
-          than its `retention_days` allow. A window is at most 30 days long.
+          metric, no more than 30 days before now. A window is at most 30 days long.
+          Points older than the metric's retention window are omitted; the first point
+          keeps its `bin_start`, so when `start` is older than the retained data that
+          point covers only the retained portion of its bin.
         schema:
           type: string
           format: date-time
@@ -16557,7 +16664,10 @@ paths:
         required: false
         description: The upper bound on the number of points in the response. The
           response may contain fewer points than requested but never more. The response
-          reports the actual time-bin size as `bin_size_seconds`. Defaults to 60.
+          reports the actual time-bin size as `bin_size_seconds`. When `max_bins`
+          is 1, the response has one point covering the requested window, with `start`
+          rounded down and `end` rounded up to the nearest five-minute boundary; `bin_size_seconds`
+          is the width of that rounded window. Defaults to 60.
         schema:
           type: integer
           format: int32
@@ -16573,8 +16683,19 @@ paths:
                 $ref: '#/components/schemas/MetricSeries'
         '400':
           description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
         '404':
           description: The named metric is not registered.
+        '422':
+          description: The metric's definition cannot be evaluated, so no series can
+            be computed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /v2/agent_analytics/traces:
     get:
       tags:
@@ -20831,6 +20952,25 @@ components:
           example:
           - read:jira-work
           - write:jira-work
+        audience:
+          description: Sent as the OAuth `audience` form parameter so the identity
+            provider mints a token whose `aud` claim targets this value. Required
+            by some identity providers, such as Ory Hydra and Auth0.
+          type: string
+          example: https://api.example.com
+        client_auth_method:
+          description: How the platform presents the client ID and secret to the token
+            endpoint, named after the OAuth `token_endpoint_auth_method` registry.
+            `client_secret_basic` sends them in an HTTP Basic `Authorization` header.
+            `client_secret_post` sends them as `client_id` and `client_secret` form
+            fields in the request body. Set this to the method the client application
+            is registered with at the identity provider.
+          type: string
+          enum:
+          - client_secret_basic
+          - client_secret_post
+          default: client_secret_basic
+          example: client_secret_post
       required:
       - type
       - client_id
@@ -21093,6 +21233,44 @@ components:
             '
           type: integer
           format: int64
+        input_tokens_per_minute:
+          description: The maximum number of input (prompt) tokens per minute for
+            this LLM, as reported by the provider and including cached prompt tokens.
+            The platform omits this field when the LLM has no such limit.
+          type: integer
+          format: int64
+          example: 200000
+        output_tokens_per_minute:
+          description: The maximum number of output tokens (completion plus reasoning)
+            per minute for this LLM. The platform omits this field when the LLM has
+            no such limit.
+          type: integer
+          format: int64
+          example: 50000
+        input_tokens_per_day:
+          description: The maximum number of input tokens per UTC calendar day for
+            this LLM. The platform omits this field when the LLM has no such limit.
+          type: integer
+          format: int64
+          example: 2000000
+        output_tokens_per_day:
+          description: The maximum number of output tokens per UTC calendar day for
+            this LLM. The platform omits this field when the LLM has no such limit.
+          type: integer
+          format: int64
+          example: 500000
+        input_tokens_per_month:
+          description: The maximum number of input tokens per UTC calendar month for
+            this LLM. The platform omits this field when the LLM has no such limit.
+          type: integer
+          format: int64
+          example: 50000000
+        output_tokens_per_month:
+          description: The maximum number of output tokens per UTC calendar month
+            for this LLM. The platform omits this field when the LLM has no such limit.
+          type: integer
+          format: int64
+          example: 10000000
         auth:
           description: 'The configured authentication. In responses, secret values
             contain the literal string `****`. Responses keep non-secret identifiers
@@ -21194,13 +21372,75 @@ components:
           $ref: '#/components/schemas/LLMCapabilities'
         requests_per_second:
           description: The maximum number of requests per second for this LLM. Omit
-            the field or set it to null to apply no limit. The platform rejects requests
-            above the limit with HTTP 429.
+            the field or set it to null to apply no limit. Once the limit is reached,
+            the platform rejects calls to this LLM with HTTP 429 and a Retry-After
+            header.
           type: integer
           format: int64
           minimum: 1
           maximum: 10000
           nullable: true
+        input_tokens_per_minute:
+          description: The maximum number of input (prompt) tokens per minute for
+            this LLM, as reported by the provider and including cached prompt tokens.
+            Omit the field or set it to null to apply no limit. Once the limit is
+            reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After
+            header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 200000
+        output_tokens_per_minute:
+          description: The maximum number of output tokens (completion plus reasoning)
+            per minute for this LLM. Omit the field or set it to null to apply no
+            limit. Once the limit is reached, the platform rejects calls to this LLM
+            with HTTP 429 and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000
+        input_tokens_per_day:
+          description: The maximum number of input tokens per UTC calendar day for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 2000000
+        output_tokens_per_day:
+          description: The maximum number of output tokens per UTC calendar day for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 500000
+        input_tokens_per_month:
+          description: The maximum number of input tokens per UTC calendar month for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000000
+        output_tokens_per_month:
+          description: The maximum number of output tokens per UTC calendar month
+            for this LLM. Omit the field or set it to null to apply no limit. Once
+            the limit is reached, the platform rejects calls to this LLM with HTTP
+            429 and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 10000000
       required:
       - name
       - uri
@@ -21327,13 +21567,75 @@ components:
           $ref: '#/components/schemas/LLMCapabilities'
         requests_per_second:
           description: The maximum number of requests per second for this LLM. Omit
-            the field or set it to null to apply no limit. The platform rejects requests
-            above the limit with HTTP 429.
+            the field or set it to null to apply no limit. Once the limit is reached,
+            the platform rejects calls to this LLM with HTTP 429 and a Retry-After
+            header.
           type: integer
           format: int64
           minimum: 1
           maximum: 10000
           nullable: true
+        input_tokens_per_minute:
+          description: The maximum number of input (prompt) tokens per minute for
+            this LLM, as reported by the provider and including cached prompt tokens.
+            Omit the field or set it to null to apply no limit. Once the limit is
+            reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After
+            header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 200000
+        output_tokens_per_minute:
+          description: The maximum number of output tokens (completion plus reasoning)
+            per minute for this LLM. Omit the field or set it to null to apply no
+            limit. Once the limit is reached, the platform rejects calls to this LLM
+            with HTTP 429 and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000
+        input_tokens_per_day:
+          description: The maximum number of input tokens per UTC calendar day for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 2000000
+        output_tokens_per_day:
+          description: The maximum number of output tokens per UTC calendar day for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 500000
+        input_tokens_per_month:
+          description: The maximum number of input tokens per UTC calendar month for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000000
+        output_tokens_per_month:
+          description: The maximum number of output tokens per UTC calendar month
+            for this LLM. Omit the field or set it to null to apply no limit. Once
+            the limit is reached, the platform rejects calls to this LLM with HTTP
+            429 and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 10000000
       required:
       - type
       - name
@@ -21417,13 +21719,75 @@ components:
           $ref: '#/components/schemas/LLMCapabilities'
         requests_per_second:
           description: The maximum number of requests per second for this LLM. Omit
-            the field or set it to null to apply no limit. The platform rejects requests
-            above the limit with HTTP 429.
+            the field or set it to null to apply no limit. Once the limit is reached,
+            the platform rejects calls to this LLM with HTTP 429 and a Retry-After
+            header.
           type: integer
           format: int64
           minimum: 1
           maximum: 10000
           nullable: true
+        input_tokens_per_minute:
+          description: The maximum number of input (prompt) tokens per minute for
+            this LLM, as reported by the provider and including cached prompt tokens.
+            Omit the field or set it to null to apply no limit. Once the limit is
+            reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After
+            header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 200000
+        output_tokens_per_minute:
+          description: The maximum number of output tokens (completion plus reasoning)
+            per minute for this LLM. Omit the field or set it to null to apply no
+            limit. Once the limit is reached, the platform rejects calls to this LLM
+            with HTTP 429 and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000
+        input_tokens_per_day:
+          description: The maximum number of input tokens per UTC calendar day for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 2000000
+        output_tokens_per_day:
+          description: The maximum number of output tokens per UTC calendar day for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 500000
+        input_tokens_per_month:
+          description: The maximum number of input tokens per UTC calendar month for
+            this LLM. Omit the field or set it to null to apply no limit. Once the
+            limit is reached, the platform rejects calls to this LLM with HTTP 429
+            and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000000
+        output_tokens_per_month:
+          description: The maximum number of output tokens per UTC calendar month
+            for this LLM. Omit the field or set it to null to apply no limit. Once
+            the limit is reached, the platform rejects calls to this LLM with HTTP
+            429 and a Retry-After header.
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 10000000
       required:
       - type
       - name
@@ -21608,7 +21972,8 @@ components:
             - Omit the field to keep the current limit.
 
 
-            The platform rejects requests above the limit with HTTP 429.
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
 
             '
           type: integer
@@ -21616,6 +21981,132 @@ components:
           minimum: 1
           maximum: 10000
           nullable: true
+        input_tokens_per_minute:
+          description: 'The maximum number of input (prompt) tokens per minute for
+            this LLM, as reported by the provider and including cached prompt tokens.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 200000
+        output_tokens_per_minute:
+          description: 'The maximum number of output tokens (completion plus reasoning)
+            per minute for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000
+        input_tokens_per_day:
+          description: 'The maximum number of input tokens per UTC calendar day for
+            this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 2000000
+        output_tokens_per_day:
+          description: 'The maximum number of output tokens per UTC calendar day for
+            this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 500000
+        input_tokens_per_month:
+          description: 'The maximum number of input tokens per UTC calendar month
+            for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000000
+        output_tokens_per_month:
+          description: 'The maximum number of output tokens per UTC calendar month
+            for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 10000000
     UpdateOpenAILLMRequest:
       description: Request to update an OpenAI-compatible Large Language Model connection.
         All fields are optional.
@@ -21702,7 +22193,8 @@ components:
             - Omit the field to keep the current limit.
 
 
-            The platform rejects requests above the limit with HTTP 429.
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
 
             '
           type: integer
@@ -21710,6 +22202,132 @@ components:
           minimum: 1
           maximum: 10000
           nullable: true
+        input_tokens_per_minute:
+          description: 'The maximum number of input (prompt) tokens per minute for
+            this LLM, as reported by the provider and including cached prompt tokens.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 200000
+        output_tokens_per_minute:
+          description: 'The maximum number of output tokens (completion plus reasoning)
+            per minute for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000
+        input_tokens_per_day:
+          description: 'The maximum number of input tokens per UTC calendar day for
+            this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 2000000
+        output_tokens_per_day:
+          description: 'The maximum number of output tokens per UTC calendar day for
+            this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 500000
+        input_tokens_per_month:
+          description: 'The maximum number of input tokens per UTC calendar month
+            for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000000
+        output_tokens_per_month:
+          description: 'The maximum number of output tokens per UTC calendar month
+            for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 10000000
       x-vectaraParents:
       - UpdateLLMRequest
     UpdateAnthropicLLMRequest:
@@ -21763,7 +22381,8 @@ components:
             - Omit the field to keep the current limit.
 
 
-            The platform rejects requests above the limit with HTTP 429.
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
 
             '
           type: integer
@@ -21771,6 +22390,132 @@ components:
           minimum: 1
           maximum: 10000
           nullable: true
+        input_tokens_per_minute:
+          description: 'The maximum number of input (prompt) tokens per minute for
+            this LLM, as reported by the provider and including cached prompt tokens.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 200000
+        output_tokens_per_minute:
+          description: 'The maximum number of output tokens (completion plus reasoning)
+            per minute for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000
+        input_tokens_per_day:
+          description: 'The maximum number of input tokens per UTC calendar day for
+            this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 2000000
+        output_tokens_per_day:
+          description: 'The maximum number of output tokens per UTC calendar day for
+            this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 500000
+        input_tokens_per_month:
+          description: 'The maximum number of input tokens per UTC calendar month
+            for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 50000000
+        output_tokens_per_month:
+          description: 'The maximum number of output tokens per UTC calendar month
+            for this LLM.
+
+
+            - Set a value to apply that limit.
+
+            - Set the field to null to remove the limit.
+
+            - Omit the field to keep the current limit.
+
+
+            Once the limit is reached, the platform rejects calls to this LLM with
+            HTTP 429 and a Retry-After header.
+
+            '
+          type: integer
+          format: int64
+          minimum: 1
+          nullable: true
+          example: 10000000
       x-vectaraParents:
       - UpdateLLMRequest
     UpdateLLMRequest:
@@ -25116,12 +25861,21 @@ components:
           - base64
           example: raw
         start_line:
-          description: Optional starting line number (1-indexed).
+          description: Optional starting line number (1-indexed). Only supported with
+            raw encoding, and the output is then prefixed with line numbers as line_num:content.
+            On its own it reads forward from that line; with end_line it reads the
+            range. A range is bounded by both the configured line count and the configured
+            response size, and an artifact larger than that size can only be read
+            this way.
           type: integer
           format: int32
           example: 100
         end_line:
-          description: Optional ending line number (1-indexed, inclusive).
+          description: Optional ending line number (1-indexed, inclusive), at or after
+            start_line. Only supported with raw encoding, and the output is then prefixed
+            with line numbers as line_num:content. On its own it reads from line 1
+            to that line. The range it closes is bounded by the same line count and
+            response size as start_line.
           type: integer
           format: int32
           example: 200
@@ -25131,16 +25885,17 @@ components:
       type: object
       properties:
         max_size_bytes:
-          description: Maximum file size in bytes for full reads without line ranges.
-            Defaults to 256KB.
+          description: Maximum size of any response, in bytes. A full read of a larger
+            artifact is rejected and must be read by line range; a line range holding
+            more is rejected naming the lines that fit. Under base64 encoding this
+            bounds the encoded text, which is 4 bytes for every 3 bytes of the artifact.
           type: integer
           format: int64
           minimum: 1
           maximum: 10485760
           default: 262144
         max_lines:
-          description: Maximum number of lines for range-based reads. Defaults to
-            200.
+          description: Maximum number of lines a range-based read returns.
           type: integer
           format: int32
           minimum: 1
@@ -27566,6 +28321,67 @@ components:
           description: Ordered tool calls run at session creation. Independent calls
             run in parallel. A call that references another call's output runs after
             it.
+    LLMQuota:
+      title: LLMQuota
+      description: 'Ceilings on the LLM requests and tokens this agent may consume,
+        counted across every LLM the agent calls. A sub-agent is charged to its own
+        quota, not its parent''s.
+
+
+        Each field is optional; an omitted field applies no limit. Day and month windows
+        are UTC calendar windows. Input tokens are the provider''s reported prompt
+        tokens, including cached tokens; output tokens are completion plus reasoning
+        tokens. When a limit is reached the agent''s next LLM call is refused: a non-streamed
+        `createAgentInput` request answers `429` with a `Retry-After` header, and
+        a streamed one ends with an `error` event naming the exhausted quota and the
+        seconds until it resets.
+
+        '
+      type: object
+      properties:
+        requests_per_second:
+          description: Maximum LLM requests per second.
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 10000
+          example: 10
+        input_tokens_per_minute:
+          description: Maximum input tokens per minute.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 200000
+        output_tokens_per_minute:
+          description: Maximum output tokens per minute.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 50000
+        input_tokens_per_day:
+          description: Maximum input tokens per UTC calendar day.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 2000000
+        output_tokens_per_day:
+          description: Maximum output tokens per UTC calendar day.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 100000
+        input_tokens_per_month:
+          description: Maximum input tokens per UTC calendar month.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 50000000
+        output_tokens_per_month:
+          description: Maximum output tokens per UTC calendar month.
+          type: integer
+          format: int64
+          minimum: 1
+          example: 10000000
     Agent:
       description: An AI agent that can use tools to provide intelligent responses
         and actions.
@@ -27670,6 +28486,8 @@ components:
           $ref: '#/components/schemas/SessionEnrichmentConfig'
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
+        llm_quota:
+          $ref: '#/components/schemas/LLMQuota'
         created_at:
           description: Timestamp when the agent was created.
           type: string
@@ -27822,6 +28640,8 @@ components:
           $ref: '#/components/schemas/SessionEnrichmentConfig'
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
+        llm_quota:
+          $ref: '#/components/schemas/LLMQuota'
       required:
       - name
       - tool_configurations
@@ -27978,9 +28798,11 @@ components:
       description: 'Request object for updating an existing agent. Omitted fields
         are preserved.
 
-        Nullable fields (description, tool_configurations, metadata, enabled)
+        Nullable fields (description, tool_configurations, metadata, enabled,
 
-        can be set to null to clear them.
+        llm_quota) can be set to null to clear them. Sending `llm_quota` replaces
+
+        the agent''s quota as a whole rather than merging it field by field.
 
         '
       type: object
@@ -28073,6 +28895,11 @@ components:
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
           nullable: true
+        llm_quota:
+          description: Replaces the agent's LLM quota. Set to null to remove every
+            limit; omit to keep the current quota.
+          $ref: '#/components/schemas/LLMQuota'
+          nullable: true
         steps:
           description: 'A map of additional named steps keyed by step name for partial
             update.
@@ -28123,12 +28950,12 @@ components:
       properties:
         count:
           description: Number of output tokens generated by the most recent agent
-            call.
+            call, including reasoning tokens.
           type: integer
           format: int64
           example: 30
         reasoning_tokens:
-          description: Number of tokens used for reasoning/thinking.
+          description: Number of tokens used for reasoning, a subset of count.
           type: integer
           format: int64
           example: 0
@@ -37570,6 +38397,8 @@ components:
         bin_size_seconds:
           description: The width of each time bin in the returned series, in seconds.
             The platform chooses it from the requested time range and `max_bins`.
+            When `max_bins` is 1, it is the width of the requested window after rounding
+            `start` down and `end` up to the nearest five-minute boundary.
           type: integer
           format: int32
         metric:
@@ -37589,7 +38418,10 @@ components:
       type: object
       properties:
         bin_start:
-          description: The start of the time bin in ISO 8601 (UTC). End-time aligned.
+          description: The start of the time bin in ISO 8601 (UTC). Bins lie on a
+            grid of `bin_size_seconds` anchored at the Unix epoch, except when `max_bins`
+            is 1, where the single bin starts at `start` rounded down to the nearest
+            five-minute boundary.
           type: string
           format: date-time
         value:
@@ -37637,7 +38469,10 @@ components:
       type: object
       properties:
         bin_start:
-          description: The start of the time bin in ISO 8601 (UTC). End-time aligned.
+          description: The start of the time bin in ISO 8601 (UTC). Bins lie on a
+            grid of `bin_size_seconds` anchored at the Unix epoch, except when `max_bins`
+            is 1, where the single bin starts at `start` rounded down to the nearest
+            five-minute boundary.
           type: string
           format: date-time
         percentiles:
@@ -37693,7 +38528,10 @@ components:
       type: object
       properties:
         bin_start:
-          description: The start of the time bin in ISO 8601 (UTC). End-time aligned.
+          description: The start of the time bin in ISO 8601 (UTC). Bins lie on a
+            grid of `bin_size_seconds` anchored at the Unix epoch, except when `max_bins`
+            is 1, where the single bin starts at `start` rounded down to the nearest
+            five-minute boundary.
           type: string
           format: date-time
         bins:
@@ -38564,7 +39402,6 @@ x-tagGroups:
   - Query History
   - Jobs
   - CustomerMetrics
-  - CustomMetrics
 - name: Platform
   tags:
   - Large Language Models

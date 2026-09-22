@@ -104,6 +104,54 @@ namespace Vectara
         public long? RequestsPerSecond { get; set; }
 
         /// <summary>
+        /// The maximum number of input (prompt) tokens per minute for this LLM, as reported by the provider and including cached prompt tokens. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 200000
+        /// </summary>
+        /// <example>200000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_minute")]
+        public long? InputTokensPerMinute { get; set; }
+
+        /// <summary>
+        /// The maximum number of output tokens (completion plus reasoning) per minute for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 50000
+        /// </summary>
+        /// <example>50000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_minute")]
+        public long? OutputTokensPerMinute { get; set; }
+
+        /// <summary>
+        /// The maximum number of input tokens per UTC calendar day for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 2000000
+        /// </summary>
+        /// <example>2000000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_day")]
+        public long? InputTokensPerDay { get; set; }
+
+        /// <summary>
+        /// The maximum number of output tokens per UTC calendar day for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 500000
+        /// </summary>
+        /// <example>500000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_day")]
+        public long? OutputTokensPerDay { get; set; }
+
+        /// <summary>
+        /// The maximum number of input tokens per UTC calendar month for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 50000000
+        /// </summary>
+        /// <example>50000000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_month")]
+        public long? InputTokensPerMonth { get; set; }
+
+        /// <summary>
+        /// The maximum number of output tokens per UTC calendar month for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 10000000
+        /// </summary>
+        /// <example>10000000</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_month")]
+        public long? OutputTokensPerMonth { get; set; }
+
+        /// <summary>
         /// The authentication configuration for an LLM. It is a union over every variant any LLM provider accepts. In `GET` responses, secret fields contain the literal string `****`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("auth")]
@@ -170,6 +218,30 @@ namespace Vectara
         /// <param name="requestsPerSecond">
         /// The maximum number of requests per second for this LLM. The platform omits this field when the LLM has no limit.
         /// </param>
+        /// <param name="inputTokensPerMinute">
+        /// The maximum number of input (prompt) tokens per minute for this LLM, as reported by the provider and including cached prompt tokens. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 200000
+        /// </param>
+        /// <param name="outputTokensPerMinute">
+        /// The maximum number of output tokens (completion plus reasoning) per minute for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 50000
+        /// </param>
+        /// <param name="inputTokensPerDay">
+        /// The maximum number of input tokens per UTC calendar day for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 2000000
+        /// </param>
+        /// <param name="outputTokensPerDay">
+        /// The maximum number of output tokens per UTC calendar day for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 500000
+        /// </param>
+        /// <param name="inputTokensPerMonth">
+        /// The maximum number of input tokens per UTC calendar month for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 50000000
+        /// </param>
+        /// <param name="outputTokensPerMonth">
+        /// The maximum number of output tokens per UTC calendar month for this LLM. The platform omits this field when the LLM has no such limit.<br/>
+        /// Example: 10000000
+        /// </param>
         /// <param name="auth">
         /// The authentication configuration for an LLM. It is a union over every variant any LLM provider accepts. In `GET` responses, secret fields contain the literal string `****`.
         /// </param>
@@ -190,6 +262,12 @@ namespace Vectara
             global::System.Collections.Generic.Dictionary<string, string>? headers,
             int? idleTimeoutSeconds,
             long? requestsPerSecond,
+            long? inputTokensPerMinute,
+            long? outputTokensPerMinute,
+            long? inputTokensPerDay,
+            long? outputTokensPerDay,
+            long? inputTokensPerMonth,
+            long? outputTokensPerMonth,
             global::Vectara.LLMAuth? auth)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
@@ -205,6 +283,12 @@ namespace Vectara
             this.Headers = headers;
             this.IdleTimeoutSeconds = idleTimeoutSeconds;
             this.RequestsPerSecond = requestsPerSecond;
+            this.InputTokensPerMinute = inputTokensPerMinute;
+            this.OutputTokensPerMinute = outputTokensPerMinute;
+            this.InputTokensPerDay = inputTokensPerDay;
+            this.OutputTokensPerDay = outputTokensPerDay;
+            this.InputTokensPerMonth = inputTokensPerMonth;
+            this.OutputTokensPerMonth = outputTokensPerMonth;
             this.Auth = auth;
         }
 

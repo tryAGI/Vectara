@@ -32,7 +32,7 @@ namespace Vectara
         public required global::System.Collections.Generic.Dictionary<string, global::System.Collections.Generic.IList<string>> Labels { get; set; }
 
         /// <summary>
-        /// The width of each time bin in the returned series, in seconds. The platform chooses it from the requested time range and `max_bins`.
+        /// The width of each time bin in the returned series, in seconds. The platform chooses it from the requested time range and `max_bins`. When `max_bins` is 1, it is the width of the requested window after rounding `start` down and `end` up to the nearest five-minute boundary.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bin_size_seconds")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -65,7 +65,7 @@ namespace Vectara
         /// Deprecated alias for `dimension_values`; identical value. Use `dimension_values`.
         /// </param>
         /// <param name="binSizeSeconds">
-        /// The width of each time bin in the returned series, in seconds. The platform chooses it from the requested time range and `max_bins`.
+        /// The width of each time bin in the returned series, in seconds. The platform chooses it from the requested time range and `max_bins`. When `max_bins` is 1, it is the width of the requested window after rounding `start` down and `end` up to the nearest five-minute boundary.
         /// </param>
         /// <param name="metric">
         /// The descriptor of the metric this series describes, as listed in the catalog. Carries the unit, the dimension names, and the percentile ranks or bin ranges needed to interpret the points.
