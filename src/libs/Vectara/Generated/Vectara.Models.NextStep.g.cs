@@ -11,7 +11,7 @@ namespace Vectara
         /// <summary>
         /// UserFn expression evaluating to boolean.<br/>
         /// Uses the `get()` function with JSONPath to access the step transition context.<br/>
-        /// See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker for the UserFn language reference.<br/>
+        /// See https://docs.vectara.com/docs/reference/userfn-language for the UserFn language reference.<br/>
         /// Omit for catch-all/default routing.<br/>
         /// The context available to `get()` has the following shape:<br/>
         /// ```<br/>
@@ -39,9 +39,10 @@ namespace Vectara
         ///   "output": { "text": "..." }<br/>
         /// }<br/>
         /// ```<br/>
-        /// - `$.agent.metadata.&lt;key&gt;` — agent metadata fields<br/>
-        /// - `$.session.metadata.&lt;key&gt;` — session metadata fields<br/>
-        /// - `$.tools.&lt;tool_config_name&gt;.outputs.latest.&lt;field&gt;` — latest tool output fields<br/>
+        /// - `$.agent.key`, `$.agent.name`, `$.agent.description`, `$.agent.metadata.&lt;key&gt;` — the agent<br/>
+        /// - `$.session.key`, `$.session.name`, `$.session.description`, `$.session.metadata.&lt;key&gt;` — the session<br/>
+        /// - `$.currentDate` — the evaluation time, ISO 8601<br/>
+        /// - `$.tools.&lt;tool_config_name&gt;.outputs.latest.&lt;field&gt;` — latest tool output fields, present only for tools that produced output<br/>
         /// - `$.output.text` — agent text output (when output_parser is `default`)<br/>
         /// - `$.output.&lt;field&gt;` — agent structured output fields (when output_parser is `structured`)<br/>
         /// Example: get('$.output.intent') == 'sales'
@@ -77,7 +78,7 @@ namespace Vectara
         /// <param name="condition">
         /// UserFn expression evaluating to boolean.<br/>
         /// Uses the `get()` function with JSONPath to access the step transition context.<br/>
-        /// See https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker for the UserFn language reference.<br/>
+        /// See https://docs.vectara.com/docs/reference/userfn-language for the UserFn language reference.<br/>
         /// Omit for catch-all/default routing.<br/>
         /// The context available to `get()` has the following shape:<br/>
         /// ```<br/>
@@ -105,9 +106,10 @@ namespace Vectara
         ///   "output": { "text": "..." }<br/>
         /// }<br/>
         /// ```<br/>
-        /// - `$.agent.metadata.&lt;key&gt;` — agent metadata fields<br/>
-        /// - `$.session.metadata.&lt;key&gt;` — session metadata fields<br/>
-        /// - `$.tools.&lt;tool_config_name&gt;.outputs.latest.&lt;field&gt;` — latest tool output fields<br/>
+        /// - `$.agent.key`, `$.agent.name`, `$.agent.description`, `$.agent.metadata.&lt;key&gt;` — the agent<br/>
+        /// - `$.session.key`, `$.session.name`, `$.session.description`, `$.session.metadata.&lt;key&gt;` — the session<br/>
+        /// - `$.currentDate` — the evaluation time, ISO 8601<br/>
+        /// - `$.tools.&lt;tool_config_name&gt;.outputs.latest.&lt;field&gt;` — latest tool output fields, present only for tools that produced output<br/>
         /// - `$.output.text` — agent text output (when output_parser is `default`)<br/>
         /// - `$.output.&lt;field&gt;` — agent structured output fields (when output_parser is `structured`)<br/>
         /// Example: get('$.output.intent') == 'sales'
