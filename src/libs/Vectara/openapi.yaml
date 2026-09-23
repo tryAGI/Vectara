@@ -11941,6 +11941,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PublicConnector'
+        '403':
+          description: The request `Origin` is not in the connector's `allowed_origins`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
           description: The connector does not exist on the addressed alias, does not
             front an end-user surface, is disabled, or belongs to a disabled customer.
@@ -14516,7 +14522,9 @@ paths:
         on the addressed alias, which satisfies this operation''s role requirement.
         A visitor id is customer-scoped, so it need not have been minted through the
         connector named in the request body; that connector must still admit anonymous
-        visitors (`403` otherwise).
+        visitors (`403` otherwise). The connector''s `allowed_origins` also applies
+        to anonymous and signed-in callers; requests without an `Origin` header are
+        admitted.
 
         The session binds to the connector named by the request body''s `connector_id`
         and takes its idle lifetime from that connector''s `session_tti_minutes`,
@@ -14572,7 +14580,8 @@ paths:
         '403':
           description: Permissions do not allow creating sessions for this alias.
             For an anonymous visitor, also returned when the connector named in the
-            request body does not admit anonymous visitors.
+            request body does not admit anonymous visitors. Also returned when the
+            request `Origin` is not in the connector's `allowed_origins`.
           content:
             application/json:
               schema:
@@ -14791,7 +14800,10 @@ paths:
         '403':
           description: The session does not belong to the caller, or permissions do
             not allow access. For an anonymous visitor, also returned when the session's
-            connector no longer admits anonymous visitors.
+            connector no longer admits anonymous visitors. Also returned when the
+            request `Origin` is not in the connector's `allowed_origins`. Origin checks
+            apply only while the connector remains enabled; disabling or deleting
+            it preserves the other admission and ownership checks.
           content:
             application/json:
               schema:
@@ -14872,7 +14884,10 @@ paths:
         '403':
           description: The session does not belong to the caller, or permissions do
             not allow deletion. For an anonymous visitor, also returned when the session's
-            connector no longer admits anonymous visitors.
+            connector no longer admits anonymous visitors. Also returned when the
+            request `Origin` is not in the connector's `allowed_origins`. Origin checks
+            apply only while the connector remains enabled; disabling or deleting
+            it preserves the other admission and ownership checks.
           content:
             application/json:
               schema:
@@ -14987,7 +15002,10 @@ paths:
         '403':
           description: The session does not belong to the caller, or permissions do
             not allow sending input. For an anonymous visitor, also returned when
-            the session's connector no longer admits anonymous visitors.
+            the session's connector no longer admits anonymous visitors. Also returned
+            when the request `Origin` is not in the connector's `allowed_origins`.
+            Origin checks apply only while the connector remains enabled; disabling
+            or deleting it preserves the other admission and ownership checks.
           content:
             application/json:
               schema:
@@ -15182,7 +15200,10 @@ paths:
         '403':
           description: The session does not belong to the caller, or permissions do
             not allow reading its events. For an anonymous visitor, also returned
-            when the session's connector no longer admits anonymous visitors.
+            when the session's connector no longer admits anonymous visitors. Also
+            returned when the request `Origin` is not in the connector's `allowed_origins`.
+            Origin checks apply only while the connector remains enabled; disabling
+            or deleting it preserves the other admission and ownership checks.
           content:
             application/json:
               schema:
@@ -27931,7 +27952,7 @@ components:
       properties:
         condition:
           description: "UserFn expression evaluating to boolean.\nUses the `get()`\
-            \ function with JSONPath to access the step transition context.\nSee https://docs.vectara.com/docs/search-and-retrieval/rerankers/user-defined-function-reranker\
+            \ function with JSONPath to access the step transition context.\nSee https://docs.vectara.com/docs/reference/userfn-language\
             \ for the UserFn language reference.\nOmit for catch-all/default routing.\n\
             \nThe context available to `get()` has the following shape:\n```\n{\n\
             \  \"agent\": {\n    \"name\": \"...\",\n    \"key\": \"...\",\n    \"\
@@ -27940,10 +27961,12 @@ components:
             : \"...\",\n    \"metadata\": { ... }\n  },\n  \"currentDate\": \"2024-01-15T10:35:00Z\"\
             ,\n  \"tools\": {\n    \"<tool_config_name>\": {\n      \"outputs\": {\n\
             \        \"latest\": { ... }\n      }\n    }\n  },\n  \"output\": { \"\
-            text\": \"...\" }\n}\n```\n\n- `$.agent.metadata.<key>` \u2014 agent metadata\
-            \ fields\n- `$.session.metadata.<key>` \u2014 session metadata fields\n\
-            - `$.tools.<tool_config_name>.outputs.latest.<field>` \u2014 latest tool\
-            \ output fields\n- `$.output.text` \u2014 agent text output (when output_parser\
+            text\": \"...\" }\n}\n```\n\n- `$.agent.key`, `$.agent.name`, `$.agent.description`,\
+            \ `$.agent.metadata.<key>` \u2014 the agent\n- `$.session.key`, `$.session.name`,\
+            \ `$.session.description`, `$.session.metadata.<key>` \u2014 the session\n\
+            - `$.currentDate` \u2014 the evaluation time, ISO 8601\n- `$.tools.<tool_config_name>.outputs.latest.<field>`\
+            \ \u2014 latest tool output fields, present only for tools that produced\
+            \ output\n- `$.output.text` \u2014 agent text output (when output_parser\
             \ is `default`)\n- `$.output.<field>` \u2014 agent structured output fields\
             \ (when output_parser is `structured`)\n"
           type: string
@@ -31563,6 +31586,15 @@ components:
         - webhook_path
       x-vectaraParents:
       - ConnectorConfiguration
+    WidgetAllowedOrigin:
+      description: 'A lowercase `https://host` or `https://*.host` origin without
+        a port or path. Wildcards match subdomains at any depth, excluding the apex.
+
+        '
+      type: string
+      maxLength: 255
+      pattern: ^https://(\*\.)?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$
+      example: https://example.com
     WidgetPresentation:
       description: "The presentation configuration the widget client renders \u2014\
         \ branding, palette, welcome content, suggested prompts.\nFree-form apart\
@@ -31648,6 +31680,23 @@ components:
             type: boolean
             default: false
             example: false
+          allowed_origins:
+            description: 'Allowed browser origins. Entries must be unique.
+
+              A non-empty list rejects unmatched `Origin` headers with `403`; requests
+              without `Origin` are allowed.
+
+              An empty list allows any origin.
+
+              '
+            type: array
+            maxItems: 20
+            x-vectara-validate-string-items: true
+            items:
+              $ref: '#/components/schemas/WidgetAllowedOrigin'
+            example:
+            - https://example.com
+            - https://*.example.com
           presentation:
             $ref: '#/components/schemas/WidgetPresentation'
           session_tti_minutes:
@@ -32087,6 +32136,23 @@ components:
             type: boolean
             default: false
             example: false
+          allowed_origins:
+            description: 'Allowed browser origins. Entries must be unique.
+
+              A non-empty list rejects unmatched `Origin` headers with `403`; requests
+              without `Origin` are allowed.
+
+              Omitted or empty allows any origin. Null values and entries are rejected.
+
+              '
+            type: array
+            maxItems: 20
+            x-vectara-validate-string-items: true
+            items:
+              $ref: '#/components/schemas/WidgetAllowedOrigin'
+            example:
+            - https://example.com
+            - https://*.example.com
           presentation:
             $ref: '#/components/schemas/WidgetPresentation'
           session_tti_minutes:
@@ -32287,6 +32353,25 @@ components:
             '
           type: boolean
           example: false
+        allowed_origins:
+          description: 'Allowed browser origins. Entries must be unique.
+
+            A non-empty list rejects unmatched `Origin` headers with `403`; requests
+            without `Origin` are allowed.
+
+            Omitted preserves the current list. Set to null or an empty array to clear.
+            Null entries are rejected.
+
+            '
+          type: array
+          nullable: true
+          maxItems: 20
+          x-vectara-validate-string-items: true
+          items:
+            $ref: '#/components/schemas/WidgetAllowedOrigin'
+          example:
+          - https://example.com
+          - https://*.example.com
         presentation:
           $ref: '#/components/schemas/WidgetPresentation'
         session_tti_minutes:

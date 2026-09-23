@@ -30,6 +30,16 @@ namespace Vectara
         public bool? PublicAccess { get; set; }
 
         /// <summary>
+        /// Allowed browser origins. Entries must be unique.<br/>
+        /// A non-empty list rejects unmatched `Origin` headers with `403`; requests without `Origin` are allowed.<br/>
+        /// Omitted preserves the current list. Set to null or an empty array to clear. Null entries are rejected.<br/>
+        /// Example: [https://example.com, https://*.example.com]
+        /// </summary>
+        /// <example>[https://example.com, https://*.example.com]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("allowed_origins")]
+        public global::System.Collections.Generic.IList<string>? AllowedOrigins { get; set; }
+
+        /// <summary>
         /// The presentation configuration the widget client renders — branding, palette, welcome content, suggested prompts.<br/>
         /// Free-form apart from the required `version`; the platform stores it verbatim, serves it back uninterpreted, and caps its total size.<br/>
         /// Null-valued keys are accepted but are omitted from responses.<br/>
@@ -99,6 +109,12 @@ namespace Vectara
         /// Gates anonymous admission only; authenticated callers presenting this connector are governed by `enabled`.<br/>
         /// Example: false
         /// </param>
+        /// <param name="allowedOrigins">
+        /// Allowed browser origins. Entries must be unique.<br/>
+        /// A non-empty list rejects unmatched `Origin` headers with `403`; requests without `Origin` are allowed.<br/>
+        /// Omitted preserves the current list. Set to null or an empty array to clear. Null entries are rejected.<br/>
+        /// Example: [https://example.com, https://*.example.com]
+        /// </param>
         /// <param name="presentation">
         /// The presentation configuration the widget client renders — branding, palette, welcome content, suggested prompts.<br/>
         /// Free-form apart from the required `version`; the platform stores it verbatim, serves it back uninterpreted, and caps its total size.<br/>
@@ -134,6 +150,7 @@ namespace Vectara
         public UpdateWidgetConnectorConfiguration(
             string type,
             bool? publicAccess,
+            global::System.Collections.Generic.IList<string>? allowedOrigins,
             global::Vectara.WidgetPresentation? presentation,
             int? sessionTtiMinutes,
             global::System.Collections.Generic.IList<global::Vectara.AgentOutputType>? revealedOutputTypes,
@@ -143,6 +160,7 @@ namespace Vectara
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.PublicAccess = publicAccess;
+            this.AllowedOrigins = allowedOrigins;
             this.Presentation = presentation;
             this.SessionTtiMinutes = sessionTtiMinutes;
             this.RevealedOutputTypes = revealedOutputTypes;
