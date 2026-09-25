@@ -30,6 +30,16 @@ namespace Vectara
         public bool? PublicAccess { get; set; }
 
         /// <summary>
+        /// Allowed browser origins. Entries must be unique.<br/>
+        /// A non-empty list rejects unmatched `Origin` headers with `403`; requests without `Origin` are allowed.<br/>
+        /// Omitted or empty allows any origin. Null values and entries are rejected.<br/>
+        /// Example: [https://example.com, https://*.example.com]
+        /// </summary>
+        /// <example>[https://example.com, https://*.example.com]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("allowed_origins")]
+        public global::System.Collections.Generic.IList<string>? AllowedOrigins { get; set; }
+
+        /// <summary>
         /// The presentation configuration the widget client renders — branding, palette, welcome content, suggested prompts.<br/>
         /// Free-form apart from the required `version`; the platform stores it verbatim, serves it back uninterpreted, and caps its total size.<br/>
         /// Null-valued keys are accepted but are omitted from responses.<br/>
@@ -110,6 +120,12 @@ namespace Vectara
         /// Default Value: false<br/>
         /// Example: false
         /// </param>
+        /// <param name="allowedOrigins">
+        /// Allowed browser origins. Entries must be unique.<br/>
+        /// A non-empty list rejects unmatched `Origin` headers with `403`; requests without `Origin` are allowed.<br/>
+        /// Omitted or empty allows any origin. Null values and entries are rejected.<br/>
+        /// Example: [https://example.com, https://*.example.com]
+        /// </param>
         /// <param name="sessionTtiMinutes">
         /// How long a session created through this widget may sit idle before it is closed, in minutes.<br/>
         /// Applied to every session created through this widget connector, anonymous or signed-in.<br/>
@@ -146,6 +162,7 @@ namespace Vectara
             string type,
             global::Vectara.WidgetPresentation presentation,
             bool? publicAccess,
+            global::System.Collections.Generic.IList<string>? allowedOrigins,
             int? sessionTtiMinutes,
             global::System.Collections.Generic.IList<global::Vectara.AgentOutputType>? revealedOutputTypes,
             object? sessionMetadata,
@@ -153,6 +170,7 @@ namespace Vectara
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.PublicAccess = publicAccess;
+            this.AllowedOrigins = allowedOrigins;
             this.Presentation = presentation ?? throw new global::System.ArgumentNullException(nameof(presentation));
             this.SessionTtiMinutes = sessionTtiMinutes;
             this.RevealedOutputTypes = revealedOutputTypes;
