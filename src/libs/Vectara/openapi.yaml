@@ -29155,6 +29155,7 @@ components:
         name:
           description: Human-readable name for the session.
           type: string
+          maxLength: 255
           example: Customer Support Session
         description:
           description: 'A short description of the session''s purpose. If omitted,
@@ -29259,6 +29260,7 @@ components:
         name:
           description: Human-readable name for the session.
           type: string
+          maxLength: 255
           example: Updated Session Name
         description:
           description: 'A short description of the session''s purpose. Pass an empty
@@ -34520,6 +34522,7 @@ components:
           description: Human-readable name for the session. Platform-generated if
             omitted.
           type: string
+          maxLength: 255
           example: Customer Support Session
         description:
           description: A short description of the session's purpose. If omitted, the
