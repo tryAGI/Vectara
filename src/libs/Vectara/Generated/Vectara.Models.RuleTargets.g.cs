@@ -49,8 +49,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SingleRuleTargets PickSingle() => IsSingle
-            ? Single!
+        public global::Vectara.SingleRuleTargets PickSingle() => Single is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Single' but the value was {ToString()}.");
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WeightedRuleTargets PickWeighted() => IsWeighted
-            ? Weighted!
+        public global::Vectara.WeightedRuleTargets PickWeighted() => Weighted is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Weighted' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -187,13 +187,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSingle && single != null)
+            if (Single is { } __value0 && single != null)
             {
-                return single(Single!);
+                return single(__value0);
             }
-            else if (IsWeighted && weighted != null)
+            else if (Weighted is { } __value1 && weighted != null)
             {
-                return weighted(Weighted!);
+                return weighted(__value1);
             }
 
             return default(TResult);
@@ -213,13 +213,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSingle)
+            if (Single is { } __value0)
             {
-                single?.Invoke(Single!);
+                single?.Invoke(__value0);
             }
-            else if (IsWeighted)
+            else if (Weighted is { } __value1)
             {
-                weighted?.Invoke(Weighted!);
+                weighted?.Invoke(__value1);
             }
         }
 
@@ -236,13 +236,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSingle)
+            if (Single is { } __value0)
             {
-                single?.Invoke(Single!);
+                single?.Invoke(__value0);
             }
-            else if (IsWeighted)
+            else if (Weighted is { } __value1)
             {
-                weighted?.Invoke(Weighted!);
+                weighted?.Invoke(__value1);
             }
         }
 

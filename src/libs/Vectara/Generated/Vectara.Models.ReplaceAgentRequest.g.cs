@@ -45,8 +45,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateAgentRequest PickCreate() => IsCreate
-            ? Create!
+        public global::Vectara.CreateAgentRequest PickCreate() => Create is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Create' but the value was {ToString()}.");
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ReplaceAgentRequestVariant2 PickReplaceAgentRequestVariant2() => IsReplaceAgentRequestVariant2
-            ? ReplaceAgentRequestVariant2!
+        public global::Vectara.ReplaceAgentRequestVariant2 PickReplaceAgentRequestVariant2() => ReplaceAgentRequestVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ReplaceAgentRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -180,13 +180,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCreate && create != null)
+            if (Create is { } __value0 && create != null)
             {
-                return create(Create!);
+                return create(__value0);
             }
-            else if (IsReplaceAgentRequestVariant2 && replaceAgentRequestVariant2 != null)
+            else if (ReplaceAgentRequestVariant2 is { } __value1 && replaceAgentRequestVariant2 != null)
             {
-                return replaceAgentRequestVariant2(ReplaceAgentRequestVariant2!);
+                return replaceAgentRequestVariant2(__value1);
             }
 
             return default(TResult);
@@ -206,13 +206,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCreate)
+            if (Create is { } __value0)
             {
-                create?.Invoke(Create!);
+                create?.Invoke(__value0);
             }
-            else if (IsReplaceAgentRequestVariant2)
+            else if (ReplaceAgentRequestVariant2 is { } __value1)
             {
-                replaceAgentRequestVariant2?.Invoke(ReplaceAgentRequestVariant2!);
+                replaceAgentRequestVariant2?.Invoke(__value1);
             }
         }
 
@@ -229,13 +229,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCreate)
+            if (Create is { } __value0)
             {
-                create?.Invoke(Create!);
+                create?.Invoke(__value0);
             }
-            else if (IsReplaceAgentRequestVariant2)
+            else if (ReplaceAgentRequestVariant2 is { } __value1)
             {
-                replaceAgentRequestVariant2?.Invoke(ReplaceAgentRequestVariant2!);
+                replaceAgentRequestVariant2?.Invoke(__value1);
             }
         }
 

@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.MaxCharsChunkingStrategy PickMaxCharsChunkingStrategy() => IsMaxCharsChunkingStrategy
-            ? MaxCharsChunkingStrategy!
+        public global::Vectara.MaxCharsChunkingStrategy PickMaxCharsChunkingStrategy() => MaxCharsChunkingStrategy is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'MaxCharsChunkingStrategy' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SentenceChunkingStrategy PickSentenceChunkingStrategy() => IsSentenceChunkingStrategy
-            ? SentenceChunkingStrategy!
+        public global::Vectara.SentenceChunkingStrategy PickSentenceChunkingStrategy() => SentenceChunkingStrategy is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SentenceChunkingStrategy' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsMaxCharsChunkingStrategy && maxCharsChunkingStrategy != null)
+            if (MaxCharsChunkingStrategy is { } __value0 && maxCharsChunkingStrategy != null)
             {
-                return maxCharsChunkingStrategy(MaxCharsChunkingStrategy!);
+                return maxCharsChunkingStrategy(__value0);
             }
-            else if (IsSentenceChunkingStrategy && sentenceChunkingStrategy != null)
+            else if (SentenceChunkingStrategy is { } __value1 && sentenceChunkingStrategy != null)
             {
-                return sentenceChunkingStrategy(SentenceChunkingStrategy!);
+                return sentenceChunkingStrategy(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsMaxCharsChunkingStrategy)
+            if (MaxCharsChunkingStrategy is { } __value0)
             {
-                maxCharsChunkingStrategy?.Invoke(MaxCharsChunkingStrategy!);
+                maxCharsChunkingStrategy?.Invoke(__value0);
             }
-            else if (IsSentenceChunkingStrategy)
+            else if (SentenceChunkingStrategy is { } __value1)
             {
-                sentenceChunkingStrategy?.Invoke(SentenceChunkingStrategy!);
+                sentenceChunkingStrategy?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsMaxCharsChunkingStrategy)
+            if (MaxCharsChunkingStrategy is { } __value0)
             {
-                maxCharsChunkingStrategy?.Invoke(MaxCharsChunkingStrategy!);
+                maxCharsChunkingStrategy?.Invoke(__value0);
             }
-            else if (IsSentenceChunkingStrategy)
+            else if (SentenceChunkingStrategy is { } __value1)
             {
-                sentenceChunkingStrategy?.Invoke(SentenceChunkingStrategy!);
+                sentenceChunkingStrategy?.Invoke(__value1);
             }
         }
 

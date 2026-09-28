@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.TemplatedReminder PickTemplated() => IsTemplated
-            ? Templated!
+        public global::Vectara.TemplatedReminder PickTemplated() => Templated is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Templated' but the value was {ToString()}.");
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.GlossaryExpansionReminder PickGlossaryExpansion() => IsGlossaryExpansion
-            ? GlossaryExpansion!
+        public global::Vectara.GlossaryExpansionReminder PickGlossaryExpansion() => GlossaryExpansion is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GlossaryExpansion' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -187,13 +187,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsTemplated && templated != null)
+            if (Templated is { } __value0 && templated != null)
             {
-                return templated(Templated!);
+                return templated(__value0);
             }
-            else if (IsGlossaryExpansion && glossaryExpansion != null)
+            else if (GlossaryExpansion is { } __value1 && glossaryExpansion != null)
             {
-                return glossaryExpansion(GlossaryExpansion!);
+                return glossaryExpansion(__value1);
             }
 
             return default(TResult);
@@ -213,13 +213,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsTemplated)
+            if (Templated is { } __value0)
             {
-                templated?.Invoke(Templated!);
+                templated?.Invoke(__value0);
             }
-            else if (IsGlossaryExpansion)
+            else if (GlossaryExpansion is { } __value1)
             {
-                glossaryExpansion?.Invoke(GlossaryExpansion!);
+                glossaryExpansion?.Invoke(__value1);
             }
         }
 
@@ -236,13 +236,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsTemplated)
+            if (Templated is { } __value0)
             {
-                templated?.Invoke(Templated!);
+                templated?.Invoke(__value0);
             }
-            else if (IsGlossaryExpansion)
+            else if (GlossaryExpansion is { } __value1)
             {
-                glossaryExpansion?.Invoke(GlossaryExpansion!);
+                glossaryExpansion?.Invoke(__value1);
             }
         }
 

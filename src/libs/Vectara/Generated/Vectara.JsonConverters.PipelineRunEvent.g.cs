@@ -77,25 +77,25 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RunStartedEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RunStartedEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.RunStartedEvent).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.RunStarted!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickRunStarted(), typeInfo);
             }
             else if (value.IsRunCompleted)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RunCompletedEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RunCompletedEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.RunCompletedEvent).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.RunCompleted!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickRunCompleted(), typeInfo);
             }
             else if (value.IsRecordProcessing)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RecordProcessingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RecordProcessingEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.RecordProcessingEvent).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.RecordProcessing!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickRecordProcessing(), typeInfo);
             }
             else if (value.IsWatermarkAdvanced)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WatermarkAdvancedEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WatermarkAdvancedEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WatermarkAdvancedEvent).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WatermarkAdvanced!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWatermarkAdvanced(), typeInfo);
             }
         }
     }

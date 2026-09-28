@@ -48,8 +48,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.PipelineRunEventBase PickPipelineRunBase() => IsPipelineRunBase
-            ? PipelineRunBase!
+        public global::Vectara.PipelineRunEventBase PickPipelineRunBase() => PipelineRunBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'PipelineRunBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RecordProcessingEventVariant2 PickRecordProcessingEventVariant2() => IsRecordProcessingEventVariant2
-            ? RecordProcessingEventVariant2!
+        public global::Vectara.RecordProcessingEventVariant2 PickRecordProcessingEventVariant2() => RecordProcessingEventVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'RecordProcessingEventVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -183,13 +183,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineRunBase && pipelineRunBase != null)
+            if (PipelineRunBase is { } __value0 && pipelineRunBase != null)
             {
-                return pipelineRunBase(PipelineRunBase!);
+                return pipelineRunBase(__value0);
             }
-            else if (IsRecordProcessingEventVariant2 && recordProcessingEventVariant2 != null)
+            else if (RecordProcessingEventVariant2 is { } __value1 && recordProcessingEventVariant2 != null)
             {
-                return recordProcessingEventVariant2(RecordProcessingEventVariant2!);
+                return recordProcessingEventVariant2(__value1);
             }
 
             return default(TResult);
@@ -209,13 +209,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineRunBase)
+            if (PipelineRunBase is { } __value0)
             {
-                pipelineRunBase?.Invoke(PipelineRunBase!);
+                pipelineRunBase?.Invoke(__value0);
             }
-            else if (IsRecordProcessingEventVariant2)
+            else if (RecordProcessingEventVariant2 is { } __value1)
             {
-                recordProcessingEventVariant2?.Invoke(RecordProcessingEventVariant2!);
+                recordProcessingEventVariant2?.Invoke(__value1);
             }
         }
 
@@ -232,13 +232,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineRunBase)
+            if (PipelineRunBase is { } __value0)
             {
-                pipelineRunBase?.Invoke(PipelineRunBase!);
+                pipelineRunBase?.Invoke(__value0);
             }
-            else if (IsRecordProcessingEventVariant2)
+            else if (RecordProcessingEventVariant2 is { } __value1)
             {
-                recordProcessingEventVariant2?.Invoke(RecordProcessingEventVariant2!);
+                recordProcessingEventVariant2?.Invoke(__value1);
             }
         }
 

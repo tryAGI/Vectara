@@ -60,8 +60,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseFluidtopicsSourceConfiguration PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseFluidtopicsSourceConfiguration PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -97,8 +97,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public object PickFluidtopicsSourceConfigurationVariant2() => IsFluidtopicsSourceConfigurationVariant2
-            ? FluidtopicsSourceConfigurationVariant2!
+        public object PickFluidtopicsSourceConfigurationVariant2() => FluidtopicsSourceConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'FluidtopicsSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -172,13 +172,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsFluidtopicsSourceConfigurationVariant2 && fluidtopicsSourceConfigurationVariant2 != null)
+            else if (FluidtopicsSourceConfigurationVariant2 is { } __value1 && fluidtopicsSourceConfigurationVariant2 != null)
             {
-                return fluidtopicsSourceConfigurationVariant2(FluidtopicsSourceConfigurationVariant2!);
+                return fluidtopicsSourceConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -198,13 +198,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsFluidtopicsSourceConfigurationVariant2)
+            else if (FluidtopicsSourceConfigurationVariant2 is { } __value1)
             {
-                fluidtopicsSourceConfigurationVariant2?.Invoke(FluidtopicsSourceConfigurationVariant2!);
+                fluidtopicsSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -221,13 +221,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsFluidtopicsSourceConfigurationVariant2)
+            else if (FluidtopicsSourceConfigurationVariant2 is { } __value1)
             {
-                fluidtopicsSourceConfigurationVariant2?.Invoke(FluidtopicsSourceConfigurationVariant2!);
+                fluidtopicsSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 

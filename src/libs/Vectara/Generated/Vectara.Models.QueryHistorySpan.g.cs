@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RephraseSpan PickRephrase() => IsRephrase
-            ? Rephrase!
+        public global::Vectara.RephraseSpan PickRephrase() => Rephrase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Rephrase' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SearchSpan PickSearch() => IsSearch
-            ? Search!
+        public global::Vectara.SearchSpan PickSearch() => Search is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Search' but the value was {ToString()}.");
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RerankSpan PickRerank() => IsRerank
-            ? Rerank!
+        public global::Vectara.RerankSpan PickRerank() => Rerank is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Rerank' but the value was {ToString()}.");
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.GenerationSpan PickGeneration() => IsGeneration
-            ? Generation!
+        public global::Vectara.GenerationSpan PickGeneration() => Generation is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Generation' but the value was {ToString()}.");
 
         /// <summary>
@@ -195,8 +195,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.FactualConsistencyScoreSpan PickFcs() => IsFcs
-            ? Fcs!
+        public global::Vectara.FactualConsistencyScoreSpan PickFcs() => Fcs is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Fcs' but the value was {ToString()}.");
 
         /// <summary>
@@ -232,8 +232,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RewrittenQuerySpan PickRewrittenQuery() => IsRewrittenQuery
-            ? RewrittenQuery!
+        public global::Vectara.RewrittenQuerySpan PickRewrittenQuery() => RewrittenQuery is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'RewrittenQuery' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -445,29 +445,29 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRephrase && rephrase != null)
+            if (Rephrase is { } __value0 && rephrase != null)
             {
-                return rephrase(Rephrase!);
+                return rephrase(__value0);
             }
-            else if (IsSearch && search != null)
+            else if (Search is { } __value1 && search != null)
             {
-                return search(Search!);
+                return search(__value1);
             }
-            else if (IsRerank && rerank != null)
+            else if (Rerank is { } __value2 && rerank != null)
             {
-                return rerank(Rerank!);
+                return rerank(__value2);
             }
-            else if (IsGeneration && generation != null)
+            else if (Generation is { } __value3 && generation != null)
             {
-                return generation(Generation!);
+                return generation(__value3);
             }
-            else if (IsFcs && fcs != null)
+            else if (Fcs is { } __value4 && fcs != null)
             {
-                return fcs(Fcs!);
+                return fcs(__value4);
             }
-            else if (IsRewrittenQuery && rewrittenQuery != null)
+            else if (RewrittenQuery is { } __value5 && rewrittenQuery != null)
             {
-                return rewrittenQuery(RewrittenQuery!);
+                return rewrittenQuery(__value5);
             }
 
             return default(TResult);
@@ -495,29 +495,29 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRephrase)
+            if (Rephrase is { } __value0)
             {
-                rephrase?.Invoke(Rephrase!);
+                rephrase?.Invoke(__value0);
             }
-            else if (IsSearch)
+            else if (Search is { } __value1)
             {
-                search?.Invoke(Search!);
+                search?.Invoke(__value1);
             }
-            else if (IsRerank)
+            else if (Rerank is { } __value2)
             {
-                rerank?.Invoke(Rerank!);
+                rerank?.Invoke(__value2);
             }
-            else if (IsGeneration)
+            else if (Generation is { } __value3)
             {
-                generation?.Invoke(Generation!);
+                generation?.Invoke(__value3);
             }
-            else if (IsFcs)
+            else if (Fcs is { } __value4)
             {
-                fcs?.Invoke(Fcs!);
+                fcs?.Invoke(__value4);
             }
-            else if (IsRewrittenQuery)
+            else if (RewrittenQuery is { } __value5)
             {
-                rewrittenQuery?.Invoke(RewrittenQuery!);
+                rewrittenQuery?.Invoke(__value5);
             }
         }
 
@@ -538,29 +538,29 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRephrase)
+            if (Rephrase is { } __value0)
             {
-                rephrase?.Invoke(Rephrase!);
+                rephrase?.Invoke(__value0);
             }
-            else if (IsSearch)
+            else if (Search is { } __value1)
             {
-                search?.Invoke(Search!);
+                search?.Invoke(__value1);
             }
-            else if (IsRerank)
+            else if (Rerank is { } __value2)
             {
-                rerank?.Invoke(Rerank!);
+                rerank?.Invoke(__value2);
             }
-            else if (IsGeneration)
+            else if (Generation is { } __value3)
             {
-                generation?.Invoke(Generation!);
+                generation?.Invoke(__value3);
             }
-            else if (IsFcs)
+            else if (Fcs is { } __value4)
             {
-                fcs?.Invoke(Fcs!);
+                fcs?.Invoke(__value4);
             }
-            else if (IsRewrittenQuery)
+            else if (RewrittenQuery is { } __value5)
             {
-                rewrittenQuery?.Invoke(RewrittenQuery!);
+                rewrittenQuery?.Invoke(__value5);
             }
         }
 

@@ -44,8 +44,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
-            ? AgentBase!
+        public global::Vectara.AgentEventBase PickAgentBase() => AgentBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StepTransitionLimitExceededEventVariant2 PickStepTransitionLimitExceededEventVariant2() => IsStepTransitionLimitExceededEventVariant2
-            ? StepTransitionLimitExceededEventVariant2!
+        public global::Vectara.StepTransitionLimitExceededEventVariant2 PickStepTransitionLimitExceededEventVariant2() => StepTransitionLimitExceededEventVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransitionLimitExceededEventVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -179,13 +179,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase && agentBase != null)
+            if (AgentBase is { } __value0 && agentBase != null)
             {
-                return agentBase(AgentBase!);
+                return agentBase(__value0);
             }
-            else if (IsStepTransitionLimitExceededEventVariant2 && stepTransitionLimitExceededEventVariant2 != null)
+            else if (StepTransitionLimitExceededEventVariant2 is { } __value1 && stepTransitionLimitExceededEventVariant2 != null)
             {
-                return stepTransitionLimitExceededEventVariant2(StepTransitionLimitExceededEventVariant2!);
+                return stepTransitionLimitExceededEventVariant2(__value1);
             }
 
             return default(TResult);
@@ -205,13 +205,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase)
+            if (AgentBase is { } __value0)
             {
-                agentBase?.Invoke(AgentBase!);
+                agentBase?.Invoke(__value0);
             }
-            else if (IsStepTransitionLimitExceededEventVariant2)
+            else if (StepTransitionLimitExceededEventVariant2 is { } __value1)
             {
-                stepTransitionLimitExceededEventVariant2?.Invoke(StepTransitionLimitExceededEventVariant2!);
+                stepTransitionLimitExceededEventVariant2?.Invoke(__value1);
             }
         }
 
@@ -228,13 +228,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase)
+            if (AgentBase is { } __value0)
             {
-                agentBase?.Invoke(AgentBase!);
+                agentBase?.Invoke(__value0);
             }
-            else if (IsStepTransitionLimitExceededEventVariant2)
+            else if (StepTransitionLimitExceededEventVariant2 is { } __value1)
             {
-                stepTransitionLimitExceededEventVariant2?.Invoke(StepTransitionLimitExceededEventVariant2!);
+                stepTransitionLimitExceededEventVariant2?.Invoke(__value1);
             }
         }
 

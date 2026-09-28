@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CounterMetricSeries PickCounter() => IsCounter
-            ? Counter!.Value
+        public global::Vectara.CounterMetricSeries PickCounter() => Counter is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Counter' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.GaugeMetricSeries PickGauge() => IsGauge
-            ? Gauge!.Value
+        public global::Vectara.GaugeMetricSeries PickGauge() => Gauge is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Gauge' but the value was {ToString()}.");
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.PercentilesMetricSeries PickPercentiles() => IsPercentiles
-            ? Percentiles!.Value
+        public global::Vectara.PercentilesMetricSeries PickPercentiles() => Percentiles is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Percentiles' but the value was {ToString()}.");
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.DistributionMetricSeries PickDistribution() => IsDistribution
-            ? Distribution!.Value
+        public global::Vectara.DistributionMetricSeries PickDistribution() => Distribution is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Distribution' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -315,21 +315,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCounter && counter != null)
+            if (Counter is { } __value0 && counter != null)
             {
-                return counter(Counter!);
+                return counter(__value0);
             }
-            else if (IsGauge && gauge != null)
+            else if (Gauge is { } __value1 && gauge != null)
             {
-                return gauge(Gauge!);
+                return gauge(__value1);
             }
-            else if (IsPercentiles && percentiles != null)
+            else if (Percentiles is { } __value2 && percentiles != null)
             {
-                return percentiles(Percentiles!);
+                return percentiles(__value2);
             }
-            else if (IsDistribution && distribution != null)
+            else if (Distribution is { } __value3 && distribution != null)
             {
-                return distribution(Distribution!);
+                return distribution(__value3);
             }
 
             return default(TResult);
@@ -353,21 +353,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCounter)
+            if (Counter is { } __value0)
             {
-                counter?.Invoke(Counter!);
+                counter?.Invoke(__value0);
             }
-            else if (IsGauge)
+            else if (Gauge is { } __value1)
             {
-                gauge?.Invoke(Gauge!);
+                gauge?.Invoke(__value1);
             }
-            else if (IsPercentiles)
+            else if (Percentiles is { } __value2)
             {
-                percentiles?.Invoke(Percentiles!);
+                percentiles?.Invoke(__value2);
             }
-            else if (IsDistribution)
+            else if (Distribution is { } __value3)
             {
-                distribution?.Invoke(Distribution!);
+                distribution?.Invoke(__value3);
             }
         }
 
@@ -386,21 +386,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCounter)
+            if (Counter is { } __value0)
             {
-                counter?.Invoke(Counter!);
+                counter?.Invoke(__value0);
             }
-            else if (IsGauge)
+            else if (Gauge is { } __value1)
             {
-                gauge?.Invoke(Gauge!);
+                gauge?.Invoke(__value1);
             }
-            else if (IsPercentiles)
+            else if (Percentiles is { } __value2)
             {
-                percentiles?.Invoke(Percentiles!);
+                percentiles?.Invoke(__value2);
             }
-            else if (IsDistribution)
+            else if (Distribution is { } __value3)
             {
-                distribution?.Invoke(Distribution!);
+                distribution?.Invoke(__value3);
             }
         }
 

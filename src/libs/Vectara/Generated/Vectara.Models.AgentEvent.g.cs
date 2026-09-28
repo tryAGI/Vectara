@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.InputMessageEvent PickInputMessage() => IsInputMessage
-            ? InputMessage!.Value
+        public global::Vectara.InputMessageEvent PickInputMessage() => InputMessage is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'InputMessage' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SkillLoadEvent PickSkillLoad() => IsSkillLoad
-            ? SkillLoad!.Value
+        public global::Vectara.SkillLoadEvent PickSkillLoad() => SkillLoad is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SkillLoad' but the value was {ToString()}.");
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ArtifactUploadEvent PickArtifactUpload() => IsArtifactUpload
-            ? ArtifactUpload!.Value
+        public global::Vectara.ArtifactUploadEvent PickArtifactUpload() => ArtifactUpload is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactUpload' but the value was {ToString()}.");
 
         /// <summary>
@@ -161,8 +161,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolInputEvent PickToolInput() => IsToolInput
-            ? ToolInput!.Value
+        public global::Vectara.ToolInputEvent PickToolInput() => ToolInput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolInput' but the value was {ToString()}.");
 
         /// <summary>
@@ -198,8 +198,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolOutputEvent PickToolOutput() => IsToolOutput
-            ? ToolOutput!.Value
+        public global::Vectara.ToolOutputEvent PickToolOutput() => ToolOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -235,8 +235,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ThinkingEvent PickThinking() => IsThinking
-            ? Thinking!.Value
+        public global::Vectara.ThinkingEvent PickThinking() => Thinking is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Thinking' but the value was {ToString()}.");
 
         /// <summary>
@@ -272,8 +272,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentOutputEvent PickAgentOutput() => IsAgentOutput
-            ? AgentOutput!.Value
+        public global::Vectara.AgentOutputEvent PickAgentOutput() => AgentOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -315,8 +315,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StructuredOutputEvent PickStructuredOutput() => IsStructuredOutput
-            ? StructuredOutput!.Value
+        public global::Vectara.StructuredOutputEvent PickStructuredOutput() => StructuredOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -354,8 +354,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ContextLimitExceededEvent PickContextLimitExceeded() => IsContextLimitExceeded
-            ? ContextLimitExceeded!.Value
+        public global::Vectara.ContextLimitExceededEvent PickContextLimitExceeded() => ContextLimitExceeded is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ContextLimitExceeded' but the value was {ToString()}.");
 
         /// <summary>
@@ -393,8 +393,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StepTransitionLimitExceededEvent PickStepTransitionLimitExceeded() => IsStepTransitionLimitExceeded
-            ? StepTransitionLimitExceeded!.Value
+        public global::Vectara.StepTransitionLimitExceededEvent PickStepTransitionLimitExceeded() => StepTransitionLimitExceeded is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransitionLimitExceeded' but the value was {ToString()}.");
 
         /// <summary>
@@ -431,8 +431,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SessionInterruptedEvent PickSessionInterrupted() => IsSessionInterrupted
-            ? SessionInterrupted!.Value
+        public global::Vectara.SessionInterruptedEvent PickSessionInterrupted() => SessionInterrupted is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SessionInterrupted' but the value was {ToString()}.");
 
         /// <summary>
@@ -473,8 +473,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentErrorEvent PickError() => IsError
-            ? Error!.Value
+        public global::Vectara.AgentErrorEvent PickError() => Error is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
 
         /// <summary>
@@ -517,8 +517,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ClientToolPendingEvent PickClientToolPending() => IsClientToolPending
-            ? ClientToolPending!.Value
+        public global::Vectara.ClientToolPendingEvent PickClientToolPending() => ClientToolPending is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ClientToolPending' but the value was {ToString()}.");
 
         /// <summary>
@@ -554,8 +554,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ImageReadEvent PickImageRead() => IsImageRead
-            ? ImageRead!.Value
+        public global::Vectara.ImageReadEvent PickImageRead() => ImageRead is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ImageRead' but the value was {ToString()}.");
 
         /// <summary>
@@ -591,8 +591,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StepTransitionEvent PickStepTransition() => IsStepTransition
-            ? StepTransition!.Value
+        public global::Vectara.StepTransitionEvent PickStepTransition() => StepTransition is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransition' but the value was {ToString()}.");
 
         /// <summary>
@@ -628,8 +628,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CompactionEvent PickCompaction() => IsCompaction
-            ? Compaction!.Value
+        public global::Vectara.CompactionEvent PickCompaction() => Compaction is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Compaction' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -1121,69 +1121,69 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage && inputMessage != null)
+            if (InputMessage is { } __value0 && inputMessage != null)
             {
-                return inputMessage(InputMessage!);
+                return inputMessage(__value0);
             }
-            else if (IsSkillLoad && skillLoad != null)
+            else if (SkillLoad is { } __value1 && skillLoad != null)
             {
-                return skillLoad(SkillLoad!);
+                return skillLoad(__value1);
             }
-            else if (IsArtifactUpload && artifactUpload != null)
+            else if (ArtifactUpload is { } __value2 && artifactUpload != null)
             {
-                return artifactUpload(ArtifactUpload!);
+                return artifactUpload(__value2);
             }
-            else if (IsToolInput && toolInput != null)
+            else if (ToolInput is { } __value3 && toolInput != null)
             {
-                return toolInput(ToolInput!);
+                return toolInput(__value3);
             }
-            else if (IsToolOutput && toolOutput != null)
+            else if (ToolOutput is { } __value4 && toolOutput != null)
             {
-                return toolOutput(ToolOutput!);
+                return toolOutput(__value4);
             }
-            else if (IsThinking && thinking != null)
+            else if (Thinking is { } __value5 && thinking != null)
             {
-                return thinking(Thinking!);
+                return thinking(__value5);
             }
-            else if (IsAgentOutput && agentOutput != null)
+            else if (AgentOutput is { } __value6 && agentOutput != null)
             {
-                return agentOutput(AgentOutput!);
+                return agentOutput(__value6);
             }
-            else if (IsStructuredOutput && structuredOutput != null)
+            else if (StructuredOutput is { } __value7 && structuredOutput != null)
             {
-                return structuredOutput(StructuredOutput!);
+                return structuredOutput(__value7);
             }
-            else if (IsContextLimitExceeded && contextLimitExceeded != null)
+            else if (ContextLimitExceeded is { } __value8 && contextLimitExceeded != null)
             {
-                return contextLimitExceeded(ContextLimitExceeded!);
+                return contextLimitExceeded(__value8);
             }
-            else if (IsStepTransitionLimitExceeded && stepTransitionLimitExceeded != null)
+            else if (StepTransitionLimitExceeded is { } __value9 && stepTransitionLimitExceeded != null)
             {
-                return stepTransitionLimitExceeded(StepTransitionLimitExceeded!);
+                return stepTransitionLimitExceeded(__value9);
             }
-            else if (IsSessionInterrupted && sessionInterrupted != null)
+            else if (SessionInterrupted is { } __value10 && sessionInterrupted != null)
             {
-                return sessionInterrupted(SessionInterrupted!);
+                return sessionInterrupted(__value10);
             }
-            else if (IsError && error != null)
+            else if (Error is { } __value11 && error != null)
             {
-                return error(Error!);
+                return error(__value11);
             }
-            else if (IsClientToolPending && clientToolPending != null)
+            else if (ClientToolPending is { } __value12 && clientToolPending != null)
             {
-                return clientToolPending(ClientToolPending!);
+                return clientToolPending(__value12);
             }
-            else if (IsImageRead && imageRead != null)
+            else if (ImageRead is { } __value13 && imageRead != null)
             {
-                return imageRead(ImageRead!);
+                return imageRead(__value13);
             }
-            else if (IsStepTransition && stepTransition != null)
+            else if (StepTransition is { } __value14 && stepTransition != null)
             {
-                return stepTransition(StepTransition!);
+                return stepTransition(__value14);
             }
-            else if (IsCompaction && compaction != null)
+            else if (Compaction is { } __value15 && compaction != null)
             {
-                return compaction(Compaction!);
+                return compaction(__value15);
             }
 
             return default(TResult);
@@ -1231,69 +1231,69 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsSkillLoad)
+            else if (SkillLoad is { } __value1)
             {
-                skillLoad?.Invoke(SkillLoad!);
+                skillLoad?.Invoke(__value1);
             }
-            else if (IsArtifactUpload)
+            else if (ArtifactUpload is { } __value2)
             {
-                artifactUpload?.Invoke(ArtifactUpload!);
+                artifactUpload?.Invoke(__value2);
             }
-            else if (IsToolInput)
+            else if (ToolInput is { } __value3)
             {
-                toolInput?.Invoke(ToolInput!);
+                toolInput?.Invoke(__value3);
             }
-            else if (IsToolOutput)
+            else if (ToolOutput is { } __value4)
             {
-                toolOutput?.Invoke(ToolOutput!);
+                toolOutput?.Invoke(__value4);
             }
-            else if (IsThinking)
+            else if (Thinking is { } __value5)
             {
-                thinking?.Invoke(Thinking!);
+                thinking?.Invoke(__value5);
             }
-            else if (IsAgentOutput)
+            else if (AgentOutput is { } __value6)
             {
-                agentOutput?.Invoke(AgentOutput!);
+                agentOutput?.Invoke(__value6);
             }
-            else if (IsStructuredOutput)
+            else if (StructuredOutput is { } __value7)
             {
-                structuredOutput?.Invoke(StructuredOutput!);
+                structuredOutput?.Invoke(__value7);
             }
-            else if (IsContextLimitExceeded)
+            else if (ContextLimitExceeded is { } __value8)
             {
-                contextLimitExceeded?.Invoke(ContextLimitExceeded!);
+                contextLimitExceeded?.Invoke(__value8);
             }
-            else if (IsStepTransitionLimitExceeded)
+            else if (StepTransitionLimitExceeded is { } __value9)
             {
-                stepTransitionLimitExceeded?.Invoke(StepTransitionLimitExceeded!);
+                stepTransitionLimitExceeded?.Invoke(__value9);
             }
-            else if (IsSessionInterrupted)
+            else if (SessionInterrupted is { } __value10)
             {
-                sessionInterrupted?.Invoke(SessionInterrupted!);
+                sessionInterrupted?.Invoke(__value10);
             }
-            else if (IsError)
+            else if (Error is { } __value11)
             {
-                error?.Invoke(Error!);
+                error?.Invoke(__value11);
             }
-            else if (IsClientToolPending)
+            else if (ClientToolPending is { } __value12)
             {
-                clientToolPending?.Invoke(ClientToolPending!);
+                clientToolPending?.Invoke(__value12);
             }
-            else if (IsImageRead)
+            else if (ImageRead is { } __value13)
             {
-                imageRead?.Invoke(ImageRead!);
+                imageRead?.Invoke(__value13);
             }
-            else if (IsStepTransition)
+            else if (StepTransition is { } __value14)
             {
-                stepTransition?.Invoke(StepTransition!);
+                stepTransition?.Invoke(__value14);
             }
-            else if (IsCompaction)
+            else if (Compaction is { } __value15)
             {
-                compaction?.Invoke(Compaction!);
+                compaction?.Invoke(__value15);
             }
         }
 
@@ -1324,69 +1324,69 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsSkillLoad)
+            else if (SkillLoad is { } __value1)
             {
-                skillLoad?.Invoke(SkillLoad!);
+                skillLoad?.Invoke(__value1);
             }
-            else if (IsArtifactUpload)
+            else if (ArtifactUpload is { } __value2)
             {
-                artifactUpload?.Invoke(ArtifactUpload!);
+                artifactUpload?.Invoke(__value2);
             }
-            else if (IsToolInput)
+            else if (ToolInput is { } __value3)
             {
-                toolInput?.Invoke(ToolInput!);
+                toolInput?.Invoke(__value3);
             }
-            else if (IsToolOutput)
+            else if (ToolOutput is { } __value4)
             {
-                toolOutput?.Invoke(ToolOutput!);
+                toolOutput?.Invoke(__value4);
             }
-            else if (IsThinking)
+            else if (Thinking is { } __value5)
             {
-                thinking?.Invoke(Thinking!);
+                thinking?.Invoke(__value5);
             }
-            else if (IsAgentOutput)
+            else if (AgentOutput is { } __value6)
             {
-                agentOutput?.Invoke(AgentOutput!);
+                agentOutput?.Invoke(__value6);
             }
-            else if (IsStructuredOutput)
+            else if (StructuredOutput is { } __value7)
             {
-                structuredOutput?.Invoke(StructuredOutput!);
+                structuredOutput?.Invoke(__value7);
             }
-            else if (IsContextLimitExceeded)
+            else if (ContextLimitExceeded is { } __value8)
             {
-                contextLimitExceeded?.Invoke(ContextLimitExceeded!);
+                contextLimitExceeded?.Invoke(__value8);
             }
-            else if (IsStepTransitionLimitExceeded)
+            else if (StepTransitionLimitExceeded is { } __value9)
             {
-                stepTransitionLimitExceeded?.Invoke(StepTransitionLimitExceeded!);
+                stepTransitionLimitExceeded?.Invoke(__value9);
             }
-            else if (IsSessionInterrupted)
+            else if (SessionInterrupted is { } __value10)
             {
-                sessionInterrupted?.Invoke(SessionInterrupted!);
+                sessionInterrupted?.Invoke(__value10);
             }
-            else if (IsError)
+            else if (Error is { } __value11)
             {
-                error?.Invoke(Error!);
+                error?.Invoke(__value11);
             }
-            else if (IsClientToolPending)
+            else if (ClientToolPending is { } __value12)
             {
-                clientToolPending?.Invoke(ClientToolPending!);
+                clientToolPending?.Invoke(__value12);
             }
-            else if (IsImageRead)
+            else if (ImageRead is { } __value13)
             {
-                imageRead?.Invoke(ImageRead!);
+                imageRead?.Invoke(__value13);
             }
-            else if (IsStepTransition)
+            else if (StepTransition is { } __value14)
             {
-                stepTransition?.Invoke(StepTransition!);
+                stepTransition?.Invoke(__value14);
             }
-            else if (IsCompaction)
+            else if (Compaction is { } __value15)
             {
-                compaction?.Invoke(Compaction!);
+                compaction?.Invoke(__value15);
             }
         }
 

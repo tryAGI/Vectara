@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseSharepointSourceConfiguration PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseSharepointSourceConfiguration PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public object PickSharepointSourceConfigurationVariant2() => IsSharepointSourceConfigurationVariant2
-            ? SharepointSourceConfigurationVariant2!
+        public object PickSharepointSourceConfigurationVariant2() => SharepointSourceConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SharepointSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -154,13 +154,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsSharepointSourceConfigurationVariant2 && sharepointSourceConfigurationVariant2 != null)
+            else if (SharepointSourceConfigurationVariant2 is { } __value1 && sharepointSourceConfigurationVariant2 != null)
             {
-                return sharepointSourceConfigurationVariant2(SharepointSourceConfigurationVariant2!);
+                return sharepointSourceConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -180,13 +180,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSharepointSourceConfigurationVariant2)
+            else if (SharepointSourceConfigurationVariant2 is { } __value1)
             {
-                sharepointSourceConfigurationVariant2?.Invoke(SharepointSourceConfigurationVariant2!);
+                sharepointSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSharepointSourceConfigurationVariant2)
+            else if (SharepointSourceConfigurationVariant2 is { } __value1)
             {
-                sharepointSourceConfigurationVariant2?.Invoke(SharepointSourceConfigurationVariant2!);
+                sharepointSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 

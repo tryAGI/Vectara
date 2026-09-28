@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateOpenAILLMRequest PickOpenaiCompatible() => IsOpenaiCompatible
-            ? OpenaiCompatible!.Value
+        public global::Vectara.CreateOpenAILLMRequest PickOpenaiCompatible() => OpenaiCompatible is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OpenaiCompatible' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateOpenAIResponsesLLMRequest PickOpenaiResponses() => IsOpenaiResponses
-            ? OpenaiResponses!.Value
+        public global::Vectara.CreateOpenAIResponsesLLMRequest PickOpenaiResponses() => OpenaiResponses is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OpenaiResponses' but the value was {ToString()}.");
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateVertexAILLMRequest PickVertexAi() => IsVertexAi
-            ? VertexAi!
+        public global::Vectara.CreateVertexAILLMRequest PickVertexAi() => VertexAi is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'VertexAi' but the value was {ToString()}.");
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateAnthropicLLMRequest PickAnthropic() => IsAnthropic
-            ? Anthropic!
+        public global::Vectara.CreateAnthropicLLMRequest PickAnthropic() => Anthropic is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Anthropic' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -315,21 +315,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsOpenaiCompatible && openaiCompatible != null)
+            if (OpenaiCompatible is { } __value0 && openaiCompatible != null)
             {
-                return openaiCompatible(OpenaiCompatible!);
+                return openaiCompatible(__value0);
             }
-            else if (IsOpenaiResponses && openaiResponses != null)
+            else if (OpenaiResponses is { } __value1 && openaiResponses != null)
             {
-                return openaiResponses(OpenaiResponses!);
+                return openaiResponses(__value1);
             }
-            else if (IsVertexAi && vertexAi != null)
+            else if (VertexAi is { } __value2 && vertexAi != null)
             {
-                return vertexAi(VertexAi!);
+                return vertexAi(__value2);
             }
-            else if (IsAnthropic && anthropic != null)
+            else if (Anthropic is { } __value3 && anthropic != null)
             {
-                return anthropic(Anthropic!);
+                return anthropic(__value3);
             }
 
             return default(TResult);
@@ -353,21 +353,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsOpenaiCompatible)
+            if (OpenaiCompatible is { } __value0)
             {
-                openaiCompatible?.Invoke(OpenaiCompatible!);
+                openaiCompatible?.Invoke(__value0);
             }
-            else if (IsOpenaiResponses)
+            else if (OpenaiResponses is { } __value1)
             {
-                openaiResponses?.Invoke(OpenaiResponses!);
+                openaiResponses?.Invoke(__value1);
             }
-            else if (IsVertexAi)
+            else if (VertexAi is { } __value2)
             {
-                vertexAi?.Invoke(VertexAi!);
+                vertexAi?.Invoke(__value2);
             }
-            else if (IsAnthropic)
+            else if (Anthropic is { } __value3)
             {
-                anthropic?.Invoke(Anthropic!);
+                anthropic?.Invoke(__value3);
             }
         }
 
@@ -386,21 +386,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsOpenaiCompatible)
+            if (OpenaiCompatible is { } __value0)
             {
-                openaiCompatible?.Invoke(OpenaiCompatible!);
+                openaiCompatible?.Invoke(__value0);
             }
-            else if (IsOpenaiResponses)
+            else if (OpenaiResponses is { } __value1)
             {
-                openaiResponses?.Invoke(OpenaiResponses!);
+                openaiResponses?.Invoke(__value1);
             }
-            else if (IsVertexAi)
+            else if (VertexAi is { } __value2)
             {
-                vertexAi?.Invoke(VertexAi!);
+                vertexAi?.Invoke(__value2);
             }
-            else if (IsAnthropic)
+            else if (Anthropic is { } __value3)
             {
-                anthropic?.Invoke(Anthropic!);
+                anthropic?.Invoke(__value3);
             }
         }
 

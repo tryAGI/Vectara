@@ -59,13 +59,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SingleRuleTargets), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SingleRuleTargets?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SingleRuleTargets).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Single!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickSingle(), typeInfo);
             }
             else if (value.IsWeighted)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WeightedRuleTargets), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WeightedRuleTargets?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WeightedRuleTargets).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Weighted!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWeighted(), typeInfo);
             }
         }
     }

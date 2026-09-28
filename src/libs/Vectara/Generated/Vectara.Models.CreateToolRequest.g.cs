@@ -51,8 +51,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateLambdaToolRequest PickLambda() => IsLambda
-            ? Lambda!
+        public global::Vectara.CreateLambdaToolRequest PickLambda() => Lambda is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Lambda' but the value was {ToString()}.");
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateClientToolRequest PickClient() => IsClient
-            ? Client!
+        public global::Vectara.CreateClientToolRequest PickClient() => Client is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Client' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -189,13 +189,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsLambda && lambda != null)
+            if (Lambda is { } __value0 && lambda != null)
             {
-                return lambda(Lambda!);
+                return lambda(__value0);
             }
-            else if (IsClient && client != null)
+            else if (Client is { } __value1 && client != null)
             {
-                return client(Client!);
+                return client(__value1);
             }
 
             return default(TResult);
@@ -215,13 +215,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsLambda)
+            if (Lambda is { } __value0)
             {
-                lambda?.Invoke(Lambda!);
+                lambda?.Invoke(__value0);
             }
-            else if (IsClient)
+            else if (Client is { } __value1)
             {
-                client?.Invoke(Client!);
+                client?.Invoke(__value1);
             }
         }
 
@@ -238,13 +238,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsLambda)
+            if (Lambda is { } __value0)
             {
-                lambda?.Invoke(Lambda!);
+                lambda?.Invoke(__value0);
             }
-            else if (IsClient)
+            else if (Client is { } __value1)
             {
-                client?.Invoke(Client!);
+                client?.Invoke(__value1);
             }
         }
 

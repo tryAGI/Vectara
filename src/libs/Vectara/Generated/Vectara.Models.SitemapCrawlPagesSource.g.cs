@@ -45,8 +45,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseCrawlPagesSource PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseCrawlPagesSource PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SitemapCrawlPagesSourceVariant2 PickSitemapCrawlPagesSourceVariant2() => IsSitemapCrawlPagesSourceVariant2
-            ? SitemapCrawlPagesSourceVariant2!
+        public global::Vectara.SitemapCrawlPagesSourceVariant2 PickSitemapCrawlPagesSourceVariant2() => SitemapCrawlPagesSourceVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SitemapCrawlPagesSourceVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -180,13 +180,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsSitemapCrawlPagesSourceVariant2 && sitemapCrawlPagesSourceVariant2 != null)
+            else if (SitemapCrawlPagesSourceVariant2 is { } __value1 && sitemapCrawlPagesSourceVariant2 != null)
             {
-                return sitemapCrawlPagesSourceVariant2(SitemapCrawlPagesSourceVariant2!);
+                return sitemapCrawlPagesSourceVariant2(__value1);
             }
 
             return default(TResult);
@@ -206,13 +206,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSitemapCrawlPagesSourceVariant2)
+            else if (SitemapCrawlPagesSourceVariant2 is { } __value1)
             {
-                sitemapCrawlPagesSourceVariant2?.Invoke(SitemapCrawlPagesSourceVariant2!);
+                sitemapCrawlPagesSourceVariant2?.Invoke(__value1);
             }
         }
 
@@ -229,13 +229,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSitemapCrawlPagesSourceVariant2)
+            else if (SitemapCrawlPagesSourceVariant2 is { } __value1)
             {
-                sitemapCrawlPagesSourceVariant2?.Invoke(SitemapCrawlPagesSourceVariant2!);
+                sitemapCrawlPagesSourceVariant2?.Invoke(__value1);
             }
         }
 

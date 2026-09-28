@@ -127,13 +127,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(string), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<string?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(string).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WebGetHeaderValueVariant1!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWebGetHeaderValueVariant1(), typeInfo);
             }
             else if (value.IsEagerReference)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.EagerReference), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.EagerReference?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.EagerReference).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.EagerReference!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickEagerReference(), typeInfo);
             }
         }
     }

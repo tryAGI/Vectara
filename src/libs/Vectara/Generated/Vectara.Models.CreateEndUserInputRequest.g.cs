@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateEndUserInputMessageRequest PickInputMessage() => IsInputMessage
-            ? InputMessage!.Value
+        public global::Vectara.CreateEndUserInputMessageRequest PickInputMessage() => InputMessage is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'InputMessage' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateEndUserInterruptRequest PickInterrupt() => IsInterrupt
-            ? Interrupt!.Value
+        public global::Vectara.CreateEndUserInterruptRequest PickInterrupt() => Interrupt is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Interrupt' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage && inputMessage != null)
+            if (InputMessage is { } __value0 && inputMessage != null)
             {
-                return inputMessage(InputMessage!);
+                return inputMessage(__value0);
             }
-            else if (IsInterrupt && interrupt != null)
+            else if (Interrupt is { } __value1 && interrupt != null)
             {
-                return interrupt(Interrupt!);
+                return interrupt(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsInterrupt)
+            else if (Interrupt is { } __value1)
             {
-                interrupt?.Invoke(Interrupt!);
+                interrupt?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsInterrupt)
+            else if (Interrupt is { } __value1)
             {
-                interrupt?.Invoke(Interrupt!);
+                interrupt?.Invoke(__value1);
             }
         }
 

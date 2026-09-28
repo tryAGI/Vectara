@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.PipelineRunEventBase PickPipelineRunBase() => IsPipelineRunBase
-            ? PipelineRunBase!
+        public global::Vectara.PipelineRunEventBase PickPipelineRunBase() => PipelineRunBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'PipelineRunBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WatermarkAdvancedEventVariant2 PickWatermarkAdvancedEventVariant2() => IsWatermarkAdvancedEventVariant2
-            ? WatermarkAdvancedEventVariant2!
+        public global::Vectara.WatermarkAdvancedEventVariant2 PickWatermarkAdvancedEventVariant2() => WatermarkAdvancedEventVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WatermarkAdvancedEventVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineRunBase && pipelineRunBase != null)
+            if (PipelineRunBase is { } __value0 && pipelineRunBase != null)
             {
-                return pipelineRunBase(PipelineRunBase!);
+                return pipelineRunBase(__value0);
             }
-            else if (IsWatermarkAdvancedEventVariant2 && watermarkAdvancedEventVariant2 != null)
+            else if (WatermarkAdvancedEventVariant2 is { } __value1 && watermarkAdvancedEventVariant2 != null)
             {
-                return watermarkAdvancedEventVariant2(WatermarkAdvancedEventVariant2!);
+                return watermarkAdvancedEventVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineRunBase)
+            if (PipelineRunBase is { } __value0)
             {
-                pipelineRunBase?.Invoke(PipelineRunBase!);
+                pipelineRunBase?.Invoke(__value0);
             }
-            else if (IsWatermarkAdvancedEventVariant2)
+            else if (WatermarkAdvancedEventVariant2 is { } __value1)
             {
-                watermarkAdvancedEventVariant2?.Invoke(WatermarkAdvancedEventVariant2!);
+                watermarkAdvancedEventVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineRunBase)
+            if (PipelineRunBase is { } __value0)
             {
-                pipelineRunBase?.Invoke(PipelineRunBase!);
+                pipelineRunBase?.Invoke(__value0);
             }
-            else if (IsWatermarkAdvancedEventVariant2)
+            else if (WatermarkAdvancedEventVariant2 is { } __value1)
             {
-                watermarkAdvancedEventVariant2?.Invoke(WatermarkAdvancedEventVariant2!);
+                watermarkAdvancedEventVariant2?.Invoke(__value1);
             }
         }
 

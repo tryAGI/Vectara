@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.OpenAILLMUpdateBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.OpenAILLMUpdateBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateOpenAILLMRequestVariant2 PickUpdateOpenAILLMRequestVariant2() => IsUpdateOpenAILLMRequestVariant2
-            ? UpdateOpenAILLMRequestVariant2!
+        public global::Vectara.UpdateOpenAILLMRequestVariant2 PickUpdateOpenAILLMRequestVariant2() => UpdateOpenAILLMRequestVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'UpdateOpenAILLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsUpdateOpenAILLMRequestVariant2 && updateOpenAILLMRequestVariant2 != null)
+            else if (UpdateOpenAILLMRequestVariant2 is { } __value1 && updateOpenAILLMRequestVariant2 != null)
             {
-                return updateOpenAILLMRequestVariant2(UpdateOpenAILLMRequestVariant2!);
+                return updateOpenAILLMRequestVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsUpdateOpenAILLMRequestVariant2)
+            else if (UpdateOpenAILLMRequestVariant2 is { } __value1)
             {
-                updateOpenAILLMRequestVariant2?.Invoke(UpdateOpenAILLMRequestVariant2!);
+                updateOpenAILLMRequestVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsUpdateOpenAILLMRequestVariant2)
+            else if (UpdateOpenAILLMRequestVariant2 is { } __value1)
             {
-                updateOpenAILLMRequestVariant2?.Invoke(UpdateOpenAILLMRequestVariant2!);
+                updateOpenAILLMRequestVariant2?.Invoke(__value1);
             }
         }
 

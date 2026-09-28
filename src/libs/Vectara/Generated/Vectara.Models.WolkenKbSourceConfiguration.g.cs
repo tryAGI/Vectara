@@ -49,8 +49,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseWolkenKbSourceConfiguration PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseWolkenKbSourceConfiguration PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public object PickWolkenKbSourceConfigurationVariant2() => IsWolkenKbSourceConfigurationVariant2
-            ? WolkenKbSourceConfigurationVariant2!
+        public object PickWolkenKbSourceConfigurationVariant2() => WolkenKbSourceConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenKbSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -161,13 +161,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsWolkenKbSourceConfigurationVariant2 && wolkenKbSourceConfigurationVariant2 != null)
+            else if (WolkenKbSourceConfigurationVariant2 is { } __value1 && wolkenKbSourceConfigurationVariant2 != null)
             {
-                return wolkenKbSourceConfigurationVariant2(WolkenKbSourceConfigurationVariant2!);
+                return wolkenKbSourceConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -187,13 +187,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsWolkenKbSourceConfigurationVariant2)
+            else if (WolkenKbSourceConfigurationVariant2 is { } __value1)
             {
-                wolkenKbSourceConfigurationVariant2?.Invoke(WolkenKbSourceConfigurationVariant2!);
+                wolkenKbSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -210,13 +210,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsWolkenKbSourceConfigurationVariant2)
+            else if (WolkenKbSourceConfigurationVariant2 is { } __value1)
             {
-                wolkenKbSourceConfigurationVariant2?.Invoke(WolkenKbSourceConfigurationVariant2!);
+                wolkenKbSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 

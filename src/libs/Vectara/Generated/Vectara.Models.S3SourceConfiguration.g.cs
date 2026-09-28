@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseS3SourceConfiguration PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseS3SourceConfiguration PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public object PickS3SourceConfigurationVariant2() => IsS3SourceConfigurationVariant2
-            ? S3SourceConfigurationVariant2!
+        public object PickS3SourceConfigurationVariant2() => S3SourceConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'S3SourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -154,13 +154,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsS3SourceConfigurationVariant2 && s3SourceConfigurationVariant2 != null)
+            else if (S3SourceConfigurationVariant2 is { } __value1 && s3SourceConfigurationVariant2 != null)
             {
-                return s3SourceConfigurationVariant2(S3SourceConfigurationVariant2!);
+                return s3SourceConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -180,13 +180,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsS3SourceConfigurationVariant2)
+            else if (S3SourceConfigurationVariant2 is { } __value1)
             {
-                s3SourceConfigurationVariant2?.Invoke(S3SourceConfigurationVariant2!);
+                s3SourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsS3SourceConfigurationVariant2)
+            else if (S3SourceConfigurationVariant2 is { } __value1)
             {
-                s3SourceConfigurationVariant2?.Invoke(S3SourceConfigurationVariant2!);
+                s3SourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 

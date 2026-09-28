@@ -113,49 +113,49 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.InvokeAgentTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.InvokeAgentTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.InvokeAgentTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.InvokeAgent!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickInvokeAgent(), typeInfo);
             }
             else if (value.IsChat)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ChatTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ChatTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ChatTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Chat!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickChat(), typeInfo);
             }
             else if (value.IsExecuteTool)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ExecuteToolTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ExecuteToolTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ExecuteToolTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ExecuteTool!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickExecuteTool(), typeInfo);
             }
             else if (value.IsThinking)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ThinkingTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ThinkingTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ThinkingTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Thinking!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickThinking(), typeInfo);
             }
             else if (value.IsOutput)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.OutputTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.OutputTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.OutputTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Output!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickOutput(), typeInfo);
             }
             else if (value.IsStepTransition)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StepTransitionTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StepTransitionTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StepTransitionTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.StepTransition!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickStepTransition(), typeInfo);
             }
             else if (value.IsImageRead)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ImageReadTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ImageReadTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ImageReadTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ImageRead!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickImageRead(), typeInfo);
             }
             else if (value.IsCompaction)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CompactionTraceSpan), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CompactionTraceSpan> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CompactionTraceSpan).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Compaction!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickCompaction(), typeInfo);
             }
         }
     }

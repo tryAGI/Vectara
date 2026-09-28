@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateInputMessageRequest PickInputMessage() => IsInputMessage
-            ? InputMessage!.Value
+        public global::Vectara.CreateInputMessageRequest PickInputMessage() => InputMessage is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'InputMessage' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateInterruptRequest PickInterrupt() => IsInterrupt
-            ? Interrupt!.Value
+        public global::Vectara.CreateInterruptRequest PickInterrupt() => Interrupt is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Interrupt' but the value was {ToString()}.");
 
         /// <summary>
@@ -122,8 +122,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateCompactRequest PickCompact() => IsCompact
-            ? Compact!.Value
+        public global::Vectara.CreateCompactRequest PickCompact() => Compact is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Compact' but the value was {ToString()}.");
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ClientToolOutputRequest PickToolOutput() => IsToolOutput
-            ? ToolOutput!.Value
+        public global::Vectara.ClientToolOutputRequest PickToolOutput() => ToolOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolOutput' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -317,21 +317,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage && inputMessage != null)
+            if (InputMessage is { } __value0 && inputMessage != null)
             {
-                return inputMessage(InputMessage!);
+                return inputMessage(__value0);
             }
-            else if (IsInterrupt && interrupt != null)
+            else if (Interrupt is { } __value1 && interrupt != null)
             {
-                return interrupt(Interrupt!);
+                return interrupt(__value1);
             }
-            else if (IsCompact && compact != null)
+            else if (Compact is { } __value2 && compact != null)
             {
-                return compact(Compact!);
+                return compact(__value2);
             }
-            else if (IsToolOutput && toolOutput != null)
+            else if (ToolOutput is { } __value3 && toolOutput != null)
             {
-                return toolOutput(ToolOutput!);
+                return toolOutput(__value3);
             }
 
             return default(TResult);
@@ -355,21 +355,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsInterrupt)
+            else if (Interrupt is { } __value1)
             {
-                interrupt?.Invoke(Interrupt!);
+                interrupt?.Invoke(__value1);
             }
-            else if (IsCompact)
+            else if (Compact is { } __value2)
             {
-                compact?.Invoke(Compact!);
+                compact?.Invoke(__value2);
             }
-            else if (IsToolOutput)
+            else if (ToolOutput is { } __value3)
             {
-                toolOutput?.Invoke(ToolOutput!);
+                toolOutput?.Invoke(__value3);
             }
         }
 
@@ -388,21 +388,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsInterrupt)
+            else if (Interrupt is { } __value1)
             {
-                interrupt?.Invoke(Interrupt!);
+                interrupt?.Invoke(__value1);
             }
-            else if (IsCompact)
+            else if (Compact is { } __value2)
             {
-                compact?.Invoke(Compact!);
+                compact?.Invoke(__value2);
             }
-            else if (IsToolOutput)
+            else if (ToolOutput is { } __value3)
             {
-                toolOutput?.Invoke(ToolOutput!);
+                toolOutput?.Invoke(__value3);
             }
         }
 

@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateEndUserInputRequestBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.CreateEndUserInputRequestBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateEndUserInputMessageRequestVariant2 PickCreateEndUserInputMessageRequestVariant2() => IsCreateEndUserInputMessageRequestVariant2
-            ? CreateEndUserInputMessageRequestVariant2!
+        public global::Vectara.CreateEndUserInputMessageRequestVariant2 PickCreateEndUserInputMessageRequestVariant2() => CreateEndUserInputMessageRequestVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateEndUserInputMessageRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCreateEndUserInputMessageRequestVariant2 && createEndUserInputMessageRequestVariant2 != null)
+            else if (CreateEndUserInputMessageRequestVariant2 is { } __value1 && createEndUserInputMessageRequestVariant2 != null)
             {
-                return createEndUserInputMessageRequestVariant2(CreateEndUserInputMessageRequestVariant2!);
+                return createEndUserInputMessageRequestVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateEndUserInputMessageRequestVariant2)
+            else if (CreateEndUserInputMessageRequestVariant2 is { } __value1)
             {
-                createEndUserInputMessageRequestVariant2?.Invoke(CreateEndUserInputMessageRequestVariant2!);
+                createEndUserInputMessageRequestVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateEndUserInputMessageRequestVariant2)
+            else if (CreateEndUserInputMessageRequestVariant2 is { } __value1)
             {
-                createEndUserInputMessageRequestVariant2?.Invoke(CreateEndUserInputMessageRequestVariant2!);
+                createEndUserInputMessageRequestVariant2?.Invoke(__value1);
             }
         }
 

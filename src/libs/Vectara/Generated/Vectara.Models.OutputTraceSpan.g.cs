@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentTraceSpanBase PickAgentBase() => IsAgentBase
-            ? AgentBase!
+        public global::Vectara.AgentTraceSpanBase PickAgentBase() => AgentBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.OutputTraceSpanVariant2 PickOutputTraceSpanVariant2() => IsOutputTraceSpanVariant2
-            ? OutputTraceSpanVariant2!
+        public global::Vectara.OutputTraceSpanVariant2 PickOutputTraceSpanVariant2() => OutputTraceSpanVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OutputTraceSpanVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase && agentBase != null)
+            if (AgentBase is { } __value0 && agentBase != null)
             {
-                return agentBase(AgentBase!);
+                return agentBase(__value0);
             }
-            else if (IsOutputTraceSpanVariant2 && outputTraceSpanVariant2 != null)
+            else if (OutputTraceSpanVariant2 is { } __value1 && outputTraceSpanVariant2 != null)
             {
-                return outputTraceSpanVariant2(OutputTraceSpanVariant2!);
+                return outputTraceSpanVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase)
+            if (AgentBase is { } __value0)
             {
-                agentBase?.Invoke(AgentBase!);
+                agentBase?.Invoke(__value0);
             }
-            else if (IsOutputTraceSpanVariant2)
+            else if (OutputTraceSpanVariant2 is { } __value1)
             {
-                outputTraceSpanVariant2?.Invoke(OutputTraceSpanVariant2!);
+                outputTraceSpanVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase)
+            if (AgentBase is { } __value0)
             {
-                agentBase?.Invoke(AgentBase!);
+                agentBase?.Invoke(__value0);
             }
-            else if (IsOutputTraceSpanVariant2)
+            else if (OutputTraceSpanVariant2 is { } __value1)
             {
-                outputTraceSpanVariant2?.Invoke(OutputTraceSpanVariant2!);
+                outputTraceSpanVariant2?.Invoke(__value1);
             }
         }
 

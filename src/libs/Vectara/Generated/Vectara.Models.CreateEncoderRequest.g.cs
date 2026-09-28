@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateOpenAIEncoderRequest PickOpenaiCompatible() => IsOpenaiCompatible
-            ? OpenaiCompatible!
+        public global::Vectara.CreateOpenAIEncoderRequest PickOpenaiCompatible() => OpenaiCompatible is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OpenaiCompatible' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateVLlmEncoderRequest PickVllmCompatible() => IsVllmCompatible
-            ? VllmCompatible!
+        public global::Vectara.CreateVLlmEncoderRequest PickVllmCompatible() => VllmCompatible is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'VllmCompatible' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsOpenaiCompatible && openaiCompatible != null)
+            if (OpenaiCompatible is { } __value0 && openaiCompatible != null)
             {
-                return openaiCompatible(OpenaiCompatible!);
+                return openaiCompatible(__value0);
             }
-            else if (IsVllmCompatible && vllmCompatible != null)
+            else if (VllmCompatible is { } __value1 && vllmCompatible != null)
             {
-                return vllmCompatible(VllmCompatible!);
+                return vllmCompatible(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsOpenaiCompatible)
+            if (OpenaiCompatible is { } __value0)
             {
-                openaiCompatible?.Invoke(OpenaiCompatible!);
+                openaiCompatible?.Invoke(__value0);
             }
-            else if (IsVllmCompatible)
+            else if (VllmCompatible is { } __value1)
             {
-                vllmCompatible?.Invoke(VllmCompatible!);
+                vllmCompatible?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsOpenaiCompatible)
+            if (OpenaiCompatible is { } __value0)
             {
-                openaiCompatible?.Invoke(OpenaiCompatible!);
+                openaiCompatible?.Invoke(__value0);
             }
-            else if (IsVllmCompatible)
+            else if (VllmCompatible is { } __value1)
             {
-                vllmCompatible?.Invoke(VllmCompatible!);
+                vllmCompatible?.Invoke(__value1);
             }
         }
 

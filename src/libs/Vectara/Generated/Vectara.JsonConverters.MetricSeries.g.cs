@@ -77,25 +77,25 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CounterMetricSeries), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CounterMetricSeries> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CounterMetricSeries).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Counter!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickCounter(), typeInfo);
             }
             else if (value.IsGauge)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GaugeMetricSeries), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GaugeMetricSeries> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GaugeMetricSeries).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Gauge!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickGauge(), typeInfo);
             }
             else if (value.IsPercentiles)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.PercentilesMetricSeries), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.PercentilesMetricSeries> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.PercentilesMetricSeries).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Percentiles!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickPercentiles(), typeInfo);
             }
             else if (value.IsDistribution)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.DistributionMetricSeries), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.DistributionMetricSeries> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.DistributionMetricSeries).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Distribution!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickDistribution(), typeInfo);
             }
         }
     }

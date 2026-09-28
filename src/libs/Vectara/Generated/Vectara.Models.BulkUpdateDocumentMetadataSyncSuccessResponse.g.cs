@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BulkUpdateDocumentMetadataResponseBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BulkUpdateDocumentMetadataResponseBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponseVariant2 PickBulkUpdateDocumentMetadataSyncSuccessResponseVariant2() => IsBulkUpdateDocumentMetadataSyncSuccessResponseVariant2
-            ? BulkUpdateDocumentMetadataSyncSuccessResponseVariant2!
+        public global::Vectara.BulkUpdateDocumentMetadataSyncSuccessResponseVariant2 PickBulkUpdateDocumentMetadataSyncSuccessResponseVariant2() => BulkUpdateDocumentMetadataSyncSuccessResponseVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'BulkUpdateDocumentMetadataSyncSuccessResponseVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsBulkUpdateDocumentMetadataSyncSuccessResponseVariant2 && bulkUpdateDocumentMetadataSyncSuccessResponseVariant2 != null)
+            else if (BulkUpdateDocumentMetadataSyncSuccessResponseVariant2 is { } __value1 && bulkUpdateDocumentMetadataSyncSuccessResponseVariant2 != null)
             {
-                return bulkUpdateDocumentMetadataSyncSuccessResponseVariant2(BulkUpdateDocumentMetadataSyncSuccessResponseVariant2!);
+                return bulkUpdateDocumentMetadataSyncSuccessResponseVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsBulkUpdateDocumentMetadataSyncSuccessResponseVariant2)
+            else if (BulkUpdateDocumentMetadataSyncSuccessResponseVariant2 is { } __value1)
             {
-                bulkUpdateDocumentMetadataSyncSuccessResponseVariant2?.Invoke(BulkUpdateDocumentMetadataSyncSuccessResponseVariant2!);
+                bulkUpdateDocumentMetadataSyncSuccessResponseVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsBulkUpdateDocumentMetadataSyncSuccessResponseVariant2)
+            else if (BulkUpdateDocumentMetadataSyncSuccessResponseVariant2 is { } __value1)
             {
-                bulkUpdateDocumentMetadataSyncSuccessResponseVariant2?.Invoke(BulkUpdateDocumentMetadataSyncSuccessResponseVariant2!);
+                bulkUpdateDocumentMetadataSyncSuccessResponseVariant2?.Invoke(__value1);
             }
         }
 

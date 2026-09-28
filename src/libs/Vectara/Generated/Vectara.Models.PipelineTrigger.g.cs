@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CronTriggerConfiguration PickCron() => IsCron
-            ? Cron!
+        public global::Vectara.CronTriggerConfiguration PickCron() => Cron is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Cron' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.IntervalTriggerConfiguration PickInterval() => IsInterval
-            ? Interval!
+        public global::Vectara.IntervalTriggerConfiguration PickInterval() => Interval is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Interval' but the value was {ToString()}.");
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ManualTriggerConfiguration PickManual() => IsManual
-            ? Manual!
+        public global::Vectara.ManualTriggerConfiguration PickManual() => Manual is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Manual' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -250,17 +250,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCron && cron != null)
+            if (Cron is { } __value0 && cron != null)
             {
-                return cron(Cron!);
+                return cron(__value0);
             }
-            else if (IsInterval && interval != null)
+            else if (Interval is { } __value1 && interval != null)
             {
-                return interval(Interval!);
+                return interval(__value1);
             }
-            else if (IsManual && manual != null)
+            else if (Manual is { } __value2 && manual != null)
             {
-                return manual(Manual!);
+                return manual(__value2);
             }
 
             return default(TResult);
@@ -282,17 +282,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCron)
+            if (Cron is { } __value0)
             {
-                cron?.Invoke(Cron!);
+                cron?.Invoke(__value0);
             }
-            else if (IsInterval)
+            else if (Interval is { } __value1)
             {
-                interval?.Invoke(Interval!);
+                interval?.Invoke(__value1);
             }
-            else if (IsManual)
+            else if (Manual is { } __value2)
             {
-                manual?.Invoke(Manual!);
+                manual?.Invoke(__value2);
             }
         }
 
@@ -310,17 +310,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCron)
+            if (Cron is { } __value0)
             {
-                cron?.Invoke(Cron!);
+                cron?.Invoke(__value0);
             }
-            else if (IsInterval)
+            else if (Interval is { } __value1)
             {
-                interval?.Invoke(Interval!);
+                interval?.Invoke(__value1);
             }
-            else if (IsManual)
+            else if (Manual is { } __value2)
             {
-                manual?.Invoke(Manual!);
+                manual?.Invoke(__value2);
             }
         }
 

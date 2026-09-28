@@ -68,19 +68,19 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateMcpToolRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateMcpToolRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateMcpToolRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Mcp!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickMcp(), typeInfo);
             }
             else if (value.IsLambda)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateLambdaToolRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateLambdaToolRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateLambdaToolRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Lambda!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickLambda(), typeInfo);
             }
             else if (value.IsClient)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.UpdateClientToolRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.UpdateClientToolRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.UpdateClientToolRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Client!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickClient(), typeInfo);
             }
         }
     }

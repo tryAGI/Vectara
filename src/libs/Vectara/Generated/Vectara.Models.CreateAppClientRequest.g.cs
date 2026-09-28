@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateClientCredentialsRequest PickClientCredentials() => IsClientCredentials
-            ? ClientCredentials!
+        public global::Vectara.CreateClientCredentialsRequest PickClientCredentials() => ClientCredentials is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ClientCredentials' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -120,9 +120,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsClientCredentials && clientCredentials != null)
+            if (ClientCredentials is { } __value0 && clientCredentials != null)
             {
-                return clientCredentials(ClientCredentials!);
+                return clientCredentials(__value0);
             }
 
             return default(TResult);
@@ -140,9 +140,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsClientCredentials)
+            if (ClientCredentials is { } __value0)
             {
-                clientCredentials?.Invoke(ClientCredentials!);
+                clientCredentials?.Invoke(__value0);
             }
         }
 
@@ -158,9 +158,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsClientCredentials)
+            if (ClientCredentials is { } __value0)
             {
-                clientCredentials?.Invoke(ClientCredentials!);
+                clientCredentials?.Invoke(__value0);
             }
         }
 

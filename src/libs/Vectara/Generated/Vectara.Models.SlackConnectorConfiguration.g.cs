@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ConnectorConfigurationBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.ConnectorConfigurationBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SlackConnectorConfigurationVariant2 PickSlackConnectorConfigurationVariant2() => IsSlackConnectorConfigurationVariant2
-            ? SlackConnectorConfigurationVariant2!
+        public global::Vectara.SlackConnectorConfigurationVariant2 PickSlackConnectorConfigurationVariant2() => SlackConnectorConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SlackConnectorConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsSlackConnectorConfigurationVariant2 && slackConnectorConfigurationVariant2 != null)
+            else if (SlackConnectorConfigurationVariant2 is { } __value1 && slackConnectorConfigurationVariant2 != null)
             {
-                return slackConnectorConfigurationVariant2(SlackConnectorConfigurationVariant2!);
+                return slackConnectorConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSlackConnectorConfigurationVariant2)
+            else if (SlackConnectorConfigurationVariant2 is { } __value1)
             {
-                slackConnectorConfigurationVariant2?.Invoke(SlackConnectorConfigurationVariant2!);
+                slackConnectorConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSlackConnectorConfigurationVariant2)
+            else if (SlackConnectorConfigurationVariant2 is { } __value1)
             {
-                slackConnectorConfigurationVariant2?.Invoke(SlackConnectorConfigurationVariant2!);
+                slackConnectorConfigurationVariant2?.Invoke(__value1);
             }
         }
 

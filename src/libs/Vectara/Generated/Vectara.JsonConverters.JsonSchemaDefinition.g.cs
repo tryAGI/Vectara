@@ -59,13 +59,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.JsonSchemaObject), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.JsonSchemaObject> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.JsonSchemaObject).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ObjectValue!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickObjectValue(), typeInfo);
             }
             else if (value.IsArray)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.JsonSchemaValue), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.JsonSchemaValue> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.JsonSchemaValue).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Array!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickArray(), typeInfo);
             }
         }
     }

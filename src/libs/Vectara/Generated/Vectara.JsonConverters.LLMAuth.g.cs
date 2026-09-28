@@ -122,55 +122,55 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BearerAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BearerAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BearerAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Bearer!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickBearer(), typeInfo);
             }
             else if (value.IsHeader)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.HeaderAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.HeaderAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.HeaderAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Header!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickHeader(), typeInfo);
             }
             else if (value.IsOauthClientCredentials)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.OAuthClientCredentialsAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.OAuthClientCredentialsAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.OAuthClientCredentialsAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OauthClientCredentials!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickOauthClientCredentials(), typeInfo);
             }
             else if (value.IsBedrockStaticIam)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BedrockStaticIAMAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BedrockStaticIAMAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BedrockStaticIAMAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.BedrockStaticIam!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickBedrockStaticIam(), typeInfo);
             }
             else if (value.IsBedrockApiKey)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BedrockApiKeyAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BedrockApiKeyAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BedrockApiKeyAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.BedrockApiKey!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickBedrockApiKey(), typeInfo);
             }
             else if (value.IsVertexServiceAccount)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.VertexServiceAccountAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.VertexServiceAccountAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.VertexServiceAccountAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.VertexServiceAccount!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickVertexServiceAccount(), typeInfo);
             }
             else if (value.IsVertexAccessToken)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.VertexAccessTokenAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.VertexAccessTokenAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.VertexAccessTokenAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.VertexAccessToken!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickVertexAccessToken(), typeInfo);
             }
             else if (value.IsApiKey)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.VertexAiApiKeyAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.VertexAiApiKeyAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.VertexAiApiKeyAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ApiKey!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickApiKey(), typeInfo);
             }
             else if (value.IsServiceAccount)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.VertexAiServiceAccountAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.VertexAiServiceAccountAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.VertexAiServiceAccountAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ServiceAccount!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickServiceAccount(), typeInfo);
             }
         }
     }

@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.OpenAILLMRequestBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.OpenAILLMRequestBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateOpenAIResponsesLLMRequestVariant2 PickCreateOpenAIResponsesLLMRequestVariant2() => IsCreateOpenAIResponsesLLMRequestVariant2
-            ? CreateOpenAIResponsesLLMRequestVariant2!
+        public global::Vectara.CreateOpenAIResponsesLLMRequestVariant2 PickCreateOpenAIResponsesLLMRequestVariant2() => CreateOpenAIResponsesLLMRequestVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateOpenAIResponsesLLMRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCreateOpenAIResponsesLLMRequestVariant2 && createOpenAIResponsesLLMRequestVariant2 != null)
+            else if (CreateOpenAIResponsesLLMRequestVariant2 is { } __value1 && createOpenAIResponsesLLMRequestVariant2 != null)
             {
-                return createOpenAIResponsesLLMRequestVariant2(CreateOpenAIResponsesLLMRequestVariant2!);
+                return createOpenAIResponsesLLMRequestVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateOpenAIResponsesLLMRequestVariant2)
+            else if (CreateOpenAIResponsesLLMRequestVariant2 is { } __value1)
             {
-                createOpenAIResponsesLLMRequestVariant2?.Invoke(CreateOpenAIResponsesLLMRequestVariant2!);
+                createOpenAIResponsesLLMRequestVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateOpenAIResponsesLLMRequestVariant2)
+            else if (CreateOpenAIResponsesLLMRequestVariant2 is { } __value1)
             {
-                createOpenAIResponsesLLMRequestVariant2?.Invoke(CreateOpenAIResponsesLLMRequestVariant2!);
+                createOpenAIResponsesLLMRequestVariant2?.Invoke(__value1);
             }
         }
 

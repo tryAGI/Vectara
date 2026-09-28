@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateInitialInstructionRequest PickInitial() => IsInitial
-            ? Initial!.Value
+        public global::Vectara.CreateInitialInstructionRequest PickInitial() => Initial is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Initial' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -120,9 +120,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInitial && initial != null)
+            if (Initial is { } __value0 && initial != null)
             {
-                return initial(Initial!);
+                return initial(__value0);
             }
 
             return default(TResult);
@@ -140,9 +140,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInitial)
+            if (Initial is { } __value0)
             {
-                initial?.Invoke(Initial!);
+                initial?.Invoke(__value0);
             }
         }
 
@@ -158,9 +158,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInitial)
+            if (Initial is { } __value0)
             {
-                initial?.Invoke(Initial!);
+                initial?.Invoke(__value0);
             }
         }
 

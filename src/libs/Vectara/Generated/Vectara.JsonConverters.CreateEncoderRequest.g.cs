@@ -59,13 +59,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateOpenAIEncoderRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateOpenAIEncoderRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateOpenAIEncoderRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OpenaiCompatible!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickOpenaiCompatible(), typeInfo);
             }
             else if (value.IsVllmCompatible)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateVLlmEncoderRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateVLlmEncoderRequest?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateVLlmEncoderRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.VllmCompatible!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickVllmCompatible(), typeInfo);
             }
         }
     }

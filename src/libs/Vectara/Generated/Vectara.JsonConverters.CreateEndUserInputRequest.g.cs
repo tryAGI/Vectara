@@ -59,13 +59,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateEndUserInputMessageRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateEndUserInputMessageRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateEndUserInputMessageRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.InputMessage!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickInputMessage(), typeInfo);
             }
             else if (value.IsInterrupt)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateEndUserInterruptRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateEndUserInterruptRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateEndUserInterruptRequest).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Interrupt!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickInterrupt(), typeInfo);
             }
         }
     }

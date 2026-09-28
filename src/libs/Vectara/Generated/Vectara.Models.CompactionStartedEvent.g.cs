@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
-            ? AgentBase!
+        public global::Vectara.AgentEventBase PickAgentBase() => AgentBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CompactionStartedEventVariant2 PickCompactionStartedEventVariant2() => IsCompactionStartedEventVariant2
-            ? CompactionStartedEventVariant2!
+        public global::Vectara.CompactionStartedEventVariant2 PickCompactionStartedEventVariant2() => CompactionStartedEventVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CompactionStartedEventVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase && agentBase != null)
+            if (AgentBase is { } __value0 && agentBase != null)
             {
-                return agentBase(AgentBase!);
+                return agentBase(__value0);
             }
-            else if (IsCompactionStartedEventVariant2 && compactionStartedEventVariant2 != null)
+            else if (CompactionStartedEventVariant2 is { } __value1 && compactionStartedEventVariant2 != null)
             {
-                return compactionStartedEventVariant2(CompactionStartedEventVariant2!);
+                return compactionStartedEventVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase)
+            if (AgentBase is { } __value0)
             {
-                agentBase?.Invoke(AgentBase!);
+                agentBase?.Invoke(__value0);
             }
-            else if (IsCompactionStartedEventVariant2)
+            else if (CompactionStartedEventVariant2 is { } __value1)
             {
-                compactionStartedEventVariant2?.Invoke(CompactionStartedEventVariant2!);
+                compactionStartedEventVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase)
+            if (AgentBase is { } __value0)
             {
-                agentBase?.Invoke(AgentBase!);
+                agentBase?.Invoke(__value0);
             }
-            else if (IsCompactionStartedEventVariant2)
+            else if (CompactionStartedEventVariant2 is { } __value1)
             {
-                compactionStartedEventVariant2?.Invoke(CompactionStartedEventVariant2!);
+                compactionStartedEventVariant2?.Invoke(__value1);
             }
         }
 

@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.GenerationPreset PickGenerationPreset() => IsGenerationPreset
-            ? GenerationPreset!
+        public global::Vectara.GenerationPreset PickGenerationPreset() => GenerationPreset is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationPreset' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -102,9 +102,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGenerationPreset && generationPreset != null)
+            if (GenerationPreset is { } __value0 && generationPreset != null)
             {
-                return generationPreset(GenerationPreset!);
+                return generationPreset(__value0);
             }
 
             return default(TResult);
@@ -122,9 +122,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGenerationPreset)
+            if (GenerationPreset is { } __value0)
             {
-                generationPreset?.Invoke(GenerationPreset!);
+                generationPreset?.Invoke(__value0);
             }
         }
 
@@ -140,9 +140,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGenerationPreset)
+            if (GenerationPreset is { } __value0)
             {
-                generationPreset?.Invoke(GenerationPreset!);
+                generationPreset?.Invoke(__value0);
             }
         }
 

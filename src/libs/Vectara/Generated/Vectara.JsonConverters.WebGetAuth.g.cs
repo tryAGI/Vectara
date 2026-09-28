@@ -104,43 +104,43 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetNoAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetNoAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetNoAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.None!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickNone(), typeInfo);
             }
             else if (value.IsBearer)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetBearerAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetBearerAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetBearerAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Bearer!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickBearer(), typeInfo);
             }
             else if (value.IsHeader)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetHeaderAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetHeaderAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetHeaderAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Header!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickHeader(), typeInfo);
             }
             else if (value.IsOauthClientCredentials)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetOAuthClientCredentialsAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetOAuthClientCredentialsAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetOAuthClientCredentialsAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OauthClientCredentials!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickOauthClientCredentials(), typeInfo);
             }
             else if (value.IsOauthRefreshToken)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetOAuthRefreshTokenAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetOAuthRefreshTokenAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetOAuthRefreshTokenAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OauthRefreshToken!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickOauthRefreshToken(), typeInfo);
             }
             else if (value.IsOauthTokenExchange)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetOAuthTokenExchangeAuth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetOAuthTokenExchangeAuth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetOAuthTokenExchangeAuth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.OauthTokenExchange!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickOauthTokenExchange(), typeInfo);
             }
             else if (value.IsAwsSigv4)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetAwsSigV4Auth), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetAwsSigV4Auth?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetAwsSigV4Auth).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.AwsSigv4!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickAwsSigv4(), typeInfo);
             }
         }
     }

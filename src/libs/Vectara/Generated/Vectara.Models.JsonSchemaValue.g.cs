@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.JsonSchemaBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.JsonSchemaBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.JsonSchemaValueVariant2 PickJsonSchemaValueVariant2() => IsJsonSchemaValueVariant2
-            ? JsonSchemaValueVariant2!
+        public global::Vectara.JsonSchemaValueVariant2 PickJsonSchemaValueVariant2() => JsonSchemaValueVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'JsonSchemaValueVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsJsonSchemaValueVariant2 && jsonSchemaValueVariant2 != null)
+            else if (JsonSchemaValueVariant2 is { } __value1 && jsonSchemaValueVariant2 != null)
             {
-                return jsonSchemaValueVariant2(JsonSchemaValueVariant2!);
+                return jsonSchemaValueVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsJsonSchemaValueVariant2)
+            else if (JsonSchemaValueVariant2 is { } __value1)
             {
-                jsonSchemaValueVariant2?.Invoke(JsonSchemaValueVariant2!);
+                jsonSchemaValueVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsJsonSchemaValueVariant2)
+            else if (JsonSchemaValueVariant2 is { } __value1)
             {
-                jsonSchemaValueVariant2?.Invoke(JsonSchemaValueVariant2!);
+                jsonSchemaValueVariant2?.Invoke(__value1);
             }
         }
 

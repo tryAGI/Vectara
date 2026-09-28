@@ -167,85 +167,85 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ToolConfigurationReference), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ToolConfigurationReference> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ToolConfigurationReference).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Reference!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickReference(), typeInfo);
             }
             else if (value.IsDynamicVectara)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.DynamicVectaraToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.DynamicVectaraToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.DynamicVectaraToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.DynamicVectara!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickDynamicVectara(), typeInfo);
             }
             else if (value.IsMcp)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.McpToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.McpToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.McpToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Mcp!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickMcp(), typeInfo);
             }
             else if (value.IsCorporaSearch)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CorporaSearchToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CorporaSearchToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CorporaSearchToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.CorporaSearch!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickCorporaSearch(), typeInfo);
             }
             else if (value.IsWebSearch)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebSearchToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebSearchToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebSearchToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WebSearch!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWebSearch(), typeInfo);
             }
             else if (value.IsWebGet)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebGetToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebGetToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebGetToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WebGet!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWebGet(), typeInfo);
             }
             else if (value.IsLambda)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.LambdaToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.LambdaToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.LambdaToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Lambda!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickLambda(), typeInfo);
             }
             else if (value.IsClient)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ClientToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ClientToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ClientToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Client!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickClient(), typeInfo);
             }
             else if (value.IsSubAgent)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SubAgentToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SubAgentToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SubAgentToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SubAgent!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickSubAgent(), typeInfo);
             }
             else if (value.IsArtifactRead)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ArtifactReadToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ArtifactReadToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ArtifactReadToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ArtifactRead!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickArtifactRead(), typeInfo);
             }
             else if (value.IsArtifactGrep)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ArtifactGrepToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ArtifactGrepToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ArtifactGrepToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ArtifactGrep!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickArtifactGrep(), typeInfo);
             }
             else if (value.IsImageRead)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ImageReadToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ImageReadToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ImageReadToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ImageRead!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickImageRead(), typeInfo);
             }
             else if (value.IsDocumentConversion)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.DocumentConversionToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.DocumentConversionToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.DocumentConversionToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.DocumentConversion!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickDocumentConversion(), typeInfo);
             }
             else if (value.IsGetDocumentText)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GetDocumentTextToolConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GetDocumentTextToolConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GetDocumentTextToolConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GetDocumentText!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickGetDocumentText(), typeInfo);
             }
         }
     }

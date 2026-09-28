@@ -50,7 +50,7 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.RoutedAliasPolicy), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.RoutedAliasPolicy?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.RoutedAliasPolicy).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Routed!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickRouted(), typeInfo);
             }
         }
     }

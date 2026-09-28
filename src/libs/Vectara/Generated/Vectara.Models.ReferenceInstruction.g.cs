@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.InstructionReference PickInstructionReference() => IsInstructionReference
-            ? InstructionReference!
+        public global::Vectara.InstructionReference PickInstructionReference() => InstructionReference is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'InstructionReference' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ReferenceInstructionVariant2 PickReferenceInstructionVariant2() => IsReferenceInstructionVariant2
-            ? ReferenceInstructionVariant2!
+        public global::Vectara.ReferenceInstructionVariant2 PickReferenceInstructionVariant2() => ReferenceInstructionVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ReferenceInstructionVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInstructionReference && instructionReference != null)
+            if (InstructionReference is { } __value0 && instructionReference != null)
             {
-                return instructionReference(InstructionReference!);
+                return instructionReference(__value0);
             }
-            else if (IsReferenceInstructionVariant2 && referenceInstructionVariant2 != null)
+            else if (ReferenceInstructionVariant2 is { } __value1 && referenceInstructionVariant2 != null)
             {
-                return referenceInstructionVariant2(ReferenceInstructionVariant2!);
+                return referenceInstructionVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInstructionReference)
+            if (InstructionReference is { } __value0)
             {
-                instructionReference?.Invoke(InstructionReference!);
+                instructionReference?.Invoke(__value0);
             }
-            else if (IsReferenceInstructionVariant2)
+            else if (ReferenceInstructionVariant2 is { } __value1)
             {
-                referenceInstructionVariant2?.Invoke(ReferenceInstructionVariant2!);
+                referenceInstructionVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInstructionReference)
+            if (InstructionReference is { } __value0)
             {
-                instructionReference?.Invoke(InstructionReference!);
+                instructionReference?.Invoke(__value0);
             }
-            else if (IsReferenceInstructionVariant2)
+            else if (ReferenceInstructionVariant2 is { } __value1)
             {
-                referenceInstructionVariant2?.Invoke(ReferenceInstructionVariant2!);
+                referenceInstructionVariant2?.Invoke(__value1);
             }
         }
 

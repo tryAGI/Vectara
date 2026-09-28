@@ -51,8 +51,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SharedGoogleDriveScope PickShared() => IsShared
-            ? Shared!
+        public global::Vectara.SharedGoogleDriveScope PickShared() => Shared is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Shared' but the value was {ToString()}.");
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.MyGoogleDriveScope PickMyDrive() => IsMyDrive
-            ? MyDrive!
+        public global::Vectara.MyGoogleDriveScope PickMyDrive() => MyDrive is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'MyDrive' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -191,13 +191,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsShared && shared != null)
+            if (Shared is { } __value0 && shared != null)
             {
-                return shared(Shared!);
+                return shared(__value0);
             }
-            else if (IsMyDrive && myDrive != null)
+            else if (MyDrive is { } __value1 && myDrive != null)
             {
-                return myDrive(MyDrive!);
+                return myDrive(__value1);
             }
 
             return default(TResult);
@@ -217,13 +217,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsShared)
+            if (Shared is { } __value0)
             {
-                shared?.Invoke(Shared!);
+                shared?.Invoke(__value0);
             }
-            else if (IsMyDrive)
+            else if (MyDrive is { } __value1)
             {
-                myDrive?.Invoke(MyDrive!);
+                myDrive?.Invoke(__value1);
             }
         }
 
@@ -240,13 +240,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsShared)
+            if (Shared is { } __value0)
             {
-                shared?.Invoke(Shared!);
+                shared?.Invoke(__value0);
             }
-            else if (IsMyDrive)
+            else if (MyDrive is { } __value1)
             {
-                myDrive?.Invoke(MyDrive!);
+                myDrive?.Invoke(__value1);
             }
         }
 

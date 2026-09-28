@@ -48,8 +48,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateSharepointSourceConfiguration PickSharepoint() => IsSharepoint
-            ? Sharepoint!.Value
+        public global::Vectara.UpdateSharepointSourceConfiguration PickSharepoint() => Sharepoint is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Sharepoint' but the value was {ToString()}.");
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateS3SourceConfiguration PickS3() => IsS3
-            ? S3!.Value
+        public global::Vectara.UpdateS3SourceConfiguration PickS3() => S3 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'S3' but the value was {ToString()}.");
 
         /// <summary>
@@ -123,8 +123,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateGoogleDriveSourceConfiguration PickGoogleDrive() => IsGoogleDrive
-            ? GoogleDrive!.Value
+        public global::Vectara.UpdateGoogleDriveSourceConfiguration PickGoogleDrive() => GoogleDrive is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GoogleDrive' but the value was {ToString()}.");
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateBoxSourceConfiguration PickBox() => IsBox
-            ? Box!.Value
+        public global::Vectara.UpdateBoxSourceConfiguration PickBox() => Box is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Box' but the value was {ToString()}.");
 
         /// <summary>
@@ -197,8 +197,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateWolkenKbSourceConfiguration PickWolkenKb() => IsWolkenKb
-            ? WolkenKb!.Value
+        public global::Vectara.UpdateWolkenKbSourceConfiguration PickWolkenKb() => WolkenKb is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenKb' but the value was {ToString()}.");
 
         /// <summary>
@@ -234,8 +234,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateWolkenFormsSourceConfiguration PickWolkenForms() => IsWolkenForms
-            ? WolkenForms!.Value
+        public global::Vectara.UpdateWolkenFormsSourceConfiguration PickWolkenForms() => WolkenForms is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenForms' but the value was {ToString()}.");
 
         /// <summary>
@@ -276,8 +276,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateWolkenTicketsSourceConfiguration PickWolkenTickets() => IsWolkenTickets
-            ? WolkenTickets!.Value
+        public global::Vectara.UpdateWolkenTicketsSourceConfiguration PickWolkenTickets() => WolkenTickets is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WolkenTickets' but the value was {ToString()}.");
 
         /// <summary>
@@ -313,8 +313,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateConfluenceSourceConfiguration PickConfluence() => IsConfluence
-            ? Confluence!.Value
+        public global::Vectara.UpdateConfluenceSourceConfiguration PickConfluence() => Confluence is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Confluence' but the value was {ToString()}.");
 
         /// <summary>
@@ -350,8 +350,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateFluidtopicsSourceConfiguration PickFluidtopics() => IsFluidtopics
-            ? Fluidtopics!.Value
+        public global::Vectara.UpdateFluidtopicsSourceConfiguration PickFluidtopics() => Fluidtopics is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Fluidtopics' but the value was {ToString()}.");
 
         /// <summary>
@@ -387,8 +387,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateScimSourceConfiguration PickScim() => IsScim
-            ? Scim!.Value
+        public global::Vectara.UpdateScimSourceConfiguration PickScim() => Scim is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Scim' but the value was {ToString()}.");
 
         /// <summary>
@@ -424,8 +424,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateDoceboSourceConfiguration PickDocebo() => IsDocebo
-            ? Docebo!.Value
+        public global::Vectara.UpdateDoceboSourceConfiguration PickDocebo() => Docebo is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Docebo' but the value was {ToString()}.");
 
         /// <summary>
@@ -464,8 +464,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateWebSourceConfiguration PickWeb() => IsWeb
-            ? Web!.Value
+        public global::Vectara.UpdateWebSourceConfiguration PickWeb() => Web is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Web' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -845,53 +845,53 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSharepoint && sharepoint != null)
+            if (Sharepoint is { } __value0 && sharepoint != null)
             {
-                return sharepoint(Sharepoint!);
+                return sharepoint(__value0);
             }
-            else if (IsS3 && s3 != null)
+            else if (S3 is { } __value1 && s3 != null)
             {
-                return s3(S3!);
+                return s3(__value1);
             }
-            else if (IsGoogleDrive && googleDrive != null)
+            else if (GoogleDrive is { } __value2 && googleDrive != null)
             {
-                return googleDrive(GoogleDrive!);
+                return googleDrive(__value2);
             }
-            else if (IsBox && box != null)
+            else if (Box is { } __value3 && box != null)
             {
-                return box(Box!);
+                return box(__value3);
             }
-            else if (IsWolkenKb && wolkenKb != null)
+            else if (WolkenKb is { } __value4 && wolkenKb != null)
             {
-                return wolkenKb(WolkenKb!);
+                return wolkenKb(__value4);
             }
-            else if (IsWolkenForms && wolkenForms != null)
+            else if (WolkenForms is { } __value5 && wolkenForms != null)
             {
-                return wolkenForms(WolkenForms!);
+                return wolkenForms(__value5);
             }
-            else if (IsWolkenTickets && wolkenTickets != null)
+            else if (WolkenTickets is { } __value6 && wolkenTickets != null)
             {
-                return wolkenTickets(WolkenTickets!);
+                return wolkenTickets(__value6);
             }
-            else if (IsConfluence && confluence != null)
+            else if (Confluence is { } __value7 && confluence != null)
             {
-                return confluence(Confluence!);
+                return confluence(__value7);
             }
-            else if (IsFluidtopics && fluidtopics != null)
+            else if (Fluidtopics is { } __value8 && fluidtopics != null)
             {
-                return fluidtopics(Fluidtopics!);
+                return fluidtopics(__value8);
             }
-            else if (IsScim && scim != null)
+            else if (Scim is { } __value9 && scim != null)
             {
-                return scim(Scim!);
+                return scim(__value9);
             }
-            else if (IsDocebo && docebo != null)
+            else if (Docebo is { } __value10 && docebo != null)
             {
-                return docebo(Docebo!);
+                return docebo(__value10);
             }
-            else if (IsWeb && web != null)
+            else if (Web is { } __value11 && web != null)
             {
-                return web(Web!);
+                return web(__value11);
             }
 
             return default(TResult);
@@ -931,53 +931,53 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSharepoint)
+            if (Sharepoint is { } __value0)
             {
-                sharepoint?.Invoke(Sharepoint!);
+                sharepoint?.Invoke(__value0);
             }
-            else if (IsS3)
+            else if (S3 is { } __value1)
             {
-                s3?.Invoke(S3!);
+                s3?.Invoke(__value1);
             }
-            else if (IsGoogleDrive)
+            else if (GoogleDrive is { } __value2)
             {
-                googleDrive?.Invoke(GoogleDrive!);
+                googleDrive?.Invoke(__value2);
             }
-            else if (IsBox)
+            else if (Box is { } __value3)
             {
-                box?.Invoke(Box!);
+                box?.Invoke(__value3);
             }
-            else if (IsWolkenKb)
+            else if (WolkenKb is { } __value4)
             {
-                wolkenKb?.Invoke(WolkenKb!);
+                wolkenKb?.Invoke(__value4);
             }
-            else if (IsWolkenForms)
+            else if (WolkenForms is { } __value5)
             {
-                wolkenForms?.Invoke(WolkenForms!);
+                wolkenForms?.Invoke(__value5);
             }
-            else if (IsWolkenTickets)
+            else if (WolkenTickets is { } __value6)
             {
-                wolkenTickets?.Invoke(WolkenTickets!);
+                wolkenTickets?.Invoke(__value6);
             }
-            else if (IsConfluence)
+            else if (Confluence is { } __value7)
             {
-                confluence?.Invoke(Confluence!);
+                confluence?.Invoke(__value7);
             }
-            else if (IsFluidtopics)
+            else if (Fluidtopics is { } __value8)
             {
-                fluidtopics?.Invoke(Fluidtopics!);
+                fluidtopics?.Invoke(__value8);
             }
-            else if (IsScim)
+            else if (Scim is { } __value9)
             {
-                scim?.Invoke(Scim!);
+                scim?.Invoke(__value9);
             }
-            else if (IsDocebo)
+            else if (Docebo is { } __value10)
             {
-                docebo?.Invoke(Docebo!);
+                docebo?.Invoke(__value10);
             }
-            else if (IsWeb)
+            else if (Web is { } __value11)
             {
-                web?.Invoke(Web!);
+                web?.Invoke(__value11);
             }
         }
 
@@ -1004,53 +1004,53 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSharepoint)
+            if (Sharepoint is { } __value0)
             {
-                sharepoint?.Invoke(Sharepoint!);
+                sharepoint?.Invoke(__value0);
             }
-            else if (IsS3)
+            else if (S3 is { } __value1)
             {
-                s3?.Invoke(S3!);
+                s3?.Invoke(__value1);
             }
-            else if (IsGoogleDrive)
+            else if (GoogleDrive is { } __value2)
             {
-                googleDrive?.Invoke(GoogleDrive!);
+                googleDrive?.Invoke(__value2);
             }
-            else if (IsBox)
+            else if (Box is { } __value3)
             {
-                box?.Invoke(Box!);
+                box?.Invoke(__value3);
             }
-            else if (IsWolkenKb)
+            else if (WolkenKb is { } __value4)
             {
-                wolkenKb?.Invoke(WolkenKb!);
+                wolkenKb?.Invoke(__value4);
             }
-            else if (IsWolkenForms)
+            else if (WolkenForms is { } __value5)
             {
-                wolkenForms?.Invoke(WolkenForms!);
+                wolkenForms?.Invoke(__value5);
             }
-            else if (IsWolkenTickets)
+            else if (WolkenTickets is { } __value6)
             {
-                wolkenTickets?.Invoke(WolkenTickets!);
+                wolkenTickets?.Invoke(__value6);
             }
-            else if (IsConfluence)
+            else if (Confluence is { } __value7)
             {
-                confluence?.Invoke(Confluence!);
+                confluence?.Invoke(__value7);
             }
-            else if (IsFluidtopics)
+            else if (Fluidtopics is { } __value8)
             {
-                fluidtopics?.Invoke(Fluidtopics!);
+                fluidtopics?.Invoke(__value8);
             }
-            else if (IsScim)
+            else if (Scim is { } __value9)
             {
-                scim?.Invoke(Scim!);
+                scim?.Invoke(__value9);
             }
-            else if (IsDocebo)
+            else if (Docebo is { } __value10)
             {
-                docebo?.Invoke(Docebo!);
+                docebo?.Invoke(__value10);
             }
-            else if (IsWeb)
+            else if (Web is { } __value11)
             {
-                web?.Invoke(Web!);
+                web?.Invoke(__value11);
             }
         }
 

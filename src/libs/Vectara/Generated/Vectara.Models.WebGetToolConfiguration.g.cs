@@ -43,8 +43,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolConfigurationBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.ToolConfigurationBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebGetToolConfigurationVariant2 PickWebGetToolConfigurationVariant2() => IsWebGetToolConfigurationVariant2
-            ? WebGetToolConfigurationVariant2!
+        public global::Vectara.WebGetToolConfigurationVariant2 PickWebGetToolConfigurationVariant2() => WebGetToolConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WebGetToolConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -178,13 +178,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsWebGetToolConfigurationVariant2 && webGetToolConfigurationVariant2 != null)
+            else if (WebGetToolConfigurationVariant2 is { } __value1 && webGetToolConfigurationVariant2 != null)
             {
-                return webGetToolConfigurationVariant2(WebGetToolConfigurationVariant2!);
+                return webGetToolConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -204,13 +204,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsWebGetToolConfigurationVariant2)
+            else if (WebGetToolConfigurationVariant2 is { } __value1)
             {
-                webGetToolConfigurationVariant2?.Invoke(WebGetToolConfigurationVariant2!);
+                webGetToolConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -227,13 +227,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsWebGetToolConfigurationVariant2)
+            else if (WebGetToolConfigurationVariant2 is { } __value1)
             {
-                webGetToolConfigurationVariant2?.Invoke(WebGetToolConfigurationVariant2!);
+                webGetToolConfigurationVariant2?.Invoke(__value1);
             }
         }
 

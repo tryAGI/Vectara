@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.ToolBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ArtifactReadToolVariant2 PickArtifactReadToolVariant2() => IsArtifactReadToolVariant2
-            ? ArtifactReadToolVariant2!
+        public global::Vectara.ArtifactReadToolVariant2 PickArtifactReadToolVariant2() => ArtifactReadToolVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactReadToolVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsArtifactReadToolVariant2 && artifactReadToolVariant2 != null)
+            else if (ArtifactReadToolVariant2 is { } __value1 && artifactReadToolVariant2 != null)
             {
-                return artifactReadToolVariant2(ArtifactReadToolVariant2!);
+                return artifactReadToolVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsArtifactReadToolVariant2)
+            else if (ArtifactReadToolVariant2 is { } __value1)
             {
-                artifactReadToolVariant2?.Invoke(ArtifactReadToolVariant2!);
+                artifactReadToolVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsArtifactReadToolVariant2)
+            else if (ArtifactReadToolVariant2 is { } __value1)
             {
-                artifactReadToolVariant2?.Invoke(ArtifactReadToolVariant2!);
+                artifactReadToolVariant2?.Invoke(__value1);
             }
         }
 

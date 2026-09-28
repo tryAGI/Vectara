@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentTextInput PickText() => IsText
-            ? Text!
+        public global::Vectara.AgentTextInput PickText() => Text is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Text' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentSkillInput PickSkill() => IsSkill
-            ? Skill!
+        public global::Vectara.AgentSkillInput PickSkill() => Skill is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Skill' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsText && text != null)
+            if (Text is { } __value0 && text != null)
             {
-                return text(Text!);
+                return text(__value0);
             }
-            else if (IsSkill && skill != null)
+            else if (Skill is { } __value1 && skill != null)
             {
-                return skill(Skill!);
+                return skill(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsText)
+            if (Text is { } __value0)
             {
-                text?.Invoke(Text!);
+                text?.Invoke(__value0);
             }
-            else if (IsSkill)
+            else if (Skill is { } __value1)
             {
-                skill?.Invoke(Skill!);
+                skill?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsText)
+            if (Text is { } __value0)
             {
-                text?.Invoke(Text!);
+                text?.Invoke(__value0);
             }
-            else if (IsSkill)
+            else if (Skill is { } __value1)
             {
-                skill?.Invoke(Skill!);
+                skill?.Invoke(__value1);
             }
         }
 

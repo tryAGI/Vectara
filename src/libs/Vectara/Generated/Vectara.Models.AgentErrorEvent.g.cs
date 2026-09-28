@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentEventBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.AgentEventBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamError PickStream() => IsStream
-            ? Stream!
+        public global::Vectara.StreamError PickStream() => Stream is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Stream' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -182,13 +182,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsStream && stream != null)
+            else if (Stream is { } __value1 && stream != null)
             {
-                return stream(Stream!);
+                return stream(__value1);
             }
 
             return default(TResult);
@@ -208,13 +208,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsStream)
+            else if (Stream is { } __value1)
             {
-                stream?.Invoke(Stream!);
+                stream?.Invoke(__value1);
             }
         }
 
@@ -231,13 +231,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsStream)
+            else if (Stream is { } __value1)
             {
-                stream?.Invoke(Stream!);
+                stream?.Invoke(__value1);
             }
         }
 

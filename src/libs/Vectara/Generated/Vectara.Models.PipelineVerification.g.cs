@@ -51,8 +51,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ConditionVerification PickCondition() => IsCondition
-            ? Condition!
+        public global::Vectara.ConditionVerification PickCondition() => Condition is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Condition' but the value was {ToString()}.");
 
         /// <summary>
@@ -93,8 +93,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentVerification PickAgent() => IsAgent
-            ? Agent!
+        public global::Vectara.AgentVerification PickAgent() => Agent is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Agent' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -194,13 +194,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCondition && condition != null)
+            if (Condition is { } __value0 && condition != null)
             {
-                return condition(Condition!);
+                return condition(__value0);
             }
-            else if (IsAgent && agent != null)
+            else if (Agent is { } __value1 && agent != null)
             {
-                return agent(Agent!);
+                return agent(__value1);
             }
 
             return default(TResult);
@@ -220,13 +220,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCondition)
+            if (Condition is { } __value0)
             {
-                condition?.Invoke(Condition!);
+                condition?.Invoke(__value0);
             }
-            else if (IsAgent)
+            else if (Agent is { } __value1)
             {
-                agent?.Invoke(Agent!);
+                agent?.Invoke(__value1);
             }
         }
 
@@ -243,13 +243,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCondition)
+            if (Condition is { } __value0)
             {
-                condition?.Invoke(Condition!);
+                condition?.Invoke(__value0);
             }
-            else if (IsAgent)
+            else if (Agent is { } __value1)
             {
-                agent?.Invoke(Agent!);
+                agent?.Invoke(__value1);
             }
         }
 

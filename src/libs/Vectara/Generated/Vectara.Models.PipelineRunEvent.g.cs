@@ -48,8 +48,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RunStartedEvent PickRunStarted() => IsRunStarted
-            ? RunStarted!.Value
+        public global::Vectara.RunStartedEvent PickRunStarted() => RunStarted is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'RunStarted' but the value was {ToString()}.");
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RunCompletedEvent PickRunCompleted() => IsRunCompleted
-            ? RunCompleted!.Value
+        public global::Vectara.RunCompletedEvent PickRunCompleted() => RunCompleted is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'RunCompleted' but the value was {ToString()}.");
 
         /// <summary>
@@ -129,8 +129,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RecordProcessingEvent PickRecordProcessing() => IsRecordProcessing
-            ? RecordProcessing!.Value
+        public global::Vectara.RecordProcessingEvent PickRecordProcessing() => RecordProcessing is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'RecordProcessing' but the value was {ToString()}.");
 
         /// <summary>
@@ -166,8 +166,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WatermarkAdvancedEvent PickWatermarkAdvanced() => IsWatermarkAdvanced
-            ? WatermarkAdvanced!.Value
+        public global::Vectara.WatermarkAdvancedEvent PickWatermarkAdvanced() => WatermarkAdvanced is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WatermarkAdvanced' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -323,21 +323,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRunStarted && runStarted != null)
+            if (RunStarted is { } __value0 && runStarted != null)
             {
-                return runStarted(RunStarted!);
+                return runStarted(__value0);
             }
-            else if (IsRunCompleted && runCompleted != null)
+            else if (RunCompleted is { } __value1 && runCompleted != null)
             {
-                return runCompleted(RunCompleted!);
+                return runCompleted(__value1);
             }
-            else if (IsRecordProcessing && recordProcessing != null)
+            else if (RecordProcessing is { } __value2 && recordProcessing != null)
             {
-                return recordProcessing(RecordProcessing!);
+                return recordProcessing(__value2);
             }
-            else if (IsWatermarkAdvanced && watermarkAdvanced != null)
+            else if (WatermarkAdvanced is { } __value3 && watermarkAdvanced != null)
             {
-                return watermarkAdvanced(WatermarkAdvanced!);
+                return watermarkAdvanced(__value3);
             }
 
             return default(TResult);
@@ -361,21 +361,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRunStarted)
+            if (RunStarted is { } __value0)
             {
-                runStarted?.Invoke(RunStarted!);
+                runStarted?.Invoke(__value0);
             }
-            else if (IsRunCompleted)
+            else if (RunCompleted is { } __value1)
             {
-                runCompleted?.Invoke(RunCompleted!);
+                runCompleted?.Invoke(__value1);
             }
-            else if (IsRecordProcessing)
+            else if (RecordProcessing is { } __value2)
             {
-                recordProcessing?.Invoke(RecordProcessing!);
+                recordProcessing?.Invoke(__value2);
             }
-            else if (IsWatermarkAdvanced)
+            else if (WatermarkAdvanced is { } __value3)
             {
-                watermarkAdvanced?.Invoke(WatermarkAdvanced!);
+                watermarkAdvanced?.Invoke(__value3);
             }
         }
 
@@ -394,21 +394,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRunStarted)
+            if (RunStarted is { } __value0)
             {
-                runStarted?.Invoke(RunStarted!);
+                runStarted?.Invoke(__value0);
             }
-            else if (IsRunCompleted)
+            else if (RunCompleted is { } __value1)
             {
-                runCompleted?.Invoke(RunCompleted!);
+                runCompleted?.Invoke(__value1);
             }
-            else if (IsRecordProcessing)
+            else if (RecordProcessing is { } __value2)
             {
-                recordProcessing?.Invoke(RecordProcessing!);
+                recordProcessing?.Invoke(__value2);
             }
-            else if (IsWatermarkAdvanced)
+            else if (WatermarkAdvanced is { } __value3)
             {
-                watermarkAdvanced?.Invoke(WatermarkAdvanced!);
+                watermarkAdvanced?.Invoke(__value3);
             }
         }
 

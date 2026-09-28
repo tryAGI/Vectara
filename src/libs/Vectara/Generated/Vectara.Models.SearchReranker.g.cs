@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CustomerSpecificReranker PickCustomerReranker() => IsCustomerReranker
-            ? CustomerReranker!
+        public global::Vectara.CustomerSpecificReranker PickCustomerReranker() => CustomerReranker is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CustomerReranker' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UserFunctionReranker PickUserfn() => IsUserfn
-            ? Userfn!
+        public global::Vectara.UserFunctionReranker PickUserfn() => Userfn is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Userfn' but the value was {ToString()}.");
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.MMRReranker PickMmr() => IsMmr
-            ? Mmr!
+        public global::Vectara.MMRReranker PickMmr() => Mmr is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Mmr' but the value was {ToString()}.");
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ChainReranker PickChain() => IsChain
-            ? Chain!
+        public global::Vectara.ChainReranker PickChain() => Chain is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Chain' but the value was {ToString()}.");
 
         /// <summary>
@@ -195,8 +195,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.NoneReranker PickNone() => IsNone
-            ? None!
+        public global::Vectara.NoneReranker PickNone() => None is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'None' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -380,25 +380,25 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCustomerReranker && customerReranker != null)
+            if (CustomerReranker is { } __value0 && customerReranker != null)
             {
-                return customerReranker(CustomerReranker!);
+                return customerReranker(__value0);
             }
-            else if (IsUserfn && userfn != null)
+            else if (Userfn is { } __value1 && userfn != null)
             {
-                return userfn(Userfn!);
+                return userfn(__value1);
             }
-            else if (IsMmr && mmr != null)
+            else if (Mmr is { } __value2 && mmr != null)
             {
-                return mmr(Mmr!);
+                return mmr(__value2);
             }
-            else if (IsChain && chain != null)
+            else if (Chain is { } __value3 && chain != null)
             {
-                return chain(Chain!);
+                return chain(__value3);
             }
-            else if (IsNone && none != null)
+            else if (None is { } __value4 && none != null)
             {
-                return none(None!);
+                return none(__value4);
             }
 
             return default(TResult);
@@ -424,25 +424,25 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCustomerReranker)
+            if (CustomerReranker is { } __value0)
             {
-                customerReranker?.Invoke(CustomerReranker!);
+                customerReranker?.Invoke(__value0);
             }
-            else if (IsUserfn)
+            else if (Userfn is { } __value1)
             {
-                userfn?.Invoke(Userfn!);
+                userfn?.Invoke(__value1);
             }
-            else if (IsMmr)
+            else if (Mmr is { } __value2)
             {
-                mmr?.Invoke(Mmr!);
+                mmr?.Invoke(__value2);
             }
-            else if (IsChain)
+            else if (Chain is { } __value3)
             {
-                chain?.Invoke(Chain!);
+                chain?.Invoke(__value3);
             }
-            else if (IsNone)
+            else if (None is { } __value4)
             {
-                none?.Invoke(None!);
+                none?.Invoke(__value4);
             }
         }
 
@@ -462,25 +462,25 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCustomerReranker)
+            if (CustomerReranker is { } __value0)
             {
-                customerReranker?.Invoke(CustomerReranker!);
+                customerReranker?.Invoke(__value0);
             }
-            else if (IsUserfn)
+            else if (Userfn is { } __value1)
             {
-                userfn?.Invoke(Userfn!);
+                userfn?.Invoke(__value1);
             }
-            else if (IsMmr)
+            else if (Mmr is { } __value2)
             {
-                mmr?.Invoke(Mmr!);
+                mmr?.Invoke(__value2);
             }
-            else if (IsChain)
+            else if (Chain is { } __value3)
             {
-                chain?.Invoke(Chain!);
+                chain?.Invoke(__value3);
             }
-            else if (IsNone)
+            else if (None is { } __value4)
             {
-                none?.Invoke(None!);
+                none?.Invoke(__value4);
             }
         }
 

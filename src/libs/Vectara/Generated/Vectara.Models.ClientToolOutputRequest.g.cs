@@ -43,8 +43,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateInputRequestBase PickCreateInputBase() => IsCreateInputBase
-            ? CreateInputBase!
+        public global::Vectara.CreateInputRequestBase PickCreateInputBase() => CreateInputBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateInputBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ClientToolOutputRequestVariant2 PickClientToolOutputRequestVariant2() => IsClientToolOutputRequestVariant2
-            ? ClientToolOutputRequestVariant2!
+        public global::Vectara.ClientToolOutputRequestVariant2 PickClientToolOutputRequestVariant2() => ClientToolOutputRequestVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ClientToolOutputRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -178,13 +178,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCreateInputBase && createInputBase != null)
+            if (CreateInputBase is { } __value0 && createInputBase != null)
             {
-                return createInputBase(CreateInputBase!);
+                return createInputBase(__value0);
             }
-            else if (IsClientToolOutputRequestVariant2 && clientToolOutputRequestVariant2 != null)
+            else if (ClientToolOutputRequestVariant2 is { } __value1 && clientToolOutputRequestVariant2 != null)
             {
-                return clientToolOutputRequestVariant2(ClientToolOutputRequestVariant2!);
+                return clientToolOutputRequestVariant2(__value1);
             }
 
             return default(TResult);
@@ -204,13 +204,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCreateInputBase)
+            if (CreateInputBase is { } __value0)
             {
-                createInputBase?.Invoke(CreateInputBase!);
+                createInputBase?.Invoke(__value0);
             }
-            else if (IsClientToolOutputRequestVariant2)
+            else if (ClientToolOutputRequestVariant2 is { } __value1)
             {
-                clientToolOutputRequestVariant2?.Invoke(ClientToolOutputRequestVariant2!);
+                clientToolOutputRequestVariant2?.Invoke(__value1);
             }
         }
 
@@ -227,13 +227,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCreateInputBase)
+            if (CreateInputBase is { } __value0)
             {
-                createInputBase?.Invoke(CreateInputBase!);
+                createInputBase?.Invoke(__value0);
             }
-            else if (IsClientToolOutputRequestVariant2)
+            else if (ClientToolOutputRequestVariant2 is { } __value1)
             {
-                clientToolOutputRequestVariant2?.Invoke(ClientToolOutputRequestVariant2!);
+                clientToolOutputRequestVariant2?.Invoke(__value1);
             }
         }
 

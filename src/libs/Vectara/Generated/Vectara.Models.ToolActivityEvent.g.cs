@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.GenericToolActivityEvent PickGeneric() => IsGeneric
-            ? Generic!.Value
+        public global::Vectara.GenericToolActivityEvent PickGeneric() => Generic is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Generic' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SubAgentToolActivityEvent PickSubAgent() => IsSubAgent
-            ? SubAgent!.Value
+        public global::Vectara.SubAgentToolActivityEvent PickSubAgent() => SubAgent is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgent' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGeneric && generic != null)
+            if (Generic is { } __value0 && generic != null)
             {
-                return generic(Generic!);
+                return generic(__value0);
             }
-            else if (IsSubAgent && subAgent != null)
+            else if (SubAgent is { } __value1 && subAgent != null)
             {
-                return subAgent(SubAgent!);
+                return subAgent(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGeneric)
+            if (Generic is { } __value0)
             {
-                generic?.Invoke(Generic!);
+                generic?.Invoke(__value0);
             }
-            else if (IsSubAgent)
+            else if (SubAgent is { } __value1)
             {
-                subAgent?.Invoke(SubAgent!);
+                subAgent?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGeneric)
+            if (Generic is { } __value0)
             {
-                generic?.Invoke(Generic!);
+                generic?.Invoke(__value0);
             }
-            else if (IsSubAgent)
+            else if (SubAgent is { } __value1)
             {
-                subAgent?.Invoke(SubAgent!);
+                subAgent?.Invoke(__value1);
             }
         }
 

@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.DefaultOutputParser PickDefault() => IsDefault
-            ? Default!
+        public global::Vectara.DefaultOutputParser PickDefault() => Default is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Default' but the value was {ToString()}.");
 
         /// <summary>
@@ -93,8 +93,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StructuredOutputParser PickStructured() => IsStructured
-            ? Structured!
+        public global::Vectara.StructuredOutputParser PickStructured() => Structured is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Structured' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -194,13 +194,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsDefault && @default != null)
+            if (Default is { } __value0 && @default != null)
             {
-                return @default(Default!);
+                return @default(__value0);
             }
-            else if (IsStructured && structured != null)
+            else if (Structured is { } __value1 && structured != null)
             {
-                return structured(Structured!);
+                return structured(__value1);
             }
 
             return default(TResult);
@@ -220,13 +220,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsDefault)
+            if (Default is { } __value0)
             {
-                @default?.Invoke(Default!);
+                @default?.Invoke(__value0);
             }
-            else if (IsStructured)
+            else if (Structured is { } __value1)
             {
-                structured?.Invoke(Structured!);
+                structured?.Invoke(__value1);
             }
         }
 
@@ -243,13 +243,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsDefault)
+            if (Default is { } __value0)
             {
-                @default?.Invoke(Default!);
+                @default?.Invoke(__value0);
             }
-            else if (IsStructured)
+            else if (Structured is { } __value1)
             {
-                structured?.Invoke(Structured!);
+                structured?.Invoke(__value1);
             }
         }
 
