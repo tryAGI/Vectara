@@ -43,8 +43,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EndUserEventBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.EndUserEventBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EndUserErrorEventVariant2 PickEndUserErrorEventVariant2() => IsEndUserErrorEventVariant2
-            ? EndUserErrorEventVariant2!
+        public global::Vectara.EndUserErrorEventVariant2 PickEndUserErrorEventVariant2() => EndUserErrorEventVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'EndUserErrorEventVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -178,13 +178,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsEndUserErrorEventVariant2 && endUserErrorEventVariant2 != null)
+            else if (EndUserErrorEventVariant2 is { } __value1 && endUserErrorEventVariant2 != null)
             {
-                return endUserErrorEventVariant2(EndUserErrorEventVariant2!);
+                return endUserErrorEventVariant2(__value1);
             }
 
             return default(TResult);
@@ -204,13 +204,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsEndUserErrorEventVariant2)
+            else if (EndUserErrorEventVariant2 is { } __value1)
             {
-                endUserErrorEventVariant2?.Invoke(EndUserErrorEventVariant2!);
+                endUserErrorEventVariant2?.Invoke(__value1);
             }
         }
 
@@ -227,13 +227,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsEndUserErrorEventVariant2)
+            else if (EndUserErrorEventVariant2 is { } __value1)
             {
-                endUserErrorEventVariant2?.Invoke(EndUserErrorEventVariant2!);
+                endUserErrorEventVariant2?.Invoke(__value1);
             }
         }
 

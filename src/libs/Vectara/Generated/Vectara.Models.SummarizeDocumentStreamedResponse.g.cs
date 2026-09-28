@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamGenerationChunk PickGenerationChunk() => IsGenerationChunk
-            ? GenerationChunk!
+        public global::Vectara.StreamGenerationChunk PickGenerationChunk() => GenerationChunk is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationChunk' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.GenerationInfo PickGenerationInfo() => IsGenerationInfo
-            ? GenerationInfo!
+        public global::Vectara.GenerationInfo PickGenerationInfo() => GenerationInfo is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationInfo' but the value was {ToString()}.");
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamGenerationEnd PickGenerationEnd() => IsGenerationEnd
-            ? GenerationEnd!
+        public global::Vectara.StreamGenerationEnd PickGenerationEnd() => GenerationEnd is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GenerationEnd' but the value was {ToString()}.");
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamResponseEnd PickEnd() => IsEnd
-            ? End!
+        public global::Vectara.StreamResponseEnd PickEnd() => End is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'End' but the value was {ToString()}.");
 
         /// <summary>
@@ -195,8 +195,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamError PickError() => IsError
-            ? Error!
+        public global::Vectara.StreamError PickError() => Error is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -380,25 +380,25 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGenerationChunk && generationChunk != null)
+            if (GenerationChunk is { } __value0 && generationChunk != null)
             {
-                return generationChunk(GenerationChunk!);
+                return generationChunk(__value0);
             }
-            else if (IsGenerationInfo && generationInfo != null)
+            else if (GenerationInfo is { } __value1 && generationInfo != null)
             {
-                return generationInfo(GenerationInfo!);
+                return generationInfo(__value1);
             }
-            else if (IsGenerationEnd && generationEnd != null)
+            else if (GenerationEnd is { } __value2 && generationEnd != null)
             {
-                return generationEnd(GenerationEnd!);
+                return generationEnd(__value2);
             }
-            else if (IsEnd && end != null)
+            else if (End is { } __value3 && end != null)
             {
-                return end(End!);
+                return end(__value3);
             }
-            else if (IsError && error != null)
+            else if (Error is { } __value4 && error != null)
             {
-                return error(Error!);
+                return error(__value4);
             }
 
             return default(TResult);
@@ -424,25 +424,25 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGenerationChunk)
+            if (GenerationChunk is { } __value0)
             {
-                generationChunk?.Invoke(GenerationChunk!);
+                generationChunk?.Invoke(__value0);
             }
-            else if (IsGenerationInfo)
+            else if (GenerationInfo is { } __value1)
             {
-                generationInfo?.Invoke(GenerationInfo!);
+                generationInfo?.Invoke(__value1);
             }
-            else if (IsGenerationEnd)
+            else if (GenerationEnd is { } __value2)
             {
-                generationEnd?.Invoke(GenerationEnd!);
+                generationEnd?.Invoke(__value2);
             }
-            else if (IsEnd)
+            else if (End is { } __value3)
             {
-                end?.Invoke(End!);
+                end?.Invoke(__value3);
             }
-            else if (IsError)
+            else if (Error is { } __value4)
             {
-                error?.Invoke(Error!);
+                error?.Invoke(__value4);
             }
         }
 
@@ -462,25 +462,25 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsGenerationChunk)
+            if (GenerationChunk is { } __value0)
             {
-                generationChunk?.Invoke(GenerationChunk!);
+                generationChunk?.Invoke(__value0);
             }
-            else if (IsGenerationInfo)
+            else if (GenerationInfo is { } __value1)
             {
-                generationInfo?.Invoke(GenerationInfo!);
+                generationInfo?.Invoke(__value1);
             }
-            else if (IsGenerationEnd)
+            else if (GenerationEnd is { } __value2)
             {
-                generationEnd?.Invoke(GenerationEnd!);
+                generationEnd?.Invoke(__value2);
             }
-            else if (IsEnd)
+            else if (End is { } __value3)
             {
-                end?.Invoke(End!);
+                end?.Invoke(__value3);
             }
-            else if (IsError)
+            else if (Error is { } __value4)
             {
-                error?.Invoke(Error!);
+                error?.Invoke(__value4);
             }
         }
 

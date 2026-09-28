@@ -43,8 +43,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.ToolBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SubAgentToolVariant2 PickSubAgentToolVariant2() => IsSubAgentToolVariant2
-            ? SubAgentToolVariant2!
+        public global::Vectara.SubAgentToolVariant2 PickSubAgentToolVariant2() => SubAgentToolVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgentToolVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -178,13 +178,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsSubAgentToolVariant2 && subAgentToolVariant2 != null)
+            else if (SubAgentToolVariant2 is { } __value1 && subAgentToolVariant2 != null)
             {
-                return subAgentToolVariant2(SubAgentToolVariant2!);
+                return subAgentToolVariant2(__value1);
             }
 
             return default(TResult);
@@ -204,13 +204,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSubAgentToolVariant2)
+            else if (SubAgentToolVariant2 is { } __value1)
             {
-                subAgentToolVariant2?.Invoke(SubAgentToolVariant2!);
+                subAgentToolVariant2?.Invoke(__value1);
             }
         }
 
@@ -227,13 +227,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSubAgentToolVariant2)
+            else if (SubAgentToolVariant2 is { } __value1)
             {
-                subAgentToolVariant2?.Invoke(SubAgentToolVariant2!);
+                subAgentToolVariant2?.Invoke(__value1);
             }
         }
 

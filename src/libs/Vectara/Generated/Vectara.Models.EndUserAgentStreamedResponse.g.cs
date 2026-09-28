@@ -51,8 +51,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EndUserInputMessageEvent PickInputMessage() => IsInputMessage
-            ? InputMessage!.Value
+        public global::Vectara.EndUserInputMessageEvent PickInputMessage() => InputMessage is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'InputMessage' but the value was {ToString()}.");
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EndUserAgentOutputEvent PickAgentOutput() => IsAgentOutput
-            ? AgentOutput!.Value
+        public global::Vectara.EndUserAgentOutputEvent PickAgentOutput() => AgentOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -126,8 +126,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EndUserErrorEvent PickError() => IsError
-            ? Error!.Value
+        public global::Vectara.EndUserErrorEvent PickError() => Error is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
 
         /// <summary>
@@ -163,8 +163,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolInputEvent PickToolInput() => IsToolInput
-            ? ToolInput!.Value
+        public global::Vectara.ToolInputEvent PickToolInput() => ToolInput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolInput' but the value was {ToString()}.");
 
         /// <summary>
@@ -200,8 +200,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolOutputEvent PickToolOutput() => IsToolOutput
-            ? ToolOutput!.Value
+        public global::Vectara.ToolOutputEvent PickToolOutput() => ToolOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -237,8 +237,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ThinkingEvent PickThinking() => IsThinking
-            ? Thinking!.Value
+        public global::Vectara.ThinkingEvent PickThinking() => Thinking is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Thinking' but the value was {ToString()}.");
 
         /// <summary>
@@ -280,8 +280,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StructuredOutputEvent PickStructuredOutput() => IsStructuredOutput
-            ? StructuredOutput!.Value
+        public global::Vectara.StructuredOutputEvent PickStructuredOutput() => StructuredOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -317,8 +317,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamingAgentOutput PickStreamingAgentOutput() => IsStreamingAgentOutput
-            ? StreamingAgentOutput!
+        public global::Vectara.StreamingAgentOutput PickStreamingAgentOutput() => StreamingAgentOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StreamingAgentOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -354,8 +354,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamingAgentOutputEnd PickStreamingAgentOutputEnd() => IsStreamingAgentOutputEnd
-            ? StreamingAgentOutputEnd!
+        public global::Vectara.StreamingAgentOutputEnd PickStreamingAgentOutputEnd() => StreamingAgentOutputEnd is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StreamingAgentOutputEnd' but the value was {ToString()}.");
 
         /// <summary>
@@ -391,8 +391,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamingThinking PickStreamingThinking() => IsStreamingThinking
-            ? StreamingThinking!
+        public global::Vectara.StreamingThinking PickStreamingThinking() => StreamingThinking is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StreamingThinking' but the value was {ToString()}.");
 
         /// <summary>
@@ -428,8 +428,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamingThinkingEnd PickStreamingThinkingEnd() => IsStreamingThinkingEnd
-            ? StreamingThinkingEnd!
+        public global::Vectara.StreamingThinkingEnd PickStreamingThinkingEnd() => StreamingThinkingEnd is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StreamingThinkingEnd' but the value was {ToString()}.");
 
         /// <summary>
@@ -465,8 +465,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolActivityEvent PickToolActivity() => IsToolActivity
-            ? ToolActivity!.Value
+        public global::Vectara.ToolActivityEvent PickToolActivity() => ToolActivity is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolActivity' but the value was {ToString()}.");
 
         /// <summary>
@@ -502,8 +502,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StreamResponseEnd PickEnd() => IsEnd
-            ? End!
+        public global::Vectara.StreamResponseEnd PickEnd() => End is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'End' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -911,57 +911,57 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage && inputMessage != null)
+            if (InputMessage is { } __value0 && inputMessage != null)
             {
-                return inputMessage(InputMessage!);
+                return inputMessage(__value0);
             }
-            else if (IsAgentOutput && agentOutput != null)
+            else if (AgentOutput is { } __value1 && agentOutput != null)
             {
-                return agentOutput(AgentOutput!);
+                return agentOutput(__value1);
             }
-            else if (IsError && error != null)
+            else if (Error is { } __value2 && error != null)
             {
-                return error(Error!);
+                return error(__value2);
             }
-            else if (IsToolInput && toolInput != null)
+            else if (ToolInput is { } __value3 && toolInput != null)
             {
-                return toolInput(ToolInput!);
+                return toolInput(__value3);
             }
-            else if (IsToolOutput && toolOutput != null)
+            else if (ToolOutput is { } __value4 && toolOutput != null)
             {
-                return toolOutput(ToolOutput!);
+                return toolOutput(__value4);
             }
-            else if (IsThinking && thinking != null)
+            else if (Thinking is { } __value5 && thinking != null)
             {
-                return thinking(Thinking!);
+                return thinking(__value5);
             }
-            else if (IsStructuredOutput && structuredOutput != null)
+            else if (StructuredOutput is { } __value6 && structuredOutput != null)
             {
-                return structuredOutput(StructuredOutput!);
+                return structuredOutput(__value6);
             }
-            else if (IsStreamingAgentOutput && streamingAgentOutput != null)
+            else if (StreamingAgentOutput is { } __value7 && streamingAgentOutput != null)
             {
-                return streamingAgentOutput(StreamingAgentOutput!);
+                return streamingAgentOutput(__value7);
             }
-            else if (IsStreamingAgentOutputEnd && streamingAgentOutputEnd != null)
+            else if (StreamingAgentOutputEnd is { } __value8 && streamingAgentOutputEnd != null)
             {
-                return streamingAgentOutputEnd(StreamingAgentOutputEnd!);
+                return streamingAgentOutputEnd(__value8);
             }
-            else if (IsStreamingThinking && streamingThinking != null)
+            else if (StreamingThinking is { } __value9 && streamingThinking != null)
             {
-                return streamingThinking(StreamingThinking!);
+                return streamingThinking(__value9);
             }
-            else if (IsStreamingThinkingEnd && streamingThinkingEnd != null)
+            else if (StreamingThinkingEnd is { } __value10 && streamingThinkingEnd != null)
             {
-                return streamingThinkingEnd(StreamingThinkingEnd!);
+                return streamingThinkingEnd(__value10);
             }
-            else if (IsToolActivity && toolActivity != null)
+            else if (ToolActivity is { } __value11 && toolActivity != null)
             {
-                return toolActivity(ToolActivity!);
+                return toolActivity(__value11);
             }
-            else if (IsEnd && end != null)
+            else if (End is { } __value12 && end != null)
             {
-                return end(End!);
+                return end(__value12);
             }
 
             return default(TResult);
@@ -1003,57 +1003,57 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsAgentOutput)
+            else if (AgentOutput is { } __value1)
             {
-                agentOutput?.Invoke(AgentOutput!);
+                agentOutput?.Invoke(__value1);
             }
-            else if (IsError)
+            else if (Error is { } __value2)
             {
-                error?.Invoke(Error!);
+                error?.Invoke(__value2);
             }
-            else if (IsToolInput)
+            else if (ToolInput is { } __value3)
             {
-                toolInput?.Invoke(ToolInput!);
+                toolInput?.Invoke(__value3);
             }
-            else if (IsToolOutput)
+            else if (ToolOutput is { } __value4)
             {
-                toolOutput?.Invoke(ToolOutput!);
+                toolOutput?.Invoke(__value4);
             }
-            else if (IsThinking)
+            else if (Thinking is { } __value5)
             {
-                thinking?.Invoke(Thinking!);
+                thinking?.Invoke(__value5);
             }
-            else if (IsStructuredOutput)
+            else if (StructuredOutput is { } __value6)
             {
-                structuredOutput?.Invoke(StructuredOutput!);
+                structuredOutput?.Invoke(__value6);
             }
-            else if (IsStreamingAgentOutput)
+            else if (StreamingAgentOutput is { } __value7)
             {
-                streamingAgentOutput?.Invoke(StreamingAgentOutput!);
+                streamingAgentOutput?.Invoke(__value7);
             }
-            else if (IsStreamingAgentOutputEnd)
+            else if (StreamingAgentOutputEnd is { } __value8)
             {
-                streamingAgentOutputEnd?.Invoke(StreamingAgentOutputEnd!);
+                streamingAgentOutputEnd?.Invoke(__value8);
             }
-            else if (IsStreamingThinking)
+            else if (StreamingThinking is { } __value9)
             {
-                streamingThinking?.Invoke(StreamingThinking!);
+                streamingThinking?.Invoke(__value9);
             }
-            else if (IsStreamingThinkingEnd)
+            else if (StreamingThinkingEnd is { } __value10)
             {
-                streamingThinkingEnd?.Invoke(StreamingThinkingEnd!);
+                streamingThinkingEnd?.Invoke(__value10);
             }
-            else if (IsToolActivity)
+            else if (ToolActivity is { } __value11)
             {
-                toolActivity?.Invoke(ToolActivity!);
+                toolActivity?.Invoke(__value11);
             }
-            else if (IsEnd)
+            else if (End is { } __value12)
             {
-                end?.Invoke(End!);
+                end?.Invoke(__value12);
             }
         }
 
@@ -1081,57 +1081,57 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsAgentOutput)
+            else if (AgentOutput is { } __value1)
             {
-                agentOutput?.Invoke(AgentOutput!);
+                agentOutput?.Invoke(__value1);
             }
-            else if (IsError)
+            else if (Error is { } __value2)
             {
-                error?.Invoke(Error!);
+                error?.Invoke(__value2);
             }
-            else if (IsToolInput)
+            else if (ToolInput is { } __value3)
             {
-                toolInput?.Invoke(ToolInput!);
+                toolInput?.Invoke(__value3);
             }
-            else if (IsToolOutput)
+            else if (ToolOutput is { } __value4)
             {
-                toolOutput?.Invoke(ToolOutput!);
+                toolOutput?.Invoke(__value4);
             }
-            else if (IsThinking)
+            else if (Thinking is { } __value5)
             {
-                thinking?.Invoke(Thinking!);
+                thinking?.Invoke(__value5);
             }
-            else if (IsStructuredOutput)
+            else if (StructuredOutput is { } __value6)
             {
-                structuredOutput?.Invoke(StructuredOutput!);
+                structuredOutput?.Invoke(__value6);
             }
-            else if (IsStreamingAgentOutput)
+            else if (StreamingAgentOutput is { } __value7)
             {
-                streamingAgentOutput?.Invoke(StreamingAgentOutput!);
+                streamingAgentOutput?.Invoke(__value7);
             }
-            else if (IsStreamingAgentOutputEnd)
+            else if (StreamingAgentOutputEnd is { } __value8)
             {
-                streamingAgentOutputEnd?.Invoke(StreamingAgentOutputEnd!);
+                streamingAgentOutputEnd?.Invoke(__value8);
             }
-            else if (IsStreamingThinking)
+            else if (StreamingThinking is { } __value9)
             {
-                streamingThinking?.Invoke(StreamingThinking!);
+                streamingThinking?.Invoke(__value9);
             }
-            else if (IsStreamingThinkingEnd)
+            else if (StreamingThinkingEnd is { } __value10)
             {
-                streamingThinkingEnd?.Invoke(StreamingThinkingEnd!);
+                streamingThinkingEnd?.Invoke(__value10);
             }
-            else if (IsToolActivity)
+            else if (ToolActivity is { } __value11)
             {
-                toolActivity?.Invoke(ToolActivity!);
+                toolActivity?.Invoke(__value11);
             }
-            else if (IsEnd)
+            else if (End is { } __value12)
             {
-                end?.Invoke(End!);
+                end?.Invoke(__value12);
             }
         }
 

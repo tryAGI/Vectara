@@ -45,8 +45,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseCrawlPagesSource PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseCrawlPagesSource PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CrawlPagesSourceVariant2 PickCrawlPagesSourceVariant2() => IsCrawlPagesSourceVariant2
-            ? CrawlPagesSourceVariant2!
+        public global::Vectara.CrawlPagesSourceVariant2 PickCrawlPagesSourceVariant2() => CrawlPagesSourceVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CrawlPagesSourceVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -180,13 +180,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCrawlPagesSourceVariant2 && crawlPagesSourceVariant2 != null)
+            else if (CrawlPagesSourceVariant2 is { } __value1 && crawlPagesSourceVariant2 != null)
             {
-                return crawlPagesSourceVariant2(CrawlPagesSourceVariant2!);
+                return crawlPagesSourceVariant2(__value1);
             }
 
             return default(TResult);
@@ -206,13 +206,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCrawlPagesSourceVariant2)
+            else if (CrawlPagesSourceVariant2 is { } __value1)
             {
-                crawlPagesSourceVariant2?.Invoke(CrawlPagesSourceVariant2!);
+                crawlPagesSourceVariant2?.Invoke(__value1);
             }
         }
 
@@ -229,13 +229,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCrawlPagesSourceVariant2)
+            else if (CrawlPagesSourceVariant2 is { } __value1)
             {
-                crawlPagesSourceVariant2?.Invoke(CrawlPagesSourceVariant2!);
+                crawlPagesSourceVariant2?.Invoke(__value1);
             }
         }
 

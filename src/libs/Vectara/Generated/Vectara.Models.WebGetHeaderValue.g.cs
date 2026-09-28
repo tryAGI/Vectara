@@ -43,8 +43,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public string PickWebGetHeaderValueVariant1() => IsWebGetHeaderValueVariant1
-            ? WebGetHeaderValueVariant1!
+        public string PickWebGetHeaderValueVariant1() => WebGetHeaderValueVariant1 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WebGetHeaderValueVariant1' but the value was {ToString()}.");
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EagerReference PickEagerReference() => IsEagerReference
-            ? EagerReference!
+        public global::Vectara.EagerReference PickEagerReference() => EagerReference is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'EagerReference' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -178,13 +178,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsWebGetHeaderValueVariant1 && webGetHeaderValueVariant1 != null)
+            if (WebGetHeaderValueVariant1 is { } __value0 && webGetHeaderValueVariant1 != null)
             {
-                return webGetHeaderValueVariant1(WebGetHeaderValueVariant1!);
+                return webGetHeaderValueVariant1(__value0);
             }
-            else if (IsEagerReference && eagerReference != null)
+            else if (EagerReference is { } __value1 && eagerReference != null)
             {
-                return eagerReference(EagerReference!);
+                return eagerReference(__value1);
             }
 
             return default(TResult);
@@ -204,13 +204,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsWebGetHeaderValueVariant1)
+            if (WebGetHeaderValueVariant1 is { } __value0)
             {
-                webGetHeaderValueVariant1?.Invoke(WebGetHeaderValueVariant1!);
+                webGetHeaderValueVariant1?.Invoke(__value0);
             }
-            else if (IsEagerReference)
+            else if (EagerReference is { } __value1)
             {
-                eagerReference?.Invoke(EagerReference!);
+                eagerReference?.Invoke(__value1);
             }
         }
 
@@ -227,13 +227,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsWebGetHeaderValueVariant1)
+            if (WebGetHeaderValueVariant1 is { } __value0)
             {
-                webGetHeaderValueVariant1?.Invoke(WebGetHeaderValueVariant1!);
+                webGetHeaderValueVariant1?.Invoke(__value0);
             }
-            else if (IsEagerReference)
+            else if (EagerReference is { } __value1)
             {
-                eagerReference?.Invoke(EagerReference!);
+                eagerReference?.Invoke(__value1);
             }
         }
 

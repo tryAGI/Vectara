@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.ToolBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.DocumentConversionToolVariant2 PickDocumentConversionToolVariant2() => IsDocumentConversionToolVariant2
-            ? DocumentConversionToolVariant2!
+        public global::Vectara.DocumentConversionToolVariant2 PickDocumentConversionToolVariant2() => DocumentConversionToolVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'DocumentConversionToolVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsDocumentConversionToolVariant2 && documentConversionToolVariant2 != null)
+            else if (DocumentConversionToolVariant2 is { } __value1 && documentConversionToolVariant2 != null)
             {
-                return documentConversionToolVariant2(DocumentConversionToolVariant2!);
+                return documentConversionToolVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsDocumentConversionToolVariant2)
+            else if (DocumentConversionToolVariant2 is { } __value1)
             {
-                documentConversionToolVariant2?.Invoke(DocumentConversionToolVariant2!);
+                documentConversionToolVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsDocumentConversionToolVariant2)
+            else if (DocumentConversionToolVariant2 is { } __value1)
             {
-                documentConversionToolVariant2?.Invoke(DocumentConversionToolVariant2!);
+                documentConversionToolVariant2?.Invoke(__value1);
             }
         }
 

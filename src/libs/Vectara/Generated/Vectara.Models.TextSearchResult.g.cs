@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SearchResultBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.SearchResultBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.TextSearchResultVariant2 PickTextSearchResultVariant2() => IsTextSearchResultVariant2
-            ? TextSearchResultVariant2!
+        public global::Vectara.TextSearchResultVariant2 PickTextSearchResultVariant2() => TextSearchResultVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'TextSearchResultVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsTextSearchResultVariant2 && textSearchResultVariant2 != null)
+            else if (TextSearchResultVariant2 is { } __value1 && textSearchResultVariant2 != null)
             {
-                return textSearchResultVariant2(TextSearchResultVariant2!);
+                return textSearchResultVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsTextSearchResultVariant2)
+            else if (TextSearchResultVariant2 is { } __value1)
             {
-                textSearchResultVariant2?.Invoke(TextSearchResultVariant2!);
+                textSearchResultVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsTextSearchResultVariant2)
+            else if (TextSearchResultVariant2 is { } __value1)
             {
-                textSearchResultVariant2?.Invoke(TextSearchResultVariant2!);
+                textSearchResultVariant2?.Invoke(__value1);
             }
         }
 

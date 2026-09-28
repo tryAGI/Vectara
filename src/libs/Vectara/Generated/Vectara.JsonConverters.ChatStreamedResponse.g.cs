@@ -113,49 +113,49 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamSearchResponse), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamSearchResponse?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamSearchResponse).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SearchResults!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickSearchResults(), typeInfo);
             }
             else if (value.IsChatInfo)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ChatInfoResponse), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ChatInfoResponse?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ChatInfoResponse).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.ChatInfo!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickChatInfo(), typeInfo);
             }
             else if (value.IsGenerationChunk)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamGenerationChunk), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamGenerationChunk?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamGenerationChunk).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GenerationChunk!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickGenerationChunk(), typeInfo);
             }
             else if (value.IsGenerationEnd)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamGenerationEnd), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamGenerationEnd?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamGenerationEnd).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GenerationEnd!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickGenerationEnd(), typeInfo);
             }
             else if (value.IsGenerationInfo)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GenerationInfo), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GenerationInfo?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GenerationInfo).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GenerationInfo!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickGenerationInfo(), typeInfo);
             }
             else if (value.IsFactualConsistencyScore)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.FactualConsistencyScore), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.FactualConsistencyScore?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.FactualConsistencyScore).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.FactualConsistencyScore!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickFactualConsistencyScore(), typeInfo);
             }
             else if (value.IsEnd)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamResponseEnd), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamResponseEnd?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamResponseEnd).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.End!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickEnd(), typeInfo);
             }
             else if (value.IsError)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamError), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamError?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamError).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Error!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickError(), typeInfo);
             }
         }
     }

@@ -45,8 +45,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseGoogleDriveSourceConfiguration PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseGoogleDriveSourceConfiguration PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public object PickGoogleDriveSourceConfigurationVariant2() => IsGoogleDriveSourceConfigurationVariant2
-            ? GoogleDriveSourceConfigurationVariant2!
+        public object PickGoogleDriveSourceConfigurationVariant2() => GoogleDriveSourceConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GoogleDriveSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -157,13 +157,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsGoogleDriveSourceConfigurationVariant2 && googleDriveSourceConfigurationVariant2 != null)
+            else if (GoogleDriveSourceConfigurationVariant2 is { } __value1 && googleDriveSourceConfigurationVariant2 != null)
             {
-                return googleDriveSourceConfigurationVariant2(GoogleDriveSourceConfigurationVariant2!);
+                return googleDriveSourceConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -183,13 +183,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsGoogleDriveSourceConfigurationVariant2)
+            else if (GoogleDriveSourceConfigurationVariant2 is { } __value1)
             {
-                googleDriveSourceConfigurationVariant2?.Invoke(GoogleDriveSourceConfigurationVariant2!);
+                googleDriveSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -206,13 +206,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsGoogleDriveSourceConfigurationVariant2)
+            else if (GoogleDriveSourceConfigurationVariant2 is { } __value1)
             {
-                googleDriveSourceConfigurationVariant2?.Invoke(GoogleDriveSourceConfigurationVariant2!);
+                googleDriveSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 

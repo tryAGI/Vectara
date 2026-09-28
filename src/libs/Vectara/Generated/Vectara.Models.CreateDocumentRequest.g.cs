@@ -49,8 +49,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CoreDocument PickCore() => IsCore
-            ? Core!
+        public global::Vectara.CoreDocument PickCore() => Core is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Core' but the value was {ToString()}.");
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StructuredDocument PickStructured() => IsStructured
-            ? Structured!
+        public global::Vectara.StructuredDocument PickStructured() => Structured is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Structured' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -187,13 +187,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCore && core != null)
+            if (Core is { } __value0 && core != null)
             {
-                return core(Core!);
+                return core(__value0);
             }
-            else if (IsStructured && structured != null)
+            else if (Structured is { } __value1 && structured != null)
             {
-                return structured(Structured!);
+                return structured(__value1);
             }
 
             return default(TResult);
@@ -213,13 +213,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCore)
+            if (Core is { } __value0)
             {
-                core?.Invoke(Core!);
+                core?.Invoke(__value0);
             }
-            else if (IsStructured)
+            else if (Structured is { } __value1)
             {
-                structured?.Invoke(Structured!);
+                structured?.Invoke(__value1);
             }
         }
 
@@ -236,13 +236,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsCore)
+            if (Core is { } __value0)
             {
-                core?.Invoke(Core!);
+                core?.Invoke(__value0);
             }
-            else if (IsStructured)
+            else if (Structured is { } __value1)
             {
-                structured?.Invoke(Structured!);
+                structured?.Invoke(__value1);
             }
         }
 

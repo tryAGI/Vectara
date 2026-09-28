@@ -44,8 +44,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseConfluenceSourceConfiguration PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseConfluenceSourceConfiguration PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public object PickConfluenceSourceConfigurationVariant2() => IsConfluenceSourceConfigurationVariant2
-            ? ConfluenceSourceConfigurationVariant2!
+        public object PickConfluenceSourceConfigurationVariant2() => ConfluenceSourceConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ConfluenceSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -156,13 +156,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsConfluenceSourceConfigurationVariant2 && confluenceSourceConfigurationVariant2 != null)
+            else if (ConfluenceSourceConfigurationVariant2 is { } __value1 && confluenceSourceConfigurationVariant2 != null)
             {
-                return confluenceSourceConfigurationVariant2(ConfluenceSourceConfigurationVariant2!);
+                return confluenceSourceConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -182,13 +182,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsConfluenceSourceConfigurationVariant2)
+            else if (ConfluenceSourceConfigurationVariant2 is { } __value1)
             {
-                confluenceSourceConfigurationVariant2?.Invoke(ConfluenceSourceConfigurationVariant2!);
+                confluenceSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -205,13 +205,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsConfluenceSourceConfigurationVariant2)
+            else if (ConfluenceSourceConfigurationVariant2 is { } __value1)
             {
-                confluenceSourceConfigurationVariant2?.Invoke(ConfluenceSourceConfigurationVariant2!);
+                confluenceSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 

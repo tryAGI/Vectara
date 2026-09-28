@@ -46,8 +46,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BaseWebSource PickBase() => IsBase
-            ? Base!
+        public global::Vectara.BaseWebSource PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebSourceConfigurationVariant2 PickWebSourceConfigurationVariant2() => IsWebSourceConfigurationVariant2
-            ? WebSourceConfigurationVariant2!
+        public global::Vectara.WebSourceConfigurationVariant2 PickWebSourceConfigurationVariant2() => WebSourceConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'WebSourceConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -181,13 +181,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsWebSourceConfigurationVariant2 && webSourceConfigurationVariant2 != null)
+            else if (WebSourceConfigurationVariant2 is { } __value1 && webSourceConfigurationVariant2 != null)
             {
-                return webSourceConfigurationVariant2(WebSourceConfigurationVariant2!);
+                return webSourceConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -207,13 +207,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsWebSourceConfigurationVariant2)
+            else if (WebSourceConfigurationVariant2 is { } __value1)
             {
-                webSourceConfigurationVariant2?.Invoke(WebSourceConfigurationVariant2!);
+                webSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -230,13 +230,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsWebSourceConfigurationVariant2)
+            else if (WebSourceConfigurationVariant2 is { } __value1)
             {
-                webSourceConfigurationVariant2?.Invoke(WebSourceConfigurationVariant2!);
+                webSourceConfigurationVariant2?.Invoke(__value1);
             }
         }
 

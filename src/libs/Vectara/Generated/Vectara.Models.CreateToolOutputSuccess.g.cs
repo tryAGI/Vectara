@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateToolOutputBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.CreateToolOutputBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateToolOutputSuccessVariant2 PickCreateToolOutputSuccessVariant2() => IsCreateToolOutputSuccessVariant2
-            ? CreateToolOutputSuccessVariant2!
+        public global::Vectara.CreateToolOutputSuccessVariant2 PickCreateToolOutputSuccessVariant2() => CreateToolOutputSuccessVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateToolOutputSuccessVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCreateToolOutputSuccessVariant2 && createToolOutputSuccessVariant2 != null)
+            else if (CreateToolOutputSuccessVariant2 is { } __value1 && createToolOutputSuccessVariant2 != null)
             {
-                return createToolOutputSuccessVariant2(CreateToolOutputSuccessVariant2!);
+                return createToolOutputSuccessVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateToolOutputSuccessVariant2)
+            else if (CreateToolOutputSuccessVariant2 is { } __value1)
             {
-                createToolOutputSuccessVariant2?.Invoke(CreateToolOutputSuccessVariant2!);
+                createToolOutputSuccessVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateToolOutputSuccessVariant2)
+            else if (CreateToolOutputSuccessVariant2 is { } __value1)
             {
-                createToolOutputSuccessVariant2?.Invoke(CreateToolOutputSuccessVariant2!);
+                createToolOutputSuccessVariant2?.Invoke(__value1);
             }
         }
 

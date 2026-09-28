@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.ToolBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ArtifactGrepToolVariant2 PickArtifactGrepToolVariant2() => IsArtifactGrepToolVariant2
-            ? ArtifactGrepToolVariant2!
+        public global::Vectara.ArtifactGrepToolVariant2 PickArtifactGrepToolVariant2() => ArtifactGrepToolVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactGrepToolVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsArtifactGrepToolVariant2 && artifactGrepToolVariant2 != null)
+            else if (ArtifactGrepToolVariant2 is { } __value1 && artifactGrepToolVariant2 != null)
             {
-                return artifactGrepToolVariant2(ArtifactGrepToolVariant2!);
+                return artifactGrepToolVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsArtifactGrepToolVariant2)
+            else if (ArtifactGrepToolVariant2 is { } __value1)
             {
-                artifactGrepToolVariant2?.Invoke(ArtifactGrepToolVariant2!);
+                artifactGrepToolVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsArtifactGrepToolVariant2)
+            else if (ArtifactGrepToolVariant2 is { } __value1)
             {
-                artifactGrepToolVariant2?.Invoke(ArtifactGrepToolVariant2!);
+                artifactGrepToolVariant2?.Invoke(__value1);
             }
         }
 

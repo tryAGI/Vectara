@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.TestToolHeartbeatEvent PickHeartbeat() => IsHeartbeat
-            ? Heartbeat!
+        public global::Vectara.TestToolHeartbeatEvent PickHeartbeat() => Heartbeat is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Heartbeat' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.TestToolResultEvent PickResult() => IsResult
-            ? Result!
+        public global::Vectara.TestToolResultEvent PickResult() => Result is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Result' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsHeartbeat && heartbeat != null)
+            if (Heartbeat is { } __value0 && heartbeat != null)
             {
-                return heartbeat(Heartbeat!);
+                return heartbeat(__value0);
             }
-            else if (IsResult && result != null)
+            else if (Result is { } __value1 && result != null)
             {
-                return result(Result!);
+                return result(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsHeartbeat)
+            if (Heartbeat is { } __value0)
             {
-                heartbeat?.Invoke(Heartbeat!);
+                heartbeat?.Invoke(__value0);
             }
-            else if (IsResult)
+            else if (Result is { } __value1)
             {
-                result?.Invoke(Result!);
+                result?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsHeartbeat)
+            if (Heartbeat is { } __value0)
             {
-                heartbeat?.Invoke(Heartbeat!);
+                heartbeat?.Invoke(__value0);
             }
-            else if (IsResult)
+            else if (Result is { } __value1)
             {
-                result?.Invoke(Result!);
+                result?.Invoke(__value1);
             }
         }
 

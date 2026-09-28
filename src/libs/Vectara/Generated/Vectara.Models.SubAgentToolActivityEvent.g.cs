@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolActivityEventBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.ToolActivityEventBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SubAgentToolActivityEventVariant2 PickSubAgentToolActivityEventVariant2() => IsSubAgentToolActivityEventVariant2
-            ? SubAgentToolActivityEventVariant2!
+        public global::Vectara.SubAgentToolActivityEventVariant2 PickSubAgentToolActivityEventVariant2() => SubAgentToolActivityEventVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SubAgentToolActivityEventVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsSubAgentToolActivityEventVariant2 && subAgentToolActivityEventVariant2 != null)
+            else if (SubAgentToolActivityEventVariant2 is { } __value1 && subAgentToolActivityEventVariant2 != null)
             {
-                return subAgentToolActivityEventVariant2(SubAgentToolActivityEventVariant2!);
+                return subAgentToolActivityEventVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSubAgentToolActivityEventVariant2)
+            else if (SubAgentToolActivityEventVariant2 is { } __value1)
             {
-                subAgentToolActivityEventVariant2?.Invoke(SubAgentToolActivityEventVariant2!);
+                subAgentToolActivityEventVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsSubAgentToolActivityEventVariant2)
+            else if (SubAgentToolActivityEventVariant2 is { } __value1)
             {
-                subAgentToolActivityEventVariant2?.Invoke(SubAgentToolActivityEventVariant2!);
+                subAgentToolActivityEventVariant2?.Invoke(__value1);
             }
         }
 

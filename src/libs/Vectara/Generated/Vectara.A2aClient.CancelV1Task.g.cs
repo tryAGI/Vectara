@@ -205,8 +205,8 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    agentKey: agentKey!,
-                    taskId: taskId!);
+                    agentKey: agentKey,
+                    taskId: taskId);
 
                 return __httpRequest;
             }
@@ -228,7 +228,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agents/{agentKey}/tasks/{taskId}:cancel\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: null,
                                 exception: null,
                                 clientOptions: Options,
@@ -265,7 +265,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agents/{agentKey}/tasks/{taskId}:cancel\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: null,
                                 exception: __exception,
                                 clientOptions: Options,
@@ -306,7 +306,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agents/{agentKey}/tasks/{taskId}:cancel\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -354,7 +354,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agents/{agentKey}/tasks/{taskId}:cancel\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -376,7 +376,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agents/{agentKey}/tasks/{taskId}:cancel\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,

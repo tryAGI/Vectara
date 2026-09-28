@@ -52,8 +52,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SlackConnectorConfiguration PickSlack() => IsSlack
-            ? Slack!.Value
+        public global::Vectara.SlackConnectorConfiguration PickSlack() => Slack is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Slack' but the value was {ToString()}.");
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.GchatConnectorConfiguration PickGchat() => IsGchat
-            ? Gchat!.Value
+        public global::Vectara.GchatConnectorConfiguration PickGchat() => Gchat is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Gchat' but the value was {ToString()}.");
 
         /// <summary>
@@ -135,8 +135,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ZoomConnectorConfiguration PickZoom() => IsZoom
-            ? Zoom!.Value
+        public global::Vectara.ZoomConnectorConfiguration PickZoom() => Zoom is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Zoom' but the value was {ToString()}.");
 
         /// <summary>
@@ -174,8 +174,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WidgetConnectorConfiguration PickWidget() => IsWidget
-            ? Widget!.Value
+        public global::Vectara.WidgetConnectorConfiguration PickWidget() => Widget is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Widget' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -331,21 +331,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSlack && slack != null)
+            if (Slack is { } __value0 && slack != null)
             {
-                return slack(Slack!);
+                return slack(__value0);
             }
-            else if (IsGchat && gchat != null)
+            else if (Gchat is { } __value1 && gchat != null)
             {
-                return gchat(Gchat!);
+                return gchat(__value1);
             }
-            else if (IsZoom && zoom != null)
+            else if (Zoom is { } __value2 && zoom != null)
             {
-                return zoom(Zoom!);
+                return zoom(__value2);
             }
-            else if (IsWidget && widget != null)
+            else if (Widget is { } __value3 && widget != null)
             {
-                return widget(Widget!);
+                return widget(__value3);
             }
 
             return default(TResult);
@@ -369,21 +369,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSlack)
+            if (Slack is { } __value0)
             {
-                slack?.Invoke(Slack!);
+                slack?.Invoke(__value0);
             }
-            else if (IsGchat)
+            else if (Gchat is { } __value1)
             {
-                gchat?.Invoke(Gchat!);
+                gchat?.Invoke(__value1);
             }
-            else if (IsZoom)
+            else if (Zoom is { } __value2)
             {
-                zoom?.Invoke(Zoom!);
+                zoom?.Invoke(__value2);
             }
-            else if (IsWidget)
+            else if (Widget is { } __value3)
             {
-                widget?.Invoke(Widget!);
+                widget?.Invoke(__value3);
             }
         }
 
@@ -402,21 +402,21 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSlack)
+            if (Slack is { } __value0)
             {
-                slack?.Invoke(Slack!);
+                slack?.Invoke(__value0);
             }
-            else if (IsGchat)
+            else if (Gchat is { } __value1)
             {
-                gchat?.Invoke(Gchat!);
+                gchat?.Invoke(__value1);
             }
-            else if (IsZoom)
+            else if (Zoom is { } __value2)
             {
-                zoom?.Invoke(Zoom!);
+                zoom?.Invoke(__value2);
             }
-            else if (IsWidget)
+            else if (Widget is { } __value3)
             {
-                widget?.Invoke(Widget!);
+                widget?.Invoke(__value3);
             }
         }
 

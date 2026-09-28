@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.InstructionRequestBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.InstructionRequestBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateInitialInstructionRequestVariant2 PickCreateInitialInstructionRequestVariant2() => IsCreateInitialInstructionRequestVariant2
-            ? CreateInitialInstructionRequestVariant2!
+        public global::Vectara.CreateInitialInstructionRequestVariant2 PickCreateInitialInstructionRequestVariant2() => CreateInitialInstructionRequestVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateInitialInstructionRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCreateInitialInstructionRequestVariant2 && createInitialInstructionRequestVariant2 != null)
+            else if (CreateInitialInstructionRequestVariant2 is { } __value1 && createInitialInstructionRequestVariant2 != null)
             {
-                return createInitialInstructionRequestVariant2(CreateInitialInstructionRequestVariant2!);
+                return createInitialInstructionRequestVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateInitialInstructionRequestVariant2)
+            else if (CreateInitialInstructionRequestVariant2 is { } __value1)
             {
-                createInitialInstructionRequestVariant2?.Invoke(CreateInitialInstructionRequestVariant2!);
+                createInitialInstructionRequestVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateInitialInstructionRequestVariant2)
+            else if (CreateInitialInstructionRequestVariant2 is { } __value1)
             {
-                createInitialInstructionRequestVariant2?.Invoke(CreateInitialInstructionRequestVariant2!);
+                createInitialInstructionRequestVariant2?.Invoke(__value1);
             }
         }
 

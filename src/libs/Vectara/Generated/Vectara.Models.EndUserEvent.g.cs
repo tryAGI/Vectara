@@ -50,8 +50,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EndUserInputMessageEvent PickInputMessage() => IsInputMessage
-            ? InputMessage!.Value
+        public global::Vectara.EndUserInputMessageEvent PickInputMessage() => InputMessage is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'InputMessage' but the value was {ToString()}.");
 
         /// <summary>
@@ -87,8 +87,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EndUserAgentOutputEvent PickAgentOutput() => IsAgentOutput
-            ? AgentOutput!.Value
+        public global::Vectara.EndUserAgentOutputEvent PickAgentOutput() => AgentOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.EndUserErrorEvent PickError() => IsError
-            ? Error!.Value
+        public global::Vectara.EndUserErrorEvent PickError() => Error is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
 
         /// <summary>
@@ -162,8 +162,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolInputEvent PickToolInput() => IsToolInput
-            ? ToolInput!.Value
+        public global::Vectara.ToolInputEvent PickToolInput() => ToolInput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolInput' but the value was {ToString()}.");
 
         /// <summary>
@@ -199,8 +199,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolOutputEvent PickToolOutput() => IsToolOutput
-            ? ToolOutput!.Value
+        public global::Vectara.ToolOutputEvent PickToolOutput() => ToolOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ToolOutput' but the value was {ToString()}.");
 
         /// <summary>
@@ -236,8 +236,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ThinkingEvent PickThinking() => IsThinking
-            ? Thinking!.Value
+        public global::Vectara.ThinkingEvent PickThinking() => Thinking is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Thinking' but the value was {ToString()}.");
 
         /// <summary>
@@ -279,8 +279,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StructuredOutputEvent PickStructuredOutput() => IsStructuredOutput
-            ? StructuredOutput!.Value
+        public global::Vectara.StructuredOutputEvent PickStructuredOutput() => StructuredOutput is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutput' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -520,33 +520,33 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage && inputMessage != null)
+            if (InputMessage is { } __value0 && inputMessage != null)
             {
-                return inputMessage(InputMessage!);
+                return inputMessage(__value0);
             }
-            else if (IsAgentOutput && agentOutput != null)
+            else if (AgentOutput is { } __value1 && agentOutput != null)
             {
-                return agentOutput(AgentOutput!);
+                return agentOutput(__value1);
             }
-            else if (IsError && error != null)
+            else if (Error is { } __value2 && error != null)
             {
-                return error(Error!);
+                return error(__value2);
             }
-            else if (IsToolInput && toolInput != null)
+            else if (ToolInput is { } __value3 && toolInput != null)
             {
-                return toolInput(ToolInput!);
+                return toolInput(__value3);
             }
-            else if (IsToolOutput && toolOutput != null)
+            else if (ToolOutput is { } __value4 && toolOutput != null)
             {
-                return toolOutput(ToolOutput!);
+                return toolOutput(__value4);
             }
-            else if (IsThinking && thinking != null)
+            else if (Thinking is { } __value5 && thinking != null)
             {
-                return thinking(Thinking!);
+                return thinking(__value5);
             }
-            else if (IsStructuredOutput && structuredOutput != null)
+            else if (StructuredOutput is { } __value6 && structuredOutput != null)
             {
-                return structuredOutput(StructuredOutput!);
+                return structuredOutput(__value6);
             }
 
             return default(TResult);
@@ -576,33 +576,33 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsAgentOutput)
+            else if (AgentOutput is { } __value1)
             {
-                agentOutput?.Invoke(AgentOutput!);
+                agentOutput?.Invoke(__value1);
             }
-            else if (IsError)
+            else if (Error is { } __value2)
             {
-                error?.Invoke(Error!);
+                error?.Invoke(__value2);
             }
-            else if (IsToolInput)
+            else if (ToolInput is { } __value3)
             {
-                toolInput?.Invoke(ToolInput!);
+                toolInput?.Invoke(__value3);
             }
-            else if (IsToolOutput)
+            else if (ToolOutput is { } __value4)
             {
-                toolOutput?.Invoke(ToolOutput!);
+                toolOutput?.Invoke(__value4);
             }
-            else if (IsThinking)
+            else if (Thinking is { } __value5)
             {
-                thinking?.Invoke(Thinking!);
+                thinking?.Invoke(__value5);
             }
-            else if (IsStructuredOutput)
+            else if (StructuredOutput is { } __value6)
             {
-                structuredOutput?.Invoke(StructuredOutput!);
+                structuredOutput?.Invoke(__value6);
             }
         }
 
@@ -624,33 +624,33 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInputMessage)
+            if (InputMessage is { } __value0)
             {
-                inputMessage?.Invoke(InputMessage!);
+                inputMessage?.Invoke(__value0);
             }
-            else if (IsAgentOutput)
+            else if (AgentOutput is { } __value1)
             {
-                agentOutput?.Invoke(AgentOutput!);
+                agentOutput?.Invoke(__value1);
             }
-            else if (IsError)
+            else if (Error is { } __value2)
             {
-                error?.Invoke(Error!);
+                error?.Invoke(__value2);
             }
-            else if (IsToolInput)
+            else if (ToolInput is { } __value3)
             {
-                toolInput?.Invoke(ToolInput!);
+                toolInput?.Invoke(__value3);
             }
-            else if (IsToolOutput)
+            else if (ToolOutput is { } __value4)
             {
-                toolOutput?.Invoke(ToolOutput!);
+                toolOutput?.Invoke(__value4);
             }
-            else if (IsThinking)
+            else if (Thinking is { } __value5)
             {
-                thinking?.Invoke(Thinking!);
+                thinking?.Invoke(__value5);
             }
-            else if (IsStructuredOutput)
+            else if (StructuredOutput is { } __value6)
             {
-                structuredOutput?.Invoke(StructuredOutput!);
+                structuredOutput?.Invoke(__value6);
             }
         }
 

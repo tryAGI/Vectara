@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.IntervalScheduleConfiguration PickInterval() => IsInterval
-            ? Interval!
+        public global::Vectara.IntervalScheduleConfiguration PickInterval() => Interval is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Interval' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CronScheduleConfiguration PickCron() => IsCron
-            ? Cron!
+        public global::Vectara.CronScheduleConfiguration PickCron() => Cron is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Cron' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInterval && interval != null)
+            if (Interval is { } __value0 && interval != null)
             {
-                return interval(Interval!);
+                return interval(__value0);
             }
-            else if (IsCron && cron != null)
+            else if (Cron is { } __value1 && cron != null)
             {
-                return cron(Cron!);
+                return cron(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInterval)
+            if (Interval is { } __value0)
             {
-                interval?.Invoke(Interval!);
+                interval?.Invoke(__value0);
             }
-            else if (IsCron)
+            else if (Cron is { } __value1)
             {
-                cron?.Invoke(Cron!);
+                cron?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInterval)
+            if (Interval is { } __value0)
             {
-                interval?.Invoke(Interval!);
+                interval?.Invoke(__value0);
             }
-            else if (IsCron)
+            else if (Cron is { } __value1)
             {
-                cron?.Invoke(Cron!);
+                cron?.Invoke(__value1);
             }
         }
 

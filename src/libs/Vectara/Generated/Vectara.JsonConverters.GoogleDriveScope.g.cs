@@ -59,13 +59,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SharedGoogleDriveScope), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SharedGoogleDriveScope?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SharedGoogleDriveScope).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Shared!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickShared(), typeInfo);
             }
             else if (value.IsMyDrive)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.MyGoogleDriveScope), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.MyGoogleDriveScope?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.MyGoogleDriveScope).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.MyDrive!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickMyDrive(), typeInfo);
             }
         }
     }

@@ -48,8 +48,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebGetNoAuth PickNone() => IsNone
-            ? None!
+        public global::Vectara.WebGetNoAuth PickNone() => None is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'None' but the value was {ToString()}.");
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebGetBearerAuth PickBearer() => IsBearer
-            ? Bearer!
+        public global::Vectara.WebGetBearerAuth PickBearer() => Bearer is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Bearer' but the value was {ToString()}.");
 
         /// <summary>
@@ -122,8 +122,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebGetHeaderAuth PickHeader() => IsHeader
-            ? Header!
+        public global::Vectara.WebGetHeaderAuth PickHeader() => Header is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Header' but the value was {ToString()}.");
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebGetOAuthClientCredentialsAuth PickOauthClientCredentials() => IsOauthClientCredentials
-            ? OauthClientCredentials!
+        public global::Vectara.WebGetOAuthClientCredentialsAuth PickOauthClientCredentials() => OauthClientCredentials is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthClientCredentials' but the value was {ToString()}.");
 
         /// <summary>
@@ -199,8 +199,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebGetOAuthRefreshTokenAuth PickOauthRefreshToken() => IsOauthRefreshToken
-            ? OauthRefreshToken!
+        public global::Vectara.WebGetOAuthRefreshTokenAuth PickOauthRefreshToken() => OauthRefreshToken is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthRefreshToken' but the value was {ToString()}.");
 
         /// <summary>
@@ -236,8 +236,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebGetOAuthTokenExchangeAuth PickOauthTokenExchange() => IsOauthTokenExchange
-            ? OauthTokenExchange!
+        public global::Vectara.WebGetOAuthTokenExchangeAuth PickOauthTokenExchange() => OauthTokenExchange is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthTokenExchange' but the value was {ToString()}.");
 
         /// <summary>
@@ -273,8 +273,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.WebGetAwsSigV4Auth PickAwsSigv4() => IsAwsSigv4
-            ? AwsSigv4!
+        public global::Vectara.WebGetAwsSigV4Auth PickAwsSigv4() => AwsSigv4 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'AwsSigv4' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -514,33 +514,33 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsNone && none != null)
+            if (None is { } __value0 && none != null)
             {
-                return none(None!);
+                return none(__value0);
             }
-            else if (IsBearer && bearer != null)
+            else if (Bearer is { } __value1 && bearer != null)
             {
-                return bearer(Bearer!);
+                return bearer(__value1);
             }
-            else if (IsHeader && header != null)
+            else if (Header is { } __value2 && header != null)
             {
-                return header(Header!);
+                return header(__value2);
             }
-            else if (IsOauthClientCredentials && oauthClientCredentials != null)
+            else if (OauthClientCredentials is { } __value3 && oauthClientCredentials != null)
             {
-                return oauthClientCredentials(OauthClientCredentials!);
+                return oauthClientCredentials(__value3);
             }
-            else if (IsOauthRefreshToken && oauthRefreshToken != null)
+            else if (OauthRefreshToken is { } __value4 && oauthRefreshToken != null)
             {
-                return oauthRefreshToken(OauthRefreshToken!);
+                return oauthRefreshToken(__value4);
             }
-            else if (IsOauthTokenExchange && oauthTokenExchange != null)
+            else if (OauthTokenExchange is { } __value5 && oauthTokenExchange != null)
             {
-                return oauthTokenExchange(OauthTokenExchange!);
+                return oauthTokenExchange(__value5);
             }
-            else if (IsAwsSigv4 && awsSigv4 != null)
+            else if (AwsSigv4 is { } __value6 && awsSigv4 != null)
             {
-                return awsSigv4(AwsSigv4!);
+                return awsSigv4(__value6);
             }
 
             return default(TResult);
@@ -570,33 +570,33 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsNone)
+            if (None is { } __value0)
             {
-                none?.Invoke(None!);
+                none?.Invoke(__value0);
             }
-            else if (IsBearer)
+            else if (Bearer is { } __value1)
             {
-                bearer?.Invoke(Bearer!);
+                bearer?.Invoke(__value1);
             }
-            else if (IsHeader)
+            else if (Header is { } __value2)
             {
-                header?.Invoke(Header!);
+                header?.Invoke(__value2);
             }
-            else if (IsOauthClientCredentials)
+            else if (OauthClientCredentials is { } __value3)
             {
-                oauthClientCredentials?.Invoke(OauthClientCredentials!);
+                oauthClientCredentials?.Invoke(__value3);
             }
-            else if (IsOauthRefreshToken)
+            else if (OauthRefreshToken is { } __value4)
             {
-                oauthRefreshToken?.Invoke(OauthRefreshToken!);
+                oauthRefreshToken?.Invoke(__value4);
             }
-            else if (IsOauthTokenExchange)
+            else if (OauthTokenExchange is { } __value5)
             {
-                oauthTokenExchange?.Invoke(OauthTokenExchange!);
+                oauthTokenExchange?.Invoke(__value5);
             }
-            else if (IsAwsSigv4)
+            else if (AwsSigv4 is { } __value6)
             {
-                awsSigv4?.Invoke(AwsSigv4!);
+                awsSigv4?.Invoke(__value6);
             }
         }
 
@@ -618,33 +618,33 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsNone)
+            if (None is { } __value0)
             {
-                none?.Invoke(None!);
+                none?.Invoke(__value0);
             }
-            else if (IsBearer)
+            else if (Bearer is { } __value1)
             {
-                bearer?.Invoke(Bearer!);
+                bearer?.Invoke(__value1);
             }
-            else if (IsHeader)
+            else if (Header is { } __value2)
             {
-                header?.Invoke(Header!);
+                header?.Invoke(__value2);
             }
-            else if (IsOauthClientCredentials)
+            else if (OauthClientCredentials is { } __value3)
             {
-                oauthClientCredentials?.Invoke(OauthClientCredentials!);
+                oauthClientCredentials?.Invoke(__value3);
             }
-            else if (IsOauthRefreshToken)
+            else if (OauthRefreshToken is { } __value4)
             {
-                oauthRefreshToken?.Invoke(OauthRefreshToken!);
+                oauthRefreshToken?.Invoke(__value4);
             }
-            else if (IsOauthTokenExchange)
+            else if (OauthTokenExchange is { } __value5)
             {
-                oauthTokenExchange?.Invoke(OauthTokenExchange!);
+                oauthTokenExchange?.Invoke(__value5);
             }
-            else if (IsAwsSigv4)
+            else if (AwsSigv4 is { } __value6)
             {
-                awsSigv4?.Invoke(AwsSigv4!);
+                awsSigv4?.Invoke(__value6);
             }
         }
 

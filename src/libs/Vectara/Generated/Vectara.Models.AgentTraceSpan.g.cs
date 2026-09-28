@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.InvokeAgentTraceSpan PickInvokeAgent() => IsInvokeAgent
-            ? InvokeAgent!.Value
+        public global::Vectara.InvokeAgentTraceSpan PickInvokeAgent() => InvokeAgent is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'InvokeAgent' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ChatTraceSpan PickChat() => IsChat
-            ? Chat!.Value
+        public global::Vectara.ChatTraceSpan PickChat() => Chat is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Chat' but the value was {ToString()}.");
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ExecuteToolTraceSpan PickExecuteTool() => IsExecuteTool
-            ? ExecuteTool!.Value
+        public global::Vectara.ExecuteToolTraceSpan PickExecuteTool() => ExecuteTool is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ExecuteTool' but the value was {ToString()}.");
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ThinkingTraceSpan PickThinking() => IsThinking
-            ? Thinking!.Value
+        public global::Vectara.ThinkingTraceSpan PickThinking() => Thinking is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Thinking' but the value was {ToString()}.");
 
         /// <summary>
@@ -195,8 +195,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.OutputTraceSpan PickOutput() => IsOutput
-            ? Output!.Value
+        public global::Vectara.OutputTraceSpan PickOutput() => Output is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Output' but the value was {ToString()}.");
 
         /// <summary>
@@ -232,8 +232,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.StepTransitionTraceSpan PickStepTransition() => IsStepTransition
-            ? StepTransition!.Value
+        public global::Vectara.StepTransitionTraceSpan PickStepTransition() => StepTransition is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StepTransition' but the value was {ToString()}.");
 
         /// <summary>
@@ -269,8 +269,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ImageReadTraceSpan PickImageRead() => IsImageRead
-            ? ImageRead!.Value
+        public global::Vectara.ImageReadTraceSpan PickImageRead() => ImageRead is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ImageRead' but the value was {ToString()}.");
 
         /// <summary>
@@ -306,8 +306,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CompactionTraceSpan PickCompaction() => IsCompaction
-            ? Compaction!.Value
+        public global::Vectara.CompactionTraceSpan PickCompaction() => Compaction is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Compaction' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -575,37 +575,37 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInvokeAgent && invokeAgent != null)
+            if (InvokeAgent is { } __value0 && invokeAgent != null)
             {
-                return invokeAgent(InvokeAgent!);
+                return invokeAgent(__value0);
             }
-            else if (IsChat && chat != null)
+            else if (Chat is { } __value1 && chat != null)
             {
-                return chat(Chat!);
+                return chat(__value1);
             }
-            else if (IsExecuteTool && executeTool != null)
+            else if (ExecuteTool is { } __value2 && executeTool != null)
             {
-                return executeTool(ExecuteTool!);
+                return executeTool(__value2);
             }
-            else if (IsThinking && thinking != null)
+            else if (Thinking is { } __value3 && thinking != null)
             {
-                return thinking(Thinking!);
+                return thinking(__value3);
             }
-            else if (IsOutput && output != null)
+            else if (Output is { } __value4 && output != null)
             {
-                return output(Output!);
+                return output(__value4);
             }
-            else if (IsStepTransition && stepTransition != null)
+            else if (StepTransition is { } __value5 && stepTransition != null)
             {
-                return stepTransition(StepTransition!);
+                return stepTransition(__value5);
             }
-            else if (IsImageRead && imageRead != null)
+            else if (ImageRead is { } __value6 && imageRead != null)
             {
-                return imageRead(ImageRead!);
+                return imageRead(__value6);
             }
-            else if (IsCompaction && compaction != null)
+            else if (Compaction is { } __value7 && compaction != null)
             {
-                return compaction(Compaction!);
+                return compaction(__value7);
             }
 
             return default(TResult);
@@ -637,37 +637,37 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInvokeAgent)
+            if (InvokeAgent is { } __value0)
             {
-                invokeAgent?.Invoke(InvokeAgent!);
+                invokeAgent?.Invoke(__value0);
             }
-            else if (IsChat)
+            else if (Chat is { } __value1)
             {
-                chat?.Invoke(Chat!);
+                chat?.Invoke(__value1);
             }
-            else if (IsExecuteTool)
+            else if (ExecuteTool is { } __value2)
             {
-                executeTool?.Invoke(ExecuteTool!);
+                executeTool?.Invoke(__value2);
             }
-            else if (IsThinking)
+            else if (Thinking is { } __value3)
             {
-                thinking?.Invoke(Thinking!);
+                thinking?.Invoke(__value3);
             }
-            else if (IsOutput)
+            else if (Output is { } __value4)
             {
-                output?.Invoke(Output!);
+                output?.Invoke(__value4);
             }
-            else if (IsStepTransition)
+            else if (StepTransition is { } __value5)
             {
-                stepTransition?.Invoke(StepTransition!);
+                stepTransition?.Invoke(__value5);
             }
-            else if (IsImageRead)
+            else if (ImageRead is { } __value6)
             {
-                imageRead?.Invoke(ImageRead!);
+                imageRead?.Invoke(__value6);
             }
-            else if (IsCompaction)
+            else if (Compaction is { } __value7)
             {
-                compaction?.Invoke(Compaction!);
+                compaction?.Invoke(__value7);
             }
         }
 
@@ -690,37 +690,37 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsInvokeAgent)
+            if (InvokeAgent is { } __value0)
             {
-                invokeAgent?.Invoke(InvokeAgent!);
+                invokeAgent?.Invoke(__value0);
             }
-            else if (IsChat)
+            else if (Chat is { } __value1)
             {
-                chat?.Invoke(Chat!);
+                chat?.Invoke(__value1);
             }
-            else if (IsExecuteTool)
+            else if (ExecuteTool is { } __value2)
             {
-                executeTool?.Invoke(ExecuteTool!);
+                executeTool?.Invoke(__value2);
             }
-            else if (IsThinking)
+            else if (Thinking is { } __value3)
             {
-                thinking?.Invoke(Thinking!);
+                thinking?.Invoke(__value3);
             }
-            else if (IsOutput)
+            else if (Output is { } __value4)
             {
-                output?.Invoke(Output!);
+                output?.Invoke(__value4);
             }
-            else if (IsStepTransition)
+            else if (StepTransition is { } __value5)
             {
-                stepTransition?.Invoke(StepTransition!);
+                stepTransition?.Invoke(__value5);
             }
-            else if (IsImageRead)
+            else if (ImageRead is { } __value6)
             {
-                imageRead?.Invoke(ImageRead!);
+                imageRead?.Invoke(__value6);
             }
-            else if (IsCompaction)
+            else if (Compaction is { } __value7)
             {
-                compaction?.Invoke(Compaction!);
+                compaction?.Invoke(__value7);
             }
         }
 

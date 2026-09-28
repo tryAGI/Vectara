@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.MetricDescriptorBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.MetricDescriptorBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.GaugeMetricDescriptorVariant2 PickGaugeMetricDescriptorVariant2() => IsGaugeMetricDescriptorVariant2
-            ? GaugeMetricDescriptorVariant2!
+        public global::Vectara.GaugeMetricDescriptorVariant2 PickGaugeMetricDescriptorVariant2() => GaugeMetricDescriptorVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'GaugeMetricDescriptorVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsGaugeMetricDescriptorVariant2 && gaugeMetricDescriptorVariant2 != null)
+            else if (GaugeMetricDescriptorVariant2 is { } __value1 && gaugeMetricDescriptorVariant2 != null)
             {
-                return gaugeMetricDescriptorVariant2(GaugeMetricDescriptorVariant2!);
+                return gaugeMetricDescriptorVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsGaugeMetricDescriptorVariant2)
+            else if (GaugeMetricDescriptorVariant2 is { } __value1)
             {
-                gaugeMetricDescriptorVariant2?.Invoke(GaugeMetricDescriptorVariant2!);
+                gaugeMetricDescriptorVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsGaugeMetricDescriptorVariant2)
+            else if (GaugeMetricDescriptorVariant2 is { } __value1)
             {
-                gaugeMetricDescriptorVariant2?.Invoke(GaugeMetricDescriptorVariant2!);
+                gaugeMetricDescriptorVariant2?.Invoke(__value1);
             }
         }
 

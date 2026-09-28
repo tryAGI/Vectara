@@ -46,8 +46,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateConnectorConfigurationBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.CreateConnectorConfigurationBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateZoomConnectorConfigurationVariant2 PickCreateZoomConnectorConfigurationVariant2() => IsCreateZoomConnectorConfigurationVariant2
-            ? CreateZoomConnectorConfigurationVariant2!
+        public global::Vectara.CreateZoomConnectorConfigurationVariant2 PickCreateZoomConnectorConfigurationVariant2() => CreateZoomConnectorConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateZoomConnectorConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -181,13 +181,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCreateZoomConnectorConfigurationVariant2 && createZoomConnectorConfigurationVariant2 != null)
+            else if (CreateZoomConnectorConfigurationVariant2 is { } __value1 && createZoomConnectorConfigurationVariant2 != null)
             {
-                return createZoomConnectorConfigurationVariant2(CreateZoomConnectorConfigurationVariant2!);
+                return createZoomConnectorConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -207,13 +207,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateZoomConnectorConfigurationVariant2)
+            else if (CreateZoomConnectorConfigurationVariant2 is { } __value1)
             {
-                createZoomConnectorConfigurationVariant2?.Invoke(CreateZoomConnectorConfigurationVariant2!);
+                createZoomConnectorConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -230,13 +230,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateZoomConnectorConfigurationVariant2)
+            else if (CreateZoomConnectorConfigurationVariant2 is { } __value1)
             {
-                createZoomConnectorConfigurationVariant2?.Invoke(CreateZoomConnectorConfigurationVariant2!);
+                createZoomConnectorConfigurationVariant2?.Invoke(__value1);
             }
         }
 

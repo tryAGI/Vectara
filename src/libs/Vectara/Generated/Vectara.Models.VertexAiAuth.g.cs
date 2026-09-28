@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.VertexAiApiKeyAuth PickApiKey() => IsApiKey
-            ? ApiKey!
+        public global::Vectara.VertexAiApiKeyAuth PickApiKey() => ApiKey is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ApiKey' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.VertexAiServiceAccountAuth PickServiceAccount() => IsServiceAccount
-            ? ServiceAccount!
+        public global::Vectara.VertexAiServiceAccountAuth PickServiceAccount() => ServiceAccount is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ServiceAccount' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -185,13 +185,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsApiKey && apiKey != null)
+            if (ApiKey is { } __value0 && apiKey != null)
             {
-                return apiKey(ApiKey!);
+                return apiKey(__value0);
             }
-            else if (IsServiceAccount && serviceAccount != null)
+            else if (ServiceAccount is { } __value1 && serviceAccount != null)
             {
-                return serviceAccount(ServiceAccount!);
+                return serviceAccount(__value1);
             }
 
             return default(TResult);
@@ -211,13 +211,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsApiKey)
+            if (ApiKey is { } __value0)
             {
-                apiKey?.Invoke(ApiKey!);
+                apiKey?.Invoke(__value0);
             }
-            else if (IsServiceAccount)
+            else if (ServiceAccount is { } __value1)
             {
-                serviceAccount?.Invoke(ServiceAccount!);
+                serviceAccount?.Invoke(__value1);
             }
         }
 
@@ -234,13 +234,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsApiKey)
+            if (ApiKey is { } __value0)
             {
-                apiKey?.Invoke(ApiKey!);
+                apiKey?.Invoke(__value0);
             }
-            else if (IsServiceAccount)
+            else if (ServiceAccount is { } __value1)
             {
-                serviceAccount?.Invoke(ServiceAccount!);
+                serviceAccount?.Invoke(__value1);
             }
         }
 

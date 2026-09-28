@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateInputRequestBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.CreateInputRequestBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateInputMessageRequestVariant2 PickCreateInputMessageRequestVariant2() => IsCreateInputMessageRequestVariant2
-            ? CreateInputMessageRequestVariant2!
+        public global::Vectara.CreateInputMessageRequestVariant2 PickCreateInputMessageRequestVariant2() => CreateInputMessageRequestVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateInputMessageRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCreateInputMessageRequestVariant2 && createInputMessageRequestVariant2 != null)
+            else if (CreateInputMessageRequestVariant2 is { } __value1 && createInputMessageRequestVariant2 != null)
             {
-                return createInputMessageRequestVariant2(CreateInputMessageRequestVariant2!);
+                return createInputMessageRequestVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateInputMessageRequestVariant2)
+            else if (CreateInputMessageRequestVariant2 is { } __value1)
             {
-                createInputMessageRequestVariant2?.Invoke(CreateInputMessageRequestVariant2!);
+                createInputMessageRequestVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateInputMessageRequestVariant2)
+            else if (CreateInputMessageRequestVariant2 is { } __value1)
             {
-                createInputMessageRequestVariant2?.Invoke(CreateInputMessageRequestVariant2!);
+                createInputMessageRequestVariant2?.Invoke(__value1);
             }
         }
 

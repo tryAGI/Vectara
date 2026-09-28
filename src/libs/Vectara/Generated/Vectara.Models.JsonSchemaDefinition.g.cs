@@ -48,8 +48,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.JsonSchemaObject PickObjectValue() => IsObjectValue
-            ? ObjectValue!.Value
+        public global::Vectara.JsonSchemaObject PickObjectValue() => ObjectValue is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ObjectValue' but the value was {ToString()}.");
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.JsonSchemaValue PickArray() => IsArray
-            ? Array!.Value
+        public global::Vectara.JsonSchemaValue PickArray() => Array is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Array' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -186,13 +186,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsObjectValue && objectValue != null)
+            if (ObjectValue is { } __value0 && objectValue != null)
             {
-                return objectValue(ObjectValue!);
+                return objectValue(__value0);
             }
-            else if (IsArray && array != null)
+            else if (Array is { } __value1 && array != null)
             {
-                return array(Array!);
+                return array(__value1);
             }
 
             return default(TResult);
@@ -212,13 +212,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsObjectValue)
+            if (ObjectValue is { } __value0)
             {
-                objectValue?.Invoke(ObjectValue!);
+                objectValue?.Invoke(__value0);
             }
-            else if (IsArray)
+            else if (Array is { } __value1)
             {
-                array?.Invoke(Array!);
+                array?.Invoke(__value1);
             }
         }
 
@@ -235,13 +235,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsObjectValue)
+            if (ObjectValue is { } __value0)
             {
-                objectValue?.Invoke(ObjectValue!);
+                objectValue?.Invoke(__value0);
             }
-            else if (IsArray)
+            else if (Array is { } __value1)
             {
-                array?.Invoke(Array!);
+                array?.Invoke(__value1);
             }
         }
 

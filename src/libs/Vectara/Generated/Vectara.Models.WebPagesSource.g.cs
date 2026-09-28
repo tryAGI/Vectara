@@ -52,8 +52,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SitemapPagesSource PickSitemap() => IsSitemap
-            ? Sitemap!
+        public global::Vectara.SitemapPagesSource PickSitemap() => Sitemap is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Sitemap' but the value was {ToString()}.");
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CrawlPagesSource PickCrawl() => IsCrawl
-            ? Crawl!.Value
+        public global::Vectara.CrawlPagesSource PickCrawl() => Crawl is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Crawl' but the value was {ToString()}.");
 
         /// <summary>
@@ -128,8 +128,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.SitemapCrawlPagesSource PickSitemapCrawl() => IsSitemapCrawl
-            ? SitemapCrawl!.Value
+        public global::Vectara.SitemapCrawlPagesSource PickSitemapCrawl() => SitemapCrawl is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'SitemapCrawl' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -257,17 +257,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSitemap && sitemap != null)
+            if (Sitemap is { } __value0 && sitemap != null)
             {
-                return sitemap(Sitemap!);
+                return sitemap(__value0);
             }
-            else if (IsCrawl && crawl != null)
+            else if (Crawl is { } __value1 && crawl != null)
             {
-                return crawl(Crawl!);
+                return crawl(__value1);
             }
-            else if (IsSitemapCrawl && sitemapCrawl != null)
+            else if (SitemapCrawl is { } __value2 && sitemapCrawl != null)
             {
-                return sitemapCrawl(SitemapCrawl!);
+                return sitemapCrawl(__value2);
             }
 
             return default(TResult);
@@ -289,17 +289,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSitemap)
+            if (Sitemap is { } __value0)
             {
-                sitemap?.Invoke(Sitemap!);
+                sitemap?.Invoke(__value0);
             }
-            else if (IsCrawl)
+            else if (Crawl is { } __value1)
             {
-                crawl?.Invoke(Crawl!);
+                crawl?.Invoke(__value1);
             }
-            else if (IsSitemapCrawl)
+            else if (SitemapCrawl is { } __value2)
             {
-                sitemapCrawl?.Invoke(SitemapCrawl!);
+                sitemapCrawl?.Invoke(__value2);
             }
         }
 
@@ -317,17 +317,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsSitemap)
+            if (Sitemap is { } __value0)
             {
-                sitemap?.Invoke(Sitemap!);
+                sitemap?.Invoke(__value0);
             }
-            else if (IsCrawl)
+            else if (Crawl is { } __value1)
             {
-                crawl?.Invoke(Crawl!);
+                crawl?.Invoke(__value1);
             }
-            else if (IsSitemapCrawl)
+            else if (SitemapCrawl is { } __value2)
             {
-                sitemapCrawl?.Invoke(SitemapCrawl!);
+                sitemapCrawl?.Invoke(__value2);
             }
         }
 

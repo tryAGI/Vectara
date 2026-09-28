@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.MetricDescriptorBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.MetricDescriptorBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.PercentilesMetricDescriptorVariant2 PickPercentilesMetricDescriptorVariant2() => IsPercentilesMetricDescriptorVariant2
-            ? PercentilesMetricDescriptorVariant2!
+        public global::Vectara.PercentilesMetricDescriptorVariant2 PickPercentilesMetricDescriptorVariant2() => PercentilesMetricDescriptorVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'PercentilesMetricDescriptorVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsPercentilesMetricDescriptorVariant2 && percentilesMetricDescriptorVariant2 != null)
+            else if (PercentilesMetricDescriptorVariant2 is { } __value1 && percentilesMetricDescriptorVariant2 != null)
             {
-                return percentilesMetricDescriptorVariant2(PercentilesMetricDescriptorVariant2!);
+                return percentilesMetricDescriptorVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsPercentilesMetricDescriptorVariant2)
+            else if (PercentilesMetricDescriptorVariant2 is { } __value1)
             {
-                percentilesMetricDescriptorVariant2?.Invoke(PercentilesMetricDescriptorVariant2!);
+                percentilesMetricDescriptorVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsPercentilesMetricDescriptorVariant2)
+            else if (PercentilesMetricDescriptorVariant2 is { } __value1)
             {
-                percentilesMetricDescriptorVariant2?.Invoke(PercentilesMetricDescriptorVariant2!);
+                percentilesMetricDescriptorVariant2?.Invoke(__value1);
             }
         }
 

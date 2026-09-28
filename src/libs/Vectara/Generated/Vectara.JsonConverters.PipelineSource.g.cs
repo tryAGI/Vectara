@@ -149,73 +149,73 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SharepointSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SharepointSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SharepointSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Sharepoint!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickSharepoint(), typeInfo);
             }
             else if (value.IsS3)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.S3SourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.S3SourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.S3SourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.S3!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickS3(), typeInfo);
             }
             else if (value.IsGoogleDrive)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GoogleDriveSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GoogleDriveSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GoogleDriveSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GoogleDrive!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickGoogleDrive(), typeInfo);
             }
             else if (value.IsBox)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.BoxSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.BoxSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.BoxSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Box!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickBox(), typeInfo);
             }
             else if (value.IsWolkenKb)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenKbSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenKbSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WolkenKbSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WolkenKb!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWolkenKb(), typeInfo);
             }
             else if (value.IsWolkenForms)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenFormsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenFormsSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WolkenFormsSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WolkenForms!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWolkenForms(), typeInfo);
             }
             else if (value.IsWolkenTickets)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WolkenTicketsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WolkenTicketsSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WolkenTicketsSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.WolkenTickets!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWolkenTickets(), typeInfo);
             }
             else if (value.IsConfluence)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ConfluenceSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ConfluenceSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ConfluenceSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Confluence!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickConfluence(), typeInfo);
             }
             else if (value.IsFluidtopics)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.FluidtopicsSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.FluidtopicsSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.FluidtopicsSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Fluidtopics!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickFluidtopics(), typeInfo);
             }
             else if (value.IsScim)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ScimSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ScimSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ScimSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Scim!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickScim(), typeInfo);
             }
             else if (value.IsDocebo)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.DoceboSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.DoceboSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.DoceboSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Docebo!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickDocebo(), typeInfo);
             }
             else if (value.IsWeb)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.WebSourceConfiguration), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.WebSourceConfiguration> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.WebSourceConfiguration).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Web!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickWeb(), typeInfo);
             }
         }
     }

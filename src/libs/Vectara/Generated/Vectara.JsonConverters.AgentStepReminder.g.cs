@@ -59,13 +59,13 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.TemplatedReminder), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.TemplatedReminder?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.TemplatedReminder).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Templated!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickTemplated(), typeInfo);
             }
             else if (value.IsGlossaryExpansion)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.GlossaryExpansionReminder), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.GlossaryExpansionReminder?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.GlossaryExpansionReminder).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.GlossaryExpansion!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickGlossaryExpansion(), typeInfo);
             }
         }
     }

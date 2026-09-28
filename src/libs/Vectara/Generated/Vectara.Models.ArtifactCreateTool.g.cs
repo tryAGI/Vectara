@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ToolBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.ToolBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ArtifactCreateToolVariant2 PickArtifactCreateToolVariant2() => IsArtifactCreateToolVariant2
-            ? ArtifactCreateToolVariant2!
+        public global::Vectara.ArtifactCreateToolVariant2 PickArtifactCreateToolVariant2() => ArtifactCreateToolVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ArtifactCreateToolVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsArtifactCreateToolVariant2 && artifactCreateToolVariant2 != null)
+            else if (ArtifactCreateToolVariant2 is { } __value1 && artifactCreateToolVariant2 != null)
             {
-                return artifactCreateToolVariant2(ArtifactCreateToolVariant2!);
+                return artifactCreateToolVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsArtifactCreateToolVariant2)
+            else if (ArtifactCreateToolVariant2 is { } __value1)
             {
-                artifactCreateToolVariant2?.Invoke(ArtifactCreateToolVariant2!);
+                artifactCreateToolVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsArtifactCreateToolVariant2)
+            else if (ArtifactCreateToolVariant2 is { } __value1)
             {
-                artifactCreateToolVariant2?.Invoke(ArtifactCreateToolVariant2!);
+                artifactCreateToolVariant2?.Invoke(__value1);
             }
         }
 

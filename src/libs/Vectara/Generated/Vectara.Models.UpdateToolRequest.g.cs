@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateMcpToolRequest PickMcp() => IsMcp
-            ? Mcp!
+        public global::Vectara.UpdateMcpToolRequest PickMcp() => Mcp is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Mcp' but the value was {ToString()}.");
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateLambdaToolRequest PickLambda() => IsLambda
-            ? Lambda!
+        public global::Vectara.UpdateLambdaToolRequest PickLambda() => Lambda is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Lambda' but the value was {ToString()}.");
 
         /// <summary>
@@ -122,8 +122,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.UpdateClientToolRequest PickClient() => IsClient
-            ? Client!
+        public global::Vectara.UpdateClientToolRequest PickClient() => Client is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Client' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -251,17 +251,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsMcp && mcp != null)
+            if (Mcp is { } __value0 && mcp != null)
             {
-                return mcp(Mcp!);
+                return mcp(__value0);
             }
-            else if (IsLambda && lambda != null)
+            else if (Lambda is { } __value1 && lambda != null)
             {
-                return lambda(Lambda!);
+                return lambda(__value1);
             }
-            else if (IsClient && client != null)
+            else if (Client is { } __value2 && client != null)
             {
-                return client(Client!);
+                return client(__value2);
             }
 
             return default(TResult);
@@ -283,17 +283,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsMcp)
+            if (Mcp is { } __value0)
             {
-                mcp?.Invoke(Mcp!);
+                mcp?.Invoke(__value0);
             }
-            else if (IsLambda)
+            else if (Lambda is { } __value1)
             {
-                lambda?.Invoke(Lambda!);
+                lambda?.Invoke(__value1);
             }
-            else if (IsClient)
+            else if (Client is { } __value2)
             {
-                client?.Invoke(Client!);
+                client?.Invoke(__value2);
             }
         }
 
@@ -311,17 +311,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsMcp)
+            if (Mcp is { } __value0)
             {
-                mcp?.Invoke(Mcp!);
+                mcp?.Invoke(__value0);
             }
-            else if (IsLambda)
+            else if (Lambda is { } __value1)
             {
-                lambda?.Invoke(Lambda!);
+                lambda?.Invoke(__value1);
             }
-            else if (IsClient)
+            else if (Client is { } __value2)
             {
-                client?.Invoke(Client!);
+                client?.Invoke(__value2);
             }
         }
 

@@ -219,9 +219,9 @@ namespace Vectara
                     httpRequestMessage: __httpRequest,
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
-                    aliasKey: aliasKey!,
-                    sessionKey: sessionKey!,
-                    eventId: eventId!);
+                    aliasKey: aliasKey,
+                    sessionKey: sessionKey,
+                    eventId: eventId);
 
                 return __httpRequest;
             }
@@ -243,7 +243,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/sessions/{sessionKey}/events/{eventId}/hide\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: null,
                                 exception: null,
                                 clientOptions: Options,
@@ -280,7 +280,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/sessions/{sessionKey}/events/{eventId}/hide\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: null,
                                 exception: __exception,
                                 clientOptions: Options,
@@ -321,7 +321,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/sessions/{sessionKey}/events/{eventId}/hide\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -369,7 +369,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/sessions/{sessionKey}/events/{eventId}/hide\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -391,7 +391,7 @@ namespace Vectara
                                 pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/sessions/{sessionKey}/events/{eventId}/hide\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,

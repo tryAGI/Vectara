@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.PipelineRunEventBase PickPipelineBase() => IsPipelineBase
-            ? PipelineBase!
+        public global::Vectara.PipelineRunEventBase PickPipelineBase() => PipelineBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'PipelineBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RunStartedEventVariant2 PickRunStartedEventVariant2() => IsRunStartedEventVariant2
-            ? RunStartedEventVariant2!
+        public global::Vectara.RunStartedEventVariant2 PickRunStartedEventVariant2() => RunStartedEventVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'RunStartedEventVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineBase && pipelineBase != null)
+            if (PipelineBase is { } __value0 && pipelineBase != null)
             {
-                return pipelineBase(PipelineBase!);
+                return pipelineBase(__value0);
             }
-            else if (IsRunStartedEventVariant2 && runStartedEventVariant2 != null)
+            else if (RunStartedEventVariant2 is { } __value1 && runStartedEventVariant2 != null)
             {
-                return runStartedEventVariant2(RunStartedEventVariant2!);
+                return runStartedEventVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineBase)
+            if (PipelineBase is { } __value0)
             {
-                pipelineBase?.Invoke(PipelineBase!);
+                pipelineBase?.Invoke(__value0);
             }
-            else if (IsRunStartedEventVariant2)
+            else if (RunStartedEventVariant2 is { } __value1)
             {
-                runStartedEventVariant2?.Invoke(RunStartedEventVariant2!);
+                runStartedEventVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsPipelineBase)
+            if (PipelineBase is { } __value0)
             {
-                pipelineBase?.Invoke(PipelineBase!);
+                pipelineBase?.Invoke(__value0);
             }
-            else if (IsRunStartedEventVariant2)
+            else if (RunStartedEventVariant2 is { } __value1)
             {
-                runStartedEventVariant2?.Invoke(RunStartedEventVariant2!);
+                runStartedEventVariant2?.Invoke(__value1);
             }
         }
 

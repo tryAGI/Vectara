@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.InstructionRequestBase PickRequestBase() => IsRequestBase
-            ? RequestBase!
+        public global::Vectara.InstructionRequestBase PickRequestBase() => RequestBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'RequestBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.InlineInstructionVariant2 PickInlineInstructionVariant2() => IsInlineInstructionVariant2
-            ? InlineInstructionVariant2!
+        public global::Vectara.InlineInstructionVariant2 PickInlineInstructionVariant2() => InlineInstructionVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'InlineInstructionVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRequestBase && requestBase != null)
+            if (RequestBase is { } __value0 && requestBase != null)
             {
-                return requestBase(RequestBase!);
+                return requestBase(__value0);
             }
-            else if (IsInlineInstructionVariant2 && inlineInstructionVariant2 != null)
+            else if (InlineInstructionVariant2 is { } __value1 && inlineInstructionVariant2 != null)
             {
-                return inlineInstructionVariant2(InlineInstructionVariant2!);
+                return inlineInstructionVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRequestBase)
+            if (RequestBase is { } __value0)
             {
-                requestBase?.Invoke(RequestBase!);
+                requestBase?.Invoke(__value0);
             }
-            else if (IsInlineInstructionVariant2)
+            else if (InlineInstructionVariant2 is { } __value1)
             {
-                inlineInstructionVariant2?.Invoke(InlineInstructionVariant2!);
+                inlineInstructionVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRequestBase)
+            if (RequestBase is { } __value0)
             {
-                requestBase?.Invoke(RequestBase!);
+                requestBase?.Invoke(__value0);
             }
-            else if (IsInlineInstructionVariant2)
+            else if (InlineInstructionVariant2 is { } __value1)
             {
-                inlineInstructionVariant2?.Invoke(InlineInstructionVariant2!);
+                inlineInstructionVariant2?.Invoke(__value1);
             }
         }
 

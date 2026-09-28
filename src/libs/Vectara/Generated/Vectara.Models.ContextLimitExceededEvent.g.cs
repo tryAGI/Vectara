@@ -44,8 +44,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.AgentEventBase PickAgentBase() => IsAgentBase
-            ? AgentBase!
+        public global::Vectara.AgentEventBase PickAgentBase() => AgentBase is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'AgentBase' but the value was {ToString()}.");
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.ContextLimitExceededEventVariant2 PickContextLimitExceededEventVariant2() => IsContextLimitExceededEventVariant2
-            ? ContextLimitExceededEventVariant2!
+        public global::Vectara.ContextLimitExceededEventVariant2 PickContextLimitExceededEventVariant2() => ContextLimitExceededEventVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'ContextLimitExceededEventVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -179,13 +179,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase && agentBase != null)
+            if (AgentBase is { } __value0 && agentBase != null)
             {
-                return agentBase(AgentBase!);
+                return agentBase(__value0);
             }
-            else if (IsContextLimitExceededEventVariant2 && contextLimitExceededEventVariant2 != null)
+            else if (ContextLimitExceededEventVariant2 is { } __value1 && contextLimitExceededEventVariant2 != null)
             {
-                return contextLimitExceededEventVariant2(ContextLimitExceededEventVariant2!);
+                return contextLimitExceededEventVariant2(__value1);
             }
 
             return default(TResult);
@@ -205,13 +205,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase)
+            if (AgentBase is { } __value0)
             {
-                agentBase?.Invoke(AgentBase!);
+                agentBase?.Invoke(__value0);
             }
-            else if (IsContextLimitExceededEventVariant2)
+            else if (ContextLimitExceededEventVariant2 is { } __value1)
             {
-                contextLimitExceededEventVariant2?.Invoke(ContextLimitExceededEventVariant2!);
+                contextLimitExceededEventVariant2?.Invoke(__value1);
             }
         }
 
@@ -228,13 +228,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAgentBase)
+            if (AgentBase is { } __value0)
             {
-                agentBase?.Invoke(AgentBase!);
+                agentBase?.Invoke(__value0);
             }
-            else if (IsContextLimitExceededEventVariant2)
+            else if (ContextLimitExceededEventVariant2 is { } __value1)
             {
-                contextLimitExceededEventVariant2?.Invoke(ContextLimitExceededEventVariant2!);
+                contextLimitExceededEventVariant2?.Invoke(__value1);
             }
         }
 

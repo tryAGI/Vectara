@@ -62,8 +62,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BulkDeleteAsyncResponse PickAsync() => IsAsync
-            ? Async!
+        public global::Vectara.BulkDeleteAsyncResponse PickAsync() => Async is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Async' but the value was {ToString()}.");
 
         /// <summary>
@@ -99,8 +99,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BulkDeleteSyncSuccessResponse PickSuccess() => IsSuccess
-            ? Success!
+        public global::Vectara.BulkDeleteSyncSuccessResponse PickSuccess() => Success is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Success' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -200,13 +200,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAsync && async != null)
+            if (Async is { } __value0 && async != null)
             {
-                return async(Async!);
+                return async(__value0);
             }
-            else if (IsSuccess && success != null)
+            else if (Success is { } __value1 && success != null)
             {
-                return success(Success!);
+                return success(__value1);
             }
 
             return default(TResult);
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAsync)
+            if (Async is { } __value0)
             {
-                async?.Invoke(Async!);
+                async?.Invoke(__value0);
             }
-            else if (IsSuccess)
+            else if (Success is { } __value1)
             {
-                success?.Invoke(Success!);
+                success?.Invoke(__value1);
             }
         }
 
@@ -249,13 +249,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsAsync)
+            if (Async is { } __value0)
             {
-                async?.Invoke(Async!);
+                async?.Invoke(__value0);
             }
-            else if (IsSuccess)
+            else if (Success is { } __value1)
             {
-                success?.Invoke(Success!);
+                success?.Invoke(__value1);
             }
         }
 

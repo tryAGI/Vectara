@@ -45,8 +45,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateConnectorConfigurationBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.CreateConnectorConfigurationBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CreateGchatConnectorConfigurationVariant2 PickCreateGchatConnectorConfigurationVariant2() => IsCreateGchatConnectorConfigurationVariant2
-            ? CreateGchatConnectorConfigurationVariant2!
+        public global::Vectara.CreateGchatConnectorConfigurationVariant2 PickCreateGchatConnectorConfigurationVariant2() => CreateGchatConnectorConfigurationVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CreateGchatConnectorConfigurationVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -180,13 +180,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCreateGchatConnectorConfigurationVariant2 && createGchatConnectorConfigurationVariant2 != null)
+            else if (CreateGchatConnectorConfigurationVariant2 is { } __value1 && createGchatConnectorConfigurationVariant2 != null)
             {
-                return createGchatConnectorConfigurationVariant2(CreateGchatConnectorConfigurationVariant2!);
+                return createGchatConnectorConfigurationVariant2(__value1);
             }
 
             return default(TResult);
@@ -206,13 +206,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateGchatConnectorConfigurationVariant2)
+            else if (CreateGchatConnectorConfigurationVariant2 is { } __value1)
             {
-                createGchatConnectorConfigurationVariant2?.Invoke(CreateGchatConnectorConfigurationVariant2!);
+                createGchatConnectorConfigurationVariant2?.Invoke(__value1);
             }
         }
 
@@ -229,13 +229,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCreateGchatConnectorConfigurationVariant2)
+            else if (CreateGchatConnectorConfigurationVariant2 is { } __value1)
             {
-                createGchatConnectorConfigurationVariant2?.Invoke(CreateGchatConnectorConfigurationVariant2!);
+                createGchatConnectorConfigurationVariant2?.Invoke(__value1);
             }
         }
 

@@ -47,8 +47,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.BearerAuth PickBearer() => IsBearer
-            ? Bearer!
+        public global::Vectara.BearerAuth PickBearer() => Bearer is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Bearer' but the value was {ToString()}.");
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.HeaderAuth PickHeader() => IsHeader
-            ? Header!
+        public global::Vectara.HeaderAuth PickHeader() => Header is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Header' but the value was {ToString()}.");
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.OAuthClientCredentialsAuth PickOauthClientCredentials() => IsOauthClientCredentials
-            ? OauthClientCredentials!
+        public global::Vectara.OAuthClientCredentialsAuth PickOauthClientCredentials() => OauthClientCredentials is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'OauthClientCredentials' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -250,17 +250,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBearer && bearer != null)
+            if (Bearer is { } __value0 && bearer != null)
             {
-                return bearer(Bearer!);
+                return bearer(__value0);
             }
-            else if (IsHeader && header != null)
+            else if (Header is { } __value1 && header != null)
             {
-                return header(Header!);
+                return header(__value1);
             }
-            else if (IsOauthClientCredentials && oauthClientCredentials != null)
+            else if (OauthClientCredentials is { } __value2 && oauthClientCredentials != null)
             {
-                return oauthClientCredentials(OauthClientCredentials!);
+                return oauthClientCredentials(__value2);
             }
 
             return default(TResult);
@@ -282,17 +282,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBearer)
+            if (Bearer is { } __value0)
             {
-                bearer?.Invoke(Bearer!);
+                bearer?.Invoke(__value0);
             }
-            else if (IsHeader)
+            else if (Header is { } __value1)
             {
-                header?.Invoke(Header!);
+                header?.Invoke(__value1);
             }
-            else if (IsOauthClientCredentials)
+            else if (OauthClientCredentials is { } __value2)
             {
-                oauthClientCredentials?.Invoke(OauthClientCredentials!);
+                oauthClientCredentials?.Invoke(__value2);
             }
         }
 
@@ -310,17 +310,17 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBearer)
+            if (Bearer is { } __value0)
             {
-                bearer?.Invoke(Bearer!);
+                bearer?.Invoke(__value0);
             }
-            else if (IsHeader)
+            else if (Header is { } __value1)
             {
-                header?.Invoke(Header!);
+                header?.Invoke(__value1);
             }
-            else if (IsOauthClientCredentials)
+            else if (OauthClientCredentials is { } __value2)
             {
-                oauthClientCredentials?.Invoke(OauthClientCredentials!);
+                oauthClientCredentials?.Invoke(__value2);
             }
         }
 

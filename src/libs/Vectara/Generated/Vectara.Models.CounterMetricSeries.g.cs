@@ -42,8 +42,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.MetricSeriesBase PickBase() => IsBase
-            ? Base!
+        public global::Vectara.MetricSeriesBase PickBase() => Base is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Base' but the value was {ToString()}.");
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.CounterMetricSeriesVariant2 PickCounterMetricSeriesVariant2() => IsCounterMetricSeriesVariant2
-            ? CounterMetricSeriesVariant2!
+        public global::Vectara.CounterMetricSeriesVariant2 PickCounterMetricSeriesVariant2() => CounterMetricSeriesVariant2 is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'CounterMetricSeriesVariant2' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -177,13 +177,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase && @base != null)
+            if (Base is { } __value0 && @base != null)
             {
-                return @base(Base!);
+                return @base(__value0);
             }
-            else if (IsCounterMetricSeriesVariant2 && counterMetricSeriesVariant2 != null)
+            else if (CounterMetricSeriesVariant2 is { } __value1 && counterMetricSeriesVariant2 != null)
             {
-                return counterMetricSeriesVariant2(CounterMetricSeriesVariant2!);
+                return counterMetricSeriesVariant2(__value1);
             }
 
             return default(TResult);
@@ -203,13 +203,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCounterMetricSeriesVariant2)
+            else if (CounterMetricSeriesVariant2 is { } __value1)
             {
-                counterMetricSeriesVariant2?.Invoke(CounterMetricSeriesVariant2!);
+                counterMetricSeriesVariant2?.Invoke(__value1);
             }
         }
 
@@ -226,13 +226,13 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsBase)
+            if (Base is { } __value0)
             {
-                @base?.Invoke(Base!);
+                @base?.Invoke(__value0);
             }
-            else if (IsCounterMetricSeriesVariant2)
+            else if (CounterMetricSeriesVariant2 is { } __value1)
             {
-                counterMetricSeriesVariant2?.Invoke(CounterMetricSeriesVariant2!);
+                counterMetricSeriesVariant2?.Invoke(__value1);
             }
         }
 

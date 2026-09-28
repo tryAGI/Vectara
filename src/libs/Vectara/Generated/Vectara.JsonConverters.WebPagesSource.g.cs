@@ -68,19 +68,19 @@ namespace Vectara.JsonConverters
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SitemapPagesSource), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SitemapPagesSource?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SitemapPagesSource).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Sitemap!, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickSitemap(), typeInfo);
             }
             else if (value.IsCrawl)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CrawlPagesSource), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CrawlPagesSource> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CrawlPagesSource).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.Crawl!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickCrawl(), typeInfo);
             }
             else if (value.IsSitemapCrawl)
             {
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SitemapCrawlPagesSource), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SitemapCrawlPagesSource> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SitemapCrawlPagesSource).Name}");
-                global::System.Text.Json.JsonSerializer.Serialize(writer, value.SitemapCrawl!.Value, typeInfo);
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickSitemapCrawl(), typeInfo);
             }
         }
     }

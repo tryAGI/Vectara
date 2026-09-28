@@ -54,8 +54,8 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
-        public global::Vectara.RoutedAliasPolicy PickRouted() => IsRouted
-            ? Routed!
+        public global::Vectara.RoutedAliasPolicy PickRouted() => Routed is { } value
+            ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Routed' but the value was {ToString()}.");
         /// <summary>
         ///
@@ -127,9 +127,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRouted && routed != null)
+            if (Routed is { } __value0 && routed != null)
             {
-                return routed(Routed!);
+                return routed(__value0);
             }
 
             return default(TResult);
@@ -147,9 +147,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRouted)
+            if (Routed is { } __value0)
             {
-                routed?.Invoke(Routed!);
+                routed?.Invoke(__value0);
             }
         }
 
@@ -165,9 +165,9 @@ namespace Vectara
                 Validate();
             }
 
-            if (IsRouted)
+            if (Routed is { } __value0)
             {
-                routed?.Invoke(Routed!);
+                routed?.Invoke(__value0);
             }
         }
 
