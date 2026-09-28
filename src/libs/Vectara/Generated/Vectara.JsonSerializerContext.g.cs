@@ -1,19 +1,14 @@
 
 #nullable enable
 
-#pragma warning disable CS0618 // Type or member is obsolete
-#pragma warning disable CS3016 // Arrays as attribute arguments is not CLS-compliant
-
 namespace Vectara
 {
     /// <summary>
     ///
     /// </summary>
     [global::System.Text.Json.Serialization.JsonSourceGenerationOptions(
-        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-        Converters = new global::System.Type[]
-        {
-        })]
+        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+    )]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, string>), TypeInfoPropertyName = "DictionaryStringString_System_Collections_Generic_Dictionary_string_string")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.Dictionary<string, object>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<object>), TypeInfoPropertyName = "SystemCollectionsGeneric_ObjectList")]
@@ -94,9 +89,13 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateDocumentRequestDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateDocumentRequestDiscriminatorType), TypeInfoPropertyName = "CreateDocumentRequestDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteAsyncResponse))]
+    #pragma warning disable CS0618 // This registration names a deprecated API model.
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteAsyncResponseResponseType), TypeInfoPropertyName = "BulkDeleteAsyncResponseResponseType2")]
+    #pragma warning restore CS0618
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteSyncSuccessResponse))]
+    #pragma warning disable CS0618 // This registration names a deprecated API model.
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteSyncSuccessResponseResponseType), TypeInfoPropertyName = "BulkDeleteSyncSuccessResponseResponseType2")]
+    #pragma warning restore CS0618
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponse), TypeInfoPropertyName = "BulkDeleteDocumentsResponse2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponseDiscriminator))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType), TypeInfoPropertyName = "BulkDeleteDocumentsResponseDiscriminatorType2")]
@@ -227,7 +226,9 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.LLMAuthDiscriminatorType), TypeInfoPropertyName = "LLMAuthDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Prompt))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.Llm))]
+    #pragma warning disable CS0618 // This registration names a deprecated API model.
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Prompt>))]
+    #pragma warning restore CS0618
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.ListLLMsResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::Vectara.Llm>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RemoteAuth), TypeInfoPropertyName = "RemoteAuth2")]
@@ -522,10 +523,8 @@ namespace Vectara
     ///
     /// </summary>
     [global::System.Text.Json.Serialization.JsonSourceGenerationOptions(
-        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-        Converters = new global::System.Type[]
-        {
-        })]
+        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+    )]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolSuccessResponseValidationResults))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolErrorResponse))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.TestToolErrorResponseError))]
@@ -1034,10 +1033,8 @@ namespace Vectara
     ///
     /// </summary>
     [global::System.Text.Json.Serialization.JsonSourceGenerationOptions(
-        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-        Converters = new global::System.Type[]
-        {
-        })]
+        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+    )]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventStatus), TypeInfoPropertyName = "RecordProcessingEventStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEvent), TypeInfoPropertyName = "RecordProcessingEvent2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.RecordProcessingEventVariant2))]
@@ -1173,8 +1170,12 @@ namespace Vectara
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CoreDocumentPartImagePartMode?), TypeInfoPropertyName = "NullableCoreDocumentPartImagePartMode2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateDocumentRequest?), TypeInfoPropertyName = "NullableCreateDocumentRequest2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.CreateDocumentRequestDiscriminatorType?), TypeInfoPropertyName = "NullableCreateDocumentRequestDiscriminatorType2")]
+    #pragma warning disable CS0618 // This registration names a deprecated API model.
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteAsyncResponseResponseType?), TypeInfoPropertyName = "NullableBulkDeleteAsyncResponseResponseType2")]
+    #pragma warning restore CS0618
+    #pragma warning disable CS0618 // This registration names a deprecated API model.
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteSyncSuccessResponseResponseType?), TypeInfoPropertyName = "NullableBulkDeleteSyncSuccessResponseResponseType2")]
+    #pragma warning restore CS0618
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponse?), TypeInfoPropertyName = "NullableBulkDeleteDocumentsResponse2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkDeleteDocumentsResponseDiscriminatorType?), TypeInfoPropertyName = "NullableBulkDeleteDocumentsResponseDiscriminatorType2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::Vectara.BulkUpdateDocumentMetadataRequestStrategy?), TypeInfoPropertyName = "NullableBulkUpdateDocumentMetadataRequestStrategy2")]
@@ -1546,10 +1547,8 @@ namespace Vectara
     ///
     /// </summary>
     [global::System.Text.Json.Serialization.JsonSourceGenerationOptions(
-        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-        Converters = new global::System.Type[]
-        {
-        })]
+        DefaultIgnoreCondition = global::System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+    )]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.CoreDocumentPart>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.StructuredDocumentSection>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.List<global::Vectara.FieldQuery>))]
