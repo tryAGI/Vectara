@@ -72,11 +72,7 @@ namespace Vectara
         public object? SessionMetadata { get; set; }
 
         /// <summary>
-        /// Enables the widget's sign-in affordance and names the identity provider it authenticates users against.<br/>
-        /// The host page supplies a token minted by the referenced trusted token issuer, and the widget presents it as the bearer credential on end-user session requests.<br/>
-        /// The platform verifies the token by its `iss` claim against the globally-unique issuer registration — never against this connector — so the token stands on its own: it signs the caller in as an end user across the customer's aliases, not this widget's alone.<br/>
-        /// The platform accepts the token when its signature verifies against the issuer's JWKS and it carries an `email` claim.<br/>
-        /// The referenced registration must exist, or the connector write is rejected with `400`.
+        /// The sign-in to apply. Omitted leaves the current sign-in unchanged, and `null` removes it so the widget no longer offers sign-in.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("end_user_sign_in")]
         public global::Vectara.WidgetSignIn? EndUserSignIn { get; set; }
@@ -134,11 +130,7 @@ namespace Vectara
         /// Example: {"instance":"conversational-ai"}
         /// </param>
         /// <param name="endUserSignIn">
-        /// Enables the widget's sign-in affordance and names the identity provider it authenticates users against.<br/>
-        /// The host page supplies a token minted by the referenced trusted token issuer, and the widget presents it as the bearer credential on end-user session requests.<br/>
-        /// The platform verifies the token by its `iss` claim against the globally-unique issuer registration — never against this connector — so the token stands on its own: it signs the caller in as an end user across the customer's aliases, not this widget's alone.<br/>
-        /// The platform accepts the token when its signature verifies against the issuer's JWKS and it carries an `email` claim.<br/>
-        /// The referenced registration must exist, or the connector write is rejected with `400`.
+        /// The sign-in to apply. Omitted leaves the current sign-in unchanged, and `null` removes it so the widget no longer offers sign-in.
         /// </param>
         /// <param name="hiddenOutputTypes">
         /// Present on the read view for consistency with other connector types; widget connectors ignore it and control end-user visibility through `revealed_output_types`. Accepted on update so a read-modify-write round trip is not rejected.<br/>

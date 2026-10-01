@@ -9,19 +9,19 @@ namespace Vectara
     public sealed partial class CorpusCustomDimension
     {
         /// <summary>
-        /// The name of the custom dimension.<br/>
-        /// Example: importance
+        /// The name of the custom dimension. At most 8 characters.<br/>
+        /// Example: priority
         /// </summary>
-        /// <example>importance</example>
+        /// <example>priority</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("name")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Name { get; set; }
 
         /// <summary>
         /// Description of the custom dimension.<br/>
-        /// Example: Product importance.
+        /// Example: Product priority.
         /// </summary>
-        /// <example>Product importance.</example>
+        /// <example>Product priority.</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
 
@@ -53,12 +53,12 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="CorpusCustomDimension" /> class.
         /// </summary>
         /// <param name="name">
-        /// The name of the custom dimension.<br/>
-        /// Example: importance
+        /// The name of the custom dimension. At most 8 characters.<br/>
+        /// Example: priority
         /// </param>
         /// <param name="description">
         /// Description of the custom dimension.<br/>
-        /// Example: Product importance.
+        /// Example: Product priority.
         /// </param>
         /// <param name="indexingDefault">
         /// The default value of a custom dimension on a document part. This value applies when the custom dimension value is not specified at indexing time. A value of 0 means that the custom dimension is not considered.<br/>
