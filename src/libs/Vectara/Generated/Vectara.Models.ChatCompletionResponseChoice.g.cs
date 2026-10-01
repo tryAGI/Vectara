@@ -23,6 +23,14 @@ namespace Vectara
         public required global::Vectara.ChatCompletionResponseMessage Message { get; set; }
 
         /// <summary>
+        /// Why the model stopped. `stop` means the model finished, and `length` means it ran out of output tokens and the content is incomplete. A `json_schema` response that is cut off always reports `length`. Other values can appear.<br/>
+        /// Example: stop
+        /// </summary>
+        /// <example>stop</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("finish_reason")]
+        public string? FinishReason { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -37,15 +45,21 @@ namespace Vectara
         /// <param name="message">
         /// A message in the chat completion response from the assistant.
         /// </param>
+        /// <param name="finishReason">
+        /// Why the model stopped. `stop` means the model finished, and `length` means it ran out of output tokens and the content is incomplete. A `json_schema` response that is cut off always reports `length`. Other values can appear.<br/>
+        /// Example: stop
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ChatCompletionResponseChoice(
             int index,
-            global::Vectara.ChatCompletionResponseMessage message)
+            global::Vectara.ChatCompletionResponseMessage message,
+            string? finishReason)
         {
             this.Index = index;
             this.Message = message ?? throw new global::System.ArgumentNullException(nameof(message));
+            this.FinishReason = finishReason;
         }
 
         /// <summary>

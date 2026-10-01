@@ -5871,21 +5871,25 @@ paths:
         \ the full conversation so far.\n\n### Streaming responses\n\nIf the `stream`\
         \ parameter is set to `true`, the response arrives as a series of text/event-stream\
         \ parts (also known as chunks). Each chunk includes a `delta` field with the\
-        \ incremental message update.\n\n### Example request\n\nThis example sends\
-        \ a simple chat conversation to the API, asking the model for the capital\
-        \ of France. The request includes a `system` message, a `user` message, and\
-        \ a temperature setting for response variability.\n```json\n{\n  \"model\"\
-        : \"chat-model-001\",\"messages\": [{ \"role\": \"system\", \"content\": \"\
-        You are a helpful assistant.\" },\n  { \"role\": \"user\", \"content\": \"\
-        What is the capital of France?\" }\n],\n\"temperature\": 0.7,\n\"stream\"\
-        : false\n}\n```\n\n### Example response\nThe response includes the model's\
-        \ `assistant` reply, along with token usage statistics. In this example, the\
-        \ model returns a direct answer to a user question.\n```json\n{\n\"id\": \"\
-        chatcmpl-abc123\",\n\"object\": \"chat.completion\",\n\"created\": 1712454830,\n\
-        \"model\": \"chat-model-001\",\n\"choices\": [\n  {\n    \"index\": 0,\n \
-        \   \"message\": {\n      \"role\": \"assistant\",\n      \"content\": \"\
-        The capital of France is Paris.\"\n  },\n    \"finish_reason\": \"stop\"\n\
-        \  }\n],\n\"usage\": {\n  \"prompt_tokens\": 21,\n  \"completion_tokens\"\
+        \ incremental message update.\n\n### Finish reason\n\nEach choice has a `finish_reason`.\
+        \ `stop` means the model finished, and `length` means it ran out of output\
+        \ tokens and the content is incomplete. A `json_schema` response that is cut\
+        \ off always reports `length`. Other values can appear. A streamed response\
+        \ carries it on its last chunk. To allow a longer output, set `max_tokens`\
+        \ in the request body.\n\n### Example request\n\nThis example sends a simple\
+        \ chat conversation to the API, asking the model for the capital of France.\
+        \ The request includes a `system` message, a `user` message, and a temperature\
+        \ setting for response variability.\n```json\n{\n  \"model\": \"chat-model-001\"\
+        ,\"messages\": [{ \"role\": \"system\", \"content\": \"You are a helpful assistant.\"\
+        \ },\n  { \"role\": \"user\", \"content\": \"What is the capital of France?\"\
+        \ }\n],\n\"temperature\": 0.7,\n\"stream\": false\n}\n```\n\n### Example response\n\
+        The response includes the model's `assistant` reply, along with token usage\
+        \ statistics. In this example, the model returns a direct answer to a user\
+        \ question.\n```json\n{\n\"id\": \"chatcmpl-abc123\",\n\"object\": \"chat.completion\"\
+        ,\n\"created\": 1712454830,\n\"model\": \"chat-model-001\",\n\"choices\":\
+        \ [\n  {\n    \"index\": 0,\n    \"message\": {\n      \"role\": \"assistant\"\
+        ,\n      \"content\": \"The capital of France is Paris.\"\n  },\n    \"finish_reason\"\
+        : \"stop\"\n  }\n],\n\"usage\": {\n  \"prompt_tokens\": 21,\n  \"completion_tokens\"\
         : 9,\n  \"total_tokens\": 30\n  } \n} \n```\n"
       operationId: createChatCompletion
       parameters:
@@ -16599,6 +16603,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListMetricsResponse'
+        '403':
+          description: Credentials are not associated with a customer, or permissions
+            do not allow listing metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /v2/metrics/{metric_name}:
     get:
       tags:
@@ -16708,6 +16719,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
+        '403':
+          description: Credentials are not associated with a customer, or permissions
+            do not allow querying metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
           description: The named metric is not registered.
         '422':
@@ -17585,13 +17603,14 @@ components:
         Custom dimensions allow arbitrary modification of the search score.
       properties:
         name:
-          description: The name of the custom dimension.
+          description: The name of the custom dimension. At most 8 characters.
           type: string
-          example: importance
+          maxLength: 8
+          example: priority
         description:
           description: Description of the custom dimension.
           type: string
-          example: Product importance.
+          example: Product priority.
         indexing_default:
           description: The default value of a custom dimension on a document part.
             This value applies when the custom dimension value is not specified at
@@ -22728,9 +22747,15 @@ components:
 
         - `text`: Plain text responses (default).
 
-        - `json_object`: Ensures the response is valid JSON.
+        - `json_object`: The model returns valid JSON.
 
-        - `json_schema`: Ensures the response conforms to the provided JSON schema.
+        - `json_schema`: The model returns JSON that conforms to the provided JSON
+        schema.
+
+
+        When `type` is `json_schema` and the model runs out of output tokens, the
+        response is a `200` with `finish_reason` set to `length`. The content is the
+        partial output and can be incomplete JSON that does not match the schema.
 
         '
       type: object
@@ -22801,6 +22826,13 @@ components:
           description: The index of the choice in the array of choices.
         message:
           $ref: '#/components/schemas/ChatCompletionResponseMessage'
+        finish_reason:
+          type: string
+          description: Why the model stopped. `stop` means the model finished, and
+            `length` means it ran out of output tokens and the content is incomplete.
+            A `json_schema` response that is cut off always reports `length`. Other
+            values can appear.
+          example: stop
       additionalProperties: true
     CreateChatCompletionResponse:
       description: Response object containing the generated chat completion.
@@ -22843,6 +22875,13 @@ components:
           description: The index of the choice in the array of choices.
         delta:
           $ref: '#/components/schemas/ChatCompletionStreamResponseDelta'
+        finish_reason:
+          type: string
+          description: Why the model stopped. Only the last chunk of a stream carries
+            it. `stop` means the model finished, and `length` means it ran out of
+            output tokens and the content is incomplete. A `json_schema` response
+            that is cut off always reports `length`. Other values can appear.
+          example: stop
       additionalProperties: true
     CreateChatCompletionStreamResponse:
       description: The response object for streaming chat completions in chunks.
@@ -24617,6 +24656,9 @@ components:
           items:
             type: string
         execution_configuration:
+          description: 'Deprecated: read the tool''s top-level `execution_configuration`
+            instead.'
+          deprecated: true
           $ref: '#/components/schemas/ExecutionConfiguration'
       required:
       - language
@@ -26209,6 +26251,14 @@ components:
             example: python
           function_definition:
             $ref: '#/components/schemas/FunctionDefinition'
+          execution_configuration:
+            description: 'The execution limits applied when this tool''s function
+              runs, matching the shape accepted by the
+
+              create and update requests.
+
+              '
+            $ref: '#/components/schemas/ExecutionConfiguration'
           tool_configurations:
             description: 'Named tool configurations private to this lambda tool, each
               callable from the tool''s code as `tool.<name>(...)`. They do not appear
@@ -32398,7 +32448,13 @@ components:
           example:
             instance: conversational-ai
         end_user_sign_in:
-          $ref: '#/components/schemas/WidgetSignIn'
+          description: 'The sign-in to apply. Omitted leaves the current sign-in unchanged,
+            and `null` removes it so the widget no longer offers sign-in.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/WidgetSignIn'
+          nullable: true
         hidden_output_types:
           description: Present on the read view for consistency with other connector
             types; widget connectors ignore it and control end-user visibility through

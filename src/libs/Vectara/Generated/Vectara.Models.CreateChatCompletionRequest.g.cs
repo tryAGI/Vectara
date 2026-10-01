@@ -32,8 +32,9 @@ namespace Vectara
         /// <summary>
         /// Specifies the format the model must output.<br/>
         /// - `text`: Plain text responses (default).<br/>
-        /// - `json_object`: Ensures the response is valid JSON.<br/>
-        /// - `json_schema`: Ensures the response conforms to the provided JSON schema.
+        /// - `json_object`: The model returns valid JSON.<br/>
+        /// - `json_schema`: The model returns JSON that conforms to the provided JSON schema.<br/>
+        /// When `type` is `json_schema` and the model runs out of output tokens, the response is a `200` with `finish_reason` set to `length`. The content is the partial output and can be incomplete JSON that does not match the schema.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("response_format")]
         public global::Vectara.ResponseFormat? ResponseFormat { get; set; }
@@ -60,8 +61,9 @@ namespace Vectara
         /// <param name="responseFormat">
         /// Specifies the format the model must output.<br/>
         /// - `text`: Plain text responses (default).<br/>
-        /// - `json_object`: Ensures the response is valid JSON.<br/>
-        /// - `json_schema`: Ensures the response conforms to the provided JSON schema.
+        /// - `json_object`: The model returns valid JSON.<br/>
+        /// - `json_schema`: The model returns JSON that conforms to the provided JSON schema.<br/>
+        /// When `type` is `json_schema` and the model runs out of output tokens, the response is a `200` with `finish_reason` set to `length`. The content is the partial output and can be incomplete JSON that does not match the schema.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

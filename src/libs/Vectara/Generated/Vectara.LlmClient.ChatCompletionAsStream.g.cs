@@ -63,6 +63,8 @@ namespace Vectara
         /// The request includes a series of chat messages and optional parameters that control the behavior and structure of the model response. The request body must include the `messages` parameter. This is an array of message objects (role, content) that represents the full conversation so far.<br/>
         /// ### Streaming responses<br/>
         /// If the `stream` parameter is set to `true`, the response arrives as a series of text/event-stream parts (also known as chunks). Each chunk includes a `delta` field with the incremental message update.<br/>
+        /// ### Finish reason<br/>
+        /// Each choice has a `finish_reason`. `stop` means the model finished, and `length` means it ran out of output tokens and the content is incomplete. A `json_schema` response that is cut off always reports `length`. Other values can appear. A streamed response carries it on its last chunk. To allow a longer output, set `max_tokens` in the request body.<br/>
         /// ### Example request<br/>
         /// This example sends a simple chat conversation to the API, asking the model for the capital of France. The request includes a `system` message, a `user` message, and a temperature setting for response variability.<br/>
         /// ```json<br/>
@@ -475,6 +477,8 @@ namespace Vectara
         /// The request includes a series of chat messages and optional parameters that control the behavior and structure of the model response. The request body must include the `messages` parameter. This is an array of message objects (role, content) that represents the full conversation so far.<br/>
         /// ### Streaming responses<br/>
         /// If the `stream` parameter is set to `true`, the response arrives as a series of text/event-stream parts (also known as chunks). Each chunk includes a `delta` field with the incremental message update.<br/>
+        /// ### Finish reason<br/>
+        /// Each choice has a `finish_reason`. `stop` means the model finished, and `length` means it ran out of output tokens and the content is incomplete. A `json_schema` response that is cut off always reports `length`. Other values can appear. A streamed response carries it on its last chunk. To allow a longer output, set `max_tokens` in the request body.<br/>
         /// ### Example request<br/>
         /// This example sends a simple chat conversation to the API, asking the model for the capital of France. The request includes a `system` message, a `user` message, and a temperature setting for response variability.<br/>
         /// ```json<br/>
@@ -523,8 +527,9 @@ namespace Vectara
         /// <param name="responseFormat">
         /// Specifies the format the model must output.<br/>
         /// - `text`: Plain text responses (default).<br/>
-        /// - `json_object`: Ensures the response is valid JSON.<br/>
-        /// - `json_schema`: Ensures the response conforms to the provided JSON schema.
+        /// - `json_object`: The model returns valid JSON.<br/>
+        /// - `json_schema`: The model returns JSON that conforms to the provided JSON schema.<br/>
+        /// When `type` is `json_schema` and the model runs out of output tokens, the response is a `200` with `finish_reason` set to `length`. The content is the partial output and can be incomplete JSON that does not match the schema.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
