@@ -27,7 +27,8 @@ namespace Vectara
         /// By default, the platform uses **sentence-based chunking**, which provides optimal retrieval accuracy for most datasets.<br/>
         /// For larger documents or performance-tuned ingestion, you can explicitly set a `chunking_strategy`:<br/>
         /// - `sentence_chunking_strategy` — creates one chunk per sentence (default).<br/>
-        /// - `max_chars_chunking_strategy` — creates larger chunks up to a specified character limit (`max_chars_per_chunk`), balancing retrieval speed with contextual coherence.
+        /// - `max_chars_chunking_strategy` — creates larger chunks up to a specified character limit (`max_chars_per_chunk`), balancing retrieval speed with contextual coherence.<br/>
+        /// For content that mixes prose with code, set `preserve_code_blocks: true` on either strategy to emit markdown code blocks as their own chunks, prefixed with the section title, while the surrounding prose is chunked by the strategy as usual. Example: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":1024,"preserve_code_blocks":true}`
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -74,7 +75,8 @@ namespace Vectara
         /// By default, the platform uses **sentence-based chunking**, which provides optimal retrieval accuracy for most datasets.<br/>
         /// For larger documents or performance-tuned ingestion, you can explicitly set a `chunking_strategy`:<br/>
         /// - `sentence_chunking_strategy` — creates one chunk per sentence (default).<br/>
-        /// - `max_chars_chunking_strategy` — creates larger chunks up to a specified character limit (`max_chars_per_chunk`), balancing retrieval speed with contextual coherence.
+        /// - `max_chars_chunking_strategy` — creates larger chunks up to a specified character limit (`max_chars_per_chunk`), balancing retrieval speed with contextual coherence.<br/>
+        /// For content that mixes prose with code, set `preserve_code_blocks: true` on either strategy to emit markdown code blocks as their own chunks, prefixed with the section title, while the surrounding prose is chunked by the strategy as usual. Example: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":1024,"preserve_code_blocks":true}`
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

@@ -34,7 +34,8 @@ namespace Vectara
         /// - **chunking_strategy** (optional): Controls how extracted text is chunked.  <br/>
         ///   Defaults to sentence-based chunking (one chunk per sentence).  <br/>
         ///   Example: `{"type":"sentence_chunking_strategy"}`. <br/>
-        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`<br/>
+        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`. <br/>
+        ///   Setting `preserve_code_blocks: true` returns a 400: file extraction does not preserve code blocks. For code-heavy content, use the [Create Corpus Document API](/docs/rest-api/create-corpus-document) with markdown text.<br/>
         /// - **table_extraction_config** (optional): Enables extraction of tables from supported file types such as PDFs.  <br/>
         ///   Example: `{"extract_tables": true}`<br/>
         /// - **file** (required): The file to upload.<br/>
@@ -116,7 +117,8 @@ namespace Vectara
         /// - **chunking_strategy** (optional): Controls how extracted text is chunked.  <br/>
         ///   Defaults to sentence-based chunking (one chunk per sentence).  <br/>
         ///   Example: `{"type":"sentence_chunking_strategy"}`. <br/>
-        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`<br/>
+        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`. <br/>
+        ///   Setting `preserve_code_blocks: true` returns a 400: file extraction does not preserve code blocks. For code-heavy content, use the [Create Corpus Document API](/docs/rest-api/create-corpus-document) with markdown text.<br/>
         /// - **table_extraction_config** (optional): Enables extraction of tables from supported file types such as PDFs.  <br/>
         ///   Example: `{"extract_tables": true}`<br/>
         /// - **file** (required): The file to upload.<br/>
@@ -198,7 +200,8 @@ namespace Vectara
         /// - **chunking_strategy** (optional): Controls how extracted text is chunked.  <br/>
         ///   Defaults to sentence-based chunking (one chunk per sentence).  <br/>
         ///   Example: `{"type":"sentence_chunking_strategy"}`. <br/>
-        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`<br/>
+        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`. <br/>
+        ///   Setting `preserve_code_blocks: true` returns a 400: file extraction does not preserve code blocks. For code-heavy content, use the [Create Corpus Document API](/docs/rest-api/create-corpus-document) with markdown text.<br/>
         /// - **table_extraction_config** (optional): Enables extraction of tables from supported file types such as PDFs.  <br/>
         ///   Example: `{"extract_tables": true}`<br/>
         /// - **file** (required): The file to upload.<br/>
@@ -300,7 +303,8 @@ namespace Vectara
         /// - **chunking_strategy** (optional): Controls how extracted text is chunked.  <br/>
         ///   Defaults to sentence-based chunking (one chunk per sentence).  <br/>
         ///   Example: `{"type":"sentence_chunking_strategy"}`. <br/>
-        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`<br/>
+        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`. <br/>
+        ///   Setting `preserve_code_blocks: true` returns a 400: file extraction does not preserve code blocks. For code-heavy content, use the [Create Corpus Document API](/docs/rest-api/create-corpus-document) with markdown text.<br/>
         /// - **table_extraction_config** (optional): Enables extraction of tables from supported file types such as PDFs.  <br/>
         ///   Example: `{"extract_tables": true}`<br/>
         /// - **file** (required): The file to upload.<br/>
@@ -401,7 +405,8 @@ namespace Vectara
         /// - **chunking_strategy** (optional): Controls how extracted text is chunked.  <br/>
         ///   Defaults to sentence-based chunking (one chunk per sentence).  <br/>
         ///   Example: `{"type":"sentence_chunking_strategy"}`. <br/>
-        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`<br/>
+        ///   Example for max character chunking: `{"type":"max_chars_chunking_strategy","max_chars_per_chunk":512}`. <br/>
+        ///   Setting `preserve_code_blocks: true` returns a 400: file extraction does not preserve code blocks. For code-heavy content, use the [Create Corpus Document API](/docs/rest-api/create-corpus-document) with markdown text.<br/>
         /// - **table_extraction_config** (optional): Enables extraction of tables from supported file types such as PDFs.  <br/>
         ///   Example: `{"extract_tables": true}`<br/>
         /// - **file** (required): The file to upload.<br/>
