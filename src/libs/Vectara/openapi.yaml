@@ -1645,10 +1645,13 @@ paths:
         \  \n  Defaults to sentence-based chunking (one chunk per sentence).  \n \
         \ Example: `{\"type\":\"sentence_chunking_strategy\"}`. \n  Example for max\
         \ character chunking: `{\"type\":\"max_chars_chunking_strategy\",\"max_chars_per_chunk\"\
-        :512}`\n- **table_extraction_config** (optional): Enables extraction of tables\
-        \ from supported file types such as PDFs.  \n  Example: `{\"extract_tables\"\
-        : true}`\n- **file** (required): The file to upload.\n- **filename** (required):\
-        \ The desired document ID, specified within the file upload field.\n\nAuthenticate\
+        :512}`. \n  Setting `preserve_code_blocks: true` returns a 400: file extraction\
+        \ does not preserve code blocks. For code-heavy content, use the [Create Corpus\
+        \ Document API](/docs/rest-api/create-corpus-document) with markdown text.\n\
+        - **table_extraction_config** (optional): Enables extraction of tables from\
+        \ supported file types such as PDFs.  \n  Example: `{\"extract_tables\": true}`\n\
+        - **file** (required): The file to upload.\n- **filename** (required): The\
+        \ desired document ID, specified within the file upload field.\n\nAuthenticate\
         \ the request with the `x-api-key` header or an OAuth bearer token:\n\n```curl\n\
         \\$ curl -L -X POST 'https://api.vectara.io/v2/corpora/:corpus_key/upload_file'\
         \ \\\n-H 'Content-Type: multipart/form-data' \\\n-H 'Accept: application/json'\
@@ -1815,7 +1818,11 @@ paths:
         - `sentence_chunking_strategy` \u2014 creates one chunk per sentence (default).\n\
         - `max_chars_chunking_strategy` \u2014 creates larger chunks up to a specified\
         \ character limit (`max_chars_per_chunk`), balancing retrieval speed with\
-        \ contextual coherence.\n"
+        \ contextual coherence.\n\nFor content that mixes prose with code, set `preserve_code_blocks:\
+        \ true` on either strategy to emit markdown code blocks as their own chunks,\
+        \ prefixed with the section title, while the surrounding prose is chunked\
+        \ by the strategy as usual. Example: `{\"type\":\"max_chars_chunking_strategy\"\
+        ,\"max_chars_per_chunk\":1024,\"preserve_code_blocks\":true}`\n"
       operationId: createCorpusDocument
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
@@ -18080,6 +18087,21 @@ components:
           type: integer
           format: int32
           minimum: 100
+        preserve_code_blocks:
+          description: 'Keeps markdown code blocks intact. Code blocks in the section
+            text (fenced with ``` or ~~~, or indented by four spaces) become their
+            own chunks. A code block longer than the lesser of `max_chars_per_chunk`
+            and 4096 characters splits at line boundaries, preferring blank lines;
+            a single line that does not fit together with the chunk''s prefix and
+            fence markers is split mid-line. Each code chunk is prefixed with the
+            section title, and the first chunk of a block also with the paragraph
+            that introduces it. Code chunks carry `"vectara": {"part_kind": "code"}`
+            in their metadata, merged into any `vectara` object the section metadata
+            already has. Text outside code blocks is chunked as usual by this strategy.
+            Supported by `createCorpusDocument` for structured documents; `uploadFile`
+            returns a 400 with a field error on `chunking_strategy` when this is `true`.'
+          type: boolean
+          default: false
       required:
       - max_chars_per_chunk
       x-vectaraParents:
@@ -18094,6 +18116,21 @@ components:
             creates one chunk per sentence.
           type: string
           default: sentence_chunking_strategy
+        preserve_code_blocks:
+          description: 'Keeps markdown code blocks intact. Code blocks in the section
+            text (fenced with ``` or ~~~, or indented by four spaces) become their
+            own chunks. A code block longer than 4096 characters splits at line boundaries,
+            preferring blank lines; a single line that does not fit together with
+            the chunk''s prefix and fence markers is split mid-line. Each code chunk
+            is prefixed with the section title, and the first chunk of a block also
+            with the paragraph that introduces it. Code chunks carry `"vectara": {"part_kind":
+            "code"}` in their metadata, merged into any `vectara` object the section
+            metadata already has. Text outside code blocks is chunked as usual by
+            this strategy. Supported by `createCorpusDocument` for structured documents;
+            `uploadFile` returns a 400 with a field error on `chunking_strategy` when
+            this is `true`.'
+          type: boolean
+          default: false
       x-vectaraParents:
       - ChunkingStrategy
     ChunkingStrategy:
