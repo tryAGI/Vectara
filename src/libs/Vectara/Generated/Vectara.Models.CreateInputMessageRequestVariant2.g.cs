@@ -24,6 +24,12 @@ namespace Vectara
         public required global::System.Collections.Generic.IList<global::Vectara.AgentInput> Messages { get; set; }
 
         /// <summary>
+        /// Artifacts from other sessions to share into this session with the input. Each is recorded in an `artifact_upload` event before the input, so the agent sees it like an uploaded file. The caller must be allowed to read the artifacts of the agent each one comes from, and each artifact must be in the session named for it. If a caller may not share an artifact, the request is rejected with 403; if an artifact is not in its named session, with 404. Either way no artifact is shared and no input is recorded.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("artifacts")]
+        public global::System.Collections.Generic.IList<global::Vectara.SessionArtifactReference>? Artifacts { get; set; }
+
+        /// <summary>
         /// An event ID cursor. When provided and the session is currently running, the response includes all events created after this event ID. The new input is queued and processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
         /// Example: start
         /// </summary>
@@ -66,6 +72,9 @@ namespace Vectara
         /// <param name="type">
         /// Default Value: input_message
         /// </param>
+        /// <param name="artifacts">
+        /// Artifacts from other sessions to share into this session with the input. Each is recorded in an `artifact_upload` event before the input, so the agent sees it like an uploaded file. The caller must be allowed to read the artifacts of the agent each one comes from, and each artifact must be in the session named for it. If a caller may not share an artifact, the request is rejected with 403; if an artifact is not in its named session, with 404. Either way no artifact is shared and no input is recorded.
+        /// </param>
         /// <param name="since">
         /// An event ID cursor. When provided and the session is currently running, the response includes all events created after this event ID. The new input is queued and processed according to the behavior field. Use the special value "start" to receive all events from the beginning of the session, including the input message itself.<br/>
         /// Example: start
@@ -87,12 +96,14 @@ namespace Vectara
         public CreateInputMessageRequestVariant2(
             global::System.Collections.Generic.IList<global::Vectara.AgentInput> messages,
             string? type,
+            global::System.Collections.Generic.IList<global::Vectara.SessionArtifactReference>? artifacts,
             string? since,
             global::Vectara.InputBehavior? behavior,
             string? entryStep)
         {
             this.Type = type;
             this.Messages = messages ?? throw new global::System.ArgumentNullException(nameof(messages));
+            this.Artifacts = artifacts;
             this.Since = since;
             this.Behavior = behavior;
             this.EntryStep = entryStep;

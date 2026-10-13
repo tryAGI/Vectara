@@ -24437,15 +24437,29 @@ components:
             \ reads as `null` instead, so guard it there.\n- agent.metadata.* - Access\
             \ agent metadata fields\n- agent.secrets.* - Access agent secrets (masked\
             \ in audit events)\n- tools.* - Access prior tool outputs (resolved after\
-            \ the dependent tool runs)\n- currentDate - The current date/time in ISO\
-            \ 8601 format\n\nA bracket index may reference another context value.\
-            \ The resolved value becomes the lookup key. The inner path may optionally\
-            \ carry a leading $ root marker:\n- Indirect reference: `{\"$ref\": \"\
-            agent.secrets[session.metadata.user_id]\"}` looks up the per-user secret\
-            \ named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
-            \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
-            query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
-            \ `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes the first $."
+            \ the dependent tool runs)\n- inputs.user.latest.text, inputs.user.latest.artifacts[i].artifact_id,\
+            \ .filename, .mime_type, .size_bytes, .purpose - The session's most recent\
+            \ user input: its text and the files uploaded or shared with it, each\
+            \ with the fields of its artifact reference (purpose is set on shared\
+            \ files that have one). text is absent when the input has none, such as\
+            \ files sent without a message. Resolved when the tool runs. A $ref with\
+            \ nothing to read (before the session's first user input, text on an input\
+            \ without text, during session enrichment, or for a tool called from code\
+            \ running in a sandbox) fails to resolve, which fails the tool call unless\
+            \ the $ref has a $default, as in {\"$ref\": \"inputs.user.latest.text\"\
+            , \"$default\": \"\"}, whose value is used instead. In a lambda tool's\
+            \ own tool_configurations, inputs.* refs are rejected with 400 when the\
+            \ lambda tool is created, updated, or tested; to use the input there,\
+            \ pass it in through the lambda's own arguments.\n- currentDate - The\
+            \ current date/time in ISO 8601 format\n\nA bracket index may reference\
+            \ another context value. The resolved value becomes the lookup key. The\
+            \ inner path may optionally carry a leading $ root marker:\n- Indirect\
+            \ reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"}`\
+            \ looks up the per-user secret named by `session.metadata.user_id`\n-\
+            \ Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+            \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+            \nTo use a literal `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes\
+            \ the first $."
           type: object
           additionalProperties: true
           example:
@@ -24981,11 +24995,25 @@ components:
               \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
               \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
               \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
-              \ after the dependent tool runs)\n- currentDate - The current date/time\
-              \ in ISO 8601 format\n\nA bracket index may reference another context\
-              \ value. The resolved value becomes the lookup key. The inner path may\
-              \ optionally carry a leading $ root marker:\n- Indirect reference: `{\"\
-              $ref\": \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
+              \ after the dependent tool runs)\n- inputs.user.latest.text, inputs.user.latest.artifacts[i].artifact_id,\
+              \ .filename, .mime_type, .size_bytes, .purpose - The session's most\
+              \ recent user input: its text and the files uploaded or shared with\
+              \ it, each with the fields of its artifact reference (purpose is set\
+              \ on shared files that have one). text is absent when the input has\
+              \ none, such as files sent without a message. Resolved when the tool\
+              \ runs. A $ref with nothing to read (before the session's first user\
+              \ input, text on an input without text, during session enrichment, or\
+              \ for a tool called from code running in a sandbox) fails to resolve,\
+              \ which fails the tool call unless the $ref has a $default, as in {\"\
+              $ref\": \"inputs.user.latest.text\", \"$default\": \"\"}, whose value\
+              \ is used instead. In a lambda tool's own tool_configurations, inputs.*\
+              \ refs are rejected with 400 when the lambda tool is created, updated,\
+              \ or tested; to use the input there, pass it in through the lambda's\
+              \ own arguments.\n- currentDate - The current date/time in ISO 8601\
+              \ format\n\nA bracket index may reference another context value. The\
+              \ resolved value becomes the lookup key. The inner path may optionally\
+              \ carry a leading $ root marker:\n- Indirect reference: `{\"$ref\":\
+              \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
               \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
               \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
               query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
@@ -25049,11 +25077,25 @@ components:
               \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
               \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
               \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
-              \ after the dependent tool runs)\n- currentDate - The current date/time\
-              \ in ISO 8601 format\n\nA bracket index may reference another context\
-              \ value. The resolved value becomes the lookup key. The inner path may\
-              \ optionally carry a leading $ root marker:\n- Indirect reference: `{\"\
-              $ref\": \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
+              \ after the dependent tool runs)\n- inputs.user.latest.text, inputs.user.latest.artifacts[i].artifact_id,\
+              \ .filename, .mime_type, .size_bytes, .purpose - The session's most\
+              \ recent user input: its text and the files uploaded or shared with\
+              \ it, each with the fields of its artifact reference (purpose is set\
+              \ on shared files that have one). text is absent when the input has\
+              \ none, such as files sent without a message. Resolved when the tool\
+              \ runs. A $ref with nothing to read (before the session's first user\
+              \ input, text on an input without text, during session enrichment, or\
+              \ for a tool called from code running in a sandbox) fails to resolve,\
+              \ which fails the tool call unless the $ref has a $default, as in {\"\
+              $ref\": \"inputs.user.latest.text\", \"$default\": \"\"}, whose value\
+              \ is used instead. In a lambda tool's own tool_configurations, inputs.*\
+              \ refs are rejected with 400 when the lambda tool is created, updated,\
+              \ or tested; to use the input there, pass it in through the lambda's\
+              \ own arguments.\n- currentDate - The current date/time in ISO 8601\
+              \ format\n\nA bracket index may reference another context value. The\
+              \ resolved value becomes the lookup key. The inner path may optionally\
+              \ carry a leading $ root marker:\n- Indirect reference: `{\"$ref\":\
+              \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
               \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
               \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
               query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
@@ -25795,11 +25837,25 @@ components:
               \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
               \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
               \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
-              \ after the dependent tool runs)\n- currentDate - The current date/time\
-              \ in ISO 8601 format\n\nA bracket index may reference another context\
-              \ value. The resolved value becomes the lookup key. The inner path may\
-              \ optionally carry a leading $ root marker:\n- Indirect reference: `{\"\
-              $ref\": \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
+              \ after the dependent tool runs)\n- inputs.user.latest.text, inputs.user.latest.artifacts[i].artifact_id,\
+              \ .filename, .mime_type, .size_bytes, .purpose - The session's most\
+              \ recent user input: its text and the files uploaded or shared with\
+              \ it, each with the fields of its artifact reference (purpose is set\
+              \ on shared files that have one). text is absent when the input has\
+              \ none, such as files sent without a message. Resolved when the tool\
+              \ runs. A $ref with nothing to read (before the session's first user\
+              \ input, text on an input without text, during session enrichment, or\
+              \ for a tool called from code running in a sandbox) fails to resolve,\
+              \ which fails the tool call unless the $ref has a $default, as in {\"\
+              $ref\": \"inputs.user.latest.text\", \"$default\": \"\"}, whose value\
+              \ is used instead. In a lambda tool's own tool_configurations, inputs.*\
+              \ refs are rejected with 400 when the lambda tool is created, updated,\
+              \ or tested; to use the input there, pass it in through the lambda's\
+              \ own arguments.\n- currentDate - The current date/time in ISO 8601\
+              \ format\n\nA bracket index may reference another context value. The\
+              \ resolved value becomes the lookup key. The inner path may optionally\
+              \ carry a leading $ root marker:\n- Indirect reference: `{\"$ref\":\
+              \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
               \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
               \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
               query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
@@ -28046,12 +28102,21 @@ components:
             description\": \"...\",\n    \"metadata\": { ... }\n  },\n  \"session\"\
             : {\n    \"key\": \"...\",\n    \"name\": \"...\",\n    \"description\"\
             : \"...\",\n    \"metadata\": { ... }\n  },\n  \"currentDate\": \"2024-01-15T10:35:00Z\"\
-            ,\n  \"tools\": {\n    \"<tool_config_name>\": {\n      \"outputs\": {\n\
-            \        \"latest\": { ... }\n      }\n    }\n  },\n  \"output\": { \"\
-            text\": \"...\" }\n}\n```\n\n- `$.agent.key`, `$.agent.name`, `$.agent.description`,\
+            ,\n  \"inputs\": {\n    \"user\": {\n      \"latest\": {\n        \"text\"\
+            : \"...\",\n        \"artifacts\": [{ \"artifact_id\": \"...\", \"filename\"\
+            : \"...\", \"mime_type\": \"...\", \"size_bytes\": 0 }]\n      }\n   \
+            \ }\n  },\n  \"tools\": {\n    \"<tool_config_name>\": {\n      \"outputs\"\
+            : {\n        \"latest\": { ... }\n      }\n    }\n  },\n  \"output\":\
+            \ { \"text\": \"...\" }\n}\n```\n\n- `$.agent.key`, `$.agent.name`, `$.agent.description`,\
             \ `$.agent.metadata.<key>` \u2014 the agent\n- `$.session.key`, `$.session.name`,\
             \ `$.session.description`, `$.session.metadata.<key>` \u2014 the session\n\
-            - `$.currentDate` \u2014 the evaluation time, ISO 8601\n- `$.tools.<tool_config_name>.outputs.latest.<field>`\
+            - `$.currentDate` \u2014 the evaluation time, ISO 8601\n- `$.inputs.user.latest.text`,\
+            \ `$.inputs.user.latest.artifacts[i].<field>` \u2014 the session's most\
+            \ recent user input and the files uploaded or shared with it; each file\
+            \ has the fields of its artifact reference, including the `purpose` a\
+            \ sharer gave. `text` is absent when the input has none, `artifacts` is\
+            \ an empty array when it has no files, and `$.inputs.user.latest` is absent\
+            \ before the session's first user input\n- `$.tools.<tool_config_name>.outputs.latest.<field>`\
             \ \u2014 latest tool output fields, present only for tools that produced\
             \ output\n- `$.output.text` \u2014 agent text output (when output_parser\
             \ is `default`)\n- `$.output.<field>` \u2014 agent structured output fields\
@@ -29554,15 +29619,17 @@ components:
         the session.
 
 
-        **Session Binding**: Each artifact is scoped to a specific agent session.
-        Other sessions cannot access it.
+        **Session Binding**: Each artifact is scoped to the agent sessions it belongs
+        to. An artifact starts in the session that created it and can be shared into
+        other sessions through the `artifacts` field of an input message. A session
+        cannot access an artifact that was not shared with it.
 
 
         **Lifecycle**: Artifacts are created when users upload files via multipart
         requests, or when agent tools generate new files (such as converting a PDF
         to markdown). Artifacts have a configurable time-to-live. They are removed
-        automatically when they expire or when the session is deleted. A per-artifact
-        size limit applies to each upload.
+        automatically when they expire, or when the last session they belong to is
+        deleted. A per-artifact size limit applies to each upload.
 
 
         **How Agents Use Artifacts**: Agent tools can read artifacts, process them,
@@ -29596,6 +29663,11 @@ components:
           type: integer
           format: int64
           example: 2048576
+        purpose:
+          description: Why the artifact was attached, as given by whoever shared it.
+            Absent for uploaded files, and for shared files sent without a purpose.
+          type: string
+          example: The diff to review
       required:
       - artifact_id
       - filename
@@ -29603,14 +29675,16 @@ components:
       - size_bytes
     ArtifactUploadEvent:
       title: ArtifactUploadEvent
-      description: 'Event representing files uploaded to the agent workspace as artifacts.
+      description: 'Event representing files attached to an input as artifacts.
 
 
-        This event is created when a user uploads one or more files to an agent session
-        using a multipart request. The event becomes part of the session''s event
-        history. It contains references to all artifacts uploaded in the request.
-        Each uploaded file receives a unique artifact identifier and is stored in
-        the session''s workspace.
+        This event is created when an input brings files into an agent session: either
+        uploaded in a multipart request, or shared from another session through the
+        `artifacts` field of an input message. The event becomes part of the session''s
+        event history, just before the input it belongs to. It contains references
+        to all artifacts attached by that input. An uploaded file receives a new artifact
+        identifier and is stored in the session''s workspace. A shared artifact keeps
+        its identifier.
 
 
         When an agent processes this event, it learns that new files are available
@@ -30245,6 +30319,35 @@ components:
           default: false
         surface_description:
           $ref: '#/components/schemas/SurfaceDescription'
+    SessionArtifactReference:
+      title: SessionArtifactReference
+      description: An artifact in an agent session, to share into the session that
+        receives the input.
+      type: object
+      properties:
+        agent_key:
+          allOf:
+          - $ref: '#/components/schemas/AgentKey'
+          description: The agent of the session that holds the artifact.
+        session_key:
+          allOf:
+          - $ref: '#/components/schemas/AgentSessionKey'
+          description: The session that holds the artifact.
+        artifact_id:
+          description: The artifact to share.
+          type: string
+          pattern: ^art_[a-z0-9_-]+$
+          example: art_diff_txt_91c3
+        purpose:
+          description: Why the artifact is being shared. The agent sees it alongside
+            the artifact.
+          type: string
+          maxLength: 1000
+          example: The diff to review
+      required:
+      - agent_key
+      - session_key
+      - artifact_id
     InputBehavior:
       description: "Controls how the input is processed when the session is already\
         \ running.\n- `steer`: Insert the message as soon as possible on the next\
@@ -30274,6 +30377,21 @@ components:
             example:
             - type: text
               content: I need help with my widget installation
+          artifacts:
+            description: 'Artifacts from other sessions to share into this session
+              with the input. Each is recorded in an `artifact_upload` event before
+              the input, so the agent sees it like an uploaded file. The caller must
+              be allowed to read the artifacts of the agent each one comes from, and
+              each artifact must be in the session named for it. If a caller may not
+              share an artifact, the request is rejected with 403; if an artifact
+              is not in its named session, with 404. Either way no artifact is shared
+              and no input is recorded.
+
+              '
+            type: array
+            maxItems: 20
+            items:
+              $ref: '#/components/schemas/SessionArtifactReference'
           since:
             description: 'An event ID cursor. When provided and the session is currently
               running, the response includes all events created after this event ID.

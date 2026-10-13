@@ -6,8 +6,8 @@ namespace Vectara
     /// <summary>
     /// Reference to an artifact stored in the agent session workspace.<br/>
     /// Artifacts are files or documents that belong to a specific agent session. They provide a persistent workspace where agents and users share files for the duration of the session. When a user uploads files (such as PDFs, Word documents, PowerPoint presentations, or images) to a session, each file is stored as an artifact. The artifact remains available for the duration of the session.<br/>
-    /// **Session Binding**: Each artifact is scoped to a specific agent session. Other sessions cannot access it.<br/>
-    /// **Lifecycle**: Artifacts are created when users upload files via multipart requests, or when agent tools generate new files (such as converting a PDF to markdown). Artifacts have a configurable time-to-live. They are removed automatically when they expire or when the session is deleted. A per-artifact size limit applies to each upload.<br/>
+    /// **Session Binding**: Each artifact is scoped to the agent sessions it belongs to. An artifact starts in the session that created it and can be shared into other sessions through the `artifacts` field of an input message. A session cannot access an artifact that was not shared with it.<br/>
+    /// **Lifecycle**: Artifacts are created when users upload files via multipart requests, or when agent tools generate new files (such as converting a PDF to markdown). Artifacts have a configurable time-to-live. They are removed automatically when they expire, or when the last session they belong to is deleted. A per-artifact size limit applies to each upload.<br/>
     /// **How Agents Use Artifacts**: Agent tools can read artifacts, process them, and create new derived artifacts. For example, the document conversion tool can take a PDF artifact, convert it to markdown, and store the result as a new artifact. This enables multi-step document processing in a single session.<br/>
     /// **Common Use Cases**: Upload a document for the agent to analyze, provide multiple reference files for context, convert between formats, or let the agent generate and store processed files for later retrieval.
     /// </summary>
@@ -50,6 +50,14 @@ namespace Vectara
         public required long SizeBytes { get; set; }
 
         /// <summary>
+        /// Why the artifact was attached, as given by whoever shared it. Absent for uploaded files, and for shared files sent without a purpose.<br/>
+        /// Example: The diff to review
+        /// </summary>
+        /// <example>The diff to review</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("purpose")]
+        public string? Purpose { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -74,6 +82,10 @@ namespace Vectara
         /// File size in bytes<br/>
         /// Example: 2048576
         /// </param>
+        /// <param name="purpose">
+        /// Why the artifact was attached, as given by whoever shared it. Absent for uploaded files, and for shared files sent without a purpose.<br/>
+        /// Example: The diff to review
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -81,12 +93,14 @@ namespace Vectara
             string artifactId,
             string filename,
             string mimeType,
-            long sizeBytes)
+            long sizeBytes,
+            string? purpose)
         {
             this.ArtifactId = artifactId ?? throw new global::System.ArgumentNullException(nameof(artifactId));
             this.Filename = filename ?? throw new global::System.ArgumentNullException(nameof(filename));
             this.MimeType = mimeType ?? throw new global::System.ArgumentNullException(nameof(mimeType));
             this.SizeBytes = sizeBytes;
+            this.Purpose = purpose;
         }
 
         /// <summary>

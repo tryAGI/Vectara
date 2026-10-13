@@ -29,6 +29,14 @@ namespace Vectara
         ///     "metadata": { ... }<br/>
         ///   },<br/>
         ///   "currentDate": "2024-01-15T10:35:00Z",<br/>
+        ///   "inputs": {<br/>
+        ///     "user": {<br/>
+        ///       "latest": {<br/>
+        ///         "text": "...",<br/>
+        ///         "artifacts": [{ "artifact_id": "...", "filename": "...", "mime_type": "...", "size_bytes": 0 }]<br/>
+        ///       }<br/>
+        ///     }<br/>
+        ///   },<br/>
         ///   "tools": {<br/>
         ///     "&lt;tool_config_name&gt;": {<br/>
         ///       "outputs": {<br/>
@@ -42,6 +50,7 @@ namespace Vectara
         /// - `$.agent.key`, `$.agent.name`, `$.agent.description`, `$.agent.metadata.&lt;key&gt;` — the agent<br/>
         /// - `$.session.key`, `$.session.name`, `$.session.description`, `$.session.metadata.&lt;key&gt;` — the session<br/>
         /// - `$.currentDate` — the evaluation time, ISO 8601<br/>
+        /// - `$.inputs.user.latest.text`, `$.inputs.user.latest.artifacts[i].&lt;field&gt;` — the session's most recent user input and the files uploaded or shared with it; each file has the fields of its artifact reference, including the `purpose` a sharer gave. `text` is absent when the input has none, `artifacts` is an empty array when it has no files, and `$.inputs.user.latest` is absent before the session's first user input<br/>
         /// - `$.tools.&lt;tool_config_name&gt;.outputs.latest.&lt;field&gt;` — latest tool output fields, present only for tools that produced output<br/>
         /// - `$.output.text` — agent text output (when output_parser is `default`)<br/>
         /// - `$.output.&lt;field&gt;` — agent structured output fields (when output_parser is `structured`)<br/>
@@ -96,6 +105,14 @@ namespace Vectara
         ///     "metadata": { ... }<br/>
         ///   },<br/>
         ///   "currentDate": "2024-01-15T10:35:00Z",<br/>
+        ///   "inputs": {<br/>
+        ///     "user": {<br/>
+        ///       "latest": {<br/>
+        ///         "text": "...",<br/>
+        ///         "artifacts": [{ "artifact_id": "...", "filename": "...", "mime_type": "...", "size_bytes": 0 }]<br/>
+        ///       }<br/>
+        ///     }<br/>
+        ///   },<br/>
         ///   "tools": {<br/>
         ///     "&lt;tool_config_name&gt;": {<br/>
         ///       "outputs": {<br/>
@@ -109,6 +126,7 @@ namespace Vectara
         /// - `$.agent.key`, `$.agent.name`, `$.agent.description`, `$.agent.metadata.&lt;key&gt;` — the agent<br/>
         /// - `$.session.key`, `$.session.name`, `$.session.description`, `$.session.metadata.&lt;key&gt;` — the session<br/>
         /// - `$.currentDate` — the evaluation time, ISO 8601<br/>
+        /// - `$.inputs.user.latest.text`, `$.inputs.user.latest.artifacts[i].&lt;field&gt;` — the session's most recent user input and the files uploaded or shared with it; each file has the fields of its artifact reference, including the `purpose` a sharer gave. `text` is absent when the input has none, `artifacts` is an empty array when it has no files, and `$.inputs.user.latest` is absent before the session's first user input<br/>
         /// - `$.tools.&lt;tool_config_name&gt;.outputs.latest.&lt;field&gt;` — latest tool output fields, present only for tools that produced output<br/>
         /// - `$.output.text` — agent text output (when output_parser is `default`)<br/>
         /// - `$.output.&lt;field&gt;` — agent structured output fields (when output_parser is `structured`)<br/>

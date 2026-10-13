@@ -89,8 +89,8 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'Thinking' but the value was {ToString()}.");
 
         /// <summary>
-        /// Event representing files uploaded to the agent workspace as artifacts.<br/>
-        /// This event is created when a user uploads one or more files to an agent session using a multipart request. The event becomes part of the session's event history. It contains references to all artifacts uploaded in the request. Each uploaded file receives a unique artifact identifier and is stored in the session's workspace.<br/>
+        /// Event representing files attached to an input as artifacts.<br/>
+        /// This event is created when an input brings files into an agent session: either uploaded in a multipart request, or shared from another session through the `artifacts` field of an input message. The event becomes part of the session's event history, just before the input it belongs to. It contains references to all artifacts attached by that input. An uploaded file receives a new artifact identifier and is stored in the session's workspace. A shared artifact keeps its identifier.<br/>
         /// When an agent processes this event, it learns that new files are available in the session. The agent can then use its tools to read, analyze, or transform these artifacts. For example, after an upload that contains a PDF, the agent might use the document conversion tool to extract and analyze the document's contents.<br/>
         /// See the `ArtifactReference` schema for details about what artifacts are, how they are stored, their lifecycle, and how agents interact with them.
         /// </summary>
