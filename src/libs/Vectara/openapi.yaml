@@ -28456,7 +28456,7 @@ components:
           description: Seconds the call may run before it is treated as a failed call.
           type: integer
           minimum: 1
-          maximum: 120
+          maximum: 600
           default: 30
         continue_on_error:
           type: boolean
