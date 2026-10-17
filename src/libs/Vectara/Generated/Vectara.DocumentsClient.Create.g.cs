@@ -568,7 +568,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The document already exists
+                            // A document with the same ID already exists in the corpus with different content.
                             if ((int)__response.StatusCode == 409)
                             {
                                 string? __content_409 = null;

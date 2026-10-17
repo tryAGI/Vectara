@@ -1888,7 +1888,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
         '409':
-          description: The document already exists
+          description: A document with the same ID already exists in the corpus with
+            different content.
           content:
             application/json:
               schema:
@@ -11907,27 +11908,31 @@ paths:
     get:
       tags:
       - Agent End User Sessions
-      summary: Get public connector
+      summary: Get public connector (legacy path)
+      deprecated: true
       security: []
       x-required-roles: []
-      description: "The public view of a connector, served unauthenticated to the\
-        \ embed snippet. The snippet carries the alias key and the connector's globally\
-        \ unique id, which expose no agent or customer identifier.\nReturns the `customer_id`\
-        \ visitor minting is addressed to, the `presentation` to render, whether anonymous\
-        \ visitors are admitted (`public_access`), and the sign-in configuration when\
-        \ the widget offers one.\n\nA read with no side effects: minting an anonymous\
-        \ visitor id is a separate call, `POST /v2/visitors`, so a returning visitor\
-        \ who already holds an id only reads this view.\nThe view tells the client\
-        \ how to authenticate: `public_access` true \u2014 mint or present a visitor\
-        \ id; `end_user_sign_in` present \u2014 sign the user in through the referenced\
-        \ issuer. A widget may offer both, and the two follow-up calls do not depend\
-        \ on each other.\n\nThis operation serves only the public projection; operators\
-        \ read the full connector, configuration included, from the connector list.\n\
-        \nServes connectors that front an end-user surface \u2014 today, widget connectors.\
-        \ Returns `404` if the connector does not exist on the addressed alias, is\
-        \ a channel connector with no end-user surface (Slack, Google Chat, or Zoom),\
-        \ is disabled, or belongs to a disabled customer.\n"
-      operationId: getPublicConnector
+      description: "Deprecated: read the public view from `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}/public`.\
+        \ This path serves the same view while embeds already deployed move to that\
+        \ path; it is then repurposed as the authenticated operator read of the full\
+        \ connector.\n\nThe public view of a connector, served unauthenticated to\
+        \ the embed snippet. The snippet carries the alias key and the connector's\
+        \ globally unique id, which expose no agent or customer identifier.\nReturns\
+        \ the `customer_id` visitor minting is addressed to, the `presentation` to\
+        \ render, whether anonymous visitors are admitted (`public_access`), and the\
+        \ sign-in configuration when the widget offers one.\n\nA read with no side\
+        \ effects: minting an anonymous visitor id is a separate call, `POST /v2/visitors`,\
+        \ so a returning visitor who already holds an id only reads this view.\nThe\
+        \ view tells the client how to authenticate: `public_access` true \u2014 mint\
+        \ or present a visitor id; `end_user_sign_in` present \u2014 sign the user\
+        \ in through the referenced issuer. A widget may offer both, and the two follow-up\
+        \ calls do not depend on each other.\n\nThis operation serves only the public\
+        \ projection; operators read the full connector, configuration included, from\
+        \ the connector list.\n\nServes connectors that front an end-user surface\
+        \ \u2014 today, widget connectors. Returns `404` if the connector does not\
+        \ exist on the addressed alias, is a channel connector with no end-user surface\
+        \ (Slack, Google Chat, or Zoom), is disabled, or belongs to a disabled customer.\n"
+      operationId: getLegacyPublicConnector
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
@@ -11966,7 +11971,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agent_aliases
-      x-fern-sdk-method-name: getPublicConnector
+      x-fern-sdk-method-name: getLegacyPublicConnector
     patch:
       tags:
       - Agent Connectors
@@ -12081,6 +12086,70 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agent_aliases
       x-fern-sdk-method-name: deleteConnector
+  /v2/agent_aliases/{alias_key}/connectors/{connector_id}/public:
+    get:
+      tags:
+      - Agent End User Sessions
+      summary: Get public connector
+      security: []
+      x-required-roles: []
+      description: "The public view of a connector, served unauthenticated to the\
+        \ embed snippet. The snippet carries the alias key and the connector's globally\
+        \ unique id, which expose no agent or customer identifier.\nReturns the `customer_id`\
+        \ visitor minting is addressed to, the `presentation` to render, whether anonymous\
+        \ visitors are admitted (`public_access`), and the sign-in configuration when\
+        \ the widget offers one.\n\nA read with no side effects: minting an anonymous\
+        \ visitor id is a separate call, `POST /v2/visitors`, so a returning visitor\
+        \ who already holds an id only reads this view.\nThe view tells the client\
+        \ how to authenticate: `public_access` true \u2014 mint or present a visitor\
+        \ id; `end_user_sign_in` present \u2014 sign the user in through the referenced\
+        \ issuer. A widget may offer both, and the two follow-up calls do not depend\
+        \ on each other.\n\nThis operation serves only the public projection; operators\
+        \ read the full connector, configuration included, from the connector list.\n\
+        \nServes connectors that front an end-user surface \u2014 today, widget connectors.\
+        \ Returns `404` if the connector does not exist on the addressed alias, is\
+        \ a channel connector with no end-user surface (Slack, Google Chat, or Zoom),\
+        \ is disabled, or belongs to a disabled customer.\n"
+      operationId: getPublicConnector
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - in: path
+        name: alias_key
+        description: The unique key of the alias the connector is created on, as carried
+          by the embed snippet.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: connector_id
+        description: The globally unique id of the connector, as carried by the embed
+          snippet.
+        required: true
+        schema:
+          $ref: '#/components/schemas/ConnectorId'
+      responses:
+        '200':
+          description: The connector's public view.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicConnector'
+        '403':
+          description: The request `Origin` is not in the connector's `allowed_origins`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: The connector does not exist on the addressed alias, does not
+            front an end-user surface, is disabled, or belongs to a disabled customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: agent_aliases
+      x-fern-sdk-method-name: getPublicConnector
   /v2/visitors:
     post:
       tags:
@@ -32500,8 +32569,8 @@ components:
           example: https://acme.okta.com/oauth2/default
     PublicConnector:
       description: "The public view of a connector that fronts an end-user surface,\
-        \ served unauthenticated to the embed snippet.\nEnd-user sessions are created\
-        \ on the addressed alias \u2014 `/v2/agent_aliases/{alias_key}/end_user_sessions`\
+        \ served unauthenticated to the embed snippet by `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}/public`.\n\
+        End-user sessions are created on the addressed alias \u2014 `/v2/agent_aliases/{alias_key}/end_user_sessions`\
         \ \u2014 naming this connector in the request body; the embed snippet carries\
         \ the alias key and connector id it needs, and this view serves the `customer_id`\
         \ that visitor minting (`POST /v2/visitors`) is addressed to.\nSession attributes\

@@ -125,7 +125,7 @@ namespace Vectara
             {
 
                             var __pathBuilder = new global::Vectara.PathBuilder(
-                                path: $"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}",
+                                path: $"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}/public",
                                 baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::Vectara.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -182,7 +182,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "GetPublicConnector",
                                 methodName: "GetPublicConnectorAsync",
-                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}/public\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
@@ -216,7 +216,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "GetPublicConnector",
                                 methodName: "GetPublicConnectorAsync",
-                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}/public\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
@@ -257,7 +257,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "GetPublicConnector",
                                 methodName: "GetPublicConnectorAsync",
-                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}/public\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
@@ -305,7 +305,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "GetPublicConnector",
                                 methodName: "GetPublicConnectorAsync",
-                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}/public\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
@@ -327,7 +327,7 @@ namespace Vectara
                             context: global::Vectara.AutoSDKRequestOptionsSupport.CreateHookContext(
                                 operationId: "GetPublicConnector",
                                 methodName: "GetPublicConnectorAsync",
-                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}\"",
+                                pathTemplate: "$\"/v2/agent_aliases/{aliasKey}/connectors/{connectorId}/public\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
                                 request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),

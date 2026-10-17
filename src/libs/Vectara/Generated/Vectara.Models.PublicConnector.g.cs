@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The public view of a connector that fronts an end-user surface, served unauthenticated to the embed snippet.<br/>
+    /// The public view of a connector that fronts an end-user surface, served unauthenticated to the embed snippet by `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}/public`.<br/>
     /// End-user sessions are created on the addressed alias — `/v2/agent_aliases/{alias_key}/end_user_sessions` — naming this connector in the request body; the embed snippet carries the alias key and connector id it needs, and this view serves the `customer_id` that visitor minting (`POST /v2/visitors`) is addressed to.<br/>
     /// Session attributes such as idle lifetime are reported on the session object returned by the end-user session create endpoint.
     /// </summary>
