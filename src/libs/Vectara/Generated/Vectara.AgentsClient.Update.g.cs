@@ -670,6 +670,11 @@ namespace Vectara
         /// Ceilings on the LLM requests and tokens this agent may consume, counted across every LLM the agent calls. A sub-agent is charged to its own quota, not its parent's.<br/>
         /// Each field is optional; an omitted field applies no limit. Day and month windows are UTC calendar windows. Input tokens are the provider's reported prompt tokens, including cached tokens; output tokens are completion plus reasoning tokens. When a limit is reached the agent's next LLM call is refused: a non-streamed `createAgentInput` request answers `429` with a `Retry-After` header, and a streamed one ends with an `error` event naming the exhausted quota and the seconds until it resets.
         /// </param>
+        /// <param name="generateSessionDescriptions">
+        /// Whether the platform generates a description for each of this agent's sessions created without one. When true, after each turn that completes without error in such a session, the platform makes one additional request to the agent's model to summarize the session's events into its description. That request consumes tokens and counts against `llm_quota`. When false, no request is made and those sessions keep no description. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.<br/>
+        /// Default Value: true<br/>
+        /// Example: false
+        /// </param>
         /// <param name="steps">
         /// A map of additional named steps keyed by step name for partial update.<br/>
         /// Only provided keys are modified; missing keys are preserved.<br/>
@@ -696,6 +701,7 @@ namespace Vectara
             global::Vectara.SessionEnrichmentConfig? sessionEnrichment = default,
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading = default,
             global::Vectara.LLMQuota? llmQuota = default,
+            bool? generateSessionDescriptions = default,
             global::System.Collections.Generic.Dictionary<string, global::Vectara.UpdateAgentStep>? steps = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -715,6 +721,7 @@ namespace Vectara
                 SessionEnrichment = sessionEnrichment,
                 ToolOutputOffloading = toolOutputOffloading,
                 LlmQuota = llmQuota,
+                GenerateSessionDescriptions = generateSessionDescriptions,
                 Steps = steps,
             };
 

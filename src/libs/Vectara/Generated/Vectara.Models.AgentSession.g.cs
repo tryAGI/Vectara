@@ -36,7 +36,7 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// A short description of the session's purpose. If omitted at creation, the platform generates one after the agent produces events. An empty string indicates auto-generation is disabled for this session.<br/>
+        /// A short description of the session's purpose. If omitted at creation, the platform generates one after the agent produces events, unless the agent's `generate_session_descriptions` is false. An empty string indicates auto-generation is disabled for this session.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </summary>
         /// <example>Helping customer troubleshoot widget installation issues</example>
@@ -173,7 +173,7 @@ namespace Vectara
         /// Example: 2024-01-15T10:30:00Z
         /// </param>
         /// <param name="description">
-        /// A short description of the session's purpose. If omitted at creation, the platform generates one after the agent produces events. An empty string indicates auto-generation is disabled for this session.<br/>
+        /// A short description of the session's purpose. If omitted at creation, the platform generates one after the agent produces events, unless the agent's `generate_session_descriptions` is false. An empty string indicates auto-generation is disabled for this session.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </param>
         /// <param name="metadata">

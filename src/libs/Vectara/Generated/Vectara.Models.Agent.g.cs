@@ -132,6 +132,15 @@ namespace Vectara
         public global::Vectara.LLMQuota? LlmQuota { get; set; }
 
         /// <summary>
+        /// Whether the platform generates a description for each of this agent's sessions created without one. When true, after each turn that completes without error in such a session, the platform makes one additional request to the agent's model to summarize the session's events into its description. That request consumes tokens and counts against `llm_quota`. When false, no request is made and those sessions keep no description. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.<br/>
+        /// Default Value: true<br/>
+        /// Example: false
+        /// </summary>
+        /// <example>false</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("generate_session_descriptions")]
+        public bool? GenerateSessionDescriptions { get; set; }
+
+        /// <summary>
         /// Timestamp when the agent was created.<br/>
         /// Example: 2024-01-15T10:30:00Z
         /// </summary>
@@ -219,6 +228,11 @@ namespace Vectara
         /// Ceilings on the LLM requests and tokens this agent may consume, counted across every LLM the agent calls. A sub-agent is charged to its own quota, not its parent's.<br/>
         /// Each field is optional; an omitted field applies no limit. Day and month windows are UTC calendar windows. Input tokens are the provider's reported prompt tokens, including cached tokens; output tokens are completion plus reasoning tokens. When a limit is reached the agent's next LLM call is refused: a non-streamed `createAgentInput` request answers `429` with a `Retry-After` header, and a streamed one ends with an `error` event naming the exhausted quota and the seconds until it resets.
         /// </param>
+        /// <param name="generateSessionDescriptions">
+        /// Whether the platform generates a description for each of this agent's sessions created without one. When true, after each turn that completes without error in such a session, the platform makes one additional request to the agent's model to summarize the session's events into its description. That request consumes tokens and counts against `llm_quota`. When false, no request is made and those sessions keep no description. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.<br/>
+        /// Default Value: true<br/>
+        /// Example: false
+        /// </param>
         /// <param name="createdAt">
         /// Timestamp when the agent was created.<br/>
         /// Example: 2024-01-15T10:30:00Z
@@ -246,6 +260,7 @@ namespace Vectara
             global::Vectara.SessionEnrichmentConfig? sessionEnrichment,
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading,
             global::Vectara.LLMQuota? llmQuota,
+            bool? generateSessionDescriptions,
             global::System.DateTime? createdAt,
             global::System.DateTime? updatedAt)
         {
@@ -264,6 +279,7 @@ namespace Vectara
             this.SessionEnrichment = sessionEnrichment;
             this.ToolOutputOffloading = toolOutputOffloading;
             this.LlmQuota = llmQuota;
+            this.GenerateSessionDescriptions = generateSessionDescriptions;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
         }
