@@ -605,6 +605,43 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
+                            // The platform's storage for this corpus is temporarily full. This is not your account's storage quota; retry the request later.
+                            if ((int)__response.StatusCode == 507)
+                            {
+                                string? __content_507 = null;
+                                global::System.Exception? __exception_507 = null;
+                                global::Vectara.Error? __value_507 = null;
+                                try
+                                {
+                                    if (__effectiveReadResponseAsString)
+                                    {
+                                        __content_507 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+                                        __value_507 = global::Vectara.Error.FromJson(__content_507, JsonSerializerContext);
+                                    }
+                                    else
+                                    {
+                                        __content_507 = await __response.Content.ReadAsStringAsync(__effectiveCancellationToken).ConfigureAwait(false);
+
+                                        __value_507 = global::Vectara.Error.FromJson(__content_507, JsonSerializerContext);
+                                    }
+                                }
+                                catch (global::System.Exception __ex)
+                                {
+                                    __exception_507 = __ex;
+                                }
+
+
+                                throw global::Vectara.ApiException<global::Vectara.Error>.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content_507 ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __exception_507,
+                                    responseBody: __content_507,
+                                    responseObject: __value_507,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
 
                             if (__effectiveReadResponseAsString)
                             {

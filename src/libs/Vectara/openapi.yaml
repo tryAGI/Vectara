@@ -1280,6 +1280,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '507':
+          description: The platform's storage for this corpus is temporarily full.
+            This is not your account's storage quota; retry the request later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: corpora
       x-fern-sdk-method-name: replaceFilterAttributes
   /v2/corpora/{corpus_key}/compute_size:
@@ -1754,6 +1761,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '507':
+          description: The platform's storage for this corpus is temporarily full.
+            This is not your account's storage quota; retry the request later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-examples:
       - code-samples:
         - language: python
@@ -1890,6 +1904,13 @@ paths:
         '409':
           description: A document with the same ID already exists in the corpus with
             different content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '507':
+          description: The platform's storage for this corpus is temporarily full.
+            This is not your account's storage quota; retry the request later.
           content:
             application/json:
               schema:
@@ -2522,6 +2543,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '507':
+          description: The platform's storage for this corpus is temporarily full.
+            This is not your account's storage quota; retry the request later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       x-fern-sdk-group-name: documents
       x-fern-sdk-method-name: update
   /v2/corpora/{corpus_key}/documents/{document_id}/metadata:
@@ -2587,6 +2615,13 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many concurrent requests. Please retry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '507':
+          description: The platform's storage for this corpus is temporarily full.
+            This is not your account's storage quota; retry the request later.
           content:
             application/json:
               schema:
@@ -23175,7 +23210,8 @@ components:
           type: string
           example: openai-text-encoder
         type:
-          description: The encoder type
+          description: The encoder type. Matches the `type` the encoder was created
+            with, or `vectara` for encoders that Vectara provides.
           example: openai-compatible
           type: string
           default: vectara
@@ -28626,6 +28662,20 @@ components:
           format: int64
           minimum: 1
           example: 10000000
+    GenerateSessionDescriptions:
+      description: 'Whether the platform generates a description for each of this
+        agent''s sessions created without one. When true, after each turn that completes
+        without error in such a session, the platform makes one additional request
+        to the agent''s model to summarize the session''s events into its description.
+        That request consumes tokens and counts against `llm_quota`. When false, no
+        request is made and those sessions keep no description. A description supplied
+        on session create or update is never replaced, and an empty description turns
+        off generation for that session.
+
+        '
+      type: boolean
+      default: true
+      example: false
     Agent:
       description: An AI agent that can use tools to provide intelligent responses
         and actions.
@@ -28732,6 +28782,8 @@ components:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
         llm_quota:
           $ref: '#/components/schemas/LLMQuota'
+        generate_session_descriptions:
+          $ref: '#/components/schemas/GenerateSessionDescriptions'
         created_at:
           description: Timestamp when the agent was created.
           type: string
@@ -28886,6 +28938,8 @@ components:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
         llm_quota:
           $ref: '#/components/schemas/LLMQuota'
+        generate_session_descriptions:
+          $ref: '#/components/schemas/GenerateSessionDescriptions'
       required:
       - name
       - tool_configurations
@@ -29144,6 +29198,8 @@ components:
             limit; omit to keep the current quota.
           $ref: '#/components/schemas/LLMQuota'
           nullable: true
+        generate_session_descriptions:
+          $ref: '#/components/schemas/GenerateSessionDescriptions'
         steps:
           description: 'A map of additional named steps keyed by step name for partial
             update.
@@ -29241,8 +29297,9 @@ components:
           example: Customer Support Session
         description:
           description: 'A short description of the session''s purpose. If omitted
-            at creation, the platform generates one after the agent produces events.
-            An empty string indicates auto-generation is disabled for this session.
+            at creation, the platform generates one after the agent produces events,
+            unless the agent''s `generate_session_descriptions` is false. An empty
+            string indicates auto-generation is disabled for this session.
 
             '
           type: string
@@ -29380,8 +29437,9 @@ components:
           example: Customer Support Session
         description:
           description: 'A short description of the session''s purpose. If omitted,
-            the platform generates one after the session produces events. Pass an
-            empty string to suppress auto-generation.
+            the platform generates one after the session produces events, unless the
+            agent''s `generate_session_descriptions` is false. Pass an empty string
+            to suppress auto-generation.
 
             '
           type: string
@@ -34806,7 +34864,8 @@ components:
           example: Customer Support Session
         description:
           description: A short description of the session's purpose. If omitted, the
-            platform generates one after the agent produces events.
+            platform generates one after the agent produces events, unless the agent's
+            `generate_session_descriptions` is false.
           type: string
           example: Helping customer troubleshoot widget installation issues
     EndUserEventBase:

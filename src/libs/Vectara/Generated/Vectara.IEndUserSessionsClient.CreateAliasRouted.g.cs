@@ -87,7 +87,7 @@ namespace Vectara
         /// Example: Customer Support Session
         /// </param>
         /// <param name="description">
-        /// A short description of the session's purpose. If omitted, the platform generates one after the agent produces events.<br/>
+        /// A short description of the session's purpose. If omitted, the platform generates one after the agent produces events, unless the agent's `generate_session_descriptions` is false.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>

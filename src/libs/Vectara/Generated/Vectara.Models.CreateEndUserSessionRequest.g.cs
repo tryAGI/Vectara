@@ -31,7 +31,7 @@ namespace Vectara
         public string? Name { get; set; }
 
         /// <summary>
-        /// A short description of the session's purpose. If omitted, the platform generates one after the agent produces events.<br/>
+        /// A short description of the session's purpose. If omitted, the platform generates one after the agent produces events, unless the agent's `generate_session_descriptions` is false.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </summary>
         /// <example>Helping customer troubleshoot widget installation issues</example>
@@ -56,7 +56,7 @@ namespace Vectara
         /// Example: Customer Support Session
         /// </param>
         /// <param name="description">
-        /// A short description of the session's purpose. If omitted, the platform generates one after the agent produces events.<br/>
+        /// A short description of the session's purpose. If omitted, the platform generates one after the agent produces events, unless the agent's `generate_session_descriptions` is false.<br/>
         /// Example: Helping customer troubleshoot widget installation issues
         /// </param>
 #if NET7_0_OR_GREATER

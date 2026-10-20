@@ -27,7 +27,7 @@ namespace Vectara
         public required string Name { get; set; }
 
         /// <summary>
-        /// The encoder type<br/>
+        /// The encoder type. Matches the `type` the encoder was created with, or `vectara` for encoders that Vectara provides.<br/>
         /// Default Value: vectara<br/>
         /// Example: openai-compatible
         /// </summary>
@@ -91,7 +91,7 @@ namespace Vectara
         /// Example: openai-text-encoder
         /// </param>
         /// <param name="type">
-        /// The encoder type<br/>
+        /// The encoder type. Matches the `type` the encoder was created with, or `vectara` for encoders that Vectara provides.<br/>
         /// Default Value: vectara<br/>
         /// Example: openai-compatible
         /// </param>
