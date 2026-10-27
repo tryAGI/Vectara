@@ -107,6 +107,7 @@ tags:
   description: Inspect traces emitted by agent executions and retrieve evaluation
     data.
 - name: CustomerMetrics
+  x-displayName: Metrics
   description: Query pre-aggregated time-series and distribution metrics scoped to
     the authenticated customer.
 - name: Pipeline Dead Letters
