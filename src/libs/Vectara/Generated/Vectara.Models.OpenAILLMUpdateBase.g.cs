@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Vectara
@@ -68,85 +70,92 @@ namespace Vectara
         public global::Vectara.LLMCapabilities? Capabilities { get; set; }
 
         /// <summary>
-        /// The maximum number of requests per second for this LLM.<br/>
+        /// Deprecated. This field will be removed in a future release. The platform still enforces it until then. Contact Vectara support to set LLM request and token limits. The maximum number of requests per second for this LLM.<br/>
         /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
+        /// - Set the field to null to remove the limit set through this field.<br/>
         /// - Omit the field to keep the current limit.<br/>
         /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("requests_per_second")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public long? RequestsPerSecond { get; set; }
 
         /// <summary>
-        /// The maximum number of input (prompt) tokens per minute for this LLM, as reported by the provider and including cached prompt tokens.<br/>
+        /// Deprecated. This field will be removed in a future release. The platform still enforces it until then. Contact Vectara support to set LLM request and token limits. The maximum number of input (prompt) tokens per minute for this LLM, as reported by the provider and including cached prompt tokens.<br/>
         /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
+        /// - Set the field to null to remove the limit set through this field.<br/>
         /// - Omit the field to keep the current limit.<br/>
         /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
         /// Example: 200000
         /// </summary>
         /// <example>200000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_minute")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public long? InputTokensPerMinute { get; set; }
 
         /// <summary>
-        /// The maximum number of output tokens (completion plus reasoning) per minute for this LLM.<br/>
+        /// Deprecated. This field will be removed in a future release. The platform still enforces it until then. Contact Vectara support to set LLM request and token limits. The maximum number of output tokens (completion plus reasoning) per minute for this LLM.<br/>
         /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
+        /// - Set the field to null to remove the limit set through this field.<br/>
         /// - Omit the field to keep the current limit.<br/>
         /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
         /// Example: 50000
         /// </summary>
         /// <example>50000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_minute")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public long? OutputTokensPerMinute { get; set; }
 
         /// <summary>
-        /// The maximum number of input tokens per UTC calendar day for this LLM.<br/>
+        /// Deprecated. This field will be removed in a future release. The platform still enforces it until then. Contact Vectara support to set LLM request and token limits. The maximum number of input tokens per UTC calendar day for this LLM.<br/>
         /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
+        /// - Set the field to null to remove the limit set through this field.<br/>
         /// - Omit the field to keep the current limit.<br/>
         /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
         /// Example: 2000000
         /// </summary>
         /// <example>2000000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_day")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public long? InputTokensPerDay { get; set; }
 
         /// <summary>
-        /// The maximum number of output tokens per UTC calendar day for this LLM.<br/>
+        /// Deprecated. This field will be removed in a future release. The platform still enforces it until then. Contact Vectara support to set LLM request and token limits. The maximum number of output tokens per UTC calendar day for this LLM.<br/>
         /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
+        /// - Set the field to null to remove the limit set through this field.<br/>
         /// - Omit the field to keep the current limit.<br/>
         /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
         /// Example: 500000
         /// </summary>
         /// <example>500000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_day")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public long? OutputTokensPerDay { get; set; }
 
         /// <summary>
-        /// The maximum number of input tokens per UTC calendar month for this LLM.<br/>
+        /// Deprecated. This field will be removed in a future release. The platform still enforces it until then. Contact Vectara support to set LLM request and token limits. The maximum number of input tokens per UTC calendar month for this LLM.<br/>
         /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
+        /// - Set the field to null to remove the limit set through this field.<br/>
         /// - Omit the field to keep the current limit.<br/>
         /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
         /// Example: 50000000
         /// </summary>
         /// <example>50000000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("input_tokens_per_month")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public long? InputTokensPerMonth { get; set; }
 
         /// <summary>
-        /// The maximum number of output tokens per UTC calendar month for this LLM.<br/>
+        /// Deprecated. This field will be removed in a future release. The platform still enforces it until then. Contact Vectara support to set LLM request and token limits. The maximum number of output tokens per UTC calendar month for this LLM.<br/>
         /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
+        /// - Set the field to null to remove the limit set through this field.<br/>
         /// - Omit the field to keep the current limit.<br/>
         /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
         /// Example: 10000000
         /// </summary>
         /// <example>10000000</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_tokens_per_month")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public long? OutputTokensPerMonth { get; set; }
 
         /// <summary>
@@ -187,61 +196,6 @@ namespace Vectara
         /// <param name="capabilities">
         /// The capabilities of a Large Language Model. If you do not provide capabilities when you create an LLM, the platform infers them from the model name and provider type. Fields you provide explicitly override the inferred defaults.
         /// </param>
-        /// <param name="requestsPerSecond">
-        /// The maximum number of requests per second for this LLM.<br/>
-        /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
-        /// - Omit the field to keep the current limit.<br/>
-        /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.
-        /// </param>
-        /// <param name="inputTokensPerMinute">
-        /// The maximum number of input (prompt) tokens per minute for this LLM, as reported by the provider and including cached prompt tokens.<br/>
-        /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
-        /// - Omit the field to keep the current limit.<br/>
-        /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
-        /// Example: 200000
-        /// </param>
-        /// <param name="outputTokensPerMinute">
-        /// The maximum number of output tokens (completion plus reasoning) per minute for this LLM.<br/>
-        /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
-        /// - Omit the field to keep the current limit.<br/>
-        /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
-        /// Example: 50000
-        /// </param>
-        /// <param name="inputTokensPerDay">
-        /// The maximum number of input tokens per UTC calendar day for this LLM.<br/>
-        /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
-        /// - Omit the field to keep the current limit.<br/>
-        /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
-        /// Example: 2000000
-        /// </param>
-        /// <param name="outputTokensPerDay">
-        /// The maximum number of output tokens per UTC calendar day for this LLM.<br/>
-        /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
-        /// - Omit the field to keep the current limit.<br/>
-        /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
-        /// Example: 500000
-        /// </param>
-        /// <param name="inputTokensPerMonth">
-        /// The maximum number of input tokens per UTC calendar month for this LLM.<br/>
-        /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
-        /// - Omit the field to keep the current limit.<br/>
-        /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
-        /// Example: 50000000
-        /// </param>
-        /// <param name="outputTokensPerMonth">
-        /// The maximum number of output tokens per UTC calendar month for this LLM.<br/>
-        /// - Set a value to apply that limit.<br/>
-        /// - Set the field to null to remove the limit.<br/>
-        /// - Omit the field to keep the current limit.<br/>
-        /// Once the limit is reached, the platform rejects calls to this LLM with HTTP 429 and a Retry-After header.<br/>
-        /// Example: 10000000
-        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -254,14 +208,7 @@ namespace Vectara
             int? idleTimeoutSeconds,
             bool? enabled,
             object? testModelParameters,
-            global::Vectara.LLMCapabilities? capabilities,
-            long? requestsPerSecond,
-            long? inputTokensPerMinute,
-            long? outputTokensPerMinute,
-            long? inputTokensPerDay,
-            long? outputTokensPerDay,
-            long? inputTokensPerMonth,
-            long? outputTokensPerMonth)
+            global::Vectara.LLMCapabilities? capabilities)
         {
             this.Model = model;
             this.Uri = uri;
@@ -272,13 +219,6 @@ namespace Vectara
             this.Enabled = enabled;
             this.TestModelParameters = testModelParameters;
             this.Capabilities = capabilities;
-            this.RequestsPerSecond = requestsPerSecond;
-            this.InputTokensPerMinute = inputTokensPerMinute;
-            this.OutputTokensPerMinute = outputTokensPerMinute;
-            this.InputTokensPerDay = inputTokensPerDay;
-            this.OutputTokensPerDay = outputTokensPerDay;
-            this.InputTokensPerMonth = inputTokensPerMonth;
-            this.OutputTokensPerMonth = outputTokensPerMonth;
         }
 
         /// <summary>
