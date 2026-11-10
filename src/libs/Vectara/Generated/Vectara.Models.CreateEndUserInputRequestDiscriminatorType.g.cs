@@ -16,6 +16,10 @@ namespace Vectara
         ///
         /// </summary>
         Interrupt,
+        /// <summary>
+        ///
+        /// </summary>
+        ToolOutput,
     }
 
     /// <summary>
@@ -32,6 +36,7 @@ namespace Vectara
             {
                 CreateEndUserInputRequestDiscriminatorType.InputMessage => "input_message",
                 CreateEndUserInputRequestDiscriminatorType.Interrupt => "interrupt",
+                CreateEndUserInputRequestDiscriminatorType.ToolOutput => "tool_output",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -44,6 +49,7 @@ namespace Vectara
             {
                 "input_message" => CreateEndUserInputRequestDiscriminatorType.InputMessage,
                 "interrupt" => CreateEndUserInputRequestDiscriminatorType.Interrupt,
+                "tool_output" => CreateEndUserInputRequestDiscriminatorType.ToolOutput,
                 _ => null,
             };
         }

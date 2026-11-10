@@ -1,6 +1,8 @@
 
 #nullable enable
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 namespace Vectara
 {
     public partial class AgentsClient
@@ -438,7 +440,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow updating this agent.
+                            // Permissions do not allow updating this agent, or do not allow using an agent that the request refers to.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -666,14 +668,8 @@ namespace Vectara
         /// Tool outputs are inspected as they are produced. A small output is always passed through unchanged. A larger output is handled in one of two cases: when the output on its own is big enough to dominate the context, or when adding it to the conversation would leave too little room for the agent to continue. In either case the output is handled according to `mode` — stored as an artifact and replaced with a compact reference, or truncated in place with the head and tail preserved and the middle omitted. When stored as an artifact, the agent is expected to have artifact_read, artifact_grep, or artifact_jq configured so it can retrieve the full content on demand.<br/>
         /// All fields are optional; omitted fields fall back to defaults.
         /// </param>
-        /// <param name="llmQuota">
-        /// Ceilings on the LLM requests and tokens this agent may consume, counted across every LLM the agent calls. A sub-agent is charged to its own quota, not its parent's.<br/>
-        /// Each field is optional; an omitted field sets no limit of its own. The platform may also apply its own limits. Day and month windows are UTC calendar windows. Input tokens are the provider's reported prompt tokens, including cached tokens; output tokens are completion plus reasoning tokens. When a limit is reached the agent's next LLM call is refused: a non-streamed `createAgentInput` request answers `429` with a `Retry-After` header, and a streamed one ends with an `error` event naming the exhausted quota and the seconds until it resets.
-        /// </param>
-        /// <param name="generateSessionDescriptions">
-        /// Whether the platform generates a description for each of this agent's sessions created without one. When true, after each turn that completes without error in such a session, the platform makes one additional request to the agent's model to summarize the session's events into its description. That request consumes tokens and counts against `llm_quota`. When false, no request is made and those sessions keep no description. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.<br/>
-        /// Default Value: true<br/>
-        /// Example: false
+        /// <param name="sessionDescription">
+        /// Controls how this agent's sessions created without a description get one. Generation sends one additional request to the agent's model, using the text of the input message that triggers it (the first input message with text, or the next one after a failed request), and stores the result on the session. That request consumes tokens. When the response is streamed, the stream also carries a `session_description` event. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.
         /// </param>
         /// <param name="steps">
         /// A map of additional named steps keyed by step name for partial update.<br/>
@@ -700,8 +696,7 @@ namespace Vectara
             global::Vectara.CompactionConfig? compaction = default,
             global::Vectara.SessionEnrichmentConfig? sessionEnrichment = default,
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading = default,
-            global::Vectara.LLMQuota? llmQuota = default,
-            bool? generateSessionDescriptions = default,
+            global::Vectara.SessionDescriptionConfiguration? sessionDescription = default,
             global::System.Collections.Generic.Dictionary<string, global::Vectara.UpdateAgentStep>? steps = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -720,8 +715,7 @@ namespace Vectara
                 Compaction = compaction,
                 SessionEnrichment = sessionEnrichment,
                 ToolOutputOffloading = toolOutputOffloading,
-                LlmQuota = llmQuota,
-                GenerateSessionDescriptions = generateSessionDescriptions,
+                SessionDescription = sessionDescription,
                 Steps = steps,
             };
 

@@ -314,6 +314,45 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'StreamingThinkingEnd' but the value was {ToString()}.");
 
         /// <summary>
+        /// The current description of the session (SSE only, not stored).<br/>
+        /// The stream carries this event when the platform generates a description, and when a stream opens on a session that already has one.<br/>
+        /// The event can repeat. Each occurrence replaces the previous value.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.SessionDescriptionEvent? SessionDescription { get; init; }
+#else
+        public global::Vectara.SessionDescriptionEvent? SessionDescription { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SessionDescription))]
+#endif
+        public bool IsSessionDescription => SessionDescription != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickSessionDescription(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SessionDescriptionEvent? value)
+        {
+            value = SessionDescription;
+            return IsSessionDescription;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.SessionDescriptionEvent PickSessionDescription() => SessionDescription is { } value
+            ? value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SessionDescription' but the value was {ToString()}.");
+
+        /// <summary>
         /// An event representing input to a tool call.
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -1077,6 +1116,29 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public static implicit operator AgentStreamedResponse(global::Vectara.SessionDescriptionEvent value) => new AgentStreamedResponse((global::Vectara.SessionDescriptionEvent?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.SessionDescriptionEvent?(AgentStreamedResponse @this) => @this.SessionDescription;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public AgentStreamedResponse(global::Vectara.SessionDescriptionEvent? value)
+        {
+            SessionDescription = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static AgentStreamedResponse FromSessionDescription(global::Vectara.SessionDescriptionEvent? value) => new AgentStreamedResponse(value);
+
+        /// <summary>
+        ///
+        /// </summary>
         public static implicit operator AgentStreamedResponse(global::Vectara.ToolInputEvent value) => new AgentStreamedResponse((global::Vectara.ToolInputEvent?)value);
 
         /// <summary>
@@ -1432,6 +1494,7 @@ namespace Vectara
             global::Vectara.StreamingAgentOutputEnd? streamingAgentOutputEnd,
             global::Vectara.StreamingThinking? streamingThinking,
             global::Vectara.StreamingThinkingEnd? streamingThinkingEnd,
+            global::Vectara.SessionDescriptionEvent? sessionDescription,
             global::Vectara.ToolInputEvent? toolInput,
             global::Vectara.ToolOutputEvent? toolOutput,
             global::Vectara.ToolActivityEvent? toolActivity,
@@ -1459,6 +1522,7 @@ namespace Vectara
             StreamingAgentOutputEnd = streamingAgentOutputEnd;
             StreamingThinking = streamingThinking;
             StreamingThinkingEnd = streamingThinkingEnd;
+            SessionDescription = sessionDescription;
             ToolInput = toolInput;
             ToolOutput = toolOutput;
             ToolActivity = toolActivity;
@@ -1495,6 +1559,7 @@ namespace Vectara
             ToolActivity as object ??
             ToolOutput as object ??
             ToolInput as object ??
+            SessionDescription as object ??
             StreamingThinkingEnd as object ??
             StreamingThinking as object ??
             StreamingAgentOutputEnd as object ??
@@ -1517,6 +1582,7 @@ namespace Vectara
             StreamingAgentOutputEnd?.ToString() ??
             StreamingThinking?.ToString() ??
             StreamingThinkingEnd?.ToString() ??
+            SessionDescription?.ToString() ??
             ToolInput?.ToString() ??
             ToolOutput?.ToString() ??
             ToolActivity?.ToString() ??
@@ -1539,7 +1605,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && IsEnd;
+            return IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && IsCompactionStarted && !IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && IsCompaction && !IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && IsError && !IsEnd || !IsSkillLoad && !IsThinking && !IsArtifactUpload && !IsInputMessage && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolInput && !IsToolOutput && !IsToolActivity && !IsStructuredOutput && !IsContextLimitExceeded && !IsStepTransitionLimitExceeded && !IsSessionInterrupted && !IsClientToolPending && !IsImageRead && !IsStepTransition && !IsContextConsumed && !IsCompactionStarted && !IsCompaction && !IsError && IsEnd;
         }
 
         /// <summary>
@@ -1554,6 +1620,7 @@ namespace Vectara
             global::System.Func<global::Vectara.StreamingAgentOutputEnd, TResult>? streamingAgentOutputEnd = null,
             global::System.Func<global::Vectara.StreamingThinking, TResult>? streamingThinking = null,
             global::System.Func<global::Vectara.StreamingThinkingEnd, TResult>? streamingThinkingEnd = null,
+            global::System.Func<global::Vectara.SessionDescriptionEvent, TResult>? sessionDescription = null,
             global::System.Func<global::Vectara.ToolInputEvent?, TResult>? toolInput = null,
             global::System.Func<global::Vectara.ToolOutputEvent?, TResult>? toolOutput = null,
             global::System.Func<global::Vectara.ToolActivityEvent?, TResult>? toolActivity = null,
@@ -1608,65 +1675,69 @@ namespace Vectara
             {
                 return streamingThinkingEnd(__value7);
             }
-            else if (ToolInput is { } __value8 && toolInput != null)
+            else if (SessionDescription is { } __value8 && sessionDescription != null)
             {
-                return toolInput(__value8);
+                return sessionDescription(__value8);
             }
-            else if (ToolOutput is { } __value9 && toolOutput != null)
+            else if (ToolInput is { } __value9 && toolInput != null)
             {
-                return toolOutput(__value9);
+                return toolInput(__value9);
             }
-            else if (ToolActivity is { } __value10 && toolActivity != null)
+            else if (ToolOutput is { } __value10 && toolOutput != null)
             {
-                return toolActivity(__value10);
+                return toolOutput(__value10);
             }
-            else if (StructuredOutput is { } __value11 && structuredOutput != null)
+            else if (ToolActivity is { } __value11 && toolActivity != null)
             {
-                return structuredOutput(__value11);
+                return toolActivity(__value11);
             }
-            else if (ContextLimitExceeded is { } __value12 && contextLimitExceeded != null)
+            else if (StructuredOutput is { } __value12 && structuredOutput != null)
             {
-                return contextLimitExceeded(__value12);
+                return structuredOutput(__value12);
             }
-            else if (StepTransitionLimitExceeded is { } __value13 && stepTransitionLimitExceeded != null)
+            else if (ContextLimitExceeded is { } __value13 && contextLimitExceeded != null)
             {
-                return stepTransitionLimitExceeded(__value13);
+                return contextLimitExceeded(__value13);
             }
-            else if (SessionInterrupted is { } __value14 && sessionInterrupted != null)
+            else if (StepTransitionLimitExceeded is { } __value14 && stepTransitionLimitExceeded != null)
             {
-                return sessionInterrupted(__value14);
+                return stepTransitionLimitExceeded(__value14);
             }
-            else if (ClientToolPending is { } __value15 && clientToolPending != null)
+            else if (SessionInterrupted is { } __value15 && sessionInterrupted != null)
             {
-                return clientToolPending(__value15);
+                return sessionInterrupted(__value15);
             }
-            else if (ImageRead is { } __value16 && imageRead != null)
+            else if (ClientToolPending is { } __value16 && clientToolPending != null)
             {
-                return imageRead(__value16);
+                return clientToolPending(__value16);
             }
-            else if (StepTransition is { } __value17 && stepTransition != null)
+            else if (ImageRead is { } __value17 && imageRead != null)
             {
-                return stepTransition(__value17);
+                return imageRead(__value17);
             }
-            else if (ContextConsumed is { } __value18 && contextConsumed != null)
+            else if (StepTransition is { } __value18 && stepTransition != null)
             {
-                return contextConsumed(__value18);
+                return stepTransition(__value18);
             }
-            else if (CompactionStarted is { } __value19 && compactionStarted != null)
+            else if (ContextConsumed is { } __value19 && contextConsumed != null)
             {
-                return compactionStarted(__value19);
+                return contextConsumed(__value19);
             }
-            else if (Compaction is { } __value20 && compaction != null)
+            else if (CompactionStarted is { } __value20 && compactionStarted != null)
             {
-                return compaction(__value20);
+                return compactionStarted(__value20);
             }
-            else if (Error is { } __value21 && error != null)
+            else if (Compaction is { } __value21 && compaction != null)
             {
-                return error(__value21);
+                return compaction(__value21);
             }
-            else if (End is { } __value22 && end != null)
+            else if (Error is { } __value22 && error != null)
             {
-                return end(__value22);
+                return error(__value22);
+            }
+            else if (End is { } __value23 && end != null)
+            {
+                return end(__value23);
             }
 
             return default(TResult);
@@ -1692,6 +1763,8 @@ namespace Vectara
 
             global::System.Action<global::Vectara.StreamingThinkingEnd>? streamingThinkingEnd = null,
 
+            global::System.Action<global::Vectara.SessionDescriptionEvent>? sessionDescription = null,
+
             global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
 
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
@@ -1760,65 +1833,69 @@ namespace Vectara
             {
                 streamingThinkingEnd?.Invoke(__value7);
             }
-            else if (ToolInput is { } __value8)
+            else if (SessionDescription is { } __value8)
             {
-                toolInput?.Invoke(__value8);
+                sessionDescription?.Invoke(__value8);
             }
-            else if (ToolOutput is { } __value9)
+            else if (ToolInput is { } __value9)
             {
-                toolOutput?.Invoke(__value9);
+                toolInput?.Invoke(__value9);
             }
-            else if (ToolActivity is { } __value10)
+            else if (ToolOutput is { } __value10)
             {
-                toolActivity?.Invoke(__value10);
+                toolOutput?.Invoke(__value10);
             }
-            else if (StructuredOutput is { } __value11)
+            else if (ToolActivity is { } __value11)
             {
-                structuredOutput?.Invoke(__value11);
+                toolActivity?.Invoke(__value11);
             }
-            else if (ContextLimitExceeded is { } __value12)
+            else if (StructuredOutput is { } __value12)
             {
-                contextLimitExceeded?.Invoke(__value12);
+                structuredOutput?.Invoke(__value12);
             }
-            else if (StepTransitionLimitExceeded is { } __value13)
+            else if (ContextLimitExceeded is { } __value13)
             {
-                stepTransitionLimitExceeded?.Invoke(__value13);
+                contextLimitExceeded?.Invoke(__value13);
             }
-            else if (SessionInterrupted is { } __value14)
+            else if (StepTransitionLimitExceeded is { } __value14)
             {
-                sessionInterrupted?.Invoke(__value14);
+                stepTransitionLimitExceeded?.Invoke(__value14);
             }
-            else if (ClientToolPending is { } __value15)
+            else if (SessionInterrupted is { } __value15)
             {
-                clientToolPending?.Invoke(__value15);
+                sessionInterrupted?.Invoke(__value15);
             }
-            else if (ImageRead is { } __value16)
+            else if (ClientToolPending is { } __value16)
             {
-                imageRead?.Invoke(__value16);
+                clientToolPending?.Invoke(__value16);
             }
-            else if (StepTransition is { } __value17)
+            else if (ImageRead is { } __value17)
             {
-                stepTransition?.Invoke(__value17);
+                imageRead?.Invoke(__value17);
             }
-            else if (ContextConsumed is { } __value18)
+            else if (StepTransition is { } __value18)
             {
-                contextConsumed?.Invoke(__value18);
+                stepTransition?.Invoke(__value18);
             }
-            else if (CompactionStarted is { } __value19)
+            else if (ContextConsumed is { } __value19)
             {
-                compactionStarted?.Invoke(__value19);
+                contextConsumed?.Invoke(__value19);
             }
-            else if (Compaction is { } __value20)
+            else if (CompactionStarted is { } __value20)
             {
-                compaction?.Invoke(__value20);
+                compactionStarted?.Invoke(__value20);
             }
-            else if (Error is { } __value21)
+            else if (Compaction is { } __value21)
             {
-                error?.Invoke(__value21);
+                compaction?.Invoke(__value21);
             }
-            else if (End is { } __value22)
+            else if (Error is { } __value22)
             {
-                end?.Invoke(__value22);
+                error?.Invoke(__value22);
+            }
+            else if (End is { } __value23)
+            {
+                end?.Invoke(__value23);
             }
         }
 
@@ -1834,6 +1911,7 @@ namespace Vectara
             global::System.Action<global::Vectara.StreamingAgentOutputEnd>? streamingAgentOutputEnd = null,
             global::System.Action<global::Vectara.StreamingThinking>? streamingThinking = null,
             global::System.Action<global::Vectara.StreamingThinkingEnd>? streamingThinkingEnd = null,
+            global::System.Action<global::Vectara.SessionDescriptionEvent>? sessionDescription = null,
             global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
             global::System.Action<global::Vectara.ToolActivityEvent?>? toolActivity = null,
@@ -1888,65 +1966,69 @@ namespace Vectara
             {
                 streamingThinkingEnd?.Invoke(__value7);
             }
-            else if (ToolInput is { } __value8)
+            else if (SessionDescription is { } __value8)
             {
-                toolInput?.Invoke(__value8);
+                sessionDescription?.Invoke(__value8);
             }
-            else if (ToolOutput is { } __value9)
+            else if (ToolInput is { } __value9)
             {
-                toolOutput?.Invoke(__value9);
+                toolInput?.Invoke(__value9);
             }
-            else if (ToolActivity is { } __value10)
+            else if (ToolOutput is { } __value10)
             {
-                toolActivity?.Invoke(__value10);
+                toolOutput?.Invoke(__value10);
             }
-            else if (StructuredOutput is { } __value11)
+            else if (ToolActivity is { } __value11)
             {
-                structuredOutput?.Invoke(__value11);
+                toolActivity?.Invoke(__value11);
             }
-            else if (ContextLimitExceeded is { } __value12)
+            else if (StructuredOutput is { } __value12)
             {
-                contextLimitExceeded?.Invoke(__value12);
+                structuredOutput?.Invoke(__value12);
             }
-            else if (StepTransitionLimitExceeded is { } __value13)
+            else if (ContextLimitExceeded is { } __value13)
             {
-                stepTransitionLimitExceeded?.Invoke(__value13);
+                contextLimitExceeded?.Invoke(__value13);
             }
-            else if (SessionInterrupted is { } __value14)
+            else if (StepTransitionLimitExceeded is { } __value14)
             {
-                sessionInterrupted?.Invoke(__value14);
+                stepTransitionLimitExceeded?.Invoke(__value14);
             }
-            else if (ClientToolPending is { } __value15)
+            else if (SessionInterrupted is { } __value15)
             {
-                clientToolPending?.Invoke(__value15);
+                sessionInterrupted?.Invoke(__value15);
             }
-            else if (ImageRead is { } __value16)
+            else if (ClientToolPending is { } __value16)
             {
-                imageRead?.Invoke(__value16);
+                clientToolPending?.Invoke(__value16);
             }
-            else if (StepTransition is { } __value17)
+            else if (ImageRead is { } __value17)
             {
-                stepTransition?.Invoke(__value17);
+                imageRead?.Invoke(__value17);
             }
-            else if (ContextConsumed is { } __value18)
+            else if (StepTransition is { } __value18)
             {
-                contextConsumed?.Invoke(__value18);
+                stepTransition?.Invoke(__value18);
             }
-            else if (CompactionStarted is { } __value19)
+            else if (ContextConsumed is { } __value19)
             {
-                compactionStarted?.Invoke(__value19);
+                contextConsumed?.Invoke(__value19);
             }
-            else if (Compaction is { } __value20)
+            else if (CompactionStarted is { } __value20)
             {
-                compaction?.Invoke(__value20);
+                compactionStarted?.Invoke(__value20);
             }
-            else if (Error is { } __value21)
+            else if (Compaction is { } __value21)
             {
-                error?.Invoke(__value21);
+                compaction?.Invoke(__value21);
             }
-            else if (End is { } __value22)
+            else if (Error is { } __value22)
             {
-                end?.Invoke(__value22);
+                error?.Invoke(__value22);
+            }
+            else if (End is { } __value23)
+            {
+                end?.Invoke(__value23);
             }
         }
 
@@ -1973,6 +2055,8 @@ namespace Vectara
                 typeof(global::Vectara.StreamingThinking),
                 StreamingThinkingEnd,
                 typeof(global::Vectara.StreamingThinkingEnd),
+                SessionDescription,
+                typeof(global::Vectara.SessionDescriptionEvent),
                 ToolInput,
                 typeof(global::Vectara.ToolInputEvent),
                 ToolOutput,
@@ -2027,6 +2111,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingAgentOutputEnd?>.Default.Equals(StreamingAgentOutputEnd, other.StreamingAgentOutputEnd) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingThinking?>.Default.Equals(StreamingThinking, other.StreamingThinking) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingThinkingEnd?>.Default.Equals(StreamingThinkingEnd, other.StreamingThinkingEnd) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SessionDescriptionEvent?>.Default.Equals(SessionDescription, other.SessionDescription) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolInputEvent?>.Default.Equals(ToolInput, other.ToolInput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolOutputEvent?>.Default.Equals(ToolOutput, other.ToolOutput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolActivityEvent?>.Default.Equals(ToolActivity, other.ToolActivity) &&

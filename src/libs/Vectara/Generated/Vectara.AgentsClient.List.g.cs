@@ -46,6 +46,7 @@ namespace Vectara
             ref int? requestTimeout,
             ref int? requestTimeoutMillis,
             ref string? filter,
+            ref string? metadataFilter,
             ref bool? enabled,
             ref int? limit,
             ref string? pageKey);
@@ -55,6 +56,7 @@ namespace Vectara
             int? requestTimeout,
             int? requestTimeoutMillis,
             string? filter,
+            string? metadataFilter,
             bool? enabled,
             int? limit,
             string? pageKey);
@@ -76,6 +78,9 @@ namespace Vectara
         /// <param name="filter">
         /// Example: support.*
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: team = 'support' AND tier &gt;= 2
+        /// </param>
         /// <param name="enabled">
         /// Example: true
         /// </param>
@@ -90,6 +95,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? filter = default,
+            string? metadataFilter = default,
             bool? enabled = default,
             int? limit = default,
             string? pageKey = default,
@@ -100,6 +106,7 @@ namespace Vectara
                 requestTimeout: requestTimeout,
                 requestTimeoutMillis: requestTimeoutMillis,
                 filter: filter,
+                metadataFilter: metadataFilter,
                 enabled: enabled,
                 limit: limit,
                 pageKey: pageKey,
@@ -118,6 +125,9 @@ namespace Vectara
         /// <param name="filter">
         /// Example: support.*
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: team = 'support' AND tier &gt;= 2
+        /// </param>
         /// <param name="enabled">
         /// Example: true
         /// </param>
@@ -132,6 +142,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? filter = default,
+            string? metadataFilter = default,
             bool? enabled = default,
             int? limit = default,
             string? pageKey = default,
@@ -145,6 +156,7 @@ namespace Vectara
                 requestTimeout: ref requestTimeout,
                 requestTimeoutMillis: ref requestTimeoutMillis,
                 filter: ref filter,
+                metadataFilter: ref metadataFilter,
                 enabled: ref enabled,
                 limit: ref limit,
                 pageKey: ref pageKey);
@@ -177,6 +189,7 @@ namespace Vectara
                                 baseUri: HttpClient.BaseAddress);
                             __pathBuilder
                                 .AddOptionalParameter("filter", filter)
+                                .AddOptionalParameter("metadata_filter", metadataFilter)
                                 .AddOptionalParameter("enabled", enabled?.ToString().ToLowerInvariant())
                                 .AddOptionalParameter("limit", limit?.ToString())
                                 .AddOptionalParameter("page_key", pageKey)
@@ -234,6 +247,7 @@ namespace Vectara
                     requestTimeout: requestTimeout,
                     requestTimeoutMillis: requestTimeoutMillis,
                     filter: filter,
+                    metadataFilter: metadataFilter,
                     enabled: enabled,
                     limit: limit,
                     pageKey: pageKey);

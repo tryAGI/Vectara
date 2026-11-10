@@ -10,7 +10,7 @@ namespace Vectara
         /// Returns the `customer_id` visitor minting is addressed to, the `presentation` to render, whether anonymous visitors are admitted (`public_access`), and the sign-in configuration when the widget offers one.<br/>
         /// A read with no side effects: minting an anonymous visitor id is a separate call, `POST /v2/visitors`, so a returning visitor who already holds an id only reads this view.<br/>
         /// The view tells the client how to authenticate: `public_access` true — mint or present a visitor id; `end_user_sign_in` present — sign the user in through the referenced issuer. A widget may offer both, and the two follow-up calls do not depend on each other.<br/>
-        /// This operation serves only the public projection; operators read the full connector, configuration included, from the connector list.<br/>
+        /// This operation serves only the public projection; operators read the full connector, configuration included, from `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}`.<br/>
         /// Serves connectors that front an end-user surface — today, widget connectors. Returns `404` if the connector does not exist on the addressed alias, is a channel connector with no end-user surface (Slack, Google Chat, or Zoom), is disabled, or belongs to a disabled customer.
         /// </summary>
         /// <param name="requestTimeout"></param>
@@ -39,7 +39,7 @@ namespace Vectara
         /// Returns the `customer_id` visitor minting is addressed to, the `presentation` to render, whether anonymous visitors are admitted (`public_access`), and the sign-in configuration when the widget offers one.<br/>
         /// A read with no side effects: minting an anonymous visitor id is a separate call, `POST /v2/visitors`, so a returning visitor who already holds an id only reads this view.<br/>
         /// The view tells the client how to authenticate: `public_access` true — mint or present a visitor id; `end_user_sign_in` present — sign the user in through the referenced issuer. A widget may offer both, and the two follow-up calls do not depend on each other.<br/>
-        /// This operation serves only the public projection; operators read the full connector, configuration included, from the connector list.<br/>
+        /// This operation serves only the public projection; operators read the full connector, configuration included, from `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}`.<br/>
         /// Serves connectors that front an end-user surface — today, widget connectors. Returns `404` if the connector does not exist on the addressed alias, is a channel connector with no end-user surface (Slack, Google Chat, or Zoom), is disabled, or belongs to a disabled customer.
         /// </summary>
         /// <param name="requestTimeout"></param>

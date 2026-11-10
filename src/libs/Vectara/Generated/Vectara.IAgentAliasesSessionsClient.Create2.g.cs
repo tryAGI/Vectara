@@ -67,7 +67,7 @@ namespace Vectara
         /// Example: Customer Support Session
         /// </param>
         /// <param name="description">
-        /// A short description of the session's purpose. If omitted, the platform generates one after the session produces events, unless the agent's `generate_session_descriptions` is false. Pass an empty string to suppress auto-generation.<br/>
+        /// A short description of the session's purpose. If omitted, the platform generates one from an input message that has text, unless the agent's `session_description.enabled` is false. Pass an empty string to suppress auto-generation.<br/>
         /// Example: Helping customer troubleshoot issues
         /// </param>
         /// <param name="metadata">

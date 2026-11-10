@@ -1,6 +1,4 @@
 
-#pragma warning disable CS0618 // Type or member is obsolete
-
 #nullable enable
 
 namespace Vectara
@@ -12,12 +10,11 @@ namespace Vectara
     public sealed partial class UpdateAgentStep
     {
         /// <summary>
-        /// Deprecated. Previously used as a discriminator.<br/>
-        /// Default Value: conversational
+        /// How the step acts on its input. If omitted, the current value is kept.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Obsolete("This property marked as deprecated.")]
-        public string? Type { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentStepTypeJsonConverter))]
+        public global::Vectara.AgentStepType? Type { get; set; }
 
         /// <summary>
         /// List of instructions that guide the agent's behavior. Set to null to clear all instructions.
@@ -57,6 +54,12 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? AllowedSkills { get; set; }
 
         /// <summary>
+        /// Tool calls the platform makes each time the session transitions into this step or starts at it. See AgentStep for how they run. Set to null to clear.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_calls")]
+        public global::System.Collections.Generic.IList<global::Vectara.AgentStepToolCall>? ToolCalls { get; set; }
+
+        /// <summary>
         /// Step name to resume at when the session receives the next user message.<br/>
         /// Set to null to clear (re-enters at this step).
         /// </summary>
@@ -72,6 +75,9 @@ namespace Vectara
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateAgentStep" /> class.
         /// </summary>
+        /// <param name="type">
+        /// How the step acts on its input. If omitted, the current value is kept.
+        /// </param>
         /// <param name="instructions">
         /// List of instructions that guide the agent's behavior. Set to null to clear all instructions.
         /// </param>
@@ -90,6 +96,9 @@ namespace Vectara
         /// <param name="allowedSkills">
         /// Skill names this step may use. Set to null to clear (allows all skills).
         /// </param>
+        /// <param name="toolCalls">
+        /// Tool calls the platform makes each time the session transitions into this step or starts at it. See AgentStep for how they run. Set to null to clear.
+        /// </param>
         /// <param name="reentryStep">
         /// Step name to resume at when the session receives the next user message.<br/>
         /// Set to null to clear (re-enters at this step).
@@ -98,20 +107,24 @@ namespace Vectara
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public UpdateAgentStep(
+            global::Vectara.AgentStepType? type,
             global::System.Collections.Generic.IList<global::Vectara.AgentStepInstruction>? instructions,
             global::Vectara.AgentOutputParser? outputParser,
             global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>? reminders,
             global::System.Collections.Generic.IList<global::Vectara.NextStep>? nextSteps,
             global::System.Collections.Generic.IList<string>? allowedTools,
             global::System.Collections.Generic.IList<string>? allowedSkills,
+            global::System.Collections.Generic.IList<global::Vectara.AgentStepToolCall>? toolCalls,
             string? reentryStep)
         {
+            this.Type = type;
             this.Instructions = instructions;
             this.OutputParser = outputParser;
             this.Reminders = reminders;
             this.NextSteps = nextSteps;
             this.AllowedTools = allowedTools;
             this.AllowedSkills = allowedSkills;
+            this.ToolCalls = toolCalls;
             this.ReentryStep = reentryStep;
         }
 

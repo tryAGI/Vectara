@@ -15,6 +15,10 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        ClientToolPending,
+        /// <summary>
+        ///
+        /// </summary>
         Error,
         /// <summary>
         ///
@@ -51,6 +55,7 @@ namespace Vectara
             return value switch
             {
                 EndUserEventDiscriminatorType.AgentOutput => "agent_output",
+                EndUserEventDiscriminatorType.ClientToolPending => "client_tool_pending",
                 EndUserEventDiscriminatorType.Error => "error",
                 EndUserEventDiscriminatorType.InputMessage => "input_message",
                 EndUserEventDiscriminatorType.StructuredOutput => "structured_output",
@@ -68,6 +73,7 @@ namespace Vectara
             return value switch
             {
                 "agent_output" => EndUserEventDiscriminatorType.AgentOutput,
+                "client_tool_pending" => EndUserEventDiscriminatorType.ClientToolPending,
                 "error" => EndUserEventDiscriminatorType.Error,
                 "input_message" => EndUserEventDiscriminatorType.InputMessage,
                 "structured_output" => EndUserEventDiscriminatorType.StructuredOutput,

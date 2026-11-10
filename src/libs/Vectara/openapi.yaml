@@ -1281,6 +1281,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
+        '409':
+          description: Another filter attribute replacement or corpus rebuild is already
+            running for this corpus.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: The corpus cannot hold the requested filter attributes. Retrying
+            the same request fails the same way. When the request names more filter
+            attributes than the corpus can hold, the error message states that limit,
+            and a request within it succeeds. When earlier filter attribute changes
+            have used up the corpus's filter attribute capacity, contact Vectara support
+            to rebuild the corpus, which restores it. The error message states which
+            case applies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '507':
           description: The platform's storage for this corpus is temporarily full.
             This is not your account's storage quota; retry the request later.
@@ -5808,10 +5827,6 @@ paths:
         - `capabilities` - Model capabilities (image support, context limit, tool
         calling)
 
-        - `requests_per_second`, `input_tokens_per_minute`, `output_tokens_per_minute`,
-        `input_tokens_per_day`, `output_tokens_per_day`, `input_tokens_per_month`,
-        `output_tokens_per_month` - Request and token quotas
-
 
         **Immutable fields:**
 
@@ -9436,7 +9451,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow creating agents.
+          description: Permissions do not allow creating agents, or do not allow using
+            an agent that the request refers to.
           content:
             application/json:
               schema:
@@ -9480,6 +9496,37 @@ paths:
         schema:
           type: string
           example: support.*
+      - in: query
+        name: metadata_filter
+        description: 'A filter expression to narrow the list to agents whose metadata
+          matches. Field names refer to keys on the agent''s `metadata` object. Syntax
+          is similar to a SQL WHERE clause, the same as the `metadata_filter` used
+          in query requests. See [metadata filters documentation](https://docs.vectara.com/docs/learn/metadata-search-filtering/filter-overview)
+          for more information.
+
+
+          Examples:
+
+          - `team = ''support''`
+
+          - `tier >= 2 AND region = ''us''`
+
+          - `owner LIKE ''%@example.com''`
+
+          - `team IN (''support'', ''sales'')`
+
+          - `team IS NULL`
+
+          - `"profile.country" = ''US''` (nested fields use a quoted dotted path)
+
+          - `''beta'' IN tags` (value present in an array)
+
+          '
+        required: false
+        schema:
+          type: string
+          maxLength: 8000
+          example: team = 'support' AND tier >= 2
       - in: query
         name: enabled
         description: Filter agents by enabled status.
@@ -9641,7 +9688,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow updating this agent.
+          description: Permissions do not allow updating this agent, or do not allow
+            using an agent that the request refers to.
           content:
             application/json:
               schema:
@@ -9706,7 +9754,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow replacing this agent.
+          description: Permissions do not allow replacing this agent, or do not allow
+            using an agent that the request refers to.
           content:
             application/json:
               schema:
@@ -10383,6 +10432,7 @@ paths:
               streaming_agent_output_end: '#/components/schemas/StreamingAgentOutputEnd'
               streaming_thinking: '#/components/schemas/StreamingThinking'
               streaming_thinking_end: '#/components/schemas/StreamingThinkingEnd'
+              session_description: '#/components/schemas/SessionDescriptionEvent'
               tool_input: '#/components/schemas/ToolInputEvent'
               tool_output: '#/components/schemas/ToolOutputEvent'
               structured_output: '#/components/schemas/StructuredOutputEvent'
@@ -10410,6 +10460,7 @@ paths:
           - $ref: '#/components/schemas/StreamingAgentOutputEnd'
           - $ref: '#/components/schemas/StreamingThinking'
           - $ref: '#/components/schemas/StreamingThinkingEnd'
+          - $ref: '#/components/schemas/SessionDescriptionEvent'
           - $ref: '#/components/schemas/ToolInputEvent'
           - $ref: '#/components/schemas/ToolOutputEvent'
           - $ref: '#/components/schemas/ToolActivityEvent'
@@ -11943,71 +11994,53 @@ paths:
   /v2/agent_aliases/{alias_key}/connectors/{connector_id}:
     get:
       tags:
-      - Agent End User Sessions
-      summary: Get public connector (legacy path)
-      deprecated: true
-      security: []
-      x-required-roles: []
-      description: "Deprecated: read the public view from `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}/public`.\
-        \ This path serves the same view while embeds already deployed move to that\
-        \ path; it is then repurposed as the authenticated operator read of the full\
-        \ connector.\n\nThe public view of a connector, served unauthenticated to\
-        \ the embed snippet. The snippet carries the alias key and the connector's\
-        \ globally unique id, which expose no agent or customer identifier.\nReturns\
-        \ the `customer_id` visitor minting is addressed to, the `presentation` to\
-        \ render, whether anonymous visitors are admitted (`public_access`), and the\
-        \ sign-in configuration when the widget offers one.\n\nA read with no side\
-        \ effects: minting an anonymous visitor id is a separate call, `POST /v2/visitors`,\
-        \ so a returning visitor who already holds an id only reads this view.\nThe\
-        \ view tells the client how to authenticate: `public_access` true \u2014 mint\
-        \ or present a visitor id; `end_user_sign_in` present \u2014 sign the user\
-        \ in through the referenced issuer. A widget may offer both, and the two follow-up\
-        \ calls do not depend on each other.\n\nThis operation serves only the public\
-        \ projection; operators read the full connector, configuration included, from\
-        \ the connector list.\n\nServes connectors that front an end-user surface\
-        \ \u2014 today, widget connectors. Returns `404` if the connector does not\
-        \ exist on the addressed alias, is a channel connector with no end-user surface\
-        \ (Slack, Google Chat, or Zoom), is disabled, or belongs to a disabled customer.\n"
-      operationId: getLegacyPublicConnector
+      - Agent Connectors
+      summary: Get agent connector
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - agent_administrator
+        - administrator
+        - owner
+      description: Retrieves a connector on an alias, configuration included, whatever
+        its type and whether or not it is enabled.
+      operationId: getAgentConnector
       parameters:
       - $ref: '#/components/parameters/RequestTimeout'
       - $ref: '#/components/parameters/RequestTimeoutMillis'
       - in: path
         name: alias_key
-        description: The unique key of the alias the connector is created on, as carried
-          by the embed snippet.
+        description: The unique key of the alias.
         required: true
         schema:
           $ref: '#/components/schemas/AgentAliasKey'
       - in: path
         name: connector_id
-        description: The globally unique id of the connector, as carried by the embed
-          snippet.
+        description: The unique identifier of the connector to retrieve.
         required: true
         schema:
           $ref: '#/components/schemas/ConnectorId'
       responses:
         '200':
-          description: The connector's public view.
+          description: The connector.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PublicConnector'
+                $ref: '#/components/schemas/AgentConnector'
         '403':
-          description: The request `Origin` is not in the connector's `allowed_origins`.
+          description: Permissions do not allow reading this connector.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: The connector does not exist on the addressed alias, does not
-            front an end-user surface, is disabled, or belongs to a disabled customer.
+          description: Alias or connector not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: agent_aliases
-      x-fern-sdk-method-name: getLegacyPublicConnector
+      x-fern-sdk-method-name: getConnector
     patch:
       tags:
       - Agent Connectors
@@ -12141,7 +12174,7 @@ paths:
         \ id; `end_user_sign_in` present \u2014 sign the user in through the referenced\
         \ issuer. A widget may offer both, and the two follow-up calls do not depend\
         \ on each other.\n\nThis operation serves only the public projection; operators\
-        \ read the full connector, configuration included, from the connector list.\n\
+        \ read the full connector, configuration included, from `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}`.\n\
         \nServes connectors that front an end-user surface \u2014 today, widget connectors.\
         \ Returns `404` if the connector does not exist on the addressed alias, is\
         \ a channel connector with no end-user surface (Slack, Google Chat, or Zoom),\
@@ -15185,6 +15218,9 @@ paths:
             These chunk types let a client render the agent''s reply incrementally
             instead of waiting for the complete `agent_output` event.
 
+            The stream also carries `session_description` frames, which hold the session''s
+            current description.
+
             When the widget connector reveals the matching output category, the stream
             also carries `streaming_thinking` and `streaming_thinking_end` chunks
             and `tool_activity` frames.
@@ -15198,6 +15234,7 @@ paths:
               input_message: '#/components/schemas/EndUserInputMessageEvent'
               agent_output: '#/components/schemas/EndUserAgentOutputEvent'
               error: '#/components/schemas/EndUserErrorEvent'
+              client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
               tool_input: '#/components/schemas/ToolInputEvent'
               tool_output: '#/components/schemas/ToolOutputEvent'
               thinking: '#/components/schemas/ThinkingEvent'
@@ -15206,12 +15243,14 @@ paths:
               streaming_agent_output_end: '#/components/schemas/StreamingAgentOutputEnd'
               streaming_thinking: '#/components/schemas/StreamingThinking'
               streaming_thinking_end: '#/components/schemas/StreamingThinkingEnd'
+              session_description: '#/components/schemas/SessionDescriptionEvent'
               tool_activity: '#/components/schemas/ToolActivityEvent'
               end: '#/components/schemas/StreamResponseEnd'
           oneOf:
           - $ref: '#/components/schemas/EndUserInputMessageEvent'
           - $ref: '#/components/schemas/EndUserAgentOutputEvent'
           - $ref: '#/components/schemas/EndUserErrorEvent'
+          - $ref: '#/components/schemas/ClientToolPendingEvent'
           - $ref: '#/components/schemas/ToolInputEvent'
           - $ref: '#/components/schemas/ToolOutputEvent'
           - $ref: '#/components/schemas/ThinkingEvent'
@@ -15220,6 +15259,7 @@ paths:
           - $ref: '#/components/schemas/StreamingAgentOutputEnd'
           - $ref: '#/components/schemas/StreamingThinking'
           - $ref: '#/components/schemas/StreamingThinkingEnd'
+          - $ref: '#/components/schemas/SessionDescriptionEvent'
           - $ref: '#/components/schemas/ToolActivityEvent'
           - $ref: '#/components/schemas/StreamResponseEnd'
     get:
@@ -15336,6 +15376,104 @@ paths:
         cursor: $request.page_key
         next_cursor: $response.metadata.page_key
         results: $response.events
+  /v2/agent_aliases/{alias_key}/end_user_sessions/{session_key}/outstanding_client_tool_calls:
+    get:
+      tags:
+      - Agent End User Sessions
+      summary: List end user outstanding client tool calls for alias
+      x-resource-locator: implicit.session_principal
+      x-implicit-authorization:
+        type: service
+        resource_key: implicit.session_principal
+      x-required-roles:
+      - type: AgentRole
+        roles:
+        - agent_end_user
+        - agent_user
+        - agent_developer
+        - agent_administrator
+      - type: ApiRole
+        roles:
+        - agent_user
+        - agent_developer
+        - agent_administrator
+        - administrator
+        - owner
+      description: 'Lists the client tool calls that a session the caller owns is
+        waiting on, addressed by the alias it was created through.
+
+        Use it to recover waiting calls after a reconnect or reload, because the `client_tool_pending`
+        event is not in the session''s history. Submit each call''s output as a `tool_output`
+        input.
+
+        Each entry carries the call''s arguments, including argument override values,
+        with secrets unmasked.
+
+        The list is empty when the session is not waiting on a client tool. Returns
+        403 if the session belongs to a different principal.
+
+        Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead
+        of an `Authorization` credential; the platform mints an identity holding `agent_end_user`
+        on the addressed alias, which satisfies this operation''s role requirement.
+
+        '
+      operationId: listEndUserAliasRoutedOutstandingClientToolCalls
+      security:
+      - ApiKeyAuth: []
+      - OAuth2: []
+      - VisitorToken: []
+      - FederatedSignIn: []
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      - $ref: '#/components/parameters/VisitorId'
+      - in: path
+        name: alias_key
+        description: The unique key of the alias.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentAliasKey'
+      - in: path
+        name: session_key
+        description: The unique key of the session to list outstanding client tool
+          calls for.
+        required: true
+        schema:
+          $ref: '#/components/schemas/AgentSessionKey'
+      responses:
+        '200':
+          description: The client tool calls the session is waiting on, one entry
+            per outstanding call.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutstandingClientToolCallsResponse'
+        '401':
+          description: "The request carries no valid credential \u2014 no `Authorization`,\
+            \ and for anonymous callers a missing, malformed, or badly signed `X-Visitor-Id`."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: The session does not belong to the caller, or permissions do
+            not allow access. For an anonymous visitor, also returned when the session's
+            connector no longer admits anonymous visitors. Also returned when the
+            request `Origin` is not in the connector's `allowed_origins`. Origin checks
+            apply only while the connector remains enabled; disabling or deleting
+            it preserves the other admission and ownership checks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Alias or session not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      x-fern-sdk-group-name: end_user_events
+      x-fern-sdk-method-name: list_outstanding_client_tool_calls_alias_routed
   /v2/trusted_token_issuers:
     post:
       tags:
@@ -16944,6 +17082,7 @@ paths:
           - timeout
           - execution_error
           - dependency_failed
+          - unknown_result
       - name: started_after
         in: query
         description: Return only traces started after this time (ISO 8601).
@@ -21408,85 +21547,6 @@ components:
             type: string
         idle_timeout_seconds:
           $ref: '#/components/schemas/IdleTimeoutSeconds'
-        requests_per_second:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of requests per second
-            for this LLM. The platform omits this field when no limit is set through
-            it. Platform-set limits, which this response does not show, may still
-            apply.
-
-            '
-          type: integer
-          format: int64
-        input_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input (prompt)
-            tokens per minute for this LLM, as reported by the provider and including
-            cached prompt tokens. The platform omits this field when no limit is set
-            through it. Platform-set limits, which this response does not show, may
-            still apply.
-          type: integer
-          format: int64
-          example: 200000
-        output_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            (completion plus reasoning) per minute for this LLM. The platform omits
-            this field when no limit is set through it. Platform-set limits, which
-            this response does not show, may still apply.
-          type: integer
-          format: int64
-          example: 50000
-        input_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar day for this LLM. The platform omits this field when no limit
-            is set through it. Platform-set limits, which this response does not show,
-            may still apply.
-          type: integer
-          format: int64
-          example: 2000000
-        output_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar day for this LLM. The platform omits this field when
-            no limit is set through it. Platform-set limits, which this response does
-            not show, may still apply.
-          type: integer
-          format: int64
-          example: 500000
-        input_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar month for this LLM. The platform omits this field when no
-            limit is set through it. Platform-set limits, which this response does
-            not show, may still apply.
-          type: integer
-          format: int64
-          example: 50000000
-        output_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar month for this LLM. The platform omits this field when
-            no limit is set through it. Platform-set limits, which this response does
-            not show, may still apply.
-          type: integer
-          format: int64
-          example: 10000000
         auth:
           description: 'The configured authentication. In responses, secret values
             contain the literal string `****`. Responses keep non-secret identifiers
@@ -21586,99 +21646,6 @@ components:
             max_tokens: 512
         capabilities:
           $ref: '#/components/schemas/LLMCapabilities'
-        requests_per_second:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of requests per second
-            for this LLM. Omit the field or set it to null to set no limit through
-            this field. Once the limit is reached, the platform rejects calls to this
-            LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 10000
-          nullable: true
-        input_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input (prompt)
-            tokens per minute for this LLM, as reported by the provider and including
-            cached prompt tokens. Omit the field or set it to null to set no limit
-            through this field. Once the limit is reached, the platform rejects calls
-            to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 200000
-        output_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            (completion plus reasoning) per minute for this LLM. Omit the field or
-            set it to null to set no limit through this field. Once the limit is reached,
-            the platform rejects calls to this LLM with HTTP 429 and a Retry-After
-            header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000
-        input_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar day for this LLM. Omit the field or set it to null to set
-            no limit through this field. Once the limit is reached, the platform rejects
-            calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 2000000
-        output_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar day for this LLM. Omit the field or set it to null to
-            set no limit through this field. Once the limit is reached, the platform
-            rejects calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 500000
-        input_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar month for this LLM. Omit the field or set it to null to set
-            no limit through this field. Once the limit is reached, the platform rejects
-            calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000000
-        output_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar month for this LLM. Omit the field or set it to null
-            to set no limit through this field. Once the limit is reached, the platform
-            rejects calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 10000000
       required:
       - name
       - uri
@@ -21803,99 +21770,6 @@ components:
           additionalProperties: true
         capabilities:
           $ref: '#/components/schemas/LLMCapabilities'
-        requests_per_second:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of requests per second
-            for this LLM. Omit the field or set it to null to set no limit through
-            this field. Once the limit is reached, the platform rejects calls to this
-            LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 10000
-          nullable: true
-        input_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input (prompt)
-            tokens per minute for this LLM, as reported by the provider and including
-            cached prompt tokens. Omit the field or set it to null to set no limit
-            through this field. Once the limit is reached, the platform rejects calls
-            to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 200000
-        output_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            (completion plus reasoning) per minute for this LLM. Omit the field or
-            set it to null to set no limit through this field. Once the limit is reached,
-            the platform rejects calls to this LLM with HTTP 429 and a Retry-After
-            header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000
-        input_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar day for this LLM. Omit the field or set it to null to set
-            no limit through this field. Once the limit is reached, the platform rejects
-            calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 2000000
-        output_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar day for this LLM. Omit the field or set it to null to
-            set no limit through this field. Once the limit is reached, the platform
-            rejects calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 500000
-        input_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar month for this LLM. Omit the field or set it to null to set
-            no limit through this field. Once the limit is reached, the platform rejects
-            calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000000
-        output_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar month for this LLM. Omit the field or set it to null
-            to set no limit through this field. Once the limit is reached, the platform
-            rejects calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 10000000
       required:
       - type
       - name
@@ -21977,99 +21851,6 @@ components:
           additionalProperties: true
         capabilities:
           $ref: '#/components/schemas/LLMCapabilities'
-        requests_per_second:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of requests per second
-            for this LLM. Omit the field or set it to null to set no limit through
-            this field. Once the limit is reached, the platform rejects calls to this
-            LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 10000
-          nullable: true
-        input_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input (prompt)
-            tokens per minute for this LLM, as reported by the provider and including
-            cached prompt tokens. Omit the field or set it to null to set no limit
-            through this field. Once the limit is reached, the platform rejects calls
-            to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 200000
-        output_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            (completion plus reasoning) per minute for this LLM. Omit the field or
-            set it to null to set no limit through this field. Once the limit is reached,
-            the platform rejects calls to this LLM with HTTP 429 and a Retry-After
-            header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000
-        input_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar day for this LLM. Omit the field or set it to null to set
-            no limit through this field. Once the limit is reached, the platform rejects
-            calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 2000000
-        output_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar day for this LLM. Omit the field or set it to null to
-            set no limit through this field. Once the limit is reached, the platform
-            rejects calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 500000
-        input_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar month for this LLM. Omit the field or set it to null to set
-            no limit through this field. Once the limit is reached, the platform rejects
-            calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000000
-        output_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar month for this LLM. Omit the field or set it to null
-            to set no limit through this field. Once the limit is reached, the platform
-            rejects calls to this LLM with HTTP 429 and a Retry-After header.
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 10000000
       required:
       - type
       - name
@@ -22243,175 +22024,6 @@ components:
             max_tokens: 512
         capabilities:
           $ref: '#/components/schemas/LLMCapabilities'
-        requests_per_second:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of requests per second
-            for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 10000
-          nullable: true
-        input_tokens_per_minute:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input (prompt)
-            tokens per minute for this LLM, as reported by the provider and including
-            cached prompt tokens.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 200000
-        output_tokens_per_minute:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            (completion plus reasoning) per minute for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000
-        input_tokens_per_day:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar day for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 2000000
-        output_tokens_per_day:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar day for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 500000
-        input_tokens_per_month:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar month for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000000
-        output_tokens_per_month:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar month for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 10000000
     UpdateOpenAILLMRequest:
       description: Request to update an OpenAI-compatible Large Language Model connection.
         All fields are optional.
@@ -22487,175 +22099,6 @@ components:
           additionalProperties: true
         capabilities:
           $ref: '#/components/schemas/LLMCapabilities'
-        requests_per_second:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of requests per second
-            for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 10000
-          nullable: true
-        input_tokens_per_minute:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input (prompt)
-            tokens per minute for this LLM, as reported by the provider and including
-            cached prompt tokens.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 200000
-        output_tokens_per_minute:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            (completion plus reasoning) per minute for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000
-        input_tokens_per_day:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar day for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 2000000
-        output_tokens_per_day:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar day for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 500000
-        input_tokens_per_month:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar month for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000000
-        output_tokens_per_month:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar month for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 10000000
       x-vectaraParents:
       - UpdateLLMRequest
     UpdateAnthropicLLMRequest:
@@ -22698,175 +22141,6 @@ components:
           additionalProperties: true
         capabilities:
           $ref: '#/components/schemas/LLMCapabilities'
-        requests_per_second:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of requests per second
-            for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 10000
-          nullable: true
-        input_tokens_per_minute:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input (prompt)
-            tokens per minute for this LLM, as reported by the provider and including
-            cached prompt tokens.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 200000
-        output_tokens_per_minute:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            (completion plus reasoning) per minute for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000
-        input_tokens_per_day:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar day for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 2000000
-        output_tokens_per_day:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar day for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 500000
-        input_tokens_per_month:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of input tokens per
-            UTC calendar month for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 50000000
-        output_tokens_per_month:
-          deprecated: true
-          description: 'Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. The maximum number of output tokens
-            per UTC calendar month for this LLM.
-
-
-            - Set a value to apply that limit.
-
-            - Set the field to null to remove the limit set through this field.
-
-            - Omit the field to keep the current limit.
-
-
-            Once the limit is reached, the platform rejects calls to this LLM with
-            HTTP 429 and a Retry-After header.
-
-            '
-          type: integer
-          format: int64
-          minimum: 1
-          nullable: true
-          example: 10000000
       x-vectaraParents:
       - UpdateLLMRequest
     UpdateLLMRequest:
@@ -23731,36 +23005,42 @@ components:
       description: "Live progress of a running job.\n\nPresent only while the job\
         \ is running, and only when retrieving a single job by ID; `listJobs` never\
         \ populates it. Absence does not indicate failure \u2014 read `state` for\
-        \ job health. The counters describe the corpus rebuild the job runs, so a\
-        \ job that drives no rebuild reports nothing here.\n\n`pages_pending_import`,\
-        \ `imports_in_flight` and `import_batches_submitted` describe incremental\
-        \ import, which is not enabled for every rebuild. When it is not in use all\
-        \ three report 0 for the whole rebuild, which means \"not applicable\" rather\
-        \ than \"nothing left to do\"."
+        \ job health. The counters describe the corpus rebuild or filter attribute\
+        \ change the job runs, so a job that drives neither reports nothing here.\n\
+        \n`pages_pending_import`, `imports_in_flight` and `import_batches_submitted`\
+        \ describe incremental import, which is not enabled for every rebuild. When\
+        \ it is not in use all three report 0 for the whole job, which means \"not\
+        \ applicable\" rather than \"nothing left to do\". A filter attribute change\
+        \ that does not rebuild the corpus imports nothing, so it reports 0 for all\
+        \ three and for `import_recovery_attempts`."
       type: object
       properties:
         phase:
-          description: The stage of the rebuild that is currently running. A rebuild
-            scans the corpus and imports it into the new indices, then cuts the corpus
-            over to them and replays everything written while it ran. New phases may
-            be added; treat unrecognized values as opaque.
+          description: The stage of the job that is currently running. A rebuild scans
+            the corpus and imports it into the new indices, then cuts the corpus over
+            to them and replays everything written while it ran. A filter attribute
+            change that does not rebuild the corpus scans the corpus, reports `indexing`
+            while the new filter attributes are being indexed, then cuts over. Filters
+            on the new attributes work once the job completes. New phases may be added;
+            treat unrecognized values as opaque.
           type: string
           enum:
           - preparing
           - scanning
           - importing
+          - indexing
           - cutting_over
           - replaying_journals
           - completed
         documents_indexed:
-          description: The number of documents the rebuild has processed out of the
-            corpus so far, counting towards `documents_expected`.
+          description: The number of documents the job has processed out of the corpus
+            so far, counting towards `documents_expected`.
           type: integer
           format: int64
         documents_expected:
-          description: The number of documents the corpus held when the rebuild started,
-            and the total that `documents_indexed` runs towards. Absent when the corpus
-            size could not be determined.
+          description: The number of documents the corpus held when the job started
+            scanning it, and the total that `documents_indexed` runs towards. Absent
+            when the corpus size could not be determined.
           type: integer
           format: int64
         scan_shards:
@@ -23799,11 +23079,11 @@ components:
           type: integer
           format: int32
         started_at:
-          description: When the rebuild these counters describe began, and the instant
-            they are all measured from. It is reported by the rebuild itself, so it
-            is present whenever this object is and does not move for the rebuild's
-            lifetime, whereas `Job.started_at` is recorded on the job and may be absent
-            or differ.
+          description: When the rebuild or filter attribute change these counters
+            describe began, and the instant they are all measured from. It is reported
+            by that work itself, so it is present whenever this object is and does
+            not move for the job's lifetime, whereas `Job.started_at` is recorded
+            on the job and may be absent or differ.
           type: string
           format: date-time
     Job:
@@ -24733,8 +24013,10 @@ components:
             \ looks up the per-user secret named by `session.metadata.user_id`\n-\
             \ Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
             \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
-            \nTo use a literal `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes\
-            \ the first $."
+            \nA `$ref` object may also set `$default`, the value used when the reference\
+            \ does not resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\"\
+            , \"$default\": \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write\
+            \ `\"$$ref\"`. The $$ escapes the first $."
           type: object
           additionalProperties: true
           example:
@@ -25291,8 +24573,11 @@ components:
               \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
               \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
               \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
-              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
-              \ `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes the first $."
+              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nA `$ref` object\
+              \ may also set `$default`, the value used when the reference does not\
+              \ resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\", \"$default\"\
+              : \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write `\"$$ref\"\
+              `. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -25373,8 +24658,11 @@ components:
               \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
               \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
               \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
-              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
-              \ `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes the first $."
+              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nA `$ref` object\
+              \ may also set `$default`, the value used when the reference does not\
+              \ resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\", \"$default\"\
+              : \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write `\"$$ref\"\
+              `. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -26133,8 +25421,11 @@ components:
               \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
               \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
               \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
-              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nTo use a literal\
-              \ `\"$ref\"` value, write `\"$$ref\"`. The $$ escapes the first $."
+              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nA `$ref` object\
+              \ may also set `$default`, the value used when the reference does not\
+              \ resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\", \"$default\"\
+              : \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write `\"$$ref\"\
+              `. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -28106,6 +27397,19 @@ components:
             the platform retries with the default configuration.
       required:
       - name
+    AgentStepType:
+      description: "How a step acts on its input. New values may be added; clients\
+        \ should ignore values they do not recognize.\n\n- `conversational`: the step\
+        \ runs its tool_calls, then the LLM acts on the input following the step's\
+        \ instructions.\n- `tool_calls`: the step runs its tool_calls and nothing\
+        \ else. The LLM is not called. The step must set instructions to an\n  empty\
+        \ list and use the default output_parser, and must not set reminders or allowed_skills.\n\
+        \  A step with no tool_calls goes straight to its next_steps.\n"
+      type: string
+      enum:
+      - conversational
+      - tool_calls
+      example: conversational
     InstructionReference:
       description: A reference to an instruction that an agent can use. If version
         is not specified, the agent uses the latest version. When the instruction
@@ -28408,6 +27712,143 @@ components:
           example: sales_handler
       required:
       - step_name
+    StepToolCallOnFailureBase:
+      description: Properties shared by every kind of step tool call failure handling.
+      type: object
+      properties:
+        type:
+          description: The type of failure handling. New values may be added; clients
+            should ignore values they do not recognize.
+          type: string
+          example: end_turn
+      required:
+      - type
+    StepToolCallEndTurn:
+      title: StepToolCallEndTurn
+      description: Once the step's calls finish, the failure ends the turn with an
+        `error` event, and the step's next_steps are not evaluated. The session stays
+        at the step, and its next input does not run the step's calls again.
+      allOf:
+      - $ref: '#/components/schemas/StepToolCallOnFailureBase'
+      - type: object
+        properties:
+          type:
+            description: The type of failure handling.
+            type: string
+            default: end_turn
+            example: end_turn
+        required:
+        - type
+      x-vectaraParents:
+      - StepToolCallOnFailure
+    StepToolCallContinue:
+      title: StepToolCallContinue
+      description: The step carries on as if the call had succeeded. A later call
+        that references this call's output uses the reference's `$default`, and fails
+        if the reference has none.
+      allOf:
+      - $ref: '#/components/schemas/StepToolCallOnFailureBase'
+      - type: object
+        properties:
+          type:
+            description: The type of failure handling.
+            type: string
+            default: continue
+            example: continue
+        required:
+        - type
+      x-vectaraParents:
+      - StepToolCallOnFailure
+    StepToolCallNextStep:
+      title: StepToolCallNextStep
+      description: Once the step's calls finish, the session transitions to the named
+        step instead of evaluating next_steps, and that step runs in the same turn.
+        The transition's content tells the LLM which call failed and why. Naming the
+        current step enters it again, so all of its calls run again. Each transition
+        counts toward the limit on step transitions per turn.
+      allOf:
+      - $ref: '#/components/schemas/StepToolCallOnFailureBase'
+      - type: object
+        properties:
+          type:
+            description: The type of failure handling.
+            type: string
+            default: next_step
+            example: next_step
+          step_name:
+            description: Name of the step to transition to. Must name one of the agent's
+              steps, including the current step.
+            type: string
+            minLength: 1
+            example: upload_failed
+        required:
+        - type
+        - step_name
+      x-vectaraParents:
+      - StepToolCallOnFailure
+    StepToolCallOnFailure:
+      title: StepToolCallOnFailure
+      description: What a failure of a step's tool call does. When several of a step's
+        calls fail, the first failure recorded whose handling is not `continue` decides.
+        New values of `type` may be added; clients should ignore values they do not
+        recognize.
+      x-vectara-base-schema: '#/StepToolCallOnFailureBase'
+      discriminator:
+        propertyName: type
+        mapping:
+          end_turn: '#/components/schemas/StepToolCallEndTurn'
+          continue: '#/components/schemas/StepToolCallContinue'
+          next_step: '#/components/schemas/StepToolCallNextStep'
+      oneOf:
+      - $ref: '#/components/schemas/StepToolCallEndTurn'
+      - $ref: '#/components/schemas/StepToolCallContinue'
+      - $ref: '#/components/schemas/StepToolCallNextStep'
+    AgentStepToolCall:
+      title: AgentStepToolCall
+      description: A tool call the platform makes each time the session transitions
+        into a step or starts at it. It names one of the agent's tool configurations
+        and supplies the arguments to invoke it with. The call is recorded in the
+        session as a `tool_input` event followed by a `tool_output` event, the same
+        events a call made by the LLM produces. The LLM does not see the call or its
+        output.
+      type: object
+      required:
+      - tool
+      properties:
+        tool:
+          type: string
+          minLength: 1
+          description: Name of the tool configuration to call. Must name one of the
+            agent's tool_configurations whose enrichment_only is false and that the
+            step's allowed_tools permits. A later call in the same step references
+            this call's output as `tools.<tool_config_name>.outputs.latest`.
+          example: document_analyze
+        arguments:
+          description: Arguments to invoke the tool with. These may set only the parameters
+            that the tool configuration does not already fix through its argument_override.
+            Naming a fixed parameter is rejected when the agent is created or updated.
+            No LLM fills in arguments, so these arguments, together with the parameters
+            the tool configuration fixes, must cover every required parameter of the
+            tool. A call that omits one fails when it runs. Each value is either a
+            literal or a `$ref` object, resolved when the call runs against the same
+            context as a reference in argument_override. That context includes the
+            output of an earlier call in the same step as `tools.<tool_config_name>.outputs.latest`.
+          type: object
+          additionalProperties: true
+          example:
+            artifact_id: art_pdf_abc123
+            chunking:
+              strategy: hierarchical
+        on_failure:
+          description: What a failure of this call does. The failure is recorded as
+            the call's `tool_output`, whose `error` field holds the failure message
+            and which later calls and next_steps conditions read as `tools.<tool_config_name>.outputs.latest`.
+            Defaults to `end_turn`. Session enrichment tool calls use `continue_on_error`
+            instead.
+          allOf:
+          - $ref: '#/components/schemas/StepToolCallOnFailure'
+          default:
+            type: end_turn
     FirstAgentStep:
       title: FirstAgentStep
       description: 'The entry point step for an agent, with a unique name.
@@ -28426,10 +27867,9 @@ components:
           default: first_step
           example: classifier
         type:
-          description: Deprecated. This field is ignored and exists only for backward
-            compatibility.
-          type: string
-          deprecated: true
+          description: How the step acts on its input. Defaults to `conversational`.
+          allOf:
+          - $ref: '#/components/schemas/AgentStepType'
           default: conversational
         instructions:
           description: 'List of instructions that guide the agent''s behavior in this
@@ -28498,6 +27938,37 @@ components:
           example:
           - code_review
           - debugging
+        tool_calls:
+          description: 'Tool calls the platform makes each time the session transitions
+            into this step, or starts at it, before anything else in the step runs.
+
+            Calls start in the order listed. A call whose arguments reference an earlier
+            call''s output starts once that call finishes.
+
+            Calls with no such reference run in parallel.
+
+
+            In a `conversational` step, the LLM then handles the input following the
+            step''s instructions. The LLM does not see the step''s tool
+
+            calls or their outputs: they are recorded as session events, and next_steps
+            conditions and later calls read their outputs as
+
+            `tools.<tool_config_name>.outputs.latest`.
+
+            In a `tool_calls` step, the step evaluates next_steps once the calls finish,
+            and the LLM is not called.
+
+
+            A new input that finds the session already at this step does not run the
+            calls again. Each call''s on_failure sets what its failure does.
+
+            '
+          type: array
+          maxItems: 50
+          default: []
+          items:
+            $ref: '#/components/schemas/AgentStepToolCall'
         reentry_step:
           description: 'Step name to resume at when the session receives the next
             user message.
@@ -28523,7 +27994,11 @@ components:
 
         A step receives all previous session history, including any prior agent steps.
 
-        The agent then follows the step''s instructions to decide what to do.
+        It first runs its tool_calls, if any. In a `conversational` step the LLM then
+        follows the
+
+        step''s instructions to decide what to do. A `tool_calls` step does not call
+        the LLM.
 
         Finally, the agent stops if no next step is defined, or continues to the first
 
@@ -28544,10 +28019,9 @@ components:
       type: object
       properties:
         type:
-          description: Deprecated. This field is ignored and exists only for backward
-            compatibility.
-          type: string
-          deprecated: true
+          description: How the step acts on its input. Defaults to `conversational`.
+          allOf:
+          - $ref: '#/components/schemas/AgentStepType'
           default: conversational
         instructions:
           description: 'List of instructions that guide the agent''s behavior in this
@@ -28630,6 +28104,37 @@ components:
           example:
           - code_review
           - debugging
+        tool_calls:
+          description: 'Tool calls the platform makes each time the session transitions
+            into this step, or starts at it, before anything else in the step runs.
+
+            Calls start in the order listed. A call whose arguments reference an earlier
+            call''s output starts once that call finishes.
+
+            Calls with no such reference run in parallel.
+
+
+            In a `conversational` step, the LLM then handles the input following the
+            step''s instructions. The LLM does not see the step''s tool
+
+            calls or their outputs: they are recorded as session events, and next_steps
+            conditions and later calls read their outputs as
+
+            `tools.<tool_config_name>.outputs.latest`.
+
+            In a `tool_calls` step, the step evaluates next_steps once the calls finish,
+            and the LLM is not called.
+
+
+            A new input that finds the session already at this step does not run the
+            calls again. Each call''s on_failure sets what its failure does.
+
+            '
+          type: array
+          maxItems: 50
+          default: []
+          items:
+            $ref: '#/components/schemas/AgentStepToolCall'
         reentry_step:
           description: 'Step name to resume at when the session receives the next
             user message.
@@ -28771,107 +28276,49 @@ components:
           description: Ordered tool calls run at session creation. Independent calls
             run in parallel. A call that references another call's output runs after
             it.
-    LLMQuota:
-      title: LLMQuota
-      description: 'Ceilings on the LLM requests and tokens this agent may consume,
-        counted across every LLM the agent calls. A sub-agent is charged to its own
-        quota, not its parent''s.
-
-
-        Each field is optional; an omitted field sets no limit of its own. The platform
-        may also apply its own limits. Day and month windows are UTC calendar windows.
-        Input tokens are the provider''s reported prompt tokens, including cached
-        tokens; output tokens are completion plus reasoning tokens. When a limit is
-        reached the agent''s next LLM call is refused: a non-streamed `createAgentInput`
-        request answers `429` with a `Retry-After` header, and a streamed one ends
-        with an `error` event naming the exhausted quota and the seconds until it
-        resets.
-
-        '
-      type: object
-      properties:
-        requests_per_second:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. Maximum LLM requests per second.
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 10000
-          example: 10
-        input_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. Maximum input tokens per minute.
-          type: integer
-          format: int64
-          minimum: 1
-          example: 200000
-        output_tokens_per_minute:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. Maximum output tokens per minute.
-          type: integer
-          format: int64
-          minimum: 1
-          example: 50000
-        input_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. Maximum input tokens per UTC calendar
-            day.
-          type: integer
-          format: int64
-          minimum: 1
-          example: 2000000
-        output_tokens_per_day:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. Maximum output tokens per UTC calendar
-            day.
-          type: integer
-          format: int64
-          minimum: 1
-          example: 100000
-        input_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. Maximum input tokens per UTC calendar
-            month.
-          type: integer
-          format: int64
-          minimum: 1
-          example: 50000000
-        output_tokens_per_month:
-          deprecated: true
-          description: Deprecated. This field will be removed in a future release.
-            The platform still enforces it until then. Contact Vectara support to
-            set LLM request and token limits. Maximum output tokens per UTC calendar
-            month.
-          type: integer
-          format: int64
-          minimum: 1
-          example: 10000000
     GenerateSessionDescriptions:
-      description: 'Whether the platform generates a description for each of this
-        agent''s sessions created without one. When true, after each turn that completes
-        without error in such a session, the platform makes one additional request
-        to the agent''s model to summarize the session''s events into its description.
-        That request consumes tokens and counts against `llm_quota`. When false, no
-        request is made and those sessions keep no description. A description supplied
-        on session create or update is never replaced, and an empty description turns
-        off generation for that session.
+      description: 'Deprecated alias of `session_description.enabled`. On requests,
+        ignored when `session_description` is also set, and when sent alone it leaves
+        `session_description.deliver_before_turn_end` unchanged. On responses, mirrors
+        `session_description.enabled`.
 
         '
       type: boolean
       default: true
+      deprecated: true
       example: false
+    SessionDescriptionConfiguration:
+      title: SessionDescriptionConfiguration
+      description: 'Controls how this agent''s sessions created without a description
+        get one. Generation sends one additional request to the agent''s model, using
+        the text of the input message that triggers it (the first input message with
+        text, or the next one after a failed request), and stores the result on the
+        session. That request consumes tokens. When the response is streamed, the
+        stream also carries a `session_description` event. A description supplied
+        on session create or update is never replaced, and an empty description turns
+        off generation for that session.
+
+        '
+      type: object
+      properties:
+        enabled:
+          description: Whether the platform generates descriptions. When false, no
+            request is made and those sessions keep no description. If a request fails,
+            the next input message with text triggers another request.
+          type: boolean
+          default: true
+          example: true
+        deliver_before_turn_end:
+          description: Whether a turn stays open until the description request started
+            during it has finished, for up to 30 seconds. When true, the `session_description`
+            event arrives before the stream ends and a non-streamed response returns
+            after the description is stored, unless the request fails, exceeds that
+            limit, or the session is interrupted. When false, the turn can end first,
+            and the event then arrives on a later turn's stream. The wait adds to
+            the turn's duration.
+          type: boolean
+          default: false
+          example: true
     Agent:
       description: An AI agent that can use tools to provide intelligent responses
         and actions.
@@ -28976,10 +28423,11 @@ components:
           $ref: '#/components/schemas/SessionEnrichmentConfig'
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
-        llm_quota:
-          $ref: '#/components/schemas/LLMQuota'
         generate_session_descriptions:
           $ref: '#/components/schemas/GenerateSessionDescriptions'
+          deprecated: true
+        session_description:
+          $ref: '#/components/schemas/SessionDescriptionConfiguration'
         created_at:
           description: Timestamp when the agent was created.
           type: string
@@ -29132,10 +28580,11 @@ components:
           $ref: '#/components/schemas/SessionEnrichmentConfig'
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
-        llm_quota:
-          $ref: '#/components/schemas/LLMQuota'
         generate_session_descriptions:
           $ref: '#/components/schemas/GenerateSessionDescriptions'
+          deprecated: true
+        session_description:
+          $ref: '#/components/schemas/SessionDescriptionConfiguration'
       required:
       - name
       - tool_configurations
@@ -29180,10 +28629,10 @@ components:
           description: Rename the first step. If omitted, the name is preserved.
           type: string
         type:
-          description: Deprecated. Previously used as a discriminator.
-          type: string
-          default: conversational
-          deprecated: true
+          description: How the step acts on its input. If omitted, the current value
+            is kept.
+          allOf:
+          - $ref: '#/components/schemas/AgentStepType'
         instructions:
           description: List of instructions that guide the agent's behavior. Set to
             null to clear all instructions.
@@ -29220,6 +28669,15 @@ components:
           nullable: true
           items:
             type: string
+        tool_calls:
+          description: Tool calls the platform makes each time the session transitions
+            into this step or starts at it. See AgentStep for how they run. Set to
+            null to clear.
+          type: array
+          nullable: true
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/AgentStepToolCall'
         reentry_step:
           description: 'Step name to resume at when the session receives the next
             user message.
@@ -29239,10 +28697,10 @@ components:
       type: object
       properties:
         type:
-          description: Deprecated. Previously used as a discriminator.
-          type: string
-          default: conversational
-          deprecated: true
+          description: How the step acts on its input. If omitted, the current value
+            is kept.
+          allOf:
+          - $ref: '#/components/schemas/AgentStepType'
         instructions:
           description: List of instructions that guide the agent's behavior. Set to
             null to clear all instructions.
@@ -29279,6 +28737,15 @@ components:
           nullable: true
           items:
             type: string
+        tool_calls:
+          description: Tool calls the platform makes each time the session transitions
+            into this step or starts at it. See AgentStep for how they run. Set to
+            null to clear.
+          type: array
+          nullable: true
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/AgentStepToolCall'
         reentry_step:
           description: 'Step name to resume at when the session receives the next
             user message.
@@ -29292,11 +28759,9 @@ components:
       description: 'Request object for updating an existing agent. Omitted fields
         are preserved.
 
-        Nullable fields (description, tool_configurations, metadata, enabled,
+        Nullable fields (description, tool_configurations, metadata, enabled)
 
-        llm_quota) can be set to null to clear them. Sending `llm_quota` replaces
-
-        the agent''s quota as a whole rather than merging it field by field.
+        can be set to null to clear them.
 
         '
       type: object
@@ -29389,13 +28854,13 @@ components:
         tool_output_offloading:
           $ref: '#/components/schemas/ToolOutputOffloadingConfiguration'
           nullable: true
-        llm_quota:
-          description: Replaces the agent's LLM quota. Set to null to remove every
-            limit; omit to keep the current quota.
-          $ref: '#/components/schemas/LLMQuota'
-          nullable: true
         generate_session_descriptions:
           $ref: '#/components/schemas/GenerateSessionDescriptions'
+          deprecated: true
+        session_description:
+          description: Replaces the whole session description configuration. Sub-fields
+            you omit reset to their defaults.
+          $ref: '#/components/schemas/SessionDescriptionConfiguration'
         steps:
           description: 'A map of additional named steps keyed by step name for partial
             update.
@@ -29493,8 +28958,8 @@ components:
           example: Customer Support Session
         description:
           description: 'A short description of the session''s purpose. If omitted
-            at creation, the platform generates one after the agent produces events,
-            unless the agent''s `generate_session_descriptions` is false. An empty
+            at creation, the platform generates one from an input message that has
+            text, unless the agent''s `session_description.enabled` is false. An empty
             string indicates auto-generation is disabled for this session.
 
             '
@@ -29633,8 +29098,8 @@ components:
           example: Customer Support Session
         description:
           description: 'A short description of the session''s purpose. If omitted,
-            the platform generates one after the session produces events, unless the
-            agent''s `generate_session_descriptions` is false. Pass an empty string
+            the platform generates one from an input message that has text, unless
+            the agent''s `session_description.enabled` is false. Pass an empty string
             to suppress auto-generation.
 
             '
@@ -30055,6 +29520,26 @@ components:
       x-vectaraParents:
       - AgentEvent
       - AgentStreamedResponse
+    StepToolCallSource:
+      title: StepToolCallSource
+      description: The entry in a step's tool_calls that a tool call was made from.
+        Set on a `tool_input` event when the platform made the call for a step rather
+        than the LLM; the LLM does not see such a call or its output.
+      type: object
+      properties:
+        step_name:
+          description: Name of the step whose tool_calls contains the call.
+          type: string
+          example: ingest
+        call_index:
+          description: Position of the call in the step's tool_calls, starting at
+            0.
+          type: integer
+          minimum: 0
+          example: 1
+      required:
+      - step_name
+      - call_index
     ToolInputEvent:
       title: ToolInputEvent
       description: An event representing input to a tool call.
@@ -30098,6 +29583,8 @@ components:
             type: array
             items:
               type: string
+          step_tool_call:
+            $ref: '#/components/schemas/StepToolCallSource'
         required:
         - type
         - tool_call_id
@@ -31075,6 +30562,38 @@ components:
       - created_at
       x-vectaraParents:
       - AgentStreamedResponse
+    SessionDescriptionEvent:
+      title: SessionDescriptionEvent
+      description: 'The current description of the session (SSE only, not stored).
+
+        The stream carries this event when the platform generates a description, and
+        when a stream opens on a session that already has one.
+
+        The event can repeat. Each occurrence replaces the previous value.
+
+        '
+      type: object
+      properties:
+        type:
+          description: The type of streaming event.
+          type: string
+          default: session_description
+          example: session_description
+        description:
+          description: The session's description.
+          type: string
+          example: Troubleshooting widget installation
+        created_at:
+          description: Timestamp when the event was created.
+          type: string
+          format: date-time
+          example: '2024-01-15T10:35:00Z'
+      required:
+      - type
+      - description
+      - created_at
+      x-vectaraParents:
+      - AgentStreamedResponse
     ContextConsumedEvent:
       title: ContextConsumedEvent
       description: Token usage event reporting context window consumption.
@@ -31219,6 +30738,7 @@ components:
           streaming_agent_output_end: '#/components/schemas/StreamingAgentOutputEnd'
           streaming_thinking: '#/components/schemas/StreamingThinking'
           streaming_thinking_end: '#/components/schemas/StreamingThinkingEnd'
+          session_description: '#/components/schemas/SessionDescriptionEvent'
           tool_input: '#/components/schemas/ToolInputEvent'
           tool_output: '#/components/schemas/ToolOutputEvent'
           structured_output: '#/components/schemas/StructuredOutputEvent'
@@ -31246,6 +30766,7 @@ components:
       - $ref: '#/components/schemas/StreamingAgentOutputEnd'
       - $ref: '#/components/schemas/StreamingThinking'
       - $ref: '#/components/schemas/StreamingThinkingEnd'
+      - $ref: '#/components/schemas/SessionDescriptionEvent'
       - $ref: '#/components/schemas/ToolInputEvent'
       - $ref: '#/components/schemas/ToolOutputEvent'
       - $ref: '#/components/schemas/ToolActivityEvent'
@@ -32803,59 +32324,6 @@ components:
             $ref: '#/components/schemas/CreateConnectorConfiguration'
         required:
         - configuration
-    PublicSignIn:
-      description: "The sign-in affordance of the public connector view. Identifies\
-        \ the identity provider the widget authenticates users against by its issuer\
-        \ URL \u2014 the `iss` claim of the tokens the host page supplies \u2014 never\
-        \ by the internal registration id.\nThe host page obtains a token from this\
-        \ issuer and the widget presents it as the bearer credential on end-user session\
-        \ requests.\n"
-      type: object
-      required:
-      - issuer
-      properties:
-        issuer:
-          description: The issuer URL of the identity provider, exactly as it appears
-            in the `iss` claim of its tokens.
-          type: string
-          pattern: ^https://.+
-          maxLength: 1024
-          example: https://acme.okta.com/oauth2/default
-    PublicConnector:
-      description: "The public view of a connector that fronts an end-user surface,\
-        \ served unauthenticated to the embed snippet by `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}/public`.\n\
-        End-user sessions are created on the addressed alias \u2014 `/v2/agent_aliases/{alias_key}/end_user_sessions`\
-        \ \u2014 naming this connector in the request body; the embed snippet carries\
-        \ the alias key and connector id it needs, and this view serves the `customer_id`\
-        \ that visitor minting (`POST /v2/visitors`) is addressed to.\nSession attributes\
-        \ such as idle lifetime are reported on the session object returned by the\
-        \ end-user session create endpoint.\n"
-      type: object
-      required:
-      - customer_id
-      - public_access
-      - presentation
-      properties:
-        customer_id:
-          description: The unique identifier of the customer the connector belongs
-            to, presented as the `X-Customer-Id` header when minting a visitor identity
-            through `POST /v2/visitors`.
-          type: integer
-          format: int64
-          example: 1234567890
-        public_access:
-          description: 'Whether the connector admits anonymous visitors.
-
-            When false, the client signs the user in through `end_user_sign_in` before
-            creating a session.
-
-            '
-          type: boolean
-          example: true
-        presentation:
-          $ref: '#/components/schemas/WidgetPresentation'
-        end_user_sign_in:
-          $ref: '#/components/schemas/PublicSignIn'
     UpdateWidgetConnectorConfiguration:
       description: 'Partial update of a widget connector''s configuration: an omitted
         field keeps its stored value; `presentation` is replaced whole when supplied.
@@ -33010,6 +32478,60 @@ components:
           example: false
         configuration:
           $ref: '#/components/schemas/UpdateConnectorConfiguration'
+    PublicSignIn:
+      description: "The sign-in affordance of the public connector view. Identifies\
+        \ the identity provider the widget authenticates users against by its issuer\
+        \ URL \u2014 the `iss` claim of the tokens the host page supplies \u2014 never\
+        \ by the internal registration id.\nThe host page obtains a token from this\
+        \ issuer and the widget presents it as the bearer credential on end-user session\
+        \ requests.\n"
+      type: object
+      required:
+      - issuer
+      properties:
+        issuer:
+          description: The issuer URL of the identity provider, exactly as it appears
+            in the `iss` claim of its tokens.
+          type: string
+          pattern: ^https://.+
+          maxLength: 1024
+          example: https://acme.okta.com/oauth2/default
+    PublicConnector:
+      description: "The public view of a connector that fronts an end-user surface,\
+        \ served unauthenticated to the embed snippet by `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}/public`.\
+        \ Operators read the full connector from `GET /v2/agent_aliases/{alias_key}/connectors/{connector_id}`.\n\
+        End-user sessions are created on the addressed alias \u2014 `/v2/agent_aliases/{alias_key}/end_user_sessions`\
+        \ \u2014 naming this connector in the request body; the embed snippet carries\
+        \ the alias key and connector id it needs, and this view serves the `customer_id`\
+        \ that visitor minting (`POST /v2/visitors`) is addressed to.\nSession attributes\
+        \ such as idle lifetime are reported on the session object returned by the\
+        \ end-user session create endpoint.\n"
+      type: object
+      required:
+      - customer_id
+      - public_access
+      - presentation
+      properties:
+        customer_id:
+          description: The unique identifier of the customer the connector belongs
+            to, presented as the `X-Customer-Id` header when minting a visitor identity
+            through `POST /v2/visitors`.
+          type: integer
+          format: int64
+          example: 1234567890
+        public_access:
+          description: 'Whether the connector admits anonymous visitors.
+
+            When false, the client signs the user in through `end_user_sign_in` before
+            creating a session.
+
+            '
+          type: boolean
+          example: true
+        presentation:
+          $ref: '#/components/schemas/WidgetPresentation'
+        end_user_sign_in:
+          $ref: '#/components/schemas/PublicSignIn'
     CreateVisitorResponse:
       description: The minted anonymous visitor identity.
       type: object
@@ -35060,8 +34582,8 @@ components:
           example: Customer Support Session
         description:
           description: A short description of the session's purpose. If omitted, the
-            platform generates one after the agent produces events, unless the agent's
-            `generate_session_descriptions` is false.
+            platform generates one from an input message that has text, unless the
+            agent's `session_description.enabled` is false.
           type: string
           example: Helping customer troubleshoot widget installation issues
     EndUserEventBase:
@@ -35152,13 +34674,22 @@ components:
     EndUserEvent:
       description: 'A session event visible to the end user who owns the session.
 
-        The `input_message`, `agent_output`, and `error` variants are always visible.
+        The `input_message`, `agent_output`, `error`, and `client_tool_pending` variants
+        are always visible, as are the `tool_input` and `tool_output` variants of
+        client tool calls.
 
-        The `tool_input`, `tool_output`, `thinking`, and `structured_output` variants
-        appear only when the widget connector the session is bound to reveals the
-        matching output category via `revealed_output_types`.
+        The `tool_input` and `tool_output` variants of other tools, and the `thinking`
+        and `structured_output` variants, appear only when the widget connector the
+        session is bound to reveals the matching output category via `revealed_output_types`.
 
         Revealed variants carry the same payload as their operator representations.
+        Unless `tool_calls` is revealed, client tool `tool_input` and `tool_output`
+        events omit `argument_override_paths` and `resolved_argument_overrides`.
+
+
+        `client_tool_pending` appears in the response and stream of the turn that
+        calls a client tool, but not in the session''s history. It carries the call''s
+        arguments, including argument override values, with secrets unmasked.
 
         '
       type: object
@@ -35169,6 +34700,7 @@ components:
           input_message: '#/components/schemas/EndUserInputMessageEvent'
           agent_output: '#/components/schemas/EndUserAgentOutputEvent'
           error: '#/components/schemas/EndUserErrorEvent'
+          client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
           tool_input: '#/components/schemas/ToolInputEvent'
           tool_output: '#/components/schemas/ToolOutputEvent'
           thinking: '#/components/schemas/ThinkingEvent'
@@ -35177,6 +34709,7 @@ components:
       - $ref: '#/components/schemas/EndUserInputMessageEvent'
       - $ref: '#/components/schemas/EndUserAgentOutputEvent'
       - $ref: '#/components/schemas/EndUserErrorEvent'
+      - $ref: '#/components/schemas/ClientToolPendingEvent'
       - $ref: '#/components/schemas/ToolInputEvent'
       - $ref: '#/components/schemas/ToolOutputEvent'
       - $ref: '#/components/schemas/ThinkingEvent'
@@ -35238,6 +34771,30 @@ components:
         - type
       x-vectaraParents:
       - CreateEndUserInputRequest
+    CreateEndUserToolOutputRequest:
+      description: 'Delivers the outputs of the client tool calls the session is waiting
+        on, so the agent can continue. Submit one entry per call listed in the `client_tool_pending`
+        event or by `GET /v2/agent_aliases/{alias_key}/end_user_sessions/{session_key}/outstanding_client_tool_calls`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/CreateEndUserInputRequestBase'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: tool_output
+          tool_outputs:
+            description: The tool outputs to deliver, one per pending client tool
+              call.
+            type: array
+            items:
+              $ref: '#/components/schemas/CreateToolOutputRequest'
+        required:
+        - type
+        - tool_outputs
+      x-vectaraParents:
+      - CreateEndUserInputRequest
     CreateEndUserInputRequest:
       description: A request to create input for a session as an end user.
       x-vectara-base-schema: '#/CreateEndUserInputRequestBase'
@@ -35250,9 +34807,11 @@ components:
         mapping:
           input_message: '#/components/schemas/CreateEndUserInputMessageRequest'
           interrupt: '#/components/schemas/CreateEndUserInterruptRequest'
+          tool_output: '#/components/schemas/CreateEndUserToolOutputRequest'
       oneOf:
       - $ref: '#/components/schemas/CreateEndUserInputMessageRequest'
       - $ref: '#/components/schemas/CreateEndUserInterruptRequest'
+      - $ref: '#/components/schemas/CreateEndUserToolOutputRequest'
     EndUserMultipartInputEvent:
       description: A message from the end user with file uploads, sent as multipart
         form data.
@@ -35302,6 +34861,9 @@ components:
         These chunk types let a client render the agent''s reply incrementally instead
         of waiting for the complete `agent_output` event.
 
+        The stream also carries `session_description` frames, which hold the session''s
+        current description.
+
         When the widget connector reveals the matching output category, the stream
         also carries `streaming_thinking` and `streaming_thinking_end` chunks and
         `tool_activity` frames.
@@ -35315,6 +34877,7 @@ components:
           input_message: '#/components/schemas/EndUserInputMessageEvent'
           agent_output: '#/components/schemas/EndUserAgentOutputEvent'
           error: '#/components/schemas/EndUserErrorEvent'
+          client_tool_pending: '#/components/schemas/ClientToolPendingEvent'
           tool_input: '#/components/schemas/ToolInputEvent'
           tool_output: '#/components/schemas/ToolOutputEvent'
           thinking: '#/components/schemas/ThinkingEvent'
@@ -35323,12 +34886,14 @@ components:
           streaming_agent_output_end: '#/components/schemas/StreamingAgentOutputEnd'
           streaming_thinking: '#/components/schemas/StreamingThinking'
           streaming_thinking_end: '#/components/schemas/StreamingThinkingEnd'
+          session_description: '#/components/schemas/SessionDescriptionEvent'
           tool_activity: '#/components/schemas/ToolActivityEvent'
           end: '#/components/schemas/StreamResponseEnd'
       oneOf:
       - $ref: '#/components/schemas/EndUserInputMessageEvent'
       - $ref: '#/components/schemas/EndUserAgentOutputEvent'
       - $ref: '#/components/schemas/EndUserErrorEvent'
+      - $ref: '#/components/schemas/ClientToolPendingEvent'
       - $ref: '#/components/schemas/ToolInputEvent'
       - $ref: '#/components/schemas/ToolOutputEvent'
       - $ref: '#/components/schemas/ThinkingEvent'
@@ -35337,6 +34902,7 @@ components:
       - $ref: '#/components/schemas/StreamingAgentOutputEnd'
       - $ref: '#/components/schemas/StreamingThinking'
       - $ref: '#/components/schemas/StreamingThinkingEnd'
+      - $ref: '#/components/schemas/SessionDescriptionEvent'
       - $ref: '#/components/schemas/ToolActivityEvent'
       - $ref: '#/components/schemas/StreamResponseEnd'
     TrustedTokenIssuer:

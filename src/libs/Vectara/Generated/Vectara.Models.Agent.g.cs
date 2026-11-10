@@ -1,4 +1,6 @@
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 #nullable enable
 
 namespace Vectara
@@ -125,20 +127,20 @@ namespace Vectara
         public global::Vectara.ToolOutputOffloadingConfiguration? ToolOutputOffloading { get; set; }
 
         /// <summary>
-        /// Ceilings on the LLM requests and tokens this agent may consume, counted across every LLM the agent calls. A sub-agent is charged to its own quota, not its parent's.<br/>
-        /// Each field is optional; an omitted field sets no limit of its own. The platform may also apply its own limits. Day and month windows are UTC calendar windows. Input tokens are the provider's reported prompt tokens, including cached tokens; output tokens are completion plus reasoning tokens. When a limit is reached the agent's next LLM call is refused: a non-streamed `createAgentInput` request answers `429` with a `Retry-After` header, and a streamed one ends with an `error` event naming the exhausted quota and the seconds until it resets.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("llm_quota")]
-        public global::Vectara.LLMQuota? LlmQuota { get; set; }
-
-        /// <summary>
-        /// Whether the platform generates a description for each of this agent's sessions created without one. When true, after each turn that completes without error in such a session, the platform makes one additional request to the agent's model to summarize the session's events into its description. That request consumes tokens and counts against `llm_quota`. When false, no request is made and those sessions keep no description. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.<br/>
+        /// Deprecated alias of `session_description.enabled`. On requests, ignored when `session_description` is also set, and when sent alone it leaves `session_description.deliver_before_turn_end` unchanged. On responses, mirrors `session_description.enabled`.<br/>
         /// Default Value: true<br/>
         /// Example: false
         /// </summary>
         /// <example>false</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("generate_session_descriptions")]
+        [global::System.Obsolete("This property marked as deprecated.")]
         public bool? GenerateSessionDescriptions { get; set; }
+
+        /// <summary>
+        /// Controls how this agent's sessions created without a description get one. Generation sends one additional request to the agent's model, using the text of the input message that triggers it (the first input message with text, or the next one after a failed request), and stores the result on the session. That request consumes tokens. When the response is streamed, the stream also carries a `session_description` event. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("session_description")]
+        public global::Vectara.SessionDescriptionConfiguration? SessionDescription { get; set; }
 
         /// <summary>
         /// Timestamp when the agent was created.<br/>
@@ -224,14 +226,8 @@ namespace Vectara
         /// Tool outputs are inspected as they are produced. A small output is always passed through unchanged. A larger output is handled in one of two cases: when the output on its own is big enough to dominate the context, or when adding it to the conversation would leave too little room for the agent to continue. In either case the output is handled according to `mode` — stored as an artifact and replaced with a compact reference, or truncated in place with the head and tail preserved and the middle omitted. When stored as an artifact, the agent is expected to have artifact_read, artifact_grep, or artifact_jq configured so it can retrieve the full content on demand.<br/>
         /// All fields are optional; omitted fields fall back to defaults.
         /// </param>
-        /// <param name="llmQuota">
-        /// Ceilings on the LLM requests and tokens this agent may consume, counted across every LLM the agent calls. A sub-agent is charged to its own quota, not its parent's.<br/>
-        /// Each field is optional; an omitted field sets no limit of its own. The platform may also apply its own limits. Day and month windows are UTC calendar windows. Input tokens are the provider's reported prompt tokens, including cached tokens; output tokens are completion plus reasoning tokens. When a limit is reached the agent's next LLM call is refused: a non-streamed `createAgentInput` request answers `429` with a `Retry-After` header, and a streamed one ends with an `error` event naming the exhausted quota and the seconds until it resets.
-        /// </param>
-        /// <param name="generateSessionDescriptions">
-        /// Whether the platform generates a description for each of this agent's sessions created without one. When true, after each turn that completes without error in such a session, the platform makes one additional request to the agent's model to summarize the session's events into its description. That request consumes tokens and counts against `llm_quota`. When false, no request is made and those sessions keep no description. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.<br/>
-        /// Default Value: true<br/>
-        /// Example: false
+        /// <param name="sessionDescription">
+        /// Controls how this agent's sessions created without a description get one. Generation sends one additional request to the agent's model, using the text of the input message that triggers it (the first input message with text, or the next one after a failed request), and stores the result on the session. That request consumes tokens. When the response is streamed, the stream also carries a `session_description` event. A description supplied on session create or update is never replaced, and an empty description turns off generation for that session.
         /// </param>
         /// <param name="createdAt">
         /// Timestamp when the agent was created.<br/>
@@ -259,8 +255,7 @@ namespace Vectara
             global::Vectara.CompactionConfig? compaction,
             global::Vectara.SessionEnrichmentConfig? sessionEnrichment,
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading,
-            global::Vectara.LLMQuota? llmQuota,
-            bool? generateSessionDescriptions,
+            global::Vectara.SessionDescriptionConfiguration? sessionDescription,
             global::System.DateTime? createdAt,
             global::System.DateTime? updatedAt)
         {
@@ -278,8 +273,7 @@ namespace Vectara
             this.Compaction = compaction;
             this.SessionEnrichment = sessionEnrichment;
             this.ToolOutputOffloading = toolOutputOffloading;
-            this.LlmQuota = llmQuota;
-            this.GenerateSessionDescriptions = generateSessionDescriptions;
+            this.SessionDescription = sessionDescription;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
         }

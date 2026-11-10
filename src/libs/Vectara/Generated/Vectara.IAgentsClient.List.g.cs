@@ -13,6 +13,9 @@ namespace Vectara
         /// <param name="filter">
         /// Example: support.*
         /// </param>
+        /// <param name="metadataFilter">
+        /// Example: team = 'support' AND tier &gt;= 2
+        /// </param>
         /// <param name="enabled">
         /// Example: true
         /// </param>
@@ -27,6 +30,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? filter = default,
+            string? metadataFilter = default,
             bool? enabled = default,
             int? limit = default,
             string? pageKey = default,
@@ -40,6 +44,9 @@ namespace Vectara
         /// <param name="requestTimeoutMillis"></param>
         /// <param name="filter">
         /// Example: support.*
+        /// </param>
+        /// <param name="metadataFilter">
+        /// Example: team = 'support' AND tier &gt;= 2
         /// </param>
         /// <param name="enabled">
         /// Example: true
@@ -55,6 +62,7 @@ namespace Vectara
             int? requestTimeout = default,
             int? requestTimeoutMillis = default,
             string? filter = default,
+            string? metadataFilter = default,
             bool? enabled = default,
             int? limit = default,
             string? pageKey = default,

@@ -8,6 +8,7 @@ namespace Vectara
     /// An individual frame on the end-user live SSE stream.<br/>
     /// Frames include every `EndUserEvent` variant, plus transient chunk types that are not persisted: `streaming_agent_output` and `streaming_agent_output_end`.<br/>
     /// These chunk types let a client render the agent's reply incrementally instead of waiting for the complete `agent_output` event.<br/>
+    /// The stream also carries `session_description` frames, which hold the session's current description.<br/>
     /// When the widget connector reveals the matching output category, the stream also carries `streaming_thinking` and `streaming_thinking_end` chunks and `tool_activity` frames.<br/>
     /// Every stream terminates with a single `end` frame.
     /// </summary>
@@ -129,6 +130,50 @@ namespace Vectara
         public global::Vectara.EndUserErrorEvent PickError() => Error is { } value
             ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Signals that the agent is waiting for the client to deliver outputs for the listed client tool<br/>
+        /// calls before it continues. Not persisted to session history. Resume by submitting a `tool_output`<br/>
+        /// input containing one entry per `event_id` in `pending_calls`.<br/>
+        /// Only client tools awaiting output are listed. Each call carries its fully materialized arguments —<br/>
+        /// the agent-supplied arguments already merged with the tool configuration's argument overrides and<br/>
+        /// literals, with `$ref`s resolved against the session — so the client can dispatch the call without<br/>
+        /// cross-referencing the corresponding `tool_input` event. Secret-derived values are delivered unmasked<br/>
+        /// because the client needs them to execute the tool.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.ClientToolPendingEvent? ClientToolPending { get; init; }
+#else
+        public global::Vectara.ClientToolPendingEvent? ClientToolPending { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientToolPending))]
+#endif
+        public bool IsClientToolPending => ClientToolPending != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickClientToolPending(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ClientToolPendingEvent? value)
+        {
+            value = ClientToolPending;
+            return IsClientToolPending;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.ClientToolPendingEvent PickClientToolPending() => ClientToolPending is { } value
+            ? value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ClientToolPending' but the value was {ToString()}.");
 
         /// <summary>
         /// An event representing input to a tool call.
@@ -433,6 +478,45 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'StreamingThinkingEnd' but the value was {ToString()}.");
 
         /// <summary>
+        /// The current description of the session (SSE only, not stored).<br/>
+        /// The stream carries this event when the platform generates a description, and when a stream opens on a session that already has one.<br/>
+        /// The event can repeat. Each occurrence replaces the previous value.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.SessionDescriptionEvent? SessionDescription { get; init; }
+#else
+        public global::Vectara.SessionDescriptionEvent? SessionDescription { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SessionDescription))]
+#endif
+        public bool IsSessionDescription => SessionDescription != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickSessionDescription(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SessionDescriptionEvent? value)
+        {
+            value = SessionDescription;
+            return IsSessionDescription;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.SessionDescriptionEvent PickSessionDescription() => SessionDescription is { } value
+            ? value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SessionDescription' but the value was {ToString()}.");
+
+        /// <summary>
         /// A sideband event emitted by a tool during its execution (streaming only, not stored). Always falls between the tool's tool_input and tool_output events for the same tool_call_id. Polymorphic on `activity_type` — see GenericToolActivityEvent (free-form text) and SubAgentToolActivityEvent (relayed inner AgentEvent).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -573,6 +657,29 @@ namespace Vectara
         ///
         /// </summary>
         public static EndUserAgentStreamedResponse FromError(global::Vectara.EndUserErrorEvent? value) => new EndUserAgentStreamedResponse(value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator EndUserAgentStreamedResponse(global::Vectara.ClientToolPendingEvent value) => new EndUserAgentStreamedResponse((global::Vectara.ClientToolPendingEvent?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.ClientToolPendingEvent?(EndUserAgentStreamedResponse @this) => @this.ClientToolPending;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public EndUserAgentStreamedResponse(global::Vectara.ClientToolPendingEvent? value)
+        {
+            ClientToolPending = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static EndUserAgentStreamedResponse FromClientToolPending(global::Vectara.ClientToolPendingEvent? value) => new EndUserAgentStreamedResponse(value);
 
         /// <summary>
         ///
@@ -761,6 +868,29 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public static implicit operator EndUserAgentStreamedResponse(global::Vectara.SessionDescriptionEvent value) => new EndUserAgentStreamedResponse((global::Vectara.SessionDescriptionEvent?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.SessionDescriptionEvent?(EndUserAgentStreamedResponse @this) => @this.SessionDescription;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public EndUserAgentStreamedResponse(global::Vectara.SessionDescriptionEvent? value)
+        {
+            SessionDescription = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static EndUserAgentStreamedResponse FromSessionDescription(global::Vectara.SessionDescriptionEvent? value) => new EndUserAgentStreamedResponse(value);
+
+        /// <summary>
+        ///
+        /// </summary>
         public static implicit operator EndUserAgentStreamedResponse(global::Vectara.ToolActivityEvent value) => new EndUserAgentStreamedResponse((global::Vectara.ToolActivityEvent?)value);
 
         /// <summary>
@@ -812,6 +942,7 @@ namespace Vectara
             global::Vectara.EndUserInputMessageEvent? inputMessage,
             global::Vectara.EndUserAgentOutputEvent? agentOutput,
             global::Vectara.EndUserErrorEvent? error,
+            global::Vectara.ClientToolPendingEvent? clientToolPending,
             global::Vectara.ToolInputEvent? toolInput,
             global::Vectara.ToolOutputEvent? toolOutput,
             global::Vectara.ThinkingEvent? thinking,
@@ -820,6 +951,7 @@ namespace Vectara
             global::Vectara.StreamingAgentOutputEnd? streamingAgentOutputEnd,
             global::Vectara.StreamingThinking? streamingThinking,
             global::Vectara.StreamingThinkingEnd? streamingThinkingEnd,
+            global::Vectara.SessionDescriptionEvent? sessionDescription,
             global::Vectara.ToolActivityEvent? toolActivity,
             global::Vectara.StreamResponseEnd? end
             )
@@ -829,6 +961,7 @@ namespace Vectara
             InputMessage = inputMessage;
             AgentOutput = agentOutput;
             Error = error;
+            ClientToolPending = clientToolPending;
             ToolInput = toolInput;
             ToolOutput = toolOutput;
             Thinking = thinking;
@@ -837,6 +970,7 @@ namespace Vectara
             StreamingAgentOutputEnd = streamingAgentOutputEnd;
             StreamingThinking = streamingThinking;
             StreamingThinkingEnd = streamingThinkingEnd;
+            SessionDescription = sessionDescription;
             ToolActivity = toolActivity;
             End = end;
         }
@@ -847,6 +981,7 @@ namespace Vectara
         public object? Object =>
             End as object ??
             ToolActivity as object ??
+            SessionDescription as object ??
             StreamingThinkingEnd as object ??
             StreamingThinking as object ??
             StreamingAgentOutputEnd as object ??
@@ -855,6 +990,7 @@ namespace Vectara
             Thinking as object ??
             ToolOutput as object ??
             ToolInput as object ??
+            ClientToolPending as object ??
             Error as object ??
             AgentOutput as object ??
             InputMessage as object
@@ -867,6 +1003,7 @@ namespace Vectara
             InputMessage?.ToString() ??
             AgentOutput?.ToString() ??
             Error?.ToString() ??
+            ClientToolPending?.ToString() ??
             ToolInput?.ToString() ??
             ToolOutput?.ToString() ??
             Thinking?.ToString() ??
@@ -875,6 +1012,7 @@ namespace Vectara
             StreamingAgentOutputEnd?.ToString() ??
             StreamingThinking?.ToString() ??
             StreamingThinkingEnd?.ToString() ??
+            SessionDescription?.ToString() ??
             ToolActivity?.ToString() ??
             End?.ToString()
             ;
@@ -884,7 +1022,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && IsStreamingThinkingEnd && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsToolActivity && IsEnd;
+            return IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && IsEnd;
         }
 
         /// <summary>
@@ -894,6 +1032,7 @@ namespace Vectara
             global::System.Func<global::Vectara.EndUserInputMessageEvent?, TResult>? inputMessage = null,
             global::System.Func<global::Vectara.EndUserAgentOutputEvent?, TResult>? agentOutput = null,
             global::System.Func<global::Vectara.EndUserErrorEvent?, TResult>? error = null,
+            global::System.Func<global::Vectara.ClientToolPendingEvent?, TResult>? clientToolPending = null,
             global::System.Func<global::Vectara.ToolInputEvent?, TResult>? toolInput = null,
             global::System.Func<global::Vectara.ToolOutputEvent?, TResult>? toolOutput = null,
             global::System.Func<global::Vectara.ThinkingEvent?, TResult>? thinking = null,
@@ -902,6 +1041,7 @@ namespace Vectara
             global::System.Func<global::Vectara.StreamingAgentOutputEnd, TResult>? streamingAgentOutputEnd = null,
             global::System.Func<global::Vectara.StreamingThinking, TResult>? streamingThinking = null,
             global::System.Func<global::Vectara.StreamingThinkingEnd, TResult>? streamingThinkingEnd = null,
+            global::System.Func<global::Vectara.SessionDescriptionEvent, TResult>? sessionDescription = null,
             global::System.Func<global::Vectara.ToolActivityEvent?, TResult>? toolActivity = null,
             global::System.Func<global::Vectara.StreamResponseEnd, TResult>? end = null,
             bool validate = true)
@@ -923,45 +1063,53 @@ namespace Vectara
             {
                 return error(__value2);
             }
-            else if (ToolInput is { } __value3 && toolInput != null)
+            else if (ClientToolPending is { } __value3 && clientToolPending != null)
             {
-                return toolInput(__value3);
+                return clientToolPending(__value3);
             }
-            else if (ToolOutput is { } __value4 && toolOutput != null)
+            else if (ToolInput is { } __value4 && toolInput != null)
             {
-                return toolOutput(__value4);
+                return toolInput(__value4);
             }
-            else if (Thinking is { } __value5 && thinking != null)
+            else if (ToolOutput is { } __value5 && toolOutput != null)
             {
-                return thinking(__value5);
+                return toolOutput(__value5);
             }
-            else if (StructuredOutput is { } __value6 && structuredOutput != null)
+            else if (Thinking is { } __value6 && thinking != null)
             {
-                return structuredOutput(__value6);
+                return thinking(__value6);
             }
-            else if (StreamingAgentOutput is { } __value7 && streamingAgentOutput != null)
+            else if (StructuredOutput is { } __value7 && structuredOutput != null)
             {
-                return streamingAgentOutput(__value7);
+                return structuredOutput(__value7);
             }
-            else if (StreamingAgentOutputEnd is { } __value8 && streamingAgentOutputEnd != null)
+            else if (StreamingAgentOutput is { } __value8 && streamingAgentOutput != null)
             {
-                return streamingAgentOutputEnd(__value8);
+                return streamingAgentOutput(__value8);
             }
-            else if (StreamingThinking is { } __value9 && streamingThinking != null)
+            else if (StreamingAgentOutputEnd is { } __value9 && streamingAgentOutputEnd != null)
             {
-                return streamingThinking(__value9);
+                return streamingAgentOutputEnd(__value9);
             }
-            else if (StreamingThinkingEnd is { } __value10 && streamingThinkingEnd != null)
+            else if (StreamingThinking is { } __value10 && streamingThinking != null)
             {
-                return streamingThinkingEnd(__value10);
+                return streamingThinking(__value10);
             }
-            else if (ToolActivity is { } __value11 && toolActivity != null)
+            else if (StreamingThinkingEnd is { } __value11 && streamingThinkingEnd != null)
             {
-                return toolActivity(__value11);
+                return streamingThinkingEnd(__value11);
             }
-            else if (End is { } __value12 && end != null)
+            else if (SessionDescription is { } __value12 && sessionDescription != null)
             {
-                return end(__value12);
+                return sessionDescription(__value12);
+            }
+            else if (ToolActivity is { } __value13 && toolActivity != null)
+            {
+                return toolActivity(__value13);
+            }
+            else if (End is { } __value14 && end != null)
+            {
+                return end(__value14);
             }
 
             return default(TResult);
@@ -977,6 +1125,8 @@ namespace Vectara
 
             global::System.Action<global::Vectara.EndUserErrorEvent?>? error = null,
 
+            global::System.Action<global::Vectara.ClientToolPendingEvent?>? clientToolPending = null,
+
             global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
 
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
@@ -992,6 +1142,8 @@ namespace Vectara
             global::System.Action<global::Vectara.StreamingThinking>? streamingThinking = null,
 
             global::System.Action<global::Vectara.StreamingThinkingEnd>? streamingThinkingEnd = null,
+
+            global::System.Action<global::Vectara.SessionDescriptionEvent>? sessionDescription = null,
 
             global::System.Action<global::Vectara.ToolActivityEvent?>? toolActivity = null,
 
@@ -1015,45 +1167,53 @@ namespace Vectara
             {
                 error?.Invoke(__value2);
             }
-            else if (ToolInput is { } __value3)
+            else if (ClientToolPending is { } __value3)
             {
-                toolInput?.Invoke(__value3);
+                clientToolPending?.Invoke(__value3);
             }
-            else if (ToolOutput is { } __value4)
+            else if (ToolInput is { } __value4)
             {
-                toolOutput?.Invoke(__value4);
+                toolInput?.Invoke(__value4);
             }
-            else if (Thinking is { } __value5)
+            else if (ToolOutput is { } __value5)
             {
-                thinking?.Invoke(__value5);
+                toolOutput?.Invoke(__value5);
             }
-            else if (StructuredOutput is { } __value6)
+            else if (Thinking is { } __value6)
             {
-                structuredOutput?.Invoke(__value6);
+                thinking?.Invoke(__value6);
             }
-            else if (StreamingAgentOutput is { } __value7)
+            else if (StructuredOutput is { } __value7)
             {
-                streamingAgentOutput?.Invoke(__value7);
+                structuredOutput?.Invoke(__value7);
             }
-            else if (StreamingAgentOutputEnd is { } __value8)
+            else if (StreamingAgentOutput is { } __value8)
             {
-                streamingAgentOutputEnd?.Invoke(__value8);
+                streamingAgentOutput?.Invoke(__value8);
             }
-            else if (StreamingThinking is { } __value9)
+            else if (StreamingAgentOutputEnd is { } __value9)
             {
-                streamingThinking?.Invoke(__value9);
+                streamingAgentOutputEnd?.Invoke(__value9);
             }
-            else if (StreamingThinkingEnd is { } __value10)
+            else if (StreamingThinking is { } __value10)
             {
-                streamingThinkingEnd?.Invoke(__value10);
+                streamingThinking?.Invoke(__value10);
             }
-            else if (ToolActivity is { } __value11)
+            else if (StreamingThinkingEnd is { } __value11)
             {
-                toolActivity?.Invoke(__value11);
+                streamingThinkingEnd?.Invoke(__value11);
             }
-            else if (End is { } __value12)
+            else if (SessionDescription is { } __value12)
             {
-                end?.Invoke(__value12);
+                sessionDescription?.Invoke(__value12);
+            }
+            else if (ToolActivity is { } __value13)
+            {
+                toolActivity?.Invoke(__value13);
+            }
+            else if (End is { } __value14)
+            {
+                end?.Invoke(__value14);
             }
         }
 
@@ -1064,6 +1224,7 @@ namespace Vectara
             global::System.Action<global::Vectara.EndUserInputMessageEvent?>? inputMessage = null,
             global::System.Action<global::Vectara.EndUserAgentOutputEvent?>? agentOutput = null,
             global::System.Action<global::Vectara.EndUserErrorEvent?>? error = null,
+            global::System.Action<global::Vectara.ClientToolPendingEvent?>? clientToolPending = null,
             global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
             global::System.Action<global::Vectara.ThinkingEvent?>? thinking = null,
@@ -1072,6 +1233,7 @@ namespace Vectara
             global::System.Action<global::Vectara.StreamingAgentOutputEnd>? streamingAgentOutputEnd = null,
             global::System.Action<global::Vectara.StreamingThinking>? streamingThinking = null,
             global::System.Action<global::Vectara.StreamingThinkingEnd>? streamingThinkingEnd = null,
+            global::System.Action<global::Vectara.SessionDescriptionEvent>? sessionDescription = null,
             global::System.Action<global::Vectara.ToolActivityEvent?>? toolActivity = null,
             global::System.Action<global::Vectara.StreamResponseEnd>? end = null,
             bool validate = true)
@@ -1093,45 +1255,53 @@ namespace Vectara
             {
                 error?.Invoke(__value2);
             }
-            else if (ToolInput is { } __value3)
+            else if (ClientToolPending is { } __value3)
             {
-                toolInput?.Invoke(__value3);
+                clientToolPending?.Invoke(__value3);
             }
-            else if (ToolOutput is { } __value4)
+            else if (ToolInput is { } __value4)
             {
-                toolOutput?.Invoke(__value4);
+                toolInput?.Invoke(__value4);
             }
-            else if (Thinking is { } __value5)
+            else if (ToolOutput is { } __value5)
             {
-                thinking?.Invoke(__value5);
+                toolOutput?.Invoke(__value5);
             }
-            else if (StructuredOutput is { } __value6)
+            else if (Thinking is { } __value6)
             {
-                structuredOutput?.Invoke(__value6);
+                thinking?.Invoke(__value6);
             }
-            else if (StreamingAgentOutput is { } __value7)
+            else if (StructuredOutput is { } __value7)
             {
-                streamingAgentOutput?.Invoke(__value7);
+                structuredOutput?.Invoke(__value7);
             }
-            else if (StreamingAgentOutputEnd is { } __value8)
+            else if (StreamingAgentOutput is { } __value8)
             {
-                streamingAgentOutputEnd?.Invoke(__value8);
+                streamingAgentOutput?.Invoke(__value8);
             }
-            else if (StreamingThinking is { } __value9)
+            else if (StreamingAgentOutputEnd is { } __value9)
             {
-                streamingThinking?.Invoke(__value9);
+                streamingAgentOutputEnd?.Invoke(__value9);
             }
-            else if (StreamingThinkingEnd is { } __value10)
+            else if (StreamingThinking is { } __value10)
             {
-                streamingThinkingEnd?.Invoke(__value10);
+                streamingThinking?.Invoke(__value10);
             }
-            else if (ToolActivity is { } __value11)
+            else if (StreamingThinkingEnd is { } __value11)
             {
-                toolActivity?.Invoke(__value11);
+                streamingThinkingEnd?.Invoke(__value11);
             }
-            else if (End is { } __value12)
+            else if (SessionDescription is { } __value12)
             {
-                end?.Invoke(__value12);
+                sessionDescription?.Invoke(__value12);
+            }
+            else if (ToolActivity is { } __value13)
+            {
+                toolActivity?.Invoke(__value13);
+            }
+            else if (End is { } __value14)
+            {
+                end?.Invoke(__value14);
             }
         }
 
@@ -1148,6 +1318,8 @@ namespace Vectara
                 typeof(global::Vectara.EndUserAgentOutputEvent),
                 Error,
                 typeof(global::Vectara.EndUserErrorEvent),
+                ClientToolPending,
+                typeof(global::Vectara.ClientToolPendingEvent),
                 ToolInput,
                 typeof(global::Vectara.ToolInputEvent),
                 ToolOutput,
@@ -1164,6 +1336,8 @@ namespace Vectara
                 typeof(global::Vectara.StreamingThinking),
                 StreamingThinkingEnd,
                 typeof(global::Vectara.StreamingThinkingEnd),
+                SessionDescription,
+                typeof(global::Vectara.SessionDescriptionEvent),
                 ToolActivity,
                 typeof(global::Vectara.ToolActivityEvent),
                 End,
@@ -1187,6 +1361,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserInputMessageEvent?>.Default.Equals(InputMessage, other.InputMessage) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserAgentOutputEvent?>.Default.Equals(AgentOutput, other.AgentOutput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserErrorEvent?>.Default.Equals(Error, other.Error) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolPendingEvent?>.Default.Equals(ClientToolPending, other.ClientToolPending) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolInputEvent?>.Default.Equals(ToolInput, other.ToolInput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolOutputEvent?>.Default.Equals(ToolOutput, other.ToolOutput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingEvent?>.Default.Equals(Thinking, other.Thinking) &&
@@ -1195,6 +1370,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingAgentOutputEnd?>.Default.Equals(StreamingAgentOutputEnd, other.StreamingAgentOutputEnd) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingThinking?>.Default.Equals(StreamingThinking, other.StreamingThinking) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingThinkingEnd?>.Default.Equals(StreamingThinkingEnd, other.StreamingThinkingEnd) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SessionDescriptionEvent?>.Default.Equals(SessionDescription, other.SessionDescription) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolActivityEvent?>.Default.Equals(ToolActivity, other.ToolActivity) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamResponseEnd?>.Default.Equals(End, other.End)
                 ;
