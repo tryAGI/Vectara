@@ -6,9 +6,10 @@ namespace Vectara
 {
     /// <summary>
     /// A session event visible to the end user who owns the session.<br/>
-    /// The `input_message`, `agent_output`, and `error` variants are always visible.<br/>
-    /// The `tool_input`, `tool_output`, `thinking`, and `structured_output` variants appear only when the widget connector the session is bound to reveals the matching output category via `revealed_output_types`.<br/>
-    /// Revealed variants carry the same payload as their operator representations.
+    /// The `input_message`, `agent_output`, `error`, and `client_tool_pending` variants are always visible, as are the `tool_input` and `tool_output` variants of client tool calls.<br/>
+    /// The `tool_input` and `tool_output` variants of other tools, and the `thinking` and `structured_output` variants, appear only when the widget connector the session is bound to reveals the matching output category via `revealed_output_types`.<br/>
+    /// Revealed variants carry the same payload as their operator representations. Unless `tool_calls` is revealed, client tool `tool_input` and `tool_output` events omit `argument_override_paths` and `resolved_argument_overrides`.<br/>
+    /// `client_tool_pending` appears in the response and stream of the turn that calls a client tool, but not in the session's history. It carries the call's arguments, including argument override values, with secrets unmasked.
     /// </summary>
     public readonly partial struct EndUserEvent : global::System.IEquatable<EndUserEvent>
     {
@@ -128,6 +129,50 @@ namespace Vectara
         public global::Vectara.EndUserErrorEvent PickError() => Error is { } value
             ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Error' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Signals that the agent is waiting for the client to deliver outputs for the listed client tool<br/>
+        /// calls before it continues. Not persisted to session history. Resume by submitting a `tool_output`<br/>
+        /// input containing one entry per `event_id` in `pending_calls`.<br/>
+        /// Only client tools awaiting output are listed. Each call carries its fully materialized arguments —<br/>
+        /// the agent-supplied arguments already merged with the tool configuration's argument overrides and<br/>
+        /// literals, with `$ref`s resolved against the session — so the client can dispatch the call without<br/>
+        /// cross-referencing the corresponding `tool_input` event. Secret-derived values are delivered unmasked<br/>
+        /// because the client needs them to execute the tool.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.ClientToolPendingEvent? ClientToolPending { get; init; }
+#else
+        public global::Vectara.ClientToolPendingEvent? ClientToolPending { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ClientToolPending))]
+#endif
+        public bool IsClientToolPending => ClientToolPending != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickClientToolPending(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.ClientToolPendingEvent? value)
+        {
+            value = ClientToolPending;
+            return IsClientToolPending;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.ClientToolPendingEvent PickClientToolPending() => ClientToolPending is { } value
+            ? value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ClientToolPending' but the value was {ToString()}.");
 
         /// <summary>
         /// An event representing input to a tool call.
@@ -354,6 +399,29 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public static implicit operator EndUserEvent(global::Vectara.ClientToolPendingEvent value) => new EndUserEvent((global::Vectara.ClientToolPendingEvent?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.ClientToolPendingEvent?(EndUserEvent @this) => @this.ClientToolPending;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public EndUserEvent(global::Vectara.ClientToolPendingEvent? value)
+        {
+            ClientToolPending = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static EndUserEvent FromClientToolPending(global::Vectara.ClientToolPendingEvent? value) => new EndUserEvent(value);
+
+        /// <summary>
+        ///
+        /// </summary>
         public static implicit operator EndUserEvent(global::Vectara.ToolInputEvent value) => new EndUserEvent((global::Vectara.ToolInputEvent?)value);
 
         /// <summary>
@@ -451,6 +519,7 @@ namespace Vectara
             global::Vectara.EndUserInputMessageEvent? inputMessage,
             global::Vectara.EndUserAgentOutputEvent? agentOutput,
             global::Vectara.EndUserErrorEvent? error,
+            global::Vectara.ClientToolPendingEvent? clientToolPending,
             global::Vectara.ToolInputEvent? toolInput,
             global::Vectara.ToolOutputEvent? toolOutput,
             global::Vectara.ThinkingEvent? thinking,
@@ -462,6 +531,7 @@ namespace Vectara
             InputMessage = inputMessage;
             AgentOutput = agentOutput;
             Error = error;
+            ClientToolPending = clientToolPending;
             ToolInput = toolInput;
             ToolOutput = toolOutput;
             Thinking = thinking;
@@ -476,6 +546,7 @@ namespace Vectara
             Thinking as object ??
             ToolOutput as object ??
             ToolInput as object ??
+            ClientToolPending as object ??
             Error as object ??
             AgentOutput as object ??
             InputMessage as object
@@ -488,6 +559,7 @@ namespace Vectara
             InputMessage?.ToString() ??
             AgentOutput?.ToString() ??
             Error?.ToString() ??
+            ClientToolPending?.ToString() ??
             ToolInput?.ToString() ??
             ToolOutput?.ToString() ??
             Thinking?.ToString() ??
@@ -499,7 +571,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && IsError && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsToolInput && !IsToolOutput && !IsThinking && IsStructuredOutput;
+            return IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && IsStructuredOutput;
         }
 
         /// <summary>
@@ -509,6 +581,7 @@ namespace Vectara
             global::System.Func<global::Vectara.EndUserInputMessageEvent?, TResult>? inputMessage = null,
             global::System.Func<global::Vectara.EndUserAgentOutputEvent?, TResult>? agentOutput = null,
             global::System.Func<global::Vectara.EndUserErrorEvent?, TResult>? error = null,
+            global::System.Func<global::Vectara.ClientToolPendingEvent?, TResult>? clientToolPending = null,
             global::System.Func<global::Vectara.ToolInputEvent?, TResult>? toolInput = null,
             global::System.Func<global::Vectara.ToolOutputEvent?, TResult>? toolOutput = null,
             global::System.Func<global::Vectara.ThinkingEvent?, TResult>? thinking = null,
@@ -532,21 +605,25 @@ namespace Vectara
             {
                 return error(__value2);
             }
-            else if (ToolInput is { } __value3 && toolInput != null)
+            else if (ClientToolPending is { } __value3 && clientToolPending != null)
             {
-                return toolInput(__value3);
+                return clientToolPending(__value3);
             }
-            else if (ToolOutput is { } __value4 && toolOutput != null)
+            else if (ToolInput is { } __value4 && toolInput != null)
             {
-                return toolOutput(__value4);
+                return toolInput(__value4);
             }
-            else if (Thinking is { } __value5 && thinking != null)
+            else if (ToolOutput is { } __value5 && toolOutput != null)
             {
-                return thinking(__value5);
+                return toolOutput(__value5);
             }
-            else if (StructuredOutput is { } __value6 && structuredOutput != null)
+            else if (Thinking is { } __value6 && thinking != null)
             {
-                return structuredOutput(__value6);
+                return thinking(__value6);
+            }
+            else if (StructuredOutput is { } __value7 && structuredOutput != null)
+            {
+                return structuredOutput(__value7);
             }
 
             return default(TResult);
@@ -562,6 +639,8 @@ namespace Vectara
 
             global::System.Action<global::Vectara.EndUserErrorEvent?>? error = null,
 
+            global::System.Action<global::Vectara.ClientToolPendingEvent?>? clientToolPending = null,
+
             global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
 
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
@@ -588,21 +667,25 @@ namespace Vectara
             {
                 error?.Invoke(__value2);
             }
-            else if (ToolInput is { } __value3)
+            else if (ClientToolPending is { } __value3)
             {
-                toolInput?.Invoke(__value3);
+                clientToolPending?.Invoke(__value3);
             }
-            else if (ToolOutput is { } __value4)
+            else if (ToolInput is { } __value4)
             {
-                toolOutput?.Invoke(__value4);
+                toolInput?.Invoke(__value4);
             }
-            else if (Thinking is { } __value5)
+            else if (ToolOutput is { } __value5)
             {
-                thinking?.Invoke(__value5);
+                toolOutput?.Invoke(__value5);
             }
-            else if (StructuredOutput is { } __value6)
+            else if (Thinking is { } __value6)
             {
-                structuredOutput?.Invoke(__value6);
+                thinking?.Invoke(__value6);
+            }
+            else if (StructuredOutput is { } __value7)
+            {
+                structuredOutput?.Invoke(__value7);
             }
         }
 
@@ -613,6 +696,7 @@ namespace Vectara
             global::System.Action<global::Vectara.EndUserInputMessageEvent?>? inputMessage = null,
             global::System.Action<global::Vectara.EndUserAgentOutputEvent?>? agentOutput = null,
             global::System.Action<global::Vectara.EndUserErrorEvent?>? error = null,
+            global::System.Action<global::Vectara.ClientToolPendingEvent?>? clientToolPending = null,
             global::System.Action<global::Vectara.ToolInputEvent?>? toolInput = null,
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
             global::System.Action<global::Vectara.ThinkingEvent?>? thinking = null,
@@ -636,21 +720,25 @@ namespace Vectara
             {
                 error?.Invoke(__value2);
             }
-            else if (ToolInput is { } __value3)
+            else if (ClientToolPending is { } __value3)
             {
-                toolInput?.Invoke(__value3);
+                clientToolPending?.Invoke(__value3);
             }
-            else if (ToolOutput is { } __value4)
+            else if (ToolInput is { } __value4)
             {
-                toolOutput?.Invoke(__value4);
+                toolInput?.Invoke(__value4);
             }
-            else if (Thinking is { } __value5)
+            else if (ToolOutput is { } __value5)
             {
-                thinking?.Invoke(__value5);
+                toolOutput?.Invoke(__value5);
             }
-            else if (StructuredOutput is { } __value6)
+            else if (Thinking is { } __value6)
             {
-                structuredOutput?.Invoke(__value6);
+                thinking?.Invoke(__value6);
+            }
+            else if (StructuredOutput is { } __value7)
+            {
+                structuredOutput?.Invoke(__value7);
             }
         }
 
@@ -667,6 +755,8 @@ namespace Vectara
                 typeof(global::Vectara.EndUserAgentOutputEvent),
                 Error,
                 typeof(global::Vectara.EndUserErrorEvent),
+                ClientToolPending,
+                typeof(global::Vectara.ClientToolPendingEvent),
                 ToolInput,
                 typeof(global::Vectara.ToolInputEvent),
                 ToolOutput,
@@ -694,6 +784,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserInputMessageEvent?>.Default.Equals(InputMessage, other.InputMessage) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserAgentOutputEvent?>.Default.Equals(AgentOutput, other.AgentOutput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.EndUserErrorEvent?>.Default.Equals(Error, other.Error) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.ClientToolPendingEvent?>.Default.Equals(ClientToolPending, other.ClientToolPending) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolInputEvent?>.Default.Equals(ToolInput, other.ToolInput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolOutputEvent?>.Default.Equals(ToolOutput, other.ToolOutput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingEvent?>.Default.Equals(Thinking, other.Thinking) &&

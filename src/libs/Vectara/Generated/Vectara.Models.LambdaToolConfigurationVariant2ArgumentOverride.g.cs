@@ -21,6 +21,8 @@ namespace Vectara
     /// - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`<br/>
     /// Example:<br/>
     ///   `{"query": {"$ref": ".session.metadata.query"}}`<br/>
+    /// A `$ref` object may also set `$default`, the value used when the reference does not resolve:<br/>
+    ///   `{"tier": {"$ref": "session.metadata.tier", "$default": "free"}}`<br/>
     /// To use a literal `"$ref"` value, write `"$$ref"`. The $$ escapes the first $.<br/>
     /// Example: {"connection_string":"postgresql://prod-db:5432/analytics","max_retries":3}
     /// </summary>

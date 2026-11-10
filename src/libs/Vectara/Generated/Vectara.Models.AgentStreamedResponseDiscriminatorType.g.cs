@@ -51,6 +51,10 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        SessionDescription,
+        /// <summary>
+        ///
+        /// </summary>
         SessionInterrupted,
         /// <summary>
         ///
@@ -124,6 +128,7 @@ namespace Vectara
                 AgentStreamedResponseDiscriminatorType.Error => "error",
                 AgentStreamedResponseDiscriminatorType.ImageRead => "image_read",
                 AgentStreamedResponseDiscriminatorType.InputMessage => "input_message",
+                AgentStreamedResponseDiscriminatorType.SessionDescription => "session_description",
                 AgentStreamedResponseDiscriminatorType.SessionInterrupted => "session_interrupted",
                 AgentStreamedResponseDiscriminatorType.SkillLoad => "skill_load",
                 AgentStreamedResponseDiscriminatorType.StepTransition => "step_transition",
@@ -157,6 +162,7 @@ namespace Vectara
                 "error" => AgentStreamedResponseDiscriminatorType.Error,
                 "image_read" => AgentStreamedResponseDiscriminatorType.ImageRead,
                 "input_message" => AgentStreamedResponseDiscriminatorType.InputMessage,
+                "session_description" => AgentStreamedResponseDiscriminatorType.SessionDescription,
                 "session_interrupted" => AgentStreamedResponseDiscriminatorType.SessionInterrupted,
                 "skill_load" => AgentStreamedResponseDiscriminatorType.SkillLoad,
                 "step_transition" => AgentStreamedResponseDiscriminatorType.StepTransition,

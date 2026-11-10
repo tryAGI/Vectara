@@ -42,6 +42,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.EndUserErrorEvent)}");
                 error = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.ClientToolPendingEvent? clientToolPending = default;
+            if (discriminator?.Type == global::Vectara.EndUserAgentStreamedResponseDiscriminatorType.ClientToolPending)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ClientToolPendingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ClientToolPendingEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.ClientToolPendingEvent)}");
+                clientToolPending = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.ToolInputEvent? toolInput = default;
             if (discriminator?.Type == global::Vectara.EndUserAgentStreamedResponseDiscriminatorType.ToolInput)
             {
@@ -98,6 +105,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StreamingThinkingEnd)}");
                 streamingThinkingEnd = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.SessionDescriptionEvent? sessionDescription = default;
+            if (discriminator?.Type == global::Vectara.EndUserAgentStreamedResponseDiscriminatorType.SessionDescription)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SessionDescriptionEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SessionDescriptionEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.SessionDescriptionEvent)}");
+                sessionDescription = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
             global::Vectara.ToolActivityEvent? toolActivity = default;
             if (discriminator?.Type == global::Vectara.EndUserAgentStreamedResponseDiscriminatorType.ToolActivity)
             {
@@ -121,6 +135,8 @@ namespace Vectara.JsonConverters
 
                 error,
 
+                clientToolPending,
+
                 toolInput,
 
                 toolOutput,
@@ -136,6 +152,8 @@ namespace Vectara.JsonConverters
                 streamingThinking,
 
                 streamingThinkingEnd,
+
+                sessionDescription,
 
                 toolActivity,
 
@@ -171,6 +189,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.EndUserErrorEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.EndUserErrorEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.EndUserErrorEvent).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickError(), typeInfo);
+            }
+            else if (value.IsClientToolPending)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.ClientToolPendingEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.ClientToolPendingEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.ClientToolPendingEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickClientToolPending(), typeInfo);
             }
             else if (value.IsToolInput)
             {
@@ -219,6 +243,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StreamingThinkingEnd), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StreamingThinkingEnd?> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StreamingThinkingEnd).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickStreamingThinkingEnd(), typeInfo);
+            }
+            else if (value.IsSessionDescription)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SessionDescriptionEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SessionDescriptionEvent?> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SessionDescriptionEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickSessionDescription(), typeInfo);
             }
             else if (value.IsToolActivity)
             {

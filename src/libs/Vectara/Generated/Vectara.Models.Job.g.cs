@@ -69,8 +69,8 @@ namespace Vectara
 
         /// <summary>
         /// Live progress of a running job.<br/>
-        /// Present only while the job is running, and only when retrieving a single job by ID; `listJobs` never populates it. Absence does not indicate failure — read `state` for job health. The counters describe the corpus rebuild the job runs, so a job that drives no rebuild reports nothing here.<br/>
-        /// `pages_pending_import`, `imports_in_flight` and `import_batches_submitted` describe incremental import, which is not enabled for every rebuild. When it is not in use all three report 0 for the whole rebuild, which means "not applicable" rather than "nothing left to do".
+        /// Present only while the job is running, and only when retrieving a single job by ID; `listJobs` never populates it. Absence does not indicate failure — read `state` for job health. The counters describe the corpus rebuild or filter attribute change the job runs, so a job that drives neither reports nothing here.<br/>
+        /// `pages_pending_import`, `imports_in_flight` and `import_batches_submitted` describe incremental import, which is not enabled for every rebuild. When it is not in use all three report 0 for the whole job, which means "not applicable" rather than "nothing left to do". A filter attribute change that does not rebuild the corpus imports nothing, so it reports 0 for all three and for `import_recovery_attempts`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("progress")]
         public global::Vectara.JobProgress? Progress { get; set; }
@@ -114,8 +114,8 @@ namespace Vectara
         /// </param>
         /// <param name="progress">
         /// Live progress of a running job.<br/>
-        /// Present only while the job is running, and only when retrieving a single job by ID; `listJobs` never populates it. Absence does not indicate failure — read `state` for job health. The counters describe the corpus rebuild the job runs, so a job that drives no rebuild reports nothing here.<br/>
-        /// `pages_pending_import`, `imports_in_flight` and `import_batches_submitted` describe incremental import, which is not enabled for every rebuild. When it is not in use all three report 0 for the whole rebuild, which means "not applicable" rather than "nothing left to do".
+        /// Present only while the job is running, and only when retrieving a single job by ID; `listJobs` never populates it. Absence does not indicate failure — read `state` for job health. The counters describe the corpus rebuild or filter attribute change the job runs, so a job that drives neither reports nothing here.<br/>
+        /// `pages_pending_import`, `imports_in_flight` and `import_batches_submitted` describe incremental import, which is not enabled for every rebuild. When it is not in use all three report 0 for the whole job, which means "not applicable" rather than "nothing left to do". A filter attribute change that does not rebuild the corpus imports nothing, so it reports 0 for all three and for `import_recovery_attempts`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

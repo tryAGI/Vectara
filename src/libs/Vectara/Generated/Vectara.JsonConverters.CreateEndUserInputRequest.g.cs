@@ -35,12 +35,21 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateEndUserInterruptRequest)}");
                 interrupt = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.CreateEndUserToolOutputRequest? toolOutput = default;
+            if (discriminator?.Type == global::Vectara.CreateEndUserInputRequestDiscriminatorType.ToolOutput)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateEndUserToolOutputRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateEndUserToolOutputRequest> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.CreateEndUserToolOutputRequest)}");
+                toolOutput = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.CreateEndUserInputRequest(
                 discriminator?.Type,
                 inputMessage,
 
-                interrupt
+                interrupt,
+
+                toolOutput
                 );
 
             return __value;
@@ -66,6 +75,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateEndUserInterruptRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateEndUserInterruptRequest> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateEndUserInterruptRequest).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickInterrupt(), typeInfo);
+            }
+            else if (value.IsToolOutput)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.CreateEndUserToolOutputRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.CreateEndUserToolOutputRequest> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.CreateEndUserToolOutputRequest).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickToolOutput(), typeInfo);
             }
         }
     }

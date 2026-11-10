@@ -15,6 +15,10 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        ClientToolPending,
+        /// <summary>
+        ///
+        /// </summary>
         End,
         /// <summary>
         ///
@@ -24,6 +28,10 @@ namespace Vectara
         ///
         /// </summary>
         InputMessage,
+        /// <summary>
+        ///
+        /// </summary>
+        SessionDescription,
         /// <summary>
         ///
         /// </summary>
@@ -75,9 +83,11 @@ namespace Vectara
             return value switch
             {
                 EndUserAgentStreamedResponseDiscriminatorType.AgentOutput => "agent_output",
+                EndUserAgentStreamedResponseDiscriminatorType.ClientToolPending => "client_tool_pending",
                 EndUserAgentStreamedResponseDiscriminatorType.End => "end",
                 EndUserAgentStreamedResponseDiscriminatorType.Error => "error",
                 EndUserAgentStreamedResponseDiscriminatorType.InputMessage => "input_message",
+                EndUserAgentStreamedResponseDiscriminatorType.SessionDescription => "session_description",
                 EndUserAgentStreamedResponseDiscriminatorType.StreamingAgentOutput => "streaming_agent_output",
                 EndUserAgentStreamedResponseDiscriminatorType.StreamingAgentOutputEnd => "streaming_agent_output_end",
                 EndUserAgentStreamedResponseDiscriminatorType.StreamingThinking => "streaming_thinking",
@@ -98,9 +108,11 @@ namespace Vectara
             return value switch
             {
                 "agent_output" => EndUserAgentStreamedResponseDiscriminatorType.AgentOutput,
+                "client_tool_pending" => EndUserAgentStreamedResponseDiscriminatorType.ClientToolPending,
                 "end" => EndUserAgentStreamedResponseDiscriminatorType.End,
                 "error" => EndUserAgentStreamedResponseDiscriminatorType.Error,
                 "input_message" => EndUserAgentStreamedResponseDiscriminatorType.InputMessage,
+                "session_description" => EndUserAgentStreamedResponseDiscriminatorType.SessionDescription,
                 "streaming_agent_output" => EndUserAgentStreamedResponseDiscriminatorType.StreamingAgentOutput,
                 "streaming_agent_output_end" => EndUserAgentStreamedResponseDiscriminatorType.StreamingAgentOutputEnd,
                 "streaming_thinking" => EndUserAgentStreamedResponseDiscriminatorType.StreamingThinking,

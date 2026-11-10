@@ -87,6 +87,43 @@ namespace Vectara
         public global::Vectara.CreateEndUserInterruptRequest PickInterrupt() => Interrupt is { } value
             ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'Interrupt' but the value was {ToString()}.");
+
+        /// <summary>
+        /// Delivers the outputs of the client tool calls the session is waiting on, so the agent can continue. Submit one entry per call listed in the `client_tool_pending` event or by `GET /v2/agent_aliases/{alias_key}/end_user_sessions/{session_key}/outstanding_client_tool_calls`.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.CreateEndUserToolOutputRequest? ToolOutput { get; init; }
+#else
+        public global::Vectara.CreateEndUserToolOutputRequest? ToolOutput { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(ToolOutput))]
+#endif
+        public bool IsToolOutput => ToolOutput != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickToolOutput(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.CreateEndUserToolOutputRequest? value)
+        {
+            value = ToolOutput;
+            return IsToolOutput;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.CreateEndUserToolOutputRequest PickToolOutput() => ToolOutput is { } value
+            ? value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'ToolOutput' but the value was {ToString()}.");
         /// <summary>
         ///
         /// </summary>
@@ -136,22 +173,48 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public static implicit operator CreateEndUserInputRequest(global::Vectara.CreateEndUserToolOutputRequest value) => new CreateEndUserInputRequest((global::Vectara.CreateEndUserToolOutputRequest?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.CreateEndUserToolOutputRequest?(CreateEndUserInputRequest @this) => @this.ToolOutput;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public CreateEndUserInputRequest(global::Vectara.CreateEndUserToolOutputRequest? value)
+        {
+            ToolOutput = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static CreateEndUserInputRequest FromToolOutput(global::Vectara.CreateEndUserToolOutputRequest? value) => new CreateEndUserInputRequest(value);
+
+        /// <summary>
+        ///
+        /// </summary>
         public CreateEndUserInputRequest(
             global::Vectara.CreateEndUserInputRequestDiscriminatorType? type,
             global::Vectara.CreateEndUserInputMessageRequest? inputMessage,
-            global::Vectara.CreateEndUserInterruptRequest? interrupt
+            global::Vectara.CreateEndUserInterruptRequest? interrupt,
+            global::Vectara.CreateEndUserToolOutputRequest? toolOutput
             )
         {
             Type = type;
 
             InputMessage = inputMessage;
             Interrupt = interrupt;
+            ToolOutput = toolOutput;
         }
 
         /// <summary>
         ///
         /// </summary>
         public object? Object =>
+            ToolOutput as object ??
             Interrupt as object ??
             InputMessage as object
             ;
@@ -161,7 +224,8 @@ namespace Vectara
         /// </summary>
         public override string? ToString() =>
             InputMessage?.ToString() ??
-            Interrupt?.ToString()
+            Interrupt?.ToString() ??
+            ToolOutput?.ToString()
             ;
 
         /// <summary>
@@ -169,7 +233,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsInputMessage && !IsInterrupt || !IsInputMessage && IsInterrupt;
+            return IsInputMessage && !IsInterrupt && !IsToolOutput || !IsInputMessage && IsInterrupt && !IsToolOutput || !IsInputMessage && !IsInterrupt && IsToolOutput;
         }
 
         /// <summary>
@@ -178,6 +242,7 @@ namespace Vectara
         public TResult? Match<TResult>(
             global::System.Func<global::Vectara.CreateEndUserInputMessageRequest?, TResult>? inputMessage = null,
             global::System.Func<global::Vectara.CreateEndUserInterruptRequest?, TResult>? interrupt = null,
+            global::System.Func<global::Vectara.CreateEndUserToolOutputRequest?, TResult>? toolOutput = null,
             bool validate = true)
         {
             if (validate)
@@ -193,6 +258,10 @@ namespace Vectara
             {
                 return interrupt(__value1);
             }
+            else if (ToolOutput is { } __value2 && toolOutput != null)
+            {
+                return toolOutput(__value2);
+            }
 
             return default(TResult);
         }
@@ -204,6 +273,8 @@ namespace Vectara
             global::System.Action<global::Vectara.CreateEndUserInputMessageRequest?>? inputMessage = null,
 
             global::System.Action<global::Vectara.CreateEndUserInterruptRequest?>? interrupt = null,
+
+            global::System.Action<global::Vectara.CreateEndUserToolOutputRequest?>? toolOutput = null,
             bool validate = true)
         {
             if (validate)
@@ -218,6 +289,10 @@ namespace Vectara
             else if (Interrupt is { } __value1)
             {
                 interrupt?.Invoke(__value1);
+            }
+            else if (ToolOutput is { } __value2)
+            {
+                toolOutput?.Invoke(__value2);
             }
         }
 
@@ -227,6 +302,7 @@ namespace Vectara
         public void Switch(
             global::System.Action<global::Vectara.CreateEndUserInputMessageRequest?>? inputMessage = null,
             global::System.Action<global::Vectara.CreateEndUserInterruptRequest?>? interrupt = null,
+            global::System.Action<global::Vectara.CreateEndUserToolOutputRequest?>? toolOutput = null,
             bool validate = true)
         {
             if (validate)
@@ -241,6 +317,10 @@ namespace Vectara
             else if (Interrupt is { } __value1)
             {
                 interrupt?.Invoke(__value1);
+            }
+            else if (ToolOutput is { } __value2)
+            {
+                toolOutput?.Invoke(__value2);
             }
         }
 
@@ -255,6 +335,8 @@ namespace Vectara
                 typeof(global::Vectara.CreateEndUserInputMessageRequest),
                 Interrupt,
                 typeof(global::Vectara.CreateEndUserInterruptRequest),
+                ToolOutput,
+                typeof(global::Vectara.CreateEndUserToolOutputRequest),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -272,7 +354,8 @@ namespace Vectara
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInputMessageRequest?>.Default.Equals(InputMessage, other.InputMessage) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInterruptRequest?>.Default.Equals(Interrupt, other.Interrupt)
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserInterruptRequest?>.Default.Equals(Interrupt, other.Interrupt) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.CreateEndUserToolOutputRequest?>.Default.Equals(ToolOutput, other.ToolOutput)
                 ;
         }
 

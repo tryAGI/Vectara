@@ -36,6 +36,10 @@ namespace Vectara
         ///
         /// </summary>
         Timeout,
+        /// <summary>
+        ///
+        /// </summary>
+        UnknownResult,
     }
 
     /// <summary>
@@ -57,6 +61,7 @@ namespace Vectara
                 ListTracesToolErrorType.InvalidInput => "invalid_input",
                 ListTracesToolErrorType.NotFound => "not_found",
                 ListTracesToolErrorType.Timeout => "timeout",
+                ListTracesToolErrorType.UnknownResult => "unknown_result",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -74,6 +79,7 @@ namespace Vectara
                 "invalid_input" => ListTracesToolErrorType.InvalidInput,
                 "not_found" => ListTracesToolErrorType.NotFound,
                 "timeout" => ListTracesToolErrorType.Timeout,
+                "unknown_result" => ListTracesToolErrorType.UnknownResult,
                 _ => null,
             };
         }

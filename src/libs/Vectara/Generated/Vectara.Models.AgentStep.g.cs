@@ -1,6 +1,4 @@
 
-#pragma warning disable CS0618 // Type or member is obsolete
-
 #nullable enable
 
 namespace Vectara
@@ -9,7 +7,8 @@ namespace Vectara
     /// A step in an agent's execution flow that defines how the agent processes and responds to input.<br/>
     /// The step name comes from the map key in the agent's steps map.<br/>
     /// A step receives all previous session history, including any prior agent steps.<br/>
-    /// The agent then follows the step's instructions to decide what to do.<br/>
+    /// It first runs its tool_calls, if any. In a `conversational` step the LLM then follows the<br/>
+    /// step's instructions to decide what to do. A `tool_calls` step does not call the LLM.<br/>
     /// Finally, the agent stops if no next step is defined, or continues to the first<br/>
     /// next step whose condition matches.<br/>
     /// An agent always executes steps serially. For parallel behavior, give the agent<br/>
@@ -20,12 +19,12 @@ namespace Vectara
     public sealed partial class AgentStep
     {
         /// <summary>
-        /// Deprecated. This field is ignored and exists only for backward compatibility.<br/>
+        /// How the step acts on its input. Defaults to `conversational`.<br/>
         /// Default Value: conversational
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Obsolete("This property marked as deprecated.")]
-        public string? Type { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentStepTypeJsonConverter))]
+        public global::Vectara.AgentStepType? Type { get; set; }
 
         /// <summary>
         /// List of instructions that guide the agent's behavior in this step.<br/>
@@ -85,6 +84,20 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? AllowedSkills { get; set; }
 
         /// <summary>
+        /// Tool calls the platform makes each time the session transitions into this step, or starts at it, before anything else in the step runs.<br/>
+        /// Calls start in the order listed. A call whose arguments reference an earlier call's output starts once that call finishes.<br/>
+        /// Calls with no such reference run in parallel.<br/>
+        /// In a `conversational` step, the LLM then handles the input following the step's instructions. The LLM does not see the step's tool<br/>
+        /// calls or their outputs: they are recorded as session events, and next_steps conditions and later calls read their outputs as<br/>
+        /// `tools.&lt;tool_config_name&gt;.outputs.latest`.<br/>
+        /// In a `tool_calls` step, the step evaluates next_steps once the calls finish, and the LLM is not called.<br/>
+        /// A new input that finds the session already at this step does not run the calls again. Each call's on_failure sets what its failure does.<br/>
+        /// Default Value: []
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_calls")]
+        public global::System.Collections.Generic.IList<global::Vectara.AgentStepToolCall>? ToolCalls { get; set; }
+
+        /// <summary>
         /// Step name to resume at when the session receives the next user message.<br/>
         /// If not specified, the session re-enters at this step (i.e., stays here).<br/>
         /// Set to the agent's first_step_name to always restart from the beginning.<br/>
@@ -114,6 +127,10 @@ namespace Vectara
         /// Defaults to 'default' parser if not specified.<br/>
         /// Default Value: {"type":"default"}
         /// </param>
+        /// <param name="type">
+        /// How the step acts on its input. Defaults to `conversational`.<br/>
+        /// Default Value: conversational
+        /// </param>
         /// <param name="reminders">
         /// Reminders injected into conversation messages when specific events occur. Useful for keeping the agent on-task during long conversations.<br/>
         /// Default Value: []
@@ -137,6 +154,17 @@ namespace Vectara
         /// If set to an empty array, no skills are available and the invoke_skill tool is not shown.<br/>
         /// Example: [code_review, debugging]
         /// </param>
+        /// <param name="toolCalls">
+        /// Tool calls the platform makes each time the session transitions into this step, or starts at it, before anything else in the step runs.<br/>
+        /// Calls start in the order listed. A call whose arguments reference an earlier call's output starts once that call finishes.<br/>
+        /// Calls with no such reference run in parallel.<br/>
+        /// In a `conversational` step, the LLM then handles the input following the step's instructions. The LLM does not see the step's tool<br/>
+        /// calls or their outputs: they are recorded as session events, and next_steps conditions and later calls read their outputs as<br/>
+        /// `tools.&lt;tool_config_name&gt;.outputs.latest`.<br/>
+        /// In a `tool_calls` step, the step evaluates next_steps once the calls finish, and the LLM is not called.<br/>
+        /// A new input that finds the session already at this step does not run the calls again. Each call's on_failure sets what its failure does.<br/>
+        /// Default Value: []
+        /// </param>
         /// <param name="reentryStep">
         /// Step name to resume at when the session receives the next user message.<br/>
         /// If not specified, the session re-enters at this step (i.e., stays here).<br/>
@@ -149,18 +177,22 @@ namespace Vectara
         public AgentStep(
             global::System.Collections.Generic.IList<global::Vectara.AgentStepInstruction> instructions,
             global::Vectara.AgentOutputParser outputParser,
+            global::Vectara.AgentStepType? type,
             global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>? reminders,
             global::System.Collections.Generic.IList<global::Vectara.NextStep>? nextSteps,
             global::System.Collections.Generic.IList<string>? allowedTools,
             global::System.Collections.Generic.IList<string>? allowedSkills,
+            global::System.Collections.Generic.IList<global::Vectara.AgentStepToolCall>? toolCalls,
             string? reentryStep)
         {
+            this.Type = type;
             this.Instructions = instructions ?? throw new global::System.ArgumentNullException(nameof(instructions));
             this.OutputParser = outputParser;
             this.Reminders = reminders;
             this.NextSteps = nextSteps;
             this.AllowedTools = allowedTools;
             this.AllowedSkills = allowedSkills;
+            this.ToolCalls = toolCalls;
             this.ReentryStep = reentryStep;
         }
 

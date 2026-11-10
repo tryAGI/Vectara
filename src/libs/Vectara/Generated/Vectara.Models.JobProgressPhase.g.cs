@@ -4,7 +4,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// The stage of the rebuild that is currently running. A rebuild scans the corpus and imports it into the new indices, then cuts the corpus over to them and replays everything written while it ran. New phases may be added; treat unrecognized values as opaque.
+    /// The stage of the job that is currently running. A rebuild scans the corpus and imports it into the new indices, then cuts the corpus over to them and replays everything written while it ran. A filter attribute change that does not rebuild the corpus scans the corpus, reports `indexing` while the new filter attributes are being indexed, then cuts over. Filters on the new attributes work once the job completes. New phases may be added; treat unrecognized values as opaque.
     /// </summary>
     public enum JobProgressPhase
     {
@@ -20,6 +20,10 @@ namespace Vectara
         ///
         /// </summary>
         Importing,
+        /// <summary>
+        ///
+        /// </summary>
+        Indexing,
         /// <summary>
         ///
         /// </summary>
@@ -49,6 +53,7 @@ namespace Vectara
                 JobProgressPhase.Completed => "completed",
                 JobProgressPhase.CuttingOver => "cutting_over",
                 JobProgressPhase.Importing => "importing",
+                JobProgressPhase.Indexing => "indexing",
                 JobProgressPhase.Preparing => "preparing",
                 JobProgressPhase.ReplayingJournals => "replaying_journals",
                 JobProgressPhase.Scanning => "scanning",
@@ -65,6 +70,7 @@ namespace Vectara
                 "completed" => JobProgressPhase.Completed,
                 "cutting_over" => JobProgressPhase.CuttingOver,
                 "importing" => JobProgressPhase.Importing,
+                "indexing" => JobProgressPhase.Indexing,
                 "preparing" => JobProgressPhase.Preparing,
                 "replaying_journals" => JobProgressPhase.ReplayingJournals,
                 "scanning" => JobProgressPhase.Scanning,

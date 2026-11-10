@@ -64,6 +64,12 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? ArgumentOverridePaths { get; set; }
 
         /// <summary>
+        /// The entry in a step's tool_calls that a tool call was made from. Set on a `tool_input` event when the platform made the call for a step rather than the LLM; the LLM does not see such a call or its output.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("step_tool_call")]
+        public global::Vectara.StepToolCallSource? StepToolCall { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -99,6 +105,9 @@ namespace Vectara
         /// Only the paths are frozen here; the resolved values at those paths are not — they are recomputed against the live session at each launch<br/>
         /// and recorded on the corresponding `ToolOutputEvent.resolved_argument_overrides`.
         /// </param>
+        /// <param name="stepToolCall">
+        /// The entry in a step's tool_calls that a tool call was made from. Set on a `tool_input` event when the platform made the call for a step rather than the LLM; the LLM does not see such a call or its output.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -108,7 +117,8 @@ namespace Vectara
             string toolConfigurationName,
             string toolName,
             object toolInput,
-            global::System.Collections.Generic.IList<string>? argumentOverridePaths)
+            global::System.Collections.Generic.IList<string>? argumentOverridePaths,
+            global::Vectara.StepToolCallSource? stepToolCall)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
             this.ToolCallId = toolCallId ?? throw new global::System.ArgumentNullException(nameof(toolCallId));
@@ -116,6 +126,7 @@ namespace Vectara
             this.ToolName = toolName ?? throw new global::System.ArgumentNullException(nameof(toolName));
             this.ToolInput = toolInput ?? throw new global::System.ArgumentNullException(nameof(toolInput));
             this.ArgumentOverridePaths = argumentOverridePaths;
+            this.StepToolCall = stepToolCall;
         }
 
         /// <summary>

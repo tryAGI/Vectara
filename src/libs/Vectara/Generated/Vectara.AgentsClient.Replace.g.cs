@@ -434,7 +434,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow replacing this agent.
+                            // Permissions do not allow replacing this agent, or do not allow using an agent that the request refers to.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;

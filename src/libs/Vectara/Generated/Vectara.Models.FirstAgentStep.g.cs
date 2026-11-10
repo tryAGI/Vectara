@@ -1,6 +1,4 @@
 
-#pragma warning disable CS0618 // Type or member is obsolete
-
 #nullable enable
 
 namespace Vectara
@@ -23,12 +21,12 @@ namespace Vectara
         public required string Name { get; set; } = "first_step";
 
         /// <summary>
-        /// Deprecated. This field is ignored and exists only for backward compatibility.<br/>
+        /// How the step acts on its input. Defaults to `conversational`.<br/>
         /// Default Value: conversational
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
-        [global::System.Obsolete("This property marked as deprecated.")]
-        public string? Type { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.AgentStepTypeJsonConverter))]
+        public global::Vectara.AgentStepType? Type { get; set; }
 
         /// <summary>
         /// List of instructions that guide the agent's behavior in this step.
@@ -82,6 +80,20 @@ namespace Vectara
         public global::System.Collections.Generic.IList<string>? AllowedSkills { get; set; }
 
         /// <summary>
+        /// Tool calls the platform makes each time the session transitions into this step, or starts at it, before anything else in the step runs.<br/>
+        /// Calls start in the order listed. A call whose arguments reference an earlier call's output starts once that call finishes.<br/>
+        /// Calls with no such reference run in parallel.<br/>
+        /// In a `conversational` step, the LLM then handles the input following the step's instructions. The LLM does not see the step's tool<br/>
+        /// calls or their outputs: they are recorded as session events, and next_steps conditions and later calls read their outputs as<br/>
+        /// `tools.&lt;tool_config_name&gt;.outputs.latest`.<br/>
+        /// In a `tool_calls` step, the step evaluates next_steps once the calls finish, and the LLM is not called.<br/>
+        /// A new input that finds the session already at this step does not run the calls again. Each call's on_failure sets what its failure does.<br/>
+        /// Default Value: []
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_calls")]
+        public global::System.Collections.Generic.IList<global::Vectara.AgentStepToolCall>? ToolCalls { get; set; }
+
+        /// <summary>
         /// Step name to resume at when the session receives the next user message.<br/>
         /// If not specified, the session re-enters at this step (i.e., stays here).<br/>
         /// Set to the agent's first_step_name to always restart from the beginning.<br/>
@@ -111,6 +123,10 @@ namespace Vectara
         /// <param name="outputParser">
         /// Default Value: {"type":"default"}
         /// </param>
+        /// <param name="type">
+        /// How the step acts on its input. Defaults to `conversational`.<br/>
+        /// Default Value: conversational
+        /// </param>
         /// <param name="reminders">
         /// Reminders injected into conversation messages when specific events occur.<br/>
         /// Default Value: []
@@ -133,6 +149,17 @@ namespace Vectara
         /// If set to an empty array, no skills are available and the invoke_skill tool is not shown.<br/>
         /// Example: [code_review, debugging]
         /// </param>
+        /// <param name="toolCalls">
+        /// Tool calls the platform makes each time the session transitions into this step, or starts at it, before anything else in the step runs.<br/>
+        /// Calls start in the order listed. A call whose arguments reference an earlier call's output starts once that call finishes.<br/>
+        /// Calls with no such reference run in parallel.<br/>
+        /// In a `conversational` step, the LLM then handles the input following the step's instructions. The LLM does not see the step's tool<br/>
+        /// calls or their outputs: they are recorded as session events, and next_steps conditions and later calls read their outputs as<br/>
+        /// `tools.&lt;tool_config_name&gt;.outputs.latest`.<br/>
+        /// In a `tool_calls` step, the step evaluates next_steps once the calls finish, and the LLM is not called.<br/>
+        /// A new input that finds the session already at this step does not run the calls again. Each call's on_failure sets what its failure does.<br/>
+        /// Default Value: []
+        /// </param>
         /// <param name="reentryStep">
         /// Step name to resume at when the session receives the next user message.<br/>
         /// If not specified, the session re-enters at this step (i.e., stays here).<br/>
@@ -146,19 +173,23 @@ namespace Vectara
             string name,
             global::System.Collections.Generic.IList<global::Vectara.AgentStepInstruction> instructions,
             global::Vectara.AgentOutputParser outputParser,
+            global::Vectara.AgentStepType? type,
             global::System.Collections.Generic.IList<global::Vectara.AgentStepReminder>? reminders,
             global::System.Collections.Generic.IList<global::Vectara.NextStep>? nextSteps,
             global::System.Collections.Generic.IList<string>? allowedTools,
             global::System.Collections.Generic.IList<string>? allowedSkills,
+            global::System.Collections.Generic.IList<global::Vectara.AgentStepToolCall>? toolCalls,
             string? reentryStep)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
+            this.Type = type;
             this.Instructions = instructions ?? throw new global::System.ArgumentNullException(nameof(instructions));
             this.OutputParser = outputParser;
             this.Reminders = reminders;
             this.NextSteps = nextSteps;
             this.AllowedTools = allowedTools;
             this.AllowedSkills = allowedSkills;
+            this.ToolCalls = toolCalls;
             this.ReentryStep = reentryStep;
         }
 
