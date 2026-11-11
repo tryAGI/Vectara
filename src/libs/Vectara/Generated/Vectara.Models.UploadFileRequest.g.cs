@@ -5,15 +5,15 @@ namespace Vectara
 {
     /// <summary>
     /// Request to upload and index a file into a corpus within a customer account.<br/>
-    /// Example: {"metadata":{"department\u0022":"engineering","doc_type\u0022":"architecture_diagram"},"chunking_strategy":{"type":"sentence_chunking_strategy"},"table_extraction_config":{"extract_tables":true},"filename":"system_design_v1.pdf","file":"system_design_v1.pdf"}
+    /// Example: {"metadata":{"department":"engineering","doc_type":"architecture_diagram"},"filename":"system_design_v1.pdf","file":"system_design_v1.pdf"}
     /// </summary>
     public sealed partial class UploadFileRequest
     {
         /// <summary>
         /// Arbitrary object that is attached as document metadata to the extracted document.<br/>
-        /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
+        /// Example: {"department":"engineering","doc_type":"architecture_diagram"}
         /// </summary>
-        /// <example>{"department":"engineering","doc_type\u0022":"architecture_diagram"}</example>
+        /// <example>{"department":"engineering","doc_type":"architecture_diagram"}</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public object? Metadata { get; set; }
 
@@ -59,7 +59,7 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary object that is attached as document metadata to the extracted document.<br/>
-        /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
+        /// Example: {"department":"engineering","doc_type":"architecture_diagram"}
         /// </param>
         /// <param name="chunkingStrategy">
         /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.

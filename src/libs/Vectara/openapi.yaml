@@ -1693,7 +1693,7 @@ paths:
         \ Content-Disposition, see the [Mozilla documentation on headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition).\n\
         \n## Attach additional metadata\n\nTo attach additional metadata to the file,\
         \ specify a metadata form field that contains a JSON string:\n\n`{ \"filesize\"\
-        : 1234 }`\n\n## Tabular data extraction and summarization\n\nSet `table_extraction_config.extract_tables\
+        : 1234 }`\n## Tabular data extraction and summarization\n\nSet `table_extraction_config.extract_tables\
         \ = true` to extract tabular data, such as financial filings (10-K, 10-Q,\
         \ S-1). You can also apply custom prompt templates to summarize table content\
         \ during upload.\n\n:::caution\nTable extraction does not support scanned\
@@ -1738,7 +1738,8 @@ paths:
                   application/vnd.openxmlformats-officedocument.wordprocessingml.document,
                   application/vnd.oasis.opendocument.text, application/epub+zip, application/rtf,
                   text/html, text/plain, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation,
-                  text/markdown
+                  text/markdown, text/csv, text/tab-separated-values, image/png, image/jpeg,
+                  image/gif, image/webp, image/bmp, image/tiff
               filename:
                 contentType: text/plain
       responses:
@@ -18453,7 +18454,7 @@ components:
           additionalProperties: true
           example:
             department: engineering
-            doc_type": architecture_diagram
+            doc_type: architecture_diagram
         chunking_strategy:
           $ref: '#/components/schemas/ChunkingStrategy'
           example:
@@ -18475,12 +18476,8 @@ components:
       - file
       example:
         metadata:
-          department": engineering
-          doc_type": architecture_diagram
-        chunking_strategy:
-          type: sentence_chunking_strategy
-        table_extraction_config:
-          extract_tables: true
+          department: engineering
+          doc_type: architecture_diagram
         filename: system_design_v1.pdf
         file: system_design_v1.pdf
     Cell:

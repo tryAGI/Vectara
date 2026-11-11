@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// Arbitrary object that is attached as document metadata to the extracted document.<br/>
-    /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
+    /// Example: {"department":"engineering","doc_type":"architecture_diagram"}
     /// </summary>
     public sealed partial class UploadFileRequestMetadata
     {
