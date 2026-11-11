@@ -243,7 +243,7 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary object that is attached as document metadata to the extracted document.<br/>
-        /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
+        /// Example: {"department":"engineering","doc_type":"architecture_diagram"}
         /// </param>
         /// <param name="chunkingStrategy">
         /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.
@@ -346,7 +346,7 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary object that is attached as document metadata to the extracted document.<br/>
-        /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
+        /// Example: {"department":"engineering","doc_type":"architecture_diagram"}
         /// </param>
         /// <param name="chunkingStrategy">
         /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.
@@ -448,7 +448,7 @@ namespace Vectara
         /// </param>
         /// <param name="metadata">
         /// Arbitrary object that is attached as document metadata to the extracted document.<br/>
-        /// Example: {"department":"engineering","doc_type\u0022":"architecture_diagram"}
+        /// Example: {"department":"engineering","doc_type":"architecture_diagram"}
         /// </param>
         /// <param name="chunkingStrategy">
         /// Chooses how to split documents into chunks during indexing. This is optional. If you do not set a chunking strategy, the platform uses the default strategy, which creates one chunk (docpart) per sentence.
