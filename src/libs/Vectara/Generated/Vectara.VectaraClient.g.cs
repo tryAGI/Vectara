@@ -467,6 +467,16 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public UsagesClient Usages => new UsagesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
+        {
+            ReadResponseAsString = ReadResponseAsString,
+            JsonSerializerContextProvider = JsonSerializerContextProvider,
+            AutoSDKOAuth2State = AutoSDKOAuth2State,
+        };
+
+        /// <summary>
+        ///
+        /// </summary>
         public UsersClient Users => new UsersClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,

@@ -262,6 +262,11 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public UsagesClient Usages { get; }
+
+        /// <summary>
+        ///
+        /// </summary>
         public UsersClient Users { get; }
 
         /// <summary>

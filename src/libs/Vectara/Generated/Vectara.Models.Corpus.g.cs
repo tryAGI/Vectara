@@ -117,6 +117,12 @@ namespace Vectara
         public global::System.DateTime? CreatedAt { get; set; }
 
         /// <summary>
+        /// The bytes one corpus or agent stores, as of the latest hourly measurement. Absent until it has been measured.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("storage")]
+        public global::Vectara.MeasuredStorage? Storage { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -172,6 +178,9 @@ namespace Vectara
         /// <param name="createdAt">
         /// Indicates when the corpus was created.
         /// </param>
+        /// <param name="storage">
+        /// The bytes one corpus or agent stores, as of the latest hourly measurement. Absent until it has been measured.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -189,7 +198,8 @@ namespace Vectara
             global::System.Collections.Generic.IList<global::Vectara.FilterAttribute>? filterAttributes,
             global::System.Collections.Generic.IList<global::Vectara.CorpusCustomDimension>? customDimensions,
             global::Vectara.CorpusLimits? limits,
-            global::System.DateTime? createdAt)
+            global::System.DateTime? createdAt,
+            global::Vectara.MeasuredStorage? storage)
         {
             this.Id = id ?? throw new global::System.ArgumentNullException(nameof(id));
             this.Key = key ?? throw new global::System.ArgumentNullException(nameof(key));
@@ -205,6 +215,7 @@ namespace Vectara
             this.CustomDimensions = customDimensions;
             this.Limits = limits;
             this.CreatedAt = createdAt;
+            this.Storage = storage;
         }
 
         /// <summary>

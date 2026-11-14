@@ -159,6 +159,12 @@ namespace Vectara
         public global::System.DateTime? UpdatedAt { get; set; }
 
         /// <summary>
+        /// The bytes one corpus or agent stores, as of the latest hourly measurement. Absent until it has been measured.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("storage")]
+        public global::Vectara.MeasuredStorage? Storage { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -237,6 +243,9 @@ namespace Vectara
         /// Timestamp when the agent was last updated.<br/>
         /// Example: 2024-01-16T14:45:00Z
         /// </param>
+        /// <param name="storage">
+        /// The bytes one corpus or agent stores, as of the latest hourly measurement. Absent until it has been measured.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -257,7 +266,8 @@ namespace Vectara
             global::Vectara.ToolOutputOffloadingConfiguration? toolOutputOffloading,
             global::Vectara.SessionDescriptionConfiguration? sessionDescription,
             global::System.DateTime? createdAt,
-            global::System.DateTime? updatedAt)
+            global::System.DateTime? updatedAt,
+            global::Vectara.MeasuredStorage? storage)
         {
             this.Key = key ?? throw new global::System.ArgumentNullException(nameof(key));
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
@@ -276,6 +286,7 @@ namespace Vectara
             this.SessionDescription = sessionDescription;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
+            this.Storage = storage;
         }
 
         /// <summary>
