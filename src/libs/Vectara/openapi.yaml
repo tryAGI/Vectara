@@ -130,6 +130,9 @@ tags:
 - name: Documents
   description: Retrieve and manage documents stored in a corpus for administrative
     tasks.
+- name: Usage
+  description: Read how much the account uses of what the platform measures or counts
+    for it, and its use of the allowances on them.
 - name: Generation Presets
   description: Manage generation presets for controlling the behavior of generative
     AI responses.
@@ -5455,6 +5458,63 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-fern-sdk-group-name: chats
       x-fern-sdk-method-name: updateTurn
+  /v2/usages:
+    get:
+      tags:
+      - Usage
+      summary: List usages
+      x-required-roles:
+      - type: ApiRole
+        roles:
+        - billing_administrator
+        - administrator
+        - owner
+      description: 'Lists how much the account uses of everything the platform measures
+        or counts for it, each with its use of the allowance on it when one applies.
+
+
+        Storage is measured once an hour; its `measured_at` is the start of the hour
+        reported, and bytes added or deleted since then appear after a later measurement.
+        Storage is absent until the account has been measured, and while it has not
+        been measured in the last two days. Each corpus and agent reports its own
+        bytes from the same measurement in its `storage` field.
+
+        '
+      operationId: listUsages
+      x-fern-sdk-group-name: usages
+      x-fern-sdk-method-name: list
+      parameters:
+      - $ref: '#/components/parameters/RequestTimeout'
+      - $ref: '#/components/parameters/RequestTimeoutMillis'
+      responses:
+        '200':
+          description: The account's usages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUsagesResponse'
+              example:
+                usages:
+                - type: storage_content_bytes
+                  unit: bytes
+                  amount: 38204512903
+                  measured_at: '2026-11-05T09:00:00Z'
+                - type: storage_stored_bytes
+                  unit: bytes
+                  amount: 61733402118
+                  measured_at: '2026-11-05T09:00:00Z'
+                  allowance:
+                    amount: 75000000000
+                    warn_at: 0.8
+                    used: 0.82
+                    state: warning
+                metadata: {}
+        '403':
+          description: Permissions do not allow reading the account's usage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /v2/llms:
     post:
       tags:
@@ -17881,6 +17941,31 @@ components:
           default: 0
       required:
       - name
+    MeasuredStorage:
+      type: object
+      description: The bytes one corpus or agent stores, as of the latest hourly measurement.
+        Absent until it has been measured.
+      properties:
+        measured_at:
+          description: The start of the hour the bytes were measured in.
+          type: string
+          format: date-time
+          example: '2026-11-05T09:00:00Z'
+        content_bytes:
+          description: The bytes of data given, including the search indexes built
+            from it, before compression or copies.
+          type: integer
+          format: int64
+          example: 21402512903
+        stored_bytes:
+          description: The bytes the platform keeps, compressed and with every copy.
+          type: integer
+          format: int64
+          example: 40533402118
+      required:
+      - measured_at
+      - content_bytes
+      - stored_bytes
     Corpus:
       description: A corpus is a collection of documents and associated configuration
         for indexing, searching, and generating responses through RAG.
@@ -17989,6 +18074,8 @@ components:
           description: Indicates when the corpus was created.
           type: string
           format: date-time
+        storage:
+          $ref: '#/components/schemas/MeasuredStorage'
       required:
       - id
       - key
@@ -21136,6 +21223,131 @@ components:
             disables all subsequent turns. Enabling a turn is not implemented.
           type: boolean
           example: false
+    UsageAllowance:
+      type: object
+      description: The allowance that applies to one usage, and how much of it the
+        account uses. Absent when no allowance applies.
+      properties:
+        amount:
+          description: How much the allowance permits, in the usage's `unit`.
+          type: integer
+          format: int64
+          example: 75000000000
+        warn_at:
+          description: The fraction of the allowance, above 0 and at most 1, from
+            which the account is in `warning`. Absent when the allowance does not
+            warn.
+          type: number
+          format: double
+          example: 0.8
+        used:
+          description: The usage as a fraction of the allowance. It is above 1 once
+            the account has used more than the allowance permits.
+          type: number
+          format: double
+          example: 0.82
+        state:
+          description: 'Where the account stands against the allowance:
+
+            * `ok`: below `warn_at`, or below the whole allowance when it does not
+            warn.
+
+            * `warning`: from `warn_at`, below the whole allowance.
+
+            * `exceeded`: the whole allowance or more. Requests that add to the usage
+            may be refused until it falls or the allowance is raised.
+
+            '
+          type: string
+          enum:
+          - ok
+          - warning
+          - exceeded
+          example: warning
+      required:
+      - amount
+      - used
+      - state
+    Usage:
+      type: object
+      description: How much of one thing the account uses, and its use of the allowance
+        on it, when one applies.
+      properties:
+        type:
+          description: 'What is measured or counted. New types may be added. Today:
+
+            * `storage_content_bytes`: the bytes of data the account has given, including
+            the search indexes built from it and its agents'' sessions and artifacts,
+            before compression or copies. Measured once an hour.
+
+            * `storage_stored_bytes`: the bytes the platform keeps for the account,
+            compressed and with every copy. Measured once an hour.
+
+            '
+          type: string
+          example: storage_stored_bytes
+        unit:
+          description: What `amount` counts. New units may be added.
+          type: string
+          enum:
+          - bytes
+          - count
+          example: bytes
+        amount:
+          description: How much the account uses, in `unit`.
+          type: integer
+          format: int64
+          example: 61733402118
+        measured_at:
+          description: When `amount` was taken. A total measured at intervals, such
+            as storage, reports the start of the hour it was measured in; one counted
+            over a `window` reports when it was read.
+          type: string
+          format: date-time
+          example: '2026-11-05T09:00:00Z'
+        window:
+          description: The period `amount` is counted over, which starts again at
+            `resets_at`. Absent for a total that is measured rather than counted,
+            such as storage. New windows may be added.
+          type: string
+          enum:
+          - second
+          - minute
+          - hour
+          - day
+          - month
+          example: day
+        resets_at:
+          description: When the current `window` ends and `amount` starts again from
+            zero. Absent when there is no `window`.
+          type: string
+          format: date-time
+          example: '2026-11-06T00:00:00Z'
+        allowance:
+          $ref: '#/components/schemas/UsageAllowance'
+      required:
+      - type
+      - unit
+      - amount
+      - measured_at
+    ListUsagesResponse:
+      type: object
+      description: The account's usage of everything the platform measures or counts
+        for it.
+      properties:
+        usages:
+          description: One entry per thing measured or counted, and per window it
+            is counted over. Entries may be added as the platform tracks more, so
+            clients should show an entry of a `type` they do not know from its `unit`,
+            `amount` and `allowance` alone.
+          type: array
+          items:
+            $ref: '#/components/schemas/Usage'
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+      required:
+      - usages
+      - metadata
     LLMCapabilities:
       description: The capabilities of a Large Language Model. If you do not provide
         capabilities when you create an LLM, the platform infers them from the model
@@ -28435,6 +28647,8 @@ components:
           type: string
           format: date-time
           example: '2024-01-16T14:45:00Z'
+        storage:
+          $ref: '#/components/schemas/MeasuredStorage'
       required:
       - key
       - name
@@ -28590,8 +28804,8 @@ components:
       description: 'Full replacement of an existing agent. Accepts every field that
         agent creation accepts;
 
-        created_at and updated_at may be included but are ignored, so the body returned
-        by
+        created_at, updated_at and storage may be included but are ignored, so the
+        body returned by
 
         getAgent can be sent back unmodified.
 
@@ -28612,6 +28826,8 @@ components:
             type: string
             format: date-time
             example: '2024-01-16T14:45:00Z'
+          storage:
+            $ref: '#/components/schemas/MeasuredStorage'
     UpdateFirstAgentStep:
       title: UpdateFirstAgentStep
       description: 'Partial update for the first (entry point) step. Omitted fields
@@ -39572,6 +39788,7 @@ x-tagGroups:
   - Documents
   - Upload
   - Index
+  - Usage
 - name: Search and Retrieval
   tags:
   - Queries

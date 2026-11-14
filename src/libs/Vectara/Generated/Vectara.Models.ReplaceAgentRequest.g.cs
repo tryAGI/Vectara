@@ -6,7 +6,7 @@ namespace Vectara
 {
     /// <summary>
     /// Full replacement of an existing agent. Accepts every field that agent creation accepts;<br/>
-    /// created_at and updated_at may be included but are ignored, so the body returned by<br/>
+    /// created_at, updated_at and storage may be included but are ignored, so the body returned by<br/>
     /// getAgent can be sent back unmodified.
     /// </summary>
     public readonly partial struct ReplaceAgentRequest : global::System.IEquatable<ReplaceAgentRequest>

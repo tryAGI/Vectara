@@ -230,6 +230,17 @@
       "Format": "http",
       "OperationId": "uploadFile",
       "Setup": null
+    },
+    {
+      "Order": 22,
+      "Title": "List usages",
+      "Slug": "listusages",
+      "Description": "Lists how much the account uses of everything the platform measures or counts for it, each with its use of the allowance on it when one applies.\n\nStorage is measured once an hour; its \u0060measured_at\u0060 is the start of the hour reported, and bytes added or deleted since then appear after a later measurement. Storage is absent until the account has been measured, and while it has not been measured in the last two days. Each corpus and agent reports its own bytes from the same measurement in its \u0060storage\u0060 field.",
+      "Language": "http",
+      "Code": "### List usages\n# @name listUsages\nGET {{host}}/v2/usages\nx-api-key: {{api_key}}\nAuthorization: Bearer {{token}}\nRequest-Timeout: {{Request-Timeout}}\nRequest-Timeout-Millis: {{Request-Timeout-Millis}}\nAccept: application/json\n\n## Responses\n# 200\n# Description: The account\u0027s usages.\n# Content-Type: application/json\n# 403\n# Description: Permissions do not allow reading the account\u0027s usage.\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "listUsages",
+      "Setup": null
     }
   ]
 }
