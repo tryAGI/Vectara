@@ -11,7 +11,7 @@ namespace Vectara
     public sealed partial class JobProgress
     {
         /// <summary>
-        /// The stage of the job that is currently running. A rebuild scans the corpus and imports it into the new indices, then cuts the corpus over to them and replays everything written while it ran. A filter attribute change that does not rebuild the corpus scans the corpus, reports `indexing` while the new filter attributes are being indexed, then cuts over. Filters on the new attributes work once the job completes. New phases may be added; treat unrecognized values as opaque.
+        /// The stage of the job that is currently running. A rebuild scans the corpus and imports it into the new indices, then cuts the corpus over to them and replays everything written while it ran. A rebuild that leaves its indices for an operator to switch onto later reports `staging` while it readies and unloads them, instead of cutting over. A filter attribute change that does not rebuild the corpus scans the corpus, reports `indexing` while the new filter attributes are being indexed, then cuts over. Filters on the new attributes work once the job completes. New phases may be added; treat unrecognized values as opaque.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("phase")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::Vectara.JsonConverters.JobProgressPhaseJsonConverter))]
@@ -81,7 +81,7 @@ namespace Vectara
         /// Initializes a new instance of the <see cref="JobProgress" /> class.
         /// </summary>
         /// <param name="phase">
-        /// The stage of the job that is currently running. A rebuild scans the corpus and imports it into the new indices, then cuts the corpus over to them and replays everything written while it ran. A filter attribute change that does not rebuild the corpus scans the corpus, reports `indexing` while the new filter attributes are being indexed, then cuts over. Filters on the new attributes work once the job completes. New phases may be added; treat unrecognized values as opaque.
+        /// The stage of the job that is currently running. A rebuild scans the corpus and imports it into the new indices, then cuts the corpus over to them and replays everything written while it ran. A rebuild that leaves its indices for an operator to switch onto later reports `staging` while it readies and unloads them, instead of cutting over. A filter attribute change that does not rebuild the corpus scans the corpus, reports `indexing` while the new filter attributes are being indexed, then cuts over. Filters on the new attributes work once the job completes. New phases may be added; treat unrecognized values as opaque.
         /// </param>
         /// <param name="documentsIndexed">
         /// The number of documents the job has processed out of the corpus so far, counting towards `documents_expected`.

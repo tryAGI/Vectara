@@ -77,6 +77,13 @@ namespace Vectara.JsonConverters
                                throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.StructuredOutputEvent)}");
                 structuredOutput = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
             }
+            global::Vectara.SessionInterruptedEvent? sessionInterrupted = default;
+            if (discriminator?.Type == global::Vectara.EndUserEventDiscriminatorType.SessionInterrupted)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SessionInterruptedEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SessionInterruptedEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {nameof(global::Vectara.SessionInterruptedEvent)}");
+                sessionInterrupted = global::System.Text.Json.JsonSerializer.Deserialize(ref reader, typeInfo);
+            }
 
             var __value = new global::Vectara.EndUserEvent(
                 discriminator?.Type,
@@ -94,7 +101,9 @@ namespace Vectara.JsonConverters
 
                 thinking,
 
-                structuredOutput
+                structuredOutput,
+
+                sessionInterrupted
                 );
 
             return __value;
@@ -156,6 +165,12 @@ namespace Vectara.JsonConverters
                 var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.StructuredOutputEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.StructuredOutputEvent> ??
                                throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.StructuredOutputEvent).Name}");
                 global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickStructuredOutput(), typeInfo);
+            }
+            else if (value.IsSessionInterrupted)
+            {
+                var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::Vectara.SessionInterruptedEvent), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::Vectara.SessionInterruptedEvent> ??
+                               throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::Vectara.SessionInterruptedEvent).Name}");
+                global::System.Text.Json.JsonSerializer.Serialize(writer, value.PickSessionInterrupted(), typeInfo);
             }
         }
     }

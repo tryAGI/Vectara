@@ -330,6 +330,44 @@ namespace Vectara
             : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutput' but the value was {ToString()}.");
 
         /// <summary>
+        /// A turn-ending event indicating the current turn was interrupted, by a user request or by the platform, for example when the server running the session shuts down.<br/>
+        /// A subsequent turn can be started with the next input. Persisted to the session history.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.SessionInterruptedEvent? SessionInterrupted { get; init; }
+#else
+        public global::Vectara.SessionInterruptedEvent? SessionInterrupted { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SessionInterrupted))]
+#endif
+        public bool IsSessionInterrupted => SessionInterrupted != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickSessionInterrupted(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SessionInterruptedEvent? value)
+        {
+            value = SessionInterrupted;
+            return IsSessionInterrupted;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.SessionInterruptedEvent PickSessionInterrupted() => SessionInterrupted is { } value
+            ? value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SessionInterrupted' but the value was {ToString()}.");
+
+        /// <summary>
         /// A streaming chunk of agent output (SSE only, not stored).
         /// </summary>
 #if NET6_0_OR_GREATER
@@ -776,6 +814,29 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public static implicit operator EndUserAgentStreamedResponse(global::Vectara.SessionInterruptedEvent value) => new EndUserAgentStreamedResponse((global::Vectara.SessionInterruptedEvent?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.SessionInterruptedEvent?(EndUserAgentStreamedResponse @this) => @this.SessionInterrupted;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public EndUserAgentStreamedResponse(global::Vectara.SessionInterruptedEvent? value)
+        {
+            SessionInterrupted = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static EndUserAgentStreamedResponse FromSessionInterrupted(global::Vectara.SessionInterruptedEvent? value) => new EndUserAgentStreamedResponse(value);
+
+        /// <summary>
+        ///
+        /// </summary>
         public static implicit operator EndUserAgentStreamedResponse(global::Vectara.StreamingAgentOutput value) => new EndUserAgentStreamedResponse((global::Vectara.StreamingAgentOutput?)value);
 
         /// <summary>
@@ -947,6 +1008,7 @@ namespace Vectara
             global::Vectara.ToolOutputEvent? toolOutput,
             global::Vectara.ThinkingEvent? thinking,
             global::Vectara.StructuredOutputEvent? structuredOutput,
+            global::Vectara.SessionInterruptedEvent? sessionInterrupted,
             global::Vectara.StreamingAgentOutput? streamingAgentOutput,
             global::Vectara.StreamingAgentOutputEnd? streamingAgentOutputEnd,
             global::Vectara.StreamingThinking? streamingThinking,
@@ -966,6 +1028,7 @@ namespace Vectara
             ToolOutput = toolOutput;
             Thinking = thinking;
             StructuredOutput = structuredOutput;
+            SessionInterrupted = sessionInterrupted;
             StreamingAgentOutput = streamingAgentOutput;
             StreamingAgentOutputEnd = streamingAgentOutputEnd;
             StreamingThinking = streamingThinking;
@@ -986,6 +1049,7 @@ namespace Vectara
             StreamingThinking as object ??
             StreamingAgentOutputEnd as object ??
             StreamingAgentOutput as object ??
+            SessionInterrupted as object ??
             StructuredOutput as object ??
             Thinking as object ??
             ToolOutput as object ??
@@ -1008,6 +1072,7 @@ namespace Vectara
             ToolOutput?.ToString() ??
             Thinking?.ToString() ??
             StructuredOutput?.ToString() ??
+            SessionInterrupted?.ToString() ??
             StreamingAgentOutput?.ToString() ??
             StreamingAgentOutputEnd?.ToString() ??
             StreamingThinking?.ToString() ??
@@ -1022,7 +1087,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && IsEnd;
+            return IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && IsSessionDescription && !IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && IsToolActivity && !IsEnd || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted && !IsStreamingAgentOutput && !IsStreamingAgentOutputEnd && !IsStreamingThinking && !IsStreamingThinkingEnd && !IsSessionDescription && !IsToolActivity && IsEnd;
         }
 
         /// <summary>
@@ -1037,6 +1102,7 @@ namespace Vectara
             global::System.Func<global::Vectara.ToolOutputEvent?, TResult>? toolOutput = null,
             global::System.Func<global::Vectara.ThinkingEvent?, TResult>? thinking = null,
             global::System.Func<global::Vectara.StructuredOutputEvent?, TResult>? structuredOutput = null,
+            global::System.Func<global::Vectara.SessionInterruptedEvent?, TResult>? sessionInterrupted = null,
             global::System.Func<global::Vectara.StreamingAgentOutput, TResult>? streamingAgentOutput = null,
             global::System.Func<global::Vectara.StreamingAgentOutputEnd, TResult>? streamingAgentOutputEnd = null,
             global::System.Func<global::Vectara.StreamingThinking, TResult>? streamingThinking = null,
@@ -1083,33 +1149,37 @@ namespace Vectara
             {
                 return structuredOutput(__value7);
             }
-            else if (StreamingAgentOutput is { } __value8 && streamingAgentOutput != null)
+            else if (SessionInterrupted is { } __value8 && sessionInterrupted != null)
             {
-                return streamingAgentOutput(__value8);
+                return sessionInterrupted(__value8);
             }
-            else if (StreamingAgentOutputEnd is { } __value9 && streamingAgentOutputEnd != null)
+            else if (StreamingAgentOutput is { } __value9 && streamingAgentOutput != null)
             {
-                return streamingAgentOutputEnd(__value9);
+                return streamingAgentOutput(__value9);
             }
-            else if (StreamingThinking is { } __value10 && streamingThinking != null)
+            else if (StreamingAgentOutputEnd is { } __value10 && streamingAgentOutputEnd != null)
             {
-                return streamingThinking(__value10);
+                return streamingAgentOutputEnd(__value10);
             }
-            else if (StreamingThinkingEnd is { } __value11 && streamingThinkingEnd != null)
+            else if (StreamingThinking is { } __value11 && streamingThinking != null)
             {
-                return streamingThinkingEnd(__value11);
+                return streamingThinking(__value11);
             }
-            else if (SessionDescription is { } __value12 && sessionDescription != null)
+            else if (StreamingThinkingEnd is { } __value12 && streamingThinkingEnd != null)
             {
-                return sessionDescription(__value12);
+                return streamingThinkingEnd(__value12);
             }
-            else if (ToolActivity is { } __value13 && toolActivity != null)
+            else if (SessionDescription is { } __value13 && sessionDescription != null)
             {
-                return toolActivity(__value13);
+                return sessionDescription(__value13);
             }
-            else if (End is { } __value14 && end != null)
+            else if (ToolActivity is { } __value14 && toolActivity != null)
             {
-                return end(__value14);
+                return toolActivity(__value14);
+            }
+            else if (End is { } __value15 && end != null)
+            {
+                return end(__value15);
             }
 
             return default(TResult);
@@ -1135,6 +1205,8 @@ namespace Vectara
 
             global::System.Action<global::Vectara.StructuredOutputEvent?>? structuredOutput = null,
 
+            global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
+
             global::System.Action<global::Vectara.StreamingAgentOutput>? streamingAgentOutput = null,
 
             global::System.Action<global::Vectara.StreamingAgentOutputEnd>? streamingAgentOutputEnd = null,
@@ -1187,33 +1259,37 @@ namespace Vectara
             {
                 structuredOutput?.Invoke(__value7);
             }
-            else if (StreamingAgentOutput is { } __value8)
+            else if (SessionInterrupted is { } __value8)
             {
-                streamingAgentOutput?.Invoke(__value8);
+                sessionInterrupted?.Invoke(__value8);
             }
-            else if (StreamingAgentOutputEnd is { } __value9)
+            else if (StreamingAgentOutput is { } __value9)
             {
-                streamingAgentOutputEnd?.Invoke(__value9);
+                streamingAgentOutput?.Invoke(__value9);
             }
-            else if (StreamingThinking is { } __value10)
+            else if (StreamingAgentOutputEnd is { } __value10)
             {
-                streamingThinking?.Invoke(__value10);
+                streamingAgentOutputEnd?.Invoke(__value10);
             }
-            else if (StreamingThinkingEnd is { } __value11)
+            else if (StreamingThinking is { } __value11)
             {
-                streamingThinkingEnd?.Invoke(__value11);
+                streamingThinking?.Invoke(__value11);
             }
-            else if (SessionDescription is { } __value12)
+            else if (StreamingThinkingEnd is { } __value12)
             {
-                sessionDescription?.Invoke(__value12);
+                streamingThinkingEnd?.Invoke(__value12);
             }
-            else if (ToolActivity is { } __value13)
+            else if (SessionDescription is { } __value13)
             {
-                toolActivity?.Invoke(__value13);
+                sessionDescription?.Invoke(__value13);
             }
-            else if (End is { } __value14)
+            else if (ToolActivity is { } __value14)
             {
-                end?.Invoke(__value14);
+                toolActivity?.Invoke(__value14);
+            }
+            else if (End is { } __value15)
+            {
+                end?.Invoke(__value15);
             }
         }
 
@@ -1229,6 +1305,7 @@ namespace Vectara
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
             global::System.Action<global::Vectara.ThinkingEvent?>? thinking = null,
             global::System.Action<global::Vectara.StructuredOutputEvent?>? structuredOutput = null,
+            global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
             global::System.Action<global::Vectara.StreamingAgentOutput>? streamingAgentOutput = null,
             global::System.Action<global::Vectara.StreamingAgentOutputEnd>? streamingAgentOutputEnd = null,
             global::System.Action<global::Vectara.StreamingThinking>? streamingThinking = null,
@@ -1275,33 +1352,37 @@ namespace Vectara
             {
                 structuredOutput?.Invoke(__value7);
             }
-            else if (StreamingAgentOutput is { } __value8)
+            else if (SessionInterrupted is { } __value8)
             {
-                streamingAgentOutput?.Invoke(__value8);
+                sessionInterrupted?.Invoke(__value8);
             }
-            else if (StreamingAgentOutputEnd is { } __value9)
+            else if (StreamingAgentOutput is { } __value9)
             {
-                streamingAgentOutputEnd?.Invoke(__value9);
+                streamingAgentOutput?.Invoke(__value9);
             }
-            else if (StreamingThinking is { } __value10)
+            else if (StreamingAgentOutputEnd is { } __value10)
             {
-                streamingThinking?.Invoke(__value10);
+                streamingAgentOutputEnd?.Invoke(__value10);
             }
-            else if (StreamingThinkingEnd is { } __value11)
+            else if (StreamingThinking is { } __value11)
             {
-                streamingThinkingEnd?.Invoke(__value11);
+                streamingThinking?.Invoke(__value11);
             }
-            else if (SessionDescription is { } __value12)
+            else if (StreamingThinkingEnd is { } __value12)
             {
-                sessionDescription?.Invoke(__value12);
+                streamingThinkingEnd?.Invoke(__value12);
             }
-            else if (ToolActivity is { } __value13)
+            else if (SessionDescription is { } __value13)
             {
-                toolActivity?.Invoke(__value13);
+                sessionDescription?.Invoke(__value13);
             }
-            else if (End is { } __value14)
+            else if (ToolActivity is { } __value14)
             {
-                end?.Invoke(__value14);
+                toolActivity?.Invoke(__value14);
+            }
+            else if (End is { } __value15)
+            {
+                end?.Invoke(__value15);
             }
         }
 
@@ -1328,6 +1409,8 @@ namespace Vectara
                 typeof(global::Vectara.ThinkingEvent),
                 StructuredOutput,
                 typeof(global::Vectara.StructuredOutputEvent),
+                SessionInterrupted,
+                typeof(global::Vectara.SessionInterruptedEvent),
                 StreamingAgentOutput,
                 typeof(global::Vectara.StreamingAgentOutput),
                 StreamingAgentOutputEnd,
@@ -1366,6 +1449,7 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolOutputEvent?>.Default.Equals(ToolOutput, other.ToolOutput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingEvent?>.Default.Equals(Thinking, other.Thinking) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredOutputEvent?>.Default.Equals(StructuredOutput, other.StructuredOutput) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SessionInterruptedEvent?>.Default.Equals(SessionInterrupted, other.SessionInterrupted) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingAgentOutput?>.Default.Equals(StreamingAgentOutput, other.StreamingAgentOutput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingAgentOutputEnd?>.Default.Equals(StreamingAgentOutputEnd, other.StreamingAgentOutputEnd) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.StreamingThinking?>.Default.Equals(StreamingThinking, other.StreamingThinking) &&

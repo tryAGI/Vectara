@@ -20,6 +20,14 @@ namespace Vectara
         public required string Type { get; set; } = "lambda";
 
         /// <summary>
+        /// The `name` of a lambda tool, unique among the lambda tools of a customer account.<br/>
+        /// Example: calculate_customer_score
+        /// </summary>
+        /// <example>calculate_customer_score</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tool_name")]
+        public string? ToolName { get; set; }
+
+        /// <summary>
         /// Unique identifier for a tool.<br/>
         /// Example: tol_123e4567-e89b-12d3-a456-426614174000
         /// </summary>
@@ -68,6 +76,10 @@ namespace Vectara
         /// Default Value: lambda<br/>
         /// Example: lambda
         /// </param>
+        /// <param name="toolName">
+        /// The `name` of a lambda tool, unique among the lambda tools of a customer account.<br/>
+        /// Example: calculate_customer_score
+        /// </param>
         /// <param name="toolId">
         /// Unique identifier for a tool.<br/>
         /// Example: tol_123e4567-e89b-12d3-a456-426614174000
@@ -100,10 +112,12 @@ namespace Vectara
 #endif
         public LambdaToolConfigurationVariant2(
             string type,
+            string? toolName,
             string? toolId,
             object? argumentOverride)
         {
             this.Type = type ?? throw new global::System.ArgumentNullException(nameof(type));
+            this.ToolName = toolName;
             this.ToolId = toolId;
             this.ArgumentOverride = argumentOverride;
         }

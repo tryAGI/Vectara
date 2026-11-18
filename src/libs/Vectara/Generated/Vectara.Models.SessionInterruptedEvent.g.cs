@@ -5,7 +5,7 @@
 namespace Vectara
 {
     /// <summary>
-    /// A turn-ending event indicating the current turn was interrupted by a user request.<br/>
+    /// A turn-ending event indicating the current turn was interrupted, by a user request or by the platform, for example when the server running the session shuts down.<br/>
     /// A subsequent turn can be started with the next input. Persisted to the session history.
     /// </summary>
     public readonly partial struct SessionInterruptedEvent : global::System.IEquatable<SessionInterruptedEvent>
