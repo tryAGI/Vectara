@@ -27,6 +27,10 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        SessionInterrupted,
+        /// <summary>
+        ///
+        /// </summary>
         StructuredOutput,
         /// <summary>
         ///
@@ -58,6 +62,7 @@ namespace Vectara
                 EndUserEventDiscriminatorType.ClientToolPending => "client_tool_pending",
                 EndUserEventDiscriminatorType.Error => "error",
                 EndUserEventDiscriminatorType.InputMessage => "input_message",
+                EndUserEventDiscriminatorType.SessionInterrupted => "session_interrupted",
                 EndUserEventDiscriminatorType.StructuredOutput => "structured_output",
                 EndUserEventDiscriminatorType.Thinking => "thinking",
                 EndUserEventDiscriminatorType.ToolInput => "tool_input",
@@ -76,6 +81,7 @@ namespace Vectara
                 "client_tool_pending" => EndUserEventDiscriminatorType.ClientToolPending,
                 "error" => EndUserEventDiscriminatorType.Error,
                 "input_message" => EndUserEventDiscriminatorType.InputMessage,
+                "session_interrupted" => EndUserEventDiscriminatorType.SessionInterrupted,
                 "structured_output" => EndUserEventDiscriminatorType.StructuredOutput,
                 "thinking" => EndUserEventDiscriminatorType.Thinking,
                 "tool_input" => EndUserEventDiscriminatorType.ToolInput,

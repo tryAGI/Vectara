@@ -6,10 +6,11 @@ namespace Vectara
 {
     /// <summary>
     /// A session event visible to the end user who owns the session.<br/>
-    /// The `input_message`, `agent_output`, `error`, and `client_tool_pending` variants are always visible, as are the `tool_input` and `tool_output` variants of client tool calls.<br/>
+    /// The `input_message`, `agent_output`, `error`, `session_interrupted`, and `client_tool_pending` variants are always visible, as are the `tool_input` and `tool_output` variants of client tool calls.<br/>
     /// The `tool_input` and `tool_output` variants of other tools, and the `thinking` and `structured_output` variants, appear only when the widget connector the session is bound to reveals the matching output category via `revealed_output_types`.<br/>
     /// Revealed variants carry the same payload as their operator representations. Unless `tool_calls` is revealed, client tool `tool_input` and `tool_output` events omit `argument_override_paths` and `resolved_argument_overrides`.<br/>
-    /// `client_tool_pending` appears in the response and stream of the turn that calls a client tool, but not in the session's history. It carries the call's arguments, including argument override values, with secrets unmasked.
+    /// `client_tool_pending` appears in the response and stream of the turn that calls a client tool, but not in the session's history. It carries the call's arguments, including argument override values, with secrets unmasked.<br/>
+    /// `session_interrupted` ends a turn that stopped before it finished, either at the end user's interrupt or because the platform interrupted it. A reply the agent was still writing is not saved, so a turn that ends this way can have no `agent_output`.
     /// </summary>
     public readonly partial struct EndUserEvent : global::System.IEquatable<EndUserEvent>
     {
@@ -327,6 +328,44 @@ namespace Vectara
         public global::Vectara.StructuredOutputEvent PickStructuredOutput() => StructuredOutput is { } value
             ? value
             : throw new global::System.InvalidOperationException($"Expected union variant 'StructuredOutput' but the value was {ToString()}.");
+
+        /// <summary>
+        /// A turn-ending event indicating the current turn was interrupted, by a user request or by the platform, for example when the server running the session shuts down.<br/>
+        /// A subsequent turn can be started with the next input. Persisted to the session history.
+        /// </summary>
+#if NET6_0_OR_GREATER
+        public global::Vectara.SessionInterruptedEvent? SessionInterrupted { get; init; }
+#else
+        public global::Vectara.SessionInterruptedEvent? SessionInterrupted { get; }
+#endif
+
+        /// <summary>
+        ///
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SessionInterrupted))]
+#endif
+        public bool IsSessionInterrupted => SessionInterrupted != null;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public bool TryPickSessionInterrupted(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::Vectara.SessionInterruptedEvent? value)
+        {
+            value = SessionInterrupted;
+            return IsSessionInterrupted;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public global::Vectara.SessionInterruptedEvent PickSessionInterrupted() => SessionInterrupted is { } value
+            ? value
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SessionInterrupted' but the value was {ToString()}.");
         /// <summary>
         ///
         /// </summary>
@@ -514,6 +553,29 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        public static implicit operator EndUserEvent(global::Vectara.SessionInterruptedEvent value) => new EndUserEvent((global::Vectara.SessionInterruptedEvent?)value);
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static implicit operator global::Vectara.SessionInterruptedEvent?(EndUserEvent @this) => @this.SessionInterrupted;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public EndUserEvent(global::Vectara.SessionInterruptedEvent? value)
+        {
+            SessionInterrupted = value;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public static EndUserEvent FromSessionInterrupted(global::Vectara.SessionInterruptedEvent? value) => new EndUserEvent(value);
+
+        /// <summary>
+        ///
+        /// </summary>
         public EndUserEvent(
             global::Vectara.EndUserEventDiscriminatorType? type,
             global::Vectara.EndUserInputMessageEvent? inputMessage,
@@ -523,7 +585,8 @@ namespace Vectara
             global::Vectara.ToolInputEvent? toolInput,
             global::Vectara.ToolOutputEvent? toolOutput,
             global::Vectara.ThinkingEvent? thinking,
-            global::Vectara.StructuredOutputEvent? structuredOutput
+            global::Vectara.StructuredOutputEvent? structuredOutput,
+            global::Vectara.SessionInterruptedEvent? sessionInterrupted
             )
         {
             Type = type;
@@ -536,12 +599,14 @@ namespace Vectara
             ToolOutput = toolOutput;
             Thinking = thinking;
             StructuredOutput = structuredOutput;
+            SessionInterrupted = sessionInterrupted;
         }
 
         /// <summary>
         ///
         /// </summary>
         public object? Object =>
+            SessionInterrupted as object ??
             StructuredOutput as object ??
             Thinking as object ??
             ToolOutput as object ??
@@ -563,7 +628,8 @@ namespace Vectara
             ToolInput?.ToString() ??
             ToolOutput?.ToString() ??
             Thinking?.ToString() ??
-            StructuredOutput?.ToString()
+            StructuredOutput?.ToString() ??
+            SessionInterrupted?.ToString()
             ;
 
         /// <summary>
@@ -571,7 +637,7 @@ namespace Vectara
         /// </summary>
         public bool Validate()
         {
-            return IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && IsToolOutput && !IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && IsThinking && !IsStructuredOutput || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && IsStructuredOutput;
+            return IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted || !IsInputMessage && IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted || !IsInputMessage && !IsAgentOutput && IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted || !IsInputMessage && !IsAgentOutput && !IsError && IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && IsToolOutput && !IsThinking && !IsStructuredOutput && !IsSessionInterrupted || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && IsThinking && !IsStructuredOutput && !IsSessionInterrupted || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && IsStructuredOutput && !IsSessionInterrupted || !IsInputMessage && !IsAgentOutput && !IsError && !IsClientToolPending && !IsToolInput && !IsToolOutput && !IsThinking && !IsStructuredOutput && IsSessionInterrupted;
         }
 
         /// <summary>
@@ -586,6 +652,7 @@ namespace Vectara
             global::System.Func<global::Vectara.ToolOutputEvent?, TResult>? toolOutput = null,
             global::System.Func<global::Vectara.ThinkingEvent?, TResult>? thinking = null,
             global::System.Func<global::Vectara.StructuredOutputEvent?, TResult>? structuredOutput = null,
+            global::System.Func<global::Vectara.SessionInterruptedEvent?, TResult>? sessionInterrupted = null,
             bool validate = true)
         {
             if (validate)
@@ -625,6 +692,10 @@ namespace Vectara
             {
                 return structuredOutput(__value7);
             }
+            else if (SessionInterrupted is { } __value8 && sessionInterrupted != null)
+            {
+                return sessionInterrupted(__value8);
+            }
 
             return default(TResult);
         }
@@ -648,6 +719,8 @@ namespace Vectara
             global::System.Action<global::Vectara.ThinkingEvent?>? thinking = null,
 
             global::System.Action<global::Vectara.StructuredOutputEvent?>? structuredOutput = null,
+
+            global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
             bool validate = true)
         {
             if (validate)
@@ -686,6 +759,10 @@ namespace Vectara
             else if (StructuredOutput is { } __value7)
             {
                 structuredOutput?.Invoke(__value7);
+            }
+            else if (SessionInterrupted is { } __value8)
+            {
+                sessionInterrupted?.Invoke(__value8);
             }
         }
 
@@ -701,6 +778,7 @@ namespace Vectara
             global::System.Action<global::Vectara.ToolOutputEvent?>? toolOutput = null,
             global::System.Action<global::Vectara.ThinkingEvent?>? thinking = null,
             global::System.Action<global::Vectara.StructuredOutputEvent?>? structuredOutput = null,
+            global::System.Action<global::Vectara.SessionInterruptedEvent?>? sessionInterrupted = null,
             bool validate = true)
         {
             if (validate)
@@ -739,6 +817,10 @@ namespace Vectara
             else if (StructuredOutput is { } __value7)
             {
                 structuredOutput?.Invoke(__value7);
+            }
+            else if (SessionInterrupted is { } __value8)
+            {
+                sessionInterrupted?.Invoke(__value8);
             }
         }
 
@@ -765,6 +847,8 @@ namespace Vectara
                 typeof(global::Vectara.ThinkingEvent),
                 StructuredOutput,
                 typeof(global::Vectara.StructuredOutputEvent),
+                SessionInterrupted,
+                typeof(global::Vectara.SessionInterruptedEvent),
             };
             const int offset = unchecked((int)2166136261);
             const int prime = 16777619;
@@ -788,7 +872,8 @@ namespace Vectara
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolInputEvent?>.Default.Equals(ToolInput, other.ToolInput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ToolOutputEvent?>.Default.Equals(ToolOutput, other.ToolOutput) &&
                 global::System.Collections.Generic.EqualityComparer<global::Vectara.ThinkingEvent?>.Default.Equals(Thinking, other.Thinking) &&
-                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredOutputEvent?>.Default.Equals(StructuredOutput, other.StructuredOutput)
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.StructuredOutputEvent?>.Default.Equals(StructuredOutput, other.StructuredOutput) &&
+                global::System.Collections.Generic.EqualityComparer<global::Vectara.SessionInterruptedEvent?>.Default.Equals(SessionInterrupted, other.SessionInterrupted)
                 ;
         }
 

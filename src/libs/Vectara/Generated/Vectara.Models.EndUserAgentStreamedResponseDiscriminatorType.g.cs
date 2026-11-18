@@ -35,6 +35,10 @@ namespace Vectara
         /// <summary>
         ///
         /// </summary>
+        SessionInterrupted,
+        /// <summary>
+        ///
+        /// </summary>
         StreamingAgentOutput,
         /// <summary>
         ///
@@ -88,6 +92,7 @@ namespace Vectara
                 EndUserAgentStreamedResponseDiscriminatorType.Error => "error",
                 EndUserAgentStreamedResponseDiscriminatorType.InputMessage => "input_message",
                 EndUserAgentStreamedResponseDiscriminatorType.SessionDescription => "session_description",
+                EndUserAgentStreamedResponseDiscriminatorType.SessionInterrupted => "session_interrupted",
                 EndUserAgentStreamedResponseDiscriminatorType.StreamingAgentOutput => "streaming_agent_output",
                 EndUserAgentStreamedResponseDiscriminatorType.StreamingAgentOutputEnd => "streaming_agent_output_end",
                 EndUserAgentStreamedResponseDiscriminatorType.StreamingThinking => "streaming_thinking",
@@ -113,6 +118,7 @@ namespace Vectara
                 "error" => EndUserAgentStreamedResponseDiscriminatorType.Error,
                 "input_message" => EndUserAgentStreamedResponseDiscriminatorType.InputMessage,
                 "session_description" => EndUserAgentStreamedResponseDiscriminatorType.SessionDescription,
+                "session_interrupted" => EndUserAgentStreamedResponseDiscriminatorType.SessionInterrupted,
                 "streaming_agent_output" => EndUserAgentStreamedResponseDiscriminatorType.StreamingAgentOutput,
                 "streaming_agent_output_end" => EndUserAgentStreamedResponseDiscriminatorType.StreamingAgentOutputEnd,
                 "streaming_thinking" => EndUserAgentStreamedResponseDiscriminatorType.StreamingThinking,

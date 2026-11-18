@@ -15300,6 +15300,7 @@ paths:
               tool_output: '#/components/schemas/ToolOutputEvent'
               thinking: '#/components/schemas/ThinkingEvent'
               structured_output: '#/components/schemas/StructuredOutputEvent'
+              session_interrupted: '#/components/schemas/SessionInterruptedEvent'
               streaming_agent_output: '#/components/schemas/StreamingAgentOutput'
               streaming_agent_output_end: '#/components/schemas/StreamingAgentOutputEnd'
               streaming_thinking: '#/components/schemas/StreamingThinking'
@@ -15316,6 +15317,7 @@ paths:
           - $ref: '#/components/schemas/ToolOutputEvent'
           - $ref: '#/components/schemas/ThinkingEvent'
           - $ref: '#/components/schemas/StructuredOutputEvent'
+          - $ref: '#/components/schemas/SessionInterruptedEvent'
           - $ref: '#/components/schemas/StreamingAgentOutput'
           - $ref: '#/components/schemas/StreamingAgentOutputEnd'
           - $ref: '#/components/schemas/StreamingThinking'
@@ -23227,7 +23229,9 @@ components:
         phase:
           description: The stage of the job that is currently running. A rebuild scans
             the corpus and imports it into the new indices, then cuts the corpus over
-            to them and replays everything written while it ran. A filter attribute
+            to them and replays everything written while it ran. A rebuild that leaves
+            its indices for an operator to switch onto later reports `staging` while
+            it readies and unloads them, instead of cutting over. A filter attribute
             change that does not rebuild the corpus scans the corpus, reports `indexing`
             while the new filter attributes are being indexed, then cuts over. Filters
             on the new attributes work once the job completes. New phases may be added;
@@ -23238,6 +23242,7 @@ components:
           - scanning
           - importing
           - indexing
+          - staging
           - cutting_over
           - replaying_journals
           - completed
@@ -25561,6 +25566,14 @@ components:
       - ToolConfiguration
       - AgentToolConfiguration
       - ConcreteToolConfiguration
+    LambdaToolName:
+      description: The `name` of a lambda tool, unique among the lambda tools of a
+        customer account.
+      type: string
+      pattern: ^[a-zA-Z0-9_-]+$
+      minLength: 1
+      maxLength: 50
+      example: calculate_customer_score
     LambdaToolConfiguration:
       description: A reusable configuration for a Lambda tool that executes user-defined
         functions in a sandboxed environment.
@@ -25573,9 +25586,15 @@ components:
             type: string
             default: lambda
             example: lambda
+          tool_name:
+            $ref: '#/components/schemas/LambdaToolName'
           tool_id:
             $ref: '#/components/schemas/ToolId'
-            readOnly: true
+            deprecated: true
+            description: Deprecated, replaced by `tool_name`. The identifier of the
+              lambda tool. When `tool_name` is also set, this identifier is used only
+              if it belongs to a lambda tool of that name. Otherwise it is ignored,
+              and the configuration binds to the tool named by `tool_name`.
           argument_override:
             description: "Optional hardcoded arguments for tool calls. The key specifies\
               \ the location in the tool arguments to override. The value specifies\
@@ -30044,8 +30063,9 @@ components:
       - AgentStreamedResponse
     SessionInterruptedEvent:
       title: SessionInterruptedEvent
-      description: 'A turn-ending event indicating the current turn was interrupted
-        by a user request.
+      description: 'A turn-ending event indicating the current turn was interrupted,
+        by a user request or by the platform, for example when the server running
+        the session shuts down.
 
         A subsequent turn can be started with the next input. Persisted to the session
         history.
@@ -34887,9 +34907,9 @@ components:
     EndUserEvent:
       description: 'A session event visible to the end user who owns the session.
 
-        The `input_message`, `agent_output`, `error`, and `client_tool_pending` variants
-        are always visible, as are the `tool_input` and `tool_output` variants of
-        client tool calls.
+        The `input_message`, `agent_output`, `error`, `session_interrupted`, and `client_tool_pending`
+        variants are always visible, as are the `tool_input` and `tool_output` variants
+        of client tool calls.
 
         The `tool_input` and `tool_output` variants of other tools, and the `thinking`
         and `structured_output` variants, appear only when the widget connector the
@@ -34903,6 +34923,12 @@ components:
         `client_tool_pending` appears in the response and stream of the turn that
         calls a client tool, but not in the session''s history. It carries the call''s
         arguments, including argument override values, with secrets unmasked.
+
+
+        `session_interrupted` ends a turn that stopped before it finished, either
+        at the end user''s interrupt or because the platform interrupted it. A reply
+        the agent was still writing is not saved, so a turn that ends this way can
+        have no `agent_output`.
 
         '
       type: object
@@ -34918,6 +34944,7 @@ components:
           tool_output: '#/components/schemas/ToolOutputEvent'
           thinking: '#/components/schemas/ThinkingEvent'
           structured_output: '#/components/schemas/StructuredOutputEvent'
+          session_interrupted: '#/components/schemas/SessionInterruptedEvent'
       oneOf:
       - $ref: '#/components/schemas/EndUserInputMessageEvent'
       - $ref: '#/components/schemas/EndUserAgentOutputEvent'
@@ -34927,6 +34954,7 @@ components:
       - $ref: '#/components/schemas/ToolOutputEvent'
       - $ref: '#/components/schemas/ThinkingEvent'
       - $ref: '#/components/schemas/StructuredOutputEvent'
+      - $ref: '#/components/schemas/SessionInterruptedEvent'
     ListEndUserEventsResponse:
       description: Response containing a session's events, projected to the caller's
         end-user visibility.
@@ -35095,6 +35123,7 @@ components:
           tool_output: '#/components/schemas/ToolOutputEvent'
           thinking: '#/components/schemas/ThinkingEvent'
           structured_output: '#/components/schemas/StructuredOutputEvent'
+          session_interrupted: '#/components/schemas/SessionInterruptedEvent'
           streaming_agent_output: '#/components/schemas/StreamingAgentOutput'
           streaming_agent_output_end: '#/components/schemas/StreamingAgentOutputEnd'
           streaming_thinking: '#/components/schemas/StreamingThinking'
@@ -35111,6 +35140,7 @@ components:
       - $ref: '#/components/schemas/ToolOutputEvent'
       - $ref: '#/components/schemas/ThinkingEvent'
       - $ref: '#/components/schemas/StructuredOutputEvent'
+      - $ref: '#/components/schemas/SessionInterruptedEvent'
       - $ref: '#/components/schemas/StreamingAgentOutput'
       - $ref: '#/components/schemas/StreamingAgentOutputEnd'
       - $ref: '#/components/schemas/StreamingThinking'
