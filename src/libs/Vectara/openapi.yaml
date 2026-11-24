@@ -24196,9 +24196,12 @@ components:
             \ for `service_account` it is the client id of a Vectara platform job's\
             \ account, such as an evaluation run, a pipeline, or a simulation. `email`\
             \ is present only for `user` callers. A session created by an agent reports\
-            \ `agent`). The platform derives it from the authenticated request. A\
-            \ client cannot set it or shadow it through session metadata. It resolves\
-            \ only during session-creation enrichment (`session_enrichment.tool_calls`\
+            \ `agent`, except a new session that a conversation hand-over opens, which\
+            \ reports the caller the conversation was opened under, regardless of\
+            \ who asked for the hand-over, and reports none when a chat connector\
+            \ thread opened the conversation). The platform derives it from the authenticated\
+            \ request. A client cannot set it or shadow it through session metadata.\
+            \ It resolves only during session-creation enrichment (`session_enrichment.tool_calls`\
             \ and the `enrichment_only` tool configurations they name). A reference\
             \ to it from a tool the agent calls mid-conversation stays unresolved\
             \ and that call fails. An absent value (no email on the caller, or no\
@@ -24755,18 +24758,21 @@ components:
               \ of the service account a Vectara-run agent acts as; for `service_account`\
               \ it is the client id of a Vectara platform job's account, such as an\
               \ evaluation run, a pipeline, or a simulation. `email` is present only\
-              \ for `user` callers. A session created by an agent reports `agent`).\
-              \ The platform derives it from the authenticated request. A client cannot\
-              \ set it or shadow it through session metadata. It resolves only during\
-              \ session-creation enrichment (`session_enrichment.tool_calls` and the\
-              \ `enrichment_only` tool configurations they name). A reference to it\
-              \ from a tool the agent calls mid-conversation stays unresolved and\
-              \ that call fails. An absent value (no email on the caller, or no authenticated\
-              \ identity) leaves the $ref unresolved and fails the call closed. In\
-              \ an `input_transform` jq expression the same absent value reads as\
-              \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
-              \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
-              \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
+              \ for `user` callers. A session created by an agent reports `agent`,\
+              \ except a new session that a conversation hand-over opens, which reports\
+              \ the caller the conversation was opened under, regardless of who asked\
+              \ for the hand-over, and reports none when a chat connector thread opened\
+              \ the conversation). The platform derives it from the authenticated\
+              \ request. A client cannot set it or shadow it through session metadata.\
+              \ It resolves only during session-creation enrichment (`session_enrichment.tool_calls`\
+              \ and the `enrichment_only` tool configurations they name). A reference\
+              \ to it from a tool the agent calls mid-conversation stays unresolved\
+              \ and that call fails. An absent value (no email on the caller, or no\
+              \ authenticated identity) leaves the $ref unresolved and fails the call\
+              \ closed. In an `input_transform` jq expression the same absent value\
+              \ reads as `null` instead, so guard it there.\n- agent.metadata.* -\
+              \ Access agent metadata fields\n- agent.secrets.* - Access agent secrets\
+              \ (masked in audit events)\n- tools.* - Access prior tool outputs (resolved\
               \ after the dependent tool runs)\n- inputs.user.latest.text, inputs.user.latest.artifacts[i].artifact_id,\
               \ .filename, .mime_type, .size_bytes, .purpose - The session's most\
               \ recent user input: its text and the files uploaded or shared with\
@@ -24840,18 +24846,21 @@ components:
               \ of the service account a Vectara-run agent acts as; for `service_account`\
               \ it is the client id of a Vectara platform job's account, such as an\
               \ evaluation run, a pipeline, or a simulation. `email` is present only\
-              \ for `user` callers. A session created by an agent reports `agent`).\
-              \ The platform derives it from the authenticated request. A client cannot\
-              \ set it or shadow it through session metadata. It resolves only during\
-              \ session-creation enrichment (`session_enrichment.tool_calls` and the\
-              \ `enrichment_only` tool configurations they name). A reference to it\
-              \ from a tool the agent calls mid-conversation stays unresolved and\
-              \ that call fails. An absent value (no email on the caller, or no authenticated\
-              \ identity) leaves the $ref unresolved and fails the call closed. In\
-              \ an `input_transform` jq expression the same absent value reads as\
-              \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
-              \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
-              \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
+              \ for `user` callers. A session created by an agent reports `agent`,\
+              \ except a new session that a conversation hand-over opens, which reports\
+              \ the caller the conversation was opened under, regardless of who asked\
+              \ for the hand-over, and reports none when a chat connector thread opened\
+              \ the conversation). The platform derives it from the authenticated\
+              \ request. A client cannot set it or shadow it through session metadata.\
+              \ It resolves only during session-creation enrichment (`session_enrichment.tool_calls`\
+              \ and the `enrichment_only` tool configurations they name). A reference\
+              \ to it from a tool the agent calls mid-conversation stays unresolved\
+              \ and that call fails. An absent value (no email on the caller, or no\
+              \ authenticated identity) leaves the $ref unresolved and fails the call\
+              \ closed. In an `input_transform` jq expression the same absent value\
+              \ reads as `null` instead, so guard it there.\n- agent.metadata.* -\
+              \ Access agent metadata fields\n- agent.secrets.* - Access agent secrets\
+              \ (masked in audit events)\n- tools.* - Access prior tool outputs (resolved\
               \ after the dependent tool runs)\n- inputs.user.latest.text, inputs.user.latest.artifacts[i].artifact_id,\
               \ .filename, .mime_type, .size_bytes, .purpose - The session's most\
               \ recent user input: its text and the files uploaded or shared with\
@@ -25617,18 +25626,21 @@ components:
               \ of the service account a Vectara-run agent acts as; for `service_account`\
               \ it is the client id of a Vectara platform job's account, such as an\
               \ evaluation run, a pipeline, or a simulation. `email` is present only\
-              \ for `user` callers. A session created by an agent reports `agent`).\
-              \ The platform derives it from the authenticated request. A client cannot\
-              \ set it or shadow it through session metadata. It resolves only during\
-              \ session-creation enrichment (`session_enrichment.tool_calls` and the\
-              \ `enrichment_only` tool configurations they name). A reference to it\
-              \ from a tool the agent calls mid-conversation stays unresolved and\
-              \ that call fails. An absent value (no email on the caller, or no authenticated\
-              \ identity) leaves the $ref unresolved and fails the call closed. In\
-              \ an `input_transform` jq expression the same absent value reads as\
-              \ `null` instead, so guard it there.\n- agent.metadata.* - Access agent\
-              \ metadata fields\n- agent.secrets.* - Access agent secrets (masked\
-              \ in audit events)\n- tools.* - Access prior tool outputs (resolved\
+              \ for `user` callers. A session created by an agent reports `agent`,\
+              \ except a new session that a conversation hand-over opens, which reports\
+              \ the caller the conversation was opened under, regardless of who asked\
+              \ for the hand-over, and reports none when a chat connector thread opened\
+              \ the conversation). The platform derives it from the authenticated\
+              \ request. A client cannot set it or shadow it through session metadata.\
+              \ It resolves only during session-creation enrichment (`session_enrichment.tool_calls`\
+              \ and the `enrichment_only` tool configurations they name). A reference\
+              \ to it from a tool the agent calls mid-conversation stays unresolved\
+              \ and that call fails. An absent value (no email on the caller, or no\
+              \ authenticated identity) leaves the $ref unresolved and fails the call\
+              \ closed. In an `input_transform` jq expression the same absent value\
+              \ reads as `null` instead, so guard it there.\n- agent.metadata.* -\
+              \ Access agent metadata fields\n- agent.secrets.* - Access agent secrets\
+              \ (masked in audit events)\n- tools.* - Access prior tool outputs (resolved\
               \ after the dependent tool runs)\n- inputs.user.latest.text, inputs.user.latest.artifacts[i].artifact_id,\
               \ .filename, .mime_type, .size_bytes, .purpose - The session's most\
               \ recent user input: its text and the files uploaded or shared with\
