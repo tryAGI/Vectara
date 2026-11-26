@@ -8,6 +8,7 @@ namespace Vectara
     /// The host page supplies a token minted by the referenced trusted token issuer, and the widget presents it as the bearer credential on end-user session requests.<br/>
     /// The platform verifies the token by its `iss` claim against the globally-unique issuer registration — never against this connector — so the token stands on its own: it signs the caller in as an end user across the customer's aliases, not this widget's alone.<br/>
     /// The platform accepts the token when its signature verifies against the issuer's JWKS and it carries an `email` claim.<br/>
+    /// The platform copies the claims listed in the issuer registration's `claims` onto each input the token sends, where the agent's tools read them as `inputs.user.latest.caller.claims`.<br/>
     /// The referenced registration must exist, or the connector write is rejected with `400`.
     /// </summary>
     public sealed partial class WidgetSignIn

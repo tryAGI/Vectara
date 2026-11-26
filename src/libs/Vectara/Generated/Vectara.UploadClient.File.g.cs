@@ -626,7 +626,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow uploading a file to the corpus.
+                            // Permissions do not allow uploading a file to the corpus, or the account has used its storage allowance. A refusal for the allowance has the error `code` `storage_allowance_used`; delete documents or agent data, or ask for a larger allowance, before retrying.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -1522,7 +1522,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow uploading a file to the corpus.
+                            // Permissions do not allow uploading a file to the corpus, or the account has used its storage allowance. A refusal for the allowance has the error `code` `storage_allowance_used`; delete documents or agent data, or ask for a larger allowance, before retrying.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;
@@ -2289,7 +2289,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // Permissions do not allow uploading a file to the corpus.
+                            // Permissions do not allow uploading a file to the corpus, or the account has used its storage allowance. A refusal for the allowance has the error `code` `storage_allowance_used`; delete documents or agent data, or ask for a larger allowance, before retrying.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;

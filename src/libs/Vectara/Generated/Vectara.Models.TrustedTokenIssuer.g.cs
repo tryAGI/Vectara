@@ -69,6 +69,23 @@ namespace Vectara
         public required bool Enabled { get; set; }
 
         /// <summary>
+        /// The token claims a signed-in end user carries into each input they send, beyond `sub` and `email`.<br/>
+        /// When the platform verifies a token from this issuer, it copies each listed claim the token holds, with its JSON type, onto the input that token sends.<br/>
+        /// The agent's tools read the latest input's claims as `inputs.user.latest.caller.claims.&lt;name&gt;`, so a refreshed token's claims apply from the next input it sends.<br/>
+        /// A name that is not a plain identifier, such as a namespaced URL, is addressed with a quoted bracket key: `inputs.user.latest.caller.claims['https://acme.com/roles']`.<br/>
+        /// Input events never return them, though a tool call's `resolved_argument_overrides` shows the values its overrides resolved to. The agent's LLM does not see the argument overrides that read them, but it does see a tool's output, so a tool that echoes a claim reveals it.<br/>
+        /// A claim the token does not hold is absent, so a `$ref` to it fails closed unless the reference supplies a `$default`.<br/>
+        /// The standard JWT claims (`iss`, `sub`, `aud`, `exp`, `nbf`, `iat`, `jti`) and `email` cannot be listed.<br/>
+        /// Each name may appear only once.<br/>
+        /// A token whose listed claims exceed 8 KB, serialized as JSON, is rejected with `401` on end-user session requests.<br/>
+        /// Example: [entitledProductIDList, isOEM, https://acme.com/roles]
+        /// </summary>
+        /// <example>[entitledProductIDList, isOEM, https://acme.com/roles]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("claims")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required global::System.Collections.Generic.IList<string> Claims { get; set; }
+
+        /// <summary>
         /// Timestamp of the most recent successful fetch of the issuer's JWKS. Absent until the first successful fetch.<br/>
         /// Example: 2026-08-12T10:30:00Z
         /// </summary>
@@ -143,6 +160,18 @@ namespace Vectara
         /// Default Value: true<br/>
         /// Example: true
         /// </param>
+        /// <param name="claims">
+        /// The token claims a signed-in end user carries into each input they send, beyond `sub` and `email`.<br/>
+        /// When the platform verifies a token from this issuer, it copies each listed claim the token holds, with its JSON type, onto the input that token sends.<br/>
+        /// The agent's tools read the latest input's claims as `inputs.user.latest.caller.claims.&lt;name&gt;`, so a refreshed token's claims apply from the next input it sends.<br/>
+        /// A name that is not a plain identifier, such as a namespaced URL, is addressed with a quoted bracket key: `inputs.user.latest.caller.claims['https://acme.com/roles']`.<br/>
+        /// Input events never return them, though a tool call's `resolved_argument_overrides` shows the values its overrides resolved to. The agent's LLM does not see the argument overrides that read them, but it does see a tool's output, so a tool that echoes a claim reveals it.<br/>
+        /// A claim the token does not hold is absent, so a `$ref` to it fails closed unless the reference supplies a `$default`.<br/>
+        /// The standard JWT claims (`iss`, `sub`, `aud`, `exp`, `nbf`, `iat`, `jti`) and `email` cannot be listed.<br/>
+        /// Each name may appear only once.<br/>
+        /// A token whose listed claims exceed 8 KB, serialized as JSON, is rejected with `401` on end-user session requests.<br/>
+        /// Example: [entitledProductIDList, isOEM, https://acme.com/roles]
+        /// </param>
         /// <param name="createdAt">
         /// Timestamp when the registration was created.<br/>
         /// Example: 2026-08-07T10:30:00Z
@@ -176,6 +205,7 @@ namespace Vectara
             string issuer,
             string jwksUri,
             bool enabled,
+            global::System.Collections.Generic.IList<string> claims,
             global::System.DateTime createdAt,
             string? description,
             global::System.DateTime? lastJwksFetchAt,
@@ -189,6 +219,7 @@ namespace Vectara
             this.Issuer = issuer ?? throw new global::System.ArgumentNullException(nameof(issuer));
             this.JwksUri = jwksUri ?? throw new global::System.ArgumentNullException(nameof(jwksUri));
             this.Enabled = enabled;
+            this.Claims = claims ?? throw new global::System.ArgumentNullException(nameof(claims));
             this.LastJwksFetchAt = lastJwksFetchAt;
             this.JwksKeyCount = jwksKeyCount;
             this.JwksFetchError = jwksFetchError;

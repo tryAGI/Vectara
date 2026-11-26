@@ -622,6 +622,12 @@ namespace Vectara
         /// Default Value: true<br/>
         /// Example: true
         /// </param>
+        /// <param name="claims">
+        /// The token claims a signed-in end user carries into each input they send as `inputs.user.latest.caller.claims.&lt;name&gt;`, beyond `sub` and `email`. When omitted, no claims are carried.<br/>
+        /// A request that names a standard JWT claim (`iss`, `sub`, `aud`, `exp`, `nbf`, `iat`, `jti`) or `email`, or repeats a name, is rejected with `400`.<br/>
+        /// A token whose listed claims exceed 8 KB, serialized as JSON, is rejected with `401` on end-user session requests.<br/>
+        /// Example: [entitledProductIDList, isOEM, https://acme.com/roles]
+        /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -633,6 +639,7 @@ namespace Vectara
             int? requestTimeoutMillis = default,
             string? description = default,
             bool? enabled = default,
+            global::System.Collections.Generic.IList<string>? claims = default,
             global::Vectara.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -643,6 +650,7 @@ namespace Vectara
                 Issuer = issuer,
                 JwksUri = jwksUri,
                 Enabled = enabled,
+                Claims = claims,
             };
 
             return await CreateAsync(

@@ -21,6 +21,15 @@ namespace Vectara
         public string? RequestId { get; set; }
 
         /// <summary>
+        /// Names the reason for the error when a client may act on it, so the client does not have to read `messages`. Absent for most errors. New values may be added, so clients must treat a value they do not know as if it were absent. Today:<br/>
+        /// * `storage_allowance_used`: the account has used its storage allowance, so the request would add data and was refused with a `403`. Delete documents or agent data, or ask for a larger allowance. Retrying does not help until then.<br/>
+        /// Example: storage_allowance_used
+        /// </summary>
+        /// <example>storage_allowance_used</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("code")]
+        public string? Code { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -35,15 +44,22 @@ namespace Vectara
         /// <param name="requestId">
         /// The ID of the request. Provide this ID to Vectara support to help debug the request.
         /// </param>
+        /// <param name="code">
+        /// Names the reason for the error when a client may act on it, so the client does not have to read `messages`. Absent for most errors. New values may be added, so clients must treat a value they do not know as if it were absent. Today:<br/>
+        /// * `storage_allowance_used`: the account has used its storage allowance, so the request would add data and was refused with a `403`. Delete documents or agent data, or ask for a larger allowance. Retrying does not help until then.<br/>
+        /// Example: storage_allowance_used
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public Error(
             global::System.Collections.Generic.IList<string>? messages,
-            string? requestId)
+            string? requestId,
+            string? code)
         {
             this.Messages = messages;
             this.RequestId = requestId;
+            this.Code = code;
         }
 
         /// <summary>
