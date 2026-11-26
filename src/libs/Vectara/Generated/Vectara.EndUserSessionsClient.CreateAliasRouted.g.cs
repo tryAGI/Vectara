@@ -104,7 +104,7 @@ namespace Vectara
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement. A visitor id is customer-scoped, so it need not have been minted through the connector named in the request body; that connector must still admit anonymous visitors (`403` otherwise). The connector's `allowed_origins` also applies to anonymous and signed-in callers; requests without an `Origin` header are admitted.<br/>
         /// The session binds to the connector named by the request body's `connector_id` and takes its idle lifetime from that connector's `session_tti_minutes`, reported on the returned session.<br/>
-        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
+        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached. The live-session cap counts the caller's live end-user sessions and live end-user conversations together, each conversation once however many sessions it has moved through; deleting a session or a conversation frees room under it.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -147,7 +147,7 @@ namespace Vectara
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement. A visitor id is customer-scoped, so it need not have been minted through the connector named in the request body; that connector must still admit anonymous visitors (`403` otherwise). The connector's `allowed_origins` also applies to anonymous and signed-in callers; requests without an `Origin` header are admitted.<br/>
         /// The session binds to the connector named by the request body's `connector_id` and takes its idle lifetime from that connector's `session_tti_minutes`, reported on the returned session.<br/>
-        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
+        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached. The live-session cap counts the caller's live end-user sessions and live end-user conversations together, each conversation once however many sessions it has moved through; deleting a session or a conversation frees room under it.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>
@@ -678,7 +678,7 @@ namespace Vectara
                                         h => h.Key,
                                         h => h.Value));
                             }
-                            // The request exceeds the caller's live-session or hourly session-creation cap.
+                            // The request exceeds the caller's live-session or hourly session-creation cap. The live-session cap counts the caller's live end-user sessions and live end-user conversations together, each conversation once.
                             if ((int)__response.StatusCode == 429)
                             {
                                 string? __content_429 = null;
@@ -818,7 +818,7 @@ namespace Vectara
         /// Ownership binds to the alias key, not the resolved agent, so it is unaffected by a later change to the alias's routing weights.<br/>
         /// Anonymous widget visitors authenticate by presenting `X-Visitor-Id` instead of an `Authorization` credential; the platform mints an identity holding `agent_end_user` on the addressed alias, which satisfies this operation's role requirement. A visitor id is customer-scoped, so it need not have been minted through the connector named in the request body; that connector must still admit anonymous visitors (`403` otherwise). The connector's `allowed_origins` also applies to anonymous and signed-in callers; requests without an `Origin` header are admitted.<br/>
         /// The session binds to the connector named by the request body's `connector_id` and takes its idle lifetime from that connector's `session_tti_minutes`, reported on the returned session.<br/>
-        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached.
+        /// Returns `429` when the caller reaches the live-session or hourly session-creation cap, or when the customer-wide anonymous session-creation ceiling is reached. The live-session cap counts the caller's live end-user sessions and live end-user conversations together, each conversation once however many sessions it has moved through; deleting a session or a conversation frees room under it.
         /// </summary>
         /// <param name="requestTimeout"></param>
         /// <param name="requestTimeoutMillis"></param>

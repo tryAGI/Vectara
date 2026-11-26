@@ -408,7 +408,7 @@ namespace Vectara
                                 retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
-                            // Permissions do not allow updating a document in the corpus.
+                            // Permissions do not allow updating a document in the corpus, or the account has used its storage allowance. A refusal for the allowance has the error `code` `storage_allowance_used`; delete documents or agent data, or ask for a larger allowance, before retrying.
                             if ((int)__response.StatusCode == 403)
                             {
                                 string? __content_403 = null;

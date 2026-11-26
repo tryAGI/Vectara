@@ -1760,7 +1760,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow uploading a file to the corpus.
+          description: Permissions do not allow uploading a file to the corpus, or
+            the account has used its storage allowance. A refusal for the allowance
+            has the error `code` `storage_allowance_used`; delete documents or agent
+            data, or ask for a larger allowance, before retrying.
           content:
             application/json:
               schema:
@@ -1914,7 +1917,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestError'
         '403':
-          description: Permissions do not allow adding a document to the corpus.
+          description: Permissions do not allow adding a document to the corpus, or
+            the account has used its storage allowance. A refusal for the allowance
+            has the error `code` `storage_allowance_used`; delete documents or agent
+            data, or ask for a larger allowance, before retrying.
           content:
             application/json:
               schema:
@@ -2550,7 +2556,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/Document'
         '403':
-          description: Permissions do not allow updating a document in the corpus.
+          description: Permissions do not allow updating a document in the corpus,
+            or the account has used its storage allowance. A refusal for the allowance
+            has the error `code` `storage_allowance_used`; delete documents or agent
+            data, or ask for a larger allowance, before retrying.
           content:
             application/json:
               schema:
@@ -2626,7 +2635,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/Document'
         '403':
-          description: Permissions do not allow updating a document in the corpus.
+          description: Permissions do not allow updating a document in the corpus,
+            or the account has used its storage allowance. A refusal for the allowance
+            has the error `code` `storage_allowance_used`; delete documents or agent
+            data, or ask for a larger allowance, before retrying.
           content:
             application/json:
               schema:
@@ -14743,6 +14755,10 @@ paths:
 
         Returns `429` when the caller reaches the live-session or hourly session-creation
         cap, or when the customer-wide anonymous session-creation ceiling is reached.
+        The live-session cap counts the caller''s live end-user sessions and live
+        end-user conversations together, each conversation once however many sessions
+        it has moved through; deleting a session or a conversation frees room under
+        it.
 
         '
       operationId: createEndUserAliasRoutedSession
@@ -14827,7 +14843,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '429':
           description: The request exceeds the caller's live-session or hourly session-creation
-            cap.
+            cap. The live-session cap counts the caller's live end-user sessions and
+            live end-user conversations together, each conversation once.
           content:
             application/json:
               schema:
@@ -18118,6 +18135,20 @@ components:
           description: The ID of the request. Provide this ID to Vectara support to
             help debug the request.
           type: string
+        code:
+          description: 'Names the reason for the error when a client may act on it,
+            so the client does not have to read `messages`. Absent for most errors.
+            New values may be added, so clients must treat a value they do not know
+            as if it were absent. Today:
+
+            * `storage_allowance_used`: the account has used its storage allowance,
+            so the request would add data and was refused with a `403`. Delete documents
+            or agent data, or ask for a larger allowance. Retrying does not help until
+            then.
+
+            '
+          type: string
+          example: storage_allowance_used
     CreateCorpusRequest:
       description: Request object for creating a new corpus in the Vectara platform.
       type: object
@@ -24223,13 +24254,22 @@ components:
             , \"$default\": \"\"}, whose value is used instead. In a lambda tool's\
             \ own tool_configurations, inputs.* refs are rejected with 400 when the\
             \ lambda tool is created, updated, or tested; to use the input there,\
-            \ pass it in through the lambda's own arguments.\n- currentDate - The\
-            \ current date/time in ISO 8601 format\n\nA bracket index may reference\
-            \ another context value. The resolved value becomes the lookup key. The\
-            \ inner path may optionally carry a leading $ root marker:\n- Indirect\
-            \ reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"}`\
-            \ looks up the per-user secret named by `session.metadata.user_id`\n-\
-            \ Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+            \ pass it in through the lambda's own arguments.\n- inputs.user.latest.caller.claims.<name>\
+            \ - A claim from the token of the end user who sent the session's most\
+            \ recent input, with its JSON type, when the token's trusted token issuer\
+            \ lists it in `claims`. Each input carries the claims of the token that\
+            \ sent it, so a refreshed token's claims apply from the next input it\
+            \ sends. A name that is not a plain identifier, such as a namespaced URL,\
+            \ is addressed with a quoted bracket key: `inputs.user.latest.caller.claims['https://acme.com/roles']`.\
+            \ The same rules as inputs.user.latest.text apply: an input whose sender's\
+            \ token does not carry the claim, or files sent without a message, leave\
+            \ it unresolved unless the $ref has a $default.\n- currentDate - The current\
+            \ date/time in ISO 8601 format\n\nA bracket index may reference another\
+            \ context value. The resolved value becomes the lookup key. The inner\
+            \ path may optionally carry a leading $ root marker:\n- Indirect reference:\
+            \ `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"}` looks up the\
+            \ per-user secret named by `session.metadata.user_id`\n- Equivalent forms:\
+            \ `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
             \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
             \nA `$ref` object may also set `$default`, the value used when the reference\
             \ does not resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\"\
@@ -24787,18 +24827,27 @@ components:
               \ is used instead. In a lambda tool's own tool_configurations, inputs.*\
               \ refs are rejected with 400 when the lambda tool is created, updated,\
               \ or tested; to use the input there, pass it in through the lambda's\
-              \ own arguments.\n- currentDate - The current date/time in ISO 8601\
-              \ format\n\nA bracket index may reference another context value. The\
-              \ resolved value becomes the lookup key. The inner path may optionally\
-              \ carry a leading $ root marker:\n- Indirect reference: `{\"$ref\":\
-              \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
-              \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
-              \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
-              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nA `$ref` object\
-              \ may also set `$default`, the value used when the reference does not\
-              \ resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\", \"$default\"\
-              : \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write `\"$$ref\"\
-              `. The $$ escapes the first $."
+              \ own arguments.\n- inputs.user.latest.caller.claims.<name> - A claim\
+              \ from the token of the end user who sent the session's most recent\
+              \ input, with its JSON type, when the token's trusted token issuer lists\
+              \ it in `claims`. Each input carries the claims of the token that sent\
+              \ it, so a refreshed token's claims apply from the next input it sends.\
+              \ A name that is not a plain identifier, such as a namespaced URL, is\
+              \ addressed with a quoted bracket key: `inputs.user.latest.caller.claims['https://acme.com/roles']`.\
+              \ The same rules as inputs.user.latest.text apply: an input whose sender's\
+              \ token does not carry the claim, or files sent without a message, leave\
+              \ it unresolved unless the $ref has a $default.\n- currentDate - The\
+              \ current date/time in ISO 8601 format\n\nA bracket index may reference\
+              \ another context value. The resolved value becomes the lookup key.\
+              \ The inner path may optionally carry a leading $ root marker:\n- Indirect\
+              \ reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
+              }` looks up the per-user secret named by `session.metadata.user_id`\n\
+              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+              \nA `$ref` object may also set `$default`, the value used when the reference\
+              \ does not resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\"\
+              , \"$default\": \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write\
+              \ `\"$$ref\"`. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -24875,18 +24924,27 @@ components:
               \ is used instead. In a lambda tool's own tool_configurations, inputs.*\
               \ refs are rejected with 400 when the lambda tool is created, updated,\
               \ or tested; to use the input there, pass it in through the lambda's\
-              \ own arguments.\n- currentDate - The current date/time in ISO 8601\
-              \ format\n\nA bracket index may reference another context value. The\
-              \ resolved value becomes the lookup key. The inner path may optionally\
-              \ carry a leading $ root marker:\n- Indirect reference: `{\"$ref\":\
-              \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
-              \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
-              \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
-              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nA `$ref` object\
-              \ may also set `$default`, the value used when the reference does not\
-              \ resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\", \"$default\"\
-              : \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write `\"$$ref\"\
-              `. The $$ escapes the first $."
+              \ own arguments.\n- inputs.user.latest.caller.claims.<name> - A claim\
+              \ from the token of the end user who sent the session's most recent\
+              \ input, with its JSON type, when the token's trusted token issuer lists\
+              \ it in `claims`. Each input carries the claims of the token that sent\
+              \ it, so a refreshed token's claims apply from the next input it sends.\
+              \ A name that is not a plain identifier, such as a namespaced URL, is\
+              \ addressed with a quoted bracket key: `inputs.user.latest.caller.claims['https://acme.com/roles']`.\
+              \ The same rules as inputs.user.latest.text apply: an input whose sender's\
+              \ token does not carry the claim, or files sent without a message, leave\
+              \ it unresolved unless the $ref has a $default.\n- currentDate - The\
+              \ current date/time in ISO 8601 format\n\nA bracket index may reference\
+              \ another context value. The resolved value becomes the lookup key.\
+              \ The inner path may optionally carry a leading $ root marker:\n- Indirect\
+              \ reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
+              }` looks up the per-user secret named by `session.metadata.user_id`\n\
+              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+              \nA `$ref` object may also set `$default`, the value used when the reference\
+              \ does not resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\"\
+              , \"$default\": \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write\
+              \ `\"$$ref\"`. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -25655,18 +25713,27 @@ components:
               \ is used instead. In a lambda tool's own tool_configurations, inputs.*\
               \ refs are rejected with 400 when the lambda tool is created, updated,\
               \ or tested; to use the input there, pass it in through the lambda's\
-              \ own arguments.\n- currentDate - The current date/time in ISO 8601\
-              \ format\n\nA bracket index may reference another context value. The\
-              \ resolved value becomes the lookup key. The inner path may optionally\
-              \ carry a leading $ root marker:\n- Indirect reference: `{\"$ref\":\
-              \ \"agent.secrets[session.metadata.user_id]\"}` looks up the per-user\
-              \ secret named by `session.metadata.user_id`\n- Equivalent forms: `agent.secrets[$session.metadata.user_id]`\
-              \ and `agent.secrets[$.session.metadata.user_id]`\n\nExample:\n  `{\"\
-              query\": {\"$ref\": \".session.metadata.query\"}}`\n\nA `$ref` object\
-              \ may also set `$default`, the value used when the reference does not\
-              \ resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\", \"$default\"\
-              : \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write `\"$$ref\"\
-              `. The $$ escapes the first $."
+              \ own arguments.\n- inputs.user.latest.caller.claims.<name> - A claim\
+              \ from the token of the end user who sent the session's most recent\
+              \ input, with its JSON type, when the token's trusted token issuer lists\
+              \ it in `claims`. Each input carries the claims of the token that sent\
+              \ it, so a refreshed token's claims apply from the next input it sends.\
+              \ A name that is not a plain identifier, such as a namespaced URL, is\
+              \ addressed with a quoted bracket key: `inputs.user.latest.caller.claims['https://acme.com/roles']`.\
+              \ The same rules as inputs.user.latest.text apply: an input whose sender's\
+              \ token does not carry the claim, or files sent without a message, leave\
+              \ it unresolved unless the $ref has a $default.\n- currentDate - The\
+              \ current date/time in ISO 8601 format\n\nA bracket index may reference\
+              \ another context value. The resolved value becomes the lookup key.\
+              \ The inner path may optionally carry a leading $ root marker:\n- Indirect\
+              \ reference: `{\"$ref\": \"agent.secrets[session.metadata.user_id]\"\
+              }` looks up the per-user secret named by `session.metadata.user_id`\n\
+              - Equivalent forms: `agent.secrets[$session.metadata.user_id]` and `agent.secrets[$.session.metadata.user_id]`\n\
+              \nExample:\n  `{\"query\": {\"$ref\": \".session.metadata.query\"}}`\n\
+              \nA `$ref` object may also set `$default`, the value used when the reference\
+              \ does not resolve:\n  `{\"tier\": {\"$ref\": \"session.metadata.tier\"\
+              , \"$default\": \"free\"}}`\n\nTo use a literal `\"$ref\"` value, write\
+              \ `\"$$ref\"`. The $$ escapes the first $."
             type: object
             additionalProperties: true
             example:
@@ -31933,8 +32000,10 @@ components:
         \ it signs the caller in as an end user across the customer's aliases, not\
         \ this widget's alone.\nThe platform accepts the token when its signature\
         \ verifies against the issuer's JWKS and it carries an `email` claim.\nThe\
-        \ referenced registration must exist, or the connector write is rejected with\
-        \ `400`.\n"
+        \ platform copies the claims listed in the issuer registration's `claims`\
+        \ onto each input the token sends, where the agent's tools read them as `inputs.user.latest.caller.claims`.\n\
+        The referenced registration must exist, or the connector write is rejected\
+        \ with `400`.\n"
       type: object
       required:
       - trusted_token_issuer_id
@@ -35179,6 +35248,7 @@ components:
       - issuer
       - jwks_uri
       - enabled
+      - claims
       - created_at
       properties:
         id:
@@ -35229,6 +35299,46 @@ components:
           type: boolean
           default: true
           example: true
+        claims:
+          description: 'The token claims a signed-in end user carries into each input
+            they send, beyond `sub` and `email`.
+
+            When the platform verifies a token from this issuer, it copies each listed
+            claim the token holds, with its JSON type, onto the input that token sends.
+
+            The agent''s tools read the latest input''s claims as `inputs.user.latest.caller.claims.<name>`,
+            so a refreshed token''s claims apply from the next input it sends.
+
+            A name that is not a plain identifier, such as a namespaced URL, is addressed
+            with a quoted bracket key: `inputs.user.latest.caller.claims[''https://acme.com/roles'']`.
+
+            Input events never return them, though a tool call''s `resolved_argument_overrides`
+            shows the values its overrides resolved to. The agent''s LLM does not
+            see the argument overrides that read them, but it does see a tool''s output,
+            so a tool that echoes a claim reveals it.
+
+            A claim the token does not hold is absent, so a `$ref` to it fails closed
+            unless the reference supplies a `$default`.
+
+            The standard JWT claims (`iss`, `sub`, `aud`, `exp`, `nbf`, `iat`, `jti`)
+            and `email` cannot be listed.
+
+            Each name may appear only once.
+
+            A token whose listed claims exceed 8 KB, serialized as JSON, is rejected
+            with `401` on end-user session requests.
+
+            '
+          type: array
+          maxItems: 32
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          example:
+          - entitledProductIDList
+          - isOEM
+          - https://acme.com/roles
         last_jwks_fetch_at:
           description: Timestamp of the most recent successful fetch of the issuer's
             JWKS. Absent until the first successful fetch.
@@ -35312,11 +35422,34 @@ components:
           type: boolean
           default: true
           example: true
+        claims:
+          description: 'The token claims a signed-in end user carries into each input
+            they send as `inputs.user.latest.caller.claims.<name>`, beyond `sub` and
+            `email`. When omitted, no claims are carried.
+
+            A request that names a standard JWT claim (`iss`, `sub`, `aud`, `exp`,
+            `nbf`, `iat`, `jti`) or `email`, or repeats a name, is rejected with `400`.
+
+            A token whose listed claims exceed 8 KB, serialized as JSON, is rejected
+            with `401` on end-user session requests.
+
+            '
+          type: array
+          maxItems: 32
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          example:
+          - entitledProductIDList
+          - isOEM
+          - https://acme.com/roles
     ReplaceTrustedTokenIssuerRequest:
       description: 'Request object for replacing a trusted token issuer registration.
 
         The registration is fully replaced by this request; an omitted `description`
-        clears it and an omitted `enabled` resets it to `true`.
+        clears it, an omitted `enabled` resets it to `true`, and an omitted `claims`
+        carries none.
 
         The `issuer` is immutable and is not part of this request.
 
@@ -35349,6 +35482,28 @@ components:
           type: boolean
           default: true
           example: true
+        claims:
+          description: 'The token claims a signed-in end user carries into each input
+            they send as `inputs.user.latest.caller.claims.<name>`, beyond `sub` and
+            `email`. When omitted, no claims are carried.
+
+            A request that names a standard JWT claim (`iss`, `sub`, `aud`, `exp`,
+            `nbf`, `iat`, `jti`) or `email`, or repeats a name, is rejected with `400`.
+
+            A token whose listed claims exceed 8 KB, serialized as JSON, is rejected
+            with `401` on end-user session requests.
+
+            '
+          type: array
+          maxItems: 32
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          example:
+          - entitledProductIDList
+          - isOEM
+          - https://acme.com/roles
     PipelineStatus:
       description: The current operational status of the pipeline.
       type: string

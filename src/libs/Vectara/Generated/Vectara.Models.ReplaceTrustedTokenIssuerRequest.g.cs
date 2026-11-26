@@ -5,7 +5,7 @@ namespace Vectara
 {
     /// <summary>
     /// Request object for replacing a trusted token issuer registration.<br/>
-    /// The registration is fully replaced by this request; an omitted `description` clears it and an omitted `enabled` resets it to `true`.<br/>
+    /// The registration is fully replaced by this request; an omitted `description` clears it, an omitted `enabled` resets it to `true`, and an omitted `claims` carries none.<br/>
     /// The `issuer` is immutable and is not part of this request.
     /// </summary>
     public sealed partial class ReplaceTrustedTokenIssuerRequest
@@ -46,6 +46,16 @@ namespace Vectara
         public bool? Enabled { get; set; }
 
         /// <summary>
+        /// The token claims a signed-in end user carries into each input they send as `inputs.user.latest.caller.claims.&lt;name&gt;`, beyond `sub` and `email`. When omitted, no claims are carried.<br/>
+        /// A request that names a standard JWT claim (`iss`, `sub`, `aud`, `exp`, `nbf`, `iat`, `jti`) or `email`, or repeats a name, is rejected with `400`.<br/>
+        /// A token whose listed claims exceed 8 KB, serialized as JSON, is rejected with `401` on end-user session requests.<br/>
+        /// Example: [entitledProductIDList, isOEM, https://acme.com/roles]
+        /// </summary>
+        /// <example>[entitledProductIDList, isOEM, https://acme.com/roles]</example>
+        [global::System.Text.Json.Serialization.JsonPropertyName("claims")]
+        public global::System.Collections.Generic.IList<string>? Claims { get; set; }
+
+        /// <summary>
         /// Additional properties that are not explicitly defined in the schema
         /// </summary>
         [global::System.Text.Json.Serialization.JsonExtensionData]
@@ -71,6 +81,12 @@ namespace Vectara
         /// Default Value: true<br/>
         /// Example: true
         /// </param>
+        /// <param name="claims">
+        /// The token claims a signed-in end user carries into each input they send as `inputs.user.latest.caller.claims.&lt;name&gt;`, beyond `sub` and `email`. When omitted, no claims are carried.<br/>
+        /// A request that names a standard JWT claim (`iss`, `sub`, `aud`, `exp`, `nbf`, `iat`, `jti`) or `email`, or repeats a name, is rejected with `400`.<br/>
+        /// A token whose listed claims exceed 8 KB, serialized as JSON, is rejected with `401` on end-user session requests.<br/>
+        /// Example: [entitledProductIDList, isOEM, https://acme.com/roles]
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -78,12 +94,14 @@ namespace Vectara
             string name,
             string jwksUri,
             string? description,
-            bool? enabled)
+            bool? enabled,
+            global::System.Collections.Generic.IList<string>? claims)
         {
             this.Name = name ?? throw new global::System.ArgumentNullException(nameof(name));
             this.Description = description;
             this.JwksUri = jwksUri ?? throw new global::System.ArgumentNullException(nameof(jwksUri));
             this.Enabled = enabled;
+            this.Claims = claims;
         }
 
         /// <summary>
